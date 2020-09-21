@@ -1,3 +1,3 @@
 ### Member description
 
-This is a description about myself
+This is a description about myself.
