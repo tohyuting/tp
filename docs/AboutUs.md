@@ -19,15 +19,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Jeffrey Tan Jian Sheng
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jeffrey.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/jeffreytjs)]
+[[portfolio](team/jeffrey.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Developer (Draft manager)
+* Responsibilities: User stories, User guide, Developer guide management, UML diagram and product demo
 
 ### Lim Zheng Wei
 
