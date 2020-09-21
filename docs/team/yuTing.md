@@ -15,6 +15,7 @@ Given below are my contributions to the project.
 * **Enhancements to existing features**: Added the ability for users to list all suppliers/stores/products at once.
 
 * **Enhancements to existing features**: Added the ability for users to view help for commands within the application.
+  * What it does: Allow users to have a quick look up of what they can do with CLI-nic.
 
 * **New Feature**: Added classes, namely Suppliers, Stores, Product and Orders in the code.
   * What it does: Stores information regarding suppliers, stores, medical products and orders that will be retrieved by users commands.
