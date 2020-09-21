@@ -52,12 +52,14 @@ checking on LoC contributions and milestones management
   Work closely with draft manager to manage and update the user stories, user guide, UML diagram, developer guide.
   Update user and developer guides that are not specific to a feature.
 
-### James Doe
+### Wang Zhenlin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/criss-wang.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/Criss-Wang)]
+[[portfolio](team/wangZhenlin.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Contact/info manager; Tech Helper; In charge of 'Delete' command
+* Responsibilities:  In charge of communication issues (Setup channel/deal with emergency situation), 
+talk with every member before meeting about their progress and promptly update any lag of progress/course 
+info to the team. Try to help team members resolve small technical difficulties.
