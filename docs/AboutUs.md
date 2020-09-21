@@ -21,7 +21,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Jeffrey Tan Jian Sheng
 
-<img src="images/jeffrey.png" width="200px">
+<img src="images/jeffreytjs.png" width="200px">
 
 [[github](http://github.com/jeffreytjs)]
 [[portfolio](team/jeffrey.md)]
