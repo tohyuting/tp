@@ -11,7 +11,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Chan Qin Liang
 
-<img src="images/qlchan24.png.jpg" width="200px">
+<img src="images/qlchan24.png" width="200px">
 
 [[github](https://github.com/qlchan24)]
 [[portfolio](team/qinliang.md)]
