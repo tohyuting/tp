@@ -29,14 +29,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Lim Zheng Wei
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/zhengweii.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/zhengweii)] [[portfolio](team/zhengwei.md)]
 
-* Role: Developer
-* Responsibilities: Data
+* Role: Git/GitHub & Code Manager
+* Responsibilities: Providing assistance for Git,
+ensuring coding standards as well as managing the GitHub repo e.g.
+checking on LoC contributions and milestones management
 
 ### Jean Doe
 
