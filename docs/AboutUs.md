@@ -38,15 +38,17 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Toh Yu Ting
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/tohyuting.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/tohyuting)]
+[[portfolio](team/yuTing.md)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Role: Minute manager/Assistant draft manager
+* Responsibilities: Record minutes during meeting and manage collaborative documentations for project discussions.
+  Work closely with draft manager to manage and update the user stories, user guide, UML diagram, developer guide.
+  Update user and developer guides that are not specific to a feature.
 
 ### James Doe
 
