@@ -48,12 +48,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Wang Zhenlin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/criss-wang.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/Criss-Wang)]
+[[portfolio](team/wangZhenlin.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Contact/info manager; Tech Helper; In charge of 'Delete' command
+* Responsibilities:  In charge of communication issues (Setup channel/deal with emergency situation), 
+talk with every member before meeting about their progress and promptly update any lag of progress/course 
+info to the team. Try to help team members resolve small technical difficulties.
