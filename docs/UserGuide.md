@@ -4,7 +4,7 @@ title: User Guide
 Team: W14-4
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+ **CLI-nic** is a desktop application used to help medical product sales managers keep track of medical products and storage. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is optimized for these managers to update product conditions and access critical product information quickly via fast typing. It is written in Java, and has about 10 kLoC.
 
 * Table of Contents
 {:toc}
@@ -22,14 +22,14 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will display instructions on various commands.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
+   * **`list suppliers`** : Lists all suppliers.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * **`add`**` p/PANADOL SUSP id/1 t/FEVER` : Adds product named `PANADOL SUSP` with product id of 1 with a `FEVER` tag to CLI-nic.
 
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
+   * **`delete`**` store 12` : Deletes the 12th store from the list of stores.
 
    * **`clear`** : Deletes all contacts.
 
@@ -46,13 +46,13 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `list TYPE`, `TYPE` is a parameter which can be used as `list products`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `[LIST_TYPE] INDEX` can be used as `delete store 12` or as `delete 1`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `PRODUCT_ID…` can be used as ` ` (i.e. 0 times), `id/1`, `id/1 2` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -61,12 +61,16 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Displays a list of available commands and their utility description.
+Narrows down to a specific command and its actual input format and samples if specified.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
+Format: `help [COMMAND]`
 
+Examples:
+* `help`  Display entire list of commands and their description
+* `help add` Displays the detailed description, input format and an input example of add command.
 
 ### Adding a person: `add`
 
@@ -82,11 +86,17 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-### Listing all persons : `list`
+### Listing all suppliers / stores / products: list`
 
-Shows a list of all persons in the address book.
+Shows a list of all the suppliers/products/stores with their information.
 
-Format: `list`
+Format: `list TYPE`
+* The TYPE specified should be one of these values: suppliers, stores or products
+
+Examples:
+* `list suppliers` Displays a list of all suppliers.
+* `list products` Displays a list of all products.
+* `list stores` Displays a list of all stores.
 
 ### Editing a person : `edit`
 
@@ -175,5 +185,5 @@ Action | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Help** | `help`
+**List** | `list TYPE`
+**Help** | `help [COMMAND]`
