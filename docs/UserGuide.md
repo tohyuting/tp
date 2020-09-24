@@ -67,20 +67,62 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
+# Option 1 - All together #
 
-### Adding a person: `add`
+### Adding a supplier / store / product : `add`
 
-Adds a person to the address book.
+Adds a supplier/store/product to the CLI-nic application.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format:
+1. `add sup/SUPPLIER_NAME sid/SUPPLIER_ID p/CONTACT_NUMBER [e/EMAIL_ADDRESS] [nn/SUPPLIER_NOTE]`
+2. `add s/STORE_ID pc/POSTAL_CODE [addr/ADDRESS] [n/STORE_NOTE]`
+3. `add p/PRODUCT_NAME id/PRODUCT_ID [t/TAG...]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A supplier/product can have any number of tags (including 0).
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+`add s/123 pc/POSTAL_CODE addr/John street, block 123, #01-01 n/First Store` : Adds a store with ID of 123 located at John street, block 123, #01-01. The store is noted to be the “First Store”.
+`add p/PANADOL SUSP id/1 t/FEVER` : Adds a product named PANADOL SUSP with ID of 1. It has a tag for FEVER.
+`add sup/Philips Pharmaceutical sid/1 p/00000000 e/philipsPharm@gmail.com nn/largest contractor` : Adds a supplier named Philips Pharmaceutical with store ID of 1. His contact number is 00000000 and his email is philipsPharm@gmail.com. The supplier is noted to be the “largest contractor”.
+
+# Option 2 - Split into 3 #
+
+### Adding a supplier : `add`
+
+Adds a supplier to the CLI-nic application.
+
+Format: `add sup/SUPPLIER_NAME sid/SUPPLIER_ID p/CONTACT_NUMBER [e/EMAIL_ADDRESS] [nn/SUPPLIER_NOTE]`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+A supplier can have any number of tags (including 0).
+</div>
+
+Examples:
+`add s/123 pc/POSTAL_CODE addr/John street, block 123, #01-01 n/First Store` : Adds a store with ID of 123 located at John street, block 123, #01-01. The store is noted to be the “First Store”.
+
+### Adding a store : `add s/`
+
+Adds a store to the CLI-nic application.
+
+Format: `add s/STORE_ID pc/POSTAL_CODE [addr/ADDRESS] [n/STORE_NOTE]`
+
+Examples:
+`add sup/Philips Pharmaceutical sid/1 p/00000000 e/philipsPharm@gmail.com nn/largest contractor` : Adds a supplier named Philips Pharmaceutical with store ID of 1. His contact number is 00000000 and his email is philipsPharm@gmail.com. The supplier is noted to be the “largest contractor”.
+
+### Adding a product : `add p/`
+
+Adds a product to the CLI-nic application.
+
+Format: `add p/PRODUCT_NAME id/PRODUCT_ID [t/TAG...]`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+A product can have any number of tags (including 0).
+</div>
+
+Examples:
+`add p/PANADOL SUSP id/1 t/FEVER` : Adds a product named PANADOL SUSP with ID of 1. It has a tag for FEVER.
 
 ### Listing all persons : `list`
 
@@ -170,7 +212,7 @@ _{explain the feature here}_
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | 1. `add sup/SUPPLIER_NAME sid/SUPPLIER_ID p/CONTACT_NUMBER [e/EMAIL_ADDRESS] [nn/SUPPLIER_NOTE]` <br> e.g., `add sup/Philips Pharmaceutical sid/1 p/00000000 e/philipsPharm@gmail.com nn/largest contractor` <br><br> 2. `add s/STORE_ID pc/POSTAL_CODE [addr/ADDRESS] [n/STORE_NOTE]` <br> e.g., `add s/123 pc/POSTAL_CODE addr/John street, block 123, #01-01 n/First Store` <br><br> 3. `add p/PRODUCT_NAME id/PRODUCT_ID [t/TAG...]` <br> e.g., `add p/PANADOL SUSP id/1 t/FEVER`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
