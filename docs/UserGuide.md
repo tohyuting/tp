@@ -4,7 +4,9 @@ title: User Guide
 Team: W14-4
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+CLI-nic is **an application to help medical supply managers keep track of medical products and storage.** It is optimized
+for these managers to **update product supply conditions and access critical product information quickly** via fast typing
+and efficient Graphical User Interface interaction.
 
 * Table of Contents
 {:toc}
@@ -123,19 +125,21 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Removing a purchase order/store/product/supplier : `delete` [Coming soon]
 
-Deletes the specified person from the address book.
+Remove entries that are not needed anymore.
 
-Format: `delete INDEX`
+**Format**: `delete [LIST_TYPE] INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Deletes from the purchase order list by default at `INDEX`
+* The `LIST_TYPE` specified should be one of these values: **order/store/product/supplier**
+* The `INDEX` **must be a positive integer**, not exceeding the total number of items
 
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+**Examples**
+
+* `delete 1`: Removes the 1st order from the list of orders as no `LIST_TYPE` is specified.
+* `delete store 12`: Removes 12th store from the list of stores.
 
 ### Clearing all entries : `clear`
 
