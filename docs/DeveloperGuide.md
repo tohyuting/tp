@@ -262,7 +262,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `CLInic` and the **Actor** is the `user`, unless specified
+ otherwise)
 
 **Use case: Delete a person**
 
@@ -286,6 +287,66 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. AddressBook shows an error message.
 
       Use case resumes at step 2.
+
+Use case: Add a supplier
+
+MSS
+
+1. User keys in command to add a supplier
+
+2. CLInic shows an updated list of suppliers
+
+Use case ends.
+
+Extensions
+
+1a. CLInic detects an error in the entered data.
+
+1a1. CLInic shows an error message.
+1a2. CLInic requests for the correct data.
+1a3. User enters new data
+Steps 1a1-1a3 are repeated until the data entered are correct.
+Use case resumes from step 1.
+
+Use case: Add a store
+
+MSS
+
+1. User keys in command to add a store
+
+2. CLInic shows an updated list of stores
+
+Use case ends.
+
+Extensions
+
+1a. CLInic detects an error in the entered data.
+
+1a1. CLInic shows an error message.
+1a2. CLInic requests for the correct data.
+1a3. User enters new data
+Steps 1a1-1a3 are repeated until the data entered are correct.
+Use case resumes from step 1.
+
+Use case: Add a product
+
+MSS
+
+1. User keys in command to add a product
+
+2. CLInic shows an updated list of products
+
+Use case ends.
+
+Extensions
+
+1a. CLInic detects an error in the entered data.
+
+1a1. CLInic shows an error message.
+1a2. CLInic requests for the correct data.
+1a3. User enters new data
+Steps 1a1-1a3 are repeated until the data entered are correct.
+Use case resumes from step 1.
 
 *{More to be added}*
 
