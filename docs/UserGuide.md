@@ -27,15 +27,7 @@ and efficient Graphical User Interface interaction.
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
-
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
-
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
-
-   * **`clear`** : Deletes all contacts.
-
-   * **`exit`** : Exits the app.
+   * **`Create`** : Create a purchase order
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -53,14 +45,15 @@ and efficient Graphical User Interface interaction.
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times.<br>
+  e.g. `[t/TAG]…​` can be used as `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 </div>
 
+<<<<<<< HEAD
 ### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
@@ -154,10 +147,19 @@ Format: `exit`
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+=======
+#### __Creating a purchase order : `create`__
+* Create a purchase order to track the purchase of medical products from a supplier to a store.
+* __Format__: `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`		
+    * The number specified for PRODUCT_ID cannot exceed the total number of products. All the IDs must be identifiable
+    * The number of arguments specified for PRODUCT_QUANTITY and PRODUCT_ID must match
+    * EXPECTED_DELIVERED_DATE must be after current time and of the form YYYY-MM-DD
+>>>>>>> Update User Guide: create command
 
-### Archiving data files `[coming in v2.0]`
+* __Examples__: 
+    * `create sid/01 s/123 id/1 2 4 8 qty/100 200 400 800 date/2020-12-12` : Creates a purchase order for the delivery of 100, 200, 400 and 800 of products with ID 1, 2, 4 and 8 respectively from supplier ID of 01 to store ID of 123 by December 12, 2020.
 
-_{explain the feature here}_
+<br />
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -172,6 +174,7 @@ _{explain the feature here}_
 
 Action | Format, Examples
 --------|------------------
+<<<<<<< HEAD
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
@@ -179,3 +182,6 @@ Action | Format, Examples
 **Find** | `find TYPE KEYWORD`<br> e.g. `find product panadol`
 **List** | `list`
 **Help** | `help`
+=======
+**Create** | `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`
+>>>>>>> Update User Guide: create command
