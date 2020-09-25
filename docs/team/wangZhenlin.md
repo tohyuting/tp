@@ -47,5 +47,3 @@ Given below are my contributions to the project.
 
 * **Tools**:
   * nil
-
-
