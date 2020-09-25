@@ -5,7 +5,7 @@ title: About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
+You can reach us at the email `cs2103w144@gmail.com`
 
 ## Project team
 
@@ -59,7 +59,9 @@ checking on LoC contributions and milestones management
 [[github](http://github.com/Criss-Wang)]
 [[portfolio](team/wangZhenlin.md)]
 
-* Role: Contact/info manager; Tech Helper; In charge of 'Delete' command
-* Responsibilities:  In charge of communication issues (Setup channel/deal with emergency situation), 
-talk with every member before meeting about their progress and promptly update any lag of progress/course 
-info to the team. Try to help team members resolve small technical difficulties.
+* Role: Communication/progress manager; Tech Helper; 
+* Responsibilities: 
+    * In charge of `Delete` command.
+    * In charge of team communication (Setup channel/meeting schedule/deal with emergency situation).
+    * Track and manage team progression.
+    * Help team members with technical difficulties and catch up to the team's progress.
