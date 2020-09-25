@@ -27,11 +27,11 @@ and efficient Graphical User Interface interaction.
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will display instructions on various commands.<br>
    Some example commands you can try:
 
-   * **`list suppliers`** : Lists all suppliers.
+   * **`view supplier supplierA`** : Displays all the information associated with supplierA e.g. address, contact, email, products sold by the supplier etc.
 
    * **`add`**` p/PANADOL SUSP id/1 t/FEVER` : Adds product named `PANADOL SUSP` with product id of 1 with a `FEVER` tag to CLI-nic.
 
-   * **`delete`**` store 12` : Deletes the 12th store from the list of stores.
+   * **`delete`**` delete supplier 12` : Removes supplier at index 12 from the list of suppliers.
 
    * **`clear`** : Deletes all contacts.
 
@@ -101,66 +101,44 @@ Examples:
 * **Examples**: 
     * `create sid/01 s/123 id/1 2 4 8 qty/100 200 400 800 date/2020-12-12` : Creates a purchase order for the delivery of 100, 200, 400 and 800 of products with ID 1, 2, 4 and 8 respectively from supplier ID of 01 to store ID of 123 by December 12, 2020.
 
-### Listing all suppliers / stores / products: list`
+### View a specific supplier / warehouse: `view`
 
-Shows a list of all the suppliers/products/stores with their information.
+Shows a particular supplier/warehouse with their relevant information e.g. products associated with the supplier/warehouse, address etc.
 
-Format: `list TYPE`
-* The TYPE specified should be one of these values: suppliers, stores or products
-
-Examples:
-* `list suppliers` Displays a list of all suppliers.
-* `list products` Displays a list of all products.
-* `list stores` Displays a list of all stores.
-
-### Editing a person : `edit`
-
-Edits an existing person in the address book.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+Format: `view TYPE NAME`
+* The TYPE specified should be one of these values: supplier or warehouse
+* NAME specified is case-insensitive
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `view supplier supplierA` Displays all the information associated with supplierA e.g. address, contact, email, products sold by the supplier etc.
+* `view warehouse warehouseB` Displays all the information associated with warehouseB e.g. address, all the products stored in the warehouse etc. 
 
-### Finding medical products / suppliers: `find`
+### Finding medical product associated with warehouses / suppliers: `find`
 
-Finds medical products / suppliers whose information contains any of the given keywords.
+Finds all suppliers or warehouses managed by the manager that sells the relevant medical products.
 
-Format: `find TYPE KEYWORD`
+Format: `find PRODUCT TYPE`
 
-* `TYPE` takes in either `product` / `supplier`.
-* `KEYWORD` is case-insensitive.
-* The search is case-insensitive.
-* Searches only the name and additional information of the products and suppliers.
-* Only full words will be matched e.g. `Han` will not match `Hans`.
+* PRODUCT and KEYWORD specified is case-insensitive.
+* The TYPE specified should be one of these values: warehouse / supplier
 
 Examples:
-* `find product panadol` returns all medical products containing `panadol` in its name or additional description.
-* `find supplier Kent Ridge` returns all suppliers that are located in `Kent Ridge`.	
+* `find PANADOL warehouse` displays all the warehouses managed by the manager that has a product named PANADOL. 
+* `find masks supplier` displays all the suppliers that have stock for the input product.	
 
-### Removing a purchase order/store/product/supplier : `delete` [Coming soon]
+### Deletes a particular warehouse or supplier : `delete`
 
-Remove entries that are not needed anymore.
+Delete entries of warehouses or suppliers that are not needed anymore.
 
-**Format**: `delete [LIST_TYPE] INDEX`
+**Format**: `delete TYPE INDEX`
 
-* Deletes from the purchase order list by default at `INDEX`
-* The `LIST_TYPE` specified should be one of these values: **order/store/product/supplier**
-* The `INDEX` **must be a positive integer**, not exceeding the total number of items
-
+* The TYPE specified should be one of these values: warehouse / supplier.
+* The INDEX must be a positive integer, not exceeding the total number of items.
 
 **Examples**
 
-* `delete 1`: Removes the 1st order from the list of orders as no `LIST_TYPE` is specified.
-* `delete store 12`: Removes 12th store from the list of stores.
+* `delete warehouse 1` Removes the warehouse at index 1.
+* `delete supplier 12` Removes supplier at index 12 from the list of suppliers.
 
 ### Clearing all entries : `clear`
 
