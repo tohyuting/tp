@@ -125,7 +125,7 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Removing a purchase order/store/product/supplier : `delete`
+### Removing a purchase order/store/product/supplier : `delete` [Coming soon]
 
 Remove entries that are not needed anymore.
 
