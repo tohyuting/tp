@@ -53,7 +53,6 @@ and efficient Graphical User Interface interaction.
 
 </div>
 
-<<<<<<< HEAD
 ### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
@@ -76,6 +75,17 @@ A person can have any number of tags (including 0)
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+
+
+### **Creating a purchase order : `create`**
+* Create a purchase order to track the purchase of medical products from a supplier to a store.
+* **Format**: `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`		
+    * The number specified for PRODUCT_ID cannot exceed the total number of products. All the IDs must be identifiable
+    * The number of arguments specified for PRODUCT_QUANTITY and PRODUCT_ID must match
+    * EXPECTED_DELIVERED_DATE must be after current time and of the form YYYY-MM-DD
+
+* **Examples**: 
+    * `create sid/01 s/123 id/1 2 4 8 qty/100 200 400 800 date/2020-12-12` : Creates a purchase order for the delivery of 100, 200, 400 and 800 of products with ID 1, 2, 4 and 8 respectively from supplier ID of 01 to store ID of 123 by December 12, 2020.
 
 ### Listing all persons : `list`
 
@@ -100,13 +110,13 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Finding medical products or suppliers: `find`
+### Finding medical products / suppliers: `find`
 
-Finds medical products or suppliers whose information contains any of the given keywords.
+Finds medical products / suppliers whose information contains any of the given keywords.
 
 Format: `find TYPE KEYWORD`
 
-* `TYPE` takes in either `product` or `supplier`.
+* `TYPE` takes in either `product` / `supplier`.
 * `KEYWORD` is case-insensitive.
 * The search is case-insensitive.
 * Searches only the name and additional information of the products and suppliers.
@@ -147,17 +157,6 @@ Format: `exit`
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-=======
-#### __Creating a purchase order : `create`__
-* Create a purchase order to track the purchase of medical products from a supplier to a store.
-* __Format__: `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`		
-    * The number specified for PRODUCT_ID cannot exceed the total number of products. All the IDs must be identifiable
-    * The number of arguments specified for PRODUCT_QUANTITY and PRODUCT_ID must match
-    * EXPECTED_DELIVERED_DATE must be after current time and of the form YYYY-MM-DD
->>>>>>> Update User Guide: create command
-
-* __Examples__: 
-    * `create sid/01 s/123 id/1 2 4 8 qty/100 200 400 800 date/2020-12-12` : Creates a purchase order for the delivery of 100, 200, 400 and 800 of products with ID 1, 2, 4 and 8 respectively from supplier ID of 01 to store ID of 123 by December 12, 2020.
 
 <br />
 
@@ -174,14 +173,11 @@ AddressBook data are saved in the hard disk automatically after any command that
 
 Action | Format, Examples
 --------|------------------
-<<<<<<< HEAD
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Create** | `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`
 **Clear** | `clear`
-**Delete** | `delete [LIST_TYPE] INDEX`<br> e.g., `delete 3`, `delete store 12`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find TYPE KEYWORD`<br> e.g. `find product panadol`
 **List** | `list`
 **Help** | `help`
-=======
-**Create** | `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`
->>>>>>> Update User Guide: create command
