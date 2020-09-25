@@ -5,9 +5,9 @@ title: Wang Zhenlin's Project Portfolio Page
 
 ## Project: CLI-nic
 
-CLI-nic is a desktop application used to help sales managers for medical products keep track of 
-medical products and storage. The user interacts with it using a CLI, and it has a GUI created with JavaFX. 
-It is optimized for these managers to update product conditions and access critical product information quickly via fast typing. 
+CLI-nic is **an application to help medical supply managers keep track of medical products and storage.** It is optimized
+for these managers to **update product supply conditions and access critical product information quickly** via fast typing
+and efficient Graphical User Interface interaction.
 It is written in Java, and has about __ kLoC.
 
 Given below are my contributions to the project.
