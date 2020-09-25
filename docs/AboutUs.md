@@ -59,8 +59,8 @@ checking on LoC contributions and milestones management
 [[github](http://github.com/Criss-Wang)]
 [[portfolio](team/wangZhenlin.md)]
 
-* Role: Communication/progress manager; Tech Helper; 
-* Responsibilities: 
+* Role: Communication/progress manager; Tech Helper;
+* Responsibilities:
     * In charge of `Delete` command.
     * In charge of team communication (Setup channel/meeting schedule/deal with emergency situation).
     * Track and manage team progression.

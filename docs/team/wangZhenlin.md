@@ -5,10 +5,9 @@ title: Wang Zhenlin's Project Portfolio Page
 
 ## Project: CLI-nic
 
-CLI-nic is **an application to help medical supply managers keep track of medical products and storage.** It is optimized
-for these managers to **update product supply conditions and access critical product information quickly** via fast typing
-and efficient Graphical User Interface interaction.
-It is written in Java, and has about __ kLoC.
+CLI-nic is **a desktop application to help medical product sales managers keep track of medical products and storage**.
+It is optimized for these managers to **update product conditions and access critical product information quickly via fast typing**.
+It is written in Java, and has about 10 kLoC.
 
 Given below are my contributions to the project.
 
@@ -21,7 +20,7 @@ Given below are my contributions to the project.
   * Credits: {mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}
 
 * **Project management**:
-  * Managed releases `v1.3` - `v1.5rc` (_ releases) on GitHub
+  * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 
 * **Enhancements to existing features**:
   * Updated the GUI (Pull requests [\#33](), [\#34]())
@@ -47,5 +46,3 @@ Given below are my contributions to the project.
 
 * **Tools**:
   * nil
-
-

@@ -19,7 +19,7 @@ and efficient Graphical User Interface interaction.
 
 1. Download the latest `CLInic.jar` from [here](https://github.com/AY2021S1-CS2103-W14-4/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your CLI-nic system.
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
@@ -27,30 +27,29 @@ and efficient Graphical User Interface interaction.
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will display instructions on various commands.<br>
    Some example commands you can try:
 
-   * **`add`** `w/warehouseA addr/John street, block 123, #01-01 wn/First warehouse` : Adds a warehouse
+   * **`add`** `w/warehouseA p/00000000 addr/John street, block 123, #01-01 wn/First warehouse` : Adds a warehouse
     with the name warehouseA located at John street, block 123, #01-01. The warehouse is noted to be the “First warehouse”.
-   
-   * **`add`**` s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com sn/largest contractor` : Adds a
+
+   * **`add`** `s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com sn/largest contractor` : Adds a
     supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is
     philipsPharm@gmail.com. The supplier is noted to be the “largest contractor”.
-   
-   * **`add`**` s/SupplierA p/PANADOL SUSP t/FEVER` : Adds the product PANADOL SUSP to list of products from
+
+   * **`add`** `s/SupplierA pd/PANADOL SUSP t/FEVER` : Adds the product PANADOL SUSP to list of products from
     supplierA. This indicates that supplierA is selling this product. PANADOL SUSP also has a tag of FEVER.
-    
+
    * **`clear`** : Deletes all contacts.
 
-   * **`delete`**` delete supplier 12` : Removes supplier at index 12 from the list of suppliers.
+   * **`delete`** `delete supplier 12` : Removes supplier at index 12 from the list of suppliers.
 
    * **`exit`** : Exits the app.
 
-   * **`find`**` PANADOL warehouse`** : Displays all the warehouses managed by the manager that has a product
+   * **`find`** `PANADOL warehouse`** : Displays all the warehouses managed by the manager that has a product
     named PANADOL.
 
-   * **`update`**` w/WarehouseA p/Panadol q/10` : Updates the quantity of Panadol in WarehouseA to 10. The
-    quantity of Panadol in WarehouseA can be more than 10 or lesser than 10 before the update is done.
+   * **`update`** `w/WarehouseA pd/Panadol q/10` : Updates the quantity of PANADOL in WarehouseA to 10. The
+    quantity of PANADOL in WarehouseA can be more than 10 or lesser than 10 before the update is done.
 
    * **`view supplier supplierA`** : Displays all the information associated with supplierA e.g. address, contact, email, products sold by the supplier etc.
-
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -63,16 +62,16 @@ and efficient Graphical User Interface interaction.
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `list TYPE`, `TYPE` is a parameter which can be used as `list products`.
+  e.g. in `delete TYPE INDEX`, `TYPE` is a parameter which can be used as `delete warehouse 1`.
 
 * Items in square brackets are optional.<br>
-  e.g `[LIST_TYPE] INDEX` can be used as `delete store 12` or as `delete 1`.
+  e.g `add s/SUPPLIER_NAME p/CONTACT_NUMBER [e/EMAIL_ADDRESS]` can be used as `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com` or as `add s/Philips Pharmaceutical p/00000000`.
 
 * Items with `…`​ after them can be used multiple times.<br>
   e.g. `[t/TAG]…​` can be used as `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME p/CONTACT_NUMBER`, `p/CONTACT_NUMBER n/NAME` is also acceptable.
 
 </div>
 
@@ -86,18 +85,20 @@ Narrows down to a specific command and its actual input format and samples if sp
 Format: `help [COMMAND]`
 
 Examples:
-* `help`  Display entire list of commands and their description
+
+* `help`  Display entire list of `COMMAND` and their description.
 * `help add` Displays the detailed description, input format and an input example of add command.
 
 ### Adding a warehouse : `add`
 
 Adds warehouse to the CLI-nic application.
 
-Format: `add w/WAREHOUSE_NAME addr/ADDRESS [wn/WAREHOUSE_NOTE]`
+Format: `add w/WAREHOUSE_NAME p/CONTACT_NUMBER addr/ADDRESS [wn/WAREHOUSE_NOTE]`
 
 Examples:
-* `add w/warehouseA addr/John street, block 123, #01-01 wn/First warehouse` : Adds a warehouse with the name
- warehouseA located at John street, block 123, #01-01. The warehouse is noted to be the “First warehouse”.
+
+* `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 wn/First warehouse` Adds a warehouse with the name
+ warehouseA located at John street, block 123, #01-01. The warehouse's contact number is 00000000. The warehouse is noted to be the “First warehouse”.
 
 ### Adding a supplier : `add`
 
@@ -106,74 +107,78 @@ Adds a supplier to the CLI-nic application.
 Format: `add s/SUPPLIER_NAME p/CONTACT_NUMBER [e/EMAIL_ADDRESS] [sn/SUPPLIER_NOTE]`
 
 Examples:
-* `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com sn/largest contractor` : Adds a
+
+* `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com sn/largest contractor` Adds a
  supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com. The supplier is noted to be the “largest contractor”.
 
 ### Adding a product to a supplier : `add`
 
 Adds product information to a supplier; associates a particular product with the supplier in the CLI-nic application.
 
-Format: `add s/SUPPLIER_NAME p/PRODUCT_NAME [t/TAG...]`
+Format: `add s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`
 
 Examples:
-* `add s/SupplierA p/PANADOL SUSP t/FEVER` : Adds the product PANADOL SUSP to list of products from supplierA.
+
+* `add s/SupplierA pd/PANADOL SUSP t/FEVER` Adds the product PANADOL SUSP to list of products from supplierA.
 * This indicates that supplierA is selling this product. PANADOL SUSP also has a tag of FEVER.
-
-### Update the stock for a product: `update`
-
-* If the product does not exist for that store, it will associate the new product with the store and the
-* input quantity. Otherwise, it will update the stock of the existing product with the new quantity.
-
-Format:	`update w/WAREHOUSE_NAME p/PRODUCT_NAME q/QUANTITY`
-
-Example:
-* `update w/WarehouseA p/Panadol q/10` : Updates the quantity of Panadol in WarehouseA to 10. The
-* quantity of Panadol in WarehouseA can be more than 10 or lesser than 10 before the update is done.
-
-### View a specific supplier / warehouse: `view`
-
-Shows a particular supplier/warehouse with their relevant information e.g. products associated with the supplier/warehouse, address etc.
-
-Format: `view TYPE NAME`
-* The TYPE specified should be one of these values: supplier or warehouse
-* NAME specified is case-insensitive
-
-Examples:
-* `view supplier supplierA` Displays all the information associated with supplierA e.g. address, contact, email, products sold by the supplier etc.
-* `view warehouse warehouseB` Displays all the information associated with warehouseB e.g. address, all the products stored in the warehouse etc. 
-
-### Finding medical product associated with warehouses / suppliers: `find`
-
-Finds all suppliers or warehouses managed by the manager that sells the relevant medical products.
-
-Format: `find PRODUCT TYPE`
-
-* PRODUCT and KEYWORD specified is case-insensitive.
-* The TYPE specified should be one of these values: warehouse / supplier
-
-Examples:
-* `find PANADOL warehouse` displays all the warehouses managed by the manager that has a product named PANADOL. 
-* `find masks supplier` displays all the suppliers that have stock for the input product.	
-
-### Deletes a particular warehouse or supplier : `delete`
-
-Delete entries of warehouses or suppliers that are not needed anymore.
-
-**Format**: `delete TYPE INDEX`
-
-* The TYPE specified should be one of these values: warehouse / supplier.
-* The INDEX must be a positive integer, not exceeding the total number of items.
-
-**Examples**
-
-* `delete warehouse 1` Removes the warehouse at index 1.
-* `delete supplier 12` Removes supplier at index 12 from the list of suppliers.
 
 ### Clearing all entries : `clear`
 
 Clears all entries (Suppliers and Warehouses) from the CLI-nic.
 
 Format: `clear`
+
+### Deletes a particular warehouse or supplier : `delete`
+
+Delete entries of warehouses or suppliers that are not needed anymore.
+
+Format: `delete TYPE INDEX`
+
+* The TYPE specified should be one of these values: warehouse / supplier.
+* The INDEX must be a positive integer, not exceeding the total number of items.
+
+Examples:
+
+* `delete warehouse 1` Removes the warehouse at index 1.
+* `delete supplier 12` Removes supplier at index 12 from the list of suppliers.
+
+### Finding medical product associated with warehouses / suppliers: `find`
+
+Finds all suppliers or warehouses managed by the manager that sells the relevant medical products.
+
+Format: `find TYPE KEYWORD…​`
+
+* KEYWORD specified is case-insensitive.
+* The TYPE specified should be one of these values: warehouse / supplier.
+
+Examples:
+
+* `find warehouse PANADOL SUSP` Displays all the warehouses managed by the manager that has a product named PANADOL SUSP.
+* `find supplier masks` Displays all the suppliers that have stock for the input product.
+
+### View a specific supplier / warehouse: `view`
+
+Shows a particular supplier/warehouse with their relevant information e.g. products associated with the supplier/warehouse, address etc.
+
+Format: `view TYPE NAME`
+
+* The TYPE specified should be one of these values: supplier or warehouse.
+* The supplier/warehouse NAME specified is case-insensitive.
+
+Examples:
+
+* `view supplier supplierA` Displays all the information associated with supplierA e.g. address, contact, email, products sold by the supplier etc.
+* `view warehouse warehouseB` Displays all the information associated with warehouseB e.g. address, all the products stored in the warehouse etc.
+
+### Update the stock for a product: `update`
+
+* If the product does not exist for that warehouse, it will associate the new product with the warehouse and the input quantity. Otherwise, it will update the stock of the existing product with the new quantity.
+
+Format:	`update w/WAREHOUSE_NAME pd/PRODUCT_NAME q/QUANTITY`
+
+Example:
+
+* `update w/WarehouseA pd/Panadol q/10` Updates the quantity of Panadol in WarehouseA to 10. The quantity of Panadol in WarehouseA can be more than 10 or lesser than 10 before the update is done.
 
 ### Exiting the program : `exit`
 
@@ -187,17 +192,22 @@ CLI-nic data are saved in the hard disk automatically after any command that cha
 
 <br />
 
-### To be implemented in the future
+--------------------------------------------------------------------------------------------------------------------
 
-### **Creating a purchase order : `create`**
-* Create a purchase order to track the purchase of medical products from a supplier to a store.
-* **Format**: `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`		
-    * The number specified for PRODUCT_ID cannot exceed the total number of products. All the IDs must be identifiable
-    * The number of arguments specified for PRODUCT_QUANTITY and PRODUCT_ID must match
-    * EXPECTED_DELIVERED_DATE must be after current time and of the form YYYY-MM-DD
+## To be implemented in the future
 
-* **Examples**: 
-    * `create sid/01 s/123 id/1 2 4 8 qty/100 200 400 800 date/2020-12-12` : Creates a purchase order for the delivery of 100, 200, 400 and 800 of products with ID 1, 2, 4 and 8 respectively from supplier ID of 01 to store ID of 123 by December 12, 2020.
+### Creating a purchase order : `create`
+Creates a purchase order to track the purchase of medical products from a supplier to a warehouse.
+
+Format: `create s/SUPPLIER_NAME w/WAREHOUSE_NAME pd/PRODUCT_NAME…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`
+
+* All the SUPPLIER_NAME/WAREHOUSE_NAME/PRODUCT_NAME must be identifiable.
+* The number of arguments specified for PRODUCT_QUANTITY and PRODUCT_NAME must match.
+* EXPECTED_DELIVERED_DATE must be after current time and of the form YYYY-MM-DD.
+
+Examples:
+
+* `create s/SupplierA w/WarehouseA pd/Panadol1 Panadol2 qty/100 200 date/2020-12-12` Creates a purchase order for the delivery of 100, 200 of products Panadol1 & Panadol2 respectively from SupplierA to WarehouseA by December 12, 2020.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -212,12 +222,12 @@ CLI-nic data are saved in the hard disk automatically after any command that cha
 
 Action | Format, Examples
 --------|------------------
-**Add** Warehouse | `add w/WAREHOUSE_NAME addr/ADDRESS [wn/WAREHOUSE_NOTE]`<br> e.g., `add w/warehouseA addr/John street, block 123, #01-01 wn/First warehouse`
+**Add** Warehouse | `add w/WAREHOUSE_NAME p/CONTACT_NUMBER addr/ADDRESS [wn/WAREHOUSE_NOTE]`<br> e.g., `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 wn/First warehouse`
 **Add** Supplier | `add s/SUPPLIER_NAME p/CONTACT_NUMBER [e/EMAIL_ADDRESS] [sn/SUPPLIER_NOTE]`<br> e.g., `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com sn/largest contractor`
-**Add** Product | `add s/SUPPLIER_NAME p/PRODUCT_NAME [t/TAG...]`<br> e.g., `add s/SupplierA p/PANADOL SUSP t/FEVER`
+**Add** Product | `add s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `add s/SupplierA pd/PANADOL SUSP t/FEVER`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Find** | `find TYPE KEYWORD`<br> e.g. `find product panadol`
+**Delete** | `delete TYPE INDEX`<br> e.g., `delete 3`
+**Find** | `find TYPE KEYWORD…​`<br> e.g. `find warehouse panadol`
 **Help** | `help`
-**Update** | `update w/WAREHOUSE_NAME p/PRODUCT_NAME q/QUANTITY` <br> e.g., `update w/WarehouseA p/Panadol q/10`
+**Update** | `update w/WAREHOUSE_NAME pd/PRODUCT_NAME q/QUANTITY` <br> e.g., `update w/WarehouseA pd/Panadol q/10`
 **View** | `view TYPE NAME`<br> e.g. `view supplier supplierA`
