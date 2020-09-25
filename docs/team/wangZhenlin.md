@@ -21,7 +21,7 @@ Given below are my contributions to the project.
   * Credits: {mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}
 
 * **Project management**:
-  * Managed releases `v1.3` - `v1.5rc` (_ releases) on GitHub
+  * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 
 * **Enhancements to existing features**:
   * Updated the GUI (Pull requests [\#33](), [\#34]())
