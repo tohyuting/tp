@@ -4,7 +4,9 @@ title: User Guide
 Team: W14-4
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+CLI-nic is **an application to help medical supply managers keep track of medical products and storage.** It is optimized
+for these managers to **update product supply conditions and access critical product information quickly** via fast typing
+and efficient Graphical User Interface interaction.
 
 * Table of Contents
 {:toc}
@@ -25,15 +27,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
-
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
-
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
-
-   * **`clear`** : Deletes all contacts.
-
-   * **`exit`** : Exits the app.
+   * **`Create`** : Create a purchase order
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -51,8 +45,8 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times.<br>
+  e.g. `[t/TAG]…​` can be used as `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -82,6 +76,17 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
+
+### **Creating a purchase order : `create`**
+* Create a purchase order to track the purchase of medical products from a supplier to a store.
+* **Format**: `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`		
+    * The number specified for PRODUCT_ID cannot exceed the total number of products. All the IDs must be identifiable
+    * The number of arguments specified for PRODUCT_QUANTITY and PRODUCT_ID must match
+    * EXPECTED_DELIVERED_DATE must be after current time and of the form YYYY-MM-DD
+
+* **Examples**: 
+    * `create sid/01 s/123 id/1 2 4 8 qty/100 200 400 800 date/2020-12-12` : Creates a purchase order for the delivery of 100, 200, 400 and 800 of products with ID 1, 2, 4 and 8 respectively from supplier ID of 01 to store ID of 123 by December 12, 2020.
+
 ### Listing all persons : `list`
 
 Shows a list of all persons in the address book.
@@ -105,37 +110,37 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `find`
+### Finding medical products / suppliers: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds medical products / suppliers whose information contains any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find TYPE KEYWORD`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-
-### Deleting a person : `delete`
-
-Deletes the specified person from the address book.
-
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* `TYPE` takes in either `product` / `supplier`.
+* `KEYWORD` is case-insensitive.
+* The search is case-insensitive.
+* Searches only the name and additional information of the products and suppliers.
+* Only full words will be matched e.g. `Han` will not match `Hans`.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `find product panadol` returns all medical products containing `panadol` in its name or additional description.
+* `find supplier Kent Ridge` returns all suppliers that are located in `Kent Ridge`.	
+
+### Removing a purchase order/store/product/supplier : `delete` [Coming soon]
+
+Remove entries that are not needed anymore.
+
+**Format**: `delete [LIST_TYPE] INDEX`
+
+* Deletes from the purchase order list by default at `INDEX`
+* The `LIST_TYPE` specified should be one of these values: **order/store/product/supplier**
+* The `INDEX` **must be a positive integer**, not exceeding the total number of items
+
+
+**Examples**
+
+* `delete 1`: Removes the 1st order from the list of orders as no `LIST_TYPE` is specified.
+* `delete store 12`: Removes 12th store from the list of stores.
 
 ### Clearing all entries : `clear`
 
@@ -153,9 +158,7 @@ Format: `exit`
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Archiving data files `[coming in v2.0]`
-
-_{explain the feature here}_
+<br />
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -171,9 +174,10 @@ _{explain the feature here}_
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Create** | `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find** | `find TYPE KEYWORD`<br> e.g. `find product panadol`
 **List** | `list`
 **Help** | `help`
