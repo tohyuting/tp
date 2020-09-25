@@ -12,8 +12,8 @@ CLI-nic is **an application to help medical supply managers keep track of medica
 for these managers to **update product supply conditions and access critical product information quickly** via fast typing
 and efficient Graphical User Interface interaction.
 
-* If you are interested in using AddressBook, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
-* If you are interested about developing AddressBook, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
+* If you are interested in using CLI-nic, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
+* If you are interested about developing CLI-nic, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
 
 
 **Acknowledgements**
