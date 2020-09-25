@@ -79,12 +79,12 @@ Examples:
 
 ### **Creating a purchase order : `create`**
 * Create a purchase order to track the purchase of medical products from a supplier to a store.
-* **Format**: `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`		
+* **Format**: `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`
     * The number specified for PRODUCT_ID cannot exceed the total number of products. All the IDs must be identifiable
     * The number of arguments specified for PRODUCT_QUANTITY and PRODUCT_ID must match
     * EXPECTED_DELIVERED_DATE must be after current time and of the form YYYY-MM-DD
 
-* **Examples**: 
+* **Examples**:
     * `create sid/01 s/123 id/1 2 4 8 qty/100 200 400 800 date/2020-12-12` : Creates a purchase order for the delivery of 100, 200, 400 and 800 of products with ID 1, 2, 4 and 8 respectively from supplier ID of 01 to store ID of 123 by December 12, 2020.
 
 ### Listing all persons : `list`
@@ -124,7 +124,7 @@ Format: `find TYPE KEYWORD`
 
 Examples:
 * `find product panadol` returns all medical products containing `panadol` in its name or additional description.
-* `find supplier Kent Ridge` returns all suppliers that are located in `Kent Ridge`.	
+* `find supplier Kent Ridge` returns all suppliers that are located in `Kent Ridge`.
 
 ### Removing a purchase order/store/product/supplier : `delete` [Coming soon]
 
