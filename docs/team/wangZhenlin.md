@@ -37,6 +37,7 @@ Given below are my contributions to the project.
     * Added documentation for the `delete` feature.
   * Developer Guide:
     * Added implementation details of the `delete` feature.
+    * Added use cases.
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments): nil
