@@ -16,8 +16,8 @@ You can reach us at the email `cs2103w144@gmail.com`
 [[github](https://github.com/qlchan24)]
 [[portfolio](team/qinliang.md)]
 
-* Role: Developer
-* Responsibilities: Code quality, review
+* Role: Review Manager
+* Responsibilities: Code quality, review deliverables, release management
 
 ### Jeffrey Tan Jian Sheng
 

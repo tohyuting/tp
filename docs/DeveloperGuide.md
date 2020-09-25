@@ -236,14 +236,17 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* John is a manager of a medical supplies company for 10 stores across the country
+* He is a tech-savvy manager that prefers typing compared to clicking since he is always in a rush to source for supplies
+* He has to retrieve suppliers contacts so that he can contact them to restock medical supplies when they run low at various stores. 
+* These contacts are stored in an excel sheet, separated by different countries. 
+* He also has to keep track of how much supplies each store has by calling every store to check at the end of the week and note down on separate excel sheets the sales of each store. 
+* He wants things to be efficient by reducing the number of applications (referring to email, excel sheets, reports etc.) needed and automate as many components as possible (reminder for low stocks, auto placing of order if feasible because of login details and all). 
+* He wants to access the most popular items and their suppliers' contact quickly. This helps him get promoted faster by ensuring a higher sales for each product.
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: 
 
+CLI-nic will keep track of details for each product as well as the product suppliers/stores contact details. In addition, CLI-nic helps John to retrieve and identify key information quickly. John can also create purchase order to keep track of how much orders has been placed so far, and the estimated delivery date. He can call the store to confirm if the stocks have been delivered on the estimated date. However, CLI-nic does not allow John to contact the suppliers and he has to call or email them individually. There will also not be any real-time updates for the number of stocks held by suppliers and John has to update them manually. Stocks at the stores will not be updated real-time as well. Instead, employees of each store will have to update John at the end of every week. Lastly, CLI-nic does not allow users to immediately place an order to suppliers or schedule a delivery to the stores.
 
 ### User stories
 
@@ -251,12 +254,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| `* * *`  | potential user                                  | save contacts of my suppliers and stores in same location | easily refer to the contacts and give them a call for updates                |
+| `* * *`  | potential user                                  | save products in the same location as suppliers and stores | easily refer keep track of stocks in various stores and their suppliers                 |
+| `* * *`  | new user                                       | access the command list/user guide               | easily refer to instructions for commands and usage instructions                                                                       |
+| `* * *`  | standard user                                       | add a new supplier/product/store contacts entry               | add entries to the list of suppliers/stores/inventory                                   |
+| `* * *`  | standard user                                       | delete a supplier/supply/client contacts entry          | remove entries that are not needed anymore |
+| `* * *`  | standard user                                    | find a supplier/product by name   | locate relevant items without having to go through all the lists                |
+| `* * *`  | standard user | add remarks to a supplier entry         | note down details that are specific to the supplier                                               |
+| `* * *`  | standard user | keep track of the estimated days to deliver the products         | so that I can ensure that products are delivered as promised and update the stocks in each stores by myself     
+| `* * *`  | standard user | list all my products/suppliers/stores         | so that I can contact them and retrieve details regarding products/suppliers/stores easily                                         |
+
 
 *{More to be added}*
 
