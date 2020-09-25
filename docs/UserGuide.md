@@ -118,8 +118,8 @@ Format: `find TYPE KEYWORD`
 * Only full words will be matched e.g. `Han` will not match `Hans`.
 
 Examples:
-* `find product k/panadol` returns all medical products containing `panadol` in its name or additional description.
-* `find supplier k/Kent Ridge` returns all suppliers that are located in `Kent Ridge`.	
+* `find product panadol` returns all medical products containing `panadol` in its name or additional description.
+* `find supplier Kent Ridge` returns all suppliers that are located in `Kent Ridge`.	
 
 ### Deleting a person : `delete`
 
@@ -172,6 +172,6 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find** | `find TYPE KEYWORD`<br> e.g. `find product panadol`
 **List** | `list`
 **Help** | `help`
