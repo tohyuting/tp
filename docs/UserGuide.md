@@ -130,16 +130,15 @@ Examples:
 
 Remove entries that are not needed anymore.
 
-**Format**: `delete [LIST_TYPE] INDEX`
+**Format**: `delete TYPE INDEX`
 
 * Deletes from the purchase order list by default at `INDEX`
-* The `LIST_TYPE` specified should be one of these values: **order/store/product/supplier**
+* The `TYPE` specified should be one of these values: **order/store/product/supplier**
 * The `INDEX` **must be a positive integer**, not exceeding the total number of items
 
 
 **Examples**
 
-* `delete 1`: Removes the 1st order from the list of orders as no `LIST_TYPE` is specified.
 * `delete store 12`: Removes 12th store from the list of stores.
 
 ### Clearing all entries : `clear`
@@ -176,7 +175,7 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Create** | `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete** | `delete TYPE INDEX`<br> e.g., `delete store 12`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find TYPE KEYWORD`<br> e.g. `find product panadol`
 **List** | `list`
