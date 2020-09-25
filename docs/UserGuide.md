@@ -110,23 +110,21 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `find`
+### Finding medical products / suppliers: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds medical products / suppliers whose information contains any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find TYPE KEYWORD`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* `TYPE` takes in either `product` / `supplier`.
+* `KEYWORD` is case-insensitive.
+* The search is case-insensitive.
+* Searches only the name and additional information of the products and suppliers.
+* Only full words will be matched e.g. `Han` will not match `Hans`.
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find product panadol` returns all medical products containing `panadol` in its name or additional description.
+* `find supplier Kent Ridge` returns all suppliers that are located in `Kent Ridge`.	
 
 ### Removing a purchase order/store/product/supplier : `delete` [Coming soon]
 
@@ -175,4 +173,11 @@ AddressBook data are saved in the hard disk automatically after any command that
 
 Action | Format, Examples
 --------|------------------
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Create** | `create sid/SUPPLIER_ID s/STORE_ID id/PRODUCT_ID…​ qty/PRODUCT_QUANTITY…​ date/EXPECTED_DELIVERED_DATE`
+**Clear** | `clear`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Find** | `find TYPE KEYWORD`<br> e.g. `find product panadol`
+**List** | `list`
+**Help** | `help`
