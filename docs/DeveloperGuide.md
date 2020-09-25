@@ -257,7 +257,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | potential user                                  | save contacts of my suppliers and stores in same location | easily refer to the contacts and give them a call for updates                |
 | `* * *`  | potential user                                  | save products in the same location as suppliers and stores | easily refer keep track of stocks in various stores and their suppliers                 |
 | `* * *`  | new user                                       | access the command list/user guide               | easily refer to instructions for commands and usage instructions                                                                       |
-| `* * *`  | standard user                                       | add a new supplier/product/store contacts entry               | remove entries that I no longer need                                   |
+| `* * *`  | standard user                                       | add a new supplier/product/store contacts entry               | add entries to the list of suppliers/stores/inventory                                   |
 | `* * *`  | standard user                                       | delete a supplier/supply/client contacts entry          | remove entries that are not needed anymore |
 | `* * *`  | standard user                                    | find a supplier/product by name   | locate relevant items without having to go through all the lists                |
 | `* * *`  | standard user | add remarks to a supplier entry         | note down details that are specific to the supplier                                               |
