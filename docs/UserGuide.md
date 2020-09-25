@@ -37,7 +37,7 @@ and efficient Graphical User Interface interaction.
 
    * **`exit`** : Exits the app.
 
-   * **`Create`** : Create a purchase order
+   * **`find PANADOL warehouse`** : Displays all the warehouses managed by the manager that has a product named PANADOL. 
 
 
 1. Refer to the [Features](#features) below for details of each command.
@@ -142,7 +142,7 @@ Delete entries of warehouses or suppliers that are not needed anymore.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries (Suppliers and Warehouses) from the CLI-nic.
 
 Format: `clear`
 
@@ -154,7 +154,7 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+CLI-nic data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 <br />
 
@@ -163,7 +163,7 @@ AddressBook data are saved in the hard disk automatically after any command that
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CLI-nic home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
