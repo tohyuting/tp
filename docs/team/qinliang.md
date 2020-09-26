@@ -17,11 +17,11 @@ Given below are my contributions to the project.
   * Highlights: This command will allow for future features with regard to inventory management and sales metrics
   * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
 
-* **New Feature**: 
+* **New Feature**:
 
 * **Code contributed**: [RepoSense link]()
 
-* **Project management**: 
+* **Project management**:
 
 * **Enhancements to existing features**:
 

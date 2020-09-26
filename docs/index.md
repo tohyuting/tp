@@ -3,8 +3,8 @@ layout: page
 title: CLI-nic
 ---
 
-[![CI Status](https://github.com/Y2021S1-CS2103-W14-4/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2021S1-CS2103-W14-4/tp/actions)
-[![codecov](https://codecov.io/gh/Y2021S1-CS2103-W14-4/tp/branch/master/graph/badge.svg)](https://codecov.io/gh/AY2021S1-CS2103-W14-4/tp)
+[![CI Status](https://github.com/AY2021S1-CS2103-W14-4/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2021S1-CS2103-W14-4/tp/actions)
+[![codecov](https://codecov.io/gh/AY2021S1-CS2103-W14-4/tp/branch/master/graph/badge.svg)](https://codecov.io/gh/AY2021S1-CS2103-W14-4/tp)
 
 ![Ui](images/Ui.png)
 
