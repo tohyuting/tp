@@ -121,8 +121,7 @@ public class Person {
                 .append(" Remark: ")
                 .append(getRemark())
                 .append(" Tags: ");
-                getTags().forEach(builder::append)
-        ;
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 
