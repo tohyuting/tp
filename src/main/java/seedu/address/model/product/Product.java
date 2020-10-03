@@ -1,11 +1,11 @@
 package seedu.address.model.product;
 
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+import seedu.address.model.person.Name;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents Product to be sold by Suppliers and stored in Warehouse.
