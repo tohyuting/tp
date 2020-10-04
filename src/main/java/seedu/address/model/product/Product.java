@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Name;
+import seedu.address.model.supplier.Name;
 import seedu.address.model.tag.Tag;
 
 /**
