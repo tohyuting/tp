@@ -69,10 +69,9 @@ public class Product {
     }
 
     /**
-     * Creates a new Product with the change in quantity reflected.
+     * Returns a new Product with the change in quantity reflected.
      *
      * @param updatedQuantity
-     * @return
      */
     public Product updateQuantityForWarehouse(int updatedQuantity) {
         return new Product(this.productName, updatedQuantity, this.productTags);
