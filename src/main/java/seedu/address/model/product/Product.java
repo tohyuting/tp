@@ -14,7 +14,7 @@ import seedu.address.model.tag.Tag;
 public class Product {
 
     private final Name productName;
-    private int productQuantity;
+    private final int productQuantity;
     private final Set<Tag> productTags = new HashSet<>();
 
     /**
@@ -43,16 +43,16 @@ public class Product {
     }
 
     /**
-     * Constructs a Product with a productName, the product's updatedQuantity
+     * Constructs a Product with a productName, the product's productQuantity
      * and tags associated with the current product.
      *
      * @param productName
-     * @param updatedQuantity
+     * @param productQuantity
      * @param productTags
      */
-    public Product(Name productName, int updatedQuantity, Set<Tag> productTags) {
+    public Product(Name productName, int productQuantity, Set<Tag> productTags) {
         this.productName = productName;
-        this.productQuantity = updatedQuantity;
+        this.productQuantity = productQuantity;
         this.productTags.addAll(productTags);
     }
 
@@ -96,8 +96,7 @@ public class Product {
      *
      * @return String representation of Product in Supplier.
      */
-    @Override
-    public String toString() {
+    public String toStringForSupplier() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getProductName())
                 .append(" Tags: ");
@@ -110,7 +109,7 @@ public class Product {
      *
      * @return String representation of Product displayed under a warehouse.
      */
-    public String toStringWareHouse() {
+    public String toStringForWareHouse() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getProductName())
                 .append(" - ")
