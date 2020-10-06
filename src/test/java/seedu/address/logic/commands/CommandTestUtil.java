@@ -25,7 +25,26 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+    // Warehouse test samples
+    public static final String VALID_WAREHOUSE_NAME_A = "Warehouse A";
+    public static final String VALID_WAREHOUSE_NAME_B = "Warehouse B";
+    public static final String VALID_WAREHOUSE_PHONE_A = "11111111";
+    public static final String VALID_WAREHOUSE_PHONE_B = "22222222";
+    public static final String VALID_WAREHOUSE_ADDRESS_A = "Block 312, Amy Street 1";
+    public static final String VALID_WAREHOUSE_ADDRESS_B = "Block 123, Bobby Street 3";
+    public static final String VALID_WAREHOUSE_REMARK_A = "Big";
+    public static final String VALID_WAREHOUSE_REMARK_B = "Small";
+    public static final String VALID_WAREHOUSE_PRODUCT_NAME_A = "Panadol";
+    public static final String VALID_WAREHOUSE_PRODUCT_NAME_B = "Aspirin";
+    public static final int VALID_WAREHOUSE_PRODUCT_QUANTITY_A = 10;
+    public static final int VALID_WAREHOUSE_PRODUCT_QUANTITY_B = 20;
+    public static final String VALID_WAREHOUSE_PRODUCT_TAG_FEVER = "fever";
+    public static final String VALID_WAREHOUSE_PRODUCT_TAG_HEADACHE = "headache";
 
+
+    public static final String INVALID_WAREHOUSE_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+
+    // Old test samples
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";

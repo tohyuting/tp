@@ -33,7 +33,7 @@ public class Remark {
         if (remark.isEmpty()) {
             return true;
         }
-        return  remark.matches(VALIDATION_REGEX) && remark.length() <= 100;
+        return remark.matches(VALIDATION_REGEX) && remark.length() <= 100;
     }
 
     @Override
