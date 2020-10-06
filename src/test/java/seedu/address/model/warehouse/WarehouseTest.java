@@ -1,10 +1,9 @@
 package seedu.address.model.warehouse;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.model.person.Person;
+
 import seedu.address.testutil.WarehouseBuilder;
 
 class WarehouseTest {

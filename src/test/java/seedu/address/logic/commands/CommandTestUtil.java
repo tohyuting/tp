@@ -41,8 +41,8 @@ public class CommandTestUtil {
     public static final String VALID_WAREHOUSE_PRODUCT_TAG_FEVER = "fever";
     public static final String VALID_WAREHOUSE_PRODUCT_TAG_HEADACHE = "headache";
 
-
-    public static final String INVALID_WAREHOUSE_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    // empty string not allowed for addresses
+    public static final String INVALID_WAREHOUSE_ADDRESS_DESC = " " + PREFIX_ADDRESS;
 
     // Old test samples
     public static final String VALID_NAME_AMY = "Amy Bee";
