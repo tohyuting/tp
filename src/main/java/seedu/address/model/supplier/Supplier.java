@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.product.Product;
 
 /**
  * Represents a Supplier in the address book.
@@ -21,19 +21,19 @@ public class Supplier {
     private final Email email;
 
     // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Remark remark;
+    private final Set<Product> products = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Supplier(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Supplier(Name name, Phone phone, Email email, Remark remark, Set<Product> products) {
+        requireAllNonNull(name, phone, email, remark, products);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        this.remark = remark;
+        this.products.addAll(products);
     }
 
     public Name getName() {
@@ -48,16 +48,16 @@ public class Supplier {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Remark getRemark() {
+        return remark;
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable product set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Product> getProducts() {
+        return Collections.unmodifiableSet(products);
     }
 
     /**
@@ -92,14 +92,14 @@ public class Supplier {
         return otherSupplier.getName().equals(getName())
                 && otherSupplier.getPhone().equals(getPhone())
                 && otherSupplier.getEmail().equals(getEmail())
-                && otherSupplier.getAddress().equals(getAddress())
-                && otherSupplier.getTags().equals(getTags());
+                && otherSupplier.getRemark().equals(getRemark())
+                && otherSupplier.getProducts().equals(getProducts());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, remark, products);
     }
 
     @Override
@@ -110,10 +110,10 @@ public class Supplier {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Remarks: ")
+                .append(getRemark())
+                .append(" Products: ");
+        getProducts().forEach(s -> builder.append(s.toStringForSupplier()));
         return builder.toString();
     }
 

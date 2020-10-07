@@ -1,46 +1,55 @@
 {
   "_comment": "AddressBook save file which contains the same supplier values as in TypicalSuppliers#getTypicalAddressBook()",
   "suppliers" : [ {
-    "name" : "Alice Pauline",
+    "name" : "Alice Pauline Ltd",
     "phone" : "94351253",
     "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "friends" ]
+    "remark" : "long term supplier",
+    "products": [ {
+      "name": "Panadol",
+      "tagged": ["fever"]
+    } ]
   }, {
-    "name" : "Benson Meier",
+    "name" : "Benson Meier Ltd",
     "phone" : "98765432",
     "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "owesMoney", "friends" ]
+    "remark" : "trusted supplier",
+    "products": [ {
+      "name": "Panadol",
+      "tagged": ["fever"]
+    }]
   }, {
-    "name" : "Carl Kurz",
+    "name" : "Carl Kurz Ltd",
     "phone" : "95352563",
     "email" : "heinz@example.com",
-    "address" : "wall street",
-    "tagged" : [ ]
+    "remark" : "nearby",
+    "products" : [ ]
   }, {
-    "name" : "Daniel Meier",
+    "name" : "Daniel Meier Ltd",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
-    "address" : "10th street",
-    "tagged" : [ "friends" ]
+    "remark" : "premium prices",
+    "products": [ {
+      "name": "Panadol",
+      "tagged": ["fever"]
+    }]
   }, {
-    "name" : "Elle Meyer",
+    "name" : "Elle Meyer Ltd",
     "phone" : "9482224",
     "email" : "werner@example.com",
-    "address" : "michegan ave",
-    "tagged" : [ ]
+    "remark" : "industry leader",
+    "products" : [ ]
   }, {
-    "name" : "Fiona Kunz",
+    "name" : "Fiona Kunz Ltd",
     "phone" : "9482427",
     "email" : "lydia@example.com",
-    "address" : "little tokyo",
-    "tagged" : [ ]
+    "remark" : "specialises in antibiotics",
+    "products" : [ ]
   }, {
-    "name" : "George Best",
+    "name" : "George Best Ltd",
     "phone" : "9482442",
     "email" : "anna@example.com",
-    "address" : "4th street",
-    "tagged" : [ ]
+    "remark" : "frequent discount",
+    "products" : [ ]
   } ]
 }

@@ -1,14 +1,17 @@
 package seedu.address.testutil;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditSupplierDescriptor;
-import seedu.address.model.supplier.Address;
+import seedu.address.model.product.Product;
 import seedu.address.model.supplier.Email;
 import seedu.address.model.supplier.Name;
 import seedu.address.model.supplier.Phone;
+import seedu.address.model.supplier.Remark;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.tag.Tag;
 
@@ -35,8 +38,8 @@ public class EditSupplierDescriptorBuilder {
         descriptor.setName(supplier.getName());
         descriptor.setPhone(supplier.getPhone());
         descriptor.setEmail(supplier.getEmail());
-        descriptor.setAddress(supplier.getAddress());
-        descriptor.setTags(supplier.getTags());
+        descriptor.setRemark(supplier.getRemark());
+        descriptor.setProducts(supplier.getProducts());
     }
 
     /**
@@ -64,20 +67,28 @@ public class EditSupplierDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditSupplierDescriptor} that we are building.
+     * Sets the {@code Remark} of the {@code EditSupplierDescriptor} that we are building.
      */
-    public EditSupplierDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditSupplierDescriptorBuilder withRemark(String remark) {
+        descriptor.setRemark(new Remark(remark));
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditSupplierDescriptor}
+     * Parses the {@code productMap} into a {@code Set<Product>} and set it to the {@code EditSupplierDescriptor}
      * that we are building.
+     * @param productMap
      */
-    public EditSupplierDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+    public EditSupplierDescriptorBuilder withProducts(Map<String, String[]> productMap) {
+        Set<Product> productSet = new HashSet<>();
+        for (String productName:productMap.keySet()) {
+            Set<Tag> productTags = Arrays.stream(productMap.get(productName))
+                    .map(Tag::new)
+                    .collect(Collectors.toSet());
+            Product product = new Product(new Name(productName), productTags);
+            productSet.add(product);
+        }
+        descriptor.setProducts(productSet);
         return this;
     }
 

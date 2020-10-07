@@ -6,13 +6,16 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ANTIBIOTICS;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showSupplierAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
 import static seedu.address.testutil.TypicalSupplier.getTypicalAddressBook;
+
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -55,10 +58,11 @@ public class EditCommandTest {
 
         SupplierBuilder supplierInList = new SupplierBuilder(lastSupplier);
         Supplier editedSupplier = supplierInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .withProducts(Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
 
         EditSupplierDescriptor descriptor = new EditSupplierDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withPhone(VALID_PHONE_BOB)
+                .withProducts(Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
         EditCommand editCommand = new EditCommand(indexLastSupplier, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier);

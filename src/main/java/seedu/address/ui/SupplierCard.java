@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -35,11 +33,11 @@ public class SupplierCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
+    private Label remark;
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private FlowPane products;
 
     /**
      * Creates a {@code supplierCode} with the given {@code Supplier} and index to display.
@@ -50,11 +48,8 @@ public class SupplierCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(supplier.getName().fullName);
         phone.setText(supplier.getPhone().value);
-        address.setText(supplier.getAddress().value);
+        remark.setText(supplier.getRemark().value);
         email.setText(supplier.getEmail().value);
-        supplier.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

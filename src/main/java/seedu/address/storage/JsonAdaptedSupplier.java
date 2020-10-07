@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.supplier.Address;
+import seedu.address.model.product.Product;
 import seedu.address.model.supplier.Email;
 import seedu.address.model.supplier.Name;
 import seedu.address.model.supplier.Phone;
+import seedu.address.model.supplier.Remark;
 import seedu.address.model.supplier.Supplier;
-import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Supplier}.
@@ -27,22 +27,22 @@ class JsonAdaptedSupplier {
     private final String name;
     private final String phone;
     private final String email;
-    private final String address;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String remark;
+    private final List<JsonAdaptedProduct> products = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedSupplier} with the given supplier details.
      */
     @JsonCreator
     public JsonAdaptedSupplier(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("email") String email, @JsonProperty("remark") String remark,
+            @JsonProperty("products") List<JsonAdaptedProduct> products) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
+        this.remark = remark;
+        if (products != null) {
+            this.products.addAll(products);
         }
     }
 
@@ -53,9 +53,9 @@ class JsonAdaptedSupplier {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+        remark = source.getRemark().value;
+        products.addAll(source.getProducts().stream()
+                .map(JsonAdaptedProduct::new)
                 .collect(Collectors.toList()));
     }
 
@@ -65,9 +65,9 @@ class JsonAdaptedSupplier {
      * @throws IllegalValueException if there were any data constraints violated in the adapted supplier.
      */
     public Supplier toModelType() throws IllegalValueException {
-        final List<Tag> supplierTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            supplierTags.add(tag.toModelType());
+        final List<Product> supplierProducts = new ArrayList<>();
+        for (JsonAdaptedProduct product : products) {
+            supplierProducts.add(product.toModelType());
         }
 
         if (name == null) {
@@ -94,16 +94,16 @@ class JsonAdaptedSupplier {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (remark == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Remark.isValidRemark(remark)) {
+            throw new IllegalValueException(Remark.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Remark modelRemark = new Remark(remark);
 
-        final Set<Tag> modelTags = new HashSet<>(supplierTags);
-        return new Supplier(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        final Set<Product> modelProducts = new HashSet<>(supplierProducts);
+        return new Supplier(modelName, modelPhone, modelEmail, modelRemark, modelProducts);
     }
 
 }

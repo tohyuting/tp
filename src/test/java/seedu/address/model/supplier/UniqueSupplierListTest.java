@@ -3,8 +3,9 @@ package seedu.address.model.supplier;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ANTIBIOTICS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalSupplier.ALICE;
 import static seedu.address.testutil.TypicalSupplier.BOB;
@@ -12,6 +13,7 @@ import static seedu.address.testutil.TypicalSupplier.BOB;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +44,8 @@ public class UniqueSupplierListTest {
     @Test
     public void contains_supplierWithSameIdentityFieldsInList_returnsTrue() {
         uniqueSupplierList.add(ALICE);
-        Supplier editedAlice = new SupplierBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Supplier editedAlice = new SupplierBuilder(ALICE).withRemark(VALID_REMARK_BOB)
+                .withProducts(Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS}))
                 .build();
         assertTrue(uniqueSupplierList.contains(editedAlice));
     }
@@ -85,7 +88,8 @@ public class UniqueSupplierListTest {
     @Test
     public void setSupplier_editedSupplierHasSameIdentity_success() {
         uniqueSupplierList.add(ALICE);
-        Supplier editedAlice = new SupplierBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Supplier editedAlice = new SupplierBuilder(ALICE).withRemark(VALID_REMARK_BOB)
+                .withProducts(Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS}))
                 .build();
         uniqueSupplierList.setSupplier(ALICE, editedAlice);
         UniqueSupplierList expectedUniqueSupplierList = new UniqueSupplierList();

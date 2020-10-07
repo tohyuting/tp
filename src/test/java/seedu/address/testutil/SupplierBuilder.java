@@ -1,14 +1,15 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import seedu.address.model.supplier.Address;
+import seedu.address.model.product.Product;
 import seedu.address.model.supplier.Email;
 import seedu.address.model.supplier.Name;
 import seedu.address.model.supplier.Phone;
+import seedu.address.model.supplier.Remark;
 import seedu.address.model.supplier.Supplier;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -19,13 +20,13 @@ public class SupplierBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_REMARK = "Trusted Supplier";
 
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
-    private Set<Tag> tags;
+    private Remark remark;
+    private Set<Product> products;
 
     /**
      * Creates a {@code SupplierBuilder} with the default details.
@@ -34,8 +35,8 @@ public class SupplierBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
-        tags = new HashSet<>();
+        remark = new Remark(DEFAULT_REMARK);
+        products = new HashSet<>();
     }
 
     /**
@@ -45,8 +46,8 @@ public class SupplierBuilder {
         name = supplierToCopy.getName();
         phone = supplierToCopy.getPhone();
         email = supplierToCopy.getEmail();
-        address = supplierToCopy.getAddress();
-        tags = new HashSet<>(supplierToCopy.getTags());
+        remark = supplierToCopy.getRemark();
+        products = new HashSet<>(supplierToCopy.getProducts());
     }
 
     /**
@@ -58,18 +59,19 @@ public class SupplierBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Supplier} that we are building.
+     * Parses the {@code productsMap} into a {@code Set<Product>} and set it to the {@code Supplier} that we are
+     * building.
      */
-    public SupplierBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+    public SupplierBuilder withProducts(Map<String, String[]> productMap) {
+        this.products = SampleDataUtil.getProductSet(productMap);
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code Supplier} that we are building.
+     * Sets the {@code Remark} of the {@code Supplier} that we are building.
      */
-    public SupplierBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public SupplierBuilder withRemark(String remark) {
+        this.remark = new Remark(remark);
         return this;
     }
 
@@ -90,7 +92,7 @@ public class SupplierBuilder {
     }
 
     public Supplier build() {
-        return new Supplier(name, phone, email, address, tags);
+        return new Supplier(name, phone, email, remark, products);
     }
 
 }
