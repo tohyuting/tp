@@ -241,7 +241,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * keeps track of supplies in each warehouse
 * needs to quickly contact suppliers to restock medical supplies when the stock runs low at various warehouses
 
-**Value proposition**: 
+**Value proposition**:
 
 * manages suppliers/warehouses information conveniently
 * helps to retrieve and identify key suppliers/warehouses information quickly
@@ -492,17 +492,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User enters command to view supplierA information.
-2. CLI-nic displays all of supplierA information, including contact number and any notes such as “fast supplier”. 
+2. CLI-nic displays all of supplierA information, including contact number and any notes such as “fast supplier”.
 3. User looks through the information of supplierA displayed and might call up the supplier if necessary.
 
     Use case ends.
 
 **Extensions**
 
-* 1a User enters invalid supplier name. 
+* 1a User enters invalid supplier name.
   * 1a1. CLI-nic requests for new supplier name.
   * 1a2. User enters a new supplier name.
-  
+
     Steps 1a1 and 1a2 are repeated until a valid supplier name is entered. <br>
     Use case resumes from step 2.
 
@@ -511,7 +511,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User enters command to view WarehouseA information.
-2. CLI-nic displays all of WarehouseA information, including contact number and any notes such as “first warehouse”. 
+2. CLI-nic displays all of WarehouseA information, including contact number and any notes such as “first warehouse”.
 3. User looks through the information of WarehouseA displayed and might call up the warehouse if necessary.
 
     Use case ends.
@@ -521,7 +521,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a User enters invalid warehouse name.
   * 1a1. CLI-nic requests for new warehouse name.
   * 1a2. User enters a new warehouse name.
-  
+
     Steps 1a1 and 1a2 are repeated until a valid warehouse name is entered. <br>
     Use case resumes from step 2.
 
