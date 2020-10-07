@@ -11,6 +11,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.product.Product;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -57,4 +58,11 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns a product set containing the list of products given.
+     */
+    public static Set<Product> getProductSet(Product... products) {
+        return Arrays.stream(products)
+                .collect(Collectors.toSet());
+    }
 }
