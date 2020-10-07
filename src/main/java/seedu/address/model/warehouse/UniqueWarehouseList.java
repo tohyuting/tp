@@ -8,15 +8,15 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.supplier.exceptions.DuplicateSupplierException;
+import seedu.address.model.supplier.exceptions.SupplierNotFoundException;
 import seedu.address.model.warehouse.exceptions.DuplicateWarehouseException;
 import seedu.address.model.warehouse.exceptions.WarehouseNotFoundException;
 
 /**
  * A list of warehouses that enforces uniqueness between its elements and does not allow nulls.
  * A warehouse is considered unique by comparing using {@code Warehouse#isSameWarehouse(Warehouse)}. As such, adding
- * and updating of warehouses uses Warehouse#isSameWarehouse(Warehouse) for equality so as to ensure that the person
+ * and updating of warehouses uses Warehouse#isSameWarehouse(Warehouse) for equality so as to ensure that the supplier
  * being added or updated is unique in terms of identity in the UniqueWarehouseList.
  * However, the removal of a warehouse uses Warehouse#equals(Object) so as to ensure that the warehouse with
  * exactly the same fields will be removed.
@@ -60,11 +60,11 @@ public class UniqueWarehouseList implements Iterable<Warehouse> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new SupplierNotFoundException();
         }
 
         if (!target.isSameWarehouse(editedWarehouse) && contains(editedWarehouse)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateSupplierException();
         }
 
         internalList.set(index, editedWarehouse);
@@ -91,7 +91,7 @@ public class UniqueWarehouseList implements Iterable<Warehouse> {
 
     /**
      * Replaces the contents of this list with {@code warehouses}.
-     * {@code persons} must not contain duplicate persons.
+     * {@code warehouses} must not contain duplicate warehouses.
      */
     public void setWarehouses(List<Warehouse> warehouses) {
         requireAllNonNull(warehouses);

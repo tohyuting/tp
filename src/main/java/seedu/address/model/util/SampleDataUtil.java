@@ -14,12 +14,6 @@ import seedu.address.model.supplier.Name;
 import seedu.address.model.supplier.Phone;
 import seedu.address.model.supplier.Remark;
 import seedu.address.model.supplier.Supplier;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.product.Product;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -68,7 +62,6 @@ public class SampleDataUtil {
 
     /**
      * Returns a product set containing the hashmap of strings given.
-     * @param productMap
      */
     public static Set<Product> getProductSet(Map<String, String[]> productMap) {
         Set<Product> productSet = new HashSet<>();
@@ -79,4 +72,17 @@ public class SampleDataUtil {
         }
         return productSet;
     }
+
+    /**
+     * Returns a product set containing the hashmap of strings given.
+     */
+    public static Set<Product> getProductSetForWarehouse(Map<String, Integer> productMap) {
+        Set<Product> productSet = new HashSet<>();
+        for (String productName:productMap.keySet()) {
+            Product product = new Product(new Name(productName), productMap.get(productName));
+            productSet.add(product);
+        }
+        return productSet;
+    }
+
 }

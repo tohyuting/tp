@@ -8,10 +8,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.product.Product;
+import seedu.address.model.supplier.Address;
+import seedu.address.model.supplier.Name;
+import seedu.address.model.supplier.Phone;
 
 /**
  * Represents a Warehouse in the CLI-nic app.
