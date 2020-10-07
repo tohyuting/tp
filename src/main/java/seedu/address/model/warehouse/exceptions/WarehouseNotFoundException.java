@@ -1,7 +1,7 @@
 package seedu.address.model.warehouse.exceptions;
 
 /**
- * Signals that the operation is unable to find the specified person.
+ * Signals that the operation is unable to find the specified warehouse.
  */
 public class WarehouseNotFoundException extends RuntimeException {
     public WarehouseNotFoundException() {

@@ -2,9 +2,10 @@ package seedu.address.model.product;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.person.Name;
+import seedu.address.model.supplier.Name;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -88,6 +89,10 @@ public class Product {
         return other == this // short circuit if same object
                 || (other instanceof Product // instanceof handles nulls
                 && productName.equals(((Product) other).productName)); // state check
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(productName);
     }
 
     /**

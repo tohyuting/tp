@@ -136,7 +136,7 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
    <div markdown="span" class="alert alert-primary">:bulb: **Tip:** Sometimes you might end up stepping into functions that are not of interest. Simply `step out` of them\!
    </div>
 
-1. The rest of the method seems to exhaustively check for the existence of each possible parameter of the `edit` command and store any possible changes in an `EditPersonDescriptor`. Recall that we can verify the contents of `editPersonDesciptor` through the `Variable` tool window.<br>
+1. The rest of the method seems to exhaustively check for the existence of each possible parameter of the `edit` command and store any possible changes in an `EditSupplierDescriptor`. Recall that we can verify the contents of `editSupplierDesciptor` through the `Variable` tool window.<br>
    ![EditCommand](../images/tracing/EditCommand.png)
 
 1. Let’s continue stepping through until we return to `LogicManager#execute()`.
@@ -152,14 +152,14 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
    @Override
    public CommandResult execute(Model model) throws CommandException {
        ...
-       Person personToEdit = lastShownList.get(index.getZeroBased());
-       Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-       if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-           throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+       Supplier supplierToEdit = lastShownList.get(index.getZeroBased());
+       Supplier editedSupplier = createEditedSupplier(supplierToEdit, editSupplierDescriptor);
+       if (!supplierToEdit.isSameSupplier(editedSupplier) && model.hasSupplier(editedSupplier)) {
+           throw new CommandException(MESSAGE_DUPLICATE_SUPPLIER);
        }
-       model.setPerson(personToEdit, editedPerson);
-       model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-       return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+       model.setSupplier(supplierToEdit, editedSupplier);
+       model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+       return new CommandResult(String.format(MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier));
    }
    ```
 
@@ -180,15 +180,15 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
     * {@code JsonSerializableAddressBook}.
     */
    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-       persons.addAll(
-           source.getPersonList()
+       suppliers.addAll(
+           source.getSupplierList()
                  .stream()
-                 .map(JsonAdaptedPerson::new)
+                 .map(JsonAdaptedSupplier::new)
                  .collect(Collectors.toList()));
    }
    ```
 
-1. It appears that a `JsonAdaptedPerson` is created for each `Person` and then added to the `JsonSerializableAddressBook`.
+1. It appears that a `JsonAdaptedSupplier` is created for each `supplier` and then added to the `JsonSerializableAddressBook`.
 
 1. We can continue to step through until we return to `MainWindow#executeCommand()`.
 
@@ -245,6 +245,6 @@ the given commands to find exactly what happens.
 
     4.  Add a new command
 
-    5.  Add a new field to `Person`
+    5.  Add a new field to `supplier`
 
     6.  Add a new entity to the address book

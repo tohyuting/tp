@@ -1,12 +1,13 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.product.Product;
+import seedu.address.model.supplier.Address;
+import seedu.address.model.supplier.Name;
+import seedu.address.model.supplier.Phone;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.warehouse.Remark;
 import seedu.address.model.warehouse.Warehouse;
@@ -59,8 +60,8 @@ public class WarehouseBuilder {
     /**
      * Parses the {@code products} into a {@code Set<Product>} and set it to the {@code Warehouse} that we are building.
      */
-    public WarehouseBuilder withProducts(Product... products) {
-        this.products = SampleDataUtil.getProductSet(products);
+    public WarehouseBuilder withProducts(Map<String, Integer> productMap) {
+        this.products = SampleDataUtil.getProductSetForWarehouse(productMap);
         return this;
     }
 

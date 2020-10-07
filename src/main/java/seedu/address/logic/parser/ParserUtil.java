@@ -9,10 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.product.Product;
+import seedu.address.model.supplier.Address;
+import seedu.address.model.supplier.Email;
+import seedu.address.model.supplier.Name;
+import seedu.address.model.supplier.Phone;
+import seedu.address.model.supplier.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -121,4 +123,30 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String productName} and a {@code Collection<String> tags} into a {@code Product}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code productName} or the given {@code tags} is invalid.
+     */
+    public static Product parseProduct(String productName, Collection<String> tags) throws ParseException {
+        requireNonNull(productName);
+        requireNonNull(tags);
+        Set<Tag> tagSet = parseTags(tags);
+        Name trimmedName = parseName(productName);
+        return new Product(trimmedName, tagSet);
+    }
+
+    /**
+     * Parses a {@code String remark} into an {@code Remark}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Remark parseRemark(String remark) {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+        return new Remark(trimmedRemark);
+    }
+
+
 }
