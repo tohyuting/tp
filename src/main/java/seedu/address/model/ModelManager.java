@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.nio.file.Watchable;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.supplier.Supplier;
+import seedu.address.model.warehouse.Warehouse;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Supplier> filteredSuppliers;
+    private final FilteredList<Warehouse> filteredWarehouses;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +38,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredSuppliers = new FilteredList<>(this.addressBook.getSupplierList());
+        filteredWarehouses = new FilteredList<>(this.addressBook.getWarehouseList());
     }
 
     public ModelManager() {
@@ -146,6 +150,17 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredSuppliers.equals(other.filteredSuppliers);
+    }
+
+    //=========== Filtered Supplier List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Warehouse} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Warehouse> getFilteredWarehouseList() {
+        return filteredWarehouses;
     }
 
 }

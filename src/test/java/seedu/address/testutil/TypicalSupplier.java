@@ -76,6 +76,17 @@ public class TypicalSupplier {
         return ab;
     }
 
+    /**
+     * Returns an {@code AddressBook} with all the typical suppliers.
+     */
+    public static AddressBook getTypicalSupplierOnlyAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Supplier supplier : getTypicalSuppliers()) {
+            ab.addSupplier(supplier);
+        }
+        return ab;
+    }
+
     public static List<Supplier> getTypicalSuppliers() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }

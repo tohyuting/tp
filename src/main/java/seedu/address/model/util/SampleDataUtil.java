@@ -8,13 +8,15 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.product.Product;
+import seedu.address.model.attribute.Address;
 import seedu.address.model.attribute.Email;
 import seedu.address.model.attribute.Name;
 import seedu.address.model.attribute.Phone;
 import seedu.address.model.attribute.Remark;
-import seedu.address.model.supplier.Supplier;
 import seedu.address.model.attribute.Tag;
+import seedu.address.model.product.Product;
+import seedu.address.model.supplier.Supplier;
+import seedu.address.model.warehouse.Warehouse;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -43,10 +45,37 @@ public class SampleDataUtil {
         };
     }
 
+    public static Warehouse[] getSampleWarehouses() {
+        return new Warehouse[] {
+                new Warehouse(new Name("Alex Yeoh warehouse"), new Phone("87438807"),
+                        new Address("21 Lower Kent Ridge Rd, Singapore 119077"), new Remark("long term partner"),
+                        getProductSetForWarehouse(Map.of("Panadol", 10))),
+                new Warehouse(new Name("Bernice Yu warehouse"), new Phone("99272758"),
+                        new Address("21 Lower Kent Ridge Rd, Singapore 119077"), new Remark("long term partner"),
+                        getProductSetForWarehouse(Map.of("Panadol", 20))),
+                new Warehouse(new Name("Charlotte Oliveiro warehouse"), new Phone("93210283"),
+                        new Address("21 Lower Kent Ridge Rd, Singapore 119077"), new Remark("long term partner"),
+                        getProductSetForWarehouse(Map.of("Panadol", 30))),
+                new Warehouse(new Name("David Li warehouse"), new Phone("91031282"),
+                        new Address("21 Lower Kent Ridge Rd, Singapore 119077"), new Remark("long term partner"),
+                        getProductSetForWarehouse(Map.of("Panadol", 100))),
+                new Warehouse(new Name("Irfan Ibrahim warehouse"), new Phone("92492021"),
+                        new Address("21 Lower Kent Ridge Rd, Singapore 119077"),  new Remark("long term partner"),
+                        getProductSetForWarehouse(Map.of("Panadol", 50))),
+                new Warehouse(new Name("Roy Balakrishnan warehouse"), new Phone("92624417"),
+                        new Address("21 Lower Kent Ridge Rd, Singapore 119077"),  new Remark("long term partner"),
+                        getProductSetForWarehouse(Map.of("Panadol", 70))),
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Supplier sampleSupplier : getSampleSuppliers()) {
             sampleAb.addSupplier(sampleSupplier);
+        }
+
+        for (Warehouse sampleWarehouse : getSampleWarehouses()) {
+            sampleAb.addWarehouse(sampleWarehouse);
         }
         return sampleAb;
     }
@@ -84,5 +113,4 @@ public class SampleDataUtil {
         }
         return productSet;
     }
-
 }

@@ -19,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.attribute.Address;
 import seedu.address.model.product.Product;
 import seedu.address.model.attribute.Email;
 import seedu.address.model.attribute.Name;
@@ -220,6 +221,110 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getRemark().equals(e.getRemark())
+                    && getProducts().equals(e.getProducts());
+        }
+    }
+
+    /**
+     * Stores the details to edit the warehouse with. Each non-empty field value will replace the
+     * corresponding field value of the warehouse.
+     */
+    public static class EditWarehouseDescriptor {
+        private Name name;
+        private Phone phone;
+        private Address address;
+        private Remark remark;
+        private Set<Product> products;
+
+        public EditWarehouseDescriptor() {}
+
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code products} is used internally.
+         */
+        public EditWarehouseDescriptor(EditWarehouseDescriptor toCopy) {
+            setName(toCopy.name);
+            setPhone(toCopy.phone);
+            setAddress(toCopy.address);
+            setRemark(toCopy.remark);
+            setProducts(toCopy.products);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(name, phone, address, remark, products);
+        }
+
+        public void setName(Name name) {
+            this.name = name;
+        }
+
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
+        }
+
+        public void setPhone(Phone phone) {
+            this.phone = phone;
+        }
+
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
+        }
+
+        public void setAddress(Address address) {
+            this.address = address;
+        }
+
+        public Optional<Address> getAddress() {
+            return Optional.ofNullable(address);
+        }
+
+        public void setRemark(Remark remark) {
+            this.remark = remark;
+        }
+
+        public Optional<Remark> getRemark() {
+            return Optional.ofNullable(remark);
+        }
+
+        /**
+         * Sets {@code products} to this object's {@code products}.
+         * A defensive copy of {@code products} is used internally.
+         */
+        public void setProducts(Set<Product> products) {
+            this.products = (products != null) ? new HashSet<>(products) : null;
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code products} is null.
+         */
+        public Optional<Set<Product>> getProducts() {
+            return (products != null) ? Optional.of(Collections.unmodifiableSet(products)) : Optional.empty();
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditWarehouseDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditWarehouseDescriptor e = (EditWarehouseDescriptor) other;
+
+            return getName().equals(e.getName())
+                    && getPhone().equals(e.getPhone())
+                    && getAddress().equals(e.getAddress())
                     && getRemark().equals(e.getRemark())
                     && getProducts().equals(e.getProducts());
         }

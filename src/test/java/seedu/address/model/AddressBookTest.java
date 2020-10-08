@@ -6,9 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ANTIBIOTICS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_B;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_B;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalSupplier.ALICE;
 import static seedu.address.testutil.TypicalSupplier.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalSupplier.getTypicalSupplierOnlyAddressBook;
+import static seedu.address.testutil.TypicalWarehouse.A;
+import static seedu.address.testutil.TypicalWarehouse.getTypicalWarehouseOnlyAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,7 +28,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.supplier.exceptions.DuplicateSupplierException;
+import seedu.address.model.warehouse.Warehouse;
+import seedu.address.model.warehouse.exceptions.DuplicateWarehouseException;
 import seedu.address.testutil.SupplierBuilder;
+import seedu.address.testutil.WarehouseBuilder;
 
 public class AddressBookTest {
 
@@ -30,6 +39,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
+        assertEquals(Collections.emptyList(), addressBook.getWarehouseList());
         assertEquals(Collections.emptyList(), addressBook.getSupplierList());
     }
 
@@ -40,6 +50,14 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
+        AddressBook newSupplierData = getTypicalSupplierOnlyAddressBook();
+        addressBook.resetData(newSupplierData);
+        assertEquals(newSupplierData, addressBook);
+
+        AddressBook newWarehouseData = getTypicalWarehouseOnlyAddressBook();
+        addressBook.resetData(newWarehouseData);
+        assertEquals(newWarehouseData, addressBook);
+
         AddressBook newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
@@ -52,9 +70,21 @@ public class AddressBookTest {
                 .withProducts(Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS}))
                 .build();
         List<Supplier> newSuppliers = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newSuppliers);
+        SupplierOnlyAddressBookStub newData = new SupplierOnlyAddressBookStub(newSuppliers);
 
         assertThrows(DuplicateSupplierException.class, () -> addressBook.resetData(newData));
+    }
+
+    @Test
+    public void resetData_withDuplicateWarehouses_throwsDuplicateWarehouseException() {
+        // Two suppliers with the same identity fields
+        Warehouse editedA = new WarehouseBuilder(A).withRemark(VALID_WAREHOUSE_REMARK_B)
+                .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_B, VALID_WAREHOUSE_PRODUCT_QUANTITY_B))
+                .build();
+        List<Warehouse> newWarehouses = Arrays.asList(A, editedA);
+        WarehouseOnlyAddressBookStub newData = new WarehouseOnlyAddressBookStub(newWarehouses);
+
+        assertThrows(DuplicateWarehouseException.class, () -> addressBook.resetData(newData));
     }
 
     @Test
@@ -90,10 +120,11 @@ public class AddressBookTest {
     /**
      * A stub ReadOnlyAddressBook whose suppliers list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class SupplierOnlyAddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Supplier> suppliers = FXCollections.observableArrayList();
+        private final ObservableList<Warehouse> warehouses = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Supplier> suppliers) {
+        SupplierOnlyAddressBookStub(Collection<Supplier> suppliers) {
             this.suppliers.setAll(suppliers);
         }
 
@@ -101,6 +132,32 @@ public class AddressBookTest {
         public ObservableList<Supplier> getSupplierList() {
             return suppliers;
         }
+
+        @Override
+        public ObservableList<Warehouse> getWarehouseList() {
+            return warehouses;
+        }
     }
 
+    /**
+     * A stub ReadOnlyAddressBook whose warehouse list can violate interface constraints.
+     */
+    private static class WarehouseOnlyAddressBookStub implements ReadOnlyAddressBook {
+        private final ObservableList<Supplier> suppliers = FXCollections.observableArrayList();
+        private final ObservableList<Warehouse> warehouses = FXCollections.observableArrayList();
+
+        WarehouseOnlyAddressBookStub(Collection<Warehouse> warehouses) {
+            this.warehouses.setAll(warehouses);
+        }
+
+        @Override
+        public ObservableList<Supplier> getSupplierList() {
+            return suppliers;
+        }
+
+        @Override
+        public ObservableList<Warehouse> getWarehouseList() {
+            return warehouses;
+        }
+    }
 }

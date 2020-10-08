@@ -9,7 +9,7 @@ import seedu.address.model.attribute.Name;
 import seedu.address.model.attribute.Tag;
 
 /**
- * Represents Product to be sold by Suppliers and stored in Warehouse.
+ * Represents Product sold by Suppliers or stored in Warehouse.
  * Guarantees: immutable;
  */
 public class Product {

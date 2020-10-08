@@ -12,6 +12,8 @@ import seedu.address.model.product.Product;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.warehouse.Warehouse;
 
+//INVALID_WAREHOUSE_ADDRESS_DESC
+
 /**
  * A utility class to help with building Warehouse objects.
  */

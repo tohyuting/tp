@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.supplier.Supplier;
+import seedu.address.model.warehouse.Warehouse;
 
 /**
  * The API of the Model component.
@@ -13,6 +14,9 @@ import seedu.address.model.supplier.Supplier;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Supplier> PREDICATE_SHOW_ALL_SUPPLIERS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Warehouse> PREDICATE_SHOW_ALL_WAREHOUSES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -85,4 +89,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredSupplierList(Predicate<Supplier> predicate);
+
+    /** Returns an unmodifiable view of the filtered warehouse list */
+    ObservableList<Warehouse> getFilteredWarehouseList();
 }

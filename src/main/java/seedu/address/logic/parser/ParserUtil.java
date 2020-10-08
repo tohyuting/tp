@@ -9,13 +9,13 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.product.Product;
 import seedu.address.model.attribute.Address;
 import seedu.address.model.attribute.Email;
 import seedu.address.model.attribute.Name;
 import seedu.address.model.attribute.Phone;
 import seedu.address.model.attribute.Remark;
 import seedu.address.model.attribute.Tag;
+import seedu.address.model.product.Product;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -127,6 +127,7 @@ public class ParserUtil {
     /**
      * Parses a {@code String productName} and a {@code Collection<String> tags} into a {@code Product}.
      * Leading and trailing whitespaces will be trimmed.
+     * TODO: change the signature or overload the method.
      *
      * @throws ParseException if the given {@code productName} or the given {@code tags} is invalid.
      */

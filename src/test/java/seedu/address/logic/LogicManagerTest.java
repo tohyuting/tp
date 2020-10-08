@@ -51,6 +51,12 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_validCommand_success() throws Exception {
+        String listCommand = ListCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+    }
+
+    @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
@@ -62,11 +68,7 @@ public class LogicManagerTest {
         assertCommandException(deleteCommand, MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
     }
 
-    @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-    }
+
     /*
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
@@ -92,6 +94,11 @@ public class LogicManagerTest {
     @Test
     public void getFilteredSupplierList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredSupplierList().remove(0));
+    }
+
+    @Test
+    public void getFilteredWarehouseList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredWarehouseList().remove(0));
     }
 
     /**

@@ -118,7 +118,7 @@ public class UniqueWarehouseList implements Iterable<Warehouse> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueWarehouseList // instanceof handles nulls
-                && internalList.equals(((UniqueWarehouseList) other).internalList));
+                    && internalList.equals(((UniqueWarehouseList) other).internalList));
     }
 
     @Override
@@ -132,9 +132,7 @@ public class UniqueWarehouseList implements Iterable<Warehouse> {
     private boolean warehousesAreUnique(List<Warehouse> warehouses) {
         for (int i = 0; i < warehouses.size() - 1; i++) {
             for (int j = i + 1; j < warehouses.size(); j++) {
-                if (warehouses.get(i).isSameWarehouse(warehouses.get(j))) {
-                    return false;
-                }
+                return !warehouses.get(i).isSameWarehouse(warehouses.get(j));
             }
         }
         return true;
