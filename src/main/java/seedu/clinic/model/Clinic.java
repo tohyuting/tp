@@ -1,0 +1,202 @@
+package seedu.clinic.model;
+
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+import java.util.Objects;
+
+import javafx.collections.ObservableList;
+<<<<<<< HEAD:src/main/java/seedu/address/model/AddressBook.java
+import seedu.address.model.supplier.Supplier;
+import seedu.address.model.supplier.UniqueSupplierList;
+import seedu.address.model.warehouse.UniqueWarehouseList;
+import seedu.address.model.warehouse.Warehouse;
+
+/**
+ * Wraps all data at the address-book level
+ * Duplicates are not allowed (by .isSameSupplier and isSameWarehouse comparison)
+=======
+import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.supplier.UniqueSupplierList;
+
+/**
+ * Wraps all data at the clinic level
+ * Duplicates are not allowed (by .isSameSupplier comparison)
+>>>>>>> upstream/master:src/main/java/seedu/clinic/model/Clinic.java
+ */
+public class Clinic implements ReadOnlyClinic {
+
+    private final UniqueSupplierList suppliers;
+    private final UniqueWarehouseList warehouses;
+
+    /*
+     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     *
+     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+     *   among constructors.
+     */
+    {
+        suppliers = new UniqueSupplierList();
+        warehouses = new UniqueWarehouseList();
+    }
+
+    public Clinic() {}
+
+    /**
+<<<<<<< HEAD:src/main/java/seedu/address/model/AddressBook.java
+     * Creates an AddressBook using the Suppliers & Warehouses in the {@code toBeCopied}
+=======
+     * Creates a Clinic using the Suppliers in the {@code toBeCopied}
+>>>>>>> upstream/master:src/main/java/seedu/clinic/model/Clinic.java
+     */
+    public Clinic(ReadOnlyClinic toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
+
+    //// list overwrite operations
+
+    /**
+     * Replaces the contents of the supplier list with {@code suppliers}.
+     * {@code suppliers} must not contain duplicate suppliers.
+     */
+    public void setSuppliers(List<Supplier> suppliers) {
+        this.suppliers.setSuppliers(suppliers);
+    }
+
+    /**
+<<<<<<< HEAD:src/main/java/seedu/address/model/AddressBook.java
+     * Replaces the contents of the warehouse list with {@code warehouses}.
+     * {@code warehouses} must not contain duplicate warehouses.
+     */
+    public void setWarehouses(List<Warehouse> warehouses) {
+        this.warehouses.setWarehouses(warehouses);
+    }
+
+    /**
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+=======
+     * Resets the existing data of this {@code Clinic} with {@code newData}.
+>>>>>>> upstream/master:src/main/java/seedu/clinic/model/Clinic.java
+     */
+    public void resetData(ReadOnlyClinic newData) {
+        requireNonNull(newData);
+
+        setSuppliers(newData.getSupplierList());
+        setWarehouses(newData.getWarehouseList());
+    }
+
+    //// warehouse-level operations
+
+    /**
+     * Returns true if a warehouse with the same identity as {@code warehouse} exists in the address book.
+     */
+    public boolean hasWarehouse(Warehouse warehouse) {
+        requireNonNull(warehouse);
+        return warehouses.contains(warehouse);
+    }
+
+    /**
+     * Adds a warehouse to the address book.
+     * The warehouse must not already exist in the address book.
+     */
+    public void addWarehouse(Warehouse p) {
+        warehouses.add(p);
+    }
+
+    /**
+     * Replaces the given warehouse {@code target} in the list with {@code editedWarehouse}.
+     * {@code target} must exist in the address book.
+     * The warehouse identity of {@code editedWarehouse} must not be the same as another existing warehouse
+     * in the address book.
+     */
+    public void setWarehouse(Warehouse target, Warehouse editedWarehouse) {
+        requireNonNull(editedWarehouse);
+
+        warehouses.setWarehouse(target, editedWarehouse);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeWarehouse(Warehouse key) {
+        warehouses.remove(key);
+    }
+
+    //// supplier-level operations
+
+    /**
+     * Returns true if a supplier with the same identity as {@code supplier} exists in the CLI-nic app.
+     */
+    public boolean hasSupplier(Supplier supplier) {
+        requireNonNull(supplier);
+        return suppliers.contains(supplier);
+    }
+
+    /**
+     * Adds a supplier to the CLI-nic app.
+     * The supplier must not already exist in clinic.
+     */
+    public void addSupplier(Supplier p) {
+        suppliers.add(p);
+    }
+
+    /**
+     * Replaces the given supplier {@code target} in the list with {@code editedSupplier}.
+     * {@code target} must exist in clinic.
+     * The supplier identity of {@code editedSupplier} must not be the same as another existing supplier
+     * in the CLI-nic app.
+     */
+    public void setSupplier(Supplier target, Supplier editedSupplier) {
+        requireNonNull(editedSupplier);
+
+        suppliers.setSupplier(target, editedSupplier);
+    }
+
+    /**
+     * Removes {@code key} from this {@code Clinic}.
+     * {@code key} must exist in clinic.
+     */
+    public void removeSupplier(Supplier key) {
+        suppliers.remove(key);
+    }
+
+    //// util methods
+
+    @Override
+    public String toString() {
+        return suppliers.asUnmodifiableObservableList().size() + " suppliers\n"
+                + warehouses.asUnmodifiableObservableList().size() + " warehouses";
+        // TODO: refine later
+    }
+
+    @Override
+    public ObservableList<Supplier> getSupplierList() {
+        return suppliers.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Warehouse> getWarehouseList() {
+        return warehouses.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+<<<<<<< HEAD:src/main/java/seedu/address/model/AddressBook.java
+                || (other instanceof AddressBook // instanceof handles nulls
+                && warehouses.equals(((AddressBook) other).warehouses)
+                && suppliers.equals(((AddressBook) other).suppliers));
+=======
+                || (other instanceof Clinic // instanceof handles nulls
+                && suppliers.equals(((Clinic) other).suppliers));
+>>>>>>> upstream/master:src/main/java/seedu/clinic/model/Clinic.java
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(suppliers, warehouses);
+    }
+}
