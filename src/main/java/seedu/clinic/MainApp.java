@@ -15,15 +15,15 @@ import seedu.clinic.commons.util.ConfigUtil;
 import seedu.clinic.commons.util.StringUtil;
 import seedu.clinic.logic.Logic;
 import seedu.clinic.logic.LogicManager;
-import seedu.clinic.model.AddressBook;
+import seedu.clinic.model.Clinic;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
-import seedu.clinic.model.ReadOnlyAddressBook;
+import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserPrefs;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.util.SampleDataUtil;
-import seedu.clinic.storage.AddressBookStorage;
-import seedu.clinic.storage.JsonAddressBookStorage;
+import seedu.clinic.storage.ClinicStorage;
+import seedu.clinic.storage.JsonClinicStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;
 import seedu.clinic.storage.Storage;
 import seedu.clinic.storage.StorageManager;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing CLI-nic ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ClinicStorage clinicStorage = new JsonClinicStorage(userPrefs.getClinicFilePath());
+        storage = new StorageManager(clinicStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -69,25 +69,25 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s clinic and {@code userPrefs}. <br>
+     * The data from the sample clinic will be used instead if {@code storage}'s clinic is not found,
+     * or an empty clinic will be used instead if errors occur when reading {@code storage}'s clinic.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyClinic> ClinicOptional;
+        ReadOnlyClinic initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            ClinicOptional = storage.readClinic();
+            if (!ClinicOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Clinic");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = ClinicOptional.orElseGet(SampleDataUtil::getSampleClinic);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Clinic");
+            initialData = new Clinic();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Clinic");
+            initialData = new Clinic();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -151,7 +151,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Clinic");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,13 +167,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Clinic " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping CLI-nic ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

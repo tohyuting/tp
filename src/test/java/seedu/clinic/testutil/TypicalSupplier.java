@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import seedu.clinic.model.AddressBook;
+import seedu.clinic.model.Clinic;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
@@ -66,10 +66,10 @@ public class TypicalSupplier {
     private TypicalSupplier() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical suppliers.
+     * Returns an {@code Clinic} with all the typical suppliers.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static Clinic getTypicalClinic() {
+        Clinic ab = new Clinic();
         for (Supplier supplier : getTypicalSuppliers()) {
             ab.addSupplier(supplier);
         }

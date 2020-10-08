@@ -27,7 +27,7 @@ import seedu.clinic.model.supplier.Remark;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
- * Edits the details of an existing supplier in the clinic.
+ * Edits the details of an existing supplier in the CLI-nic app.
  */
 public class EditCommand extends Command {
 

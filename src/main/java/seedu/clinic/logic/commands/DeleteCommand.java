@@ -11,7 +11,7 @@ import seedu.clinic.model.Model;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
- * Deletes a supplier identified using it's displayed index from the clinic.
+ * Deletes a supplier identified using it's displayed index from the CLI-nic app.
  */
 public class DeleteCommand extends Command {
 
