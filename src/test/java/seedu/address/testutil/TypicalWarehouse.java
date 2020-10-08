@@ -27,36 +27,36 @@ import seedu.address.model.warehouse.Warehouse;
 public class TypicalWarehouse {
 
     public static final Warehouse ALICE = new WarehouseBuilder().withName("Warehouse Alice")
-            .withRemark("Warehouse 1").withAddress("alice@example.com")
+            .withRemark("Warehouse 1").withAddress("alice address")
             .withPhone("94351253")
             .withProducts(Map.of("Panadol", 100)).build();
     public static final Warehouse BENSON = new WarehouseBuilder().withName("Warehouse Benson")
-            .withRemark("Warehouse 2").withAddress("benson@example.com")
+            .withRemark("Warehouse 2").withAddress("benson address")
             .withPhone("94351453")
             .withProducts(Map.of("Panadol", 200)).build();
     public static final Warehouse CARL = new WarehouseBuilder().withName("Warehouse Carl")
-            .withRemark("Warehouse 3").withAddress("carl@example.com")
+            .withRemark("Warehouse 3").withAddress("carl address")
             .withPhone("94361253").build();
     public static final Warehouse DANIEL = new WarehouseBuilder().withName("Warehouse Daniel")
-            .withRemark("Warehouse 4").withAddress("daniel@example.com")
+            .withRemark("Warehouse 4").withAddress("daniel address")
             .withPhone("94351233")
             .withProducts(Map.of("Panadol", 1)).build();
     public static final Warehouse ELLE = new WarehouseBuilder().withName("Warehouse Elle")
-            .withRemark("Warehouse 5").withAddress("elle@example.com")
+            .withRemark("Warehouse 5").withAddress("elle address")
             .withPhone("94651253").build();
     public static final Warehouse FIONA = new WarehouseBuilder().withName("Warehouse Fiona")
-            .withRemark("Warehouse 10").withAddress("fiona@example.com")
+            .withRemark("Warehouse 10").withAddress("fiona address")
             .withPhone("92351253")
             .withProducts(Map.of("Panadol", 1000)).build();
     public static final Warehouse GEORGE = new WarehouseBuilder().withName("Warehouse George")
-            .withRemark("Warehouse to be removed").withAddress("george@example.com")
+            .withRemark("Warehouse to be removed").withAddress("george address")
             .withPhone("84351253")
             .withProducts(Map.of("Panadol", 50)).build();
 
     // Manually added
-    public static final Warehouse HOON = new WarehouseBuilder().withName("Warehouse Hoon").withPhone("8482424")
+    public static final Warehouse HENRY = new WarehouseBuilder().withName("Warehouse Henry").withPhone("8482424")
             .withAddress("some address").withRemark("small warehouse").build();
-    public static final Warehouse IDA = new WarehouseBuilder().withName("Ida prprpr").withPhone("8482131")
+    public static final Warehouse IRVIN = new WarehouseBuilder().withName("Irvin's Warehouse").withPhone("8482131")
             .withAddress("hans@35 prince george.").withRemark("big warehouse").build();
 
     // Manually added - Supplier's details found in {@code CommandTestUtil}

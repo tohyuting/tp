@@ -1,0 +1,62 @@
+{
+  "_comment": "AddressBook save file which contains the same supplier values as in TypicalSuppliers#getTypicalAddressBook()",
+  "suppliers" : [ ],
+  "warehouses": [ {
+    "name" : "Warehouse Alice",
+    "phone" : "94351253",
+    "address" : "alice address",
+    "remark" : "Warehouse 1",
+    "products": [ {
+      "name": "Panadol",
+      "quantity": 100
+    } ]
+  }, {
+    "name" : "Warehouse Benson",
+    "phone" : "94351453",
+    "address" : "benson address",
+    "remark" : "Warehouse 2",
+    "products": [ {
+      "name": "Panadol",
+      "quantity": 200
+    }]
+  }, {
+    "name" : "Warehouse Carl",
+    "phone" : "94361253",
+    "address" : "carl address",
+    "remark" : "Warehouse 3",
+    "products" : [ ]
+  }, {
+    "name" : "Warehouse Daniel",
+    "phone" : "94351233",
+    "address" : "daniel address",
+    "remark" : "Warehouse 4",
+    "products": [ {
+      "name": "Panadol",
+      "quantity": 1
+    }]
+  }, {
+    "name" : "Warehouse Elle",
+    "phone" : "94651253",
+    "address" : "elle address",
+    "remark" : "Warehouse 5",
+    "products" : [ ]
+  }, {
+    "name" : "Warehouse Fiona",
+    "phone" : "92351253",
+    "address" : "fiona address",
+    "remark" : "Warehouse 10",
+    "products" : [ {
+      "name": "Panadol",
+      "quantity": 1000
+    } ]
+  }, {
+    "name" : "Warehouse George",
+    "phone" : "84351253",
+    "address" : "george address",
+    "remark" : "Warehouse to be removed",
+    "products" : [ {
+      "name": "Panadol",
+      "quantity": 50
+    } ]
+  } ]
+}

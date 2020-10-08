@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.nio.file.Watchable;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -99,8 +98,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasWarehouse(Warehouse warehouse) {
+        requireNonNull(warehouse);
+        return addressBook.hasWarehouse(warehouse);
+    }
+
+    @Override
     public void deleteSupplier(Supplier target) {
         addressBook.removeSupplier(target);
+    }
+
+    @Override
+    public void deleteWarehouse(Warehouse target) {
+        addressBook.removeWarehouse(target);
     }
 
     @Override
@@ -110,10 +120,23 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addWarehouse(Warehouse warehouse) {
+        addressBook.addWarehouse(warehouse);
+        updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+    }
+
+    @Override
     public void setSupplier(Supplier target, Supplier editedSupplier) {
         requireAllNonNull(target, editedSupplier);
 
         addressBook.setSupplier(target, editedSupplier);
+    }
+
+    @Override
+    public void setWarehouse(Warehouse target, Warehouse editedWarehouse) {
+        requireAllNonNull(target, editedWarehouse);
+
+        addressBook.setWarehouse(target, editedWarehouse);
     }
 
     //=========== Filtered Supplier List Accessors =============================================================
@@ -133,6 +156,24 @@ public class ModelManager implements Model {
         filteredSuppliers.setPredicate(predicate);
     }
 
+    //=========== Filtered Warehouse List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Warehouse} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Warehouse> getFilteredWarehouseList() {
+        return filteredWarehouses;
+    }
+
+
+    @Override
+    public void updateFilteredWarehouseList(Predicate<Warehouse> predicate) {
+        requireNonNull(predicate);
+        filteredWarehouses.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -149,18 +190,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredSuppliers.equals(other.filteredSuppliers);
+                && filteredSuppliers.equals(other.filteredSuppliers)
+                && filteredWarehouses.equals(other.filteredWarehouses);
     }
 
-    //=========== Filtered Supplier List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Warehouse} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Warehouse> getFilteredWarehouseList() {
-        return filteredWarehouses;
-    }
 
 }

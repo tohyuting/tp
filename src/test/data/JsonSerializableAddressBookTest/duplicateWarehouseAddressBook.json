@@ -1,0 +1,22 @@
+{
+  "suppliers" : [ ],
+  "warehouses": [ {
+    "name" : "Alice Pauline Ltd",
+    "phone" : "94351253",
+    "address" : "alice@example.com",
+    "remark" : "long term supplier",
+    "products": [ {
+      "name": "Panadol",
+      "quantity": 10
+    } ]
+  }, {
+    "name" : "Alice Pauline Ltd",
+    "phone" : "98765432",
+    "address" : "johnd@example.com",
+    "remark" : "trusted supplier",
+    "products": [ {
+      "name": "Panadol",
+      "quantity": 20
+    }]
+  } ]
+}

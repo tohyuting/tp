@@ -60,11 +60,11 @@ public class UniqueWarehouseList implements Iterable<Warehouse> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new SupplierNotFoundException();
+            throw new WarehouseNotFoundException();
         }
 
         if (!target.isSameWarehouse(editedWarehouse) && contains(editedWarehouse)) {
-            throw new DuplicateSupplierException();
+            throw new DuplicateWarehouseException();
         }
 
         internalList.set(index, editedWarehouse);

@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalSupplier.ALICE;
 import static seedu.address.testutil.TypicalSupplier.BENSON;
+import static seedu.address.testutil.TypicalWarehouse.A;
+import static seedu.address.testutil.TypicalWarehouse.B;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.attribute.NameContainsKeywordsPredicateForSupplier;
+import seedu.address.model.attribute.NameContainsKeywordsPredicateForWarehouse;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -78,8 +82,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasWarehouse_nullWarehouse_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasWarehouse(null));
+    }
+
+    @Test
     public void hasSupplier_supplierNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasSupplier(ALICE));
+    }
+
+    @Test
+    public void hasWarehouse_warehouseNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasWarehouse(A));
     }
 
     @Test
@@ -89,13 +103,30 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasWarehouse_warehouseInAddressBook_returnsTrue() {
+        modelManager.addWarehouse(A);
+        assertTrue(modelManager.hasWarehouse(A));
+    }
+
+    @Test
     public void getFilteredSupplierList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredSupplierList().remove(0));
     }
 
     @Test
+    public void getFilteredWarehouseList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class,
+                () -> modelManager.getFilteredWarehouseList().remove(0));
+    }
+
+    @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withSupplier(ALICE).withSupplier(BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder()
+                .withSupplier(ALICE)
+                .withSupplier(BENSON)
+                .withWarehouse(A)
+                .withWarehouse(B)
+                .build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -116,14 +147,21 @@ public class ModelManagerTest {
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
-        // different filteredList -> returns false
+        // different filteredSupplierList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         String[] query = Arrays.copyOfRange(keywords, 0, 2);
         modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(Arrays.asList(query)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
+        // different filteredWarehouseList -> returns false
+        keywords = A.getName().fullName.split("\\s+");
+        query = Arrays.copyOfRange(keywords, 0, 2);
+        modelManager.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(query)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+        modelManager.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

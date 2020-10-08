@@ -14,6 +14,9 @@ import seedu.address.model.attribute.Tag;
  */
 public class Product {
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "Quantity should only be non-negative";
+
     private final Name productName;
     private final int productQuantity;
     private final Set<Tag> productTags = new HashSet<>();
@@ -120,5 +123,14 @@ public class Product {
                 .append(getProductQuantity())
                 .append(" left");
         return builder.toString();
+    }
+
+    /**
+     * Examine if a quantity is a valid product quantity.
+     * @param productQuantity the amount of a product entered.
+     * @return True if the number entered is valid, else False.
+     */
+    public static boolean isValidQuantity(int productQuantity) {
+        return productQuantity >= 0;
     }
 }

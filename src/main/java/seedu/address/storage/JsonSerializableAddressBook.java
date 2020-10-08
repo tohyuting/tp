@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.supplier.Supplier;
+import seedu.address.model.warehouse.Warehouse;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -20,15 +21,19 @@ import seedu.address.model.supplier.Supplier;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "suppliers list contains duplicate supplier(s).";
+    public static final String MESSAGE_DUPLICATE_WAREHOUSE = "warehouses list contains duplicate warehouse(s).";
 
     private final List<JsonAdaptedSupplier> suppliers = new ArrayList<>();
+    private final List<JsonAdaptedWarehouse> warehouses = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given suppliers.
+     * Constructs a {@code JsonSerializableAddressBook} with the given suppliers and warehouses.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("suppliers") List<JsonAdaptedSupplier> suppliers) {
+    public JsonSerializableAddressBook(@JsonProperty("suppliers") List<JsonAdaptedSupplier> suppliers,
+                                       @JsonProperty("warehouses") List<JsonAdaptedWarehouse> warehouses) {
         this.suppliers.addAll(suppliers);
+        this.warehouses.addAll(warehouses);
     }
 
     /**
@@ -37,7 +42,10 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        suppliers.addAll(source.getSupplierList().stream().map(JsonAdaptedSupplier::new).collect(Collectors.toList()));
+        suppliers.addAll(source.getSupplierList().stream().map(JsonAdaptedSupplier::new)
+                .collect(Collectors.toList()));
+        warehouses.addAll(source.getWarehouseList().stream().map(JsonAdaptedWarehouse::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -54,6 +62,15 @@ class JsonSerializableAddressBook {
             }
             addressBook.addSupplier(supplier);
         }
+
+        for (JsonAdaptedWarehouse jsonAdaptedWarehouse : warehouses) {
+            Warehouse warehouse = jsonAdaptedWarehouse.toModelType();
+            if (addressBook.hasWarehouse(warehouse)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_WAREHOUSE);
+            }
+            addressBook.addWarehouse(warehouse);
+        }
+
         return addressBook;
     }
 

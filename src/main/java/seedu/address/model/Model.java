@@ -90,6 +90,38 @@ public interface Model {
      */
     void updateFilteredSupplierList(Predicate<Supplier> predicate);
 
+    //
+    /**
+     * Returns true if a warehouse with the same identity as {@code warehouse} exists in the address book.
+     */
+    boolean hasWarehouse(Warehouse warehouse);
+
+    /**
+     * Deletes the given warehouse.
+     * The warehouse must exist in the address book.
+     */
+    void deleteWarehouse(Warehouse target);
+
+    /**
+     * Adds the given warehouse.
+     * {@code warehouse} must not already exist in the address book.
+     */
+    void addWarehouse(Warehouse warehouse);
+
+    /**
+     * Replaces the given warehouse {@code target} with {@code editedWarehouse}.
+     * {@code target} must exist in the address book.
+     * The warehouse identity of {@code editedWarehouse} must not be the same as another existing warehouse
+     * in the address book.
+     */
+    void setWarehouse(Warehouse target, Warehouse editedWarehouse);
+
     /** Returns an unmodifiable view of the filtered warehouse list */
     ObservableList<Warehouse> getFilteredWarehouseList();
+
+    /**
+     * Updates the filter of the filtered warehouse list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredWarehouseList(Predicate<Warehouse> predicate);
 }

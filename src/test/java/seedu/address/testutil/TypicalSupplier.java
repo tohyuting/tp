@@ -66,7 +66,7 @@ public class TypicalSupplier {
     private TypicalSupplier() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical suppliers.
+     * Returns an {@code AddressBook} with all the typical suppliers and warehouses.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();

@@ -93,14 +93,30 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasWarehouse_nullWarehouse_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasWarehouse(null));
+    }
+
+    @Test
     public void hasSupplier_supplierNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasSupplier(ALICE));
+    }
+
+    @Test
+    public void hasWarehouse_warehouseNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasWarehouse(A));
     }
 
     @Test
     public void hasSupplier_supplierInAddressBook_returnsTrue() {
         addressBook.addSupplier(ALICE);
         assertTrue(addressBook.hasSupplier(ALICE));
+    }
+
+    @Test
+    public void hasWarehouse_warehouseInAddressBook_returnsTrue() {
+        addressBook.addWarehouse(A);
+        assertTrue(addressBook.hasWarehouse(A));
     }
 
     @Test
@@ -113,8 +129,22 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasWarehouse_warehouseWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addWarehouse(A);
+        Warehouse editedA = new WarehouseBuilder(A).withRemark(VALID_REMARK_BOB)
+                .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_B, VALID_WAREHOUSE_PRODUCT_QUANTITY_B))
+                .build();
+        assertTrue(addressBook.hasWarehouse(editedA));
+    }
+
+    @Test
     public void getSupplierList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getSupplierList().remove(0));
+    }
+
+    @Test
+    public void getWarehouseList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getWarehouseList().remove(0));
     }
 
     /**
