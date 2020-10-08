@@ -3,7 +3,7 @@ package seedu.clinic.logic.commands;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.logic.commands.CommandTestUtil.showSupplierAtIndex;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalAddressBook;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalClinic(), new UserPrefs());
+        expectedModel = new ModelManager(model.getClinic(), new UserPrefs());
     }
 
     @Test

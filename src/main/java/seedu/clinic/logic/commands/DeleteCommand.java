@@ -11,7 +11,7 @@ import seedu.clinic.model.Model;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
- * Deletes a supplier identified using it's displayed index from the address book.
+ * Deletes a supplier identified using it's displayed index from the clinic.
  */
 public class DeleteCommand extends Command {
 

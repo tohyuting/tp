@@ -12,13 +12,13 @@ import seedu.clinic.model.Model;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
- * Adds a supplier to the address book.
+ * Adds a supplier to the clinic.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a supplier to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a supplier to the clinic. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -34,7 +34,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New supplier added: %1$s";
-    public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in the clinic";
 
     private final Supplier toAdd;
 

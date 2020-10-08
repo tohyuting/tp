@@ -6,7 +6,7 @@ import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
 import seedu.clinic.model.Model;
 
 /**
- * Lists all suppliers in the address book to the user.
+ * Lists all suppliers in the clinic to the user.
  */
 public class ListCommand extends Command {
 

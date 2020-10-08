@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.clinic.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -14,14 +14,14 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.testutil.SupplierBuilder;
+import seedu.clinic.commons.core.GuiSettings;
+import seedu.clinic.logic.commands.exceptions.CommandException;
+import seedu.clinic.model.Clinic;
+import seedu.clinic.model.Model;
+import seedu.clinic.model.ReadOnlyClinic;
+import seedu.clinic.model.ReadOnlyUserPrefs;
+import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.testutil.SupplierBuilder;
  */
 
 public class AddCommandTest {
@@ -103,12 +103,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getClinicFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setClinicFilePath(Path clinicFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -118,12 +118,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setClinic(ReadOnlyClinic newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyClinic getClinic() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -194,8 +194,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyClinic getClinic() {
+            return new Clinic();
         }
     }
      */

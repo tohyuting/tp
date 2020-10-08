@@ -2,7 +2,7 @@ package seedu.clinic.logic.commands;
 
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalAddressBook;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,14 +22,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalClinic(), new UserPrefs());
     }
 
     @Test
     public void execute_newSupplier_success() {
         Supplier validSupplier = new SupplierBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs());
         expectedModel.addSupplier(validSupplier);
 
         assertCommandSuccess(new AddCommand(validSupplier), model,
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateSupplier_throwsCommandException() {
-        Supplier supplierInList = model.getAddressBook().getSupplierList().get(0);
+        Supplier supplierInList = model.getClinic().getSupplierList().get(0);
         assertCommandFailure(new AddCommand(supplierInList), model, AddCommand.MESSAGE_DUPLICATE_SUPPLIER);
     }
 

@@ -7,7 +7,7 @@ import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.logic.commands.CommandTestUtil.showSupplierAtIndex;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalAddressBook;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ import seedu.clinic.model.supplier.Supplier;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_SUPPLIER_SUCCESS, supplierToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getClinic(), new UserPrefs());
         expectedModel.deleteSupplier(supplierToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_SUPPLIER_SUCCESS, supplierToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs());
         expectedModel.deleteSupplier(supplierToDelete);
         showNoSupplier(expectedModel);
 
@@ -68,8 +68,8 @@ public class DeleteCommandTest {
         showSupplierAtIndex(model, INDEX_FIRST_SUPPLIER);
 
         Index outOfBoundIndex = INDEX_SECOND_SUPPLIER;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getSupplierList().size());
+        // ensures that outOfBoundIndex is still in bounds of clinic list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getClinic().getSupplierList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

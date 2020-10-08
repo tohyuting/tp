@@ -18,7 +18,7 @@ import java.util.Map;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.commands.exceptions.CommandException;
-import seedu.clinic.model.AddressBook;
+import seedu.clinic.model.Clinic;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
 import seedu.clinic.model.supplier.Supplier;
@@ -128,21 +128,21 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered supplier list and selected supplier in {@code actualModel} remain unchanged
+     * - the clinic, filtered supplier list and selected supplier in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        Clinic expectedClinic = new Clinic(actualModel.getClinic());
         List<Supplier> expectedFilteredList = new ArrayList<>(actualModel.getFilteredSupplierList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedClinic, actualModel.getClinic());
         assertEquals(expectedFilteredList, actualModel.getFilteredSupplierList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the supplier at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s clinic.
      */
     public static void showSupplierAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredSupplierList().size());

@@ -7,7 +7,7 @@ import seedu.clinic.model.Model;
 import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all suppliers in address book whose name contains any of the argument keywords.
+ * Finds and lists all suppliers in clinic whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
