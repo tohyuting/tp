@@ -4,23 +4,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-<<<<<<< HEAD:src/test/java/seedu/address/testutil/WarehouseBuilder.java
-import seedu.address.model.attribute.Address;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-import seedu.address.model.product.Product;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.model.warehouse.Warehouse;
-=======
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Address;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
 import seedu.clinic.model.util.SampleDataUtil;
-import seedu.clinic.model.warehouse.Remark;
 import seedu.clinic.model.warehouse.Warehouse;
->>>>>>> upstream/master:src/test/java/seedu/clinic/testutil/WarehouseBuilder.java
 
 //INVALID_WAREHOUSE_ADDRESS_DESC
 

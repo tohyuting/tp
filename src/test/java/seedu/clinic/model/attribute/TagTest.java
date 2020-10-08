@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/test/java/seedu/clinic/model/attribute/TagTest.java
-package seedu.address.model.attribute;
-=======
-package seedu.clinic.model.tag;
->>>>>>> upstream/master:src/test/java/seedu/clinic/model/tag/TagTest.java
+package seedu.clinic.model.attribute;
 
 import static seedu.clinic.testutil.Assert.assertThrows;
 

@@ -15,29 +15,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/CommandTestUtil.java
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand.EditSupplierDescriptor;
-import seedu.address.logic.commands.EditCommand.EditWarehouseDescriptor;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.attribute.NameContainsKeywordsPredicateForSupplier;
-import seedu.address.model.attribute.NameContainsKeywordsPredicateForWarehouse;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.model.warehouse.Warehouse;
-import seedu.address.testutil.EditSupplierDescriptorBuilder;
-import seedu.address.testutil.EditWarehouseDescriptiorBuilder;
-=======
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
+import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.Model;
-import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
 import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.warehouse.Warehouse;
 import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
->>>>>>> upstream/master:src/test/java/seedu/clinic/logic/commands/CommandTestUtil.java
+import seedu.clinic.testutil.EditWarehouseDescriptiorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -154,43 +143,25 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/CommandTestUtil.java
-     * - the address book, filtered supplier list and selected supplier,
+     * - the clinic, filtered supplier list and selected supplier,
      * - filtered warehouse list and selected warehouse in {@code actualModel} remain unchanged
-=======
-     * - the clinic, filtered supplier list and selected supplier in {@code actualModel} remain unchanged
->>>>>>> upstream/master:src/test/java/seedu/clinic/logic/commands/CommandTestUtil.java
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/CommandTestUtil.java
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        Clinic expectedClinic = new Clinic(actualModel.getClinic());
         List<Supplier> expectedFilteredSupplierList = new ArrayList<>(actualModel.getFilteredSupplierList());
         List<Warehouse> expectedFilteredWarehouseList = new ArrayList<>(actualModel.getFilteredWarehouseList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedClinic, actualModel.getClinic());
         assertEquals(expectedFilteredSupplierList, actualModel.getFilteredSupplierList());
         assertEquals(expectedFilteredWarehouseList, actualModel.getFilteredWarehouseList());
-=======
-        Clinic expectedClinic = new Clinic(actualModel.getClinic());
-        List<Supplier> expectedFilteredList = new ArrayList<>(actualModel.getFilteredSupplierList());
-
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedClinic, actualModel.getClinic());
-        assertEquals(expectedFilteredList, actualModel.getFilteredSupplierList());
->>>>>>> upstream/master:src/test/java/seedu/clinic/logic/commands/CommandTestUtil.java
     }
 
     /**
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/CommandTestUtil.java
      * Updates {@code model}'s filtered supplier list to show only the supplier at the given {@code targetIndex} in the
-     * {@code model}'s address book.
-=======
-     * Updates {@code model}'s filtered list to show only the supplier at the given {@code targetIndex} in the
      * {@code model}'s clinic.
->>>>>>> upstream/master:src/test/java/seedu/clinic/logic/commands/CommandTestUtil.java
      */
     public static void showSupplierAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredSupplierList().size());
@@ -204,7 +175,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered warehouse list to show only the warehouse at
-     * the given {@code targetIndex} in the {@code model}'s address book.
+     * the given {@code targetIndex} in the {@code model}'s clinic.
      */
     public static void showWarehouseAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredWarehouseList().size());

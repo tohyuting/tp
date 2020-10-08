@@ -1,14 +1,14 @@
-package seedu.address.model.warehouse;
+package seedu.clinic.model.warehouse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_TAG_HEADACHE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_B;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalWarehouse.A;
-import static seedu.address.testutil.TypicalWarehouse.B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_TAG_HEADACHE;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_B;
+import static seedu.clinic.testutil.Assert.assertThrows;
+import static seedu.clinic.testutil.TypicalWarehouse.A;
+import static seedu.clinic.testutil.TypicalWarehouse.B;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,9 +16,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.model.warehouse.exceptions.DuplicateWarehouseException;
-import seedu.address.model.warehouse.exceptions.WarehouseNotFoundException;
-import seedu.address.testutil.WarehouseBuilder;
+
+import seedu.clinic.model.warehouse.exceptions.DuplicateWarehouseException;
+import seedu.clinic.model.warehouse.exceptions.WarehouseNotFoundException;
+import seedu.clinic.testutil.WarehouseBuilder;
 
 public class UniqueWarehouseListTest {
 
@@ -162,8 +163,8 @@ public class UniqueWarehouseListTest {
     @Test
     public void setWarehouses_listWithDuplicateWarehouses_throwsDuplicateWarehouseException() {
         List<Warehouse> listWithDuplicateWarehouses = Arrays.asList(A, A);
-        assertThrows(DuplicateWarehouseException.class,
-                () -> uniqueWarehouseList.setWarehouses(listWithDuplicateWarehouses));
+        assertThrows(DuplicateWarehouseException.class, ()
+            -> uniqueWarehouseList.setWarehouses(listWithDuplicateWarehouses));
     }
 
     @Test

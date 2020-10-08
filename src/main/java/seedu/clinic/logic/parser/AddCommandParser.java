@@ -12,25 +12,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/AddCommandParser.java
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.product.Product;
-import seedu.address.model.attribute.Email;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-import seedu.address.model.supplier.Supplier;
-=======
 import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Email;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
-import seedu.clinic.model.supplier.Remark;
 import seedu.clinic.model.supplier.Supplier;
->>>>>>> upstream/master:src/main/java/seedu/clinic/logic/parser/AddCommandParser.java
 
 /**
  * Parses input arguments and creates a new AddCommand object

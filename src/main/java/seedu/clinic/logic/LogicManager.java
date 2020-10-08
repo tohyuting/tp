@@ -5,20 +5,6 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-<<<<<<< HEAD:src/main/java/seedu/address/logic/LogicManager.java
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.model.warehouse.Warehouse;
-import seedu.address.storage.Storage;
-=======
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.logic.commands.Command;
@@ -29,8 +15,8 @@ import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.warehouse.Warehouse;
 import seedu.clinic.storage.Storage;
->>>>>>> upstream/master:src/main/java/seedu/clinic/logic/LogicManager.java
 
 /**
  * The main LogicManager of the app.
@@ -80,18 +66,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-<<<<<<< HEAD:src/main/java/seedu/address/logic/LogicManager.java
     public ObservableList<Warehouse> getFilteredWarehouseList() {
         return model.getFilteredWarehouseList();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
-=======
     public Path getClinicFilePath() {
         return model.getClinicFilePath();
->>>>>>> upstream/master:src/main/java/seedu/clinic/logic/LogicManager.java
     }
 
     @Override

@@ -4,14 +4,9 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-<<<<<<< HEAD:src/main/java/seedu/address/model/Model.java
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.model.warehouse.Warehouse;
-=======
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.model.supplier.Supplier;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/Model.java
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * The API of the Model component.
@@ -97,27 +92,27 @@ public interface Model {
 
     //
     /**
-     * Returns true if a warehouse with the same identity as {@code warehouse} exists in the address book.
+     * Returns true if a warehouse with the same identity as {@code warehouse} exists in the clinic app.
      */
     boolean hasWarehouse(Warehouse warehouse);
 
     /**
      * Deletes the given warehouse.
-     * The warehouse must exist in the address book.
+     * The warehouse must exist in the clinic app.
      */
     void deleteWarehouse(Warehouse target);
 
     /**
      * Adds the given warehouse.
-     * {@code warehouse} must not already exist in the address book.
+     * {@code warehouse} must not already exist in the clinic app.
      */
     void addWarehouse(Warehouse warehouse);
 
     /**
      * Replaces the given warehouse {@code target} with {@code editedWarehouse}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the clinic app.
      * The warehouse identity of {@code editedWarehouse} must not be the same as another existing warehouse
-     * in the address book.
+     * in the clinic app.
      */
     void setWarehouse(Warehouse target, Warehouse editedWarehouse);
 

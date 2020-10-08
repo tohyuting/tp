@@ -9,23 +9,13 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonAdaptedSupplier.java
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.product.Product;
-import seedu.address.model.attribute.Email;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-import seedu.address.model.supplier.Supplier;
-=======
 import seedu.clinic.commons.exceptions.IllegalValueException;
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Email;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
-import seedu.clinic.model.supplier.Remark;
 import seedu.clinic.model.supplier.Supplier;
->>>>>>> upstream/master:src/main/java/seedu/clinic/storage/JsonAdaptedSupplier.java
 
 /**
  * Jackson-friendly version of {@link Supplier}.

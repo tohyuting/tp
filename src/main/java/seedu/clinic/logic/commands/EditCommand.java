@@ -14,32 +14,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/EditCommand.java
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.attribute.Address;
-import seedu.address.model.product.Product;
-import seedu.address.model.attribute.Email;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-import seedu.address.model.supplier.Supplier;
-=======
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.commons.util.CollectionUtil;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.model.Model;
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Email;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
-import seedu.clinic.model.supplier.Remark;
 import seedu.clinic.model.supplier.Supplier;
->>>>>>> upstream/master:src/main/java/seedu/clinic/logic/commands/EditCommand.java
+
 
 /**
  * Edits the details of an existing supplier in the CLI-nic app.

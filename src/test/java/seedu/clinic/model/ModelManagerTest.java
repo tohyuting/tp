@@ -3,20 +3,13 @@ package seedu.clinic.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-<<<<<<< HEAD:src/test/java/seedu/address/model/ModelManagerTest.java
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalSupplier.ALICE;
-import static seedu.address.testutil.TypicalSupplier.BENSON;
-import static seedu.address.testutil.TypicalWarehouse.A;
-import static seedu.address.testutil.TypicalWarehouse.B;
-=======
 import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
+import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalSupplier.ALICE;
 import static seedu.clinic.testutil.TypicalSupplier.BENSON;
->>>>>>> upstream/master:src/test/java/seedu/clinic/model/ModelManagerTest.java
+import static seedu.clinic.testutil.TypicalWarehouse.A;
+import static seedu.clinic.testutil.TypicalWarehouse.B;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,16 +17,10 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/model/ModelManagerTest.java
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.attribute.NameContainsKeywordsPredicateForSupplier;
-import seedu.address.model.attribute.NameContainsKeywordsPredicateForWarehouse;
-import seedu.address.testutil.AddressBookBuilder;
-=======
 import seedu.clinic.commons.core.GuiSettings;
-import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
 import seedu.clinic.testutil.ClinicBuilder;
->>>>>>> upstream/master:src/test/java/seedu/clinic/model/ModelManagerTest.java
 
 public class ModelManagerTest {
 
@@ -95,36 +82,28 @@ public class ModelManagerTest {
     }
 
     @Test
-<<<<<<< HEAD:src/test/java/seedu/address/model/ModelManagerTest.java
     public void hasWarehouse_nullWarehouse_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasWarehouse(null));
     }
 
     @Test
-    public void hasSupplier_supplierNotInAddressBook_returnsFalse() {
-=======
     public void hasSupplier_supplierNotInClinic_returnsFalse() {
->>>>>>> upstream/master:src/test/java/seedu/clinic/model/ModelManagerTest.java
         assertFalse(modelManager.hasSupplier(ALICE));
     }
 
     @Test
-<<<<<<< HEAD:src/test/java/seedu/address/model/ModelManagerTest.java
-    public void hasWarehouse_warehouseNotInAddressBook_returnsFalse() {
+    public void hasWarehouse_warehouseNotInClinic_returnsFalse() {
         assertFalse(modelManager.hasWarehouse(A));
     }
 
     @Test
-    public void hasSupplier_supplierInAddressBook_returnsTrue() {
-=======
     public void hasSupplier_supplierInClinic_returnsTrue() {
->>>>>>> upstream/master:src/test/java/seedu/clinic/model/ModelManagerTest.java
         modelManager.addSupplier(ALICE);
         assertTrue(modelManager.hasSupplier(ALICE));
     }
 
     @Test
-    public void hasWarehouse_warehouseInAddressBook_returnsTrue() {
+    public void hasWarehouse_warehouseInClinic_returnsTrue() {
         modelManager.addWarehouse(A);
         assertTrue(modelManager.hasWarehouse(A));
     }
@@ -136,24 +115,19 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredWarehouseList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class,
-                () -> modelManager.getFilteredWarehouseList().remove(0));
+        assertThrows(UnsupportedOperationException.class, ()
+            -> modelManager.getFilteredWarehouseList().remove(0));
     }
 
     @Test
     public void equals() {
-<<<<<<< HEAD:src/test/java/seedu/address/model/ModelManagerTest.java
-        AddressBook addressBook = new AddressBookBuilder()
+        Clinic clinic = new ClinicBuilder()
                 .withSupplier(ALICE)
                 .withSupplier(BENSON)
                 .withWarehouse(A)
                 .withWarehouse(B)
                 .build();
-        AddressBook differentAddressBook = new AddressBook();
-=======
-        Clinic clinic = new ClinicBuilder().withSupplier(ALICE).withSupplier(BENSON).build();
         Clinic differentClinic = new Clinic();
->>>>>>> upstream/master:src/test/java/seedu/clinic/model/ModelManagerTest.java
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
@@ -176,19 +150,14 @@ public class ModelManagerTest {
         // different filteredSupplierList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         String[] query = Arrays.copyOfRange(keywords, 0, 2);
-<<<<<<< HEAD:src/test/java/seedu/address/model/ModelManagerTest.java
         modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(Arrays.asList(query)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs)));
 
         // different filteredWarehouseList -> returns false
         keywords = A.getName().fullName.split("\\s+");
         query = Arrays.copyOfRange(keywords, 0, 2);
         modelManager.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(query)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
-=======
-        modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicate(Arrays.asList(query)));
         assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs)));
->>>>>>> upstream/master:src/test/java/seedu/clinic/model/ModelManagerTest.java
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);

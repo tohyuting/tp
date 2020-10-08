@@ -1,18 +1,10 @@
-<<<<<<< HEAD:src/main/java/seedu/clinic/model/attribute/Phone.java
-package seedu.address.model.attribute;
-=======
-package seedu.clinic.model.supplier;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/supplier/Phone.java
+package seedu.clinic.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
 /**
-<<<<<<< HEAD:src/main/java/seedu/clinic/model/attribute/Phone.java
  * Represents a phone number for the supplier/warehouse/product in CLI-nic app.
-=======
- * Represents a Supplier's phone number in the CLI-nic app.
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/supplier/Phone.java
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {

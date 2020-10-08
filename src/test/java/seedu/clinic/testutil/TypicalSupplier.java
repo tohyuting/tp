@@ -66,11 +66,7 @@ public class TypicalSupplier {
     private TypicalSupplier() {} // prevents instantiation
 
     /**
-<<<<<<< HEAD:src/test/java/seedu/address/testutil/TypicalSupplier.java
-     * Returns an {@code AddressBook} with all the typical suppliers and warehouses.
-=======
-     * Returns an {@code Clinic} with all the typical suppliers.
->>>>>>> upstream/master:src/test/java/seedu/clinic/testutil/TypicalSupplier.java
+     * Returns an {@code Clinic} with all the typical suppliers and warehouses.
      */
     public static Clinic getTypicalClinic() {
         Clinic ab = new Clinic();
@@ -81,10 +77,10 @@ public class TypicalSupplier {
     }
 
     /**
-     * Returns an {@code AddressBook} with all the typical suppliers.
+     * Returns an {@code Clinic} with all the typical suppliers.
      */
-    public static AddressBook getTypicalSupplierOnlyAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static Clinic getTypicalSupplierOnlyClinic() {
+        Clinic ab = new Clinic();
         for (Supplier supplier : getTypicalSuppliers()) {
             ab.addSupplier(supplier);
         }

@@ -1,10 +1,10 @@
-package seedu.address.model.attribute;
+package seedu.clinic.model.attribute;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.model.warehouse.Warehouse;
+import seedu.clinic.commons.util.StringUtil;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * Tests that a {{@code Warehouse}}'s {@code Name} matches any of the keywords given.

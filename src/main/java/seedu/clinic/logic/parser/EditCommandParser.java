@@ -14,19 +14,11 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/EditCommandParser.java
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditSupplierDescriptor;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.attribute.Tag;
-=======
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.tag.Tag;
->>>>>>> upstream/master:src/main/java/seedu/clinic/logic/parser/EditCommandParser.java
+import seedu.clinic.model.attribute.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object

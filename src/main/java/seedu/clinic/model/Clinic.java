@@ -6,23 +6,14 @@ import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
-<<<<<<< HEAD:src/main/java/seedu/address/model/AddressBook.java
-import seedu.address.model.supplier.Supplier;
-import seedu.address.model.supplier.UniqueSupplierList;
-import seedu.address.model.warehouse.UniqueWarehouseList;
-import seedu.address.model.warehouse.Warehouse;
-
-/**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSameSupplier and isSameWarehouse comparison)
-=======
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.supplier.UniqueSupplierList;
+import seedu.clinic.model.warehouse.UniqueWarehouseList;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * Wraps all data at the clinic level
- * Duplicates are not allowed (by .isSameSupplier comparison)
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/Clinic.java
+ * Duplicates are not allowed (by .isSameSupplier and isSameWarehouse comparison)
  */
 public class Clinic implements ReadOnlyClinic {
 
@@ -44,11 +35,7 @@ public class Clinic implements ReadOnlyClinic {
     public Clinic() {}
 
     /**
-<<<<<<< HEAD:src/main/java/seedu/address/model/AddressBook.java
-     * Creates an AddressBook using the Suppliers & Warehouses in the {@code toBeCopied}
-=======
-     * Creates a Clinic using the Suppliers in the {@code toBeCopied}
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/Clinic.java
+     * Creates a Clinic using the Suppliers & Warehouses in the {@code toBeCopied}
      */
     public Clinic(ReadOnlyClinic toBeCopied) {
         this();
@@ -66,7 +53,6 @@ public class Clinic implements ReadOnlyClinic {
     }
 
     /**
-<<<<<<< HEAD:src/main/java/seedu/address/model/AddressBook.java
      * Replaces the contents of the warehouse list with {@code warehouses}.
      * {@code warehouses} must not contain duplicate warehouses.
      */
@@ -75,10 +61,7 @@ public class Clinic implements ReadOnlyClinic {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
-=======
      * Resets the existing data of this {@code Clinic} with {@code newData}.
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/Clinic.java
      */
     public void resetData(ReadOnlyClinic newData) {
         requireNonNull(newData);
@@ -185,14 +168,9 @@ public class Clinic implements ReadOnlyClinic {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-<<<<<<< HEAD:src/main/java/seedu/address/model/AddressBook.java
-                || (other instanceof AddressBook // instanceof handles nulls
-                && warehouses.equals(((AddressBook) other).warehouses)
-                && suppliers.equals(((AddressBook) other).suppliers));
-=======
                 || (other instanceof Clinic // instanceof handles nulls
+                && warehouses.equals(((Clinic) other).warehouses)
                 && suppliers.equals(((Clinic) other).suppliers));
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/Clinic.java
     }
 
     @Override

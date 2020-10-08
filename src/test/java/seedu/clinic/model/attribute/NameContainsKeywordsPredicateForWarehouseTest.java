@@ -1,4 +1,4 @@
-package seedu.address.model.attribute;
+package seedu.clinic.model.attribute;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.WarehouseBuilder;
+import seedu.clinic.testutil.WarehouseBuilder;
 
 public class NameContainsKeywordsPredicateForWarehouseTest {
 

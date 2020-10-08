@@ -10,20 +10,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
-<<<<<<< HEAD:src/test/java/seedu/address/storage/JsonAdaptedSupplierTest.java
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.attribute.Email;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-=======
 
 import seedu.clinic.commons.exceptions.IllegalValueException;
-import seedu.clinic.model.supplier.Email;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
-import seedu.clinic.model.supplier.Remark;
->>>>>>> upstream/master:src/test/java/seedu/clinic/storage/JsonAdaptedSupplierTest.java
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 
 public class JsonAdaptedSupplierTest {
     private static final String INVALID_NAME = "*!Rachel @";

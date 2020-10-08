@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/test/java/seedu/clinic/model/attribute/PhoneTest.java
-package seedu.address.model.attribute;
-=======
-package seedu.clinic.model.supplier;
->>>>>>> upstream/master:src/test/java/seedu/clinic/model/supplier/PhoneTest.java
+package seedu.clinic.model.attribute;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

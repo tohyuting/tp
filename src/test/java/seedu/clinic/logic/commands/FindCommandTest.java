@@ -15,17 +15,10 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/FindCommandTest.java
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.attribute.NameContainsKeywordsPredicateForSupplier;
-=======
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserPrefs;
-import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
->>>>>>> upstream/master:src/test/java/seedu/clinic/logic/commands/FindCommandTest.java
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

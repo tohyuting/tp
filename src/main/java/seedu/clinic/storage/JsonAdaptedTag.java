@@ -3,13 +3,8 @@ package seedu.clinic.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonAdaptedTag.java
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.attribute.Tag;
-=======
 import seedu.clinic.commons.exceptions.IllegalValueException;
-import seedu.clinic.model.tag.Tag;
->>>>>>> upstream/master:src/main/java/seedu/clinic/storage/JsonAdaptedTag.java
+import seedu.clinic.model.attribute.Tag;
 
 /**
  * Jackson-friendly version of {@link Tag}.

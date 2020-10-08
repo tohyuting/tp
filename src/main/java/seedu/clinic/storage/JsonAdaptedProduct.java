@@ -9,17 +9,10 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonAdaptedProduct.java
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.product.Product;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Tag;
-=======
 import seedu.clinic.commons.exceptions.IllegalValueException;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Tag;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.tag.Tag;
->>>>>>> upstream/master:src/main/java/seedu/clinic/storage/JsonAdaptedProduct.java
 
 public class JsonAdaptedProduct {
 

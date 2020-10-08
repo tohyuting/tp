@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/test/java/seedu/clinic/model/attribute/RemarkTest.java
-package seedu.address.model.attribute;
-=======
-package seedu.clinic.model.warehouse;
->>>>>>> upstream/master:src/test/java/seedu/clinic/model/warehouse/RemarkTest.java
+package seedu.clinic.model.attribute;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

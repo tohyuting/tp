@@ -2,18 +2,12 @@ package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/FindCommand.java
-import seedu.address.commons.core.Messages;
-import seedu.address.model.Model;
-import seedu.address.model.attribute.NameContainsKeywordsPredicateForSupplier;
-=======
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.model.Model;
-import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
->>>>>>> upstream/master:src/main/java/seedu/clinic/logic/commands/FindCommand.java
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 
 /**
- * Finds and lists all suppliers in the CLI-nic app whose name contains any of the argument keywords.
+ * Finds and lists all suppliers/warehouses in the CLI-nic app whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

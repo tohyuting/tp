@@ -9,16 +9,10 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-<<<<<<< HEAD:src/main/java/seedu/address/model/ModelManager.java
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.model.warehouse.Warehouse;
-=======
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.model.supplier.Supplier;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/ModelManager.java
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * Represents the in-memory model of the clinic data.
@@ -42,12 +36,8 @@ public class ModelManager implements Model {
 
         this.clinic = new Clinic(clinic);
         this.userPrefs = new UserPrefs(userPrefs);
-<<<<<<< HEAD:src/main/java/seedu/address/model/ModelManager.java
-        filteredSuppliers = new FilteredList<>(this.addressBook.getSupplierList());
-        filteredWarehouses = new FilteredList<>(this.addressBook.getWarehouseList());
-=======
         filteredSuppliers = new FilteredList<>(this.clinic.getSupplierList());
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/ModelManager.java
+        filteredWarehouses = new FilteredList<>(this.clinic.getWarehouseList());
     }
 
     public ModelManager() {
@@ -84,9 +74,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setClinicFilePath(Path ClinicFilePath) {
-        requireNonNull(ClinicFilePath);
-        userPrefs.setClinicFilePath(ClinicFilePath);
+    public void setClinicFilePath(Path clinicFilePath) {
+        requireNonNull(clinicFilePath);
+        userPrefs.setClinicFilePath(clinicFilePath);
     }
 
     //=========== Clinic ================================================================================
@@ -110,7 +100,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasWarehouse(Warehouse warehouse) {
         requireNonNull(warehouse);
-        return addressBook.hasWarehouse(warehouse);
+        return clinic.hasWarehouse(warehouse);
     }
 
     @Override
@@ -120,7 +110,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteWarehouse(Warehouse target) {
-        addressBook.removeWarehouse(target);
+        clinic.removeWarehouse(target);
     }
 
     @Override
@@ -131,7 +121,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addWarehouse(Warehouse warehouse) {
-        addressBook.addWarehouse(warehouse);
+        clinic.addWarehouse(warehouse);
         updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
     }
 
@@ -146,7 +136,7 @@ public class ModelManager implements Model {
     public void setWarehouse(Warehouse target, Warehouse editedWarehouse) {
         requireAllNonNull(target, editedWarehouse);
 
-        addressBook.setWarehouse(target, editedWarehouse);
+        clinic.setWarehouse(target, editedWarehouse);
     }
 
     //=========== Filtered Supplier List Accessors =============================================================
@@ -170,7 +160,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Warehouse} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedCLI-nic}
      */
     @Override
     public ObservableList<Warehouse> getFilteredWarehouseList() {

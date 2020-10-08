@@ -1,30 +1,23 @@
 package seedu.clinic.model.warehouse;
 
-<<<<<<< HEAD:src/test/java/seedu/address/model/warehouse/WarehouseTest.java
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_ADDRESS_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PHONE_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_B;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalWarehouse.A;
-import static seedu.address.testutil.TypicalWarehouse.B;
-=======
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_ADDRESS_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PHONE_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_B;
 import static seedu.clinic.testutil.Assert.assertThrows;
->>>>>>> upstream/master:src/test/java/seedu/clinic/model/warehouse/WarehouseTest.java
+import static seedu.clinic.testutil.TypicalWarehouse.A;
+import static seedu.clinic.testutil.TypicalWarehouse.B;
 
 import java.util.Map;
 
-<<<<<<< HEAD:src/test/java/seedu/address/model/warehouse/WarehouseTest.java
 import org.junit.jupiter.api.Test;
-import seedu.address.testutil.WarehouseBuilder;
-=======
+
 import seedu.clinic.testutil.WarehouseBuilder;
->>>>>>> upstream/master:src/test/java/seedu/clinic/model/warehouse/WarehouseTest.java
 
 class WarehouseTest {
 

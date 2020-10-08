@@ -1,18 +1,8 @@
 package seedu.clinic.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/LogicManagerTest.java
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX;
-//import static seedu.address.commons.core.Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
-import static seedu.address.testutil.Assert.assertThrows;
-//import static seedu.address.testutil.TypicalSupplier.AMY;
-=======
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX;
+//import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 //import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 //import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -20,7 +10,6 @@ import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 //import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static seedu.clinic.testutil.Assert.assertThrows;
 //import static seedu.clinic.testutil.TypicalSupplier.AMY;
->>>>>>> upstream/master:src/test/java/seedu/clinic/logic/LogicManagerTest.java
 
 import java.io.IOException;
 import java.nio.file.Path;

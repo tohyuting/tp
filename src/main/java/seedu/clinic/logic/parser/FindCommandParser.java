@@ -4,15 +4,9 @@ import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/FindCommandParser.java
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.attribute.NameContainsKeywordsPredicateForSupplier;
-=======
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
->>>>>>> upstream/master:src/main/java/seedu/clinic/logic/parser/FindCommandParser.java
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 
 /**
  * Parses input arguments and creates a new FindCommand object

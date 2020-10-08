@@ -12,14 +12,17 @@ import seedu.clinic.commons.exceptions.IllegalValueException;
 import seedu.clinic.commons.util.JsonUtil;
 import seedu.clinic.model.Clinic;
 import seedu.clinic.testutil.TypicalSupplier;
+import seedu.clinic.testutil.TypicalWarehouse;
 
 public class JsonSerializableClinicTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
-            "JsonSerializableClinicTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableClinicTest");
     private static final Path TYPICAL_SUPPLIERS_FILE = TEST_DATA_FOLDER.resolve("typicalSuppliersClinic.json");
     private static final Path INVALID_SUPPLIER_FILE = TEST_DATA_FOLDER.resolve("invalidSupplierClinic.json");
     private static final Path DUPLICATE_SUPPLIER_FILE = TEST_DATA_FOLDER.resolve("duplicateSupplierClinic.json");
+    private static final Path TYPICAL_WAREHOUSES_FILE = TEST_DATA_FOLDER.resolve("typicalWarehousesClinic.json");
+    private static final Path INVALID_WAREHOUSE_FILE = TEST_DATA_FOLDER.resolve("invalidWarehouseClinic.json");
+    private static final Path DUPLICATE_WAREHOUSE_FILE = TEST_DATA_FOLDER.resolve("duplicateWarehouseClinic.json");
 
     @Test
     public void toModelType_typicalSuppliersFile_success() throws Exception {
@@ -45,4 +48,27 @@ public class JsonSerializableClinicTest {
                 dataFromFile::toModelType);
     }
 
+    @Test
+    public void toModelType_typicalWarehousesFile_success() throws Exception {
+        JsonSerializableClinic dataFromFile = JsonUtil.readJsonFile(TYPICAL_WAREHOUSES_FILE,
+                JsonSerializableClinic.class).get();
+        Clinic clinicFromFile = dataFromFile.toModelType();
+        Clinic typicalWarehousesClinic = TypicalWarehouse.getTypicalWarehouseOnlyClinic();
+        assertEquals(clinicFromFile, typicalWarehousesClinic);
+    }
+
+    @Test
+    public void toModelType_invalidWarehouseFile_throwsIllegalValueException() throws Exception {
+        JsonSerializableClinic dataFromFile = JsonUtil.readJsonFile(INVALID_WAREHOUSE_FILE,
+                JsonSerializableClinic.class).get();
+        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_duplicateSWarehouses_throwsIllegalValueException() throws Exception {
+        JsonSerializableClinic dataFromFile = JsonUtil.readJsonFile(DUPLICATE_WAREHOUSE_FILE,
+                JsonSerializableClinic.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableClinic.MESSAGE_DUPLICATE_WAREHOUSE,
+                dataFromFile::toModelType);
+    }
 }

@@ -1,18 +1,10 @@
-<<<<<<< HEAD:src/main/java/seedu/clinic/model/attribute/NameContainsKeywordsPredicateForSupplier.java
-package seedu.address.model.attribute;
-=======
-package seedu.clinic.model.supplier;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/supplier/NameContainsKeywordsPredicate.java
+package seedu.clinic.model.attribute;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-<<<<<<< HEAD:src/main/java/seedu/clinic/model/attribute/NameContainsKeywordsPredicateForSupplier.java
-import seedu.address.commons.util.StringUtil;
-import seedu.address.model.supplier.Supplier;
-=======
 import seedu.clinic.commons.util.StringUtil;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/supplier/NameContainsKeywordsPredicate.java
+import seedu.clinic.model.supplier.Supplier;
 
 /**
  * Tests that a {@code Supplier}'s {@code Name} matches any of the keywords given.

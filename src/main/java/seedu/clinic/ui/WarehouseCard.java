@@ -1,11 +1,11 @@
-package seedu.address.ui;
+package seedu.clinic.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.warehouse.Warehouse;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * An UI component that displays information of a {@code Warehouse}.

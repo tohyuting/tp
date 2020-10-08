@@ -5,16 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-<<<<<<< HEAD:src/test/java/seedu/address/testutil/TestUtil.java
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.Model;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.model.warehouse.Warehouse;
-=======
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.supplier.Supplier;
->>>>>>> upstream/master:src/test/java/seedu/clinic/testutil/TestUtil.java
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * A utility class for test cases.

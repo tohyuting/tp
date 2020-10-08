@@ -8,15 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-<<<<<<< HEAD:src/main/java/seedu/address/model/warehouse/UniqueWarehouseList.java
-import seedu.address.model.warehouse.exceptions.DuplicateWarehouseException;
-import seedu.address.model.warehouse.exceptions.WarehouseNotFoundException;
-=======
-import seedu.clinic.model.supplier.exceptions.DuplicateSupplierException;
-import seedu.clinic.model.supplier.exceptions.SupplierNotFoundException;
 import seedu.clinic.model.warehouse.exceptions.DuplicateWarehouseException;
 import seedu.clinic.model.warehouse.exceptions.WarehouseNotFoundException;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/warehouse/UniqueWarehouseList.java
 
 /**
  * A list of warehouses that enforces uniqueness between its elements and does not allow nulls.

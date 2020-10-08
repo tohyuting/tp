@@ -1,15 +1,13 @@
-package seedu.address.ui;
+package seedu.clinic.ui;
 
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.model.warehouse.Warehouse;
+import seedu.clinic.commons.core.LogsCenter;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * Panel containing the list of Warehouses.

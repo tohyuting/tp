@@ -1,18 +1,10 @@
-<<<<<<< HEAD:src/main/java/seedu/clinic/model/attribute/Name.java
-package seedu.address.model.attribute;
-=======
-package seedu.clinic.model.supplier;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/supplier/Name.java
+package seedu.clinic.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
 /**
-<<<<<<< HEAD:src/main/java/seedu/clinic/model/attribute/Name.java
  * Represents a name for the supplier/warehouse/product in CLI-nic app.
-=======
- * Represents a Supplier's or Product's name in the CLI-nic app.
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/supplier/Name.java
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

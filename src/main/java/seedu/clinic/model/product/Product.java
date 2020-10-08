@@ -5,13 +5,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-<<<<<<< HEAD:src/main/java/seedu/address/model/product/Product.java
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Tag;
-=======
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.tag.Tag;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/product/Product.java
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Tag;
 
 /**
  * Represents Product sold by Suppliers or stored in Warehouse.

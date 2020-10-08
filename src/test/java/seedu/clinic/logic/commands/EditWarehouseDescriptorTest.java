@@ -1,21 +1,22 @@
-package seedu.address.logic.commands;
+package seedu.clinic.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_A;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_ADDRESS_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PHONE_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.DESC_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.DESC_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_ADDRESS_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PHONE_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_B;
 
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.EditCommand.EditWarehouseDescriptor;
-import seedu.address.testutil.EditWarehouseDescriptiorBuilder;
+
+import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
+import seedu.clinic.testutil.EditWarehouseDescriptiorBuilder;
 
 public class EditWarehouseDescriptorTest {
 

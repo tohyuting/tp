@@ -1,20 +1,11 @@
-<<<<<<< HEAD:src/main/java/seedu/clinic/model/attribute/Remark.java
-package seedu.address.model.attribute;
-=======
-package seedu.clinic.model.warehouse;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/warehouse/Remark.java
+package seedu.clinic.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
 /**
-<<<<<<< HEAD:src/main/java/seedu/clinic/model/attribute/Remark.java
  * Represents a remark for the supplier/warehouse in CLI-nic app.
  * Guarantees: immutable; is valid as declared in {@link #isValidRemark(String)}
-=======
- * Represents a Warehouse's address in the CLI-nic app.
- * Guarantees: immutable; is valid as declared in {@link #isValidWarehouse(String)}
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/warehouse/Remark.java
  */
 public class Remark {
     public static final String MESSAGE_CONSTRAINTS =
@@ -25,7 +16,7 @@ public class Remark {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Remark}.
      *
      * @param remark A valid remark.
      */

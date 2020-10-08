@@ -4,23 +4,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-<<<<<<< HEAD:src/test/java/seedu/address/testutil/SupplierBuilder.java
-import seedu.address.model.product.Product;
-import seedu.address.model.attribute.Email;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.model.util.SampleDataUtil;
-=======
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Email;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
-import seedu.clinic.model.supplier.Remark;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.util.SampleDataUtil;
->>>>>>> upstream/master:src/test/java/seedu/clinic/testutil/SupplierBuilder.java
 
 /**
  * A utility class to help with building Supplier objects.

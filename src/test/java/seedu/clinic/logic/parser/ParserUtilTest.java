@@ -13,22 +13,13 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/ParserUtilTest.java
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.attribute.Address;
-import seedu.address.model.attribute.Email;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-import seedu.address.model.attribute.Tag;
-=======
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.supplier.Address;
-import seedu.clinic.model.supplier.Email;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
-import seedu.clinic.model.tag.Tag;
->>>>>>> upstream/master:src/test/java/seedu/clinic/logic/parser/ParserUtilTest.java
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
+import seedu.clinic.model.attribute.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "@Rachel Pte.Ltd";

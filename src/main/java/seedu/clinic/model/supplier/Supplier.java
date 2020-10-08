@@ -7,15 +7,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-<<<<<<< HEAD:src/main/java/seedu/address/model/supplier/Supplier.java
-import seedu.address.model.attribute.Email;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-import seedu.address.model.product.Product;
-=======
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/supplier/Supplier.java
 
 /**
  * Represents a Supplier in the CLI-nic app.

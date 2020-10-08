@@ -1,16 +1,16 @@
-package seedu.address.testutil;
+package seedu.clinic.testutil;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import seedu.address.logic.commands.EditCommand.EditWarehouseDescriptor;
-import seedu.address.model.attribute.Address;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-import seedu.address.model.product.Product;
-import seedu.address.model.warehouse.Warehouse;
+import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
+import seedu.clinic.model.product.Product;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * A utility class to help with building EditWarehouseDescriptor objects.

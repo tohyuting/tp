@@ -8,18 +8,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonSerializableAddressBook.java
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.model.warehouse.Warehouse;
-=======
 import seedu.clinic.commons.exceptions.IllegalValueException;
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.supplier.Supplier;
->>>>>>> upstream/master:src/main/java/seedu/clinic/storage/JsonSerializableClinic.java
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * An Immutable Clinic that is serializable to JSON format.
@@ -34,18 +27,12 @@ class JsonSerializableClinic {
     private final List<JsonAdaptedWarehouse> warehouses = new ArrayList<>();
 
     /**
-<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonSerializableAddressBook.java
-     * Constructs a {@code JsonSerializableAddressBook} with the given suppliers and warehouses.
+     * Constructs a {@code JsonSerializableClinic} with the given suppliers and warehouses.
      */
+
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("suppliers") List<JsonAdaptedSupplier> suppliers,
-                                       @JsonProperty("warehouses") List<JsonAdaptedWarehouse> warehouses) {
-=======
-     * Constructs a {@code JsonSerializableClinic} with the given suppliers.
-     */
-    @JsonCreator
-    public JsonSerializableClinic(@JsonProperty("suppliers") List<JsonAdaptedSupplier> suppliers) {
->>>>>>> upstream/master:src/main/java/seedu/clinic/storage/JsonSerializableClinic.java
+    public JsonSerializableClinic(@JsonProperty("suppliers") List<JsonAdaptedSupplier> suppliers,
+                                  @JsonProperty("warehouses") List<JsonAdaptedWarehouse> warehouses) {
         this.suppliers.addAll(suppliers);
         this.warehouses.addAll(warehouses);
     }
@@ -55,16 +42,11 @@ class JsonSerializableClinic {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableClinic}.
      */
-<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonSerializableAddressBook.java
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableClinic(ReadOnlyClinic source) {
         suppliers.addAll(source.getSupplierList().stream().map(JsonAdaptedSupplier::new)
                 .collect(Collectors.toList()));
         warehouses.addAll(source.getWarehouseList().stream().map(JsonAdaptedWarehouse::new)
                 .collect(Collectors.toList()));
-=======
-    public JsonSerializableClinic(ReadOnlyClinic source) {
-        suppliers.addAll(source.getSupplierList().stream().map(JsonAdaptedSupplier::new).collect(Collectors.toList()));
->>>>>>> upstream/master:src/main/java/seedu/clinic/storage/JsonSerializableClinic.java
     }
 
     /**
@@ -81,20 +63,16 @@ class JsonSerializableClinic {
             }
             clinic.addSupplier(supplier);
         }
-<<<<<<< HEAD:src/main/java/seedu/address/storage/JsonSerializableAddressBook.java
 
         for (JsonAdaptedWarehouse jsonAdaptedWarehouse : warehouses) {
             Warehouse warehouse = jsonAdaptedWarehouse.toModelType();
-            if (addressBook.hasWarehouse(warehouse)) {
+            if (clinic.hasWarehouse(warehouse)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_WAREHOUSE);
             }
-            addressBook.addWarehouse(warehouse);
+            clinic.addWarehouse(warehouse);
         }
 
-        return addressBook;
-=======
         return clinic;
->>>>>>> upstream/master:src/main/java/seedu/clinic/storage/JsonSerializableClinic.java
     }
 
 }

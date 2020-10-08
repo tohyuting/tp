@@ -6,29 +6,16 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/ParserUtil.java
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.attribute.Address;
-import seedu.address.model.attribute.Email;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-import seedu.address.model.attribute.Tag;
-import seedu.address.model.product.Product;
-=======
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.commons.util.StringUtil;
 import seedu.clinic.logic.parser.exceptions.ParseException;
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
+import seedu.clinic.model.attribute.Tag;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Address;
-import seedu.clinic.model.supplier.Email;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
-import seedu.clinic.model.supplier.Remark;
-import seedu.clinic.model.tag.Tag;
->>>>>>> upstream/master:src/main/java/seedu/clinic/logic/parser/ParserUtil.java
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

@@ -1,20 +1,21 @@
-package seedu.address.storage;
+package seedu.clinic.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.storage.JsonAdaptedWarehouse.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalWarehouse.BENSON;
+import static seedu.clinic.storage.JsonAdaptedWarehouse.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.clinic.testutil.Assert.assertThrows;
+import static seedu.clinic.testutil.TypicalWarehouse.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.attribute.Address;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
+
+import seedu.clinic.commons.exceptions.IllegalValueException;
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 
 public class JsonAdaptedWarehouseTest {
     private static final String INVALID_NAME = "*Rachel @";

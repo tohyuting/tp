@@ -1,25 +1,25 @@
-package seedu.address.testutil;
+package seedu.clinic.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_ADDRESS_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_ADDRESS_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PHONE_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PHONE_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_ADDRESS_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_ADDRESS_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PHONE_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PHONE_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_B;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.warehouse.Warehouse;
+import seedu.clinic.model.Clinic;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * A utility class containing a list of {@code Supplier} objects to be used in tests.
@@ -78,10 +78,10 @@ public class TypicalWarehouse {
     private TypicalWarehouse() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical suppliers.
+     * Returns an {@code Clinic} with all the typical suppliers.
      */
-    public static AddressBook getTypicalWarehouseOnlyAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static Clinic getTypicalWarehouseOnlyClinic() {
+        Clinic ab = new Clinic();
         for (Warehouse warehouse : getTypicalWarehouses()) {
             ab.addWarehouse(warehouse);
         }

@@ -13,27 +13,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddressBookParserTest.java
-// import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-// import seedu.address.logic.commands.EditCommand;
-// import seedu.address.logic.commands.EditCommand.EditSupplierDescriptor;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.attribute.NameContainsKeywordsPredicateForSupplier;
-// import seedu.address.model.supplier.Supplier;
-// import seedu.address.testutil.EditSupplierDescriptorBuilder;
-// import seedu.address.testutil.SupplierBuilder;
-// import seedu.address.testutil.SupplierUtil;
-
-public class AddressBookParserTest {
-
-    private final AddressBookParser parser = new AddressBookParser();
-=======
 // import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.commands.ClearCommand;
 import seedu.clinic.logic.commands.DeleteCommand;
@@ -44,7 +23,7 @@ import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 // import seedu.clinic.model.supplier.Supplier;
 // import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
 // import seedu.clinic.testutil.SupplierBuilder;
@@ -53,7 +32,6 @@ import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
 public class ClinicParserTest {
 
     private final ClinicParser parser = new ClinicParser();
->>>>>>> upstream/master:src/test/java/seedu/clinic/logic/parser/ClinicParserTest.java
 
     /*
     @Test

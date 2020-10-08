@@ -1,18 +1,10 @@
-<<<<<<< HEAD:src/main/java/seedu/clinic/model/attribute/Tag.java
-package seedu.address.model.attribute;
-=======
-package seedu.clinic.model.tag;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/tag/Tag.java
+package seedu.clinic.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
 /**
-<<<<<<< HEAD:src/main/java/seedu/clinic/model/attribute/Tag.java
  * Represents a tag for the product related to a specific supplier/warehouse in CLI-nic app.
-=======
- * Represents a Tag in the CLI-nic app.
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/tag/Tag.java
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {

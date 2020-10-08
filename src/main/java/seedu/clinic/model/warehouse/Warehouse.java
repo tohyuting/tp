@@ -8,18 +8,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-<<<<<<< HEAD:src/main/java/seedu/address/model/warehouse/Warehouse.java
-import seedu.address.model.product.Product;
-import seedu.address.model.attribute.Address;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-=======
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Address;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
->>>>>>> upstream/master:src/main/java/seedu/clinic/model/warehouse/Warehouse.java
 
 /**
  * Represents a Warehouse in the CLI-nic app.
