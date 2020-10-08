@@ -117,8 +117,8 @@ public class MainWindow extends UiPart<Stage> {
         supplierListPanel = new SupplierListPanel(logic.getFilteredSupplierList());
         supplierListPanelPlaceholder.getChildren().add(supplierListPanel.getRoot());
 
-        warehouseListPanel = new WarehouseListPanel(logic.getFilteredWarehouseList());
-        warehouseListPanelPlaceholder.getChildren().add(warehouseListPanel.getRoot());
+        // warehouseListPanel = new WarehouseListPanel(logic.getFilteredWarehouseList());
+        // warehouseListPanelPlaceholder.getChildren().add(warehouseListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

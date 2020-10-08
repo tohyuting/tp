@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same supplier values as in TypicalSuppliers#getTypicalAddressBook()",
+  "_comment": "Clinic save file which contains the same supplier values as in TypicalSuppliers#getTypicalAddressBook()",
   "suppliers" : [ ],
   "warehouses": [ {
     "name" : "Warehouse Alice",

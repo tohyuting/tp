@@ -22,7 +22,7 @@ public class ClinicBuilder {
     }
 
     /**
-     * Adds a new {@code Supplier} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Supplier} to the {@code Clinic} that we are building.
      */
     public ClinicBuilder withSupplier(Supplier supplier) {
         clinic.addSupplier(supplier);
@@ -30,7 +30,7 @@ public class ClinicBuilder {
     }
 
     /**
-     * Adds a new {@code Warehouse} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Warehouse} to the {@code Clinic} that we are building.
      */
     public ClinicBuilder withWarehouse(Warehouse warehouse) {
         clinic.addWarehouse(warehouse);

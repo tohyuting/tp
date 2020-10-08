@@ -73,7 +73,7 @@ public class Clinic implements ReadOnlyClinic {
     //// warehouse-level operations
 
     /**
-     * Returns true if a warehouse with the same identity as {@code warehouse} exists in the address book.
+     * Returns true if a warehouse with the same identity as {@code warehouse} exists in the clinic.
      */
     public boolean hasWarehouse(Warehouse warehouse) {
         requireNonNull(warehouse);
@@ -81,8 +81,8 @@ public class Clinic implements ReadOnlyClinic {
     }
 
     /**
-     * Adds a warehouse to the address book.
-     * The warehouse must not already exist in the address book.
+     * Adds a warehouse to the clinic.
+     * The warehouse must not already exist in the clinic.
      */
     public void addWarehouse(Warehouse p) {
         warehouses.add(p);
@@ -90,9 +90,9 @@ public class Clinic implements ReadOnlyClinic {
 
     /**
      * Replaces the given warehouse {@code target} in the list with {@code editedWarehouse}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the clinic.
      * The warehouse identity of {@code editedWarehouse} must not be the same as another existing warehouse
-     * in the address book.
+     * in the clinic.
      */
     public void setWarehouse(Warehouse target, Warehouse editedWarehouse) {
         requireNonNull(editedWarehouse);
@@ -101,8 +101,8 @@ public class Clinic implements ReadOnlyClinic {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Clinic}.
+     * {@code key} must exist in the clinic.
      */
     public void removeWarehouse(Warehouse key) {
         warehouses.remove(key);
