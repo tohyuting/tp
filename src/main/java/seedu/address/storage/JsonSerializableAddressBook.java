@@ -20,8 +20,8 @@ import seedu.address.model.warehouse.Warehouse;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_SUPPLIER = "suppliers list contains duplicate supplier(s).";
-    public static final String MESSAGE_DUPLICATE_WAREHOUSE = "warehouses list contains duplicate warehouse(s).";
+    public static final String MESSAGE_DUPLICATE_SUPPLIER = "Suppliers list contains duplicate supplier(s).";
+    public static final String MESSAGE_DUPLICATE_WAREHOUSE = "Warehouses list contains duplicate warehouse(s).";
 
     private final List<JsonAdaptedSupplier> suppliers = new ArrayList<>();
     private final List<JsonAdaptedWarehouse> warehouses = new ArrayList<>();

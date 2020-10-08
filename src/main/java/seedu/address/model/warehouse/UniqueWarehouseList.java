@@ -8,15 +8,13 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.supplier.exceptions.DuplicateSupplierException;
-import seedu.address.model.supplier.exceptions.SupplierNotFoundException;
 import seedu.address.model.warehouse.exceptions.DuplicateWarehouseException;
 import seedu.address.model.warehouse.exceptions.WarehouseNotFoundException;
 
 /**
  * A list of warehouses that enforces uniqueness between its elements and does not allow nulls.
  * A warehouse is considered unique by comparing using {@code Warehouse#isSameWarehouse(Warehouse)}. As such, adding
- * and updating of warehouses uses Warehouse#isSameWarehouse(Warehouse) for equality so as to ensure that the supplier
+ * and updating of warehouses uses Warehouse#isSameWarehouse(Warehouse) for equality so as to ensure that the warehouse
  * being added or updated is unique in terms of identity in the UniqueWarehouseList.
  * However, the removal of a warehouse uses Warehouse#equals(Object) so as to ensure that the warehouse with
  * exactly the same fields will be removed.

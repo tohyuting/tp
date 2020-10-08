@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.attribute.Address;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.supplier.UniqueSupplierList;
 import seedu.address.model.warehouse.UniqueWarehouseList;
