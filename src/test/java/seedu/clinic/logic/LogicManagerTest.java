@@ -3,12 +3,12 @@ package seedu.clinic.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
+//import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+//import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+//import static seedu.clinic.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+//import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static seedu.clinic.testutil.Assert.assertThrows;
-//import static seedu.address.testutil.TypicalSupplier.AMY;
+//import static seedu.clinic.testutil.TypicalSupplier.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,20 +17,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-//import seedu.address.logic.commands.AddCommand;
+//import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.commands.CommandResult;
 import seedu.clinic.logic.commands.ListCommand;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
-import seedu.clinic.model.ReadOnlyAddressBook;
+import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.UserPrefs;
-//import seedu.address.model.supplier.Supplier;
-import seedu.clinic.storage.JsonAddressBookStorage;
+//import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.storage.JsonClinicStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;
 import seedu.clinic.storage.StorageManager;
-//import seedu.address.testutil.SupplierBuilder;
+//import seedu.clinic.testutil.SupplierBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -43,10 +43,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonClinicStorage clinicStorage =
+                new JsonClinicStorage(temporaryFolder.resolve("clinic.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -70,12 +70,12 @@ public class LogicManagerTest {
     /*
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonClinicIoExceptionThrowingStub
+        JsonClinicStorage clinicStorage =
+                new JsonClinicIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionClinic.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -130,7 +130,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -150,13 +150,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonClinicIoExceptionThrowingStub extends JsonClinicStorage {
+        private JsonClinicIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveClinic(ReadOnlyClinic clinic, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

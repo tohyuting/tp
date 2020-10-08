@@ -1,47 +1,47 @@
 package seedu.clinic.logic.parser;
 /*
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ANTIBIOTICS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_SUPPLIER;
+import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinic.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_ANTIBIOTICS;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_THIRD_SUPPLIER;
 
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditSupplierDescriptor;
-import seedu.address.model.supplier.Address;
-import seedu.address.model.supplier.Email;
-import seedu.address.model.supplier.Name;
-import seedu.address.model.supplier.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditSupplierDescriptorBuilder;
+import seedu.clinic.commons.core.index.Index;
+import seedu.clinic.logic.commands.EditCommand;
+import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
+import seedu.clinic.model.supplier.Address;
+import seedu.clinic.model.supplier.Email;
+import seedu.clinic.model.supplier.Name;
+import seedu.clinic.model.supplier.Phone;
+import seedu.clinic.model.tag.Tag;
+import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
 */
 public class EditCommandParserTest {
     /*

@@ -1,40 +1,40 @@
 package seedu.clinic.logic.parser;
 /*
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalSupplier.AMY;
-import static seedu.address.testutil.TypicalSupplier.BOB;
+import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.clinic.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
+import static seedu.clinic.testutil.TypicalSupplier.BOB;
+import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.clinic.testutil.TypicalSupplier.AMY;
 
+import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.supplier.Email;
-import seedu.address.model.supplier.Name;
-import seedu.address.model.supplier.Phone;
-import seedu.address.model.supplier.Remark;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.testutil.SupplierBuilder;
+import seedu.clinic.logic.commands.AddCommand;
+import seedu.clinic.model.supplier.Email;
+import seedu.clinic.model.supplier.Name;
+import seedu.clinic.model.supplier.Phone;
+import seedu.clinic.model.supplier.Remark;
+import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.testutil.SupplierBuilder;
 */
 public class AddCommandParserTest {
 /*

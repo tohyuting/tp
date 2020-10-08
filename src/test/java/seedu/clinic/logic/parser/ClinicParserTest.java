@@ -13,25 +13,25 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-// import seedu.address.logic.commands.AddCommand;
+// import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.commands.ClearCommand;
 import seedu.clinic.logic.commands.DeleteCommand;
-// import seedu.address.logic.commands.EditCommand;
-// import seedu.address.logic.commands.EditCommand.EditSupplierDescriptor;
+// import seedu.clinic.logic.commands.EditCommand;
+// import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
-// import seedu.address.model.supplier.Supplier;
-// import seedu.address.testutil.EditSupplierDescriptorBuilder;
-// import seedu.address.testutil.SupplierBuilder;
-// import seedu.address.testutil.SupplierUtil;
+// import seedu.clinic.model.supplier.Supplier;
+// import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
+// import seedu.clinic.testutil.SupplierBuilder;
+// import seedu.clinic.testutil.SupplierUtil;
 
-public class AddressBookParserTest {
+public class ClinicParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ClinicParser parser = new ClinicParser();
 
     /*
     @Test

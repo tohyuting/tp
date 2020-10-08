@@ -10,10 +10,10 @@ import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.logic.commands.Command;
 import seedu.clinic.logic.commands.CommandResult;
 import seedu.clinic.logic.commands.exceptions.CommandException;
-import seedu.clinic.logic.parser.AddressBookParser;
+import seedu.clinic.logic.parser.ClinicParser;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.Model;
-import seedu.clinic.model.ReadOnlyAddressBook;
+import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.storage.Storage;
 
@@ -26,7 +26,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final ClinicParser clinicParser;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -34,7 +34,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        clinicParser = new ClinicParser();
     }
 
     @Override
@@ -42,11 +42,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = clinicParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveClinic(model.getClinic());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -55,8 +55,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyClinic getClinic() {
+        return model.getClinic();
     }
 
     @Override
@@ -65,8 +65,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getClinicFilePath() {
+        return model.getClinicFilePath();
     }
 
     @Override

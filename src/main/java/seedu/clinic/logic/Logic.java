@@ -7,7 +7,7 @@ import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.logic.commands.CommandResult;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.ReadOnlyAddressBook;
+import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
@@ -24,19 +24,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the Clinic.
      *
-     * @see seedu.clinic.model.Model#getAddressBook()
+     * @see seedu.clinic.model.Model#getClinic()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyClinic getClinic();
 
     /** Returns an unmodifiable view of the filtered list of suppliers */
     ObservableList<Supplier> getFilteredSupplierList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' clinic file path.
      */
-    Path getAddressBookFilePath();
+    Path getClinicFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

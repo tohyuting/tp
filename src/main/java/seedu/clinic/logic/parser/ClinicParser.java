@@ -20,7 +20,7 @@ import seedu.clinic.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class ClinicParser {
 
     /**
      * Used for initial separation of command word and args.
