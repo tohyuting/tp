@@ -32,7 +32,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private SupplierListPanel supplierListPanel;
-    private WarehouseListPanel warehouseListPanel;
+    //private WarehouseListPanel warehouseListPanel;
+    private SupplierListPanel supplierListPanel2;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -46,13 +47,11 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane supplierListPanelPlaceholder;
 
     @FXML
-    private StackPane warehouseListPanelPlaceholder;
+    // private StackPane warehouseListPanelPlaceholder;
+    private StackPane supplierListPanelPlaceholder2;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
-
-    @FXML
-    private StackPane statusbarPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -119,12 +118,11 @@ public class MainWindow extends UiPart<Stage> {
 
         // warehouseListPanel = new WarehouseListPanel(logic.getFilteredWarehouseList());
         // warehouseListPanelPlaceholder.getChildren().add(warehouseListPanel.getRoot());
+        supplierListPanel2 = new SupplierListPanel(logic.getFilteredSupplierList());
+        supplierListPanelPlaceholder2.getChildren().add(supplierListPanel2.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getClinicFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
