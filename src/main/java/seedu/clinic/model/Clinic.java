@@ -59,7 +59,7 @@ public class Clinic implements ReadOnlyClinic {
     //// supplier-level operations
 
     /**
-     * Returns true if a supplier with the same identity as {@code supplier} exists in the clinic.
+     * Returns true if a supplier with the same identity as {@code supplier} exists in the CLI-nic app.
      */
     public boolean hasSupplier(Supplier supplier) {
         requireNonNull(supplier);
@@ -67,7 +67,7 @@ public class Clinic implements ReadOnlyClinic {
     }
 
     /**
-     * Adds a supplier to the clinic.
+     * Adds a supplier to the CLI-nic app.
      * The supplier must not already exist in clinic.
      */
     public void addSupplier(Supplier p) {
@@ -78,7 +78,7 @@ public class Clinic implements ReadOnlyClinic {
      * Replaces the given supplier {@code target} in the list with {@code editedSupplier}.
      * {@code target} must exist in clinic.
      * The supplier identity of {@code editedSupplier} must not be the same as another existing supplier
-     * in the clinic.
+     * in the CLI-nic app.
      */
     public void setSupplier(Supplier target, Supplier editedSupplier) {
         requireNonNull(editedSupplier);

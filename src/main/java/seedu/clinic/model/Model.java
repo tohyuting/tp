@@ -73,7 +73,7 @@ public interface Model {
      * Replaces the given supplier {@code target} with {@code editedSupplier}.
      * {@code target} must exist in the clinic.
      * The supplier identity of {@code editedSupplier} must not be the same as another existing supplier
-     * in the clinic.
+     * in the CLI-nic app.
      */
     void setSupplier(Supplier target, Supplier editedSupplier);
 
