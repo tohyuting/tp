@@ -1,10 +1,10 @@
-package seedu.address.model.supplier;
+package seedu.address.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Supplier's phone number in the address book.
+ * Represents a phone number for the supplier/warehouse/product in CLI-nic app.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {

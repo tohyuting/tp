@@ -1,10 +1,10 @@
-package seedu.address.model.supplier;
+package seedu.address.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Supplier's email in the address book.
+ * Represents an email information for the supplier/warehouse in CLI-nic app.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
 public class Email {

@@ -9,9 +9,10 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.product.Product;
-import seedu.address.model.supplier.Address;
-import seedu.address.model.supplier.Name;
-import seedu.address.model.supplier.Phone;
+import seedu.address.model.attribute.Address;
+import seedu.address.model.attribute.Name;
+import seedu.address.model.attribute.Phone;
+import seedu.address.model.attribute.Remark;
 
 /**
  * Represents a Warehouse in the CLI-nic app.
@@ -129,7 +130,7 @@ public class Warehouse {
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Products: ");
-        getProducts().forEach(builder::append);
+        getProducts().forEach(s -> builder.append(s.toStringForWareHouse()));
         builder.append(" Remark: ")
                 .append(getRemark());
         return builder.toString();

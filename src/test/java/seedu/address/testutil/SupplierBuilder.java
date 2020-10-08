@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.Set;
 
 import seedu.address.model.product.Product;
-import seedu.address.model.supplier.Email;
-import seedu.address.model.supplier.Name;
-import seedu.address.model.supplier.Phone;
-import seedu.address.model.supplier.Remark;
+import seedu.address.model.attribute.Email;
+import seedu.address.model.attribute.Name;
+import seedu.address.model.attribute.Phone;
+import seedu.address.model.attribute.Remark;
 import seedu.address.model.supplier.Supplier;
 import seedu.address.model.util.SampleDataUtil;
 

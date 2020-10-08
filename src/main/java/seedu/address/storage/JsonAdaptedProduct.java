@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.product.Product;
-import seedu.address.model.supplier.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.attribute.Name;
+import seedu.address.model.attribute.Tag;
 
 public class JsonAdaptedProduct {
 

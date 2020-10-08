@@ -1,10 +1,10 @@
-package seedu.address.model.tag;
+package seedu.address.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a tag for the product related to a specific supplier/warehouse in CLI-nic app.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {

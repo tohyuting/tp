@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.supplier.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.attribute.Name;
+import seedu.address.model.attribute.Tag;
 
 /**
  * Represents Product to be sold by Suppliers and stored in Warehouse.

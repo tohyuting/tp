@@ -9,12 +9,12 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.product.Product;
-import seedu.address.model.supplier.Email;
-import seedu.address.model.supplier.Name;
-import seedu.address.model.supplier.Phone;
-import seedu.address.model.supplier.Remark;
+import seedu.address.model.attribute.Email;
+import seedu.address.model.attribute.Name;
+import seedu.address.model.attribute.Phone;
+import seedu.address.model.attribute.Remark;
 import seedu.address.model.supplier.Supplier;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.attribute.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.

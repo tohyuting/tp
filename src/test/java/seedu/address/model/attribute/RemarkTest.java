@@ -1,4 +1,4 @@
-package seedu.address.model.warehouse;
+package seedu.address.model.attribute;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -35,18 +35,18 @@ class RemarkTest {
     @Test
     void isValidWarehouse() {
         // null remark
-        assertThrows(NullPointerException.class, () -> Remark.isValidWarehouse(null));
+        assertThrows(NullPointerException.class, () -> Remark.isValidRemark(null));
 
         // invalid remarks: spaces only
-        assertFalse(Remark.isValidWarehouse(" "));
+        assertFalse(Remark.isValidRemark(" "));
         // invalid remarks: remark exceed the 100 char limit
-        assertFalse(Remark.isValidWarehouse(remarkWithMoreThanOneHundredCharacters));
+        assertFalse(Remark.isValidRemark(remarkWithMoreThanOneHundredCharacters));
 
         // valid remarks
-        assertTrue(Remark.isValidWarehouse("")); // empty string
-        assertTrue(Remark.isValidWarehouse("Some remark"));
-        assertTrue(Remark.isValidWarehouse("-")); // one character
-        assertTrue(Remark.isValidWarehouse("Some longer remark: blah blah blah blah")); // long remark
+        assertTrue(Remark.isValidRemark("")); // empty string
+        assertTrue(Remark.isValidRemark("Some remark"));
+        assertTrue(Remark.isValidRemark("-")); // one character
+        assertTrue(Remark.isValidRemark("Some longer remark: blah blah blah blah")); // long remark
     }
 
     @Test

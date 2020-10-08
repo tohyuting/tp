@@ -1,11 +1,11 @@
-package seedu.address.model.warehouse;
+package seedu.address.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Warehouse's address in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidWarehouse(String)}
+ * Represents a remark for the supplier/warehouse in CLI-nic app.
+ * Guarantees: immutable; is valid as declared in {@link #isValidRemark(String)}
  */
 public class Remark {
     public static final String MESSAGE_CONSTRAINTS =
@@ -22,14 +22,14 @@ public class Remark {
      */
     public Remark(String remark) {
         requireNonNull(remark);
-        checkArgument(isValidWarehouse(remark), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidRemark(remark), MESSAGE_CONSTRAINTS);
         value = remark;
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid remark.
      */
-    public static boolean isValidWarehouse(String remark) {
+    public static boolean isValidRemark(String remark) {
         if (remark.isEmpty()) {
             return true;
         }

@@ -4,12 +4,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import seedu.address.model.attribute.Address;
+import seedu.address.model.attribute.Name;
+import seedu.address.model.attribute.Phone;
+import seedu.address.model.attribute.Remark;
 import seedu.address.model.product.Product;
-import seedu.address.model.supplier.Address;
-import seedu.address.model.supplier.Name;
-import seedu.address.model.supplier.Phone;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.model.warehouse.Remark;
 import seedu.address.model.warehouse.Warehouse;
 
 /**

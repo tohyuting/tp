@@ -16,6 +16,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.supplier.Supplier;
 import seedu.address.testutil.SupplierBuilder;
 
 public class SupplierTest {
