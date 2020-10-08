@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -35,7 +34,7 @@
         </MenuBar>
 
         <HBox VBox.vgrow="ALWAYS">
-          <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border">
+          <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border" maxWidth="300">
             <padding>
               <Insets top="5" right="10" bottom="5" left="10" />
             </padding>
@@ -46,6 +45,13 @@
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
+          <VBox fx:id="personList2" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="personListPanelPlaceholder2" VBox.vgrow="ALWAYS"/>
           </VBox>
         </HBox>
 
