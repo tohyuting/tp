@@ -4,9 +4,9 @@ import javafx.collections.ObservableList;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a clinic
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyClinic {
 
     /**
      * Returns an unmodifiable view of the suppliers list.

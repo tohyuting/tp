@@ -9,10 +9,10 @@ import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.supplier.UniqueSupplierList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the clinic level
  * Duplicates are not allowed (by .isSameSupplier comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class Clinic implements ReadOnlyClinic {
 
     private final UniqueSupplierList suppliers;
 
@@ -27,12 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         suppliers = new UniqueSupplierList();
     }
 
-    public AddressBook() {}
+    public Clinic() {}
 
     /**
-     * Creates an AddressBook using the Suppliers in the {@code toBeCopied}
+     * Creates a Clinic using the Suppliers in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public Clinic(ReadOnlyClinic toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,9 +48,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code Clinic} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyClinic newData) {
         requireNonNull(newData);
 
         setSuppliers(newData.getSupplierList());
@@ -59,7 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// supplier-level operations
 
     /**
-     * Returns true if a supplier with the same identity as {@code supplier} exists in the address book.
+     * Returns true if a supplier with the same identity as {@code supplier} exists in the clinic.
      */
     public boolean hasSupplier(Supplier supplier) {
         requireNonNull(supplier);
@@ -67,8 +67,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a supplier to the address book.
-     * The supplier must not already exist in the address book.
+     * Adds a supplier to the clinic.
+     * The supplier must not already exist in clinic.
      */
     public void addSupplier(Supplier p) {
         suppliers.add(p);
@@ -76,9 +76,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given supplier {@code target} in the list with {@code editedSupplier}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in clinic.
      * The supplier identity of {@code editedSupplier} must not be the same as another existing supplier
-     * in the address book.
+     * in the clinic.
      */
     public void setSupplier(Supplier target, Supplier editedSupplier) {
         requireNonNull(editedSupplier);
@@ -87,8 +87,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Clinic}.
+     * {@code key} must exist in clinic.
      */
     public void removeSupplier(Supplier key) {
         suppliers.remove(key);
@@ -110,8 +110,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && suppliers.equals(((AddressBook) other).suppliers));
+                || (other instanceof Clinic // instanceof handles nulls
+                && suppliers.equals(((Clinic) other).suppliers));
     }
 
     @Override

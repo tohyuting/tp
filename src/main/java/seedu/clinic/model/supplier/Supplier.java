@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.clinic.model.product.Product;
 
 /**
- * Represents a Supplier in the address book.
+ * Represents a Supplier in the CLI-nic app.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Supplier {

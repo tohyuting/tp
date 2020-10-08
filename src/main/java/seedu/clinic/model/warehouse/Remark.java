@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Warehouse's address in the address book.
+ * Represents a Warehouse's address in the CLI-nic app.
  * Guarantees: immutable; is valid as declared in {@link #isValidWarehouse(String)}
  */
 public class Remark {

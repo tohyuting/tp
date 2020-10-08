@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.clinic.model.AddressBook;
-import seedu.clinic.model.ReadOnlyAddressBook;
+import seedu.clinic.model.Clinic;
+import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Email;
 import seedu.clinic.model.supplier.Name;
@@ -17,7 +17,7 @@ import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code Clinic} with sample data.
  */
 public class SampleDataUtil {
     public static Supplier[] getSampleSuppliers() {
@@ -43,8 +43,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyClinic getSampleClinic() {
+        Clinic sampleAb = new Clinic();
         for (Supplier sampleSupplier : getSampleSuppliers()) {
             sampleAb.addSupplier(sampleSupplier);
         }

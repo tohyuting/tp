@@ -35,45 +35,45 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' clinic file path.
      */
-    Path getAddressBookFilePath();
+    Path getClinicFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' clinic file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setClinicFilePath(Path clinicFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces clinic data with the data in {@code clinic}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setClinic(ReadOnlyClinic clinic);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Clinic */
+    ReadOnlyClinic getClinic();
 
     /**
-     * Returns true if a supplier with the same identity as {@code supplier} exists in the address book.
+     * Returns true if a supplier with the same identity as {@code supplier} exists in the CLI-nic app.
      */
     boolean hasSupplier(Supplier supplier);
 
     /**
      * Deletes the given supplier.
-     * The supplier must exist in the address book.
+     * The supplier must exist in the CLI-nic app.
      */
     void deleteSupplier(Supplier target);
 
     /**
      * Adds the given supplier.
-     * {@code supplier} must not already exist in the address book.
+     * {@code supplier} must not already exist in the CLI-nic app.
      */
     void addSupplier(Supplier supplier);
 
     /**
      * Replaces the given supplier {@code target} with {@code editedSupplier}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the clinic.
      * The supplier identity of {@code editedSupplier} must not be the same as another existing supplier
-     * in the address book.
+     * in the clinic.
      */
     void setSupplier(Supplier target, Supplier editedSupplier);
 

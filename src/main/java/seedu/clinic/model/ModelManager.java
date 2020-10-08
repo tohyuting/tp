@@ -14,31 +14,31 @@ import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the clinic data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final Clinic clinic;
     private final UserPrefs userPrefs;
     private final FilteredList<Supplier> filteredSuppliers;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given clinic and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyClinic clinic, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(clinic, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with clinic: " + clinic + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.clinic = new Clinic(clinic);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredSuppliers = new FilteredList<>(this.addressBook.getSupplierList());
+        filteredSuppliers = new FilteredList<>(this.clinic.getSupplierList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Clinic(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,42 +66,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getClinicFilePath() {
+        return userPrefs.getClinicFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setClinicFilePath(Path ClinicFilePath) {
+        requireNonNull(ClinicFilePath);
+        userPrefs.setClinicFilePath(ClinicFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Clinic ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setClinic(ReadOnlyClinic clinic) {
+        this.clinic.resetData(clinic);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyClinic getClinic() {
+        return clinic;
     }
 
     @Override
     public boolean hasSupplier(Supplier supplier) {
         requireNonNull(supplier);
-        return addressBook.hasSupplier(supplier);
+        return clinic.hasSupplier(supplier);
     }
 
     @Override
     public void deleteSupplier(Supplier target) {
-        addressBook.removeSupplier(target);
+        clinic.removeSupplier(target);
     }
 
     @Override
     public void addSupplier(Supplier supplier) {
-        addressBook.addSupplier(supplier);
+        clinic.addSupplier(supplier);
         updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
     }
 
@@ -109,14 +109,14 @@ public class ModelManager implements Model {
     public void setSupplier(Supplier target, Supplier editedSupplier) {
         requireAllNonNull(target, editedSupplier);
 
-        addressBook.setSupplier(target, editedSupplier);
+        clinic.setSupplier(target, editedSupplier);
     }
 
     //=========== Filtered Supplier List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Supplier} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedClinic}
      */
     @Override
     public ObservableList<Supplier> getFilteredSupplierList() {
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return clinic.equals(other.clinic)
                 && userPrefs.equals(other.userPrefs)
                 && filteredSuppliers.equals(other.filteredSuppliers);
     }

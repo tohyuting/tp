@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Supplier's phone number in the address book.
+ * Represents a Supplier's phone number in the CLI-nic app.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {
