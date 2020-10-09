@@ -127,7 +127,9 @@ public class UniqueSupplierList implements Iterable<Supplier> {
     private boolean suppliersAreUnique(List<Supplier> suppliers) {
         for (int i = 0; i < suppliers.size() - 1; i++) {
             for (int j = i + 1; j < suppliers.size(); j++) {
-                return !suppliers.get(i).isSameSupplier(suppliers.get(j));
+                if (suppliers.get(i).isSameSupplier(suppliers.get(j))) {
+                    return false;
+                }
             }
         }
         return true;

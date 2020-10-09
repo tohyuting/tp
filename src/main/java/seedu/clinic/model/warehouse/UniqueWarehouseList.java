@@ -130,7 +130,9 @@ public class UniqueWarehouseList implements Iterable<Warehouse> {
     private boolean warehousesAreUnique(List<Warehouse> warehouses) {
         for (int i = 0; i < warehouses.size() - 1; i++) {
             for (int j = i + 1; j < warehouses.size(); j++) {
-                return !warehouses.get(i).isSameWarehouse(warehouses.get(j));
+                if (warehouses.get(i).isSameWarehouse(warehouses.get(j))) {
+                    return false;
+                }
             }
         }
         return true;

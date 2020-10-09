@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 
 public class ConfigTest {
 
+//    @Test
+//    public void
+
     @Test
     public void toString_defaultObject_stringReturned() {
         String defaultConfigAsString = "Current log level : INFO\n"

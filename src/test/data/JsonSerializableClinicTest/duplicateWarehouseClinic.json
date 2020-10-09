@@ -3,8 +3,8 @@
   "warehouses": [ {
     "name" : "Alice Pauline Ltd",
     "phone" : "94351253",
-    "address" : "alice@example.com",
-    "remark" : "long term supplier",
+    "address" : "alice address",
+    "remark" : "long term warehouse",
     "products": [ {
       "name": "Panadol",
       "quantity": 10
@@ -12,8 +12,8 @@
   }, {
     "name" : "Alice Pauline Ltd",
     "phone" : "98765432",
-    "address" : "johnd@example.com",
-    "remark" : "trusted supplier",
+    "address" : "johnd address",
+    "remark" : "trusted warehouse",
     "products": [ {
       "name": "Panadol",
       "quantity": 20
