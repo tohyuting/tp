@@ -121,7 +121,7 @@ public class Product {
         builder.append(getProductName())
                 .append(" - ")
                 .append(getProductQuantity())
-                .append(" left");
+                .append(" left ");
         return builder.toString();
     }
 

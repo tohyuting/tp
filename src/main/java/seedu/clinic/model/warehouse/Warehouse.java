@@ -129,10 +129,10 @@ public class Warehouse {
                 .append(getPhone())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Products: ");
-        getProducts().forEach(s -> builder.append(s.toStringForWareHouse()));
-        builder.append(" Remark: ")
+                .append(" Remark: ")
                 .append(getRemark());
+        builder.append(" Products: ");
+        getProducts().forEach(s -> builder.append(s.toStringForWareHouse()));
         return builder.toString();
     }
 }
