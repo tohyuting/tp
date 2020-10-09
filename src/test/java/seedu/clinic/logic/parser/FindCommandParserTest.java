@@ -9,7 +9,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.clinic.logic.commands.FindCommand;
-import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
 import seedu.clinic.model.supplier.ProductsContainKeywordsPredicate;
 
 public class FindCommandParserTest {

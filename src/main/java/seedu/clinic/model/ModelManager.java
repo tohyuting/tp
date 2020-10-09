@@ -71,9 +71,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setClinicFilePath(Path ClinicFilePath) {
-        requireNonNull(ClinicFilePath);
-        userPrefs.setClinicFilePath(ClinicFilePath);
+    public void setClinicFilePath(Path clinicFilePath) {
+        requireNonNull(clinicFilePath);
+        userPrefs.setClinicFilePath(clinicFilePath);
     }
 
     //=========== Clinic ================================================================================
