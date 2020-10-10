@@ -49,22 +49,22 @@ public class SampleDataUtil {
         return new Warehouse[] {
             new Warehouse(new Name("Alex Yeoh warehouse"), new Phone("87438807"),
                 new Address("21 Lower Kent Ridge Rd, Singapore 119077"), new Remark("long term partner"),
-                    getProductSetForWarehouse(Map.of("Panadol", 10))),
+                    getProductSetForWarehouse(new HashSet<Product>(), Map.of("Panadol", 10))),
             new Warehouse(new Name("Bernice Yu warehouse"), new Phone("99272758"),
                 new Address("21 Lower Kent Ridge Rd, Singapore 119077"), new Remark("long term partner"),
-                    getProductSetForWarehouse(Map.of("Panadol", 20))),
+                    getProductSetForWarehouse(new HashSet<Product>(), Map.of("Panadol", 20))),
             new Warehouse(new Name("Charlotte Oliveiro warehouse"), new Phone("93210283"),
                 new Address("21 Lower Kent Ridge Rd, Singapore 119077"), new Remark("long term partner"),
-                    getProductSetForWarehouse(Map.of("Panadol", 30))),
+                    getProductSetForWarehouse(new HashSet<Product>(), Map.of("Panadol", 30))),
             new Warehouse(new Name("David Li warehouse"), new Phone("91031282"),
                 new Address("21 Lower Kent Ridge Rd, Singapore 119077"), new Remark("long term partner"),
-                    getProductSetForWarehouse(Map.of("Panadol", 100))),
+                    getProductSetForWarehouse(new HashSet<Product>(), Map.of("Panadol", 100))),
             new Warehouse(new Name("Irfan Ibrahim warehouse"), new Phone("92492021"),
                 new Address("21 Lower Kent Ridge Rd, Singapore 119077"), new Remark("long term partner"),
-                    getProductSetForWarehouse(Map.of("Panadol", 50))),
+                    getProductSetForWarehouse(new HashSet<Product>(), Map.of("Panadol", 50))),
             new Warehouse(new Name("Roy Balakrishnan warehouse"), new Phone("92624417"),
                 new Address("21 Lower Kent Ridge Rd, Singapore 119077"), new Remark("long term partner"),
-                    getProductSetForWarehouse(Map.of("Panadol", 70))),
+                    getProductSetForWarehouse(new HashSet<Product>(), Map.of("Panadol", 70))),
         };
     }
 
@@ -105,8 +105,7 @@ public class SampleDataUtil {
     /**
      * Returns a product set containing the hashmap of strings given.
      */
-    public static Set<Product> getProductSetForWarehouse(Map<String, Integer> productMap) {
-        Set<Product> productSet = new HashSet<>();
+    public static Set<Product> getProductSetForWarehouse(Set<Product> productSet, Map<String, Integer> productMap) {
         for (String productName:productMap.keySet()) {
             Product product = new Product(new Name(productName), productMap.get(productName));
             productSet.add(product);

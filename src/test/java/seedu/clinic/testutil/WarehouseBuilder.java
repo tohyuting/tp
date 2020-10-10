@@ -61,7 +61,7 @@ public class WarehouseBuilder {
      * Parses the {@code products} into a {@code Set<Product>} and set it to the {@code Warehouse} that we are building.
      */
     public WarehouseBuilder withProducts(Map<String, Integer> productMap) {
-        this.products = SampleDataUtil.getProductSetForWarehouse(productMap);
+        this.products = SampleDataUtil.getProductSetForWarehouse(products, productMap);
         return this;
     }
 

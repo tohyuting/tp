@@ -45,11 +45,14 @@ public class TypicalWarehouse {
     public static final Warehouse ELLE = new WarehouseBuilder().withName("Warehouse Elle")
             .withRemark("Warehouse 5").withAddress("elle address")
             .withPhone("94651253")
-            .withProducts(Map.of("Cough Syrup", 30)).build();
+            .withProducts(Map.of("Cough Syrup", 30))
+            .withProducts(Map.of("Medical Glove", 50)).build();
     public static final Warehouse FIONA = new WarehouseBuilder().withName("Warehouse Fiona")
             .withRemark("Warehouse 10").withAddress("fiona address")
             .withPhone("92351253")
-            .withProducts(Map.of("Flu Syrup", 1000)).build();
+            .withProducts(Map.of("Flu Syrup", 1000))
+            .withProducts(Map.of("Medical Glove", 50))
+            .withProducts(Map.of("Syringe", 500)).build();
     public static final Warehouse GEORGE = new WarehouseBuilder().withName("Warehouse George")
             .withRemark("Warehouse to be removed").withAddress("george address")
             .withPhone("84351253")

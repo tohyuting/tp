@@ -45,6 +45,9 @@
     "products" : [ {
       "name": "Cough Syrup",
       "quantity": 30
+    }, {
+      "name": "Medical Glove",
+      "quantity": 50
     } ]
   }, {
     "name" : "Warehouse Fiona",
@@ -54,6 +57,12 @@
     "products" : [ {
       "name": "Flu Syrup",
       "quantity": 1000
+    }, {
+      "name": "Medical Glove",
+      "quantity": 50
+    }, {
+      "name": "Syringe",
+      "quantity": 500
     } ]
   }, {
     "name" : "Warehouse George",
