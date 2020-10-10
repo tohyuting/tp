@@ -2,14 +2,15 @@ package seedu.clinic.model.product;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import seedu.clinic.testutil.ProductBuilderSupplier;
-
-import org.junit.jupiter.api.Test;
-import seedu.clinic.testutil.ProductBuilderWarehouse;
 import static seedu.clinic.testutil.TypicalProductSupplier.SANITIZER_SUPPLIER;
 import static seedu.clinic.testutil.TypicalProductSupplier.SURGICAL_MASK_SUPPLIER;
 import static seedu.clinic.testutil.TypicalProductWarehouse.SANITIZER_WAREHOUSE;
 import static seedu.clinic.testutil.TypicalProductWarehouse.SURGICAL_MASK_WAREHOUSE;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.clinic.testutil.ProductBuilderSupplier;
+import seedu.clinic.testutil.ProductBuilderWarehouse;
 
 public class ProductTest {
     @Test

@@ -1,12 +1,12 @@
 package seedu.clinic.testutil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Tag;
 import seedu.clinic.model.product.Product;
 import seedu.clinic.model.util.SampleDataUtil;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A utility class to help with building Product objects for Supplier.

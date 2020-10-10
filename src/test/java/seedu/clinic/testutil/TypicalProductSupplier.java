@@ -4,11 +4,12 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASP
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_PANADOL;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_FEVER;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_PAINKILLER;
-import seedu.clinic.model.product.Product;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.clinic.model.product.Product;
 
 /**
  * A utility class containing a list of {@code Product} objects to be used in tests.
