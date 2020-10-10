@@ -12,6 +12,7 @@ import seedu.clinic.commons.exceptions.IllegalValueException;
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * An Immutable Clinic that is serializable to JSON format.
@@ -19,16 +20,21 @@ import seedu.clinic.model.supplier.Supplier;
 @JsonRootName(value = "clinic")
 class JsonSerializableClinic {
 
-    public static final String MESSAGE_DUPLICATE_SUPPLIER = "suppliers list contains duplicate supplier(s).";
+    public static final String MESSAGE_DUPLICATE_SUPPLIER = "Suppliers list contains duplicate supplier(s).";
+    public static final String MESSAGE_DUPLICATE_WAREHOUSE = "Warehouses list contains duplicate warehouse(s).";
 
     private final List<JsonAdaptedSupplier> suppliers = new ArrayList<>();
+    private final List<JsonAdaptedWarehouse> warehouses = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableClinic} with the given suppliers.
+     * Constructs a {@code JsonSerializableClinic} with the given suppliers and warehouses.
      */
+
     @JsonCreator
-    public JsonSerializableClinic(@JsonProperty("suppliers") List<JsonAdaptedSupplier> suppliers) {
+    public JsonSerializableClinic(@JsonProperty("suppliers") List<JsonAdaptedSupplier> suppliers,
+                                  @JsonProperty("warehouses") List<JsonAdaptedWarehouse> warehouses) {
         this.suppliers.addAll(suppliers);
+        this.warehouses.addAll(warehouses);
     }
 
     /**
@@ -37,7 +43,10 @@ class JsonSerializableClinic {
      * @param source future changes to this will not affect the created {@code JsonSerializableClinic}.
      */
     public JsonSerializableClinic(ReadOnlyClinic source) {
-        suppliers.addAll(source.getSupplierList().stream().map(JsonAdaptedSupplier::new).collect(Collectors.toList()));
+        suppliers.addAll(source.getSupplierList().stream().map(JsonAdaptedSupplier::new)
+                .collect(Collectors.toList()));
+        warehouses.addAll(source.getWarehouseList().stream().map(JsonAdaptedWarehouse::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -54,6 +63,15 @@ class JsonSerializableClinic {
             }
             clinic.addSupplier(supplier);
         }
+
+        for (JsonAdaptedWarehouse jsonAdaptedWarehouse : warehouses) {
+            Warehouse warehouse = jsonAdaptedWarehouse.toModelType();
+            if (clinic.hasWarehouse(warehouse)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_WAREHOUSE);
+            }
+            clinic.addWarehouse(warehouse);
+        }
+
         return clinic;
     }
 

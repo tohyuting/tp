@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
 
 /**

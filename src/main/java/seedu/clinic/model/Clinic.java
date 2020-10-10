@@ -3,18 +3,22 @@ package seedu.clinic.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.supplier.UniqueSupplierList;
+import seedu.clinic.model.warehouse.UniqueWarehouseList;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * Wraps all data at the clinic level
- * Duplicates are not allowed (by .isSameSupplier comparison)
+ * Duplicates are not allowed (by .isSameSupplier and isSameWarehouse comparison)
  */
 public class Clinic implements ReadOnlyClinic {
 
     private final UniqueSupplierList suppliers;
+    private final UniqueWarehouseList warehouses;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,12 +29,13 @@ public class Clinic implements ReadOnlyClinic {
      */
     {
         suppliers = new UniqueSupplierList();
+        warehouses = new UniqueWarehouseList();
     }
 
     public Clinic() {}
 
     /**
-     * Creates a Clinic using the Suppliers in the {@code toBeCopied}
+     * Creates a Clinic using the Suppliers & Warehouses in the {@code toBeCopied}
      */
     public Clinic(ReadOnlyClinic toBeCopied) {
         this();
@@ -48,12 +53,59 @@ public class Clinic implements ReadOnlyClinic {
     }
 
     /**
+     * Replaces the contents of the warehouse list with {@code warehouses}.
+     * {@code warehouses} must not contain duplicate warehouses.
+     */
+    public void setWarehouses(List<Warehouse> warehouses) {
+        this.warehouses.setWarehouses(warehouses);
+    }
+
+    /**
      * Resets the existing data of this {@code Clinic} with {@code newData}.
      */
     public void resetData(ReadOnlyClinic newData) {
         requireNonNull(newData);
 
         setSuppliers(newData.getSupplierList());
+        setWarehouses(newData.getWarehouseList());
+    }
+
+    //// warehouse-level operations
+
+    /**
+     * Returns true if a warehouse with the same identity as {@code warehouse} exists in the clinic.
+     */
+    public boolean hasWarehouse(Warehouse warehouse) {
+        requireNonNull(warehouse);
+        return warehouses.contains(warehouse);
+    }
+
+    /**
+     * Adds a warehouse to the clinic.
+     * The warehouse must not already exist in the clinic.
+     */
+    public void addWarehouse(Warehouse p) {
+        warehouses.add(p);
+    }
+
+    /**
+     * Replaces the given warehouse {@code target} in the list with {@code editedWarehouse}.
+     * {@code target} must exist in the clinic.
+     * The warehouse identity of {@code editedWarehouse} must not be the same as another existing warehouse
+     * in the clinic.
+     */
+    public void setWarehouse(Warehouse target, Warehouse editedWarehouse) {
+        requireNonNull(editedWarehouse);
+
+        warehouses.setWarehouse(target, editedWarehouse);
+    }
+
+    /**
+     * Removes {@code key} from this {@code Clinic}.
+     * {@code key} must exist in the clinic.
+     */
+    public void removeWarehouse(Warehouse key) {
+        warehouses.remove(key);
     }
 
     //// supplier-level operations
@@ -98,7 +150,8 @@ public class Clinic implements ReadOnlyClinic {
 
     @Override
     public String toString() {
-        return suppliers.asUnmodifiableObservableList().size() + " suppliers";
+        return suppliers.asUnmodifiableObservableList().size() + " suppliers\n"
+                + warehouses.asUnmodifiableObservableList().size() + " warehouses";
         // TODO: refine later
     }
 
@@ -108,14 +161,20 @@ public class Clinic implements ReadOnlyClinic {
     }
 
     @Override
+    public ObservableList<Warehouse> getWarehouseList() {
+        return warehouses.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Clinic // instanceof handles nulls
+                && warehouses.equals(((Clinic) other).warehouses)
                 && suppliers.equals(((Clinic) other).suppliers));
     }
 
     @Override
     public int hashCode() {
-        return suppliers.hashCode();
+        return Objects.hash(suppliers, warehouses);
     }
 }

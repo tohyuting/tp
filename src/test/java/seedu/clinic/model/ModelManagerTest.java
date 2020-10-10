@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
+import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalSupplier.ALICE;
 import static seedu.clinic.testutil.TypicalSupplier.BENSON;
+import static seedu.clinic.testutil.TypicalWarehouse.A;
+import static seedu.clinic.testutil.TypicalWarehouse.B;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,7 +18,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.clinic.commons.core.GuiSettings;
-import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
 import seedu.clinic.testutil.ClinicBuilder;
 
 public class ModelManagerTest {
@@ -78,8 +82,18 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasWarehouse_nullWarehouse_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasWarehouse(null));
+    }
+
+    @Test
     public void hasSupplier_supplierNotInClinic_returnsFalse() {
         assertFalse(modelManager.hasSupplier(ALICE));
+    }
+
+    @Test
+    public void hasWarehouse_warehouseNotInClinic_returnsFalse() {
+        assertFalse(modelManager.hasWarehouse(A));
     }
 
     @Test
@@ -89,13 +103,30 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasWarehouse_warehouseInClinic_returnsTrue() {
+        modelManager.addWarehouse(A);
+        assertTrue(modelManager.hasWarehouse(A));
+    }
+
+    @Test
     public void getFilteredSupplierList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredSupplierList().remove(0));
     }
 
     @Test
+    public void getFilteredWarehouseList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, ()
+            -> modelManager.getFilteredWarehouseList().remove(0));
+    }
+
+    @Test
     public void equals() {
-        Clinic clinic = new ClinicBuilder().withSupplier(ALICE).withSupplier(BENSON).build();
+        Clinic clinic = new ClinicBuilder()
+                .withSupplier(ALICE)
+                .withSupplier(BENSON)
+                .withWarehouse(A)
+                .withWarehouse(B)
+                .build();
         Clinic differentClinic = new Clinic();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -116,14 +147,21 @@ public class ModelManagerTest {
         // different clinic -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentClinic, userPrefs)));
 
-        // different filteredList -> returns false
+        // different filteredSupplierList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         String[] query = Arrays.copyOfRange(keywords, 0, 2);
-        modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicate(Arrays.asList(query)));
+        modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(Arrays.asList(query)));
+        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs)));
+
+        // different filteredWarehouseList -> returns false
+        keywords = A.getName().fullName.split("\\s+");
+        query = Arrays.copyOfRange(keywords, 0, 2);
+        modelManager.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(query)));
         assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+        modelManager.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

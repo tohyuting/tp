@@ -1,10 +1,10 @@
-package seedu.clinic.model.supplier;
+package seedu.clinic.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Supplier's phone number in the CLI-nic app.
+ * Represents a phone number for the supplier/warehouse/product in CLI-nic app.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {

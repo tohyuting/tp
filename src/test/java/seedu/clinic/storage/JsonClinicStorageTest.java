@@ -6,7 +6,11 @@ import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalSupplier.ALICE;
 import static seedu.clinic.testutil.TypicalSupplier.HOON;
 import static seedu.clinic.testutil.TypicalSupplier.IDA;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalSupplierOnlyClinic;
+import static seedu.clinic.testutil.TypicalWarehouse.BENSON;
+import static seedu.clinic.testutil.TypicalWarehouse.HENRY;
+import static seedu.clinic.testutil.TypicalWarehouse.IRVIN;
+import static seedu.clinic.testutil.TypicalWarehouse.getTypicalWarehouseOnlyClinic;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -20,7 +24,8 @@ import seedu.clinic.model.Clinic;
 import seedu.clinic.model.ReadOnlyClinic;
 
 public class JsonClinicStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonClinicStorageTest");
+    private static final Path TEST_DATA_FOLDER =
+            Paths.get("src", "test", "data", "JsonClinicStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -56,33 +61,73 @@ public class JsonClinicStorageTest {
     }
 
     @Test
-    public void readClinic_invalidAndValidSupplierClinic_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readClinic("invalidAndValidSupplierClinic.json"));
+    public void readClinic_invalidWarehouseClinic_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readClinic("invalidWarehouseClinic.json"));
     }
 
     @Test
-    public void readAndSaveClinic_allInOrder_success() throws Exception {
+    public void readClinic_invalidAndValidSupplierClinic_throwDataConversionException() {
+        assertThrows(DataConversionException.class, ()
+            -> readClinic("invalidAndValidSupplierClinic.json")
+        );
+    }
+
+    @Test
+    public void readClinic_invalidAndValidWarehouseClinic_throwDataConversionException() {
+        assertThrows(DataConversionException.class, ()
+            -> readClinic("invalidAndValidWarehouseClinic.json")
+        );
+    }
+
+    @Test
+    public void readAndSaveSupplierOnlyClinic_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempClinic.json");
-        Clinic original = getTypicalClinic();
+        Clinic originalSupplierOnly = getTypicalSupplierOnlyClinic();
         JsonClinicStorage jsonClinicStorage = new JsonClinicStorage(filePath);
 
         // Save in new file and read back
-        jsonClinicStorage.saveClinic(original, filePath);
+        jsonClinicStorage.saveClinic(originalSupplierOnly, filePath);
         ReadOnlyClinic readBack = jsonClinicStorage.readClinic(filePath).get();
-        assertEquals(original, new Clinic(readBack));
+        assertEquals(originalSupplierOnly, new Clinic(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addSupplier(HOON);
-        original.removeSupplier(ALICE);
-        jsonClinicStorage.saveClinic(original, filePath);
+        originalSupplierOnly.addSupplier(HOON);
+        originalSupplierOnly.removeSupplier(ALICE);
+        jsonClinicStorage.saveClinic(originalSupplierOnly, filePath);
         readBack = jsonClinicStorage.readClinic(filePath).get();
-        assertEquals(original, new Clinic(readBack));
+        assertEquals(originalSupplierOnly, new Clinic(readBack));
 
         // Save and read without specifying file path
-        original.addSupplier(IDA);
-        jsonClinicStorage.saveClinic(original); // file path not specified
+        originalSupplierOnly.addSupplier(IDA);
+        jsonClinicStorage.saveClinic(originalSupplierOnly); // file path not specified
         readBack = jsonClinicStorage.readClinic().get(); // file path not specified
-        assertEquals(original, new Clinic(readBack));
+        assertEquals(originalSupplierOnly, new Clinic(readBack));
+
+    }
+
+    @Test
+    public void readAndSaveWarehouseOnlyClinic_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempClinic.json");
+        Clinic originalWarehouseOnly = getTypicalWarehouseOnlyClinic();
+        JsonClinicStorage jsonClinicStorage = new JsonClinicStorage(filePath);
+
+        // Save in new file and read back
+        jsonClinicStorage.saveClinic(originalWarehouseOnly, filePath);
+        ReadOnlyClinic readBack = jsonClinicStorage.readClinic(filePath).get();
+        assertEquals(originalWarehouseOnly, new Clinic(readBack));
+
+        // Modify data, overwrite exiting file, and read back
+        originalWarehouseOnly.addWarehouse(HENRY);
+        originalWarehouseOnly.removeWarehouse(BENSON);
+        jsonClinicStorage.saveClinic(originalWarehouseOnly, filePath);
+        readBack = jsonClinicStorage.readClinic(filePath).get();
+        assertEquals(originalWarehouseOnly, new Clinic(readBack));
+
+        // Save and read without specifying file path
+        originalWarehouseOnly.addWarehouse(IRVIN);
+        jsonClinicStorage.saveClinic(originalWarehouseOnly); // file path not specified
+        readBack = jsonClinicStorage.readClinic().get(); // file path not specified
+        assertEquals(originalWarehouseOnly, new Clinic(readBack));
 
     }
 

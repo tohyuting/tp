@@ -9,6 +9,7 @@ import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * API of the Logic component
@@ -32,6 +33,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of suppliers */
     ObservableList<Supplier> getFilteredSupplierList();
+
+    /** Returns an unmodifiable view of the filtered list of warehouses */
+    ObservableList<Warehouse> getFilteredWarehouseList();
 
     /**
      * Returns the user prefs' clinic file path.

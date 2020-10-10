@@ -13,7 +13,7 @@ and efficient Graphical User Interface interaction.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Quick startf
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -27,10 +27,10 @@ and efficient Graphical User Interface interaction.
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will display instructions on various commands.<br>
    Some example commands you can try:
 
-   * **`add`** `w/warehouseA p/00000000 addr/John street, block 123, #01-01 wn/First warehouse` : Adds a warehouse
+   * **`add`** `w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` : Adds a warehouse
     with the name warehouseA located at John street, block 123, #01-01. The warehouse is noted to be the “First warehouse”.
 
-   * **`add`** `s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com sn/largest contractor` : Adds a
+   * **`add`** `s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor` : Adds a
     supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is
     philipsPharm@gmail.com. The supplier is noted to be the “largest contractor”.
 
@@ -93,22 +93,22 @@ Examples:
 
 Adds warehouse to the CLI-nic application.
 
-Format: `add w/WAREHOUSE_NAME p/CONTACT_NUMBER addr/ADDRESS [wn/WAREHOUSE_NOTE]`
+Format: `add w/WAREHOUSE_NAME p/CONTACT_NUMBER addr/ADDRESS [r/WAREHOUSE_NOTE]`
 
 Examples:
 
-* `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 wn/First warehouse` Adds a warehouse with the name
+* `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` Adds a warehouse with the name
  warehouseA located at John street, block 123, #01-01. The warehouse's contact number is 00000000. The warehouse is noted to be the “First warehouse”.
 
 ### Adding a supplier : `add`
 
 Adds a supplier to the CLI-nic application.
 
-Format: `add s/SUPPLIER_NAME p/CONTACT_NUMBER [e/EMAIL_ADDRESS] [sn/SUPPLIER_NOTE]`
+Format: `add s/SUPPLIER_NAME p/CONTACT_NUMBER [e/EMAIL_ADDRESS] [r/SUPPLIER_NOTE]`
 
 Examples:
 
-* `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com sn/largest contractor` Adds a
+* `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor` Adds a
  supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com. The supplier is noted to be the “largest contractor”.
 
 ### Adding a product to a supplier : `add`
@@ -222,8 +222,8 @@ Examples:
 
 Action | Format, Examples
 --------|------------------
-**Add** Warehouse | `add w/WAREHOUSE_NAME p/CONTACT_NUMBER addr/ADDRESS [wn/WAREHOUSE_NOTE]`<br> e.g., `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 wn/First warehouse`
-**Add** Supplier | `add s/SUPPLIER_NAME p/CONTACT_NUMBER [e/EMAIL_ADDRESS] [sn/SUPPLIER_NOTE]`<br> e.g., `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com sn/largest contractor`
+**Add** Warehouse | `add w/WAREHOUSE_NAME p/CONTACT_NUMBER addr/ADDRESS [r/WAREHOUSE_NOTE]`<br> e.g., `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
+**Add** Supplier | `add s/SUPPLIER_NAME p/CONTACT_NUMBER [e/EMAIL_ADDRESS] [r/SUPPLIER_NOTE]`<br> e.g., `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
 **Add** Product | `add s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `add s/SupplierA pd/PANADOL SUSP t/FEVER`
 **Clear** | `clear`
 **Delete** | `delete TYPE INDEX`<br> e.g., `delete 3`

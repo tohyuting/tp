@@ -1,16 +1,18 @@
-package seedu.clinic.model.supplier;
+package seedu.clinic.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a remark for the supplier/warehouse in CLI-nic app.
+ * Guarantees: immutable; is valid as declared in {@link #isValidRemark(String)}
+ */
 public class Remark {
+    public static final String MESSAGE_CONSTRAINTS =
+            "Remarks can take any values, and it should not have more that 100 characters";
 
-    public static final String MESSAGE_CONSTRAINTS = "Remarks can take any values, and it should not be blank";
-    /*
-     * The first character of the remark must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
     public static final String VALIDATION_REGEX = "[^\\s].*";
+
     public final String value;
 
     /**
@@ -24,8 +26,14 @@ public class Remark {
         value = remark;
     }
 
-    public static Boolean isValidRemark(String test) {
-        return test.matches(VALIDATION_REGEX);
+    /**
+     * Returns true if a given string is a valid remark.
+     */
+    public static boolean isValidRemark(String remark) {
+        if (remark.isEmpty()) {
+            return true;
+        }
+        return remark.matches(VALIDATION_REGEX) && remark.length() <= 100;
     }
 
     @Override
@@ -44,4 +52,5 @@ public class Remark {
     public int hashCode() {
         return value.hashCode();
     }
+
 }

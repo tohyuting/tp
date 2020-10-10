@@ -1,10 +1,10 @@
-package seedu.clinic.model.tag;
+package seedu.clinic.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tag in the CLI-nic app.
+ * Represents a tag for the product related to a specific supplier/warehouse in CLI-nic app.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {

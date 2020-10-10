@@ -17,12 +17,16 @@ import java.util.Map;
 
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
+import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.Model;
-import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
 import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.warehouse.Warehouse;
 import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
+import seedu.clinic.testutil.EditWarehouseDescriptiorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -89,6 +93,9 @@ public class CommandTestUtil {
     public static final EditSupplierDescriptor DESC_AMY;
     public static final EditSupplierDescriptor DESC_BOB;
 
+    public static final EditWarehouseDescriptor DESC_A;
+    public static final EditWarehouseDescriptor DESC_B;
+
     static {
         DESC_AMY = new EditSupplierDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withRemark(VALID_REMARK_AMY)
@@ -96,6 +103,14 @@ public class CommandTestUtil {
         DESC_BOB = new EditSupplierDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withRemark(VALID_REMARK_BOB)
                 .withProducts(Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
+        DESC_A = new EditWarehouseDescriptiorBuilder().withName(VALID_WAREHOUSE_NAME_A)
+                .withPhone(VALID_WAREHOUSE_PHONE_A).withAddress(VALID_WAREHOUSE_ADDRESS_A)
+                .withRemark(VALID_WAREHOUSE_REMARK_A)
+                .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
+        DESC_B = new EditWarehouseDescriptiorBuilder().withName(VALID_WAREHOUSE_NAME_B)
+                .withPhone(VALID_WAREHOUSE_PHONE_B).withAddress(VALID_WAREHOUSE_ADDRESS_B)
+                .withRemark(VALID_WAREHOUSE_REMARK_B)
+                .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_B, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
     }
 
     /**
@@ -128,20 +143,24 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the clinic, filtered supplier list and selected supplier in {@code actualModel} remain unchanged
+     * - the clinic, filtered supplier list and selected supplier,
+     * - filtered warehouse list and selected warehouse in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         Clinic expectedClinic = new Clinic(actualModel.getClinic());
-        List<Supplier> expectedFilteredList = new ArrayList<>(actualModel.getFilteredSupplierList());
+        List<Supplier> expectedFilteredSupplierList = new ArrayList<>(actualModel.getFilteredSupplierList());
+        List<Warehouse> expectedFilteredWarehouseList = new ArrayList<>(actualModel.getFilteredWarehouseList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedClinic, actualModel.getClinic());
-        assertEquals(expectedFilteredList, actualModel.getFilteredSupplierList());
+        assertEquals(expectedFilteredSupplierList, actualModel.getFilteredSupplierList());
+        assertEquals(expectedFilteredWarehouseList, actualModel.getFilteredWarehouseList());
     }
+
     /**
-     * Updates {@code model}'s filtered list to show only the supplier at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered supplier list to show only the supplier at the given {@code targetIndex} in the
      * {@code model}'s clinic.
      */
     public static void showSupplierAtIndex(Model model, Index targetIndex) {
@@ -149,9 +168,22 @@ public class CommandTestUtil {
 
         Supplier supplier = model.getFilteredSupplierList().get(targetIndex.getZeroBased());
         final String[] splitName = supplier.getName().fullName.split("\\s+");
-        model.updateFilteredSupplierList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredSupplierList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered warehouse list to show only the warehouse at
+     * the given {@code targetIndex} in the {@code model}'s clinic.
+     */
+    public static void showWarehouseAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredWarehouseList().size());
+
+        Warehouse warehouse = model.getFilteredWarehouseList().get(targetIndex.getZeroBased());
+        final String[] splitName = warehouse.getName().fullName.split("\\s+");
+        model.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredWarehouseList().size());
+    }
 }

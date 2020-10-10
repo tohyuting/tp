@@ -2,6 +2,7 @@ package seedu.clinic.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX;
+//import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 //import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 //import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -51,6 +52,12 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_validCommand_success() throws Exception {
+        String listCommand = ListCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+    }
+
+    @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
@@ -58,15 +65,14 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "delete 9"; // change the delete command later
+
+        // 2 cases, 1 for delete supplier and 1 for delete warehouse
+        // to be written later
         assertCommandException(deleteCommand, MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
     }
 
-    @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-    }
+
     /*
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
@@ -92,6 +98,11 @@ public class LogicManagerTest {
     @Test
     public void getFilteredSupplierList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredSupplierList().remove(0));
+    }
+
+    @Test
+    public void getFilteredWarehouseList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredWarehouseList().remove(0));
     }
 
     /**

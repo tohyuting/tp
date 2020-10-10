@@ -14,23 +14,26 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.supplier.Address;
-import seedu.clinic.model.supplier.Email;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
-import seedu.clinic.model.tag.Tag;
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
+import seedu.clinic.model.attribute.Tag;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NAME = "@Rachel Pte.Ltd";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_REMARK = new String(new char[120]).replace('\0', 'a');
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_REMARK = "some remark.";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -149,6 +152,29 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseRemark_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRemark((String) null));
+    }
+
+    @Test
+    public void parseRemark_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRemark(INVALID_REMARK));
+    }
+
+    @Test
+    public void parseRemark_validValueWithoutWhitespace_returnsEmail() throws Exception {
+        Remark expectedRemark = new Remark(VALID_REMARK);
+        assertEquals(expectedRemark, ParserUtil.parseRemark(VALID_REMARK));
+    }
+
+    @Test
+    public void parseRemark_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
+        String remarkWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
+        Remark expectedRemark = new Remark(VALID_EMAIL);
+        assertEquals(expectedRemark, ParserUtil.parseRemark(remarkWithWhitespace));
+    }
+
+    @Test
     public void parseTag_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
     }
@@ -193,4 +219,6 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    // TODO: parseProduct test cases
 }

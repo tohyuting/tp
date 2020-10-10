@@ -33,6 +33,17 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/EditCommandParserTest.java
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCommand.EditSupplierDescriptor;
+import seedu.address.model.attribute.Address;
+import seedu.address.model.attribute.Email;
+import seedu.address.model.attribute.Name;
+import seedu.address.model.attribute.Phone;
+import seedu.address.model.attribute.Tag;
+import seedu.address.testutil.EditSupplierDescriptorBuilder;
+=======
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
@@ -42,6 +53,7 @@ import seedu.clinic.model.supplier.Name;
 import seedu.clinic.model.supplier.Phone;
 import seedu.clinic.model.tag.Tag;
 import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
+>>>>>>> upstream/master:src/test/java/seedu/clinic/logic/parser/EditCommandParserTest.java
 */
 public class EditCommandParserTest {
     /*

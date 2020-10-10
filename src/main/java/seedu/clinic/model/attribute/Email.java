@@ -1,10 +1,10 @@
-package seedu.clinic.model.supplier;
+package seedu.clinic.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Supplier's email in the CLI-nic app.
+ * Represents an email information for the supplier/warehouse in CLI-nic app.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
 public class Email {
