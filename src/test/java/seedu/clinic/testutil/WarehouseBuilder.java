@@ -12,8 +12,6 @@ import seedu.clinic.model.product.Product;
 import seedu.clinic.model.util.SampleDataUtil;
 import seedu.clinic.model.warehouse.Warehouse;
 
-//INVALID_WAREHOUSE_ADDRESS_DESC
-
 /**
  * A utility class to help with building Warehouse objects.
  */
