@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * The API of the Model component.
@@ -13,6 +14,9 @@ import seedu.clinic.model.supplier.Supplier;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Supplier> PREDICATE_SHOW_ALL_SUPPLIERS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Warehouse> PREDICATE_SHOW_ALL_WAREHOUSES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -85,4 +89,39 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredSupplierList(Predicate<Supplier> predicate);
+
+    //
+    /**
+     * Returns true if a warehouse with the same identity as {@code warehouse} exists in the clinic app.
+     */
+    boolean hasWarehouse(Warehouse warehouse);
+
+    /**
+     * Deletes the given warehouse.
+     * The warehouse must exist in the clinic app.
+     */
+    void deleteWarehouse(Warehouse target);
+
+    /**
+     * Adds the given warehouse.
+     * {@code warehouse} must not already exist in the clinic app.
+     */
+    void addWarehouse(Warehouse warehouse);
+
+    /**
+     * Replaces the given warehouse {@code target} with {@code editedWarehouse}.
+     * {@code target} must exist in the clinic app.
+     * The warehouse identity of {@code editedWarehouse} must not be the same as another existing warehouse
+     * in the clinic app.
+     */
+    void setWarehouse(Warehouse target, Warehouse editedWarehouse);
+
+    /** Returns an unmodifiable view of the filtered warehouse list */
+    ObservableList<Warehouse> getFilteredWarehouseList();
+
+    /**
+     * Updates the filter of the filtered warehouse list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredWarehouseList(Predicate<Warehouse> predicate);
 }

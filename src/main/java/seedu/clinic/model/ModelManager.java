@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * Represents the in-memory model of the clinic data.
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final Clinic clinic;
     private final UserPrefs userPrefs;
     private final FilteredList<Supplier> filteredSuppliers;
+    private final FilteredList<Warehouse> filteredWarehouses;
 
     /**
      * Initializes a ModelManager with the given clinic and userPrefs.
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
         this.clinic = new Clinic(clinic);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredSuppliers = new FilteredList<>(this.clinic.getSupplierList());
+        filteredWarehouses = new FilteredList<>(this.clinic.getWarehouseList());
     }
 
     public ModelManager() {
@@ -71,9 +74,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setClinicFilePath(Path ClinicFilePath) {
-        requireNonNull(ClinicFilePath);
-        userPrefs.setClinicFilePath(ClinicFilePath);
+    public void setClinicFilePath(Path clinicFilePath) {
+        requireNonNull(clinicFilePath);
+        userPrefs.setClinicFilePath(clinicFilePath);
     }
 
     //=========== Clinic ================================================================================
@@ -95,8 +98,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasWarehouse(Warehouse warehouse) {
+        requireNonNull(warehouse);
+        return clinic.hasWarehouse(warehouse);
+    }
+
+    @Override
     public void deleteSupplier(Supplier target) {
         clinic.removeSupplier(target);
+    }
+
+    @Override
+    public void deleteWarehouse(Warehouse target) {
+        clinic.removeWarehouse(target);
     }
 
     @Override
@@ -106,10 +120,23 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addWarehouse(Warehouse warehouse) {
+        clinic.addWarehouse(warehouse);
+        updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+    }
+
+    @Override
     public void setSupplier(Supplier target, Supplier editedSupplier) {
         requireAllNonNull(target, editedSupplier);
 
         clinic.setSupplier(target, editedSupplier);
+    }
+
+    @Override
+    public void setWarehouse(Warehouse target, Warehouse editedWarehouse) {
+        requireAllNonNull(target, editedWarehouse);
+
+        clinic.setWarehouse(target, editedWarehouse);
     }
 
     //=========== Filtered Supplier List Accessors =============================================================
@@ -129,6 +156,24 @@ public class ModelManager implements Model {
         filteredSuppliers.setPredicate(predicate);
     }
 
+    //=========== Filtered Warehouse List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Warehouse} backed by the internal list of
+     * {@code versionedCLI-nic}
+     */
+    @Override
+    public ObservableList<Warehouse> getFilteredWarehouseList() {
+        return filteredWarehouses;
+    }
+
+
+    @Override
+    public void updateFilteredWarehouseList(Predicate<Warehouse> predicate) {
+        requireNonNull(predicate);
+        filteredWarehouses.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -145,7 +190,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return clinic.equals(other.clinic)
                 && userPrefs.equals(other.userPrefs)
-                && filteredSuppliers.equals(other.filteredSuppliers);
+                && filteredSuppliers.equals(other.filteredSuppliers)
+                && filteredWarehouses.equals(other.filteredWarehouses);
     }
+
 
 }

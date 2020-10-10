@@ -1,10 +1,10 @@
-package seedu.clinic.model.supplier;
+package seedu.clinic.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Supplier's or Product's name in the CLI-nic app.
+ * Represents a name for the supplier/warehouse/product in CLI-nic app.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
@@ -13,10 +13,10 @@ public class Name {
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the name must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * The first character of the name must be alphanumeric.
+     * The .
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Print}]*";
 
     public final String fullName;
 

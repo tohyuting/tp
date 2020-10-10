@@ -74,14 +74,14 @@ public class MainApp extends Application {
      * or an empty clinic will be used instead if errors occur when reading {@code storage}'s clinic.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyClinic> ClinicOptional;
+        Optional<ReadOnlyClinic> clinicOptional;
         ReadOnlyClinic initialData;
         try {
-            ClinicOptional = storage.readClinic();
-            if (!ClinicOptional.isPresent()) {
+            clinicOptional = storage.readClinic();
+            if (!clinicOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Clinic");
             }
-            initialData = ClinicOptional.orElseGet(SampleDataUtil::getSampleClinic);
+            initialData = clinicOptional.orElseGet(SampleDataUtil::getSampleClinic);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Clinic");
             initialData = new Clinic();

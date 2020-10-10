@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.model.Model;
-import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 
 /**
- * Finds and lists all suppliers in the CLI-nic app whose name contains any of the argument keywords.
+ * Finds and lists all suppliers/warehouses in the CLI-nic app whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
@@ -19,9 +19,9 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final NameContainsKeywordsPredicateForSupplier predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(NameContainsKeywordsPredicateForSupplier predicate) {
         this.predicate = predicate;
     }
 

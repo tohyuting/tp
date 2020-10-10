@@ -18,7 +18,7 @@ import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.tag.Tag;
+import seedu.clinic.model.attribute.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object

@@ -5,14 +5,17 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.tag.Tag;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Tag;
 
 /**
- * Represents Product to be sold by Suppliers and stored in Warehouse.
+ * Represents Product sold by Suppliers or stored in Warehouse.
  * Guarantees: immutable;
  */
 public class Product {
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Quantity should only be non-negative";
 
     private final Name productName;
     private final int productQuantity;
@@ -118,7 +121,16 @@ public class Product {
         builder.append(getProductName())
                 .append(" - ")
                 .append(getProductQuantity())
-                .append(" left");
+                .append(" left ");
         return builder.toString();
+    }
+
+    /**
+     * Examine if a quantity is a valid product quantity.
+     * @param productQuantity the amount of a product entered.
+     * @return True if the number entered is valid, else False.
+     */
+    public static boolean isValidQuantity(int productQuantity) {
+        return productQuantity >= 0;
     }
 }

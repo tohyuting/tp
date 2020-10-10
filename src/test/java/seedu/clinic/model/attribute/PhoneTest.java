@@ -1,4 +1,4 @@
-package seedu.clinic.model.supplier;
+package seedu.clinic.model.attribute;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

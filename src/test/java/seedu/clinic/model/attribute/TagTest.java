@@ -1,4 +1,4 @@
-package seedu.clinic.model.tag;
+package seedu.clinic.model.attribute;
 
 import static seedu.clinic.testutil.Assert.assertThrows;
 

@@ -10,14 +10,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.clinic.commons.exceptions.IllegalValueException;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Tag;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.tag.Tag;
 
 public class JsonAdaptedProduct {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Product's %s field is missing!";
     private final String name;
+    private int quantity;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -25,8 +26,10 @@ public class JsonAdaptedProduct {
      */
     @JsonCreator
     public JsonAdaptedProduct(@JsonProperty("name") String name,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                              @JsonProperty("quantity") int quantity) {
         this.name = name;
+        this.quantity = quantity;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -59,9 +62,13 @@ public class JsonAdaptedProduct {
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
+
+        if (!Product.isValidQuantity(quantity)) {
+            throw new IllegalValueException(String.format(Product.MESSAGE_CONSTRAINTS, Product.class.getSimpleName()));
+        }
         final Name modelName = new Name(name);
 
         final Set<Tag> modelTags = new HashSet<>(productTags);
-        return new Product(modelName, modelTags);
+        return new Product(modelName, quantity, modelTags);
     }
 }

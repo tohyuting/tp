@@ -10,11 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.clinic.commons.exceptions.IllegalValueException;
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Email;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
-import seedu.clinic.model.supplier.Remark;
 import seedu.clinic.model.supplier.Supplier;
 
 /**

@@ -66,9 +66,20 @@ public class TypicalSupplier {
     private TypicalSupplier() {} // prevents instantiation
 
     /**
-     * Returns an {@code Clinic} with all the typical suppliers.
+     * Returns an {@code Clinic} with all the typical suppliers and warehouses.
      */
     public static Clinic getTypicalClinic() {
+        Clinic ab = new Clinic();
+        for (Supplier supplier : getTypicalSuppliers()) {
+            ab.addSupplier(supplier);
+        }
+        return ab;
+    }
+
+    /**
+     * Returns an {@code Clinic} with all the typical suppliers.
+     */
+    public static Clinic getTypicalSupplierOnlyClinic() {
         Clinic ab = new Clinic();
         for (Supplier supplier : getTypicalSuppliers()) {
             ab.addSupplier(supplier);

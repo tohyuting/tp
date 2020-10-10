@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.clinic.commons.exceptions.IllegalValueException;
-import seedu.clinic.model.supplier.Email;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
-import seedu.clinic.model.supplier.Remark;
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 
 public class JsonAdaptedSupplierTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NAME = "*!Rachel @";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_REMARK = " ";
     private static final String INVALID_EMAIL = "example.com";
@@ -106,7 +106,7 @@ public class JsonAdaptedSupplierTest {
     public void toModelType_invalidProducts_throwsIllegalValueException() {
         List<JsonAdaptedProduct> invalidProducts = new ArrayList<>(VALID_PRODUCTS);
         JsonAdaptedProduct invalidProduct = new JsonAdaptedProduct(VALID_NAME,
-                List.of(new JsonAdaptedTag(INVALID_TAG)));
+                List.of(new JsonAdaptedTag(INVALID_TAG)), 0);
         invalidProducts.add(invalidProduct);
         JsonAdaptedSupplier supplier =
                 new JsonAdaptedSupplier(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_REMARK, invalidProducts);

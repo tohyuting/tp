@@ -23,7 +23,7 @@ import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.supplier.NameContainsKeywordsPredicate;
+import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 // import seedu.clinic.model.supplier.Supplier;
 // import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
 // import seedu.clinic.testutil.SupplierBuilder;
@@ -77,7 +77,7 @@ public class ClinicParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new NameContainsKeywordsPredicateForSupplier(keywords)), command);
     }
 
     @Test

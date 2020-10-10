@@ -9,13 +9,13 @@ import java.util.Set;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.commons.util.StringUtil;
 import seedu.clinic.logic.parser.exceptions.ParseException;
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
+import seedu.clinic.model.attribute.Tag;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Address;
-import seedu.clinic.model.supplier.Email;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
-import seedu.clinic.model.supplier.Remark;
-import seedu.clinic.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -127,6 +127,7 @@ public class ParserUtil {
     /**
      * Parses a {@code String productName} and a {@code Collection<String> tags} into a {@code Product}.
      * Leading and trailing whitespaces will be trimmed.
+     * TODO: change the signature or overload the method. Add in the test cases for parseProduct
      *
      * @throws ParseException if the given {@code productName} or the given {@code tags} is invalid.
      */
@@ -142,9 +143,12 @@ public class ParserUtil {
      * Parses a {@code String remark} into an {@code Remark}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Remark parseRemark(String remark) {
+    public static Remark parseRemark(String remark) throws ParseException {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
+        if (!Remark.isValidRemark(trimmedRemark)) {
+            throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
+        }
         return new Remark(trimmedRemark);
     }
 

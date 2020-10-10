@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * A utility class for test cases.
@@ -35,14 +36,14 @@ public class TestUtil {
     /**
      * Returns the middle index of the supplier in the {@code model}'s supplier list.
      */
-    public static Index getMidIndex(Model model) {
+    public static Index getMidIndexSupplier(Model model) {
         return Index.fromOneBased(model.getFilteredSupplierList().size() / 2);
     }
 
     /**
      * Returns the last index of the supplier in the {@code model}'s supplier list.
      */
-    public static Index getLastIndex(Model model) {
+    public static Index getLastIndexSupplier(Model model) {
         return Index.fromOneBased(model.getFilteredSupplierList().size());
     }
 
@@ -51,5 +52,26 @@ public class TestUtil {
      */
     public static Supplier getSupplier(Model model, Index index) {
         return model.getFilteredSupplierList().get(index.getZeroBased());
+    }
+
+    /**
+     * Returns the middle index of the warehouse in the {@code model}'s warehouse list.
+     */
+    public static Index getMidIndexWarehouse(Model model) {
+        return Index.fromOneBased(model.getFilteredWarehouseList().size() / 2);
+    }
+
+    /**
+     * Returns the last index of the warehouse in the {@code model}'s warehouse list.
+     */
+    public static Index getLastIndexWarehouse(Model model) {
+        return Index.fromOneBased(model.getFilteredWarehouseList().size());
+    }
+
+    /**
+     * Returns the warehouse in the {@code model}'s warehouse list at {@code index}.
+     */
+    public static Warehouse getWarehouse(Model model, Index index) {
+        return model.getFilteredWarehouseList().get(index.getZeroBased());
     }
 }

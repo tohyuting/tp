@@ -8,15 +8,13 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.clinic.model.supplier.exceptions.DuplicateSupplierException;
-import seedu.clinic.model.supplier.exceptions.SupplierNotFoundException;
 import seedu.clinic.model.warehouse.exceptions.DuplicateWarehouseException;
 import seedu.clinic.model.warehouse.exceptions.WarehouseNotFoundException;
 
 /**
  * A list of warehouses that enforces uniqueness between its elements and does not allow nulls.
  * A warehouse is considered unique by comparing using {@code Warehouse#isSameWarehouse(Warehouse)}. As such, adding
- * and updating of warehouses uses Warehouse#isSameWarehouse(Warehouse) for equality so as to ensure that the supplier
+ * and updating of warehouses uses Warehouse#isSameWarehouse(Warehouse) for equality so as to ensure that the warehouse
  * being added or updated is unique in terms of identity in the UniqueWarehouseList.
  * However, the removal of a warehouse uses Warehouse#equals(Object) so as to ensure that the warehouse with
  * exactly the same fields will be removed.
@@ -60,11 +58,11 @@ public class UniqueWarehouseList implements Iterable<Warehouse> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new SupplierNotFoundException();
+            throw new WarehouseNotFoundException();
         }
 
         if (!target.isSameWarehouse(editedWarehouse) && contains(editedWarehouse)) {
-            throw new DuplicateSupplierException();
+            throw new DuplicateWarehouseException();
         }
 
         internalList.set(index, editedWarehouse);
@@ -118,7 +116,7 @@ public class UniqueWarehouseList implements Iterable<Warehouse> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueWarehouseList // instanceof handles nulls
-                && internalList.equals(((UniqueWarehouseList) other).internalList));
+                    && internalList.equals(((UniqueWarehouseList) other).internalList));
     }
 
     @Override

@@ -8,10 +8,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Address;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
 
 /**
  * Represents a Warehouse in the CLI-nic app.
@@ -128,10 +129,10 @@ public class Warehouse {
                 .append(getPhone())
                 .append(" Address: ")
                 .append(getAddress())
-                .append(" Products: ");
-        getProducts().forEach(builder::append);
-        builder.append(" Remark: ")
+                .append(" Remark: ")
                 .append(getRemark());
+        builder.append(" Products: ");
+        getProducts().forEach(s -> builder.append(s.toStringForWareHouse()));
         return builder.toString();
     }
 }

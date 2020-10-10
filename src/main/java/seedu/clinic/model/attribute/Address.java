@@ -1,10 +1,10 @@
-package seedu.clinic.model.supplier;
+package seedu.clinic.model.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Supplier's address in the CLI-nic app.
+ * Represents an address information for the supplier/warehouse in CLI-nic app.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
@@ -31,7 +31,7 @@ public class Address {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid address.
      */
     public static boolean isValidAddress(String test) {
         return test.matches(VALIDATION_REGEX);

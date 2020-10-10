@@ -51,5 +51,6 @@
     "email" : "anna@example.com",
     "remark" : "frequent discount",
     "products" : [ ]
-  } ]
+  } ],
+  "warehouses" : [ ]
 }

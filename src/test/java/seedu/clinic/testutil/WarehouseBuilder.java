@@ -4,13 +4,15 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
-import seedu.clinic.model.supplier.Address;
-import seedu.clinic.model.supplier.Name;
-import seedu.clinic.model.supplier.Phone;
 import seedu.clinic.model.util.SampleDataUtil;
-import seedu.clinic.model.warehouse.Remark;
 import seedu.clinic.model.warehouse.Warehouse;
+
+//INVALID_WAREHOUSE_ADDRESS_DESC
 
 /**
  * A utility class to help with building Warehouse objects.
