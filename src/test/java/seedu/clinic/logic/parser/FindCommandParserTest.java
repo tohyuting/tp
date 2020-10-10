@@ -21,14 +21,15 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_validArgs_returnsFindSuppliersCommand() {
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand =
-                new FindCommand(new SupplierProductsContainKeywordsPredicate(Arrays.asList("supplier", "panadol")));
-        assertParseSuccess(parser, "supplier panadol", expectedFindCommand);
+        FindCommand expectedFindSuppliersCommand =
+                new FindCommand(new SupplierProductsContainKeywordsPredicate(Arrays.asList("supplier", "panadol")),
+                        null);
+        assertParseSuccess(parser, "supplier panadol", expectedFindSuppliersCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n supplier \n \t panadol  \t", expectedFindCommand);
+        assertParseSuccess(parser, " \n supplier \n \t panadol  \t", expectedFindSuppliersCommand);
     }
 
 }

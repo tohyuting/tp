@@ -73,11 +73,12 @@ public class ClinicParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_findSuppliers() throws Exception {
         List<String> keywords = Arrays.asList("supplier", "panadol");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new SupplierProductsContainKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new SupplierProductsContainKeywordsPredicate(keywords), null),
+                command);
     }
 
     @Test
