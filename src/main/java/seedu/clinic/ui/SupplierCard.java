@@ -7,6 +7,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.clinic.model.supplier.Supplier;
 
+import java.util.Comparator;
+
 /**
  * An UI component that displays information of a {@code Supplier}.
  */
@@ -50,6 +52,9 @@ public class SupplierCard extends UiPart<Region> {
         phone.setText(supplier.getPhone().value);
         remark.setText(supplier.getRemark().value);
         email.setText(supplier.getEmail().value);
+        supplier.getProducts().stream()
+                .sorted(Comparator.comparing(product -> product.toStringForSupplier()))
+                .forEach(product -> products.getChildren().add(new Label(product.toStringForSupplier())));
     }
 
     @Override

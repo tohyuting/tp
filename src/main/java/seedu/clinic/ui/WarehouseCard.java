@@ -7,6 +7,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.clinic.model.warehouse.Warehouse;
 
+import java.util.Comparator;
+
 /**
  * An UI component that displays information of a {@code Warehouse}.
  */
@@ -50,6 +52,9 @@ public class WarehouseCard extends UiPart<Region> {
         phone.setText(warehouse.getPhone().value);
         remark.setText(warehouse.getRemark().value);
         address.setText(warehouse.getAddress().value);
+        warehouse.getProducts().stream()
+                .sorted(Comparator.comparing(product -> product.toStringForWareHouse()))
+                .forEach(product -> products.getChildren().add(new Label(product.toStringForWareHouse())));
     }
 
     @Override
