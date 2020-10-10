@@ -26,6 +26,9 @@
     "products" : [{
       "name": "Mask",
       "tagged": ["black"]
+    }, {
+      "name": "Thermometer",
+      "tagged": ["digital"]
     }]
   }, {
     "name" : "Daniel Meier Ltd",
@@ -44,6 +47,9 @@
     "products" : [{
       "name": "Mask",
       "tagged": ["black"]
+    }, {
+      "name": "Medical Glove",
+      "tagged": ["rubber"]
     }]
   }, {
     "name" : "Fiona Kunz Ltd",
@@ -53,6 +59,12 @@
     "products" : [{
       "name": "Mask",
       "tagged": ["black"]
+    }, {
+      "name": "Needle",
+      "tagged": ["1mm"]
+    }, {
+      "name": "Cough Syrup",
+      "tagged": ["cough"]
     }]
   }, {
     "name" : "George Best Ltd",
