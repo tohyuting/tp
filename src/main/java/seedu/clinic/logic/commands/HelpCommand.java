@@ -20,7 +20,7 @@ public class HelpCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
     public static final String[] ALLOWED_ARGUMENT = new String[]{
-        "add", "clear", "delete", "exit", "find", "view", "update"};
+        "add", "clear", "delete", "exit", "find", "list", "view", "update"};
 
     public static final String HELP_MESSAGE_FOR_COMMAND_FORMAT = "How to interpret command format?\n"
             + "Words in UPPER_CASE are the parameters to be supplied by the user."
@@ -55,6 +55,9 @@ public class HelpCommand extends Command {
         case "find":
             helpMessage = generateHelpFindMessage();
             break;
+        case "list":
+            helpMessage = generateHelpListMessage();
+            break;
         case "view":
             helpMessage = generateHelpViewMessage();
             break;
@@ -85,6 +88,7 @@ public class HelpCommand extends Command {
         String aboutExitCommand = "exit\nYou can exit the application using the exit command.";
         String aboutFindCommand = "find\nYou can find suppliers or warehouses that sells the products using"
                 + " the find command.";
+        String aboutListCommand = "list\nYou can list all suppliers and warehouses by using list command.";
         String aboutViewCommand = "view\nYou can view a specific warehouse or supplier using"
                 + " the view command.";
         String aboutUpdateCommand = "update\nYou can update stock of a product in the warehouse by"
@@ -92,7 +96,8 @@ public class HelpCommand extends Command {
 
         String finalGenericHelpMessage = aboutHelpCommand + "\n\n" + aboutAddCommand + "\n\n"
                 + aboutClearCommand + "\n\n" + aboutDeleteCommand + "\n\n" + aboutExitCommand
-                + "\n\n" + aboutFindCommand + "\n\n" + aboutViewCommand + "\n\n" + aboutUpdateCommand;
+                + "\n\n" + aboutFindCommand + "\n\n" + aboutListCommand + "\n\n" + aboutViewCommand
+                + "\n\n" + aboutUpdateCommand;
         return finalGenericHelpMessage;
     }
 
@@ -165,6 +170,10 @@ public class HelpCommand extends Command {
                 + findProductsInSupplierOrWarehouseCommandFormat + "\n\n"
                 + findProductsInSupplierOrWarehouseSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
         return findHelpMessage;
+    }
+
+    private String generateHelpListMessage() {
+        return "List\n\nLists all suppliers and warehouses.\n\nSample Command:\nlist";
     }
 
     private String generateHelpViewMessage() {
