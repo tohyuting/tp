@@ -12,7 +12,7 @@ import seedu.clinic.model.supplier.Supplier;
  */
 public class SupplierCard extends UiPart<Region> {
 
-    private static final String FXML = "supplierListCard.fxml";
+    private static final String FXML = "SupplierListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
