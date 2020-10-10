@@ -38,9 +38,9 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         List<String> keywords = Arrays.asList(productNameKeywords);
         if (type.equals("supplier")) {
-            return new FindCommand(new SupplierProductsContainKeywordsPredicate(keywords), null);
+            return new FindCommand(new SupplierProductsContainKeywordsPredicate(keywords));
         } else {
-            return new FindCommand(null, new WarehouseProductsContainKeywordsPredicate(keywords));
+            return new FindCommand(new WarehouseProductsContainKeywordsPredicate(keywords));
         }
     }
 

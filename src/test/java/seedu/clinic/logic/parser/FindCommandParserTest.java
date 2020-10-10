@@ -28,8 +28,7 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindSuppliersCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindSuppliersCommand =
-                new FindCommand(new SupplierProductsContainKeywordsPredicate(Arrays.asList("supplier", "panadol")),
-                        null);
+                new FindCommand(new SupplierProductsContainKeywordsPredicate(Arrays.asList("supplier", "panadol")));
         assertParseSuccess(parser, "supplier panadol", expectedFindSuppliersCommand);
 
         // multiple whitespaces between keywords
@@ -40,8 +39,7 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindWarehousesCommand() {
         // no leading and trailing whitespaces
         FindCommand expectedFindWarehousesCommand =
-                new FindCommand(null,
-                        new WarehouseProductsContainKeywordsPredicate(Arrays.asList("warehouse", "panadol")));
+                new FindCommand(new WarehouseProductsContainKeywordsPredicate(Arrays.asList("warehouse", "panadol")));
         assertParseSuccess(parser, "warehouse panadol", expectedFindWarehousesCommand);
 
         // multiple whitespaces between keywords

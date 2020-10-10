@@ -77,8 +77,7 @@ public class ClinicParserTest {
         List<String> keywords = Arrays.asList("supplier", "panadol");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new SupplierProductsContainKeywordsPredicate(keywords), null),
-                command);
+        assertEquals(new FindCommand(new SupplierProductsContainKeywordsPredicate(keywords)), command);
     }
 
     @Test

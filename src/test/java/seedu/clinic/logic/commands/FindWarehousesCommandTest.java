@@ -34,14 +34,14 @@ public class FindWarehousesCommandTest {
         WarehouseProductsContainKeywordsPredicate secondPredicate =
                 new WarehouseProductsContainKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCommand findFirstCommand = new FindCommand(null, firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(null, secondPredicate);
+        FindCommand findFirstCommand = new FindCommand(firstPredicate);
+        FindCommand findSecondCommand = new FindCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(null, firstPredicate);
+        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -58,7 +58,7 @@ public class FindWarehousesCommandTest {
     public void execute_zeroKeywords_noWarehouseFound() {
         String expectedMessage = String.format(MESSAGE_WAREHOUSE_LISTED_OVERVIEW, 0);
         WarehouseProductsContainKeywordsPredicate warehousePredicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(null, warehousePredicate);
+        FindCommand command = new FindCommand(warehousePredicate);
         expectedModel.updateFilteredWarehouseList(warehousePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredWarehouseList());
@@ -68,7 +68,7 @@ public class FindWarehousesCommandTest {
     public void execute_multipleKeywords_multipleSuppliersFound() {
         String expectedMessage = String.format(MESSAGE_WAREHOUSE_LISTED_OVERVIEW, 3);
         WarehouseProductsContainKeywordsPredicate warehousePredicate = preparePredicate("warehouse syrup");
-        FindCommand command = new FindCommand(null, warehousePredicate);
+        FindCommand command = new FindCommand(warehousePredicate);
         expectedModel.updateFilteredWarehouseList(warehousePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredWarehouseList());
