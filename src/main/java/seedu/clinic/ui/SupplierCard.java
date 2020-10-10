@@ -55,9 +55,9 @@ public class SupplierCard extends UiPart<Region> {
         remark.getChildren().add(new Label(supplier.getRemark().value));
         email.setText(supplier.getEmail().value);
         supplier.getProducts().stream()
-                .sorted(Comparator.comparing(product -> product.toStringForSupplier()))
+                .sorted(Comparator.comparing(product -> product.getProductName().fullName))
                 .forEach(product -> {
-                    products.getChildren().add(new Label(product.toStringForSupplier()));
+                    products.getChildren().add(new Label(product.getProductName().fullName));
                     product.getProductTags().stream()
                             .sorted(Comparator.comparing(tag -> tag.tagName))
                             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

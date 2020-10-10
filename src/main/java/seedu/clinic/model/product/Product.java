@@ -105,9 +105,9 @@ public class Product {
      */
     public String toStringForSupplier() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getProductName());
-                //.append(" Tags: ");
-        //getProductTags().forEach(builder::append);
+        builder.append(getProductName())
+                .append(" Tags: ");
+        getProductTags().forEach(builder::append);
         return builder.toString();
     }
 
