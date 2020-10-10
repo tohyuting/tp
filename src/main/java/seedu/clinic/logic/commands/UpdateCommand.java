@@ -32,7 +32,7 @@ public class UpdateCommand extends Command {
             + PREFIX_PRODUCT_NAME + "Panadol "
             + PREFIX_PRODUCT_QUANTITY + "350";
 
-    public static final String MESSAGE_SUCCESS = "Product stock updated: %1$s";
+    public static final String MESSAGE_SUCCESS = "Product stock updated: %1$s for %2$s";
     private static final String MESSAGE_NO_SUCH_WAREHOUSE = "The specified warehouse cannot be found";
 
     private final Warehouse warehouseToUpdate;
@@ -59,7 +59,7 @@ public class UpdateCommand extends Command {
         Set<Product> updatedProductSet = new HashSet<>(warehouseToUpdate.getProducts());
 
         if (updatedProductSet.contains(updatedProduct)) {
-            updatedProductSet.remove(updatedProduct);
+            updatedProductSet.remove(updatedProduct); // removes the existing entry for the product
         }
 
         updatedProductSet.add(updatedProduct); // adds the updated product
@@ -67,7 +67,7 @@ public class UpdateCommand extends Command {
                 warehouseToUpdate.getAddress(), warehouseToUpdate.getRemark(), updatedProductSet);
         model.setWarehouse(warehouseToUpdate, updatedWarehouse);
         model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedWarehouse));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct, updatedWarehouse));
     }
 
     @Override public boolean equals(Object other) {
