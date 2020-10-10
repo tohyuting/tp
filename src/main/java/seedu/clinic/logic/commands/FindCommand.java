@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.model.Model;
-import seedu.clinic.model.supplier.ProductsContainKeywordsPredicate;
+import seedu.clinic.model.supplier.SupplierProductsContainKeywordsPredicate;
 
 /**
  * Finds and lists all suppliers in the CLI-nic app that sell products matching any of the argument keywords.
@@ -19,9 +19,9 @@ public class FindCommand extends Command {
             + "Parameters: TYPE KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " supplier panadol";
 
-    private final ProductsContainKeywordsPredicate predicate;
+    private final SupplierProductsContainKeywordsPredicate predicate;
 
-    public FindCommand(ProductsContainKeywordsPredicate predicate) {
+    public FindCommand(SupplierProductsContainKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

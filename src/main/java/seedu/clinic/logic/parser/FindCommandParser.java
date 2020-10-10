@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.supplier.ProductsContainKeywordsPredicate;
+import seedu.clinic.model.supplier.SupplierProductsContainKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -33,7 +33,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        return new FindCommand(new ProductsContainKeywordsPredicate(Arrays.asList(productNameKeywords)));
+        return new FindCommand(new SupplierProductsContainKeywordsPredicate(Arrays.asList(productNameKeywords)));
     }
 
 }

@@ -9,10 +9,10 @@ import seedu.clinic.model.product.Product;
 /**
  * Tests that any of the {@code Product} sold by {@code Supplier} matches any of the keywords given.
  */
-public class ProductsContainKeywordsPredicate implements Predicate<Supplier> {
+public class SupplierProductsContainKeywordsPredicate implements Predicate<Supplier> {
     private final List<String> keywords;
 
-    public ProductsContainKeywordsPredicate(List<String> keywords) {
+    public SupplierProductsContainKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -35,8 +35,8 @@ public class ProductsContainKeywordsPredicate implements Predicate<Supplier> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ProductsContainKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((ProductsContainKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof SupplierProductsContainKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((SupplierProductsContainKeywordsPredicate) other).keywords)); // state check
     }
 
 }
