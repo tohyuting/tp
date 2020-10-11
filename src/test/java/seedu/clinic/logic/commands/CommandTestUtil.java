@@ -51,6 +51,12 @@ public class CommandTestUtil {
     public static final String VALID_WAREHOUSE_PRODUCT_TAG_FEVER = "fever";
     public static final String VALID_WAREHOUSE_PRODUCT_TAG_HEADACHE = "headache";
 
+    // Product test samples
+    public static final String VALID_PRODUCT_NAME_PANADOL = "Panadol";
+    public static final String VALID_PRODUCT_NAME_ASPIRIN = "Aspirin";
+    public static final int VALID_PRODUCT_QUANTITY_A = 90;
+    public static final int VALID_PRODUCT_QUANTITY_B = 600;
+
     // general test samples
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -62,10 +68,9 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_FEVER = "fever";
     public static final String VALID_TAG_ANTIBIOTICS = "antibiotics";
+    public static final String VALID_TAG_PAINKILLER = "painkiller";
     public static final String VALID_REMARK_AMY = "Sells a diverse range of products";
     public static final String VALID_REMARK_BOB = "Long term partner";
-    public static final String VALID_PRODUCT_NAME_PANADOL = "Panadol";
-    public static final String VALID_PRODUCT_NAME_ASPIRIN = "Aspirin";
 
     // test samples for descriptors
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;

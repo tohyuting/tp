@@ -67,7 +67,7 @@ public class ClinicParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommandParser().parse(arguments);
 
         case UpdateCommand.COMMAND_WORD:
             return new UpdateCommandParser().parse(arguments);
