@@ -1,5 +1,5 @@
 {
-  "_comment": "Clinic save file which contains the same supplier values as in TypicalSuppliers#getTypicalAddressBook()",
+  "_comment": "Clinic save file which contains the same supplier values as in TypicalWarehouses#getTypicalWarehouseOnlyClinic()",
   "suppliers" : [ ],
   "warehouses": [ {
     "name" : "Alice Warehouse",

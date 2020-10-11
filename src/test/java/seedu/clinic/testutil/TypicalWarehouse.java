@@ -86,11 +86,11 @@ public class TypicalWarehouse {
      * Returns an {@code Clinic} with all the typical warehouses.
      */
     public static Clinic getTypicalWarehouseOnlyClinic() {
-        Clinic ab = new Clinic();
+        Clinic clinic = new Clinic();
         for (Warehouse warehouse : getTypicalWarehouses()) {
-            ab.addWarehouse(warehouse);
+            clinic.addWarehouse(warehouse);
         }
-        return ab;
+        return clinic;
     }
 
     public static List<Warehouse> getTypicalWarehouses() {

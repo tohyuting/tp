@@ -34,13 +34,13 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_listIsFilteredSupplier_showsEverythingWarehouseShowOneSupplier() {
+    public void execute_listIsFilteredSupplier_showsAllWarehouseShowsOneSupplier() {
         showSupplierAtIndex(model, INDEX_FIRST_SUPPLIER);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_listIsFilteredWarehouse_showsEverythingSupplierShowOneWarehouse() {
+    public void execute_listIsFilteredWarehouse_showsAllSupplierShowsOneWarehouse() {
         showWarehouseAtIndex(model, INDEX_FIRST_WAREHOUSE);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }

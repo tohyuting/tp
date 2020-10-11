@@ -4,7 +4,7 @@ import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -74,20 +74,16 @@ public class ViewCommandParserTest {
 
     @Test
     public void parse_correctTypeCorrectKeyWords_success() {
-        ViewCommand expectedViewCommand1 = new ViewCommand("supplier", Arrays.asList(new String[]
-            {"alice", "benson"}));
+        ViewCommand expectedViewCommand1 = new ViewCommand("supplier", List.of("alice", "benson"));
         assertParseSuccess(parser, "supplier alice benson", expectedViewCommand1);
 
-        ViewCommand expectedViewCommand2 = new ViewCommand("supplier", Arrays.asList(new String[]
-            {"ALIce", "bENson"}));
+        ViewCommand expectedViewCommand2 = new ViewCommand("supplier", List.of("ALIce", "bENson"));
         assertParseSuccess(parser, "Supplier ALIce bENson", expectedViewCommand2);
 
-        ViewCommand expectedViewCommand3 = new ViewCommand("warehouse", Arrays.asList(new String[]
-            {"ALIce", "bENson"}));
+        ViewCommand expectedViewCommand3 = new ViewCommand("warehouse", List.of("ALIce", "bENson"));
         assertParseSuccess(parser, "warehouse ALIce bENson", expectedViewCommand3);
 
-        ViewCommand expectedViewCommand4 = new ViewCommand("warehouse", Arrays.asList(new String[]
-            {"alice", "benson"}));
+        ViewCommand expectedViewCommand4 = new ViewCommand("warehouse", List.of("alice", "benson"));
         assertParseSuccess(parser, "wArehouse alice benson", expectedViewCommand4);
     }
 

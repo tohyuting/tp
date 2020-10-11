@@ -77,25 +77,25 @@ public class TypicalSupplier {
      * Returns an {@code Clinic} with all the typical suppliers and warehouses.
      */
     public static Clinic getTypicalClinic() {
-        Clinic ab = new Clinic();
+        Clinic clinic = new Clinic();
         for (Supplier supplier : getTypicalSuppliers()) {
-            ab.addSupplier(supplier);
+            clinic.addSupplier(supplier);
         }
         for (Warehouse warehouse : TypicalWarehouse.getTypicalWarehouses()) {
-            ab.addWarehouse(warehouse);
+            clinic.addWarehouse(warehouse);
         }
-        return ab;
+        return clinic;
     }
 
     /**
      * Returns an {@code Clinic} with all the typical suppliers.
      */
     public static Clinic getTypicalSupplierOnlyClinic() {
-        Clinic ab = new Clinic();
+        Clinic clinic = new Clinic();
         for (Supplier supplier : getTypicalSuppliers()) {
-            ab.addSupplier(supplier);
+            clinic.addSupplier(supplier);
         }
-        return ab;
+        return clinic;
     }
 
     public static List<Supplier> getTypicalSuppliers() {

@@ -10,6 +10,12 @@ import seedu.clinic.model.Model;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
 
+/**
+ * Display specific supplier(s) or warehouse(s) with name that matches any of keywords input by user.
+ * Keyword matching is case insensitive.
+ * Keyword only matches whole word e.g. bernice will match "bernice yeoh" but not "berniceyeoh".
+ * Keyword specified by user
+ */
 public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":View information related to a"
