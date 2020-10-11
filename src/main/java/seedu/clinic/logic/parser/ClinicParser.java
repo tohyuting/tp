@@ -16,6 +16,7 @@ import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
 import seedu.clinic.logic.commands.UpdateCommand;
+import seedu.clinic.logic.commands.ViewCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 
 /**
@@ -71,6 +72,9 @@ public class ClinicParser {
 
         case UpdateCommand.COMMAND_WORD:
             return new UpdateCommandParser().parse(arguments);
+
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

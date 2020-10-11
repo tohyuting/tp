@@ -2,7 +2,9 @@ package seedu.clinic.logic.commands;
 
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.logic.commands.CommandTestUtil.showSupplierAtIndex;
+import static seedu.clinic.logic.commands.CommandTestUtil.showWarehouseAtIndex;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +34,14 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
+    public void execute_listIsFilteredSupplier_showsAllWarehouseShowsOneSupplier() {
         showSupplierAtIndex(model, INDEX_FIRST_SUPPLIER);
+        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_listIsFilteredWarehouse_showsAllSupplierShowsOneWarehouse() {
+        showWarehouseAtIndex(model, INDEX_FIRST_WAREHOUSE);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

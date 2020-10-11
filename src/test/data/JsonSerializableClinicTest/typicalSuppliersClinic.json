@@ -1,5 +1,5 @@
 {
-  "_comment": "Clinic save file which contains the same supplier values as in TypicalSuppliers#getTypicalClinic()",
+  "_comment": "Clinic save file which contains the same supplier values as in TypicalSuppliers#getTypicalSupplierOnlyClinic()",
   "suppliers" : [ {
     "name" : "Alice Pauline Ltd",
     "phone" : "94351253",
