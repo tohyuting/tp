@@ -40,6 +40,7 @@ public class JsonAdaptedProduct {
      */
     public JsonAdaptedProduct(Product source) {
         name = source.getProductName().fullName;
+        quantity = source.getProductQuantity();
         tagged.addAll(source.getProductTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

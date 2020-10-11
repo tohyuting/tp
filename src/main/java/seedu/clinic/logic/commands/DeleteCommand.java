@@ -18,9 +18,9 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the supplier identified by the index number used in the displayed supplier list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the supplier/warehouse identified by the index number used in the displayed lists.\n"
+            + "Parameters: TYPE INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " supplier 1";
 
     public static final String MESSAGE_DELETE_SUPPLIER_SUCCESS = "Deleted Supplier: %1$s";
 
