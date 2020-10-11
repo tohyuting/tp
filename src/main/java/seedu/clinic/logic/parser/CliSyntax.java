@@ -14,4 +14,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_REMARK = new Prefix("r/");
     public static final Prefix PREFIX_PRODUCT_NAME = new Prefix("pd/");
 
+    /* Type Declaration definitions */
+    public static final String TYPE_SUPPLIER = "supplier";
+    public static final String TYPE_WAREHOUSE = "warehouse";
+
 }

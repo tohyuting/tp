@@ -80,6 +80,7 @@ public class TypicalSupplier {
         for (Supplier supplier : getTypicalSuppliers()) {
             ab.addSupplier(supplier);
         }
+
         return ab;
     }
 

@@ -1,9 +1,12 @@
 package seedu.clinic.logic.parser;
 
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinic.logic.parser.CliSyntax.TYPE_SUPPLIER;
+import static seedu.clinic.logic.parser.CliSyntax.TYPE_WAREHOUSE;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,15 +21,25 @@ import seedu.clinic.logic.commands.DeleteCommand;
  */
 public class DeleteCommandParserTest {
 
-    private DeleteCommandParser parser = new DeleteCommandParser();
+    private final DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_SUPPLIER));
+        assertParseSuccess(parser, "supplier 1", new DeleteCommand(TYPE_SUPPLIER, INDEX_FIRST_SUPPLIER));
+        assertParseSuccess(parser, "warehouse 1", new DeleteCommand(TYPE_WAREHOUSE, INDEX_FIRST_WAREHOUSE));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        //invalid type keyword
+        assertParseFailure(parser, "a",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+
+        //invalid list index
+        assertParseFailure(parser, "supplier ab",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "warehouse ab",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

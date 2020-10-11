@@ -182,7 +182,7 @@ public class CommandTestUtil {
 
         Warehouse warehouse = model.getFilteredWarehouseList().get(targetIndex.getZeroBased());
         final String[] splitName = warehouse.getName().fullName.split("\\s+");
-        model.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(splitName[0])));
+        model.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(splitName[1])));
 
         assertEquals(1, model.getFilteredWarehouseList().size());
     }
