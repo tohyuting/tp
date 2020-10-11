@@ -6,7 +6,9 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinic.testutil.Assert.assertThrows;
 
@@ -67,20 +69,26 @@ public class CommandTestUtil {
     public static final String VALID_PRODUCT_NAME_PANADOL = "Panadol";
     public static final String VALID_PRODUCT_NAME_ASPIRIN = "Aspirin";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_AMY = " " + PREFIX_SUPPLIER_NAME + VALID_NAME_AMY;
+    public static final String NAME_DESC_BOB = " " + PREFIX_SUPPLIER_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String PRODUCT_NAME_DESC_AMY = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_ASPIRIN;
+    public static final String PRODUCT_NAME_DESC_BOB = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_PANADOL;
     public static final String TAG_DESC_FEVER = " " + PREFIX_TAG + VALID_TAG_FEVER;
     public static final String TAG_DESC_ANTIBIOTICS = " " + PREFIX_TAG + VALID_TAG_ANTIBIOTICS;
+    public static final String TAG_DESC_ANTIBIOTICS_FEVER = " " + PREFIX_TAG + VALID_TAG_ANTIBIOTICS + VALID_TAG_FEVER;
     public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
     public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_SUPPLIER_NAME_DESC =
+            " " + PREFIX_SUPPLIER_NAME + "*James&"; // '*' not allowed as a starting character
+    public static final String INVALID_PRODUCT_NAME_DESC =
+            " " + PREFIX_PRODUCT_NAME + "* new product"; // '*' not allowed as a starting character
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
