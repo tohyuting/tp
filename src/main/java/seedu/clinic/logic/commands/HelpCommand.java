@@ -32,6 +32,11 @@ public class HelpCommand extends Command {
 
     private final String commandArgument;
 
+    /**
+     * Constructs a new HelpCommand object.
+     *
+     * @param commandArgument takes in the command argument (if any) specified for help command.
+     */
     public HelpCommand(String commandArgument) {
         this.commandArgument = commandArgument;
     }

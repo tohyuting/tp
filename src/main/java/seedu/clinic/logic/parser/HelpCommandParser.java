@@ -1,7 +1,6 @@
 package seedu.clinic.logic.parser;
 
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import seedu.clinic.logic.commands.FindCommand;
 import static seedu.clinic.logic.commands.HelpCommand.ALLOWED_ARGUMENT;
 import static seedu.clinic.logic.commands.HelpCommand.MESSAGE_TOO_MANY_ARGUMENTS;
 import static seedu.clinic.logic.commands.HelpCommand.MESSAGE_WRONG_ARGUMENT;
