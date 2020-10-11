@@ -18,21 +18,21 @@ import org.junit.jupiter.api.Test;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserPrefs;
-import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
+import seedu.clinic.model.supplier.SupplierProductsContainKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
-public class FindCommandTest {
+public class FindSuppliersCommandTest {
     private Model model = new ModelManager(getTypicalClinic(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs());
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicateForSupplier firstPredicate =
-                new NameContainsKeywordsPredicateForSupplier(Collections.singletonList("first"));
-        NameContainsKeywordsPredicateForSupplier secondPredicate =
-                new NameContainsKeywordsPredicateForSupplier(Collections.singletonList("second"));
+        SupplierProductsContainKeywordsPredicate firstPredicate =
+                new SupplierProductsContainKeywordsPredicate(Collections.singletonList("first"));
+        SupplierProductsContainKeywordsPredicate secondPredicate =
+                new SupplierProductsContainKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -57,7 +57,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noSupplierFound() {
         String expectedMessage = String.format(MESSAGE_SUPPLIERS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicateForSupplier predicate = preparePredicate(" ");
+        SupplierProductsContainKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredSupplierList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -67,7 +67,7 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleSuppliersFound() {
         String expectedMessage = String.format(MESSAGE_SUPPLIERS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicateForSupplier predicate = preparePredicate("Kurz Elle Kunz");
+        SupplierProductsContainKeywordsPredicate predicate = preparePredicate("supplier mask");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredSupplierList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -75,9 +75,9 @@ public class FindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code SupplierProductsContainKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicateForSupplier preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicateForSupplier(Arrays.asList(userInput.split("\\s+")));
+    private SupplierProductsContainKeywordsPredicate preparePredicate(String userInput) {
+        return new SupplierProductsContainKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

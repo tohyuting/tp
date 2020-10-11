@@ -28,15 +28,6 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD:src/test/java/seedu/address/logic/parser/AddCommandParserTest.java
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.attribute.Email;
-import seedu.address.model.attribute.Name;
-import seedu.address.model.attribute.Phone;
-import seedu.address.model.attribute.Remark;
-import seedu.address.model.supplier.Supplier;
-import seedu.address.testutil.SupplierBuilder;
-=======
 import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.model.supplier.Email;
 import seedu.clinic.model.supplier.Name;
@@ -44,7 +35,6 @@ import seedu.clinic.model.supplier.Phone;
 import seedu.clinic.model.supplier.Remark;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.testutil.SupplierBuilder;
->>>>>>> upstream/master:src/test/java/seedu/clinic/logic/parser/AddCommandParserTest.java
 */
 public class AddCommandParserTest {
 /*

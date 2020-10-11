@@ -13,7 +13,7 @@
     "name" : "Alice Pauline Ltd",
     "phone" : "98765432",
     "address" : "johnd address",
-    "remark" : "trusted warehouse",
+    "remark" : "biggest warehouse",
     "products": [ {
       "name": "Panadol",
       "quantity": 20

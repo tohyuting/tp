@@ -22,7 +22,7 @@ import seedu.clinic.model.Clinic;
 import seedu.clinic.model.warehouse.Warehouse;
 
 /**
- * A utility class containing a list of {@code Supplier} objects to be used in tests.
+ * A utility class containing a list of {@code Warehouse} objects to be used in tests.
  */
 public class TypicalWarehouse {
 
@@ -36,18 +36,23 @@ public class TypicalWarehouse {
             .withProducts(Map.of("Panadol", 200)).build();
     public static final Warehouse CARL = new WarehouseBuilder().withName("Warehouse Carl")
             .withRemark("Warehouse 3").withAddress("carl address")
-            .withPhone("94361253").build();
+            .withPhone("94361253")
+            .withProducts(Map.of("Cough Syrup", 20)).build();
     public static final Warehouse DANIEL = new WarehouseBuilder().withName("Warehouse Daniel")
             .withRemark("Warehouse 4").withAddress("daniel address")
             .withPhone("94351233")
             .withProducts(Map.of("Panadol", 1)).build();
     public static final Warehouse ELLE = new WarehouseBuilder().withName("Warehouse Elle")
             .withRemark("Warehouse 5").withAddress("elle address")
-            .withPhone("94651253").build();
+            .withPhone("94651253")
+            .withProducts(Map.of("Cough Syrup", 30))
+            .withProducts(Map.of("Medical Glove", 50)).build();
     public static final Warehouse FIONA = new WarehouseBuilder().withName("Warehouse Fiona")
             .withRemark("Warehouse 10").withAddress("fiona address")
             .withPhone("92351253")
-            .withProducts(Map.of("Panadol", 1000)).build();
+            .withProducts(Map.of("Flu Syrup", 1000))
+            .withProducts(Map.of("Medical Glove", 50))
+            .withProducts(Map.of("Syringe", 500)).build();
     public static final Warehouse GEORGE = new WarehouseBuilder().withName("Warehouse George")
             .withRemark("Warehouse to be removed").withAddress("george address")
             .withPhone("84351253")
@@ -59,7 +64,7 @@ public class TypicalWarehouse {
     public static final Warehouse IRVIN = new WarehouseBuilder().withName("Irvin's Warehouse").withPhone("8482131")
             .withAddress("hans@35 prince george.").withRemark("big warehouse").build();
 
-    // Manually added - Supplier's details found in {@code CommandTestUtil}
+    // Manually added - Warehouse's details found in {@code CommandTestUtil}
     public static final Warehouse A = new WarehouseBuilder().withName(VALID_WAREHOUSE_NAME_A)
             .withPhone(VALID_WAREHOUSE_PHONE_A)
             .withAddress(VALID_WAREHOUSE_ADDRESS_A)
@@ -78,7 +83,7 @@ public class TypicalWarehouse {
     private TypicalWarehouse() {} // prevents instantiation
 
     /**
-     * Returns an {@code Clinic} with all the typical suppliers.
+     * Returns an {@code Clinic} with all the typical warehouses.
      */
     public static Clinic getTypicalWarehouseOnlyClinic() {
         Clinic ab = new Clinic();
