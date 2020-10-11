@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
 import static seedu.clinic.logic.commands.UpdateCommand.getWarehouseByName;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalWarehouse.ALICE;
 
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -47,10 +47,12 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_productExistsInWarehouse_updateSuccessful() throws Exception {
-        ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
-        CommandResult commandResult = new UpdateCommand(ALICE.getName(), VALID_PRODUCT_A).execute(modelStub);
-        WarehouseBuilder warehouseBuilder = new WarehouseBuilder(ALICE);
-        Warehouse editedWarehouse = warehouseBuilder.withProducts(
+        Warehouse originalWarehouse = new WarehouseBuilder().withProducts(
+                Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_B)).build();
+        ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(originalWarehouse);
+        CommandResult commandResult = new UpdateCommand(originalWarehouse.getName(), VALID_PRODUCT_A)
+                .execute(modelStub);
+        Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
         assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_A, editedWarehouse),
                 commandResult.getFeedbackToUser());
@@ -59,11 +61,10 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_productDoesNotExistInWarehouse_updateSuccessful() throws Exception {
-        WarehouseBuilder warehouseBuilder = new WarehouseBuilder(ALICE);
-        Warehouse emptyWarehouse = warehouseBuilder.withProducts(new HashMap<>()).build();
+        Warehouse emptyWarehouse = new WarehouseBuilder().build();
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(emptyWarehouse);
         CommandResult commandResult = new UpdateCommand(emptyWarehouse.getName(), VALID_PRODUCT_A).execute(modelStub);
-        Warehouse editedWarehouse = warehouseBuilder.withProducts(
+        Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
         assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_A, editedWarehouse),
                 commandResult.getFeedbackToUser());
