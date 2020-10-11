@@ -1,5 +1,7 @@
 package seedu.clinic.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -33,11 +35,13 @@ public class SupplierCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label remark;
+    private FlowPane remark;
     @FXML
     private Label email;
     @FXML
     private FlowPane products;
+    @FXML
+    private FlowPane tags;
 
     /**
      * Creates a {@code supplierCode} with the given {@code Supplier} and index to display.
@@ -48,8 +52,16 @@ public class SupplierCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(supplier.getName().fullName);
         phone.setText(supplier.getPhone().value);
-        remark.setText(supplier.getRemark().value);
+        remark.getChildren().add(new Label(supplier.getRemark().value));
         email.setText(supplier.getEmail().value);
+        supplier.getProducts().stream()
+                .sorted(Comparator.comparing(product -> product.getProductName().fullName))
+                .forEach(product -> {
+                    products.getChildren().add(new Label(product.getProductName().fullName));
+                    product.getProductTags().stream()
+                            .sorted(Comparator.comparing(tag -> tag.tagName))
+                            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                });
     }
 
     @Override

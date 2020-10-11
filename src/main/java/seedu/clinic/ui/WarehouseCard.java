@@ -1,5 +1,7 @@
 package seedu.clinic.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -33,7 +35,7 @@ public class WarehouseCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label remark;
+    private FlowPane remark;
     @FXML
     private Label address;
     @FXML
@@ -48,8 +50,11 @@ public class WarehouseCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(warehouse.getName().fullName);
         phone.setText(warehouse.getPhone().value);
-        remark.setText(warehouse.getRemark().value);
+        remark.getChildren().add(new Label(warehouse.getRemark().value));
         address.setText(warehouse.getAddress().value);
+        warehouse.getProducts().stream()
+                .sorted(Comparator.comparing(product -> product.toStringForWareHouse()))
+                .forEach(product -> products.getChildren().add(new Label(product.toStringForWareHouse())));
     }
 
     @Override
