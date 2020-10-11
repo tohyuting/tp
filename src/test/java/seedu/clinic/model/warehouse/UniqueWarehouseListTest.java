@@ -72,12 +72,12 @@ public class UniqueWarehouseListTest {
     }
 
     @Test
-    public void setWarehouse_targetSupplierNotInList_throwsWarehouseNotFoundException() {
+    public void setWarehouse_targetWarehouseNotInList_throwsWarehouseNotFoundException() {
         assertThrows(WarehouseNotFoundException.class, () -> uniqueWarehouseList.setWarehouse(A, A));
     }
 
     @Test
-    public void setWarehouse_editedWarehouseIsSameSupplier_success() {
+    public void setWarehouse_editedWarehouseIsSameWarehouse_success() {
         uniqueWarehouseList.add(A);
         uniqueWarehouseList.setWarehouse(A, A);
         UniqueWarehouseList expectedUniqueWarehouseList = new UniqueWarehouseList();
@@ -98,7 +98,7 @@ public class UniqueWarehouseListTest {
     }
 
     @Test
-    public void setSupplier_editedSupplierHasDifferentIdentity_success() {
+    public void setWarehouse_editedWarehouseHasDifferentIdentity_success() {
         uniqueWarehouseList.add(A);
         uniqueWarehouseList.setWarehouse(A, B);
         UniqueWarehouseList expectedUniqueWarehouseList = new UniqueWarehouseList();
@@ -124,7 +124,7 @@ public class UniqueWarehouseListTest {
     }
 
     @Test
-    public void remove_existingWarehouse_removesSupplier() {
+    public void remove_existingWarehouse_removesWarehouse() {
         uniqueWarehouseList.add(A);
         uniqueWarehouseList.remove(A);
         UniqueWarehouseList expectedUniqueWarehouseList = new UniqueWarehouseList();
@@ -151,7 +151,7 @@ public class UniqueWarehouseListTest {
     }
 
     @Test
-    public void setSuppliers_list_replacesOwnListWithProvidedList() {
+    public void setWarehouses_list_replacesOwnListWithProvidedList() {
         uniqueWarehouseList.add(A);
         List<Warehouse> supplierList = Collections.singletonList(B);
         uniqueWarehouseList.setWarehouses(supplierList);

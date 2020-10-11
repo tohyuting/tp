@@ -65,7 +65,7 @@ public class JsonSerializableClinicTest {
     }
 
     @Test
-    public void toModelType_duplicateSWarehouses_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicateWarehouses_throwsIllegalValueException() throws Exception {
         JsonSerializableClinic dataFromFile = JsonUtil.readJsonFile(DUPLICATE_WAREHOUSE_FILE,
                 JsonSerializableClinic.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableClinic.MESSAGE_DUPLICATE_WAREHOUSE,

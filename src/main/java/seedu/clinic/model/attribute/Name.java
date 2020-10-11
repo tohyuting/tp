@@ -12,7 +12,7 @@ public class Name {
     public static final String MESSAGE_CONSTRAINTS =
             "Names should start with an alphanumeric character, and it should not be blank";
 
-    /*
+    /**
      * The first character of the name must be alphanumeric.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Print}]*";
