@@ -25,6 +25,7 @@ import static seedu.clinic.model.util.SampleDataUtil.getTagSet;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.clinic.logic.commands.AddProductCommand;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Tag;
@@ -70,7 +71,7 @@ class AddProductCommandParserTest {
         Product expectedProduct = new Product(new Name(VALID_PRODUCT_NAME_ASPIRIN), new HashSet<>());
 
         // no tag - success
-        assertParseSuccess(parser,  NAME_DESC_AMY + PRODUCT_NAME_DESC_AMY,
+        assertParseSuccess(parser, NAME_DESC_AMY + PRODUCT_NAME_DESC_AMY,
                 new AddProductCommand(expectedName, expectedProduct));
     }
 
@@ -109,7 +110,7 @@ class AddProductCommandParserTest {
         String userInput = NAME_DESC_BOB + NAME_DESC_AMY + PRODUCT_NAME_DESC_BOB + PRODUCT_NAME_DESC_AMY
                 + TAG_DESC_FEVER + TAG_DESC_ANTIBIOTICS;
 
-        assertParseSuccess(parser,  userInput, new AddProductCommand(expectedName, expectedProduct));
+        assertParseSuccess(parser, userInput, new AddProductCommand(expectedName, expectedProduct));
     }
 
     @Test
@@ -121,13 +122,13 @@ class AddProductCommandParserTest {
         String userInput = INVALID_SUPPLIER_NAME_DESC + NAME_DESC_AMY + PRODUCT_NAME_DESC_BOB + PRODUCT_NAME_DESC_AMY
                 + TAG_DESC_FEVER + TAG_DESC_ANTIBIOTICS;
 
-        assertParseSuccess(parser,  userInput, new AddProductCommand(expectedName, expectedProduct));
+        assertParseSuccess(parser, userInput, new AddProductCommand(expectedName, expectedProduct));
 
         // invalid name in the input
         expectedProduct = new Product(new Name(VALID_PRODUCT_NAME_ASPIRIN), getTagSet(VALID_TAG_ANTIBIOTICS));
         userInput = NAME_DESC_AMY + INVALID_PRODUCT_NAME_DESC + PRODUCT_NAME_DESC_AMY
                 + TAG_DESC_FEVER + TAG_DESC_ANTIBIOTICS;
 
-        assertParseSuccess(parser,  userInput, new AddProductCommand(expectedName, expectedProduct));
+        assertParseSuccess(parser, userInput, new AddProductCommand(expectedName, expectedProduct));
     }
 }

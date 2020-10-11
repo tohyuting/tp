@@ -12,19 +12,14 @@ import static seedu.clinic.testutil.SupplierUtil.getAddProductCommand;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-// import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.commands.AddProductCommand;
 import seedu.clinic.logic.commands.ClearCommand;
 import seedu.clinic.logic.commands.DeleteCommand;
-// import seedu.clinic.logic.commands.EditCommand;
-// import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;

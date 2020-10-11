@@ -34,7 +34,7 @@ public class SupplierUtil {
         sb.append(PREFIX_SUPPLIER_NAME + supplier.getName().fullName + " ");
         sb.append(PREFIX_PRODUCT_NAME + product.getProductName().fullName + " " + PREFIX_TAG);
         product.getProductTags().stream().forEach(
-                s -> sb.append(s.tagName)
+            s -> sb.append(s.tagName)
         );
         return sb.toString();
     }
@@ -76,7 +76,7 @@ public class SupplierUtil {
             for (Product product:products) {
                 sb.append(PREFIX_PRODUCT_NAME + product.getProductName().fullName + " ");
                 product.getProductTags().stream().forEach(
-                        s -> sb.append(PREFIX_TAG + s.tagName + " ")
+                    s -> sb.append(PREFIX_TAG + s.tagName + " ")
                 );
             }
         }

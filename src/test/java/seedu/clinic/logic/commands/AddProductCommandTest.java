@@ -4,12 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.clinic.logic.commands.AddProductCommand.MESSAGE_DUPLICATE_PRODUCT;
 import static seedu.clinic.logic.commands.AddProductCommand.getSupplierByName;
-import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_SUPPLIER_NAME_DESC;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_PANADOL;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_ANTIBIOTICS;
-import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.model.util.SampleDataUtil.getTagSet;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalSupplier.ALICE;
@@ -21,6 +19,7 @@ import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.ReadOnlyClinic;
@@ -70,8 +69,9 @@ class AddProductCommandTest {
         Product duplicateProduct = new Product(new Name(VALID_PRODUCT_NAME_PANADOL), new HashSet<>());
         assertThrows(CommandException.class, () -> new AddProductCommand(ALICE.getName(), duplicateProduct)
                 .execute(modelStub));
-        assertThrows(CommandException.class, MESSAGE_DUPLICATE_PRODUCT,
-                () -> new AddProductCommand(ALICE.getName(), duplicateProduct).execute(modelStub));
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_PRODUCT, ()
+                -> new AddProductCommand(ALICE.getName(), duplicateProduct).execute(modelStub)
+        );
     }
 
     @Test
