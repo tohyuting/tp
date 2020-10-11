@@ -6,10 +6,10 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUC
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_A;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalWarehouse.ALICE;
-import static seedu.clinic.testutil.TypicalWarehouse.BENSON;
 
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.logic.commands.exceptions.CommandException;
+import seedu.clinic.model.Clinic;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserPrefs;
@@ -38,13 +39,13 @@ public class UpdateCommandTest {
 
     @Test
     public void constructor_nullProduct_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new UpdateCommand(ALICE, null));
+        assertThrows(NullPointerException.class, () -> new UpdateCommand(ALICE.getName(), null));
     }
 
     @Test
     public void execute_productExistsInWarehouse_updateSuccessful() throws Exception {
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
-        CommandResult commandResult = new UpdateCommand(ALICE, VALID_PRODUCT_A).execute(modelStub);
+        CommandResult commandResult = new UpdateCommand(ALICE.getName(), VALID_PRODUCT_A).execute(modelStub);
         WarehouseBuilder warehouseBuilder = new WarehouseBuilder(ALICE);
         Warehouse editedWarehouse = warehouseBuilder.withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
@@ -58,7 +59,7 @@ public class UpdateCommandTest {
         WarehouseBuilder warehouseBuilder = new WarehouseBuilder(ALICE);
         Warehouse emptyWarehouse = warehouseBuilder.withProducts(new HashMap<>()).build();
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(emptyWarehouse);
-        CommandResult commandResult = new UpdateCommand(emptyWarehouse, VALID_PRODUCT_A).execute(modelStub);
+        CommandResult commandResult = new UpdateCommand(emptyWarehouse.getName(), VALID_PRODUCT_A).execute(modelStub);
         Warehouse editedWarehouse = warehouseBuilder.withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
         assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_A, editedWarehouse),
@@ -69,7 +70,8 @@ public class UpdateCommandTest {
     @Test
     public void execute_warehouseNotFound_throwsCommandException() {
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
-        assertThrows(CommandException.class, () -> new UpdateCommand(BENSON, VALID_PRODUCT_A).execute(modelStub));
+        assertThrows(CommandException.class, () -> new UpdateCommand(new Name("Ben"), VALID_PRODUCT_A)
+                .execute(modelStub));
     }
 
 
@@ -181,21 +183,22 @@ public class UpdateCommandTest {
 
     private class ModelStubWithWarehouse extends ModelStub {
         private Warehouse warehouse;
+        private Clinic clinic = new Clinic();
 
         ModelStubWithWarehouse(Warehouse warehouse) {
             requireNonNull(warehouse);
             this.warehouse = warehouse;
+            clinic.setWarehouses(List.of(warehouse));
         }
 
-        @Override
-        public boolean hasWarehouse(Warehouse warehouse) {
-            requireNonNull(warehouse);
-            return this.warehouse.isSameWarehouse(warehouse);
+        @Override public ReadOnlyClinic getClinic() {
+            return clinic;
         }
 
         @Override
         public void setWarehouse(Warehouse target, Warehouse editedWarehouse) {
             this.warehouse = editedWarehouse;
+            clinic.setWarehouses(List.of(editedWarehouse));
         }
 
         @Override
