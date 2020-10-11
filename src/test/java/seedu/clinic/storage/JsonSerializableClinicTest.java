@@ -2,6 +2,7 @@ package seedu.clinic.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.clinic.testutil.Assert.assertThrows;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalSupplierOnlyClinic;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import seedu.clinic.commons.exceptions.IllegalValueException;
 import seedu.clinic.commons.util.JsonUtil;
 import seedu.clinic.model.Clinic;
-import seedu.clinic.testutil.TypicalSupplier;
 import seedu.clinic.testutil.TypicalWarehouse;
 
 public class JsonSerializableClinicTest {
@@ -29,7 +29,7 @@ public class JsonSerializableClinicTest {
         JsonSerializableClinic dataFromFile = JsonUtil.readJsonFile(TYPICAL_SUPPLIERS_FILE,
                 JsonSerializableClinic.class).get();
         Clinic clinicFromFile = dataFromFile.toModelType();
-        Clinic typicalSuppliersClinic = TypicalSupplier.getTypicalClinic();
+        Clinic typicalSuppliersClinic = getTypicalSupplierOnlyClinic();
         assertEquals(clinicFromFile, typicalSuppliersClinic);
     }
 

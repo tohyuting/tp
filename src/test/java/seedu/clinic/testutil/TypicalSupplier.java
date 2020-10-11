@@ -20,6 +20,7 @@ import java.util.Map;
 
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * A utility class containing a list of {@code Supplier} objects to be used in tests.
@@ -76,22 +77,25 @@ public class TypicalSupplier {
      * Returns an {@code Clinic} with all the typical suppliers and warehouses.
      */
     public static Clinic getTypicalClinic() {
-        Clinic ab = new Clinic();
+        Clinic clinic = new Clinic();
         for (Supplier supplier : getTypicalSuppliers()) {
-            ab.addSupplier(supplier);
+            clinic.addSupplier(supplier);
         }
-        return ab;
+        for (Warehouse warehouse : TypicalWarehouse.getTypicalWarehouses()) {
+            clinic.addWarehouse(warehouse);
+        }
+        return clinic;
     }
 
     /**
      * Returns an {@code Clinic} with all the typical suppliers.
      */
     public static Clinic getTypicalSupplierOnlyClinic() {
-        Clinic ab = new Clinic();
+        Clinic clinic = new Clinic();
         for (Supplier supplier : getTypicalSuppliers()) {
-            ab.addSupplier(supplier);
+            clinic.addSupplier(supplier);
         }
-        return ab;
+        return clinic;
     }
 
     public static List<Supplier> getTypicalSuppliers() {

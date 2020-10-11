@@ -339,7 +339,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1b1-1b3 are repeated until the supplier is found. <br>
     Use case resumes from step 2.
 
-**Use case: UC04 clear all supplier and warehouse entries**
+**Use case: UC04 Clear all supplier and warehouse entries**
 
 **MSS**
 
@@ -442,6 +442,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Steps 1a1 and 1a2 are repeated until a valid find command is entered. <br>
     Use case resumes from step 2.
+
+**Use case: UC09 List all supplier and warehouse entries**
+
+**MSS**
+
+1. User requests to list the data in the application.
+2. CLI-nic retrieves all supplier and warehouse entries, shows lists of suppliers and warehouses and shows a success message.
+
+    Use case ends.
 
 **Use case: UC09 View Help**
 
