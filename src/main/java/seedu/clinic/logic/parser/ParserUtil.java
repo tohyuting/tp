@@ -44,6 +44,9 @@ public class ParserUtil {
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e4bc5180
      * Parses {@code typeKeyword} into an {@code String} and returns it. Leading and trailing whitespaces will be
      * trimmed and the string is converted to lower cases.
      * @throws ParseException if the specified type is invalid (neither supplier or warehouse).
