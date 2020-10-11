@@ -22,11 +22,17 @@ import seedu.clinic.model.ReadOnlyUserPrefs;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 import seedu.clinic.testutil.SupplierBuilder;
+import seedu.clinic.testutil.WarehouseBuilder;
 
 public class AddCommandTest {
     @Test
     public void constructor_nullSupplier_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddCommand((Supplier) null));
+    }
+
+    @Test
+    public void constructor_nullWarehouse_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddCommand((Warehouse) null));
     }
 
     @Test
@@ -36,10 +42,23 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validSupplier).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validSupplier), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.MESSAGE_SUPPLIER_SUCCESS, validSupplier),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validSupplier), modelStub.suppliersAdded);
     }
+    /*
+    @Test
+    public void execute_warehouseAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingWarehouseAdded modelStub = new ModelStubAcceptingWarehouseAdded();
+        Warehouse validWarehouse = new WarehouseBuilder().build();
 
+        CommandResult commandResult = new AddCommand(validWarehouse).execute(modelStub);
+
+        assertEquals(String.format(AddCommand.MESSAGE_WAREHOUSE_SUCCESS, validWarehouse),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validWarehouse), modelStub.warehousesAdded);
+    }
+    */
     @Test
     public void execute_duplicateSupplier_throwsCommandException() {
         Supplier validSupplier = new SupplierBuilder().build();
@@ -51,27 +70,49 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_duplicateWarehouse_throwsCommandException() {
+        Warehouse validWarehouse = new WarehouseBuilder().build();
+        AddCommand addCommand = new AddCommand(validWarehouse);
+        ModelStub modelStub = new ModelStubWithWarehouse(validWarehouse);
+
+        assertThrows(CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_WAREHOUSE, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
     public void equals() {
         Supplier alice = new SupplierBuilder().withName("Alice").build();
         Supplier bob = new SupplierBuilder().withName("Bob").build();
+        Warehouse alpha = new WarehouseBuilder().withName("Alpha").build();
+        Warehouse beta = new WarehouseBuilder().withName("Beta").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
+        AddCommand addAlphaCommand = new AddCommand(alpha);
+        AddCommand addBetaCommand = new AddCommand(beta);
 
         // same object -> returns true
         assertEquals(addAliceCommand, addAliceCommand);
+        assertEquals(addAlphaCommand, addAlphaCommand);
 
         // same values -> returns true
         AddCommand addAliceCommandCopy = new AddCommand(alice);
         assertEquals(addAliceCommandCopy, addAliceCommand);
+        AddCommand addAlphaCommandCopy = new AddCommand(alpha);
+        assertEquals(addAlphaCommandCopy, addAlphaCommand);
 
         // different types -> returns false
         assertNotEquals(addAliceCommand, 1);
+        assertNotEquals(addAlphaCommand, 1);
 
         // null -> returns false
         assertNotEquals(addAliceCommand, null);
+        assertNotEquals(addAlphaCommand, null);
 
         // different supplier -> returns false
         assertNotEquals(addBobCommand, addAliceCommand);
+
+        // different warehouse -> returns false
+        assertNotEquals(addBetaCommand, addAlphaCommand);
     }
 
     /*
@@ -213,6 +254,48 @@ public class AddCommandTest {
         public void addSupplier(Supplier supplier) {
             requireNonNull(supplier);
             suppliersAdded.add(supplier);
+        }
+
+        @Override
+        public ReadOnlyClinic getClinic() {
+            return new Clinic();
+        }
+    }
+
+    /*
+     * A Model stub that contains a single warehouse.
+     */
+    private static class ModelStubWithWarehouse extends ModelStub {
+        private final Warehouse warehouse;
+
+        ModelStubWithWarehouse(Warehouse warehouse) {
+            requireNonNull(warehouse);
+            this.warehouse = warehouse;
+        }
+
+        @Override
+        public boolean hasWarehouse(Warehouse warehouse) {
+            requireNonNull(warehouse);
+            return this.warehouse.isSameWarehouse(warehouse);
+        }
+    }
+
+    /*
+     * A Model stub that always accept the warehouse being added.
+     */
+    private static class ModelStubAcceptingWarehouseAdded extends ModelStub {
+        final ArrayList<Warehouse> warehousesAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasWarehouse(Warehouse warehouse) {
+            requireNonNull(warehouse);
+            return warehousesAdded.stream().anyMatch(warehouse::isSameWarehouse);
+        }
+
+        @Override
+        public void addWarehouse(Warehouse warehouse) {
+            requireNonNull(warehouse);
+            warehousesAdded.add(warehouse);
         }
 
         @Override
