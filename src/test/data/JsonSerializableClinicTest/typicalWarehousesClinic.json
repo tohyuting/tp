@@ -2,7 +2,7 @@
   "_comment": "Clinic save file which contains the same supplier values as in TypicalSuppliers#getTypicalAddressBook()",
   "suppliers" : [ ],
   "warehouses": [ {
-    "name" : "Warehouse Alice",
+    "name" : "Alice Warehouse",
     "phone" : "94351253",
     "address" : "alice address",
     "remark" : "Warehouse 1",

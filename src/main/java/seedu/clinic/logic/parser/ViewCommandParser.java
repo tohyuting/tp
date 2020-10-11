@@ -1,17 +1,16 @@
 package seedu.clinic.logic.parser;
 
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import seedu.clinic.logic.commands.ViewCommand;
 import static seedu.clinic.logic.commands.ViewCommand.ALLOWED_TYPES;
 import static seedu.clinic.logic.commands.ViewCommand.NAME_IN_VIEW_COMMAND;
 import static seedu.clinic.logic.commands.ViewCommand.NUMBER_OF_ARGUMENTS;
 import static seedu.clinic.logic.commands.ViewCommand.TYPE_IN_VIEW_COMMAND;
-import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
-import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
 
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.clinic.logic.commands.ViewCommand;
+import seedu.clinic.logic.parser.exceptions.ParseException;
 
 public class ViewCommandParser implements Parser<ViewCommand> {
 

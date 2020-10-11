@@ -1,14 +1,14 @@
 package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
-
-import java.util.Collections;
-import java.util.List;
 
 public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
@@ -28,6 +28,12 @@ public class ViewCommand extends Command {
     private final String type;
     private final List<String> name;
 
+    /**
+     * Creates a new ViewCommand object.
+     *
+     * @param type takes in type of the viewCommand object, either supplier or warehouse.
+     * @param name takes in name(s) as keywords to find warehouse(s) or supplier(s).
+     */
     public ViewCommand(String type, List<String> name) {
         this.type = type;
         this.name = name;
@@ -53,5 +59,13 @@ public class ViewCommand extends Command {
                             model.getFilteredWarehouseList().size()));
         }
         return commandResult;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewCommand // instanceof handles nulls
+                && type.equals(((ViewCommand) other).type)
+                && name.equals(((ViewCommand) other).name));
     }
 }

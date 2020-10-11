@@ -20,6 +20,7 @@ import java.util.Map;
 
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.warehouse.Warehouse;
 
 /**
  * A utility class containing a list of {@code Supplier} objects to be used in tests.
@@ -79,6 +80,9 @@ public class TypicalSupplier {
         Clinic ab = new Clinic();
         for (Supplier supplier : getTypicalSuppliers()) {
             ab.addSupplier(supplier);
+        }
+        for (Warehouse warehouse : TypicalWarehouse.getTypicalWarehouses()) {
+            ab.addWarehouse(warehouse);
         }
         return ab;
     }

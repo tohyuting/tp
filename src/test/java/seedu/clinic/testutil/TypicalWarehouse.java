@@ -26,7 +26,7 @@ import seedu.clinic.model.warehouse.Warehouse;
  */
 public class TypicalWarehouse {
 
-    public static final Warehouse ALICE = new WarehouseBuilder().withName("Warehouse Alice")
+    public static final Warehouse ALICE = new WarehouseBuilder().withName("Alice Warehouse")
             .withRemark("Warehouse 1").withAddress("alice address")
             .withPhone("94351253")
             .withProducts(Map.of("Panadol", 100)).build();

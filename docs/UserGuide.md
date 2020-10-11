@@ -46,6 +46,8 @@ and efficient Graphical User Interface interaction.
    * **`find`** `PANADOL warehouse`** : Displays all the warehouses managed by the manager that has a product
     named PANADOL.
 
+  * **`list`** `list`** : Displays all the warehouses and suppliers in CLI-nic.
+
    * **`update`** `w/WarehouseA pd/Panadol q/10` : Updates the quantity of PANADOL in WarehouseA to 10. The
     quantity of PANADOL in WarehouseA can be more than 10 or lesser than 10 before the update is done.
 
@@ -156,6 +158,12 @@ Examples:
 * `find warehouse PANADOL SUSP` Displays all the warehouses managed by the manager that has a product named PANADOL SUSP.
 * `find supplier masks` Displays all the suppliers that have stock for the input product.
 
+### List all suppliers and warehouses entries : `list`
+
+List all entries (Suppliers and Warehouses) from the CLI-nic.
+
+Format: `list`
+
 ### View a specific supplier / warehouse: `view`
 
 Shows a particular supplier/warehouse with their relevant information e.g. products associated with the supplier/warehouse, address etc.
@@ -228,6 +236,7 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete TYPE INDEX`<br> e.g., `delete 3`
 **Find** | `find TYPE KEYWORD…​`<br> e.g. `find warehouse panadol`
-**Help** | `help`
+**Help** | `help [COMMAND]`<br> e.g., `help add`
+**List** | `list`
 **Update** | `update w/WAREHOUSE_NAME pd/PRODUCT_NAME q/QUANTITY` <br> e.g., `update w/WarehouseA pd/Panadol q/10`
 **View** | `view TYPE NAME`<br> e.g. `view supplier supplierA`
