@@ -32,7 +32,7 @@ public class TypicalProductWarehouse {
     public static final Product STETHOSCOPE_WAREHOUSE = new ProductBuilderWarehouse().withName("stethoscope")
             .withQuantity(400).build();
 
-    // Manually added - Supplier's details found in {@code CommandTestUtil}
+    // Manually added - Product's details found in {@code CommandTestUtil}
     public static final Product ASPIRIN_WAREHOUSE = new ProductBuilderWarehouse().withName(VALID_PRODUCT_NAME_ASPIRIN)
             .withQuantity(VALID_PRODUCT_QUANTITY_A).build();
     public static final Product PANADOL_WAREHOUSE = new ProductBuilderWarehouse().withName(VALID_PRODUCT_NAME_PANADOL)

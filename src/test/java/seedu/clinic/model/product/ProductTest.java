@@ -22,18 +22,19 @@ public class ProductTest {
         assertFalse(SANITIZER_SUPPLIER.equals(null));
 
         // different name -> returns false
-        Product editedSanitizer = new ProductBuilderSupplier(SANITIZER_SUPPLIER).withName("Lifebuoy").build();
-        assertFalse(SANITIZER_SUPPLIER.equals(editedSanitizer));
+        Product editedSanitizerSupplier = new ProductBuilderSupplier(SANITIZER_SUPPLIER)
+                .withName("Lifebuoy").build();
+        assertFalse(SANITIZER_SUPPLIER.equals(editedSanitizerSupplier));
 
         //different name and tag -> returns false
-        Product editedMask = new ProductBuilderSupplier(SURGICAL_MASK_SUPPLIER).withName("housebrand")
+        Product editedMaskSupplier = new ProductBuilderSupplier(SURGICAL_MASK_SUPPLIER).withName("housebrand")
                 .withTags("protects").build();
-        assertFalse(SURGICAL_MASK_SUPPLIER.equals(editedMask));
+        assertFalse(SURGICAL_MASK_SUPPLIER.equals(editedMaskSupplier));
 
         //different tag, same name -> returns true
-        Product editedMaskTags = new ProductBuilderSupplier(SURGICAL_MASK_SUPPLIER)
+        Product editedMaskTagsSupplier = new ProductBuilderSupplier(SURGICAL_MASK_SUPPLIER)
                 .withTags("protects").build();
-        assertTrue(SURGICAL_MASK_SUPPLIER.equals(editedMaskTags));
+        assertTrue(SURGICAL_MASK_SUPPLIER.equals(editedMaskTagsSupplier));
     }
 
     @Test
@@ -45,19 +46,19 @@ public class ProductTest {
         assertFalse(SANITIZER_WAREHOUSE.equals(null));
 
         // different name -> returns false
-        Product editedSanitizer = new ProductBuilderWarehouse(SANITIZER_WAREHOUSE)
+        Product editedSanitizerWarehouse = new ProductBuilderWarehouse(SANITIZER_WAREHOUSE)
                 .withName("Lifebuoy").build();
-        assertFalse(SANITIZER_WAREHOUSE.equals(editedSanitizer));
+        assertFalse(SANITIZER_WAREHOUSE.equals(editedSanitizerWarehouse));
 
         //different name and quantity -> returns false
-        Product editedMask = new ProductBuilderWarehouse(SURGICAL_MASK_WAREHOUSE).withName("housebrand")
-                .withQuantity(100).build();
-        assertFalse(SURGICAL_MASK_WAREHOUSE.equals(editedMask));
+        Product editedMaskWarehouse = new ProductBuilderWarehouse(SURGICAL_MASK_WAREHOUSE)
+                .withName("housebrand").withQuantity(100).build();
+        assertFalse(SURGICAL_MASK_WAREHOUSE.equals(editedMaskWarehouse));
 
         //different quantity, same name -> returns true
-        Product editedMaskTags = new ProductBuilderWarehouse(SURGICAL_MASK_WAREHOUSE)
+        Product editedMaskTagsWarehouse = new ProductBuilderWarehouse(SURGICAL_MASK_WAREHOUSE)
                 .withQuantity(100).build();
-        assertTrue(SURGICAL_MASK_WAREHOUSE.equals(editedMaskTags));
+        assertTrue(SURGICAL_MASK_WAREHOUSE.equals(editedMaskTagsWarehouse));
     }
 
 }

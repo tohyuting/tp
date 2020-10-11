@@ -32,7 +32,7 @@ public class TypicalProductSupplier {
     public static final Product STETHOSCOPE_SUPPLIER = new ProductBuilderSupplier().withName("stethoscope")
             .withTags("professional").build();
 
-    // Manually added - Supplier's details found in {@code CommandTestUtil}
+    // Manually added - Product's details found in {@code CommandTestUtil}
     public static final Product ASPIRIN_SUPPLIER = new ProductBuilderSupplier().withName(VALID_PRODUCT_NAME_ASPIRIN)
             .withTags(VALID_TAG_PAINKILLER).build();
     public static final Product PANADOL_SUPPLIER = new ProductBuilderSupplier().withName(VALID_PRODUCT_NAME_PANADOL)
