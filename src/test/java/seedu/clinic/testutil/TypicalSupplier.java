@@ -35,14 +35,21 @@ public class TypicalSupplier {
             .withEmail("johnd@example.com").withPhone("98765432")
             .withProducts(Map.of("Panadol", new String[]{"fever"})).build();
     public static final Supplier CARL = new SupplierBuilder().withName("Carl Kurz Ltd").withPhone("95352563")
-            .withEmail("heinz@example.com").withRemark("nearby").build();
+            .withEmail("heinz@example.com").withRemark("nearby")
+            .withProducts(Map.of("Mask", new String[]{"black"}))
+            .withProducts(Map.of("Thermometer", new String[]{"digital"})).build();
     public static final Supplier DANIEL = new SupplierBuilder().withName("Daniel Meier Ltd").withPhone("87652533")
             .withEmail("cornelia@example.com").withRemark("premium prices")
             .withProducts(Map.of("Panadol", new String[]{"fever"})).build();
     public static final Supplier ELLE = new SupplierBuilder().withName("Elle Meyer Ltd").withPhone("9482224")
-            .withEmail("werner@example.com").withRemark("industry leader").build();
+            .withEmail("werner@example.com").withRemark("industry leader")
+            .withProducts(Map.of("Mask", new String[]{"black"}))
+            .withProducts(Map.of("Medical Glove", new String[]{"rubber"})).build();
     public static final Supplier FIONA = new SupplierBuilder().withName("Fiona Kunz Ltd").withPhone("9482427")
-            .withEmail("lydia@example.com").withRemark("specialises in antibiotics").build();
+            .withEmail("lydia@example.com").withRemark("specialises in antibiotics")
+            .withProducts(Map.of("Mask", new String[]{"black"}))
+            .withProducts(Map.of("Needle", new String[]{"1mm"}))
+            .withProducts(Map.of("Cough Syrup", new String[]{"cough"})).build();
     public static final Supplier GEORGE = new SupplierBuilder().withName("George Best Ltd").withPhone("9482442")
             .withEmail("anna@example.com").withRemark("frequent discount").build();
 
