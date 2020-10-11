@@ -5,7 +5,7 @@ package seedu.clinic.logic.parser;
  */
 public class CliSyntax {
 
-    /* Prefix definitions s*/
+    /* Prefix definitions */
     public static final Prefix PREFIX_SUPPLIER_NAME = new Prefix("s/");
     public static final Prefix PREFIX_WAREHOUSE_NAME = new Prefix("s/");
     public static final Prefix PREFIX_NAME = new Prefix("n/");
