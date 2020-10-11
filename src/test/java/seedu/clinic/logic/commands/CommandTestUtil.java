@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
@@ -104,6 +105,8 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK; // empty string not allowed for remarks
+    public static final String INVALID_SUPPLIER_NAME_DESC = " " + PREFIX_SUPPLIER_NAME
+            + "&Amy"; // names cannot start with '&'
     public static final String INVALID_WAREHOUSE_NAME_DESC = " " + PREFIX_WAREHOUSE_NAME
             + "&Amy"; // names cannot start with '&'
     public static final String INVALID_PRODUCT_NAME_DESC = " " + PREFIX_PRODUCT_NAME
