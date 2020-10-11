@@ -39,66 +39,66 @@ public class JsonAdaptedWarehouseTest {
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedWarehouse supplier =
+        JsonAdaptedWarehouse warehouse =
                 new JsonAdaptedWarehouse(INVALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_REMARK, VALID_PRODUCTS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, supplier::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, warehouse::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedWarehouse supplier = new JsonAdaptedWarehouse(null, VALID_PHONE, VALID_ADDRESS,
+        JsonAdaptedWarehouse warehouse = new JsonAdaptedWarehouse(null, VALID_PHONE, VALID_ADDRESS,
                 VALID_REMARK, VALID_PRODUCTS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, supplier::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, warehouse::toModelType);
     }
 
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
-        JsonAdaptedWarehouse supplier =
+        JsonAdaptedWarehouse warehouse =
                 new JsonAdaptedWarehouse(VALID_NAME, INVALID_PHONE, VALID_ADDRESS, VALID_REMARK, VALID_PRODUCTS);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, supplier::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, warehouse::toModelType);
     }
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        JsonAdaptedWarehouse supplier = new JsonAdaptedWarehouse(VALID_NAME, null, VALID_ADDRESS,
+        JsonAdaptedWarehouse warehouse = new JsonAdaptedWarehouse(VALID_NAME, null, VALID_ADDRESS,
                 VALID_REMARK, VALID_PRODUCTS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, supplier::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, warehouse::toModelType);
     }
 
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
-        JsonAdaptedWarehouse supplier =
+        JsonAdaptedWarehouse warehouse =
                 new JsonAdaptedWarehouse(VALID_NAME, VALID_PHONE, INVALID_ADDRESS, VALID_REMARK, VALID_PRODUCTS);
         String expectedMessage = Address.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, supplier::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, warehouse::toModelType);
     }
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        JsonAdaptedWarehouse supplier = new JsonAdaptedWarehouse(VALID_NAME, VALID_PHONE, null,
+        JsonAdaptedWarehouse warehouse = new JsonAdaptedWarehouse(VALID_NAME, VALID_PHONE, null,
                 VALID_REMARK, VALID_PRODUCTS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, supplier::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, warehouse::toModelType);
     }
 
     @Test
     public void toModelType_invalidRemark_throwsIllegalValueException() {
-        JsonAdaptedWarehouse supplier =
+        JsonAdaptedWarehouse warehouse =
                 new JsonAdaptedWarehouse(VALID_NAME, VALID_PHONE, VALID_ADDRESS, INVALID_REMARK, VALID_PRODUCTS);
         String expectedMessage = Remark.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, supplier::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, warehouse::toModelType);
     }
 
     @Test
     public void toModelType_nullRemark_throwsIllegalValueException() {
-        JsonAdaptedWarehouse supplier = new JsonAdaptedWarehouse(VALID_NAME, VALID_PHONE, VALID_ADDRESS, null,
+        JsonAdaptedWarehouse warehouse = new JsonAdaptedWarehouse(VALID_NAME, VALID_PHONE, VALID_ADDRESS, null,
                 VALID_PRODUCTS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, supplier::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, warehouse::toModelType);
     }
 
     @Test
@@ -107,9 +107,9 @@ public class JsonAdaptedWarehouseTest {
         JsonAdaptedProduct invalidProduct = new JsonAdaptedProduct(VALID_NAME,
                 new ArrayList<>(), -1);
         invalidProducts.add(invalidProduct);
-        JsonAdaptedWarehouse supplier =
+        JsonAdaptedWarehouse warehouse =
                 new JsonAdaptedWarehouse(VALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_REMARK, invalidProducts);
-        assertThrows(IllegalValueException.class, supplier::toModelType);
+        assertThrows(IllegalValueException.class, warehouse::toModelType);
     }
 
 }
