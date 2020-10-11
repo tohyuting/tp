@@ -178,16 +178,16 @@ public class HelpCommand extends Command {
 
     private String generateHelpViewMessage() {
         String viewWarehouseOrSupplier = "View\nShows a particular supplier/warehouse with their relevant"
-        + " information e.g. products associated with the supplier/warehouse, address etc.";
+            + " information e.g. products associated with the supplier/warehouse, address etc.";
         String viewWarehouseOrSupplierCommandFormat = "Command format: \nview TYPE NAME\n"
-        + "The TYPE specified should be one of these values: supplier or warehouse.\n"
-        + "The supplier/warehouse NAME specified is case-insensitive.";
+            + "The TYPE specified should be one of these values: supplier or warehouse.\n"
+            + "The supplier/warehouse NAME specified is case-insensitive.";
         String viewWarehouseOrSupplierSampleCommand = "Sample Command: \nview supplier supplierA"
-        + "\nview warehouse warehouseB";
+            + "\nview warehouse warehouseB";
         String viewCommandHelpMessage = HELP_MESSAGE_FOR_COMMAND_FORMAT + "\n\n"
-                + viewWarehouseOrSupplier + "\n\n"
-                + viewWarehouseOrSupplierCommandFormat + "\n\n"
-                + viewWarehouseOrSupplierSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
+            + viewWarehouseOrSupplier + "\n\n"
+            + viewWarehouseOrSupplierCommandFormat + "\n\n"
+            + viewWarehouseOrSupplierSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
         return viewCommandHelpMessage;
     }
 
@@ -204,5 +204,12 @@ public class HelpCommand extends Command {
                 + updateWarehouseProductCommandFormat + "\n\n"
                 + updateWarehouseProductSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
         return updateCommandHelpMessage;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof HelpCommand // instanceof handles nulls
+                && commandArgument.equals(((HelpCommand) other).commandArgument)); // state check
     }
 }
