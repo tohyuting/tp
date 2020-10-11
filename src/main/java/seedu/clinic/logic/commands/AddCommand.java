@@ -79,7 +79,7 @@ public class AddCommand extends Command {
             }
             model.addSupplier(supplierToAdd);
             return new CommandResult(String.format(MESSAGE_SUPPLIER_SUCCESS, supplierToAdd));
-        } else if (warehouseToAdd!= null){
+        } else if (warehouseToAdd != null) {
             if (model.hasWarehouse(warehouseToAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_WAREHOUSE);
             }
