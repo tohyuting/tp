@@ -51,8 +51,7 @@ public class CommandTestUtil {
     public static final String VALID_WAREHOUSE_PRODUCT_TAG_FEVER = "fever";
     public static final String VALID_WAREHOUSE_PRODUCT_TAG_HEADACHE = "headache";
 
-
-    // Old test samples
+    // general test samples
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -68,6 +67,7 @@ public class CommandTestUtil {
     public static final String VALID_PRODUCT_NAME_PANADOL = "Panadol";
     public static final String VALID_PRODUCT_NAME_ASPIRIN = "Aspirin";
 
+    // test samples for descriptors
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -89,6 +89,7 @@ public class CommandTestUtil {
     public static final String PRODUCT_QUANTITY_DESC_B = " " + PREFIX_PRODUCT_QUANTITY
             + VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
 
+    // invalid test samples
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "&James"; // names cannot start with '&'
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
