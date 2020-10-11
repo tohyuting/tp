@@ -23,11 +23,13 @@ public class JsonAdaptedSupplierTest {
     private static final String INVALID_REMARK = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_PRODUCT_NAME = " ";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_REMARK = BENSON.getRemark().toString();
+    private static final String VALID_PRODUCT_TAG = "friend";
     private static final List<JsonAdaptedProduct> VALID_PRODUCTS = BENSON.getProducts().stream()
             .map(JsonAdaptedProduct::new)
             .collect(Collectors.toList());
@@ -103,7 +105,7 @@ public class JsonAdaptedSupplierTest {
     }
 
     @Test
-    public void toModelType_invalidProducts_throwsIllegalValueException() {
+    public void toModelType_invalidProductsTag_throwsIllegalValueException() {
         List<JsonAdaptedProduct> invalidProducts = new ArrayList<>(VALID_PRODUCTS);
         JsonAdaptedProduct invalidProduct = new JsonAdaptedProduct(VALID_NAME,
                 List.of(new JsonAdaptedTag(INVALID_TAG)), 0);
@@ -113,4 +115,25 @@ public class JsonAdaptedSupplierTest {
         assertThrows(IllegalValueException.class, supplier::toModelType);
     }
 
+    @Test
+    public void toModelType_invalidProductsName_throwsIllegalValueException() {
+        List<JsonAdaptedProduct> invalidProducts = new ArrayList<>(VALID_PRODUCTS);
+        JsonAdaptedProduct invalidProduct = new JsonAdaptedProduct(INVALID_PRODUCT_NAME,
+                List.of(new JsonAdaptedTag(VALID_PRODUCT_TAG)), 0);
+        invalidProducts.add(invalidProduct);
+        JsonAdaptedSupplier supplier =
+                new JsonAdaptedSupplier(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_REMARK, invalidProducts);
+        assertThrows(IllegalValueException.class, supplier::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullProductsName_throwsIllegalValueException() {
+        List<JsonAdaptedProduct> invalidProducts = new ArrayList<>(VALID_PRODUCTS);
+        JsonAdaptedProduct invalidProduct = new JsonAdaptedProduct(null,
+                List.of(new JsonAdaptedTag(INVALID_TAG)), 0);
+        invalidProducts.add(invalidProduct);
+        JsonAdaptedSupplier supplier =
+                new JsonAdaptedSupplier(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_REMARK, invalidProducts);
+        assertThrows(IllegalValueException.class, supplier::toModelType);
+    }
 }
