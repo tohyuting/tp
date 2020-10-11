@@ -24,7 +24,8 @@ import seedu.clinic.model.product.Product;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index provided is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_QUANTITY = "Quantity provided is not an unsigned integer.";
 
     public static final String MESSAGE_INVALID_TYPE = "Type is neither supplier nor warehouse.";
 
@@ -42,6 +43,7 @@ public class ParserUtil {
     }
 
     /**
+<<<<<<< HEAD
      * Parses {@code typeKeyword} into an {@code String} and returns it. Leading and trailing whitespaces will be
      * trimmed and the string is converted to lower cases.
      * @throws ParseException if the specified type is invalid (neither supplier or warehouse).
@@ -53,6 +55,19 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_TYPE);
         }
         return trimmedType;
+    }
+
+    /**
+     * Parses {@code quantity} into an {@code int} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified quantity is invalid (not unsigned integer).
+     */
+    public static int parseQuantity(String quantity) throws ParseException {
+        String trimmedQuantity = quantity.trim();
+        if (!StringUtil.isUnsignedInteger(trimmedQuantity)) {
+            throw new ParseException(MESSAGE_INVALID_QUANTITY);
+        }
+        return Integer.parseInt(trimmedQuantity);
     }
 
     /**

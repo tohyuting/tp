@@ -6,8 +6,11 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 import static seedu.clinic.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -48,10 +51,13 @@ public class CommandTestUtil {
     public static final String VALID_WAREHOUSE_PRODUCT_TAG_FEVER = "fever";
     public static final String VALID_WAREHOUSE_PRODUCT_TAG_HEADACHE = "headache";
 
-    // empty string not allowed for addresses
-    public static final String INVALID_WAREHOUSE_ADDRESS_DESC = " " + PREFIX_ADDRESS;
+    // Product test samples
+    public static final String VALID_PRODUCT_NAME_PANADOL = "Panadol";
+    public static final String VALID_PRODUCT_NAME_ASPIRIN = "Aspirin";
+    public static final int VALID_PRODUCT_QUANTITY_A = 90;
+    public static final int VALID_PRODUCT_QUANTITY_B = 600;
 
-    // Old test samples
+    // general test samples
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -62,11 +68,11 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_FEVER = "fever";
     public static final String VALID_TAG_ANTIBIOTICS = "antibiotics";
+    public static final String VALID_TAG_PAINKILLER = "painkiller";
     public static final String VALID_REMARK_AMY = "Sells a diverse range of products";
     public static final String VALID_REMARK_BOB = "Long term partner";
-    public static final String VALID_PRODUCT_NAME_PANADOL = "Panadol";
-    public static final String VALID_PRODUCT_NAME_ASPIRIN = "Aspirin";
 
+    // test samples for descriptors
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -79,13 +85,31 @@ public class CommandTestUtil {
     public static final String TAG_DESC_ANTIBIOTICS = " " + PREFIX_TAG + VALID_TAG_ANTIBIOTICS;
     public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
     public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
+    public static final String WAREHOUSE_NAME_DESC_A = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_A;
+    public static final String WAREHOUSE_NAME_DESC_B = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_B;
+    public static final String PRODUCT_NAME_DESC_A = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_ASPIRIN;
+    public static final String PRODUCT_NAME_DESC_B = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_PANADOL;
+    public static final String PRODUCT_QUANTITY_DESC_A = " " + PREFIX_PRODUCT_QUANTITY
+            + VALID_WAREHOUSE_PRODUCT_QUANTITY_A;
+    public static final String PRODUCT_QUANTITY_DESC_B = " " + PREFIX_PRODUCT_QUANTITY
+            + VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    // invalid test samples
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "&James"; // names cannot start with '&'
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK; // empty string not allowed for remarks
+    public static final String INVALID_WAREHOUSE_NAME_DESC = " " + PREFIX_WAREHOUSE_NAME
+            + "&Amy"; // names cannot start with '&'
+    public static final String INVALID_PRODUCT_NAME_DESC = " " + PREFIX_PRODUCT_NAME
+            + "&Amy"; // names cannot start with '&'
+    public static final String INVALID_WAREHOUSE_ADDRESS_DESC = " "
+            + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_PRODUCT_QUANTITY_DESC = " " + PREFIX_PRODUCT_QUANTITY
+            + "+20"; // Signed integers are not allowed
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -179,11 +203,9 @@ public class CommandTestUtil {
      */
     public static void showWarehouseAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredWarehouseList().size());
-
         Warehouse warehouse = model.getFilteredWarehouseList().get(targetIndex.getZeroBased());
         final String[] splitName = warehouse.getName().fullName.split("\\s+");
-        model.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(splitName[1])));
-
+        model.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(splitName[0])));
         assertEquals(1, model.getFilteredWarehouseList().size());
     }
 }
