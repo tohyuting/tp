@@ -1,5 +1,7 @@
 package seedu.clinic.logic.parser;
 
+import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.clinic.logic.commands.FindCommand;
 import static seedu.clinic.logic.commands.HelpCommand.ALLOWED_ARGUMENT;
 import static seedu.clinic.logic.commands.HelpCommand.MESSAGE_TOO_MANY_ARGUMENTS;
 import static seedu.clinic.logic.commands.HelpCommand.MESSAGE_WRONG_ARGUMENT;
@@ -26,11 +28,13 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         }
         String[] helpKeyword = trimmedArgs.split("\\s+");
         if (helpKeyword.length > 1) {
-            throw new ParseException(MESSAGE_TOO_MANY_ARGUMENTS);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_TOO_MANY_ARGUMENTS));
         }
         String helpArgument = helpKeyword[0].toLowerCase();
         if (!Arrays.asList(ALLOWED_ARGUMENT).contains(helpArgument)) {
-            throw new ParseException(MESSAGE_WRONG_ARGUMENT);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_WRONG_ARGUMENT));
         }
         return new HelpCommand(helpArgument);
     }

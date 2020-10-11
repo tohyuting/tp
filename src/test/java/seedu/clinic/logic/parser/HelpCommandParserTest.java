@@ -1,5 +1,6 @@
 package seedu.clinic.logic.parser;
 
+import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.logic.commands.HelpCommand.MESSAGE_TOO_MANY_ARGUMENTS;
 import static seedu.clinic.logic.commands.HelpCommand.MESSAGE_WRONG_ARGUMENT;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -116,17 +117,25 @@ public class HelpCommandParserTest {
 
     @Test
     public void parse_invalidCommandsAsArg_throwsParseException() {
-        assertParseFailure(parser, "hello", MESSAGE_WRONG_ARGUMENT);
-        assertParseFailure(parser, "adding", MESSAGE_WRONG_ARGUMENT);
-        assertParseFailure(parser, "findingWAREhouses", MESSAGE_WRONG_ARGUMENT);
+        assertParseFailure(parser, "hello", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_WRONG_ARGUMENT));
+        assertParseFailure(parser, "adding", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_WRONG_ARGUMENT));
+        assertParseFailure(parser, "findingWAREhouses", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_WRONG_ARGUMENT));
     }
 
     @Test
     public void parse_multipleCommandsAsArg_throwsParseException() {
-        assertParseFailure(parser, "add find", MESSAGE_TOO_MANY_ARGUMENTS);
-        assertParseFailure(parser, "list delete", MESSAGE_TOO_MANY_ARGUMENTS);
-        assertParseFailure(parser, "DELETE EXIT", MESSAGE_TOO_MANY_ARGUMENTS);
-        assertParseFailure(parser, "fakecommand EXIT", MESSAGE_TOO_MANY_ARGUMENTS);
-        assertParseFailure(parser, "I WANT TO ADD", MESSAGE_TOO_MANY_ARGUMENTS);
+        assertParseFailure(parser, "add find", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_TOO_MANY_ARGUMENTS));
+        assertParseFailure(parser, "list delete", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_TOO_MANY_ARGUMENTS));
+        assertParseFailure(parser, "DELETE EXIT", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_TOO_MANY_ARGUMENTS));
+        assertParseFailure(parser, "fakecommand EXIT", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_TOO_MANY_ARGUMENTS));
+        assertParseFailure(parser, "I WANT TO ADD", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_TOO_MANY_ARGUMENTS));
     }
 }

@@ -3,7 +3,7 @@ package seedu.clinic.logic.commands;
 import seedu.clinic.model.Model;
 
 /**
- * Format full help instructions for every command for display.
+ * Format full help instructions for respective help command to display.
  */
 public class HelpCommand extends Command {
 
@@ -11,9 +11,9 @@ public class HelpCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows all command with"
             + " respective utility description\n"
-            + "Example: " + COMMAND_WORD + "\n specific commands with respective input samples "
+            + "Example: " + COMMAND_WORD + "\n\nSpecific commands with respective input samples "
             + "can be shown as well \n" + "Example: help find";
-    public static final String MESSAGE_TOO_MANY_ARGUMENTS = "You can only enter one command at a time "
+    public static final String MESSAGE_TOO_MANY_ARGUMENTS = "You can only enter one command at a time\n\n"
             + MESSAGE_USAGE;
     public static final String MESSAGE_WRONG_ARGUMENT = "You can only enter command from one of the "
             + "following keywords: add, clear, delete, exit, find, view, update";
