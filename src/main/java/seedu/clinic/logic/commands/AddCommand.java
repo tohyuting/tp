@@ -25,7 +25,7 @@ public class AddCommand extends Command {
             + PREFIX_SUPPLIER_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_REMARK + "REMARK "
+            + PREFIX_REMARK + "REMARK \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_SUPPLIER_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
@@ -35,7 +35,7 @@ public class AddCommand extends Command {
             + PREFIX_WAREHOUSE_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_ADDRESS + "Address "
-            + PREFIX_REMARK + "REMARK "
+            + PREFIX_REMARK + "REMARK \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_WAREHOUSE_NAME + "NUS South "
             + PREFIX_PHONE + "91234562 "
@@ -79,13 +79,14 @@ public class AddCommand extends Command {
             }
             model.addSupplier(supplierToAdd);
             return new CommandResult(String.format(MESSAGE_SUPPLIER_SUCCESS, supplierToAdd));
-        } else {
+        } else if (warehouseToAdd!= null){
             if (model.hasWarehouse(warehouseToAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_WAREHOUSE);
             }
             model.hasWarehouse(warehouseToAdd);
             return new CommandResult(String.format(MESSAGE_WAREHOUSE_SUCCESS, warehouseToAdd));
         }
+        return null;
     }
 
     @Override
