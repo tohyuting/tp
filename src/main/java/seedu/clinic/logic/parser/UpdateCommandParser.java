@@ -13,6 +13,7 @@ import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.product.Product;
 
 public class UpdateCommandParser implements Parser<UpdateCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the UpdateCommand
      * and returns an UpdateCommand object for execution.
@@ -34,8 +35,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         Product product = new Product(productName, productQuantity);
         return new UpdateCommand(warehouseName, product);
     }
-
-
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

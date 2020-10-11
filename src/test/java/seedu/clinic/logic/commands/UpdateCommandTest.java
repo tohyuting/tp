@@ -2,8 +2,10 @@ package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_A;
+import static seedu.clinic.logic.commands.UpdateCommand.getWarehouseByName;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalWarehouse.ALICE;
 
@@ -11,6 +13,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -70,10 +73,22 @@ public class UpdateCommandTest {
     @Test
     public void execute_warehouseNotFound_throwsCommandException() {
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
-        assertThrows(CommandException.class, () -> new UpdateCommand(new Name("Ben"), VALID_PRODUCT_A)
+        assertThrows(CommandException.class, () -> new UpdateCommand(new Name(VALID_NAME_AMY), VALID_PRODUCT_A)
                 .execute(modelStub));
     }
 
+    @Test
+    public void getWarehouseByName_warehouseFound_success() {
+        ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
+        Warehouse warehouse = getWarehouseByName(ALICE.getName(), modelStub);
+        assertEquals(warehouse, ALICE);
+    }
+
+    @Test
+    public void getWarehouseByName_warehouseNotFound_throwsNoSuchElementException() {
+        ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
+        assertThrows(NoSuchElementException.class, () -> getWarehouseByName(new Name(VALID_NAME_AMY), modelStub));
+    }
 
     /*
      * A default model stub that have all of the methods failing.

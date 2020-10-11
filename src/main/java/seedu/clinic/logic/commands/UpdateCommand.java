@@ -76,19 +76,21 @@ public class UpdateCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct, updatedWarehouse));
     }
 
-    public Warehouse getWarehouseByName(Name warehouseName, Model model) throws NoSuchElementException {
+    public static Warehouse getWarehouseByName(Name warehouseName, Model model) throws NoSuchElementException {
         return model.getClinic().getWarehouseList().stream()
                 .filter(warehouse -> warehouse.getName().equals(warehouseName)).findFirst().orElseThrow();
     }
 
-    @Override public boolean equals(Object other) {
+    @Override
+    public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UpdateCommand // instanceof handles nulls
                 && warehouseName.equals(((UpdateCommand) other).warehouseName)
                 && updatedProduct.equals(((UpdateCommand) other).updatedProduct));
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         return Objects.hash(warehouseName, updatedProduct);
     }
 }
