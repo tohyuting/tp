@@ -77,7 +77,7 @@ public class ClinicTest {
 
     @Test
     public void resetData_withDuplicateWarehouses_throwsDuplicateWarehouseException() {
-        // Two suppliers with the same identity fields
+        // Two warehouses with the same identity fields
         Warehouse editedA = new WarehouseBuilder(A).withRemark(VALID_WAREHOUSE_REMARK_B)
                 .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_B, VALID_WAREHOUSE_PRODUCT_QUANTITY_B))
                 .build();
