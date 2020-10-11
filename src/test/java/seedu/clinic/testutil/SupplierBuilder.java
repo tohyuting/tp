@@ -63,7 +63,7 @@ public class SupplierBuilder {
      * building.
      */
     public SupplierBuilder withProducts(Map<String, String[]> productMap) {
-        this.products = SampleDataUtil.getProductSet(productMap);
+        this.products = SampleDataUtil.getProductSet(products, productMap);
         return this;
     }
 

@@ -24,7 +24,10 @@
     "phone" : "94361253",
     "address" : "carl address",
     "remark" : "Warehouse 3",
-    "products" : [ ]
+    "products" : [ {
+      "name": "Cough Syrup",
+      "quantity": 20
+    } ]
   }, {
     "name" : "Warehouse Daniel",
     "phone" : "94351233",
@@ -39,15 +42,27 @@
     "phone" : "94651253",
     "address" : "elle address",
     "remark" : "Warehouse 5",
-    "products" : [ ]
+    "products" : [ {
+      "name": "Cough Syrup",
+      "quantity": 30
+    }, {
+      "name": "Medical Glove",
+      "quantity": 50
+    } ]
   }, {
     "name" : "Warehouse Fiona",
     "phone" : "92351253",
     "address" : "fiona address",
     "remark" : "Warehouse 10",
     "products" : [ {
-      "name": "Panadol",
+      "name": "Flu Syrup",
       "quantity": 1000
+    }, {
+      "name": "Medical Glove",
+      "quantity": 50
+    }, {
+      "name": "Syringe",
+      "quantity": 500
     } ]
   }, {
     "name" : "Warehouse George",
