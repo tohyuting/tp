@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
             + "following keywords: add, clear, delete, exit, find, view, update";
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
-    public static final String[] ALLOWED_ARGUMENT = new String[]{
+    public static final String[] ALLOWED_ARGUMENTS = new String[]{
         "add", "clear", "delete", "exit", "find", "list", "view", "update"};
 
     public static final String HELP_MESSAGE_FOR_COMMAND_FORMAT = "How to interpret command format?\n"
