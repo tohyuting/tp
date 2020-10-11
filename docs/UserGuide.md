@@ -46,6 +46,8 @@ and efficient Graphical User Interface interaction.
    * **`find`** `PANADOL warehouse`** : Displays all the warehouses managed by the manager that has a product
     named PANADOL.
 
+  * **`list`** `list`** : Displays all the warehouses and suppliers in CLI-nic.
+
    * **`update`** `w/WarehouseA pd/Panadol q/10` : Updates the quantity of PANADOL in WarehouseA to 10. The
     quantity of PANADOL in WarehouseA can be more than 10 or lesser than 10 before the update is done.
 
@@ -65,13 +67,13 @@ and efficient Graphical User Interface interaction.
   e.g. in `delete TYPE INDEX`, `TYPE` is a parameter which can be used as `delete warehouse 1`.
 
 * Items in square brackets are optional.<br>
-  e.g `add s/SUPPLIER_NAME p/CONTACT_NUMBER [e/EMAIL_ADDRESS]` can be used as `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com` or as `add s/Philips Pharmaceutical p/00000000`.
+  e.g `add s/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS]` can be used as `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com` or as `add s/Philips Pharmaceutical p/00000000`.
 
 * Items with `…`​ after them can be used multiple times.<br>
   e.g. `[t/TAG]…​` can be used as `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/CONTACT_NUMBER`, `p/CONTACT_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `s/NAME p/PHONE`, `p/PHONE s/NAME` is also acceptable.
 
 </div>
 
@@ -93,7 +95,7 @@ Examples:
 
 Adds warehouse to the CLI-nic application.
 
-Format: `add w/WAREHOUSE_NAME p/CONTACT_NUMBER addr/ADDRESS [r/WAREHOUSE_NOTE]`
+Format: `add w/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
 
 Examples:
 
@@ -104,7 +106,7 @@ Examples:
 
 Adds a supplier to the CLI-nic application.
 
-Format: `add s/SUPPLIER_NAME p/CONTACT_NUMBER [e/EMAIL_ADDRESS] [r/SUPPLIER_NOTE]`
+Format: `add s/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]`
 
 Examples:
 
@@ -155,6 +157,12 @@ Examples:
 
 * `find warehouse PANADOL SUSP` Displays all the warehouses managed by the manager that has a product named PANADOL SUSP.
 * `find supplier masks` Displays all the suppliers that have stock for the input product.
+
+### List all suppliers and warehouses entries : `list`
+
+List all entries (Suppliers and Warehouses) from the CLI-nic.
+
+Format: `list`
 
 ### View a specific supplier / warehouse: `view`
 
@@ -222,12 +230,13 @@ Examples:
 
 Action | Format, Examples
 --------|------------------
-**Add** Warehouse | `add w/WAREHOUSE_NAME p/CONTACT_NUMBER addr/ADDRESS [r/WAREHOUSE_NOTE]`<br> e.g., `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
-**Add** Supplier | `add s/SUPPLIER_NAME p/CONTACT_NUMBER [e/EMAIL_ADDRESS] [r/SUPPLIER_NOTE]`<br> e.g., `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
+**Add** Warehouse | `add w/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
+**Add** Supplier | `add s/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]`<br> e.g., `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
 **Add** Product | `add s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `add s/SupplierA pd/PANADOL SUSP t/FEVER`
 **Clear** | `clear`
 **Delete** | `delete TYPE INDEX`<br> e.g., `delete 3`
 **Find** | `find TYPE KEYWORD…​`<br> e.g. `find warehouse panadol`
-**Help** | `help`
+**Help** | `help [COMMAND]`<br> e.g., `help add`
+**List** | `list`
 **Update** | `update w/WAREHOUSE_NAME pd/PRODUCT_NAME q/QUANTITY` <br> e.g., `update w/WarehouseA pd/Panadol q/10`
 **View** | `view TYPE NAME`<br> e.g. `view supplier supplierA`
