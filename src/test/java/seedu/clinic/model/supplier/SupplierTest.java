@@ -61,7 +61,8 @@ public class SupplierTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Supplier aliceCopy = new SupplierBuilder(ALICE).build();
+        Supplier aliceCopy =
+                new SupplierBuilder(ALICE).withProducts(Map.of("Panadol", new String[]{"fever"})).build();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
