@@ -6,7 +6,11 @@ import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.clinic.logic.parser.CliSyntax.TYPE_SUPPLIER;
 import static seedu.clinic.logic.parser.CliSyntax.TYPE_WAREHOUSE;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_PANADOL;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_FEVER;
+import static seedu.clinic.model.util.SampleDataUtil.getTagSet;
 import static seedu.clinic.testutil.Assert.assertThrows;
+import static seedu.clinic.testutil.SupplierUtil.getAddProductCommand;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 
@@ -16,17 +20,19 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-// import seedu.clinic.logic.commands.AddCommand;
+import seedu.clinic.logic.commands.AddProductCommand;
 import seedu.clinic.logic.commands.ClearCommand;
 import seedu.clinic.logic.commands.DeleteCommand;
-// import seedu.clinic.logic.commands.EditCommand;
-// import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.product.Product;
+import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.supplier.SupplierProductsContainKeywordsPredicate;
+import seedu.clinic.testutil.SupplierBuilder;
 // import seedu.clinic.model.supplier.Supplier;
 // import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
 // import seedu.clinic.testutil.SupplierBuilder;
@@ -44,6 +50,14 @@ public class ClinicParserTest {
         assertEquals(new AddCommand(supplier), command);
     }
      */
+
+    @Test
+    public void parserCommand_addProduct() throws Exception {
+        Supplier supplier = new SupplierBuilder().build();
+        Product product = new Product(new Name(VALID_PRODUCT_NAME_PANADOL), getTagSet(VALID_TAG_FEVER));
+        AddProductCommand command = (AddProductCommand) parser.parseCommand(getAddProductCommand(supplier, product));
+        assertEquals(new AddProductCommand(supplier.getName(), product), command);
+    }
 
     @Test
     public void parseCommand_clear() throws Exception {

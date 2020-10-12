@@ -14,7 +14,7 @@
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="CLI-nic" minWidth="1200" minHeight="800" onCloseRequest="#handleExit">
     <icons>
-        <Image url="@/images/address_book_32.png" />
+        <Image url="@/images/CLInic_Logo.png" />
     </icons>
     <scene>
         <Scene>
