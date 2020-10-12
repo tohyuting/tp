@@ -43,10 +43,10 @@ and efficient Graphical User Interface interaction.
 
    * **`exit`** : Exits the app.
 
-   * **`find`** `PANADOL warehouse`** : Displays all the warehouses managed by the manager that has a product
+   * **`find`** `PANADOL warehouse` : Displays all the warehouses managed by the manager that has a product
     named PANADOL.
 
-  * **`list`** `list`** : Displays all the warehouses and suppliers in CLI-nic.
+   * **`list`** `list`: Displays all the warehouses and suppliers in CLI-nic.
 
    * **`update`** `w/WarehouseA pd/Panadol q/10` : Updates the quantity of PANADOL in WarehouseA to 10. The
     quantity of PANADOL in WarehouseA can be more than 10 or lesser than 10 before the update is done.
@@ -117,11 +117,11 @@ Examples:
 
 Adds product information to a supplier; associates a particular product with the supplier in the CLI-nic application.
 
-Format: `add s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG]…​`
+Format: `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG]…​`
 
 Examples:
 
-* `add s/SupplierA pd/PANADOL SUSP t/FEVER` Adds the product PANADOL SUSP to list of products from supplierA.
+* `addp s/SupplierA pd/PANADOL SUSP t/FEVER` Adds the product PANADOL SUSP to list of products from supplierA.
 * This indicates that supplierA is selling this product. PANADOL SUSP also has a tag of FEVER.
 
 ### Clearing all entries : `clear`
@@ -232,7 +232,7 @@ Action | Format, Examples
 --------|------------------
 **Add** Warehouse | `add w/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
 **Add** Supplier | `add s/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]`<br> e.g., `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
-**Add** Product | `add s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `add s/SupplierA pd/PANADOL SUSP t/FEVER`
+**Add** Product | `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `add s/SupplierA pd/PANADOL SUSP t/FEVER`
 **Clear** | `clear`
 **Delete** | `delete TYPE INDEX`<br> e.g., `delete 3`
 **Find** | `find TYPE KEYWORD [KEYWORD]…`<br> e.g. `find warehouse panadol`
