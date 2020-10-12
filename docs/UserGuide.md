@@ -117,7 +117,7 @@ Examples:
 
 Adds product information to a supplier; associates a particular product with the supplier in the CLI-nic application.
 
-Format: `add s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`
+Format: `add s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG]…​`
 
 Examples:
 
