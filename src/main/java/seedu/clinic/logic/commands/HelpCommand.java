@@ -119,7 +119,8 @@ public class HelpCommand extends Command {
                 + addWarehouseSampleCommand;
 
         String addSupplier = "Add Supplier \nAdds a supplier to the CLI-nic application.";
-        String addSupplierCommandFormat = "Command format: \nadd s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG...]";
+        String addSupplierCommandFormat = "Command format: \nadd s/SUPPLIER_NAME p/PHONE"
+                + " [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]";
         String addSupplierSampleCommand = "Sample Command: \nadd s/Philips Pharmaceutical p/00000000"
                 + " e/philipsPharm@gmail.com r/largest contractor";
         String finalAddSupplier = addSupplier + "\n\n" + addSupplierCommandFormat + "\n\n"
@@ -165,8 +166,9 @@ public class HelpCommand extends Command {
     private String generateHelpFindMessage() {
         String findProductsInSupplierOrWarehouse = "Find\nFinds all suppliers or warehouses managed by the manager"
                 + " that sells the relevant medical products.";
-        String findProductsInSupplierOrWarehouseCommandFormat = "Command format: \nfind TYPE KEYWORD...\n"
-                + "KEYWORD specified is case-insensitive.\n"
+        String findProductsInSupplierOrWarehouseCommandFormat = "Command format: \nfind TYPE KEYWORD"
+                + "[KEYWORD]...\n\n"
+                + "KEYWORD specified is case-insensitive and must contain at least one keyword.\n"
                 + "The TYPE specified should be one of these values: warehouse / supplier.";
         String findProductsInSupplierOrWarehouseSampleCommand = "Sample Command: \n"
                 + "find warehouse PANADOL SUSP \nfind supplier masks";
