@@ -102,7 +102,7 @@ public class JsonAdaptedWarehouseTest {
     }
 
     @Test
-    public void toModelType_invalidProducts_throwsIllegalValueException() {
+    public void toModelType_invalidProductsQuantity_throwsIllegalValueException() {
         List<JsonAdaptedProduct> invalidProducts = new ArrayList<>(VALID_PRODUCTS);
         JsonAdaptedProduct invalidProduct = new JsonAdaptedProduct(VALID_NAME,
                 new ArrayList<>(), -1);
@@ -112,4 +112,14 @@ public class JsonAdaptedWarehouseTest {
         assertThrows(IllegalValueException.class, warehouse::toModelType);
     }
 
+    @Test
+    public void toModelType_nullProductsName_throwsIllegalValueException() {
+        List<JsonAdaptedProduct> invalidProducts = new ArrayList<>(VALID_PRODUCTS);
+        JsonAdaptedProduct invalidProduct = new JsonAdaptedProduct(null,
+                new ArrayList<>(), 10);
+        invalidProducts.add(invalidProduct);
+        JsonAdaptedWarehouse warehouse =
+                new JsonAdaptedWarehouse(VALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_REMARK, invalidProducts);
+        assertThrows(IllegalValueException.class, warehouse::toModelType);
+    }
 }

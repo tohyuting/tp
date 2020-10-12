@@ -81,6 +81,7 @@ public class TypicalSupplier {
         for (Supplier supplier : getTypicalSuppliers()) {
             clinic.addSupplier(supplier);
         }
+
         for (Warehouse warehouse : TypicalWarehouse.getTypicalWarehouses()) {
             clinic.addWarehouse(warehouse);
         }

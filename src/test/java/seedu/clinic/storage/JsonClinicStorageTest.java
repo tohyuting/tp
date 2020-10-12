@@ -66,6 +66,16 @@ public class JsonClinicStorageTest {
     }
 
     @Test
+    public void readClinic_duplicateSupplierClinic_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readClinic("duplicateSupplierClinic.json"));
+    }
+
+    @Test
+    public void readClinic_duplicateWarehouseClinic_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readClinic("duplicateWarehouseClinic.json"));
+    }
+
+    @Test
     public void readClinic_invalidAndValidSupplierClinic_throwDataConversionException() {
         assertThrows(DataConversionException.class, ()
             -> readClinic("invalidAndValidSupplierClinic.json")

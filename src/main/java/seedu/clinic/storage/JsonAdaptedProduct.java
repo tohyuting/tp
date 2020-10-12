@@ -65,7 +65,7 @@ public class JsonAdaptedProduct {
         }
 
         if (!Product.isValidQuantity(quantity)) {
-            throw new IllegalValueException(String.format(Product.MESSAGE_CONSTRAINTS, Product.class.getSimpleName()));
+            throw new IllegalValueException(String.format(Product.MESSAGE_CONSTRAINTS));
         }
         final Name modelName = new Name(name);
 

@@ -31,17 +31,6 @@ public class Warehouse {
     private final Set<Product> products = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
-     */
-    public Warehouse(Name name, Phone phone, Address address, Remark remark) {
-        requireAllNonNull(name, phone, address, remark);
-        this.name = name;
-        this.phone = phone;
-        this.address = address;
-        this.remark = remark;
-    }
-
-    /**
      * Updated warehouse with new product information.
      * Every field must be present and not null.
      */
