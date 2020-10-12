@@ -148,9 +148,9 @@ Examples:
 
 Finds all suppliers or warehouses managed by the manager that sells the relevant medical products.
 
-Format: `find TYPE KEYWORD…​`
+Format: `find TYPE KEYWORD [KEYWORD]…​`
 
-* KEYWORD specified is case-insensitive.
+* KEYWORD specified is case-insensitive and must contain at least one keyword.
 * The TYPE specified should be one of these values: warehouse / supplier.
 
 Examples:
@@ -235,7 +235,7 @@ Action | Format, Examples
 **Add** Product | `add s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `add s/SupplierA pd/PANADOL SUSP t/FEVER`
 **Clear** | `clear`
 **Delete** | `delete TYPE INDEX`<br> e.g., `delete 3`
-**Find** | `find TYPE KEYWORD…​`<br> e.g. `find warehouse panadol`
+**Find** | `find TYPE KEYWORD [KEYWORD]…`<br> e.g. `find warehouse panadol`
 **Help** | `help [COMMAND]`<br> e.g., `help add`
 **List** | `list`
 **Update** | `update w/WAREHOUSE_NAME pd/PRODUCT_NAME q/QUANTITY` <br> e.g., `update w/WarehouseA pd/Panadol q/10`

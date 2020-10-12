@@ -73,7 +73,8 @@ public class UpdateCommand extends Command {
                 warehouseToUpdate.getAddress(), warehouseToUpdate.getRemark(), updatedProductSet);
         model.setWarehouse(warehouseToUpdate, updatedWarehouse);
         model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct, updatedWarehouse));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toStringForWareHouse(),
+                updatedWarehouse));
     }
 
     public static Warehouse getWarehouseByName(Name warehouseName, Model model) throws NoSuchElementException {
