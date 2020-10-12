@@ -34,7 +34,7 @@ public class UpdateCommand extends Command {
             + PREFIX_PRODUCT_NAME + "Panadol "
             + PREFIX_PRODUCT_QUANTITY + "350";
 
-    public static final String MESSAGE_SUCCESS = "Product stock updated: %1$s for %2$s";
+    public static final String MESSAGE_SUCCESS = "Product stock updated: %1$sfor %2$s";
     private static final String MESSAGE_NO_SUCH_WAREHOUSE = "The specified warehouse cannot be found";
 
     private final Name warehouseName;
