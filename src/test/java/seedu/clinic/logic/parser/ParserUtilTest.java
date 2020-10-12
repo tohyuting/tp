@@ -2,7 +2,10 @@ package seedu.clinic.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.clinic.logic.parser.CliSyntax.TYPE_SUPPLIER;
+import static seedu.clinic.logic.parser.CliSyntax.TYPE_WAREHOUSE;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 
@@ -57,6 +60,30 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(INDEX_FIRST_SUPPLIER, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
+    public void parseType_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_INVALID_TYPE, ()
+            -> ParserUtil.parseType("a"));
+    }
+
+    @Test
+    public void parseType_nullInput_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseType(null));
+    }
+
+    @Test
+    public void parseType_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(TYPE_SUPPLIER, ParserUtil.parseType("supplier"));
+        assertEquals(TYPE_WAREHOUSE, ParserUtil.parseType("warehouse"));
+
+        // Leading and trailing whitespaces
+        assertEquals(TYPE_SUPPLIER, ParserUtil.parseType("  supplier  "));
+
+        // some uppercase letters
+        assertEquals(TYPE_SUPPLIER, ParserUtil.parseType("SupplieR"));
     }
 
     @Test

@@ -6,10 +6,13 @@ import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_PANADOL;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_FEVER;
+import static seedu.clinic.logic.parser.CliSyntax.TYPE_SUPPLIER;
+import static seedu.clinic.logic.parser.CliSyntax.TYPE_WAREHOUSE;
 import static seedu.clinic.model.util.SampleDataUtil.getTagSet;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.SupplierUtil.getAddProductCommand;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -65,8 +68,12 @@ public class ClinicParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_SUPPLIER.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_SUPPLIER), command);
+                DeleteCommand.COMMAND_WORD + " " + TYPE_SUPPLIER + " " + INDEX_FIRST_SUPPLIER.getOneBased());
+        assertEquals(new DeleteCommand(TYPE_SUPPLIER, INDEX_FIRST_SUPPLIER), command);
+
+        command = (DeleteCommand) parser.parseCommand(
+                DeleteCommand.COMMAND_WORD + " " + TYPE_WAREHOUSE + " " + INDEX_FIRST_WAREHOUSE.getOneBased());
+        assertEquals(new DeleteCommand(TYPE_WAREHOUSE, INDEX_FIRST_WAREHOUSE), command);
     }
 
     /*
