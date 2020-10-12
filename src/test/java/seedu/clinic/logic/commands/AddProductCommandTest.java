@@ -8,10 +8,12 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_PANADOL;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_ANTIBIOTICS;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_FEVER;
 import static seedu.clinic.model.util.SampleDataUtil.getTagSet;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalSupplier.ALICE;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -78,8 +80,11 @@ class AddProductCommandTest {
     public void execute_newProduct_addSuccessful() throws Exception {
         ModelStubWithSupplier modelStub = new ModelStubWithSupplier(ALICE);
         CommandResult commandResult = new AddProductCommand(ALICE.getName(), VALID_PRODUCT_A).execute(modelStub);
+        Map<String, String[]> productMap = new HashMap<String, String[]>();
+        productMap.put(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS});
+        productMap.put(VALID_PRODUCT_NAME_PANADOL, new String[]{VALID_TAG_FEVER});
         Supplier editedSupplier = new SupplierBuilder(ALICE).withProducts(
-                Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
+                productMap).build();
         assertEquals(String.format(AddProductCommand.MESSAGE_SUCCESS, editedSupplier.getName().fullName,
                 VALID_PRODUCT_A.getProductName()), commandResult.getFeedbackToUser());
         assertEquals(editedSupplier, modelStub.supplier);

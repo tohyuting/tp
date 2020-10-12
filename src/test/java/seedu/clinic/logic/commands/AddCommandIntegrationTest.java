@@ -11,7 +11,9 @@ import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.supplier.Supplier;
+import seedu.clinic.model.warehouse.Warehouse;
 import seedu.clinic.testutil.SupplierBuilder;
+import seedu.clinic.testutil.WarehouseBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -42,7 +44,6 @@ public class AddCommandIntegrationTest {
         assertCommandFailure(new AddCommand(supplierInList), model, AddCommand.MESSAGE_DUPLICATE_SUPPLIER);
     }
 
-    /*
     @Test
     public void execute_newWarehouse_success() {
         Warehouse validWarehouse = new WarehouseBuilder().build();
@@ -59,6 +60,5 @@ public class AddCommandIntegrationTest {
         Warehouse warehouseInList = model.getClinic().getWarehouseList().get(0);
         assertCommandFailure(new AddCommand(warehouseInList), model, AddCommand.MESSAGE_DUPLICATE_WAREHOUSE);
     }
-    */
 
 }

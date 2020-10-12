@@ -47,7 +47,7 @@ public class SupplierBuilder {
         phone = supplierToCopy.getPhone();
         email = supplierToCopy.getEmail();
         remark = supplierToCopy.getRemark();
-        products = new HashSet<>(supplierToCopy.getProducts());
+        products = new HashSet<>();
     }
 
     /**

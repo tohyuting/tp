@@ -74,7 +74,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_WAREHOUSE_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
             Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
             Set<Product> productList = new HashSet<>();
 
             Warehouse warehouse = new Warehouse(name, phone, address, remark, productList);
