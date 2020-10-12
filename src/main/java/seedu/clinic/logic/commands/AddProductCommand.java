@@ -28,7 +28,7 @@ public class AddProductCommand extends Command {
             + PREFIX_PRODUCT_NAME + "PRODUCT_NAME "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + PREFIX_SUPPLIER_NAME + "Alice Pauline Ltd "
+            + " " + PREFIX_SUPPLIER_NAME + "Alice Pauline Ltd "
             + PREFIX_PRODUCT_NAME + "Panadol "
             + PREFIX_TAG + "primary largest \n";
 

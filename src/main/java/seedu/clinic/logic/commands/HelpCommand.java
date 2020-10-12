@@ -128,7 +128,7 @@ public class HelpCommand extends Command {
 
         String addProductToSupplier = "Add Product to Supplier \nAdds product information to a supplier;"
                 + " associates a particular" + " product with the supplier in the CLI-nic application.";
-        String addProductToSupplierCommandFormat = "Command format: \nadd s/SUPPLIER_NAME pd/PRODUCT_NAME"
+        String addProductToSupplierCommandFormat = "Command format: \naddp s/SUPPLIER_NAME pd/PRODUCT_NAME"
                 + " [t/TAG...]";
         String addProductToSupplierSampleCommand = "Sample Command: \n"
                 + "add s/SupplierA pd/PANADOL SUSP t/FEVER";
