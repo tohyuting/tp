@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
             + COMMAND_WORD + " warehouse 1";
 
     public static final String MESSAGE_DELETE_SUPPLIER_SUCCESS = "Deleted Supplier: %1$s";
-    public static final String MESSAGE_DELETE_WAREHOUSE_SUCCESS = "Deleted Supplier: %1$s";
+    public static final String MESSAGE_DELETE_WAREHOUSE_SUCCESS = "Deleted Warehouse: %1$s";
 
     private final String targetType;
     private final Index targetIndex;
