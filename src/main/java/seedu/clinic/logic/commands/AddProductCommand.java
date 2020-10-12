@@ -17,7 +17,7 @@ import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
- * Adds a product to a supplier to the CLI-nic app.
+ * Adds a product to a supplier in the CLI-nic app.
  */
 public class AddProductCommand extends Command {
     public static final String COMMAND_WORD = "addp";
@@ -40,7 +40,7 @@ public class AddProductCommand extends Command {
     private final Product productToAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Supplier}
+     * Creates an AddProductCommand to add the {@code Product} to the specified {@code Supplier}
      */
     public AddProductCommand(Name inputName, Product product) {
         requireNonNull(inputName);
