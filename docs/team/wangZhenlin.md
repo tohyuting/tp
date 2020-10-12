@@ -13,11 +13,20 @@ Given below are my contributions to the project.
 
 * **Code contributed**: [RepoSense link]()
 
-* **New feature**: Added the ability to delete a supplier/supply/store/order.
-  * What it does:
-  * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-  * Credits: {mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}
+* **New class**: Implement the warehouse class.
+  * What it represents: the warehouses the user manages. Each warehouse can store medical products of various quantity.
+  * Justification: This is one of the main classes that user needs to store information about and make contact with in real life.
+  * Credits: {The implementation is similar to the Person class in AddressBook-3, with Tag class getting replaced by a more complicated Product class}
+
+* **New feature**: Added the ability to delete a supplier/warehouse.
+  * What it does: Removes unwanted entries in the supplier list or warehouse list.
+  * Justification: This feature allows a user to get rid of suppliers or warehouse it no longer in contact with.
+  * Highlights: When a supplier/warehouse gets deleted, all the product information relate to it will be removed as well.
+
+* **New feature**: Added the ability to add a product to a supplier.
+  * What it does: Adding a new product with tags to an existing supplier.
+  * Highlights: This allows multiple tagging of a product for a supplier and different tags of same product for different supplier.
+  * Credits: {}
 
 * **Project management**:
   * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
