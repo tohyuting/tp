@@ -2,10 +2,13 @@ package seedu.clinic.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_PANADOL;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.logic.commands.CommandTestUtil.showSupplierAtIndex;
 import static seedu.clinic.logic.commands.CommandTestUtil.showWarehouseAtIndex;
+import static seedu.clinic.logic.commands.DeleteCommand.MESSAGE_DELETE_PRODUCT_IN_SUPPLIER_SUCCESS;
 import static seedu.clinic.logic.parser.CliSyntax.TYPE_SUPPLIER;
 import static seedu.clinic.logic.parser.CliSyntax.TYPE_WAREHOUSE;
 import static seedu.clinic.testutil.Assert.assertThrows;
@@ -23,8 +26,10 @@ import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserPrefs;
+import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
+import seedu.clinic.testutil.SupplierBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -67,6 +72,25 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_validIndexValidProductNameDelete_success() {
+        Supplier supplierToUpdate = modelForSupplier.getFilteredSupplierList().get(INDEX_FIRST_SUPPLIER.getZeroBased());
+        Supplier expectedSupplier = new SupplierBuilder()
+                .withName(supplierToUpdate.getName().fullName)
+                .withEmail(supplierToUpdate.getEmail().value)
+                .withPhone(supplierToUpdate.getPhone().value)
+                .withRemark(supplierToUpdate.getRemark().value).build();
+        Name productToDeleteName = new Name(VALID_PRODUCT_NAME_PANADOL);
+        DeleteCommand deleteCommand = new DeleteCommand(TYPE_SUPPLIER, INDEX_FIRST_SUPPLIER, productToDeleteName);
+
+        String expectedMessage = String.format(MESSAGE_DELETE_PRODUCT_IN_SUPPLIER_SUCCESS,
+                productToDeleteName, supplierToUpdate.getName());
+
+        ModelManager expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs());
+        expectedModel.setSupplier(supplierToUpdate, expectedSupplier);
+        assertCommandSuccess(deleteCommand, modelForSupplier, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(modelForSupplier.getFilteredSupplierList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(TYPE_SUPPLIER, outOfBoundIndex);
@@ -77,6 +101,19 @@ public class DeleteCommandTest {
         deleteCommand = new DeleteCommand(TYPE_WAREHOUSE, outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, modelForWarehouse, Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_validIndexInvalidProductNameDeletion_throwsCommandException() {
+        Supplier supplierToUpdate = modelForSupplier.getFilteredSupplierList().get(INDEX_FIRST_SUPPLIER.getZeroBased());
+        Name invalidProductToDeleteName = new Name(VALID_PRODUCT_NAME_ASPIRIN);
+
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_PRODUCT_NAME_IN_SUPPLIER,
+                invalidProductToDeleteName, supplierToUpdate.getName());
+        DeleteCommand deleteCommand =
+                new DeleteCommand(TYPE_SUPPLIER, INDEX_FIRST_SUPPLIER, invalidProductToDeleteName);
+
+        assertCommandFailure(deleteCommand, modelForSupplier, expectedMessage);
     }
 
     @Test

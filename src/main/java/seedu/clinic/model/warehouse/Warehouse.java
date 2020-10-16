@@ -13,6 +13,7 @@ import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Phone;
 import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
+import seedu.clinic.model.product.exceptions.ProductNotFoundException;
 
 /**
  * Represents a Warehouse in the CLI-nic app.
@@ -67,6 +68,21 @@ public class Warehouse {
      */
     public Set<Product> getProducts() {
         return Collections.unmodifiableSet(products);
+    }
+
+    /**
+     * Returns a product with the {@code targetName} stored in the warehouse.
+     *
+     * @return The product matching the target name.
+     * @throws ProductNotFoundException if these is no product in the list matching the name asked.
+     */
+    public Product getProductByName(Name targetName) throws ProductNotFoundException {
+        for (Product p: products) {
+            if (p.getProductName().equals(targetName)) {
+                return p;
+            }
+        }
+        throw new ProductNotFoundException();
     }
 
     /**
