@@ -32,7 +32,7 @@ public class DeleteCommandParserTest {
     public void parse_validArgs_returnsDeleteCommandWithoutProduct() {
         assertParseSuccess(parser, TYPE_SUPPLIER + VALID_INDEX_DESC,
                 new DeleteCommand(TYPE_SUPPLIER, INDEX_FIRST_SUPPLIER));
-        assertParseSuccess(parser, TYPE_WAREHOUSE+ VALID_INDEX_DESC,
+        assertParseSuccess(parser, TYPE_WAREHOUSE + VALID_INDEX_DESC,
                 new DeleteCommand(TYPE_WAREHOUSE, INDEX_FIRST_WAREHOUSE));
 
         //whitespace + valid argument
