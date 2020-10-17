@@ -2,23 +2,23 @@ package seedu.clinic.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_NO_ADDRESS;
+import static seedu.clinic.logic.commands.EditCommand.MESSAGE_WAREHOUSE_NO_EMAIL;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_NAME;
 
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand;
+import seedu.clinic.logic.commands.EditCommand.EditDescriptor;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
+import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.attribute.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -33,50 +33,93 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_SUPPLIER_INDEX, PREFIX_WAREHOUSE_INDEX,
+                        PREFIX_SUPPLIER_NAME, PREFIX_WAREHOUSE_NAME,
+                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK);
 
+        if (argMultimap.getValue(PREFIX_SUPPLIER_INDEX).isPresent()
+                && argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE));
+        }
+
+        if (!argMultimap.getValue(PREFIX_SUPPLIER_INDEX).isPresent()
+                && !argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditCommand.MESSAGE_USAGE));
+        }
+        EditDescriptor editDescriptor;
         Index index;
+        if (argMultimap.getValue(PREFIX_SUPPLIER_INDEX).isPresent()) {
+            if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        MESSAGE_SUPPLIER_NO_ADDRESS));
+            }
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_SUPPLIER_INDEX).get());
+            EditSupplierDescriptor editSupplierDescriptor = new EditSupplierDescriptor();
+            editSupplierDescriptor = parseSupplierForEditing(editSupplierDescriptor, argMultimap);
+            if (!editSupplierDescriptor.isAnyFieldEdited()) {
+                throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            }
+            return new EditCommand(index, editSupplierDescriptor);
+        } else {
+            if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        MESSAGE_WAREHOUSE_NO_EMAIL));
+            }
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).get());
+            EditWarehouseDescriptor editWarehouseDescriptor = new EditWarehouseDescriptor();
+            editWarehouseDescriptor = parseWarehouseForEditing(editWarehouseDescriptor, argMultimap);
 
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            if (!editWarehouseDescriptor.isAnyFieldEdited()) {
+                throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            }
+            return new EditCommand(index, editWarehouseDescriptor);
         }
+    }
 
-        EditSupplierDescriptor editSupplierDescriptor = new EditSupplierDescriptor();
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editSupplierDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-        }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editSupplierDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
-        }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editSupplierDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
-        }
+    private EditWarehouseDescriptor parseWarehouseForEditing(EditWarehouseDescriptor editWarehouseDescriptor,
+                                                    ArgumentMultimap argMultimap) throws ParseException {
+        parseGeneralDetails(editWarehouseDescriptor, argMultimap);
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editSupplierDescriptor.setRemark(ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
+            editWarehouseDescriptor.setAddress(
+                    ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-
-        if (!editSupplierDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditCommand(index, editSupplierDescriptor);
+        return editWarehouseDescriptor;
     }
 
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
+    private EditSupplierDescriptor parseSupplierForEditing(EditSupplierDescriptor editSupplierDescriptor,
+                                                   ArgumentMultimap argMultimap) throws ParseException {
+        parseGeneralDetails(editSupplierDescriptor, argMultimap);
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            editSupplierDescriptor.setEmail(
+                    ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
+        return editSupplierDescriptor;
     }
 
+
+    private EditDescriptor parseGeneralDetails(EditDescriptor editDescriptor, ArgumentMultimap argMultimap) throws ParseException {
+        Prefix nameType;
+        if (editDescriptor instanceof EditSupplierDescriptor) {
+            nameType = PREFIX_SUPPLIER_NAME;
+        } else {
+            nameType = PREFIX_WAREHOUSE_NAME;
+        }
+        if (argMultimap.getValue(nameType).isPresent()) {
+            editDescriptor.setName(
+                    ParserUtil.parseName(argMultimap.getValue(nameType).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            editDescriptor.setPhone(
+                    ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+            editDescriptor.setRemark(
+                    ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
+        }
+        return editDescriptor;
+    }
 }
