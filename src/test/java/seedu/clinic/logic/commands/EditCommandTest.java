@@ -1,38 +1,27 @@
 package seedu.clinic.logic.commands;
-/*
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.DESC_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
-import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_ANTIBIOTICS;
-import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.clinic.logic.commands.CommandTestUtil.showSupplierAtIndex;
+import seedu.clinic.model.attribute.Address;
+import seedu.clinic.model.attribute.Email;
+import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.attribute.Phone;
+import seedu.clinic.model.attribute.Remark;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
 
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
 
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.clinic.commons.core.Messages;
-import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
-import seedu.clinic.model.Clinic;
+import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
 
-import seedu.clinic.model.Model;
-import seedu.clinic.model.ModelManager;
-import seedu.clinic.model.UserPrefs;
-
-import seedu.clinic.model.supplier.Supplier;
-import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
-import seedu.clinic.testutil.SupplierBuilder;
-*/
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -153,15 +142,34 @@ public class EditCommandTest {
                 new EditSupplierDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
-    }
+    }*/
 
     @Test
     public void equals() {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_SUPPLIER, DESC_AMY);
 
         // same values -> returns true
-        EditSupplierDescriptor copyDescriptor = new EditSupplierDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_SUPPLIER, copyDescriptor);
+        EditSupplierDescriptor descriptorWithSameValues = new EditSupplierDescriptor();
+        descriptorWithSameValues.setName(new Name("Test"));
+        descriptorWithSameValues.setEmail(new Email("testing@gmail.com"));
+        descriptorWithSameValues.setPhone(new Phone("98653257"));
+        EditWarehouseDescriptor descriptorForWarehouse = new EditWarehouseDescriptor();
+        descriptorForWarehouse.setName(new Name("warehouse here"));
+        descriptorForWarehouse.setAddress(new Address("testing addr"));
+        descriptorForWarehouse.setPhone(new Phone("54287163"));
+        descriptorForWarehouse.setRemark(new Remark("hello there"));
+
+        EditSupplierDescriptor descriptorWithSameValues2 = new EditSupplierDescriptor();
+        descriptorWithSameValues2.setName(new Name("Test"));
+        descriptorWithSameValues2.setEmail(new Email("testing@gmail.com"));
+        descriptorWithSameValues2.setPhone(new Phone("98653257"));
+
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_SUPPLIER, descriptorWithSameValues);
+        EditCommand commandWithSameValues2 = new EditCommand(INDEX_FIRST_SUPPLIER, descriptorWithSameValues2);
+        EditCommand commandForWarehouse = new EditCommand(INDEX_FIRST_WAREHOUSE, descriptorForWarehouse);
+        //assertFalse(commandWithSameValues.equals(commandForWarehouse));
+        assertTrue(commandWithSameValues.equals(commandWithSameValues2));
+        /*
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -178,7 +186,9 @@ public class EditCommandTest {
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_SUPPLIER, DESC_BOB)));
+        assertFalse(standardCommand.equals(commandForWarehouse));
+         */
     }
-    */
+
 
 }

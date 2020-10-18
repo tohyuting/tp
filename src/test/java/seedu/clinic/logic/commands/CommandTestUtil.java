@@ -29,7 +29,7 @@ import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
-import seedu.clinic.testutil.EditWarehouseDescriptiorBuilder;
+import seedu.clinic.testutil.EditWarehouseDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -100,6 +100,7 @@ public class CommandTestUtil {
     // invalid test samples
     public static final String INVALID_NAME_DESC = " " + PREFIX_SUPPLIER_NAME + "&James"; // names cannot
     // start with '&'
+    public static final String INVALID_NAME_DESC_WAREHOUSE = " " + PREFIX_WAREHOUSE_NAME + "&John";
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
@@ -135,11 +136,11 @@ public class CommandTestUtil {
         DESC_BOB = new EditSupplierDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withRemark(VALID_REMARK_BOB)
                 .withProducts(Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
-        DESC_A = new EditWarehouseDescriptiorBuilder().withName(VALID_WAREHOUSE_NAME_A)
+        DESC_A = new EditWarehouseDescriptorBuilder().withName(VALID_WAREHOUSE_NAME_A)
                 .withPhone(VALID_WAREHOUSE_PHONE_A).withAddress(VALID_WAREHOUSE_ADDRESS_A)
                 .withRemark(VALID_WAREHOUSE_REMARK_A)
                 .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
-        DESC_B = new EditWarehouseDescriptiorBuilder().withName(VALID_WAREHOUSE_NAME_B)
+        DESC_B = new EditWarehouseDescriptorBuilder().withName(VALID_WAREHOUSE_NAME_B)
                 .withPhone(VALID_WAREHOUSE_PHONE_B).withAddress(VALID_WAREHOUSE_ADDRESS_B)
                 .withRemark(VALID_WAREHOUSE_REMARK_B)
                 .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_B, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();

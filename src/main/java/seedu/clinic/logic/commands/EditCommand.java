@@ -32,7 +32,7 @@ import seedu.clinic.model.warehouse.Warehouse;
 
 
 /**
- * Edits the details of an existing supplier in the CLI-nic app.
+ * Edits the details of an existing supplier/warehouse in the CLI-nic app.
  */
 public class EditCommand extends Command {
 
@@ -61,12 +61,23 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in the remark book.";
     public static final String MESSAGE_SUPPLIER_NO_ADDRESS = "Supplier do not have address!";
     public static final String MESSAGE_WAREHOUSE_NO_EMAIL = "Warehouse do not have email!";
+    public static final String MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX = "Please only enter one type of"
+            + " index, i.e. either wi/INDEX or si/INDEX";
+    public static final String MESSAGE_NO_PREFIX = "Please enter at least one type of"
+            + " index, i.e. either wi/INDEX or si/INDEX";
+    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! %1$s \n"
+            + MESSAGE_USAGE;
+    public static final String MESSAGE_INVALID_PREFIX = "You used an invalid prefix!";
+    public static final String MESSAGE_SUPPLIER_PREFIX_NOT_ALLOWED = "Supplier prefix (s/) not allowed "
+            + "when editing warehouses.";
+    public static final String MESSAGE_WAREHOUSE_PREFIX_NOT_ALLOWED = "Warehouse prefix (w/) not allowed "
+            + "when editing suppliers.";
 
     private final Index index;
     private final EditDescriptor editDescriptor;
 
     /**
-     * @param index of the supplier in the filtered supplier list to edit
+     * @param index of the supplier or warehouse in the filtered supplier or warehouse list to edit
      * @param editDescriptor details to edit the supplier with
      */
     public EditCommand(Index index, EditDescriptor editDescriptor) {
@@ -141,6 +152,10 @@ public class EditCommand extends Command {
         return new Supplier(updatedName, updatedPhone, updatedEmail, remark, products);
     }
 
+    /**
+     * Creates and returns a {@code Warehouse} with the details of {@code warehouseToEdit}
+     * edited with {@code editWarehouseDescriptor}.
+     */
     private static Warehouse createEditedWarehouse(Warehouse warehouseToEdit,
                                                    EditWarehouseDescriptor editWarehouseDescriptor) {
         assert warehouseToEdit != null;
@@ -175,19 +190,14 @@ public class EditCommand extends Command {
                 (editDescriptor instanceof EditSupplierDescriptor)) {
             return false;
         }
-
-        if ((e.editDescriptor instanceof EditSupplierDescriptor) &&
-                (editDescriptor instanceof EditSupplierDescriptor)) {
-            return index.equals(e.index)
-                    && ((EditSupplierDescriptor)editDescriptor)
-                    .equals((EditSupplierDescriptor)e.editDescriptor);
-        } else {
-            return index.equals(e.index)
-                    && ((EditWarehouseDescriptor)editDescriptor)
-                    .equals((EditWarehouseDescriptor)e.editDescriptor);
-        }
+        return index.equals(e.index)
+                && editDescriptor.equals(e.editDescriptor);
     }
 
+    /**
+     * Stores the details to edit the general details of a supplier/warehouse with. Each non-empty field value will replace the
+     * corresponding field value of the supplier/warehouse to be edited.
+     */
     public static class EditDescriptor {
         private Name name;
         private Phone phone;
@@ -196,6 +206,10 @@ public class EditCommand extends Command {
 
         public EditDescriptor() {}
 
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code products} is used internally.
+         */
         public EditDescriptor (EditDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
@@ -301,6 +315,9 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
+        /**
+         * Returns true if at least one field is edited.
+         */
         public boolean isAnyFieldEdited() {
             boolean generalDetails = super.isAnyFieldEdited();
             return CollectionUtil.isAnyNonNull(email) || generalDetails;
@@ -357,6 +374,9 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
+        /**
+         * Returns true if at least one field is edited.
+         */
         public boolean isAnyFieldEdited() {
             boolean generalDetails = super.isAnyFieldEdited();
             return CollectionUtil.isAnyNonNull(address) || generalDetails;
