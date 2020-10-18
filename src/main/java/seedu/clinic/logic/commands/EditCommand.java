@@ -1,13 +1,13 @@
 package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.clinic.logic.commands.AddCommand.MESSAGE_DUPLICATE_WAREHOUSE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_NAME;
 import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
+import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,7 +20,6 @@ import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.commons.util.CollectionUtil;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.model.Model;
-import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 import seedu.clinic.model.attribute.Address;
 import seedu.clinic.model.attribute.Email;
 import seedu.clinic.model.attribute.Name;
@@ -52,13 +51,15 @@ public class EditCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com\n"
             + "Note that either si or wi (not both) has to be provided, where si is the supplier list index"
             + " and wi is the warehouse list index. In addition, a supplier should not have an address"
-            + " prefix entered while a warehouse should not have an email prefix entered. "
-            ;
+            + " prefix entered while a warehouse should not have an email prefix entered. ";
 
     public static final String MESSAGE_EDIT_SUPPLIER_SUCCESS = "Edited Supplier: %1$s";
     public static final String MESSAGE_EDIT_WAREHOUSE_SUCCESS = "Edited Warehouse: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in the remark book.";
+    public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already"
+            + " exists in the remark book.";
+    public static final String MESSAGE_DUPLICATE_WAREHOUSE = "This warehouse already"
+            + " exists in the remark book.";
     public static final String MESSAGE_SUPPLIER_NO_ADDRESS = "Supplier do not have address!";
     public static final String MESSAGE_WAREHOUSE_NO_EMAIL = "Warehouse do not have email!";
     public static final String MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX = "Please only enter one type of"
@@ -183,11 +184,11 @@ public class EditCommand extends Command {
 
         // state check
         EditCommand e = (EditCommand) other;
-        if ((e.editDescriptor instanceof EditSupplierDescriptor) &&
-                (editDescriptor instanceof EditWarehouseDescriptor)) {
+        if ((e.editDescriptor instanceof EditSupplierDescriptor)
+                && (editDescriptor instanceof EditWarehouseDescriptor)) {
             return false;
-        } else if ((e.editDescriptor instanceof EditWarehouseDescriptor) &&
-                (editDescriptor instanceof EditSupplierDescriptor)) {
+        } else if ((e.editDescriptor instanceof EditWarehouseDescriptor)
+                && (editDescriptor instanceof EditSupplierDescriptor)) {
             return false;
         }
         return index.equals(e.index)
@@ -195,8 +196,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the general details of a supplier/warehouse with. Each non-empty field value will replace the
-     * corresponding field value of the supplier/warehouse to be edited.
+     * Stores the details to edit the general details of a supplier/warehouse with. Each non-empty field
+     * value will replace the corresponding field value of the supplier/warehouse to be edited.
      */
     public static class EditDescriptor {
         private Name name;

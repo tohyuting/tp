@@ -3,7 +3,6 @@ package seedu.clinic.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.clinic.logic.commands.CommandTestUtil.DESC_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_BOB;

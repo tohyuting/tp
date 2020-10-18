@@ -14,18 +14,18 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_NAME;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
+
+import java.util.Optional;
 
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand;
 import seedu.clinic.logic.commands.EditCommand.EditDescriptor;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_INDEX;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Phone;
-
-import java.util.Optional;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -60,7 +60,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             try {
                 Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_SUPPLIER_INDEX).get());
                 supplierIndex = Optional.of(index);
-            } catch(ParseException pe) {
+            } catch (ParseException pe) {
                 String indexValue = argMultimap.getValue(PREFIX_SUPPLIER_INDEX).get();
                 if (indexValue.contains("/")) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -93,7 +93,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
             try {
                 index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).get());
-            } catch(ParseException pe) {
+            } catch (ParseException pe) {
                 String indexValue = argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).get();
                 if (indexValue.contains("/")) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -149,7 +149,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
 
-    private EditDescriptor parseGeneralDetails(EditDescriptor editDescriptor, ArgumentMultimap argMultimap) throws ParseException {
+    private EditDescriptor parseGeneralDetails(EditDescriptor editDescriptor, ArgumentMultimap argMultimap)
+            throws ParseException {
         Prefix nameType;
 
         if (editDescriptor instanceof EditSupplierDescriptor) {
