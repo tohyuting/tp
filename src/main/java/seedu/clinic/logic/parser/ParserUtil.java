@@ -25,6 +25,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index provided is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_QUANTITY = "Quantity provided is not an unsigned integer.";
     public static final String MESSAGE_INVALID_TYPE = "Type is invalid, must be one of s/w/ps/pw.";
+    public static final String MESSAGE_INVALID_PREFIX = "One of the prefix specified is not recognised.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
