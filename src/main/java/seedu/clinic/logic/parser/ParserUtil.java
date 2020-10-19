@@ -1,8 +1,6 @@
 package seedu.clinic.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.clinic.logic.parser.CliSyntax.TYPE_SUPPLIER;
-import static seedu.clinic.logic.parser.CliSyntax.TYPE_WAREHOUSE;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -26,8 +24,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index provided is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_QUANTITY = "Quantity provided is not an unsigned integer.";
-
-    public static final String MESSAGE_INVALID_TYPE = "Type is neither supplier nor warehouse.";
+    public static final String MESSAGE_INVALID_TYPE = "Type is invalid, must be one of s/w/ps/pw.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -43,17 +40,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code typeKeyword} into an {@code String} and returns it. Leading and trailing whitespaces will be
+     * Parses {@code typeKeyword} into an {@code Type} and returns it. Leading and trailing whitespaces will be
      * trimmed and the string is converted to lower cases.
      * @throws ParseException if the specified type is invalid (neither supplier or warehouse).
      */
-    public static String parseType(String typeKeyword) throws ParseException {
+    public static Type parseType(String typeKeyword) throws ParseException {
         requireNonNull(typeKeyword);
         String trimmedType = typeKeyword.trim().toLowerCase();
-        if (!(trimmedType.equals(TYPE_WAREHOUSE) || trimmedType.equals(TYPE_SUPPLIER))) {
+        try {
+            return Type.getType(trimmedType);
+        } catch (IllegalArgumentException e) {
             throw new ParseException(MESSAGE_INVALID_TYPE);
         }
-        return trimmedType;
     }
 
     /**

@@ -1,8 +1,12 @@
 package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
-import static seedu.clinic.logic.parser.CliSyntax.TYPE_SUPPLIER;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.clinic.logic.parser.Type.SUPPLIER;
+import static seedu.clinic.logic.parser.Type.SUPPLIER_PRODUCT;
+import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
 import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 
@@ -14,6 +18,7 @@ import java.util.Set;
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.exceptions.CommandException;
+import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.product.Product;
@@ -29,16 +34,22 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Usage 1 - Deletes the supplier/warehouse identified by the index number used in the displayed lists.\n"
-            + "Parameters: TYPE INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " supplier 1\n"
-            + COMMAND_WORD + " warehouse 1\n\n"
-            + COMMAND_WORD
-            + ": Usage 2 - Deletes product the supplier/warehouse identified by the index number used "
+            + "\nUsage 1 - Deletes the supplier/warehouse identified by the index number used in the displayed lists."
+            + "\nParameters:"
+            + PREFIX_TYPE + "TYPE "
+            + PREFIX_INDEX + "INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TYPE + "p "
+            + PREFIX_INDEX + "1 "
+            + "\n Usage 2 - Deletes product the supplier/warehouse identified by the index number used "
             + "in the displayed lists.\n"
-            + "Parameters: TYPE INDEX "
+            + "Parameters: "
+            + PREFIX_TYPE + "TYPE "
+            + PREFIX_INDEX + "INDEX "
             + PREFIX_PRODUCT_NAME + " PRODUCT_NAME \n"
-            + "Example: " + COMMAND_WORD + " supplier 1 "
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TYPE + "p "
+            + PREFIX_INDEX + "2 "
             + PREFIX_PRODUCT_NAME + "new product \n";
 
     public static final String MESSAGE_DELETE_SUPPLIER_SUCCESS = "Deleted Supplier: %1$s";
@@ -48,14 +59,14 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_PRODUCT_IN_SUPPLIER_SUCCESS =
             "Deleted Product: %1$s from Supplier: %2$s";
 
-    private final String targetType;
+    private final Type targetType;
     private final Index targetIndex;
     private final Optional<Name> targetProductName;
 
     /**
      * Creates an DeleteCommand to delete the warehouse/supplier at {@code targetIndex} of the displayed list.
      */
-    public DeleteCommand(String targetType, Index targetIndex) {
+    public DeleteCommand(Type targetType, Index targetIndex) {
         this.targetType = targetType;
         this.targetIndex = targetIndex;
         this.targetProductName = Optional.empty();
@@ -65,7 +76,7 @@ public class DeleteCommand extends Command {
      * Creates an DeleteCommand to delete the specified {@code targetProductName} in the warehouse/supplier
      * at {@code targetIndex} of the displayed list.
      */
-    public DeleteCommand(String targetType, Index targetIndex, Name targetProductName) {
+    public DeleteCommand(Type targetType, Index targetIndex, Name targetProductName) {
         this.targetType = targetType;
         this.targetIndex = targetIndex;
         this.targetProductName = Optional.of(targetProductName);
@@ -75,7 +86,7 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (targetType.equals(TYPE_SUPPLIER)) {
+        if (targetType.equals(SUPPLIER) || targetType.equals(SUPPLIER_PRODUCT)) {
             return executeSupplierRelatedDeletion(model);
         } else {
             return executeWarehouseRelatedDeletion(model);
@@ -89,7 +100,7 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);
         }
 
-        if (targetProductName.isEmpty()) {
+        if (targetType.equals(WAREHOUSE)) {
             Warehouse warehouseToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteWarehouse(warehouseToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_WAREHOUSE_SUCCESS, warehouseToDelete));
@@ -120,7 +131,7 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
         }
 
-        if (targetProductName.isEmpty()) {
+        if (targetType.equals(SUPPLIER)) {
             Supplier supplierToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteSupplier(supplierToDelete);
             return new CommandResult(String.format(MESSAGE_DELETE_SUPPLIER_SUCCESS, supplierToDelete));

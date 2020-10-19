@@ -1,7 +1,11 @@
 package seedu.clinic.logic.parser;
 
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.clinic.logic.parser.Type.SUPPLIER;
+import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 
 import java.util.stream.Stream;
 
@@ -22,63 +26,33 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         try {
-            String trimmedArgs = args.trim();
-            String[] trimmedKeywordArray = trimmedArgs.split("\\s+");
+            ArgumentMultimap argMultimap =
+                    ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_INDEX, PREFIX_PRODUCT_NAME);
 
-            if (trimmedArgs.isEmpty() || trimmedKeywordArray.length < 2) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_INDEX) || !argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
 
-            if (trimmedKeywordArray.length == 2) {
-                return parseDeleteWithoutProduct(trimmedKeywordArray);
-            } else {
-                return parseDeleteWithProduct(trimmedKeywordArray);
+            Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+
+            assert index.getOneBased() >= 1 : "The index is less than 1!";
+
+            if (type.equals(SUPPLIER) || type.equals(WAREHOUSE)) {
+                return new DeleteCommand(type, index);
             }
+
+            // The product deletion must have product name prefix
+            if (!arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
+
+            Name productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
+            return new DeleteCommand(type, index, productName);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         }
-    }
-
-    /**
-     * Parses the given {@code trimmedKeywordArray} in the context of the DeleteCommand
-     * and returns a DeleteCommand object for deletion of supplier/warehouse.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    private DeleteCommand parseDeleteWithoutProduct(String[] trimmedKeywordArray) throws ParseException {
-        String typeKeyword = ParserUtil.parseType(trimmedKeywordArray[0]);
-        Index index = ParserUtil.parseIndex(trimmedKeywordArray[1]);
-
-        return new DeleteCommand(typeKeyword, index);
-    }
-
-    /**
-     * Parses the given {@code trimmedKeywordArray} in the context of the DeleteCommand
-     * and returns a DeleteCommand object for deletion of a product in a particular supplier/warehouse.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    private DeleteCommand parseDeleteWithProduct(String[] trimmedKeywordArray) throws ParseException {
-        assert trimmedKeywordArray.length >= 2 : "The input array length is too short";
-
-        String typeKeyword = ParserUtil.parseType(trimmedKeywordArray[0]);
-        Index index = ParserUtil.parseIndex(trimmedKeywordArray[1]);
-        StringBuilder productArg = new StringBuilder();
-
-        for (int i = 2; i < trimmedKeywordArray.length; i++) {
-            productArg.append(" ");
-            productArg.append(trimmedKeywordArray[i]);
-        }
-
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(productArg.toString(), PREFIX_PRODUCT_NAME);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-        Name productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
-
-        return new DeleteCommand(typeKeyword, index, productName);
     }
 
     /**
