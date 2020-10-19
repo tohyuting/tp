@@ -4,9 +4,12 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
@@ -39,7 +42,11 @@ public class SupplierCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane products;
+    private Label noProductsLabel;
+    @FXML
+    private VBox products;
+    @FXML
+    private TitledPane productsTitledPane;
     @FXML
     private FlowPane tags;
 
@@ -54,14 +61,25 @@ public class SupplierCard extends UiPart<Region> {
         phone.setText(supplier.getPhone().value);
         remark.getChildren().add(new Label(supplier.getRemark().value));
         email.setText(supplier.getEmail().value);
-        supplier.getProducts().stream()
-                .sorted(Comparator.comparing(product -> product.getProductName().fullName))
-                .forEach(product -> {
-                    products.getChildren().add(new Label(product.getProductName().fullName));
-                    product.getProductTags().stream()
-                            .sorted(Comparator.comparing(tag -> tag.tagName))
-                            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-                });
+//        supplier.getProducts().stream()
+//                .sorted(Comparator.comparing(product -> product.getProductName().fullName))
+//                .forEach(product -> {
+//                    products.getChildren().add(new Label(product.getProductName().fullName));
+//                    product.getProductTags().stream()
+//                            .sorted(Comparator.comparing(tag -> tag.tagName))
+//                            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+//                });
+        //Keep products pane closed by default
+        productsTitledPane.setExpanded(false);
+        int productIndex = 1;
+        if (!supplier.getProducts().isEmpty()) {
+            noProductsLabel.setVisible(false);
+            for (Product product : supplier.getProducts()) {
+                products.getChildren().add(
+                        new Label(productIndex + ". " + product.toStringForSupplier()));
+                productIndex++;
+            }
+        }
     }
 
     @Override

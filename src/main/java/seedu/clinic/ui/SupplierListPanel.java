@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -27,6 +28,7 @@ public class SupplierListPanel extends UiPart<Region> {
         super(FXML);
         supplierListView.setItems(supplierList);
         supplierListView.setCellFactory(listView -> new SupplierListViewCell());
+        supplierListView.setPlaceholder(new Label("There is no product yet."));
     }
 
     /**
