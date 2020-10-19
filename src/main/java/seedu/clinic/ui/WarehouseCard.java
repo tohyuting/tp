@@ -70,7 +70,7 @@ public class WarehouseCard extends UiPart<Region> {
             noProductsLabel.setVisible(false);
             for (Product product : warehouse.getProducts()) {
                 products.getChildren().add(
-                        new Label(productIndex + ". " + product.toStringForSupplier()));
+                        new Label(productIndex + ". " + product.toStringForWareHouse()));
                 productIndex++;
             }
         }
