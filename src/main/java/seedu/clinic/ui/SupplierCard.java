@@ -1,7 +1,5 @@
 package seedu.clinic.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -61,14 +59,16 @@ public class SupplierCard extends UiPart<Region> {
         phone.setText(supplier.getPhone().value);
         remark.getChildren().add(new Label(supplier.getRemark().value));
         email.setText(supplier.getEmail().value);
-//        supplier.getProducts().stream()
-//                .sorted(Comparator.comparing(product -> product.getProductName().fullName))
-//                .forEach(product -> {
-//                    products.getChildren().add(new Label(product.getProductName().fullName));
-//                    product.getProductTags().stream()
-//                            .sorted(Comparator.comparing(tag -> tag.tagName))
-//                            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-//                });
+        /*
+        supplier.getProducts().stream()
+                .sorted(Comparator.comparing(product -> product.getProductName().fullName))
+                .forEach(product -> {
+                    products.getChildren().add(new Label(product.getProductName().fullName));
+                    product.getProductTags().stream()
+                            .sorted(Comparator.comparing(tag -> tag.tagName))
+                            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                });
+        */
         //Keep products pane closed by default
         productsTitledPane.setExpanded(false);
         int productIndex = 1;

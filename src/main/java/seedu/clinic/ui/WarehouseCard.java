@@ -1,7 +1,5 @@
 package seedu.clinic.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -59,10 +57,11 @@ public class WarehouseCard extends UiPart<Region> {
         phone.setText(warehouse.getPhone().value);
         remark.getChildren().add(new Label(warehouse.getRemark().value));
         address.setText(warehouse.getAddress().value);
-//        warehouse.getProducts().stream()
-//                .sorted(Comparator.comparing(product -> product.toStringForWareHouse()))
-//                .forEach(product -> products.getChildren().add(new Label(product.toStringForWareHouse())));
-
+        /*
+        warehouse.getProducts().stream()
+                .sorted(Comparator.comparing(product -> product.toStringForWareHouse()))
+                .forEach(product -> products.getChildren().add(new Label(product.toStringForWareHouse())));
+        */
         //Keep products pane closed by default
         productsTitledPane.setExpanded(false);
         int productIndex = 1;
