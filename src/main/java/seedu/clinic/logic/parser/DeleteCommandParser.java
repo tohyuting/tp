@@ -59,6 +59,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     private DeleteCommand parseDeleteWithProduct(String[] trimmedKeywordArray) throws ParseException {
+        assert trimmedKeywordArray.length >= 2 : "The input array length is too short";
+
         String typeKeyword = ParserUtil.parseType(trimmedKeywordArray[0]);
         Index index = ParserUtil.parseIndex(trimmedKeywordArray[1]);
         StringBuilder productArg = new StringBuilder();

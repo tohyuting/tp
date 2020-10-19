@@ -156,9 +156,9 @@ Format: `delete TYPE INDEX pd/PRODUCT_NAME`
 Examples:
 
 * `delete warehouse 1 pd/Panadol` Removes product with the name _Panadol_ from
-the warehouse at index 1 of the list of warehouse.
+the warehouse at index 1 of the list of warehouses.
 * `delete supplier 12 pd/Aspirin` Removes product with the name _Aspirin_
-the from supplier at index 12 from the list of suppliers.
+from the supplier at index 12 of the list of suppliers.
 
 ### Finding medical product associated with warehouses / suppliers: `find`
 

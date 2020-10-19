@@ -77,12 +77,10 @@ public class Warehouse {
      * @throws ProductNotFoundException if these is no product in the list matching the name asked.
      */
     public Product getProductByName(Name targetName) throws ProductNotFoundException {
-        for (Product p: products) {
-            if (p.getProductName().equals(targetName)) {
-                return p;
-            }
-        }
-        throw new ProductNotFoundException();
+        Product matchedProduct = products.stream().filter(p -> p.getProductName().equals(targetName))
+                .findFirst().orElseThrow(ProductNotFoundException::new);
+
+        return matchedProduct;
     }
 
     /**

@@ -36,7 +36,7 @@ import seedu.clinic.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 2, 1, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -76,6 +76,7 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyClinic> clinicOptional;
         ReadOnlyClinic initialData;
+
         try {
             clinicOptional = storage.readClinic();
             if (!clinicOptional.isPresent()) {

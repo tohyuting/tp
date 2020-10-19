@@ -15,7 +15,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_PRODUCT_NAME_IN_SUPPLIER =
             "The product: %1$s is not sold by supplier: %2$s";
     public static final String MESSAGE_INVALID_PRODUCT_NAME_IN_WAREHOUSE =
-            "The product: %1$s is not sold by warehouse: %2$s";
+            "The product: %1$s is not stored by warehouse: %2$s";
     public static final String MESSAGE_WAREHOUSE_LISTED_OVERVIEW = "%1$d warehouse listed!";
 
 }
