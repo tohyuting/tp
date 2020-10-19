@@ -4,10 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.clinic.logic.commands.CommandTestUtil.INDEX_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.PRODUCT_NAME_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER;
+import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER_PRODUCT;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_PANADOL;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_FEVER;
 import static seedu.clinic.logic.parser.Type.SUPPLIER;
-import static seedu.clinic.logic.parser.Type.WAREHOUSE;
+import static seedu.clinic.logic.parser.Type.SUPPLIER_PRODUCT;
 import static seedu.clinic.model.util.SampleDataUtil.getTagSet;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.SupplierUtil.getAddProductCommand;
@@ -40,6 +44,7 @@ import seedu.clinic.testutil.SupplierBuilder;
 
 public class ClinicParserTest {
 
+    private static final Name VALID_NAME_DESC = new Name(VALID_PRODUCT_NAME_PANADOL);
     private final ClinicParser parser = new ClinicParser();
 
     /*
@@ -54,7 +59,7 @@ public class ClinicParserTest {
     @Test
     public void parserCommand_addProduct() throws Exception {
         Supplier supplier = new SupplierBuilder().build();
-        Product product = new Product(new Name(VALID_PRODUCT_NAME_PANADOL), getTagSet(VALID_TAG_FEVER));
+        Product product = new Product(VALID_NAME_DESC, getTagSet(VALID_TAG_FEVER));
         AddProductCommand command = (AddProductCommand) parser.parseCommand(getAddProductCommand(supplier, product));
         assertEquals(new AddProductCommand(supplier.getName(), product), command);
     }
@@ -68,12 +73,13 @@ public class ClinicParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + SUPPLIER + " " + INDEX_FIRST_SUPPLIER.getOneBased());
+                DeleteCommand.COMMAND_WORD + TYPE_DESC_SUPPLIER + INDEX_DESC + INDEX_FIRST_SUPPLIER.getOneBased());
         assertEquals(new DeleteCommand(SUPPLIER, INDEX_FIRST_SUPPLIER), command);
 
         command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + WAREHOUSE + " " + INDEX_FIRST_WAREHOUSE.getOneBased());
-        assertEquals(new DeleteCommand(SUPPLIER, INDEX_FIRST_WAREHOUSE), command);
+                DeleteCommand.COMMAND_WORD + TYPE_DESC_SUPPLIER_PRODUCT
+                        + INDEX_DESC + INDEX_FIRST_WAREHOUSE.getOneBased() + PRODUCT_NAME_DESC_BOB);
+        assertEquals(new DeleteCommand(SUPPLIER_PRODUCT, INDEX_FIRST_SUPPLIER, VALID_NAME_DESC), command);
     }
 
     /*

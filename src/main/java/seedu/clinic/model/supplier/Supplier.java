@@ -5,7 +5,6 @@ import static seedu.clinic.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinic.model.attribute.Email;

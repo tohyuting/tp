@@ -82,7 +82,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidPrefix_throwsParseException() {
         // invalid type prefix
-        assertParseFailure(parser,  "t/p" + VALID_INDEX_DESC,
+        assertParseFailure(parser, "t/p" + VALID_INDEX_DESC,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 
         // invalid index prefix
