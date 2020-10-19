@@ -68,7 +68,9 @@ public class EditCommand extends Command {
     public static final String MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX = "Please only enter one type of"
             + " index, i.e. either wi/INDEX or si/INDEX";
     public static final String MESSAGE_NO_PREFIX = "Please enter at least one type of"
-            + " index, i.e. either wi/INDEX or si/INDEX";
+            + " command under ct (i.e. either ct/s or ct/w)";
+    public static final String MESSAGE_NO_INDEX = "Please enter index of supplier/warehouse you wish"
+            + " to edit.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! %1$s \n"
             + MESSAGE_USAGE;
     public static final String MESSAGE_INVALID_PREFIX = "You used an invalid prefix!";

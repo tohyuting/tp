@@ -3,6 +3,7 @@ package seedu.clinic.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_INDEX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_PREFIX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_NO_ADDRESS;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_PREFIX_NOT_ALLOWED;
@@ -10,10 +11,13 @@ import static seedu.clinic.logic.commands.EditCommand.MESSAGE_WAREHOUSE_NO_EMAIL
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_WAREHOUSE_PREFIX_NOT_ALLOWED;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_NAME;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 
@@ -45,49 +49,41 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SUPPLIER_INDEX, PREFIX_WAREHOUSE_INDEX,
-                        PREFIX_SUPPLIER_NAME, PREFIX_WAREHOUSE_NAME,
+                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_INDEX, PREFIX_NAME,
                         PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK);
 
         logger.log(Level.INFO, "Successfully tokenized user input.");
 
-        if (argMultimap.getValue(PREFIX_SUPPLIER_INDEX).isPresent()
-                && argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX,
-                    EditCommand.MESSAGE_USAGE));
-        }
-
-        if (!argMultimap.getValue(PREFIX_SUPPLIER_INDEX).isPresent()
-                && !argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).isPresent()) {
+        if (!argMultimap.getValue(PREFIX_TYPE).isPresent()) {
             throw new ParseException(String.format(MESSAGE_NO_PREFIX,
                     EditCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(PREFIX_SUPPLIER_INDEX).isPresent()) {
+        if (!argMultimap.getValue(PREFIX_INDEX).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_NO_INDEX,
+                    EditCommand.MESSAGE_USAGE));
+        }
+
+        String typeOfCommand = argMultimap.getValue(PREFIX_TYPE).get();
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+        } catch (ParseException pe) {
+            String indexValue = argMultimap.getValue(PREFIX_INDEX).get();
+            if (indexValue.contains("/")) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        EditCommand.MESSAGE_INVALID_PREFIX));
+            }
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getMessage()));
+        }
+
+        if (typeOfCommand.equals("s")) {
 
             logger.log(Level.INFO, "User input contains supplier prefix.");
-
-            Optional<Index> supplierIndex = Optional.empty();
-            try {
-                Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_SUPPLIER_INDEX).get());
-                supplierIndex = Optional.of(index);
-            } catch (ParseException pe) {
-                String indexValue = argMultimap.getValue(PREFIX_SUPPLIER_INDEX).get();
-                if (indexValue.contains("/")) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            EditCommand.MESSAGE_INVALID_PREFIX));
-                }
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getMessage()));
-            }
 
             if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
                 throw new ParseException(String.format(MESSAGE_SUPPLIER_NO_ADDRESS,
                         EditCommand.MESSAGE_USAGE));
-            }
-
-            if (argMultimap.getValue(PREFIX_WAREHOUSE_NAME).isPresent()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        MESSAGE_WAREHOUSE_PREFIX_NOT_ALLOWED));
             }
 
             EditSupplierDescriptor editSupplierDescriptor = new EditSupplierDescriptor();
@@ -101,31 +97,14 @@ public class EditCommandParser implements Parser<EditCommand> {
                 throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
             }
 
-            return new EditCommand(supplierIndex.get(), editSupplierDescriptor);
+            return new EditCommand(index, editSupplierDescriptor);
         } else {
-            assert argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).isPresent() : "The warehouse prefix "
+            assert argMultimap.getValue(PREFIX_TYPE).get().equals("w") : "The warehouse prefix "
                     + " should have been present.";
-            Index index;
-
-            try {
-                index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).get());
-            } catch (ParseException pe) {
-                String indexValue = argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).get();
-                if (indexValue.contains("/")) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            EditCommand.MESSAGE_INVALID_PREFIX));
-                }
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getMessage()));
-            }
 
             if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
                 throw new ParseException(String.format(MESSAGE_WAREHOUSE_NO_EMAIL,
                         EditCommand.MESSAGE_USAGE));
-            }
-
-            if (argMultimap.getValue(PREFIX_SUPPLIER_NAME).isPresent()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        MESSAGE_SUPPLIER_PREFIX_NOT_ALLOWED));
             }
 
             EditWarehouseDescriptor editWarehouseDescriptor = new EditWarehouseDescriptor();
@@ -166,19 +145,10 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     private EditDescriptor parseGeneralDetails(EditDescriptor editDescriptor, ArgumentMultimap argMultimap)
             throws ParseException {
-        Prefix nameType;
 
-        if (editDescriptor instanceof EditSupplierDescriptor) {
-            nameType = PREFIX_SUPPLIER_NAME;
-        } else {
-            assert editDescriptor instanceof EditWarehouseDescriptor : "The editDescriptor returned should be"
-                    + " that of a warehouseDescriptor.";
-            nameType = PREFIX_WAREHOUSE_NAME;
-        }
-
-        if (argMultimap.getValue(nameType).isPresent()) {
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editDescriptor.setName(
-                    ParserUtil.parseName(argMultimap.getValue(nameType).get()));
+                    ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
 
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
