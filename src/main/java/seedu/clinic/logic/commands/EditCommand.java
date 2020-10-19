@@ -41,7 +41,7 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the supplier/warehouse"
-            + " identified " + "by the index number used in the displayed supplier/warehouse list. "
+            + " identified by the index number used in the displayed supplier/warehouse list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: [si/INDEX] [wi/INDEX] "
             + "[" + PREFIX_SUPPLIER_NAME + "NAME] "
@@ -60,9 +60,9 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_WAREHOUSE_SUCCESS = "Edited Warehouse: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already"
-            + " exists in the remark book.";
+            + " exists in CLInic.";
     public static final String MESSAGE_DUPLICATE_WAREHOUSE = "This warehouse already"
-            + " exists in the remark book.";
+            + " exists in CLInic.";
     public static final String MESSAGE_SUPPLIER_NO_ADDRESS = "Supplier do not have address!";
     public static final String MESSAGE_WAREHOUSE_NO_EMAIL = "Warehouse do not have email!";
     public static final String MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX = "Please only enter one type of"
@@ -335,8 +335,8 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Copy constructor.
-         * A defensive copy of {@code products} is used internally.
+         * Copy constructor to make a copy of {@code EditSupplierDescriptor}.
+         * @param toCopy editSupplierDescriptor object to be copied from.
          */
         public EditSupplierDescriptor(EditSupplierDescriptor toCopy) {
             super(toCopy);
@@ -394,8 +394,8 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Copy constructor.
-         * A defensive copy of {@code products} is used internally.
+         * Copy constructor to make a copy of {@code EditWarehouseDescriptor}.
+         * @param toCopy editWarehouseDescriptor object to be copied from.
          */
         public EditWarehouseDescriptor(EditWarehouseDescriptor toCopy) {
             super(toCopy);

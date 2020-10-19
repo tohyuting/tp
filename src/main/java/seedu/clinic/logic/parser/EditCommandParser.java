@@ -76,9 +76,8 @@ public class EditCommandParser implements Parser<EditCommand> {
                 if (indexValue.contains("/")) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             EditCommand.MESSAGE_INVALID_PREFIX));
-                } else {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getMessage()));
                 }
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getMessage()));
             }
 
             if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
@@ -115,9 +114,8 @@ public class EditCommandParser implements Parser<EditCommand> {
                 if (indexValue.contains("/")) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             EditCommand.MESSAGE_INVALID_PREFIX));
-                } else {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getMessage()));
                 }
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, pe.getMessage()));
             }
 
             if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
