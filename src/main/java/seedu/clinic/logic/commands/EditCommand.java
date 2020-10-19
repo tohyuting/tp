@@ -14,7 +14,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.commons.util.CollectionUtil;
@@ -76,6 +79,7 @@ public class EditCommand extends Command {
 
     private final Index index;
     private final EditDescriptor editDescriptor;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * @param index of the supplier or warehouse in the filtered supplier or warehouse list to edit
@@ -88,8 +92,12 @@ public class EditCommand extends Command {
         this.index = index;
         if (editDescriptor instanceof EditSupplierDescriptor) {
             this.editDescriptor = new EditSupplierDescriptor((EditSupplierDescriptor) editDescriptor);
+            logger.log(Level.INFO, "Received instructions to edit supplier");
         } else {
+            assert editDescriptor instanceof EditWarehouseDescriptor : "editDescriptor supplied should be "
+                    + "of EditWarehouseDescriptor type here.";
             this.editDescriptor = new EditWarehouseDescriptor((EditWarehouseDescriptor) editDescriptor);
+            logger.log(Level.INFO, "Received instructions to edit warehouse");
         }
 
     }
@@ -107,30 +115,55 @@ public class EditCommand extends Command {
             }
 
             Supplier supplierToEdit = lastShownSupplierList.get(index.getZeroBased());
+
+            logger.log(Level.INFO, "Supplier to edit is retrieved from supplier list.");
+
             Supplier editedSupplier = createEditedSupplier(supplierToEdit,
                     (EditSupplierDescriptor) editDescriptor);
+
+            logger.log(Level.INFO, "Supplier with edited information has been created.");
 
             if (!supplierToEdit.isSameSupplier(editedSupplier) && model.hasSupplier(editedSupplier)) {
                 throw new CommandException(MESSAGE_DUPLICATE_SUPPLIER);
             }
 
             model.setSupplier(supplierToEdit, editedSupplier);
+
+            logger.log(Level.INFO, "Replaced supplier in supplier list.");
+
             model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+
+            logger.log(Level.INFO, "Updated supplier in UI.");
+
             commandResult = new CommandResult(String.format(MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier));
         } else {
+            assert this.editDescriptor instanceof EditWarehouseDescriptor : "editDescriptor supplied"
+                    + " should be of EditWarehouseDescriptor type here.";
+
             if (index.getZeroBased() >= lastShownWarehouseList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);
             }
             Warehouse warehouseToEdit = lastShownWarehouseList.get(index.getZeroBased());
+
+            logger.log(Level.INFO, "Warehouse to edit is retrieved from warehouse list.");
+
             Warehouse editedWarehouse = createEditedWarehouse(warehouseToEdit,
                     (EditWarehouseDescriptor) editDescriptor);
+
+            logger.log(Level.INFO, "Warehouse with edited information has been created.");
 
             if (!warehouseToEdit.isSameWarehouse(editedWarehouse) && model.hasWarehouse(editedWarehouse)) {
                 throw new CommandException(MESSAGE_DUPLICATE_WAREHOUSE);
             }
 
             model.setWarehouse(warehouseToEdit, editedWarehouse);
+
+            logger.log(Level.INFO, "Replaced warehouse in warehouse list.");
+
             model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+
+            logger.log(Level.INFO, "Updated warehouse in UI.");
+
             commandResult = new CommandResult(String.format(MESSAGE_EDIT_WAREHOUSE_SUCCESS, editedWarehouse));
         }
         return commandResult;
@@ -191,6 +224,8 @@ public class EditCommand extends Command {
                 && (editDescriptor instanceof EditSupplierDescriptor)) {
             return false;
         }
+        assert this.editDescriptor instanceof EditDescriptor && e.editDescriptor instanceof EditDescriptor
+                : "Both editDescriptors should be of editDescriptor type.";
         return index.equals(e.index)
                 && editDescriptor.equals(e.editDescriptor);
     }

@@ -18,7 +18,10 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand;
 import seedu.clinic.logic.commands.EditCommand.EditDescriptor;
@@ -32,6 +35,8 @@ import seedu.clinic.model.attribute.Phone;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
@@ -44,6 +49,8 @@ public class EditCommandParser implements Parser<EditCommand> {
                         PREFIX_SUPPLIER_NAME, PREFIX_WAREHOUSE_NAME,
                         PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK);
 
+        logger.log(Level.INFO, "Successfully tokenized user input.");
+
         if (argMultimap.getValue(PREFIX_SUPPLIER_INDEX).isPresent()
                 && argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX,
@@ -55,7 +62,11 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_NO_PREFIX,
                     EditCommand.MESSAGE_USAGE));
         }
+
         if (argMultimap.getValue(PREFIX_SUPPLIER_INDEX).isPresent()) {
+
+            logger.log(Level.INFO, "User input contains supplier prefix.");
+
             Optional<Index> supplierIndex = Optional.empty();
             try {
                 Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_SUPPLIER_INDEX).get());
@@ -83,12 +94,18 @@ public class EditCommandParser implements Parser<EditCommand> {
             EditSupplierDescriptor editSupplierDescriptor = new EditSupplierDescriptor();
             editSupplierDescriptor = parseSupplierForEditing(editSupplierDescriptor, argMultimap);
 
+            logger.log(Level.INFO, "Successfully created an editSupplierDescriptor using the given"
+                    + " user input.");
+
+
             if (!editSupplierDescriptor.isAnyFieldEdited()) {
                 throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
             }
 
             return new EditCommand(supplierIndex.get(), editSupplierDescriptor);
         } else {
+            assert argMultimap.getValue(PREFIX_WAREHOUSE_INDEX).isPresent() : "The warehouse prefix "
+                    + " should have been present.";
             Index index;
 
             try {
@@ -156,6 +173,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (editDescriptor instanceof EditSupplierDescriptor) {
             nameType = PREFIX_SUPPLIER_NAME;
         } else {
+            assert editDescriptor instanceof EditWarehouseDescriptor : "The editDescriptor returned should be"
+                    + " that of a warehouseDescriptor.";
             nameType = PREFIX_WAREHOUSE_NAME;
         }
 
