@@ -4,9 +4,12 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import seedu.clinic.model.product.Product;
 import seedu.clinic.model.warehouse.Warehouse;
 
 /**
@@ -39,7 +42,11 @@ public class WarehouseCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
-    private FlowPane products;
+    private Label noProductsLabel;
+    @FXML
+    private VBox products;
+    @FXML
+    private TitledPane productsTitledPane;
 
     /**
      * Creates a {@code WarehouseCard} with the given {@code Warehouse} and index to display.
@@ -52,9 +59,21 @@ public class WarehouseCard extends UiPart<Region> {
         phone.setText(warehouse.getPhone().value);
         remark.getChildren().add(new Label(warehouse.getRemark().value));
         address.setText(warehouse.getAddress().value);
-        warehouse.getProducts().stream()
-                .sorted(Comparator.comparing(product -> product.toStringForWareHouse()))
-                .forEach(product -> products.getChildren().add(new Label(product.toStringForWareHouse())));
+//        warehouse.getProducts().stream()
+//                .sorted(Comparator.comparing(product -> product.toStringForWareHouse()))
+//                .forEach(product -> products.getChildren().add(new Label(product.toStringForWareHouse())));
+
+        //Keep products pane closed by default
+        productsTitledPane.setExpanded(false);
+        int productIndex = 1;
+        if (!warehouse.getProducts().isEmpty()) {
+            noProductsLabel.setVisible(false);
+            for (Product product : warehouse.getProducts()) {
+                products.getChildren().add(
+                        new Label(productIndex + ". " + product.toStringForSupplier()));
+                productIndex++;
+            }
+        }
     }
 
     @Override
