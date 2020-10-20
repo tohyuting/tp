@@ -1,10 +1,12 @@
 package seedu.clinic.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.clinic.commons.core.GuiSettings;
+import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 
@@ -37,6 +39,66 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the user macros file path as stated in user prefs.
+     */
+    Path getUserMacrosFilePath();
+
+
+    /**
+     * Returns the user macros.
+     */
+    ReadOnlyUserMacros getUserMacros();
+
+    /**
+     * Sets the user prefs' clinic file path.
+     */
+    void setUserMacrosFilePath(Path clinicFilePath);
+
+    /**
+     * Replaces userMacros data with the data in {@code userMacros}.
+     */
+    void setUserMacros(ReadOnlyUserMacros userMacros);
+
+    /**
+     * Returns true if a macro with the same alias as {@code macro} exists in the UserMacros model.
+     */
+    boolean hasMacro(Macro macro);
+
+    /**
+     * Returns true if a macro with the alias {@code aliasString} exists in the UserMacros model.
+     */
+    boolean hasMacro(String aliasString);
+
+    /**
+     * Returns the macro corresponding to the alias string in an optional wrapper if it exists,
+     * and an empty optional otherwise
+     */
+    Optional<Macro> getMacro(String aliasString);
+
+    /**
+     * Deletes the given macro.
+     * The macro must exist in the UserMacros model.
+     */
+    void deleteMacro(Macro target);
+
+    /**
+     * Adds the given macro.
+     * {@code macro} must not already exist in the UserMacros model.
+     */
+    void addMacro(Macro macro);
+
+    /**
+     * Replaces the given macro {@code target} with {@code editedMacro}.
+     * {@code target} must exist in the UserMacros model.
+     * The alias of {@code editedMacro} must not be the same as another existing macro
+     * in the UserMacros model.
+     */
+    void setMacro(Macro target, Macro editedMacro);
+
+    /** Returns an unmodifiable view of the macro list */
+    ObservableList<Macro> getMacroList();
 
     /**
      * Returns the user prefs' clinic file path.

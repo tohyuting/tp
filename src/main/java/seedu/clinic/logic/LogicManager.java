@@ -11,9 +11,12 @@ import seedu.clinic.logic.commands.Command;
 import seedu.clinic.logic.commands.CommandResult;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.ClinicParser;
+import seedu.clinic.logic.parser.MacroParser;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
+import seedu.clinic.model.ReadOnlyUserMacros;
+import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 import seedu.clinic.storage.Storage;
@@ -28,6 +31,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final ClinicParser clinicParser;
+    private final MacroParser macroParser;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -36,14 +40,19 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         clinicParser = new ClinicParser();
+        macroParser = new MacroParser();
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
+    public CommandResult execute(String inputString) throws CommandException, ParseException {
+        logger.info("----------------[USER INPUT][" + inputString + "]");
 
         CommandResult commandResult;
-        Command command = clinicParser.parseCommand(commandText);
+        String commandString = macroParser.parseMacro(model, inputString);
+
+        logger.info("----------------[USER COMMAND][" + commandString + "]");
+
+        Command command = clinicParser.parseCommand(commandString);
         commandResult = command.execute(model);
 
         try {
@@ -73,6 +82,21 @@ public class LogicManager implements Logic {
     @Override
     public Path getClinicFilePath() {
         return model.getClinicFilePath();
+    }
+
+    @Override
+    public ReadOnlyUserMacros getUserMacros() {
+        return model.getUserMacros();
+    }
+
+    @Override
+    public ObservableList<Macro> getMacroList() {
+        return model.getMacroList();
+    }
+
+    @Override
+    public Path getUserMacrosFilePath() {
+        return model.getUserMacrosFilePath();
     }
 
     @Override

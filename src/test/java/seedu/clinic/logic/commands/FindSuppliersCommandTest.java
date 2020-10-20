@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
+import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.supplier.SupplierProductsContainKeywordsPredicate;
 
@@ -24,8 +25,8 @@ import seedu.clinic.model.supplier.SupplierProductsContainKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindSuppliersCommandTest {
-    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+    private Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
 
     @Test
     public void equals() {

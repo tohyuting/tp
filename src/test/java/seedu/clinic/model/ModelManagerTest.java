@@ -129,10 +129,11 @@ public class ModelManagerTest {
                 .build();
         Clinic differentClinic = new Clinic();
         UserPrefs userPrefs = new UserPrefs();
+        UserMacros userMacros = new UserMacros();
 
         // same values -> returns true
-        modelManager = new ModelManager(clinic, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(clinic, userPrefs);
+        modelManager = new ModelManager(clinic, userPrefs, userMacros);
+        ModelManager modelManagerCopy = new ModelManager(clinic, userPrefs, userMacros);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -145,19 +146,19 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different clinic -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentClinic, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentClinic, userPrefs, userMacros)));
 
         // different filteredSupplierList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         String[] query = Arrays.copyOfRange(keywords, 0, 2);
         modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(Arrays.asList(query)));
-        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, userMacros)));
 
         // different filteredWarehouseList -> returns false
         keywords = A.getName().fullName.split("\\s+");
         query = Arrays.copyOfRange(keywords, 0, 2);
         modelManager.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(query)));
-        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, userMacros)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
@@ -166,6 +167,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setClinicFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(clinic, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(clinic, differentUserPrefs, userMacros)));
     }
 }
