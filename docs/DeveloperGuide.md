@@ -141,12 +141,6 @@ Classes used by multiple components are in the `seedu.clinic.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-{To be updated with individual enhancement}
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
