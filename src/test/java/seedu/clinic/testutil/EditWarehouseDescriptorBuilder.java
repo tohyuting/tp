@@ -15,22 +15,22 @@ import seedu.clinic.model.warehouse.Warehouse;
 /**
  * A utility class to help with building EditWarehouseDescriptor objects.
  */
-public class EditWarehouseDescriptiorBuilder {
+public class EditWarehouseDescriptorBuilder {
 
     private EditWarehouseDescriptor descriptor;
 
-    public EditWarehouseDescriptiorBuilder() {
+    public EditWarehouseDescriptorBuilder() {
         descriptor = new EditWarehouseDescriptor();
     }
 
-    public EditWarehouseDescriptiorBuilder(EditWarehouseDescriptor descriptor) {
+    public EditWarehouseDescriptorBuilder(EditWarehouseDescriptor descriptor) {
         this.descriptor = new EditWarehouseDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditWarehouseDescriptor} with fields containing {@code Warehouse}'s details
      */
-    public EditWarehouseDescriptiorBuilder(Warehouse warehouse) {
+    public EditWarehouseDescriptorBuilder(Warehouse warehouse) {
         descriptor = new EditWarehouseDescriptor();
         descriptor.setName(warehouse.getName());
         descriptor.setPhone(warehouse.getPhone());
@@ -42,7 +42,7 @@ public class EditWarehouseDescriptiorBuilder {
     /**
      * Sets the {@code Name} of the {@code EditWarehouseDescriptor} that we are building.
      */
-    public EditWarehouseDescriptiorBuilder withName(String name) {
+    public EditWarehouseDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
@@ -50,7 +50,7 @@ public class EditWarehouseDescriptiorBuilder {
     /**
      * Sets the {@code Phone} of the {@code EditWarehouseDescriptor} that we are building.
      */
-    public EditWarehouseDescriptiorBuilder withPhone(String phone) {
+    public EditWarehouseDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
         return this;
     }
@@ -58,7 +58,7 @@ public class EditWarehouseDescriptiorBuilder {
     /**
      * Sets the {@code Address} of the {@code EditWarehouseDescriptor} that we are building.
      */
-    public EditWarehouseDescriptiorBuilder withAddress(String address) {
+    public EditWarehouseDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
         return this;
     }
@@ -66,7 +66,7 @@ public class EditWarehouseDescriptiorBuilder {
     /**
      * Sets the {@code Remark} of the {@code EditWarehouseDescriptor} that we are building.
      */
-    public EditWarehouseDescriptiorBuilder withRemark(String remark) {
+    public EditWarehouseDescriptorBuilder withRemark(String remark) {
         descriptor.setRemark(new Remark(remark));
         return this;
     }
@@ -76,7 +76,7 @@ public class EditWarehouseDescriptiorBuilder {
      * that we are building.
      * @param productMap
      */
-    public EditWarehouseDescriptiorBuilder withProducts(Map<String, Integer> productMap) {
+    public EditWarehouseDescriptorBuilder withProducts(Map<String, Integer> productMap) {
         Set<Product> productSet = new HashSet<>();
         for (String productName: productMap.keySet()) {
             Product product = new Product(new Name(productName), productMap.get(productName));
