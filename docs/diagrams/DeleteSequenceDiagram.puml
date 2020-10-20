@@ -13,10 +13,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete supplier 12")
+[-> LogicManager : execute("delete ct/s i/12")
 activate LogicManager
 
-LogicManager -> ClinicParser : parseCommand("delete supplier 12")
+LogicManager -> ClinicParser : parseCommand("delete ct/s i/12")
 activate ClinicParser
 
 create DeleteCommandParser
@@ -26,7 +26,7 @@ activate DeleteCommandParser
 DeleteCommandParser --> ClinicParser
 deactivate DeleteCommandParser
 
-ClinicParser -> DeleteCommandParser : parse("supplier 12")
+ClinicParser -> DeleteCommandParser : parse("ct/s i/12")
 activate DeleteCommandParser
 
 create DeleteCommand
