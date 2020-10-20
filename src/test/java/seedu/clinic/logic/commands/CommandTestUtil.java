@@ -4,12 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 import static seedu.clinic.testutil.Assert.assertThrows;
 
@@ -22,6 +24,7 @@ import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
 import seedu.clinic.logic.commands.exceptions.CommandException;
+import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
@@ -87,6 +90,11 @@ public class CommandTestUtil {
     public static final String TAG_DESC_ANTIBIOTICS_FEVER = " " + PREFIX_TAG + VALID_TAG_ANTIBIOTICS + VALID_TAG_FEVER;
     public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
     public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
+    public static final String TYPE_DESC_SUPPLIER = " " + PREFIX_TYPE + Type.SUPPLIER;
+    public static final String TYPE_DESC_WAREHOUSE = " " + PREFIX_TYPE + Type.WAREHOUSE;
+    public static final String TYPE_DESC_SUPPLIER_PRODUCT = " " + PREFIX_TYPE + Type.SUPPLIER_PRODUCT;
+    public static final String TYPE_DESC_WAREHOUSE_PRODUCT = " " + PREFIX_TYPE + Type.WAREHOUSE_PRODUCT;
+    public static final String INDEX_DESC = " " + PREFIX_INDEX;
 
     public static final String WAREHOUSE_NAME_DESC_A = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_A;
     public static final String WAREHOUSE_NAME_DESC_B = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_B;
