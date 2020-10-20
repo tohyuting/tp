@@ -76,6 +76,7 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyClinic> clinicOptional;
         ReadOnlyClinic initialData;
+
         try {
             clinicOptional = storage.readClinic();
             if (!clinicOptional.isPresent()) {
