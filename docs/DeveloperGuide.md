@@ -213,23 +213,23 @@ add a supplier/warehouse to the app.
 #### What Add feature does
 The add feature allows users to add supplier/warehouse name, phone number and remarks. In addition, users
 can add email for suppliers and address for warehouses. Each supplier/warehouse is initialized without products associated to them.
-To add products, the addp feature should be invoked instead. Note that users are only able to add either
-a supplier or warehouse at any one time and not both or multiple at the same time.
+To add products, the add product feature should be invoked instead. Note that users are only able to add
+ either a supplier or warehouse in a single add command and not both or multiple at the same time.
 
 #### How it is implemented
 Step 1. After the `add` command is called, the user input will be sent to **AddCommandParser** for parsing.
 
-Step 2. **AddCommandParser** will then check if the compulsory prefixes `ct/COMMAND_TYPE n/NAME p/PHONE_NUMBER +
-addr/ADDRESS (for warehouse only)` is present. If the user enters any of the prefixes more than
-once, only the last prefix specified will be used to process user's input. A **ParseException** will be
-thrown if any of the compulsory prefixes is not given. 
+Step 2. **AddCommandParser** will then check if the compulsory prefixes `ct/COMMAND_TYPE n/NAME p
+/PHONE_NUMBER` and `addr/ADDRESS` (for warehouse only) is present. If the user enters any of the prefixes
+more than once, only the last prefix specified will be used to process user's input. A **ParseException** 
+will be thrown if any of the compulsory prefixes is not given. 
 
 Step 3. **AddCommandParser** will then proceed to check for the existence of optional prefixes `r/REMARK`
 and `e/EMAIL (for supplier only)`. Again, if the user specifies the same prefix more than once, only the last
 prefix specified will be used to process the user's input.
 
 Step 4. Once the user has entered the correct format for the command, their input will be parsed. A
-**ParseException** will be thrown if the NAME exists in the respective list of suppliers/warehouses.
+**ParseException** will be thrown if the `NAME` exists in the respective list of suppliers/warehouses.
  
 The following sequence diagram shows how the add product operation works: (TODO: Insert diagram)
  
