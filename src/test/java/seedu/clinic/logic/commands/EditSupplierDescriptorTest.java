@@ -22,8 +22,9 @@ public class EditSupplierDescriptorTest {
 
     @Test
     public void equals() {
-        // same values -> returns true
         EditSupplierDescriptor descriptorWithSameValues = new EditSupplierDescriptor(DESC_AMY);
+
+        // same values -> returns true
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -39,7 +40,8 @@ public class EditSupplierDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditSupplierDescriptor editedAmy = new EditSupplierDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        EditSupplierDescriptor editedAmy = new EditSupplierDescriptorBuilder(DESC_AMY)
+                .withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
@@ -56,7 +58,8 @@ public class EditSupplierDescriptorTest {
 
         // different products -> returns false
         editedAmy = new EditSupplierDescriptorBuilder(DESC_AMY)
-                .withProducts(Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
+                .withProducts(Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS}))
+                .build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }
