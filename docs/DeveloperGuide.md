@@ -140,6 +140,55 @@ Classes used by multiple components are in the `seedu.clinic.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+### Delete feature
+
+#### What Delete Feature does
+The delete feature allows user to delete a particular warehouse or supplier __(case 1)__.
+The feature also allows user to delete a product from a specific warehouse or supplier __(case 2)__.
+The deletion is limited to the items shown in the UI, i.e. the displayed results, and is done 1 item at a time.
+
+#### How it is implemented
+The `delete` feature is mainly facilitated via the `DeleteCommand` class.
+It extends the abstract `Command` class, with the ability to handle __case 1__ and __case 2__ separately:
+
+* `DeleteCommand#executeWarehouseRelatedDeletion()` — Delete the entire target warehouse or its specific product.
+* `DeleteCommand#executeSupplierRelatedDeletion()` — Delete the entire target supplier or its specific product.
+
+Given below is a description about the mechanism of deletion.
+
+Step 1. CLI-nic's `parser` will parse the user input and if the `delete` command word is present, the parser will try to parse the
+input into a valid `DeleteCommand` via **DeleteCommandParser**.
+As usual, checks for compulsory prefixes and valid arguments (`ct/TYPE` and `i/INDEX` in this case) are done.
+If two entries of `ct/TYPE` are found, the latter entry will be used as the argument.
+If the deletion command asks for deletion of product (indicated by the `TYPE` keywords `ps` and `pw`), the additional check
+for prefix `pd/` and valid product name will also be conducted.
+The code will throw a **ParseException** if the check fails.
+Afterwards, all the valid arguments will form a `DeleteCommand`, which will be executed.
+
+Step 2. The `DeleteCommand` is executed via a call from `LogicManager`. The execution is first classified into Supplier-related deletion
+and Warehouse-related deletions via the `targetType` attribute. Under each category, The execution splits into deletion of an entire supplier/warehouse
+or its particular product.
+
+Step 3. The method will retrieve the displayed list of warehouse/supplier via `model#getFilteredWarehouseList()`.
+It locates the warehouse/supplier user wants to delete (or from whom the product to delete) via the `index` passed in.
+
+<div markdown="span" class="alert alert-info">:information_source:
+**Note:** If the index passed in is larger than the size of the list, an error will be raised and the deletion will terminate.
+</div>
+
+Step 4. If the user wants to delete an entire warehouse/supplier entry, `model#deleteWarehouse` will remove the entry
+from the list in the `model`.
+
+If the user wants to delete a product inside the entry, the set of `Product` for the warehouse/supplier entry will be retrieved first.
+The `warehouse#getProductByName` or `supplier#getProductByName` will give the target product to delete from the name argument,
+and the retrieved product will be removed from the current product set in the selected warehouse/supplier entry.
+Afterwards, the updated product set will replace the existing set in this warehouse/supplier. The selected warehouse/supplier entry in the model is then 
+replaced by the updated warehouse/supplier with the target product deleted.
+
+Step 5. With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with a success message, which will
+be shown to the user in the UI.
+
+The following activity diagram summarizes the execution procedure: (to be uploaded)
 
 ### Edit feature (to be implemented)
 The edit feature will be elaborated in this section by its' functionality, path execution, class diagrams associated to edit feature (next update) and the interactions between the different objects when the feature is used by a user (next update).
