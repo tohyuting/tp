@@ -115,9 +115,7 @@ The `Model`,
 
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a
- more OOP) model is given below. It has a `Tag` list in the `Clinic`, which `Supplier` references. This allows
-  `Clinic` to only require one `Tag` object per unique `Tag`, instead of each `Supplier` needing their own
-   `Tag` object.<br>
+ more OOP) model is given below.<br>
 ![BetterModelClassDiagram](images/BetterModelClassDiagram.png)
 
 </div>
