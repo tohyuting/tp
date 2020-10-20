@@ -142,7 +142,7 @@ Classes used by multiple components are in the `seedu.clinic.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 ### Delete feature
 
-#### What Edit Feature does
+#### What Delete Feature does
 The delete feature allows user to delete a particular warehouse or supplier __(case 1)__.
 The feature also allows user to delete a product from a specific warehouse or supplier __(case 2)__.
 The deletion is limited to the items shown in the ui, i.e the displayed results, and is done 1 item at a time.
