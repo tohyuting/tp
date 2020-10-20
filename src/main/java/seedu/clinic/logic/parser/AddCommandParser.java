@@ -54,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_SUPPLIER_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
             Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse("Nil"));
             Set<Product> productList = new HashSet<>();
 
             Supplier supplier = new Supplier(name, phone, email, remark, productList);
@@ -74,7 +74,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_WAREHOUSE_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
             Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
+            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse("Nil"));
             Set<Product> productList = new HashSet<>();
 
             Warehouse warehouse = new Warehouse(name, phone, address, remark, productList);
