@@ -141,12 +141,6 @@ Classes used by multiple components are in the `seedu.clinic.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-{To be updated with individual enhancement}
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 ### Edit feature (to be implemented)
 The edit feature will be elaborated in this section by its' functionality, path execution, class diagrams associated to edit feature (next update) and the interactions between the different objects when the feature is used by a user (next update).
 
@@ -158,6 +152,58 @@ After the `edit` command is called, the user input will be sent to **EditCommand
 
 #### Why it is implemented this way
 The `edit` command is implemented this way to ensure consistency with the other commands in the application. This helps to minimise any potential confusion for the users by standardising the prefixes that `edit` command takes in with the other relevant commands. In addition, it was intended for **EditCommandParser** to throw out a **ParseException** when none of the field changes an existing entry. This is to remind users in case they made a minor mistake, resulting in a supplier or warehouse to not update the way they intended for it to. Lastly, a command type prefix, `ct/COMMAND_TYPE` is required in the implementation of `edit` command to indicate whether user wishes to edit a warehouse or supplier entry. Without a command type prefix, an alternative would be for a `TYPE` parameter, where user have to indicate `supplier` or `warehouse`. However, this may not be suitable for our target user, who wishes to update stocks quickly. Hence, our team decided to use a command type prefix in place of a parameter. Furthermore, another alternative considered would be to create separate commands for warehouses and suppliers respectively. For example, `editw` and `edits` to represent edit warehouse and edit supplier. However, this might increase duplicated codes, since minimal changes to the code would be found for each class of command. By using a prefix, this helps us to reduce any potential code duplication. Therefore, our team decided to implement edit command by taking in prefixes and throwing our relevant exceptions at appropriate points after considering code quality and end user experience.
+
+### Find feature
+
+#### What Find feature does
+The find feature allows users to find all relevant suppliers or warehouses by their names, by their remarks and/or by
+names of the products sold/stored. Users are able to search for relevant suppliers or warehouses using either only one
+of these criterion or a combination of these criteria. Note that users are only able to search for either suppliers or
+warehouses at any one time and not both at the same time.
+
+#### How it is implemented
+Step 1. After the `find` command is called, the user input will be sent to **FindCommandParser** for parsing.
+
+Step 2. **FindCommandParser** will then check if the compulsory prefix `ct/COMMAND_TYPE` is present. If the user enters
+`ct/COMMAND_TYPE` prefix more than once, only the last prefix specified will be used to process user's input. If the
+prefix `ct/COMMAND_TYPE` is not present, a **ParseException** will be thrown. 
+
+Step 3. **FindCommandParser** will then proceed to check for the existence of at least one of the following prefixes
+ `n/NAME`, `r/REMARK` and `pd/PRODUCT`. If none is found, a **ParseException** will be thrown. Again, if the user
+ specifies the same prefix more than once, only the last prefix specified will be used to process the user's input.
+ 
+Step 4. Once the user has entered the correct format for the command, their input will then be parsed.
+
+Step 5. **FindCommandParser** will create a new **FindCommand** to be executed and the relevant suppliers or warehouses
+will be filtered out.
+
+Step 6. The model will then display the relevant suppliers or warehouses to the users via the method
+`model#getFilteredSupplierList()` or `model#getFilteredWarehouseList()`.
+
+#### Why it is implemented this way
+The `find` command is implemented this way to ensure consistency with the other commands in the application regarding
+the prefixes. This helps to minimise any potential confusion for the users by standardising the prefixes that `find`
+command takes in with the other relevant commands. In addition, a command type prefix, `ct/COMMAND_TYPE` is required in the
+implementation of `find` command to indicate whether the user wishes to search for suppliers or warehouses. Without this
+prefix, the application will not be able to know if the user wishes to search for suppliers or warehouse.
+
+#### Alternatives considered
+In our previous implementation, we did not require the user to enter the command type prefix. Instead, we only required
+the user to enter the `TYPE` parameter in the form of either `supplier` or `warehouse`. However, typing the whole word
+out may not have been suitable for our target user, who wishes to find suppliers or warehouses quickly. Hence, our team
+decided to use a command type prefix in place of a `TYPE` parameter, which is shorter and easier to type.
+
+In our current implementation, users are required to enter at least one or a combination of the following prefixes: 
+`n/NAME`, `r/REMARK`, `pd/PRODUCT`. This allows the application to determine which criterion/criteria to filter by.
+Another alternative that was previously implemented was to split the find command into three separate commands: `findn`
+which allows users to search by name, `findr` which allows users to search by remarks and `findp` which allows users to
+search by products. However, this implementation was deemed unsuitable as it increased code duplication with minimal
+changes between the different classes. In addition, by splitting into three separate commands, users are unable to
+search for suppliers or warehouses using multiple criteria. They could only search by name, by remark or by product in
+any single command. By using prefixes, users are able to search for suppliers or warehouses using any combination of
+name, remark and product. Taking the aforementioned points into consideration, our team has therefore decided to
+implement the `find` command by taking in prefixes and throwing our relevant exceptions at appropriate points after
+considering code quality and end user experience.
 
 --------------------------------------------------------------------------------------------------------------------
 
