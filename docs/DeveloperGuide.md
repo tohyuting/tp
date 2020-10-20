@@ -186,7 +186,7 @@ Step 3. `LogicManager#execute` calls `UpdateCommand#execute` with the `Model` in
 the `Model#getWarehouseByName` or `Model#getSupplierByName` is called (to be implemented), which 
 iterates through the warehouse/supplier list to find a warehouse/supplier with a `Name` that matches the one provided 
 in the `UpdateCommand`. If it is not found, `NoSuchElementException` is thrown, otherwise, the `UpdateCommand#execute` 
-method creates a new `Set<Product>` based on the existing product set for that warehouse/supplier. 
+method copies the existing product set for that warehouse/supplier to a new `Set<Product>`. 
 
 Step 4. `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`. 
 If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
