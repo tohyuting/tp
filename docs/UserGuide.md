@@ -132,17 +132,50 @@ Format: `clear`
 
 ### Deletes a particular warehouse or supplier : `delete`
 
-Delete entries of warehouses or suppliers that are not needed anymore.
+Deletes entries of warehouses or suppliers that are not needed anymore.
 
-Format: `delete TYPE INDEX`
+Format: `delete ct/TYPE i/INDEX`
 
-* The TYPE specified should be one of these values: warehouse / supplier.
+* The TYPE specified should be one of these values: w / s.
 * The INDEX must be a positive integer, not exceeding the total number of items.
 
 Examples:
 
-* `delete warehouse 1` Removes the warehouse at index 1.
-* `delete supplier 12` Removes supplier at index 12 from the list of suppliers.
+* `delete ct/w i/1` Removes the warehouse at index 1.
+* `delete ct/s i/12` Removes supplier at index 12 from the list of suppliers.
+
+### Deletes a product in a certain warehouse or supplier : `delete`
+
+Deletes a product entry no longer stored by a certain warehouse or sold by a specific supplier.
+
+Format: `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`
+
+* The TYPE specified should be one of these values: pw / ps.
+* The PRODUCT_NAME must be identifiable and starts with alphanumeric character.
+* The product with the PRODUCT_NAME should be in the INDEX-th supplier/warehouse in the displayed list.
+
+Examples:
+
+* `delete ct/pw i/1 pd/Panadol` Removes product with the name _Panadol_ from
+the warehouse at index 1 of the list of warehouses.
+* `delete ct/ps i/12 pd/Aspirin` Removes product with the name _Aspirin_
+from the supplier at index 12 of the list of suppliers.
+
+### Deletes a product in a certain warehouse or supplier : `delete`
+
+Deletes a product entry no longer stored by a certain warehouse or sold by a specific supplier.
+
+Format: `delete TYPE INDEX pd/PRODUCT_NAME`
+
+* The PRODUCT_NAME must be identifiable and starts with alphanumeric character.
+* The product with the PRODUCT_NAME should be in the INDEX-th supplier/warehouse in the displayed list.
+
+Examples:
+
+* `delete warehouse 1 pd/Panadol` Removes product with the name _Panadol_ from
+the warehouse at index 1 of the list of warehouses.
+* `delete supplier 12 pd/Aspirin` Removes product with the name _Aspirin_
+from the supplier at index 12 of the list of suppliers.
 
 ### Finding medical product associated with warehouses / suppliers: `find`
 
@@ -234,7 +267,8 @@ Action | Format, Examples
 **Add** Supplier | `add s/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]`<br> e.g., `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
 **Addp** Product | `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `addp s/SupplierA pd/PANADOL SUSP t/FEVER`
 **Clear** | `clear`
-**Delete** | `delete TYPE INDEX`<br> e.g., `delete 3`
+**Delete** | `delete ct/TYPE i/INDEX`<br> e.g., `delete ct/w i/1`
+**Delete** Product| `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`<br> e.g., `delete ct/pw i/1 pd/Panadol`
 **Find** | `find TYPE KEYWORD [KEYWORD]…`<br> e.g. `find warehouse panadol`
 **Help** | `help [COMMAND]`<br> e.g., `help add`
 **List** | `list`

@@ -1,5 +1,6 @@
 package seedu.clinic.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
@@ -21,6 +22,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
      */
     @Override
     public UpdateCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_WAREHOUSE_NAME, PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_QUANTITY);
 

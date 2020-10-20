@@ -54,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_SUPPLIER_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
             Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse("Nil"));
             Set<Product> productList = new HashSet<>();
 
             Supplier supplier = new Supplier(name, phone, email, remark, productList);
@@ -74,7 +74,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_WAREHOUSE_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
             Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
+            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse("Nil"));
             Set<Product> productList = new HashSet<>();
 
             Warehouse warehouse = new Warehouse(name, phone, address, remark, productList);
@@ -85,7 +85,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
     }
 
-
+    //TODO: Consideration: shall we put all these same method under the parent Command class?
+    //      Will it violate the Liskov substitution principle?
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
@@ -93,5 +94,4 @@ public class AddCommandParser implements Parser<AddCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }

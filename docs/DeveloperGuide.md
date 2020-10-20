@@ -138,13 +138,210 @@ Classes used by multiple components are in the `seedu.clinic.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+### Delete feature
 
-{To be updated with individual enhancement}
+#### What Delete Feature does
+The delete feature allows user to delete a particular warehouse or supplier __(case 1)__.
+The feature also allows user to delete a product from a specific warehouse or supplier __(case 2)__.
+The deletion is limited to the items shown in the UI, i.e. the displayed results, and is done 1 item at a time.
 
-### \[Proposed\] Data archiving
+#### How it is implemented
+The `delete` feature is mainly facilitated via the `DeleteCommand` class.
+It extends the abstract `Command` class, with the ability to handle __case 1__ and __case 2__ separately:
 
-_{Explain here how the data archiving feature will be implemented}_
+* `DeleteCommand#executeWarehouseRelatedDeletion()` — Delete the entire target warehouse or its specific product.
+* `DeleteCommand#executeSupplierRelatedDeletion()` — Delete the entire target supplier or its specific product.
 
+Given below is a description about the mechanism of deletion.
+
+Step 1. CLI-nic's `parser` will parse the user input and if the `delete` command word is present, the parser will try to parse the
+input into a valid `DeleteCommand` via **DeleteCommandParser**.
+As usual, checks for compulsory prefixes and valid arguments (`ct/TYPE` and `i/INDEX` in this case) are done.
+If two entries of `ct/TYPE` are found, the latter entry will be used as the argument.
+If the deletion command asks for deletion of product (indicated by the `TYPE` keywords `ps` and `pw`), the additional check
+for prefix `pd/` and valid product name will also be conducted.
+The code will throw a **ParseException** if the check fails.
+Afterwards, all the valid arguments will form a `DeleteCommand`, which will be executed.
+
+Step 2. The `DeleteCommand` is executed via a call from `LogicManager`. The execution is first classified into Supplier-related deletion
+and Warehouse-related deletions via the `targetType` attribute. Under each category, The execution splits into deletion of an entire supplier/warehouse
+or its particular product.
+
+Step 3. The method will retrieve the displayed list of warehouse/supplier via `model#getFilteredWarehouseList()`.
+It locates the warehouse/supplier user wants to delete (or from whom the product to delete) via the `index` passed in.
+
+<div markdown="span" class="alert alert-info">:information_source:
+**Note:** If the index passed in is larger than the size of the list, an error will be raised and the deletion will terminate.
+</div>
+
+Step 4. If the user wants to delete an entire warehouse/supplier entry, `model#deleteWarehouse` will remove the entry
+from the list in the `model`.
+
+If the user wants to delete a product inside the entry, the set of `Product` for the warehouse/supplier entry will be retrieved first.
+The `warehouse#getProductByName` or `supplier#getProductByName` will give the target product to delete from the name argument,
+and the retrieved product will be removed from the current product set in the selected warehouse/supplier entry.
+Afterwards, the updated product set will replace the existing set in this warehouse/supplier. The selected warehouse/supplier entry in the model is then 
+replaced by the updated warehouse/supplier with the target product deleted.
+
+Step 5. With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with a success message, which will
+be shown to the user in the UI.
+
+The following activity diagram summarizes the execution procedure: (to be uploaded)
+
+### Edit feature (to be implemented)
+The edit feature will be elaborated in this section by its' functionality, path execution, class diagrams associated to edit feature (next update) and the interactions between the different objects when the feature is used by a user (next update).
+
+#### What Edit Feature does
+The edit feature allows user to edit supplier/warehouse name, phone number and remarks. In addition, the edit feature also allows user to edit a supplier's email and a warehouse's address. One thing to note is that the edit feature does not allow users to edit any products associated with a particular supplier or warehouse. To edit the quantity or tags of a product, the update feature should be invoked instead. This feature will be elaborated in the section below.
+
+#### How it is implemented
+After the `edit` command is called, the user input will be sent to **EditCommandParser** for parsing. The **EditCommandParser** will check if the compulsory prefixes are present (i.e. `ct/COMMAND_TYPE` and `i/INDEX`). The `edit` command only allows editing of a single warehouse or supplier for every single command. If two types of `ct/COMMAND_TYPE` is provided, the last type specified will be used to process user's input. This applies for other prefixes used as inputs as well. The code will throw a **ParseException** if no compulsory prefixes or only one of the compulsory prefixes are given. Afterwards, **EditCommandParser** will check to see if at least one field is provided for editing. The code will throw a **ParseException** if no field for editing of suppliers or warehouses is provided. Parsing of user input then begins. If there are any inappropriate fields supplied (e.g. input a string for index or phone prefix), **ParseException** will be thrown. Furthermore, **EditCommandParser** will also throw a **ParseException** if the fields input result in no changes to the existing supplier or warehouse entry. Finally, **EditCommandParser** will create a new **EditCommand** to be executed. **EditCommand** takes in an index for supplier or warehouse list and an **EditDescriptor** containing the fields to be edited when the command is executed. The edited supplier or warehouse will be updated in the model, allowing users to see the changes done for the respective supplier or warehouse.
+
+#### Why it is implemented this way
+The `edit` command is implemented this way to ensure consistency with the other commands in the application. This helps to minimise any potential confusion for the users by standardising the prefixes that `edit` command takes in with the other relevant commands. In addition, it was intended for **EditCommandParser** to throw out a **ParseException** when none of the field changes an existing entry. This is to remind users in case they made a minor mistake, resulting in a supplier or warehouse to not update the way they intended for it to. Lastly, a command type prefix, `ct/COMMAND_TYPE` is required in the implementation of `edit` command to indicate whether user wishes to edit a warehouse or supplier entry. Without a command type prefix, an alternative would be for a `TYPE` parameter, where user have to indicate `supplier` or `warehouse`. However, this may not be suitable for our target user, who wishes to update stocks quickly. Hence, our team decided to use a command type prefix in place of a parameter. Furthermore, another alternative considered would be to create separate commands for warehouses and suppliers respectively. For example, `editw` and `edits` to represent edit warehouse and edit supplier. However, this might increase duplicated codes, since minimal changes to the code would be found for each class of command. By using a prefix, this helps us to reduce any potential code duplication. Therefore, our team decided to implement edit command by taking in prefixes and throwing our relevant exceptions at appropriate points after considering code quality and end user experience.
+
+### Find feature
+
+#### What Find feature does
+The find feature allows users to find all relevant suppliers or warehouses by their names, by their remarks and/or by
+names of the products sold/stored. Users are able to search for relevant suppliers or warehouses using either only one
+of these criterion or a combination of these criteria. Note that users are only able to search for either suppliers or
+warehouses at any one time and not both at the same time.
+
+#### How it is implemented
+Step 1. After the `find` command is called, the user input will be sent to **FindCommandParser** for parsing.
+
+Step 2. **FindCommandParser** will then check if the compulsory prefix `ct/COMMAND_TYPE` is present. If the user enters
+`ct/COMMAND_TYPE` prefix more than once, only the last prefix specified will be used to process user's input. If the
+prefix `ct/COMMAND_TYPE` is not present, a **ParseException** will be thrown. 
+
+Step 3. **FindCommandParser** will then proceed to check for the existence of at least one of the following prefixes
+ `n/NAME`, `r/REMARK` and `pd/PRODUCT`. If none is found, a **ParseException** will be thrown. Again, if the user
+ specifies the same prefix more than once, only the last prefix specified will be used to process the user's input.
+ 
+Step 4. Once the user has entered the correct format for the command, their input will then be parsed.
+
+Step 5. **FindCommandParser** will create a new **FindCommand** to be executed and the relevant suppliers or warehouses
+will be filtered out.
+
+Step 6. The model will then display the relevant suppliers or warehouses to the users via the method
+`model#getFilteredSupplierList()` or `model#getFilteredWarehouseList()`.
+
+#### Why it is implemented this way
+The `find` command is implemented this way to ensure consistency with the other commands in the application regarding
+the prefixes. This helps to minimise any potential confusion for the users by standardising the prefixes that `find`
+command takes in with the other relevant commands. In addition, a command type prefix, `ct/COMMAND_TYPE` is required in the
+implementation of `find` command to indicate whether the user wishes to search for suppliers or warehouses. Without this
+prefix, the application will not be able to know if the user wishes to search for suppliers or warehouse.
+
+#### Alternatives considered
+In our previous implementation, we did not require the user to enter the command type prefix. Instead, we only required
+the user to enter the `TYPE` parameter in the form of either `supplier` or `warehouse`. However, typing the whole word
+out may not have been suitable for our target user, who wishes to find suppliers or warehouses quickly. Hence, our team
+decided to use a command type prefix in place of a `TYPE` parameter, which is shorter and easier to type.
+
+In our current implementation, users are required to enter at least one or a combination of the following prefixes: 
+`n/NAME`, `r/REMARK`, `pd/PRODUCT`. This allows the application to determine which criterion/criteria to filter by.
+Another alternative that was previously implemented was to split the find command into three separate commands: `findn`
+which allows users to search by name, `findr` which allows users to search by remarks and `findp` which allows users to
+search by products. However, this implementation was deemed unsuitable as it increased code duplication with minimal
+changes between the different classes. In addition, by splitting into three separate commands, users are unable to
+search for suppliers or warehouses using multiple criteria. They could only search by name, by remark or by product in
+any single command. By using prefixes, users are able to search for suppliers or warehouses using any combination of
+name, remark and product. Taking the aforementioned points into consideration, our team has therefore decided to
+implement the `find` command by taking in prefixes and throwing our relevant exceptions at appropriate points after
+considering code quality and end user experience.
+
+### Update product feature
+
+The update product mechanism is facilitated by the `UpdateCommandParser` and the `UpdateCommand`.
+The `UpdateCommandParser` implements `Parser` and the `UpdateCommand` extends `Command`, allowing the user to 
+create or update a product under either a supplier or a warehouse.
+
+Given below is an example usage scenario and how the update product mechanism behaves at each step.
+
+Step 1. The user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units 
+in the warehouse named 'Jurong Warehouse'. The user also decides that he wants to give 'Panadol' a tag 'fever'. 
+The user does this by executing the `update ct/w n/Jurong Warehouse pd/Panadol q/50 t/fever` command.
+The `ClinicParser#parseCommand` will then call the `UpdateCommandParser#parse` method with all the arguments 
+passed by the user.
+ 
+Step 2. `UpdateCommandParser#parse` then attempts to create new `Name` instances for the supplier/warehouse 
+and the product, and new `tag` instances for the product. An exception will be thrown if any of the names or 
+tags are invalid, which will be presented on the GUI. Similarly, 
+a new `Product` will be instantiated based on the product name and any quantity or tags given, if valid.
+After which, it will call the `UpdateCommand` with the `Type`, warehouse/supplier's `Name` and `Product` created, 
+and return it to `ClinicParser#Parse` which will in turn return the `UpdateCommand` to `LogicManager#execute`.
+
+The following sequence diagram shows how the update product operation works: (TODO: Insert diagram)
+
+Step 3. `LogicManager#execute` calls `UpdateCommand#execute` with the `Model` instance. In `LogicManager#execute`, 
+the `Model#getWarehouseByName` or `Model#getSupplierByName` is called (to be implemented), which 
+iterates through the warehouse/supplier list to find a warehouse/supplier with a `Name` that matches the one provided 
+in the `UpdateCommand`. If it is not found, `NoSuchElementException` is thrown, otherwise, the `UpdateCommand#execute` 
+method copies the existing product set for that warehouse/supplier to a new `Set<Product>`. 
+
+Step 4. `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`. 
+If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
+is supplied for the `Product` to be updated, failing which, an exception is thrown. If the check passes, the original 
+`Product` is removed from the set. 
+
+Step 5. `UpdateCommand#execute` adds the updated `Product` to the `Set<Product>`, and creates an updated 
+warehouse/supplier with the updated product. The method then calls `Model#setWarehouse` or `Model#setSupplier` to update the model, 
+and calls `Model#updateFilteredWarehouseList` to update the list to be displayed to the user.
+The method then passes a `CommandResult` with a success message back to `LogicManager#execute`. Finally, the model 
+is saved and the GUI is updated with the success message.
+
+The following activity diagram summarizes what happens when a user updates a product: (TODO: Insert Diagram)
+
+### Add supplier/warehouse feature
+The add supplier/warehouse mechanism is facilitated by the `AddCommandParser` and the `AddCommand`.
+The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to 
+add a supplier/warehouse to the app.
+
+#### What Add feature does
+The add feature allows users to add supplier/warehouse name, phone number and remarks. In addition, users
+can add email for suppliers and address for warehouses. Each supplier/warehouse is initialized without products associated to them.
+To add products, the add product feature should be invoked instead. Note that users are only able to add
+ either a supplier or warehouse in a single add command and not both or multiple at the same time.
+
+#### How it is implemented
+Step 1. After the `add` command is called, the user input will be sent to **AddCommandParser** for parsing.
+
+Step 2. **AddCommandParser** will then check if the compulsory prefixes `ct/COMMAND_TYPE n/NAME p
+/PHONE_NUMBER` and `addr/ADDRESS` (for warehouse only) is present. If the user enters any of the prefixes
+more than once, only the last prefix specified will be used to process user's input. A **ParseException** 
+will be thrown if any of the compulsory prefixes is not given. 
+
+Step 3. **AddCommandParser** will then proceed to check for the existence of optional prefixes `r/REMARK`
+and `e/EMAIL (for supplier only)`. Again, if the user specifies the same prefix more than once, only the last
+prefix specified will be used to process the user's input.
+
+Step 4. Once the user has entered the correct format for the command, their input will be parsed. A
+**ParseException** will be thrown if the `NAME` exists in the respective list of suppliers/warehouses.
+ 
+The following sequence diagram shows how the add product operation works: (TODO: Insert diagram)
+ 
+Step 5. **AddCommandParser** will create a new **AddCommand** to be executed and the relevant supplier
+/warehouse will be added.
+
+Step 6. The model will be updated with the new supplier/warehouse via the method 
+`model#addSupplier(supplier)` or `model#addWarehouse(warehouse)`.
+
+The following activity diagram summarizes what happens when a user updates a product: (TODO: Insert Diagram)
+
+#### Why it is implemented this way
+The `add` command is implemented this way to ensure consistency with the other commands in the application
+regarding the prefixes. This helps to minimise any potential confusion for the users by standardising the
+prefixes that `add` command takes in with the other relevant commands. In addition, a command type
+prefix, `ct/COMMAND_TYPE` is required in the implementation of `add` command to indicate whether the
+user add a supplier/warehouse. Without this prefix, the application will not be able to know if the
+user wishes to add a supplier/warehouse.
+
+#### Alternatives considered
+In our previous implementation, we did not require the user to enter the command type prefix. Instead, we only required
+the user to enter the `TYPE` parameter in the form of either `s/` or `w/`. However, it was not
+consistent throughout the commands and that could lead to some confusion.
 
 --------------------------------------------------------------------------------------------------------------------
 
