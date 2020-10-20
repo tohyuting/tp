@@ -89,7 +89,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(MESSAGE_DELETE_PRODUCT_IN_SUPPLIER_SUCCESS,
                 productToDeleteName, supplierToUpdate.getName());
 
-        ModelManager expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.setSupplier(supplierToUpdate, expectedSupplier);
         assertCommandSuccess(deleteCommand, modelForSupplier, expectedMessage, expectedModel);
     }

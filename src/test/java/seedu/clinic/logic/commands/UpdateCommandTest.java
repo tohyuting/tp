@@ -58,7 +58,7 @@ public class UpdateCommandTest {
         Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
         assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_A.toStringForWareHouse(),
-                editedWarehouse), commandResult.getFeedbackToUser());
+                editedWarehouse.getName()), commandResult.getFeedbackToUser());
         assertEquals(editedWarehouse, modelStub.warehouse);
     }
 
@@ -70,7 +70,7 @@ public class UpdateCommandTest {
         Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
         assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_A.toStringForWareHouse(),
-                editedWarehouse), commandResult.getFeedbackToUser());
+                editedWarehouse.getName()), commandResult.getFeedbackToUser());
         assertEquals(editedWarehouse, modelStub.warehouse);
     }
 
