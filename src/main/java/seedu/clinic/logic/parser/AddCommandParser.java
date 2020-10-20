@@ -85,7 +85,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
     }
 
-
+    //TODO: Consideration: shall we put all these same method under the parent Command class?
+    //      Will it violate the Liskov substitution principle?
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
@@ -93,5 +94,4 @@ public class AddCommandParser implements Parser<AddCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
 }
