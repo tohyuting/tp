@@ -168,7 +168,8 @@ create or update a product under either a supplier or a warehouse.
 Given below is an example usage scenario and how the update product mechanism behaves at each step.
 
 Step 1. The user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units 
-in the warehouse named 'Jurong Warehouse' by executing the `update ct/w n/Jurong Warehouse pd/Panadol q/50` command.
+in the warehouse named 'Jurong Warehouse'. The user also decides that he wants to give 'Panadol' a tag 'fever'. 
+The user does this by executing the `update ct/w n/Jurong Warehouse pd/Panadol q/50 t/fever` command.
 The `ClinicParser#parseCommand` will then call the `UpdateCommandParser#parse` method with all the arguments 
 passed by the user.
  
@@ -188,7 +189,7 @@ in the `UpdateCommand`. If it is not found, `NoSuchElementException` is thrown, 
 method creates a new `Set<Product>` based on the existing product set for that warehouse/supplier. 
 
 Step 4. `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`. 
-If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity 
+If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
 is supplied for the `Product` to be updated, failing which, an exception is thrown. If the check passes, the original 
 `Product` is removed from the set. 
 
