@@ -296,6 +296,55 @@ is saved and the GUI is updated with the success message.
 
 The following activity diagram summarizes what happens when a user updates a product: (TODO: Insert Diagram)
 
+### Add supplier/warehouse feature
+The add supplier/warehouse mechanism is facilitated by the `AddCommandParser` and the `AddCommand`.
+The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to 
+add a supplier/warehouse to the app.
+
+#### What Add feature does
+The add feature allows users to add supplier/warehouse name, phone number and remarks. In addition, users
+can add email for suppliers and address for warehouses. Each supplier/warehouse is initialized without products associated to them.
+To add products, the add product feature should be invoked instead. Note that users are only able to add
+ either a supplier or warehouse in a single add command and not both or multiple at the same time.
+
+#### How it is implemented
+Step 1. After the `add` command is called, the user input will be sent to **AddCommandParser** for parsing.
+
+Step 2. **AddCommandParser** will then check if the compulsory prefixes `ct/COMMAND_TYPE n/NAME p
+/PHONE_NUMBER` and `addr/ADDRESS` (for warehouse only) is present. If the user enters any of the prefixes
+more than once, only the last prefix specified will be used to process user's input. A **ParseException** 
+will be thrown if any of the compulsory prefixes is not given. 
+
+Step 3. **AddCommandParser** will then proceed to check for the existence of optional prefixes `r/REMARK`
+and `e/EMAIL (for supplier only)`. Again, if the user specifies the same prefix more than once, only the last
+prefix specified will be used to process the user's input.
+
+Step 4. Once the user has entered the correct format for the command, their input will be parsed. A
+**ParseException** will be thrown if the `NAME` exists in the respective list of suppliers/warehouses.
+ 
+The following sequence diagram shows how the add product operation works: (TODO: Insert diagram)
+ 
+Step 5. **AddCommandParser** will create a new **AddCommand** to be executed and the relevant supplier
+/warehouse will be added.
+
+Step 6. The model will be updated with the new supplier/warehouse via the method 
+`model#addSupplier(supplier)` or `model#addWarehouse(warehouse)`.
+
+The following activity diagram summarizes what happens when a user updates a product: (TODO: Insert Diagram)
+
+#### Why it is implemented this way
+The `add` command is implemented this way to ensure consistency with the other commands in the application
+regarding the prefixes. This helps to minimise any potential confusion for the users by standardising the
+prefixes that `add` command takes in with the other relevant commands. In addition, a command type
+prefix, `ct/COMMAND_TYPE` is required in the implementation of `add` command to indicate whether the
+user add a supplier/warehouse. Without this prefix, the application will not be able to know if the
+user wishes to add a supplier/warehouse.
+
+#### Alternatives considered
+In our previous implementation, we did not require the user to enter the command type prefix. Instead, we only required
+the user to enter the `TYPE` parameter in the form of either `s/` or `w/`. However, it was not
+consistent throughout the commands and that could lead to some confusion.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
