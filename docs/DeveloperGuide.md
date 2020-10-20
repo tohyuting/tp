@@ -145,7 +145,7 @@ This section describes some noteworthy details on how certain features are imple
 #### What Delete Feature does
 The delete feature allows user to delete a particular warehouse or supplier __(case 1)__.
 The feature also allows user to delete a product from a specific warehouse or supplier __(case 2)__.
-The deletion is limited to the items shown in the ui, i.e the displayed results, and is done 1 item at a time.
+The deletion is limited to the items shown in the UI, i.e. the displayed results, and is done 1 item at a time.
 
 #### How it is implemented
 The `delete` feature is mainly facilitated via the `DeleteCommand` class.
@@ -179,12 +179,13 @@ It locates the warehouse/supplier user wants to delete (or from whom the product
 Step 4. If the user wants to delete an entire warehouse/supplier entry, `model#deleteWarehouse` will remove the entry
 from the list in the `model`.
 
-If the user wants to delete a product inside the entry, the set of product for the warehouse/supplier entry will be retrieved first.
-The `warehouse#getProductByName` will give the target product to delete from the product name parsed, and the retrieved product set will
-remove this product from the set. Afterwards, the updated product set will replace the old set in the warehouse. The model will also 
-update the warehouse with the new warehouse with the target product deleted.
+If the user wants to delete a product inside the entry, the set of `Product` for the warehouse/supplier entry will be retrieved first.
+The `warehouse#getProductByName` or `supplier#getProductByName` will give the target product to delete from the name argument,
+and the retrieved product will be removed from the current product set in the selected warehouse/supplier entry.
+Afterwards, the updated product set will replace the existing set in this warehouse/supplier. The selected warehouse/supplier entry in the model is then 
+replaced by the updated warehouse/supplier with the target product deleted.
 
-Step 5. With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with the success message, which will
+Step 5. With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with a success message, which will
 be shown to the user in the UI.
 
 The following activity diagram summarizes the execution procedure: (to be uploaded)
