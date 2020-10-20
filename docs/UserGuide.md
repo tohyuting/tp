@@ -161,6 +161,22 @@ the warehouse at index 1 of the list of warehouses.
 * `delete ct/ps i/12 pd/Aspirin` Removes product with the name _Aspirin_
 from the supplier at index 12 of the list of suppliers.
 
+### Deletes a product in a certain warehouse or supplier : `delete`
+
+Deletes a product entry no longer stored by a certain warehouse or sold by a specific supplier.
+
+Format: `delete TYPE INDEX pd/PRODUCT_NAME`
+
+* The PRODUCT_NAME must be identifiable and starts with alphanumeric character.
+* The product with the PRODUCT_NAME should be in the INDEX-th supplier/warehouse in the displayed list.
+
+Examples:
+
+* `delete warehouse 1 pd/Panadol` Removes product with the name _Panadol_ from
+the warehouse at index 1 of the list of warehouses.
+* `delete supplier 12 pd/Aspirin` Removes product with the name _Aspirin_
+from the supplier at index 12 of the list of suppliers.
+
 ### Finding medical product associated with warehouses / suppliers: `find`
 
 Finds all suppliers or warehouses managed by the manager that sells the relevant medical products.

@@ -107,6 +107,7 @@ public class DeleteCommand extends Command {
         }
 
         Warehouse warehouseToUpdate = lastShownList.get(targetIndex.getZeroBased());
+
         Set<Product> productSetToUpdate = new HashSet<>(warehouseToUpdate.getProducts());
         Product matchedProduct;
         try {
