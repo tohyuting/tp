@@ -66,10 +66,10 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete supplier 9";
+        String deleteCommand = "delete ct/s i/9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
 
-        deleteCommand = "delete warehouse 9";
+        deleteCommand = "delete ct/w i/9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);
     }
 

@@ -12,6 +12,7 @@ import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Phone;
 import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
+import seedu.clinic.model.product.exceptions.ProductNotFoundException;
 
 /**
  * Represents a Supplier in the CLI-nic app.
@@ -62,6 +63,19 @@ public class Supplier {
      */
     public Set<Product> getProducts() {
         return Collections.unmodifiableSet(products);
+    }
+
+    /**
+     * Returns a product with the {@code targetName} sold by the supplier.
+     *
+     * @return The product matching the target name.
+     * @throws ProductNotFoundException if these is no product in the list matching the name asked.
+     */
+    public Product getProductByName(Name targetName) throws ProductNotFoundException {
+        Product matchedProduct = products.stream().filter(p -> p.getProductName().equals(targetName))
+                .findFirst().orElseThrow(ProductNotFoundException::new);
+
+        return matchedProduct;
     }
 
     /**
@@ -120,5 +134,4 @@ public class Supplier {
         getProducts().forEach(s -> builder.append(s.toStringForSupplier()));
         return builder.toString();
     }
-
 }
