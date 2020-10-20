@@ -254,6 +254,48 @@ name, remark and product. Taking the aforementioned points into consideration, o
 implement the `find` command by taking in prefixes and throwing our relevant exceptions at appropriate points after
 considering code quality and end user experience.
 
+### Update product feature
+
+The update product mechanism is facilitated by the `UpdateCommandParser` and the `UpdateCommand`.
+The `UpdateCommandParser` implements `Parser` and the `UpdateCommand` extends `Command`, allowing the user to 
+create or update a product under either a supplier or a warehouse.
+
+Given below is an example usage scenario and how the update product mechanism behaves at each step.
+
+Step 1. The user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units 
+in the warehouse named 'Jurong Warehouse'. The user also decides that he wants to give 'Panadol' a tag 'fever'. 
+The user does this by executing the `update ct/w n/Jurong Warehouse pd/Panadol q/50 t/fever` command.
+The `ClinicParser#parseCommand` will then call the `UpdateCommandParser#parse` method with all the arguments 
+passed by the user.
+ 
+Step 2. `UpdateCommandParser#parse` then attempts to create new `Name` instances for the supplier/warehouse 
+and the product, and new `tag` instances for the product. An exception will be thrown if any of the names or 
+tags are invalid, which will be presented on the GUI. Similarly, 
+a new `Product` will be instantiated based on the product name and any quantity or tags given, if valid.
+After which, it will call the `UpdateCommand` with the `Type`, warehouse/supplier's `Name` and `Product` created, 
+and return it to `ClinicParser#Parse` which will in turn return the `UpdateCommand` to `LogicManager#execute`.
+
+The following sequence diagram shows how the update product operation works: (TODO: Insert diagram)
+
+Step 3. `LogicManager#execute` calls `UpdateCommand#execute` with the `Model` instance. In `LogicManager#execute`, 
+the `Model#getWarehouseByName` or `Model#getSupplierByName` is called (to be implemented), which 
+iterates through the warehouse/supplier list to find a warehouse/supplier with a `Name` that matches the one provided 
+in the `UpdateCommand`. If it is not found, `NoSuchElementException` is thrown, otherwise, the `UpdateCommand#execute` 
+method copies the existing product set for that warehouse/supplier to a new `Set<Product>`. 
+
+Step 4. `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`. 
+If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
+is supplied for the `Product` to be updated, failing which, an exception is thrown. If the check passes, the original 
+`Product` is removed from the set. 
+
+Step 5. `UpdateCommand#execute` adds the updated `Product` to the `Set<Product>`, and creates an updated 
+warehouse/supplier with the updated product. The method then calls `Model#setWarehouse` or `Model#setSupplier` to update the model, 
+and calls `Model#updateFilteredWarehouseList` to update the list to be displayed to the user.
+The method then passes a `CommandResult` with a success message back to `LogicManager#execute`. Finally, the model 
+is saved and the GUI is updated with the success message.
+
+The following activity diagram summarizes what happens when a user updates a product: (TODO: Insert Diagram)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
