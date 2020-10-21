@@ -66,34 +66,35 @@ public class AddCommand extends Command {
         requireNonNull(warehouse);
         this.supplierToAdd = null;
         this.warehouseToAdd = warehouse;
-
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        CommandResult commandResult = null;
 
-        if (supplierToAdd != null) {
+        if (supplierToAdd instanceof Supplier) {
             if (model.hasSupplier(supplierToAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_SUPPLIER);
             }
             model.addSupplier(supplierToAdd);
-            return new CommandResult(String.format(MESSAGE_SUPPLIER_SUCCESS, supplierToAdd));
-        } else if (warehouseToAdd != null) {
+            commandResult = new CommandResult(String.format(MESSAGE_SUPPLIER_SUCCESS, supplierToAdd));
+        } else {
+            // todo add assertion for warehouse
             if (model.hasWarehouse(warehouseToAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_WAREHOUSE);
             }
             model.addWarehouse(warehouseToAdd);
-            return new CommandResult(String.format(MESSAGE_WAREHOUSE_SUCCESS, warehouseToAdd));
+            commandResult = new CommandResult(String.format(MESSAGE_WAREHOUSE_SUCCESS, warehouseToAdd));
         }
-        return null;
+        return commandResult;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
-                && (supplierToAdd != null
+                && (supplierToAdd instanceof Supplier
                 ? supplierToAdd.equals(((AddCommand) other).supplierToAdd)
                 : warehouseToAdd.equals(((AddCommand) other).warehouseToAdd)));
     }
