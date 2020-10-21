@@ -102,6 +102,12 @@ public class CommandTestUtil {
 
     public static final String WAREHOUSE_NAME_DESC_A = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_A;
     public static final String WAREHOUSE_NAME_DESC_B = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_B;
+    public static final String PHONE_DESC_WAREHOUSE_A = " " + PREFIX_PHONE + VALID_WAREHOUSE_PHONE_A;
+    public static final String PHONE_DESC_WAREHOUSE_B = " " + PREFIX_PHONE + VALID_WAREHOUSE_PHONE_B;
+    public static final String ADDRESS_DESC_WAREHOUSE_A = " " + PREFIX_ADDRESS + VALID_WAREHOUSE_ADDRESS_A;
+    public static final String ADDRESS_DESC_WAREHOUSE_B = " " + PREFIX_ADDRESS + VALID_WAREHOUSE_ADDRESS_B;
+    public static final String REMARK_DESC_WAREHOUSE_A = " " + PREFIX_REMARK + VALID_WAREHOUSE_REMARK_A;
+    public static final String REMARK_DESC_WAREHOUSE_B = " " + PREFIX_REMARK + VALID_WAREHOUSE_REMARK_B;
     public static final String PRODUCT_NAME_DESC_A = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_ASPIRIN;
     public static final String PRODUCT_NAME_DESC_B = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_PANADOL;
     public static final String PRODUCT_QUANTITY_DESC_A = " " + PREFIX_PRODUCT_QUANTITY

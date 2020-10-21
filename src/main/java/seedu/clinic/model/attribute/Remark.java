@@ -30,7 +30,7 @@ public class Remark {
      * Returns true if a given string is a valid remark.
      */
     public static boolean isValidRemark(String remark) {
-        if (remark.equals("Nil")) {
+        if (remark.isEmpty()) {
             return true;
         }
         return remark.matches(VALIDATION_REGEX) && remark.length() <= 100;
