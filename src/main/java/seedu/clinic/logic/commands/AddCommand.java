@@ -8,6 +8,10 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.supplier.Supplier;
@@ -49,6 +53,7 @@ public class AddCommand extends Command {
 
     private final Supplier supplierToAdd;
     private final Warehouse warehouseToAdd;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Creates an AddCommand to add the specified {@code Supplier}
@@ -57,6 +62,7 @@ public class AddCommand extends Command {
         requireNonNull(supplier);
         this.supplierToAdd = supplier;
         this.warehouseToAdd = null;
+        logger.log(Level.INFO, "Received information to add supplier");
     }
 
     /**
@@ -66,25 +72,35 @@ public class AddCommand extends Command {
         requireNonNull(warehouse);
         this.supplierToAdd = null;
         this.warehouseToAdd = warehouse;
+        logger.log(Level.INFO, "Received information to add warehouse");
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        CommandResult commandResult = null;
+        CommandResult commandResult;
 
-        if (supplierToAdd instanceof Supplier) {
+        if (supplierToAdd != null) {
             if (model.hasSupplier(supplierToAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_SUPPLIER);
             }
             model.addSupplier(supplierToAdd);
+
+            logger.log(Level.INFO, "Supplier with given information has been added and supplier list is"
+                    + " updated on UI.");
+
             commandResult = new CommandResult(String.format(MESSAGE_SUPPLIER_SUCCESS, supplierToAdd));
         } else {
-            // todo add assertion for warehouse
+            assert this.warehouseToAdd != null : "warehouseToAdd specified"
+                    + " should be of Warehouse type here.";
             if (model.hasWarehouse(warehouseToAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_WAREHOUSE);
             }
             model.addWarehouse(warehouseToAdd);
+
+            logger.log(Level.INFO, "Warehouse with given information has been added and warehouse list is"
+                    + " updated on UI.");
+
             commandResult = new CommandResult(String.format(MESSAGE_WAREHOUSE_SUCCESS, warehouseToAdd));
         }
         return commandResult;
@@ -94,7 +110,7 @@ public class AddCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
-                && (supplierToAdd instanceof Supplier
+                && (supplierToAdd != null
                 ? supplierToAdd.equals(((AddCommand) other).supplierToAdd)
                 : warehouseToAdd.equals(((AddCommand) other).warehouseToAdd)));
     }
