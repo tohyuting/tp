@@ -24,23 +24,23 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a supplier/warehouse to CLI-nic.\n"
-            + "Supplier Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a supplier/warehouse to CLI-nic.\n\n"
+            + "Supplier Parameters:\n"
             + PREFIX_SUPPLIER_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_REMARK + "REMARK \n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example:\n" + COMMAND_WORD + " "
             + PREFIX_SUPPLIER_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_REMARK + "Largest contractor \n"
-            + "Warehouse Parameters: "
+            + PREFIX_REMARK + "Largest contractor \n\n"
+            + "Warehouse Parameters:\n"
             + PREFIX_WAREHOUSE_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_ADDRESS + "Address "
             + PREFIX_REMARK + "REMARK \n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example:\n" + COMMAND_WORD + " "
             + PREFIX_WAREHOUSE_NAME + "NUS South "
             + PREFIX_PHONE + "91234562 "
             + PREFIX_ADDRESS + "21 Lower Kent Ridge Rd, Singapore 119077 "
@@ -50,6 +50,12 @@ public class AddCommand extends Command {
     public static final String MESSAGE_WAREHOUSE_SUCCESS = "New warehouse added: %1$s";
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in CLI-nic";
     public static final String MESSAGE_DUPLICATE_WAREHOUSE = "This warehouse already exists in CLI-nic";
+    public static final String MESSAGE_TYPE_PREFIX_NOT_ALLOWED = "Please enter only one type to add,"
+            + " i.e. either s/SUPPLIER_NAME or w/WAREHOUSE_NAME";
+    public static final String MESSAGE_SUPPLIER_MISSING_PREFIX = "There are missing prefixes, ensure"
+            + " that you at least include: s/SUPPLIER_NAME and p/PHONE";
+    public static final String MESSAGE_WAREHOUSE_MISSING_PREFIX = "There are missing prefixes, ensure"
+            + " that you at least include: w/WAREHOUSE_NAME, p/PHONE and addr/ADDRESS";
 
     private final Supplier supplierToAdd;
     private final Warehouse warehouseToAdd;
@@ -92,7 +98,7 @@ public class AddCommand extends Command {
             commandResult = new CommandResult(String.format(MESSAGE_SUPPLIER_SUCCESS, supplierToAdd));
         } else {
             assert this.warehouseToAdd != null : "warehouseToAdd specified"
-                    + " should be of Warehouse type here.";
+                    + " should be of Warehouse type and not null here.";
             if (model.hasWarehouse(warehouseToAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_WAREHOUSE);
             }
