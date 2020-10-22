@@ -1,32 +1,69 @@
 package seedu.clinic.model.supplier;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.clinic.commons.util.StringUtil;
 import seedu.clinic.model.product.Product;
 
 /**
- * Tests that any of the {@code Product} sold by {@code Supplier} matches any of the keywords given.
+ * Tests whether the {@code Name}, {@code Remark} or any of the {@code Product} sold by {@code Supplier} matches any
+ * of the keywords given.
  */
 public class SupplierProductsContainKeywordsPredicate implements Predicate<Supplier> {
-    private final List<String> keywords;
+    private final Optional<List<String>> nameKeywords;
+    private final Optional<List<String>> productKeywords;
+    private final Optional<List<String>> remarkKeywords;
 
-    public SupplierProductsContainKeywordsPredicate(List<String> keywords) {
-        this.keywords = keywords;
+    public SupplierProductsContainKeywordsPredicate(List<String> nameKeywords, List<String> productKeywords
+            , List<String> remarkKeywords) {
+        if (nameKeywords.size() == 0) {
+            this.nameKeywords = Optional.empty();
+        } else {
+            this.nameKeywords = Optional.ofNullable(nameKeywords);
+        }
+
+        if (productKeywords.size() == 0) {
+            this.productKeywords = Optional.empty();
+        } else {
+            this.productKeywords = Optional.ofNullable(productKeywords);
+        }
+
+        if (remarkKeywords.size() == 0) {
+            this.remarkKeywords = Optional.empty();
+        } else {
+            this.remarkKeywords = Optional.ofNullable(remarkKeywords);
+        }
     }
 
     @Override
     public boolean test(Supplier supplier) {
-        Product[] products = supplier.getProducts().toArray(Product[]::new);
-        for (int i = 0; i < products.length; i++) {
-            String productName = products[i].getProductName().fullName;
-            boolean match = keywords.stream()
-                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(productName, keyword));
+        if (nameKeywords.isPresent()) {
+            boolean match = nameKeywords.get().stream()
+                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(supplier.getName().fullName, keyword));
 
             if (match) {
                 return true;
             }
+        }
+
+        if (productKeywords.isPresent()) {
+            Product[] products = supplier.getProducts().toArray(Product[]::new);
+            for (int i = 0; i < products.length; i++) {
+                String productName = products[i].getProductName().fullName;
+                boolean match = productKeywords.get().stream()
+                        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(productName, keyword));
+
+                if (match) {
+                    return true;
+                }
+            }
+        }
+
+        if (remarkKeywords.isPresent()) {
+            return remarkKeywords.get().stream()
+                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(supplier.getRemark().value, keyword));
         }
 
         return false;
@@ -36,7 +73,9 @@ public class SupplierProductsContainKeywordsPredicate implements Predicate<Suppl
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SupplierProductsContainKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((SupplierProductsContainKeywordsPredicate) other).keywords)); // state check
+                && nameKeywords.equals(((SupplierProductsContainKeywordsPredicate) other).nameKeywords)
+                && productKeywords.equals(((SupplierProductsContainKeywordsPredicate) other).productKeywords)
+                && remarkKeywords.equals(((SupplierProductsContainKeywordsPredicate) other).remarkKeywords)); // state check
     }
 
 }
