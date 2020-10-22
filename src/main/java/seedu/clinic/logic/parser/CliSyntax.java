@@ -16,13 +16,14 @@ public class CliSyntax {
     public static final Prefix PREFIX_REMARK = new Prefix("r/");
     public static final Prefix PREFIX_PRODUCT_NAME = new Prefix("pd/");
     public static final Prefix PREFIX_PRODUCT_QUANTITY = new Prefix("q/");
+    public static final Prefix PREFIX_TYPE = new Prefix("ct/");
+    public static final Prefix PREFIX_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_SUPPLIER_INDEX = new Prefix("si/");
     public static final Prefix PREFIX_WAREHOUSE_INDEX = new Prefix("wi/");
     public static final Prefix PREFIX_TYPE = new Prefix("ct/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
 
-    /* Type Declaration definitions */
-    public static final String TYPE_SUPPLIER = "supplier";
-    public static final String TYPE_WAREHOUSE = "warehouse";
+    public static final String TYPE_SUPPLIER_PRODUCT = "ps";
+    public static final String TYPE_WAREHOUSE_PRODUCT = "pw";
 
 }
