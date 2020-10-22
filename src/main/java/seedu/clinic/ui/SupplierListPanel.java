@@ -28,7 +28,7 @@ public class SupplierListPanel extends UiPart<Region> {
         super(FXML);
         supplierListView.setItems(supplierList);
         supplierListView.setCellFactory(listView -> new SupplierListViewCell());
-        supplierListView.setPlaceholder(new Label("There is no product yet."));
+        supplierListView.setPlaceholder(new Label("There are no suppliers yet."));
     }
 
     /**

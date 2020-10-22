@@ -27,7 +27,7 @@ public class WarehouseListPanel extends UiPart<Region> {
         super(FXML);
         warehouseListView.setItems(warehouseList);
         warehouseListView.setCellFactory(listView -> new WarehouseListViewCall());
-        warehouseListView.setPlaceholder(new Label("There is no product yet."));
+        warehouseListView.setPlaceholder(new Label("There are no warehouses yet."));
     }
 
     /**
