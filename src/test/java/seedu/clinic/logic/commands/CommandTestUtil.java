@@ -5,14 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 import static seedu.clinic.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -75,12 +74,14 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FEVER = "fever";
     public static final String VALID_TAG_ANTIBIOTICS = "antibiotics";
     public static final String VALID_TAG_PAINKILLER = "painkiller";
+    public static final String VALID_TYPE_SUPPLIER = "s";
+    public static final String VALID_TYPE_WAREHOUSE = "w";
     public static final String VALID_REMARK_AMY = "Sells a diverse range of products";
     public static final String VALID_REMARK_BOB = "Long term partner";
     public static final String VALID_REMARK_GEORGE = "frequent discount";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_SUPPLIER_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_SUPPLIER_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
+    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
@@ -94,14 +95,14 @@ public class CommandTestUtil {
     public static final String TAG_DESC_ANTIBIOTICS_FEVER = " " + PREFIX_TAG + VALID_TAG_ANTIBIOTICS + VALID_TAG_FEVER;
     public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
     public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
-    public static final String TYPE_DESC_SUPPLIER = " " + PREFIX_TYPE + Type.SUPPLIER;
-    public static final String TYPE_DESC_WAREHOUSE = " " + PREFIX_TYPE + Type.WAREHOUSE;
+    public static final String TYPE_DESC_SUPPLIER = " " + PREFIX_TYPE + VALID_TYPE_SUPPLIER;
+    public static final String TYPE_DESC_WAREHOUSE = " " + PREFIX_TYPE + VALID_TYPE_WAREHOUSE;
     public static final String TYPE_DESC_SUPPLIER_PRODUCT = " " + PREFIX_TYPE + Type.SUPPLIER_PRODUCT;
     public static final String TYPE_DESC_WAREHOUSE_PRODUCT = " " + PREFIX_TYPE + Type.WAREHOUSE_PRODUCT;
     public static final String INDEX_DESC = " " + PREFIX_INDEX;
 
-    public static final String WAREHOUSE_NAME_DESC_A = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_A;
-    public static final String WAREHOUSE_NAME_DESC_B = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_B;
+    public static final String WAREHOUSE_NAME_DESC_A = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_A;
+    public static final String WAREHOUSE_NAME_DESC_B = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_B;
     public static final String PHONE_DESC_WAREHOUSE_A = " " + PREFIX_PHONE + VALID_WAREHOUSE_PHONE_A;
     public static final String PHONE_DESC_WAREHOUSE_B = " " + PREFIX_PHONE + VALID_WAREHOUSE_PHONE_B;
     public static final String ADDRESS_DESC_WAREHOUSE_A = " " + PREFIX_ADDRESS + VALID_WAREHOUSE_ADDRESS_A;
@@ -116,9 +117,9 @@ public class CommandTestUtil {
             + VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
 
     // invalid test samples
-    public static final String INVALID_NAME_DESC = " " + PREFIX_SUPPLIER_NAME + "&James"; // names cannot
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "&James"; // names cannot
     // start with '&'
-    public static final String INVALID_NAME_DESC_WAREHOUSE = " " + PREFIX_WAREHOUSE_NAME + "&John";
+    public static final String INVALID_NAME_DESC_WAREHOUSE = " " + PREFIX_NAME + "&John";
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
@@ -126,9 +127,9 @@ public class CommandTestUtil {
     public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "iiiiiiiiiiiiiiiiiiiiiiii"
             + "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"; // more than
     // 100 characters not allowed for remarks
-    public static final String INVALID_SUPPLIER_NAME_DESC = " " + PREFIX_SUPPLIER_NAME
+    public static final String INVALID_SUPPLIER_NAME_DESC = " " + PREFIX_NAME
             + "&Amy"; // names cannot start with '&'
-    public static final String INVALID_WAREHOUSE_NAME_DESC = " " + PREFIX_WAREHOUSE_NAME
+    public static final String INVALID_WAREHOUSE_NAME_DESC = " " + PREFIX_NAME
             + "&Amy"; // names cannot start with '&'
     public static final String INVALID_PRODUCT_NAME_DESC = " " + PREFIX_PRODUCT_NAME
             + "&Amy"; // names cannot start with '&'

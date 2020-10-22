@@ -20,6 +20,8 @@ import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_WAREHOUSE_A;
 //import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_WAREHOUSE_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER;
+import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_WAREHOUSE;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -78,47 +80,57 @@ public class AddCommandParserTest {
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
+        // missing type prefix
+
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + REMARK_DESC_BOB,
-                String.format(AddCommand.MESSAGE_TYPE_PREFIX_NOT_ALLOWED, AddCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, VALID_WAREHOUSE_NAME_A + PHONE_DESC_WAREHOUSE_A
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER + " " + VALID_NAME_BOB + PHONE_DESC_BOB
+                        + EMAIL_DESC_BOB + REMARK_DESC_BOB,
+                String.format(ParserUtil.MESSAGE_INVALID_TYPE, AddCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, TYPE_DESC_WAREHOUSE + " " + VALID_WAREHOUSE_NAME_A + PHONE_DESC_WAREHOUSE_A
                         + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
-                String.format(AddCommand.MESSAGE_TYPE_PREFIX_NOT_ALLOWED, AddCommand.MESSAGE_USAGE));
+                String.format(ParserUtil.MESSAGE_INVALID_TYPE, AddCommand.MESSAGE_USAGE));
 
         // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + REMARK_DESC_BOB,
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER + NAME_DESC_BOB + VALID_PHONE_BOB
+                        + EMAIL_DESC_BOB + REMARK_DESC_BOB,
                 String.format(AddCommand.MESSAGE_SUPPLIER_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_REMARK_BOB,
-                String.format(AddCommand.MESSAGE_TYPE_PREFIX_NOT_ALLOWED, AddCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER + " " + VALID_NAME_BOB + VALID_PHONE_BOB
+                        + VALID_EMAIL_BOB + VALID_REMARK_BOB,
+                String.format(ParserUtil.MESSAGE_INVALID_TYPE, AddCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + REMARK_DESC_BOB,
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_NAME_DESC + PHONE_DESC_BOB
+                        + EMAIL_DESC_BOB + REMARK_DESC_BOB,
                 Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + REMARK_DESC_BOB,
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER + NAME_DESC_BOB + INVALID_PHONE_DESC
+                        + EMAIL_DESC_BOB + REMARK_DESC_BOB,
                 Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + REMARK_DESC_BOB,
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER + NAME_DESC_BOB + PHONE_DESC_BOB
+                        + INVALID_EMAIL_DESC + REMARK_DESC_BOB,
                 Email.MESSAGE_CONSTRAINTS);
 
         // invalid remark
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_REMARK_DESC,
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER + NAME_DESC_BOB + PHONE_DESC_BOB
+                        + EMAIL_DESC_BOB + INVALID_REMARK_DESC,
                 Remark.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_REMARK_DESC,
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_NAME_DESC + PHONE_DESC_BOB
+                        + EMAIL_DESC_BOB + INVALID_REMARK_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + REMARK_DESC_BOB,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + TYPE_DESC_SUPPLIER + NAME_DESC_BOB + PHONE_DESC_BOB
+                        + EMAIL_DESC_BOB + REMARK_DESC_BOB,
                 String.format(AddCommand.MESSAGE_SUPPLIER_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
     }
 

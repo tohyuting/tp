@@ -1,15 +1,18 @@
 package seedu.clinic.logic.parser;
 
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinic.logic.commands.AddCommand.MESSAGE_MISSING_TYPE_PREFIX;
 import static seedu.clinic.logic.commands.AddCommand.MESSAGE_SUPPLIER_MISSING_PREFIX;
-import static seedu.clinic.logic.commands.AddCommand.MESSAGE_TYPE_PREFIX_NOT_ALLOWED;
 import static seedu.clinic.logic.commands.AddCommand.MESSAGE_WAREHOUSE_MISSING_PREFIX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_NAME;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
+import static seedu.clinic.logic.parser.Type.SUPPLIER;
+import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -50,31 +53,31 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SUPPLIER_NAME, PREFIX_WAREHOUSE_NAME,
+                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME,
                         PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK);
         logger.log(Level.INFO, "Successfully tokenized user input.");
 
-        if (argMultimap.getValue(PREFIX_SUPPLIER_NAME).isEmpty()
-                && argMultimap.getValue(PREFIX_WAREHOUSE_NAME).isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_TYPE_PREFIX_NOT_ALLOWED,
+        if (argMultimap.getValue(PREFIX_TYPE).isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_MISSING_TYPE_PREFIX,
                     AddCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(PREFIX_SUPPLIER_NAME).isPresent()
-                && argMultimap.getValue(PREFIX_WAREHOUSE_NAME).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_TYPE_PREFIX_NOT_ALLOWED,
+        Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+
+        if (!type.equals(SUPPLIER) && !type.equals(WAREHOUSE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_TYPE,
                     AddCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(PREFIX_SUPPLIER_NAME).isPresent()) {
-            logger.log(Level.INFO, "User input contains supplier name prefix.");
+        if (type.equals(SUPPLIER)) {
+            logger.log(Level.INFO, "User input contains type prefix for supplier.");
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_SUPPLIER_NAME, PREFIX_PHONE)
+            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_SUPPLIER_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
             }
 
-            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_SUPPLIER_NAME).get());
+            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
             Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(""));
             Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
@@ -85,16 +88,15 @@ public class AddCommandParser implements Parser<AddCommand> {
 
             addCommand = new AddCommand(supplier);
         } else {
-            assert argMultimap.getValue(PREFIX_WAREHOUSE_NAME).isPresent() : "The warehouse name prefix"
-                    + " should be present here.";
-            logger.log(Level.INFO, "User input contains warehouse name prefix.");
+            assert type.equals(WAREHOUSE) : "The type prefix for warehouse should be present here.";
+            logger.log(Level.INFO, "User input contains type prefix for warehouse.");
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_WAREHOUSE_NAME, PREFIX_PHONE, PREFIX_ADDRESS)
+            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_WAREHOUSE_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
             }
 
-            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_WAREHOUSE_NAME).get());
+            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
             Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
             Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
