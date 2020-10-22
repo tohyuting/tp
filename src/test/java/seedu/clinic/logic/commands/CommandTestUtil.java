@@ -132,6 +132,7 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC2 = " " + PREFIX_NAME + "&James"; // names cannot
     // start with '&'
     public static final String INVALID_NAME_DESC_WAREHOUSE = " " + PREFIX_WAREHOUSE_NAME + "&John";
+    public static final String INVALID_NAME_DESC_WAREHOUSE2 = " " + PREFIX_NAME + "&John";
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
