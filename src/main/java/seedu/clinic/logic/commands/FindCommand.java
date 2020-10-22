@@ -11,7 +11,7 @@ import java.util.Optional;
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.supplier.SupplierPredicate;
-import seedu.clinic.model.warehouse.WarehouseProductsContainKeywordsPredicate;
+import seedu.clinic.model.warehouse.WarehousePredicate;
 
 /**
  * Finds and lists all suppliers/warehouses in the CLI-nic app whose name, remark and/or products matches any of the
@@ -46,7 +46,7 @@ public class FindCommand extends Command {
             + "2) ct/w";
 
     private final Optional<SupplierPredicate> supplierPredicate;
-    private final Optional<WarehouseProductsContainKeywordsPredicate> warehousePredicate;
+    private final Optional<WarehousePredicate> warehousePredicate;
 
     /**
      * Constructs a new FindCommand object.
@@ -59,7 +59,7 @@ public class FindCommand extends Command {
     /**
      * Constructs a new FindCommand object.
      */
-    public FindCommand(WarehouseProductsContainKeywordsPredicate warehousePredicate) {
+    public FindCommand(WarehousePredicate warehousePredicate) {
         this.warehousePredicate = Optional.of(warehousePredicate);
         this.supplierPredicate = Optional.empty();
     }

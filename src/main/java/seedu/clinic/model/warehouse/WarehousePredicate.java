@@ -11,12 +11,12 @@ import seedu.clinic.model.product.Product;
  * Tests whether the {@code Name}, {@code Remark} or any of the {@code Product} stored in {@code Warehouse} matches any
  * of the keywords given.
  */
-public class WarehouseProductsContainKeywordsPredicate implements Predicate<Warehouse> {
+public class WarehousePredicate implements Predicate<Warehouse> {
     private final Optional<List<String>> nameKeywords;
     private final Optional<List<String>> productKeywords;
     private final Optional<List<String>> remarkKeywords;
 
-    public WarehouseProductsContainKeywordsPredicate(List<String> nameKeywords, List<String> productKeywords
+    public WarehousePredicate(List<String> nameKeywords, List<String> productKeywords
             , List<String> remarkKeywords) {
         if (nameKeywords.size() == 0) {
             this.nameKeywords = Optional.empty();
@@ -72,10 +72,10 @@ public class WarehouseProductsContainKeywordsPredicate implements Predicate<Ware
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof WarehouseProductsContainKeywordsPredicate // instanceof handles nulls
-                && nameKeywords.equals(((WarehouseProductsContainKeywordsPredicate) other).nameKeywords)
-                && productKeywords.equals(((WarehouseProductsContainKeywordsPredicate) other).productKeywords)
-                && remarkKeywords.equals(((WarehouseProductsContainKeywordsPredicate) other).remarkKeywords)); // state check
+                || (other instanceof WarehousePredicate // instanceof handles nulls
+                && nameKeywords.equals(((WarehousePredicate) other).nameKeywords)
+                && productKeywords.equals(((WarehousePredicate) other).productKeywords)
+                && remarkKeywords.equals(((WarehousePredicate) other).remarkKeywords)); // state check
     }
 
 }

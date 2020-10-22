@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserPrefs;
-import seedu.clinic.model.warehouse.WarehouseProductsContainKeywordsPredicate;
+import seedu.clinic.model.warehouse.WarehousePredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -29,10 +29,10 @@ public class FindWarehousesCommandTest {
 
     @Test
     public void equals() {
-        WarehouseProductsContainKeywordsPredicate firstPredicate =
-                new WarehouseProductsContainKeywordsPredicate(Collections.singletonList("first"));
-        WarehouseProductsContainKeywordsPredicate secondPredicate =
-                new WarehouseProductsContainKeywordsPredicate(Collections.singletonList("second"));
+        WarehousePredicate firstPredicate =
+                new WarehousePredicate(Collections.singletonList("first"));
+        WarehousePredicate secondPredicate =
+                new WarehousePredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -57,7 +57,7 @@ public class FindWarehousesCommandTest {
     @Test
     public void execute_zeroKeywords_noWarehouseFound() {
         String expectedMessage = String.format(MESSAGE_WAREHOUSE_LISTED_OVERVIEW, 0);
-        WarehouseProductsContainKeywordsPredicate warehousePredicate = preparePredicate(" ");
+        WarehousePredicate warehousePredicate = preparePredicate(" ");
         FindCommand command = new FindCommand(warehousePredicate);
         expectedModel.updateFilteredWarehouseList(warehousePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -67,7 +67,7 @@ public class FindWarehousesCommandTest {
     @Test
     public void execute_multipleKeywords_multipleSuppliersFound() {
         String expectedMessage = String.format(MESSAGE_WAREHOUSE_LISTED_OVERVIEW, 3);
-        WarehouseProductsContainKeywordsPredicate warehousePredicate = preparePredicate("warehouse syrup");
+        WarehousePredicate warehousePredicate = preparePredicate("warehouse syrup");
         FindCommand command = new FindCommand(warehousePredicate);
         expectedModel.updateFilteredWarehouseList(warehousePredicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -75,9 +75,9 @@ public class FindWarehousesCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code WarehouseProductsContainKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code WarehousePredicate}.
      */
-    private WarehouseProductsContainKeywordsPredicate preparePredicate(String userInput) {
-        return new WarehouseProductsContainKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private WarehousePredicate preparePredicate(String userInput) {
+        return new WarehousePredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
