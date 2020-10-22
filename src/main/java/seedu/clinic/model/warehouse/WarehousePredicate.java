@@ -16,8 +16,11 @@ public class WarehousePredicate implements Predicate<Warehouse> {
     private final Optional<List<String>> productKeywords;
     private final Optional<List<String>> remarkKeywords;
 
-    public WarehousePredicate(List<String> nameKeywords, List<String> productKeywords
-            , List<String> remarkKeywords) {
+    /**
+     * Constructs a new {@code WarehousePredicate}.
+     */
+    public WarehousePredicate(List<String> nameKeywords, List<String> productKeywords,
+            List<String> remarkKeywords) {
         if (nameKeywords.size() == 0) {
             this.nameKeywords = Optional.empty();
         } else {

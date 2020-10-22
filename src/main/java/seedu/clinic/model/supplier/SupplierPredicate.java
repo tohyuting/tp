@@ -16,8 +16,11 @@ public class SupplierPredicate implements Predicate<Supplier> {
     private final Optional<List<String>> productKeywords;
     private final Optional<List<String>> remarkKeywords;
 
-    public SupplierPredicate(List<String> nameKeywords, List<String> productKeywords
-            , List<String> remarkKeywords) {
+    /**
+     * Constructs a new {@code SupplierPredicate}.
+     */
+    public SupplierPredicate(List<String> nameKeywords, List<String> productKeywords,
+            List<String> remarkKeywords) {
         if (nameKeywords.size() == 0) {
             this.nameKeywords = Optional.empty();
         } else {
