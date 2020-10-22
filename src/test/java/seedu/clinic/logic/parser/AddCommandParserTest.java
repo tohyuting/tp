@@ -11,6 +11,8 @@ import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
 import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+//import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_WAREHOUSE_A;
+//import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_WAREHOUSE_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.PHONE_DESC_WAREHOUSE_A;
@@ -28,8 +30,6 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_A;
 //import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_B;
-//import static seedu.clinic.logic.commands.CommandTestUtil.WAREHOUSE_NAME_DESC_A;
-//import static seedu.clinic.logic.commands.CommandTestUtil.WAREHOUSE_NAME_DESC_B;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.clinic.testutil.TypicalSupplier.BOB;
@@ -58,6 +58,8 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + REMARK_DESC_BOB, new AddCommand(expectedWarehouse));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB

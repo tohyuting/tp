@@ -82,12 +82,19 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_WAREHOUSE_A = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_A;
+    public static final String NAME_DESC_WAREHOUSE_B = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_B;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
+    public static final String PHONE_DESC_WAREHOUSE_A = " " + PREFIX_PHONE + VALID_WAREHOUSE_PHONE_A;
+    public static final String PHONE_DESC_WAREHOUSE_B = " " + PREFIX_PHONE + VALID_WAREHOUSE_PHONE_B;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+    // Todo remove address for suppliers
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String ADDRESS_DESC_WAREHOUSE_A = " " + PREFIX_ADDRESS + VALID_WAREHOUSE_ADDRESS_A;
+    public static final String ADDRESS_DESC_WAREHOUSE_B = " " + PREFIX_ADDRESS + VALID_WAREHOUSE_ADDRESS_B;
     public static final String PRODUCT_NAME_DESC_AMY = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_ASPIRIN;
     public static final String PRODUCT_NAME_DESC_BOB = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_PANADOL;
     public static final String TAG_DESC_FEVER = " " + PREFIX_TAG + VALID_TAG_FEVER;
@@ -95,20 +102,17 @@ public class CommandTestUtil {
     public static final String TAG_DESC_ANTIBIOTICS_FEVER = " " + PREFIX_TAG + VALID_TAG_ANTIBIOTICS + VALID_TAG_FEVER;
     public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
     public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
+    public static final String REMARK_DESC_WAREHOUSE_A = " " + PREFIX_REMARK + VALID_WAREHOUSE_REMARK_A;
+    public static final String REMARK_DESC_WAREHOUSE_B = " " + PREFIX_REMARK + VALID_WAREHOUSE_REMARK_B;
     public static final String TYPE_DESC_SUPPLIER = " " + PREFIX_TYPE + VALID_TYPE_SUPPLIER;
     public static final String TYPE_DESC_WAREHOUSE = " " + PREFIX_TYPE + VALID_TYPE_WAREHOUSE;
     public static final String TYPE_DESC_SUPPLIER_PRODUCT = " " + PREFIX_TYPE + Type.SUPPLIER_PRODUCT;
     public static final String TYPE_DESC_WAREHOUSE_PRODUCT = " " + PREFIX_TYPE + Type.WAREHOUSE_PRODUCT;
     public static final String INDEX_DESC = " " + PREFIX_INDEX;
 
+    // Todo, keeping for backward compatibility. Standardize naming convention as above
     public static final String WAREHOUSE_NAME_DESC_A = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_A;
     public static final String WAREHOUSE_NAME_DESC_B = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_B;
-    public static final String PHONE_DESC_WAREHOUSE_A = " " + PREFIX_PHONE + VALID_WAREHOUSE_PHONE_A;
-    public static final String PHONE_DESC_WAREHOUSE_B = " " + PREFIX_PHONE + VALID_WAREHOUSE_PHONE_B;
-    public static final String ADDRESS_DESC_WAREHOUSE_A = " " + PREFIX_ADDRESS + VALID_WAREHOUSE_ADDRESS_A;
-    public static final String ADDRESS_DESC_WAREHOUSE_B = " " + PREFIX_ADDRESS + VALID_WAREHOUSE_ADDRESS_B;
-    public static final String REMARK_DESC_WAREHOUSE_A = " " + PREFIX_REMARK + VALID_WAREHOUSE_REMARK_A;
-    public static final String REMARK_DESC_WAREHOUSE_B = " " + PREFIX_REMARK + VALID_WAREHOUSE_REMARK_B;
     public static final String PRODUCT_NAME_DESC_A = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_ASPIRIN;
     public static final String PRODUCT_NAME_DESC_B = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_PANADOL;
     public static final String PRODUCT_QUANTITY_DESC_A = " " + PREFIX_PRODUCT_QUANTITY
