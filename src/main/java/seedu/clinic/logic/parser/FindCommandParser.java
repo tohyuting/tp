@@ -16,7 +16,7 @@ import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Remark;
-import seedu.clinic.model.supplier.SupplierProductsContainKeywordsPredicate;
+import seedu.clinic.model.supplier.SupplierPredicate;
 import seedu.clinic.model.warehouse.WarehouseProductsContainKeywordsPredicate;
 
 /**
@@ -67,7 +67,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (type.toString().equals("s")) {
-            return new FindCommand(new SupplierProductsContainKeywordsPredicate(Arrays.asList(nameKeywords),
+            return new FindCommand(new SupplierPredicate(Arrays.asList(nameKeywords),
                     Arrays.asList(productKeywords), Arrays.asList(remarkKeywords)));
         }
 

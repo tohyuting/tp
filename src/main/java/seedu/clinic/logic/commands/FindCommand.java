@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.model.Model;
-import seedu.clinic.model.supplier.SupplierProductsContainKeywordsPredicate;
+import seedu.clinic.model.supplier.SupplierPredicate;
 import seedu.clinic.model.warehouse.WarehouseProductsContainKeywordsPredicate;
 
 /**
@@ -45,13 +45,13 @@ public class FindCommand extends Command {
             + "1) ct/s\n"
             + "2) ct/w";
 
-    private final Optional<SupplierProductsContainKeywordsPredicate> supplierPredicate;
+    private final Optional<SupplierPredicate> supplierPredicate;
     private final Optional<WarehouseProductsContainKeywordsPredicate> warehousePredicate;
 
     /**
      * Constructs a new FindCommand object.
      */
-    public FindCommand(SupplierProductsContainKeywordsPredicate supplierPredicate) {
+    public FindCommand(SupplierPredicate supplierPredicate) {
         this.supplierPredicate = Optional.of(supplierPredicate);
         this.warehousePredicate = Optional.empty();
     }

@@ -11,12 +11,12 @@ import seedu.clinic.model.product.Product;
  * Tests whether the {@code Name}, {@code Remark} or any of the {@code Product} sold by {@code Supplier} matches any
  * of the keywords given.
  */
-public class SupplierProductsContainKeywordsPredicate implements Predicate<Supplier> {
+public class SupplierPredicate implements Predicate<Supplier> {
     private final Optional<List<String>> nameKeywords;
     private final Optional<List<String>> productKeywords;
     private final Optional<List<String>> remarkKeywords;
 
-    public SupplierProductsContainKeywordsPredicate(List<String> nameKeywords, List<String> productKeywords
+    public SupplierPredicate(List<String> nameKeywords, List<String> productKeywords
             , List<String> remarkKeywords) {
         if (nameKeywords.size() == 0) {
             this.nameKeywords = Optional.empty();
@@ -72,10 +72,10 @@ public class SupplierProductsContainKeywordsPredicate implements Predicate<Suppl
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SupplierProductsContainKeywordsPredicate // instanceof handles nulls
-                && nameKeywords.equals(((SupplierProductsContainKeywordsPredicate) other).nameKeywords)
-                && productKeywords.equals(((SupplierProductsContainKeywordsPredicate) other).productKeywords)
-                && remarkKeywords.equals(((SupplierProductsContainKeywordsPredicate) other).remarkKeywords)); // state check
+                || (other instanceof SupplierPredicate // instanceof handles nulls
+                && nameKeywords.equals(((SupplierPredicate) other).nameKeywords)
+                && productKeywords.equals(((SupplierPredicate) other).productKeywords)
+                && remarkKeywords.equals(((SupplierPredicate) other).remarkKeywords)); // state check
     }
 
 }

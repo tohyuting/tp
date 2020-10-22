@@ -35,7 +35,7 @@ import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Supplier;
-import seedu.clinic.model.supplier.SupplierProductsContainKeywordsPredicate;
+import seedu.clinic.model.supplier.SupplierPredicate;
 import seedu.clinic.testutil.SupplierBuilder;
 // import seedu.clinic.model.supplier.Supplier;
 // import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
@@ -104,7 +104,7 @@ public class ClinicParserTest {
         List<String> keywords = Arrays.asList("supplier", "panadol");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new SupplierProductsContainKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new SupplierPredicate(keywords)), command);
     }
 
     @Test
