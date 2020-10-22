@@ -1,27 +1,19 @@
 package seedu.clinic.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_INDEX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_PREFIX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_NO_ADDRESS;
-import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_PREFIX_NOT_ALLOWED;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_WAREHOUSE_NO_EMAIL;
-import static seedu.clinic.logic.commands.EditCommand.MESSAGE_WAREHOUSE_PREFIX_NOT_ALLOWED;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_INDEX;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_INDEX;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
