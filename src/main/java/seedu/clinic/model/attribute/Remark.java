@@ -8,10 +8,15 @@ import static seedu.clinic.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidRemark(String)}
  */
 public class Remark {
-    public static final String MESSAGE_CONSTRAINTS =
-            "Remarks can take any values, and it should not have more that 100 characters";
+    public static final String MESSAGE_CONSTRAINTS = "Remarks can take any values except for forward slashes"
+            + " (i.e. '/') and it should not have more that 100 characters";
 
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    /*
+     * The first character of the remark must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     * String must not contain forward slashes (i.e. '/').
+     */
+    public static final String VALIDATION_REGEX = "[^\\s][^/]*";
 
     public final String value;
 

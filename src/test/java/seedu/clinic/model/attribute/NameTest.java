@@ -29,10 +29,14 @@ public class NameTest {
         assertFalse(Name.isValidName(" ")); // spaces only
         assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
         assertFalse(Name.isValidName("*peter")); // starts with a non-alphanumeric character
+        assertFalse(Name.isValidName("/")); // no forward slash
+        assertFalse(Name.isValidName("Michael/Mike")); // contains slash within string
+        assertFalse(Name.isValidName("Tze z/Sian")); // contains slash as a non-matching prefix
 
         // valid name
         assertTrue(Name.isValidName("McDonald")); // alphabets only
-        assertTrue(Name.isValidName("M & M \\~`[]{}|;':\",./<>?")); // alphabets with various printable characters
+        assertTrue(Name.isValidName("M & M \\~`[]{}|;':\",.<>?")); // alphabets with various printable
+        // characters except forward slash (i.e. '/')
         assertTrue(Name.isValidName("12345")); // numbers only
         assertTrue(Name.isValidName("Starbucks.ltd")); // alphanumeric characters
         assertTrue(Name.isValidName("123Cat Pte.Ltd")); // with capital letters
