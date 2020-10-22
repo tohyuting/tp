@@ -22,7 +22,7 @@
     "name" : "Carl Kurz Ltd",
     "phone" : "95352563",
     "email" : "heinz@example.com",
-    "remark" : "nearby",
+    "remark" : "cheap",
     "products" : [{
       "name": "Mask",
       "tagged": ["black"]
@@ -55,7 +55,7 @@
     "name" : "Fiona Kunz Ltd",
     "phone" : "9482427",
     "email" : "lydia@example.com",
-    "remark" : "specialises in antibiotics",
+    "remark" : "cheap and fast deliveries",
     "products" : [{
       "name": "Mask",
       "tagged": ["black"]

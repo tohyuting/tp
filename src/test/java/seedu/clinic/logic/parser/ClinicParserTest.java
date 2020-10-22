@@ -20,7 +20,6 @@ import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,11 +35,8 @@ import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.supplier.SupplierPredicate;
+import seedu.clinic.model.warehouse.WarehousePredicate;
 import seedu.clinic.testutil.SupplierBuilder;
-// import seedu.clinic.model.supplier.Supplier;
-// import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
-// import seedu.clinic.testutil.SupplierBuilder;
-// import seedu.clinic.testutil.SupplierUtil;
 
 public class ClinicParserTest {
 
@@ -101,10 +97,24 @@ public class ClinicParserTest {
 
     @Test
     public void parseCommand_findSuppliers() throws Exception {
-        List<String> keywords = Arrays.asList("supplier", "panadol");
+        List<String> nameKeywords = Arrays.asList("alex", "bernice");
+        List<String> productKeywords = Arrays.asList("panadol");
+        List<String> remarkKeywords = Arrays.asList("cheap", "fast");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new SupplierPredicate(keywords)), command);
+                FindCommand.COMMAND_WORD + " ct/s n/alex bernice pd/panadol r/cheap fast");
+        assertEquals(new FindCommand(new SupplierPredicate(nameKeywords, productKeywords, remarkKeywords)), command);
+    }
+
+    @Test
+    public void parseCommand_findWarehouses() throws Exception {
+        List<String> nameKeywords = Arrays.asList("alex", "bernice");
+        List<String> productKeywords = Arrays.asList("panadol");
+        List<String> remarkKeywords = Arrays.asList("biggest");
+        FindCommand command = (FindCommand) parser.parseCommand(
+                FindCommand.COMMAND_WORD + " ct/w n/alex bernice pd/panadol r/biggest");
+        assertEquals(new FindCommand(new WarehousePredicate(nameKeywords, productKeywords, remarkKeywords)), command);
+
+
     }
 
     @Test
