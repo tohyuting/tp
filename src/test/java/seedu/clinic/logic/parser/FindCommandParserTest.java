@@ -62,6 +62,36 @@ public class FindCommandParserTest {
                 FindCommand.MESSAGE_INVALID_TYPE));
     }
 
+    // Only the last prefix provided for type, name, product and remark will be accepted
+    @Test
+    public void parse_validArgsMultiplePrefixes_returnsFindCommandToFindSuppliers() {
+        List<String> nameKeywords = Arrays.asList("alex", "bernice");
+        List<String> productKeywords = Arrays.asList("panadol");
+        List<String> remarkKeywords = Arrays.asList("cheap", "fast");
+
+        // no leading and trailing whitespaces
+        FindCommand expectedFindCommand =
+                new FindCommand(new SupplierPredicate(nameKeywords, productKeywords, remarkKeywords));
+        assertParseSuccess(parser, " ct/s n/roy n/alex bernice pd/face mask and needle pd/panadol" +
+                        " r/test remark r/cheap fast",
+                expectedFindCommand);
+    }
+
+    // Only the last prefix provided for type, name, product and remark will be accepted
+    @Test
+    public void parse_validArgsMultiplePrefixes_returnsFindCommandToFindWarehouses() {
+        List<String> nameKeywords = Arrays.asList("alex", "bernice");
+        List<String> productKeywords = Arrays.asList("panadol");
+        List<String> remarkKeywords = Arrays.asList("biggest");
+
+        // no leading and trailing whitespaces
+        FindCommand expectedFindCommand =
+                new FindCommand(new WarehousePredicate(nameKeywords, productKeywords, remarkKeywords));
+        assertParseSuccess(parser, " ct/w n/roy n/alex bernice pd/face mask and needle pd/panadol" +
+                        " r/smallest r/biggest",
+                expectedFindCommand);
+    }
+
     @Test
     public void parse_validArgs_returnsFindCommandToFindSuppliers() {
         List<String> nameKeywords = Arrays.asList("alex", "bernice");
