@@ -72,8 +72,8 @@ public class FindCommandParserTest {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
                 new FindCommand(new SupplierPredicate(nameKeywords, productKeywords, remarkKeywords));
-        assertParseSuccess(parser, " ct/s n/roy n/alex bernice pd/face mask and needle pd/panadol" +
-                        " r/test remark r/cheap fast",
+        assertParseSuccess(parser, " ct/s n/roy n/alex bernice pd/face mask and needle pd/panadol"
+                        + " r/test remark r/cheap fast",
                 expectedFindCommand);
     }
 
@@ -87,8 +87,8 @@ public class FindCommandParserTest {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
                 new FindCommand(new WarehousePredicate(nameKeywords, productKeywords, remarkKeywords));
-        assertParseSuccess(parser, " ct/w n/roy n/alex bernice pd/face mask and needle pd/panadol" +
-                        " r/smallest r/biggest",
+        assertParseSuccess(parser, " ct/w n/roy n/alex bernice pd/face mask and needle pd/panadol"
+                        + " r/smallest r/biggest",
                 expectedFindCommand);
     }
 

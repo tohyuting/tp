@@ -118,19 +118,19 @@ public class HelpCommandTest {
 
     @Test
     public void execute_findHelp_success() {
-        String findProductsInSupplierOrWarehouse = "Find\nFinds all suppliers or warehouses whose name, remark and/or"
+        String findDescription = "Find\nFinds all suppliers or warehouses whose name, remark and/or"
                 + " products matches the argument keywords provided.";
-        String findProductsInSupplierOrWarehouseCommandFormat = "Command format: \nfind ct/TYPE [n/NAME...]" +
-                " [pd/PRODUCT_NAME...] [r/REMARK...]\n\n"
+        String findCommandFormat = "Command format: \nfind ct/TYPE [n/NAME...]"
+                + " [pd/PRODUCT_NAME...] [r/REMARK...]\n\n"
                 + "TYPE should be one of these values: s / w.\n"
                 + "At least one of the name, product and remark prefix must be provided.\n"
                 + "Keywords specified are case-insensitive.\n";
-        String findProductsInSupplierOrWarehouseSampleCommand = "Sample Command: \n"
+        String findSampleCommand = "Sample Command: \n"
                 + "find ct/s pd/panadol \nfind ct/w pd/face mask r/biggest";
         String findHelpMessage = HELP_MESSAGE_FOR_COMMAND_FORMAT + "\n\n"
-                + findProductsInSupplierOrWarehouse + "\n\n"
-                + findProductsInSupplierOrWarehouseCommandFormat + "\n\n"
-                + findProductsInSupplierOrWarehouseSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
+                + findDescription + "\n\n"
+                + findCommandFormat + "\n\n"
+                + findSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
         CommandResult expectedCommandResult = new CommandResult(findHelpMessage, false, false);
         assertCommandSuccess(new HelpCommand("find"), model,
                 expectedCommandResult, expectedModel);
