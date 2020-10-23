@@ -27,14 +27,12 @@ import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.ReadOnlyClinic;
-import seedu.clinic.model.UserMacros;
+import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.UserPrefs;
-//import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.storage.JsonClinicStorage;
 import seedu.clinic.storage.JsonUserMacrosStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;
 import seedu.clinic.storage.StorageManager;
-//import seedu.clinic.testutil.SupplierBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -110,6 +108,11 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredWarehouseList().remove(0));
     }
 
+    @Test
+    public void getMacroList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getMacroList().remove(0));
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
@@ -146,7 +149,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros());
+        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), model.getUserMacros());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -164,7 +167,7 @@ public class LogicManagerTest {
     }
 
     /**
-     * A stub class to throw an {@code IOException} when the save method is called.
+     * A stub class to throw an {@code IOException} when the save method is called for Clinic data.
      */
     private static class JsonClinicIoExceptionThrowingStub extends JsonClinicStorage {
         private JsonClinicIoExceptionThrowingStub(Path filePath) {
@@ -173,6 +176,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveClinic(ReadOnlyClinic clinic, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called for User Macro data.
+     */
+    private static class JsonUserMacrosIoExceptionThrowingStub extends JsonUserMacrosStorage {
+        private JsonUserMacrosIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveUserMacros(ReadOnlyUserMacros userMacros, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

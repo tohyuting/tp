@@ -7,7 +7,7 @@ import static seedu.clinic.model.macro.Macro.PREDEFINED_COMMANDS;
 import java.util.Arrays;
 
 /**
- * Represents a alias for a macro.
+ * Represents an alias for a macro.
  * Guarantees: immutable; is valid as declared in {@link #isValidAlias(String)}
  */
 public class Alias {

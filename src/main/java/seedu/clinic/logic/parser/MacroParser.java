@@ -13,7 +13,7 @@ public class MacroParser {
      *
      * @param model the model which contains the user macros
      * @param userInput full user input string
-     * @return the command string saved by the macro, or the original input string no macro is used
+     * @return the command string saved by the macro, or the original input string if no macro is used
      */
     public String parseMacro(Model model, String userInput) {
         String[] inputWords = userInput.trim().split(" ");

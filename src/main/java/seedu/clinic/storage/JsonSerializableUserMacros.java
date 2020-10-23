@@ -26,7 +26,6 @@ class JsonSerializableUserMacros {
     /**
      * Constructs a {@code JsonSerializableUserMacros} with the given macros.
      */
-
     @JsonCreator
     public JsonSerializableUserMacros(@JsonProperty("macros") List<JsonAdaptedMacro> macros) {
         this.macros.addAll(macros);

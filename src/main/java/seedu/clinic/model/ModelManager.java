@@ -116,7 +116,6 @@ public class ModelManager implements Model {
         return userMacros.hasMacro(macro);
     }
 
-
     @Override
     public boolean hasMacro(String aliasString) {
         requireNonNull(aliasString);
@@ -277,6 +276,5 @@ public class ModelManager implements Model {
                 && filteredWarehouses.equals(other.filteredWarehouses)
                 && macroList.equals((other.macroList));
     }
-
 
 }

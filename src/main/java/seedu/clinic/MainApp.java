@@ -95,7 +95,8 @@ public class MainApp extends Application {
             logger.warning("Clinic data file not in the correct format. Will be starting with an empty Clinic");
             initialClinicData = new Clinic();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the Clinic data file. Will be starting with an empty Clinic");
+            logger.warning("Problem encountered while reading from the Clinic data file. Will be starting "
+                    + "with an empty Clinic");
             initialClinicData = new Clinic();
         }
 
@@ -112,7 +113,7 @@ public class MainApp extends Application {
                     + "User Macros model");
             initialUserMacrosData = new UserMacros();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the User Macros file. Will be starting with an "
+            logger.warning("Problem encountered while reading from the User Macros file. Will be starting with an "
                     + "empty User Macros model");
             initialUserMacrosData = new UserMacros();
         }
@@ -178,7 +179,8 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Clinic");
+            logger.warning("Problem  encountered while reading from the file. Will be starting with "
+                    + "default user prefs");
             initializedPrefs = new UserPrefs();
         }
 
