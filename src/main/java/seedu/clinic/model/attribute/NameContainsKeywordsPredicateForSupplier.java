@@ -18,8 +18,16 @@ public class NameContainsKeywordsPredicateForSupplier implements Predicate<Suppl
 
     @Override
     public boolean test(Supplier supplier) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(supplier.getName().fullName, keyword));
+        boolean testValue;
+        try {
+            testValue = keywords.stream()
+                    .anyMatch(keyword ->
+                            StringUtil.containsWordIgnoreCase(supplier.getName().fullName, keyword));
+        } catch (IllegalArgumentException ex) {
+            testValue = keywords.stream()
+                    .anyMatch(keyword -> supplier.getName().fullName.equals(keyword));
+        }
+        return testValue;
     }
 
     @Override

@@ -17,14 +17,18 @@ public class NameContainsKeywordsPredicateForWarehouseTest {
     public void equals() {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
+        List<String> firstPredicateKeywordListWithSpaces = Collections.singletonList("first keywords");
 
         NameContainsKeywordsPredicateForWarehouse firstPredicate =
                 new NameContainsKeywordsPredicateForWarehouse(firstPredicateKeywordList);
         NameContainsKeywordsPredicateForWarehouse secondPredicate =
                 new NameContainsKeywordsPredicateForWarehouse(secondPredicateKeywordList);
+        NameContainsKeywordsPredicateForWarehouse firstPredicateWithSpaces =
+                new NameContainsKeywordsPredicateForWarehouse(firstPredicateKeywordListWithSpaces);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
+        assertTrue(firstPredicateKeywordListWithSpaces.equals(firstPredicateKeywordListWithSpaces));
 
         // same values -> returns true
         NameContainsKeywordsPredicateForWarehouse firstPredicateCopy =
@@ -63,6 +67,10 @@ public class NameContainsKeywordsPredicateForWarehouseTest {
         // Non-alphanumeric keywords included
         predicate = new NameContainsKeywordsPredicateForWarehouse(Arrays.asList("Pte.Ltd", "&"));
         assertTrue(predicate.test(new WarehouseBuilder().withName("M & M Pte.Ltd").build()));
+
+        // Keywords with spaces
+        predicate = new NameContainsKeywordsPredicateForWarehouse(Arrays.asList("Alice Tan Warehouse"));
+        assertTrue(predicate.test(new WarehouseBuilder().withName("Alice Tan Warehouse").build()));
     }
 
     @Test

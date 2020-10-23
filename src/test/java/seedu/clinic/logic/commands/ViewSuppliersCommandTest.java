@@ -2,7 +2,11 @@ package seedu.clinic.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import seedu.clinic.commons.core.index.Index;
+import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
+import seedu.clinic.logic.parser.Type;
+import seedu.clinic.model.supplier.Supplier;
 import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
 
 import java.util.ArrayList;
@@ -21,26 +25,24 @@ import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
  * Contains integration tests (interaction with the Model) for {@code ViewCommand}.
  */
 public class ViewSuppliersCommandTest {
-    private final String type = "supplier";
+    private final Type type = Type.SUPPLIER;
+    private final Index index1 = Index.fromOneBased(1);
+    private final Index index2 = Index.fromOneBased(20);
 
     private Model model = new ModelManager(getTypicalClinic(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs());
 
     @Test
     public void equals() {
-        List<String> firstName = new ArrayList<>();
-        firstName.add("first supplier");
-        List<String> secondName = new ArrayList<>();
-        secondName.add("second supplier");
 
-        ViewCommand viewFirstCommand = new ViewCommand(type, firstName);
-        ViewCommand viewSecondCommand = new ViewCommand(type, secondName);
+        ViewCommand viewFirstCommand = new ViewCommand(type, index1);
+        ViewCommand viewSecondCommand = new ViewCommand(type, index2);
 
         // same object -> returns true
         assertTrue(viewFirstCommand.equals(viewFirstCommand));
 
         // same values -> returns true
-        ViewCommand viewFirstCommandCopy = new ViewCommand(type, firstName);
+        ViewCommand viewFirstCommandCopy = new ViewCommand(type, index1);
         assertTrue(viewFirstCommand.equals(viewFirstCommandCopy));
 
         // different types -> returns false
@@ -54,28 +56,25 @@ public class ViewSuppliersCommandTest {
     }
 
     @Test
-    public void execute_oneWordInName_success() {
-        String supplierName = "Fiona";
-        String expectedMessage = String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW, 1);
-        ViewCommand viewFirstCommand = new ViewCommand(type, Arrays.asList(supplierName));
+    public void execute_viewFirstSupplier_success() {
+        List<Supplier> supplierList = model.getFilteredSupplierList();
+        Supplier supplierToView = supplierList.get(index1.getZeroBased());
+        ViewCommand viewFirstCommand = new ViewCommand(type, index1);
         NameContainsKeywordsPredicateForSupplier supplierPredicate =
-                new NameContainsKeywordsPredicateForSupplier(Arrays.asList(supplierName));
+                new NameContainsKeywordsPredicateForSupplier(
+                        Arrays.asList(supplierToView.getName().toString()));
         model.updateFilteredSupplierList(supplierPredicate);
         expectedModel.updateFilteredSupplierList(supplierPredicate);
+        String expectedMessage = String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,
+                expectedModel.getFilteredSupplierList().size());
         assertCommandSuccess(viewFirstCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_multipleWordInName_success() {
-        String supplierName = "Fiona DANIEL";
-        String[] supplierNames = supplierName.trim().split("\\s+");
-        String expectedMessage = String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW, 2);
-        ViewCommand viewFirstCommand = new ViewCommand(type, Arrays.asList(supplierNames));
-        NameContainsKeywordsPredicateForSupplier supplierPredicate =
-                new NameContainsKeywordsPredicateForSupplier(Arrays.asList(supplierNames));
-        model.updateFilteredSupplierList(supplierPredicate);
-        expectedModel.updateFilteredSupplierList(supplierPredicate);
-        assertCommandSuccess(viewFirstCommand, model, expectedMessage, expectedModel);
+    public void execute_viewOutOfRange_failure() {
+        ViewCommand viewFirstCommand = new ViewCommand(type, index2);
+        String expectedMessage = Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX;
+        assertCommandFailure(viewFirstCommand, model, expectedMessage);
     }
 
 }

@@ -18,8 +18,16 @@ public class NameContainsKeywordsPredicateForWarehouse implements Predicate<Ware
 
     @Override
     public boolean test(Warehouse warehouse) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(warehouse.getName().fullName, keyword));
+        boolean testValue;
+        try {
+            testValue = keywords.stream()
+                    .anyMatch(keyword ->
+                            StringUtil.containsWordIgnoreCase(warehouse.getName().fullName, keyword));
+        } catch (IllegalArgumentException ex) {
+            testValue = keywords.stream()
+                    .anyMatch(keyword -> warehouse.getName().fullName.equals(keyword));
+        }
+        return testValue;
     }
 
     @Override
