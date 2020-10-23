@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.clinic.commons.core.GuiSettings;
+import seedu.clinic.model.macro.Alias;
 import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
@@ -67,15 +68,16 @@ public interface Model {
     boolean hasMacro(Macro macro);
 
     /**
-     * Returns true if a macro with the alias {@code aliasString} exists in the UserMacros model.
-     */
-    boolean hasMacro(String aliasString);
-
-    /**
      * Returns the macro corresponding to the alias string in an optional wrapper if it exists,
      * and an empty optional otherwise
      */
     Optional<Macro> getMacro(String aliasString);
+
+    /**
+     * Returns the macro corresponding to the alias in an optional wrapper if it exists,
+     * and an empty optional otherwise
+     */
+    Optional<Macro> getMacro(Alias alias);
 
     /**
      * Deletes the given macro.

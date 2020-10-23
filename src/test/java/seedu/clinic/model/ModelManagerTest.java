@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
-import seedu.clinic.model.macro.Macro;
 import seedu.clinic.testutil.ClinicBuilder;
 import seedu.clinic.testutil.UserMacrosBuilder;
 
@@ -106,8 +105,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasMacro_nullMacro_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasMacro((Macro) null));
-        assertThrows(NullPointerException.class, () -> modelManager.hasMacro((String) null));
+        assertThrows(NullPointerException.class, () -> modelManager.hasMacro(null));
     }
 
     @Test
@@ -123,7 +121,6 @@ public class ModelManagerTest {
     @Test
     public void hasMacro_macroNotInUserMacros_returnsFalse() {
         assertFalse(modelManager.hasMacro(MACRO_AS));
-        assertFalse(modelManager.hasMacro(MACRO_AS.toString()));
     }
 
     @Test
@@ -142,17 +139,18 @@ public class ModelManagerTest {
     public void hasMacro_macroInUserMacros_returnsTrue() {
         modelManager.addMacro(MACRO_AS);
         assertTrue(modelManager.hasMacro(MACRO_AS));
-        assertTrue(modelManager.hasMacro(MACRO_AS.getAlias().aliasString));
     }
 
     @Test
     public void getMacro_macroInUserMacros_returnMacroInOptional() {
         modelManager.addMacro(MACRO_AS);
+        assertEquals(modelManager.getMacro(MACRO_AS.getAlias()).orElseThrow(), MACRO_AS);
         assertEquals(modelManager.getMacro(MACRO_AS.getAlias().aliasString).orElseThrow(), MACRO_AS);
     }
 
     @Test
     public void getMacro_macroNotInUserMacros_returnEmptyOptional() {
+        assertTrue(modelManager.getMacro(MACRO_AS.getAlias()).isEmpty());
         assertTrue(modelManager.getMacro(MACRO_AS.getAlias().aliasString).isEmpty());
     }
 

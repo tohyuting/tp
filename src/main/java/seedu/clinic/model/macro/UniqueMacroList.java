@@ -59,6 +59,15 @@ public class UniqueMacroList implements Iterable<Macro> {
             return Optional.empty();
         }
 
+        return getMacro(alias);
+    }
+
+    /**
+     * Returns the macro corresponding to the alias in an optional wrapper if it exists,
+     * and an empty optional otherwise.
+     */
+    public Optional<Macro> getMacro(Alias alias) {
+        requireNonNull(alias);
         return internalList.stream().filter((Macro macro)->macro.getAlias().equals(alias)).findFirst();
     }
 

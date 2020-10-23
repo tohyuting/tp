@@ -77,6 +77,15 @@ public class UserMacros implements ReadOnlyUserMacros {
     }
 
     /**
+     * Returns the macro corresponding to the alias in an optional wrapper if it exists,
+     * and an empty optional otherwise
+     */
+    public Optional<Macro> getMacro(Alias alias) {
+        requireNonNull(alias);
+        return macros.getMacro(alias);
+    }
+
+    /**
      * Adds a macro to the CLI-nic app.
      * The macro must not already exist in userMacros.
      */

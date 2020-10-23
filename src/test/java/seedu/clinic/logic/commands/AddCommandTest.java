@@ -21,6 +21,7 @@ import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.ReadOnlyUserPrefs;
+import seedu.clinic.model.macro.Alias;
 import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
@@ -168,12 +169,11 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasMacro(String aliasString) {
+        public Optional<Macro> getMacro(String aliasString) {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public Optional<Macro> getMacro(String aliasString) {
+        @Override public Optional<Macro> getMacro(Alias alias) {
             throw new AssertionError("This method should not be called.");
         }
 

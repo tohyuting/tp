@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.commands.AddProductCommand;
+import seedu.clinic.logic.commands.AssignMacroCommand;
 import seedu.clinic.logic.commands.ClearCommand;
 import seedu.clinic.logic.commands.Command;
 import seedu.clinic.logic.commands.DeleteCommand;
@@ -16,6 +17,7 @@ import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.RemoveMacroCommand;
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.ViewCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
@@ -79,6 +81,12 @@ public class ClinicParser {
 
         case ViewCommand.COMMAND_WORD:
             return new ViewCommandParser().parse(arguments);
+
+        case AssignMacroCommand.COMMAND_WORD:
+            return new AssignMacroCommandParser().parse(arguments);
+
+        case RemoveMacroCommand.COMMAND_WORD:
+            return new RemoveMacroCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

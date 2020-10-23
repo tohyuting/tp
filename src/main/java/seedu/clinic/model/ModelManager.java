@@ -117,23 +117,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasMacro(String aliasString) {
-        requireNonNull(aliasString);
-        Alias alias;
-
-        try {
-            alias = new Alias(aliasString);
-        } catch (IllegalArgumentException e) { // Invalid Alias
-            return false;
-        }
-
-        return userMacros.hasMacro(alias);
-    }
-
-    @Override
     public Optional<Macro> getMacro(String aliasString) {
         requireNonNull(aliasString);
         return userMacros.getMacro(aliasString);
+    }
+
+    @Override public Optional<Macro> getMacro(Alias alias) {
+        requireNonNull(alias);
+        return userMacros.getMacro(alias);
     }
 
     @Override

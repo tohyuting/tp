@@ -87,7 +87,7 @@ public class Macro {
     @Override
     public String toString() {
         return getAlias()
-                + " Saved Command String: "
+                + "\nSaved Command String: "
                 + getSavedCommandString();
     }
 
