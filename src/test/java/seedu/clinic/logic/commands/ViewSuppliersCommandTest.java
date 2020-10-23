@@ -2,24 +2,23 @@ package seedu.clinic.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import seedu.clinic.commons.core.index.Index;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
-import seedu.clinic.logic.parser.Type;
-import seedu.clinic.model.supplier.Supplier;
 import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.clinic.commons.core.Messages;
+import seedu.clinic.commons.core.index.Index;
+import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
+import seedu.clinic.model.supplier.Supplier;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code ViewCommand}.

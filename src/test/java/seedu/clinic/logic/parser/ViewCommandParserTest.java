@@ -1,6 +1,5 @@
 package seedu.clinic.logic.parser;
 
-import seedu.clinic.commons.core.index.Index;
 import static seedu.clinic.logic.commands.ViewCommand.MESSAGE_INVALID_TYPE_VIEW;
 import static seedu.clinic.logic.commands.ViewCommand.MESSAGE_MISSING_INDEX;
 import static seedu.clinic.logic.commands.ViewCommand.MESSAGE_MISSING_TYPE;
@@ -12,6 +11,7 @@ import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess
 
 import org.junit.jupiter.api.Test;
 
+import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.ViewCommand;
 
 public class ViewCommandParserTest {

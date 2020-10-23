@@ -1,17 +1,15 @@
 package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.exceptions.CommandException;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
@@ -34,8 +32,8 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_MISSING_INDEX = "Index has to be present!\n%1$s";
     public static final String MESSAGE_MISSING_TYPE = "A type, supplier (ct/s) or warehouse (ct/s)"
             + " has to be present!\n%1$s";
-    public static final String MESSAGE_NO_PREFIX = "Please specify type and index using " +
-            "ct/ and i/ prefixes \n%1$s";
+    public static final String MESSAGE_NO_PREFIX = "Please specify type and index using "
+            + "ct/ and i/ prefixes \n%1$s";
     public static final String MESSAGE_INVALID_TYPE_VIEW = "Please specity a correct type,"
             + " either ct/s or ct/w\n%1$s";
 
