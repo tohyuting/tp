@@ -16,37 +16,37 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 activate LogicManager
-LogicManager --> ViewCommand : execute(model)
+LogicManager -> ViewCommand : execute(model)
 activate ViewCommand
-ViewCommand --> Model : getFilteredSupplierList()
+ViewCommand -> Model : getFilteredSupplierList()
 activate Model
 
 Model --> ViewCommand : supplierList
 deactivate
 
-ViewCommand --> Model : getFilteredWarehouseList()
+ViewCommand -> Model : getFilteredWarehouseList()
 activate Model
 Model --> ViewCommand : warehouseList
 deactivate
 
 alt SUPPLIER
-ViewCommand --> SupplierList : get(index)
+ViewCommand -> SupplierList : get(index)
 activate SupplierList
 SupplierList --> ViewCommand : supplierToView
 deactivate SupplierList
 
 create SupplierPredicate
-ViewCommand --> SupplierPredicate : supplierToView.getName().toString()
+ViewCommand -> SupplierPredicate : supplierToView.getName().toString()
 activate SupplierPredicate
 SupplierPredicate --> ViewCommand
 deactivate SupplierPredicate
 
-ViewCommand --> Model : updateFilteredSupplierList(supplierPredicate)
+ViewCommand -> Model : updateFilteredSupplierList(supplierPredicate)
 activate Model
 deactivate Model
 
 create CommandResult
-ViewCommand --> CommandResult : supplierPredicate
+ViewCommand -> CommandResult : supplierPredicate
 activate CommandResult
 CommandResult --> ViewCommand
 deactivate CommandResult
@@ -54,23 +54,23 @@ ViewCommand --> LogicManager : result
 [<--LogicManager : result
 
 else WAREHOUSE
-ViewCommand --> WarehouseList : get(index)
+ViewCommand -> WarehouseList : get(index)
 activate WarehouseList
 WarehouseList --> ViewCommand : warehouseToView
 deactivate WarehouseList
 
 create WarehousePredicate
-ViewCommand --> WarehousePredicate : warehouseToView.getName().toString()
+ViewCommand -> WarehousePredicate : warehouseToView.getName().toString()
 activate WarehousePredicate
 WarehousePredicate --> ViewCommand
 deactivate WarehousePredicate
 
-ViewCommand --> Model : updateFilteredWarehouseList(warehousePredicate)
+ViewCommand -> Model : updateFilteredWarehouseList(warehousePredicate)
 activate Model
 deactivate Model
 
 create CommandResult
-ViewCommand --> CommandResult : warehousePredicate
+ViewCommand -> CommandResult : warehousePredicate
 activate CommandResult
 CommandResult --> ViewCommand
 deactivate CommandResult

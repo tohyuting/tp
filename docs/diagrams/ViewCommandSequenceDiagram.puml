@@ -31,43 +31,44 @@ ClinicParser -> ViewCommandParser : parse("ct/s i/1)
 activate ViewCommandParser
 
 create ArgumentTokenizer
-ViewCommandParser --> ArgumentTokenizer
+ViewCommandParser -> ArgumentTokenizer
 activate ArgumentTokenizer
 ArgumentTokenizer --> ViewCommandParser
 deactivate
 
 
-ViewCommandParser --> ArgumentTokenizer : tokenize(args, PREFIX_TYPE, PREFIX_INDEX)
+ViewCommandParser -> ArgumentTokenizer : tokenize(args, PREFIX_TYPE, PREFIX_INDEX)
 activate ArgumentTokenizer
 create ArgumentMultimap
-ArgumentTokenizer --> ArgumentMultimap
+ArgumentTokenizer -> ArgumentMultimap
 activate ArgumentMultimap
 ArgumentMultimap --> ArgumentTokenizer
 deactivate
 ArgumentTokenizer --> ViewCommandParser : argMultimap
 deactivate ArgumentTokenizer
 
-ViewCommandParser --> ArgumentMultimap : getValue(PREFIX_TYPE), getValue(PREFIX_INDEX)
+ViewCommandParser -> ArgumentMultimap : getValue(PREFIX_TYPE), getValue(PREFIX_INDEX)
 activate ArgumentMultimap
 ArgumentMultimap --> ViewCommandParser : type, index
 deactivate ArgumentMultimap
 
 create ParserUtil
-ViewCommandParser --> ParserUtil : parseType(type), parseIndex(index)
+ViewCommandParser -> ParserUtil : parseType(type), parseIndex(index)
 activate ParserUtil
 ParserUtil --> ViewCommandParser
 deactivate ParserUtil
 
 create ViewCommand
-ViewCommandParser --> ViewCommand : ViewCommand(type, index)
+ViewCommandParser -> ViewCommand : ViewCommand(type, index)
 activate ViewCommand
 ViewCommand --> ViewCommandParser
 deactivate ViewCommand
 
 ViewCommandParser --> ClinicParser : v
+destroy ViewCommandParser
 ClinicParser --> LogicManager : v
 
-LogicManager --> ViewCommand : execute(model);
+LogicManager -> ViewCommand : execute(model);
 activate ViewCommand
 
 ref over ViewCommand, CommandResult, Model, LogicManager
@@ -76,7 +77,7 @@ end ref
 
 ViewCommand --> LogicManager : result
 deactivate ViewCommand
-[<--LogicManager
+[<--LogicManager : result
 deactivate LogicManager
 
 

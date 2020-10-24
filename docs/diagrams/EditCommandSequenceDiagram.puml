@@ -5,8 +5,11 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ClinicParser" as ClinicParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
-participant ":EditSupplierDescriptor" as EditSupplierDescriptor LOGIC_COLOR
-participant ":EditWarehouseDescriptor" as EditWarehouseDescriptor LOGIC_COLOR
+participant "editDescriptor:EditSupplierDescriptor" as EditSupplierDescriptor LOGIC_COLOR
+participant "editDescriptor:EditWarehouseDescriptor" as EditWarehouseDescriptor LOGIC_COLOR
+participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant "argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 participant "e:EditCommand" as EditCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -28,28 +31,43 @@ activate EditCommandParser
 EditCommandParser --> ClinicParser
 deactivate EditCommandParser
 
-ClinicParser --> EditCommandParser : parse("ct/s i/1 n/Claire")
+ClinicParser -> EditCommandParser : parse("ct/s i/1 n/Claire")
 activate EditCommandParser
 
-alt SUPPLIER
+create ArgumentTokenizer
+EditCommandParser -> ArgumentTokenizer
+activate ArgumentTokenizer
+ArgumentTokenizer --> EditCommandParser
+deactivate
 
-create EditSupplierDescriptor
-EditCommandParser --> EditSupplierDescriptor
-activate EditSupplierDescriptor
-EditSupplierDescriptor --> EditCommandParser
-deactivate EditSupplierDescriptor
 
-else WAREHOUSE
-create EditWarehouseDescriptor
-EditCommandParser --> EditWarehouseDescriptor
-activate EditWarehouseDescriptor
-EditWarehouseDescriptor --> EditCommandParser
-deactivate EditWarehouseDescriptor
+EditCommandParser -> ArgumentTokenizer : tokenize(args, PREFIX_TYPE, PREFIX_INDEX, PREFIX_NAME,PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK)
+activate ArgumentTokenizer
+create ArgumentMultimap
+ArgumentTokenizer --> ArgumentMultimap
+activate ArgumentMultimap
+ArgumentMultimap --> ArgumentTokenizer
+deactivate
+ArgumentTokenizer --> EditCommandParser : argMultimap
+deactivate ArgumentTokenizer
 
+EditCommandParser -> ArgumentMultimap : getValue(PREFIX_TYPE), getValue(PREFIX_INDEX)
+activate ArgumentMultimap
+ArgumentMultimap --> EditCommandParser : type, index
+deactivate ArgumentMultimap
+
+create ParserUtil
+EditCommandParser -> ParserUtil : parseType(type), parseIndex(index)
+activate ParserUtil
+ParserUtil --> EditCommandParser
+deactivate ParserUtil
+
+ref over EditCommandParser, EditSupplierDescriptor, EditWarehouseDescriptor
+Creation of appropriate EditDesciptor for EditCommand
 end
 
 create EditCommand
-EditCommandParser --> EditCommand
+EditCommandParser -> EditCommand : EditCommand(index, descriptor)
 activate EditCommand
 EditCommand --> EditCommandParser : e
 deactivate EditCommand
@@ -58,48 +76,16 @@ EditCommandParser --> ClinicParser : e
 destroy EditCommandParser
 
 ClinicParser --> LogicManager : e
-LogicManager --> EditCommand : execute()
 
+LogicManager -> EditCommand : execute()
 activate EditCommand
-EditCommand --> Model : getFilteredSupplierList()
-activate Model
-Model --> EditCommand  : sl
-deactivate Model
-
-EditCommand --> Model : getFilteredWarehouseList()
-activate Model
-Model --> EditCommand  : wl
-deactivate Model
-
-alt SUPPLIER
-EditCommand --> Model : setSupplier()
-activate Model
-Model --> EditCommand
-deactivate Model
-EditCommand --> Model : updateFilteredSupplierList()
-activate Model
-Model --> EditCommand
-deactivate Model
-
-else WAREHOUSE
-EditCommand --> Model : setWarehouse()
-activate Model
-Model --> EditCommand
-deactivate Model
-EditCommand --> Model : updateFilteredWarehouseList()
-activate Model
-Model --> EditCommand
-deactivate Model
+ref over LogicManager, Model
+Execution of EditCommand
 end
-
-create CommandResult
-EditCommand --> CommandResult
-activate CommandResult
-CommandResult --> EditCommand
-deactivate CommandResult
-
 EditCommand --> LogicManager : result
-[<--LogicManager
+deactivate EditCommand
+
+[<--LogicManager : result
 deactivate LogicManager
 
 @enduml
