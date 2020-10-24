@@ -1,0 +1,104 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ClinicParser" as ClinicParser LOGIC_COLOR
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant ":EditSupplierDescriptor" as EditSupplierDescriptor LOGIC_COLOR
+participant ":EditWarehouseDescriptor" as EditWarehouseDescriptor LOGIC_COLOR
+participant "e:EditCommand" as EditCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute("edit ct/s i/1 n/Claire")
+activate LogicManager
+
+LogicManager -> ClinicParser : parseCommand("edit ct/s i/1 n/Claire")
+activate ClinicParser
+
+create EditCommandParser
+ClinicParser -> EditCommandParser
+activate EditCommandParser
+
+EditCommandParser --> ClinicParser
+deactivate EditCommandParser
+
+ClinicParser --> EditCommandParser : parse("ct/s i/1 n/Claire")
+activate EditCommandParser
+
+alt SUPPLIER
+
+create EditSupplierDescriptor
+EditCommandParser --> EditSupplierDescriptor
+activate EditSupplierDescriptor
+EditSupplierDescriptor --> EditCommandParser
+deactivate EditSupplierDescriptor
+
+else WAREHOUSE
+create EditWarehouseDescriptor
+EditCommandParser --> EditWarehouseDescriptor
+activate EditWarehouseDescriptor
+EditWarehouseDescriptor --> EditCommandParser
+deactivate EditWarehouseDescriptor
+
+end
+
+create EditCommand
+EditCommandParser --> EditCommand
+activate EditCommand
+EditCommand --> EditCommandParser : e
+deactivate EditCommand
+EditCommandParser --> ClinicParser : e
+
+destroy EditCommandParser
+
+ClinicParser --> LogicManager : e
+LogicManager --> EditCommand : execute()
+
+activate EditCommand
+EditCommand --> Model : getFilteredSupplierList()
+activate Model
+Model --> EditCommand  : sl
+deactivate Model
+
+EditCommand --> Model : getFilteredWarehouseList()
+activate Model
+Model --> EditCommand  : wl
+deactivate Model
+
+alt SUPPLIER
+EditCommand --> Model : setSupplier()
+activate Model
+Model --> EditCommand
+deactivate Model
+EditCommand --> Model : updateFilteredSupplierList()
+activate Model
+Model --> EditCommand
+deactivate Model
+
+else WAREHOUSE
+EditCommand --> Model : setWarehouse()
+activate Model
+Model --> EditCommand
+deactivate Model
+EditCommand --> Model : updateFilteredWarehouseList()
+activate Model
+Model --> EditCommand
+deactivate Model
+end
+
+create CommandResult
+EditCommand --> CommandResult
+activate CommandResult
+CommandResult --> EditCommand
+deactivate CommandResult
+
+EditCommand --> LogicManager : result
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
