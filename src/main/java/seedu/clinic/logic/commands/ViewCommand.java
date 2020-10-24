@@ -1,7 +1,6 @@
 package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import seedu.clinic.commons.core.LogsCenter;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 
@@ -10,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.exceptions.CommandException;
@@ -65,7 +65,7 @@ public class ViewCommand extends Command {
         List<Warehouse> warehouseList = model.getFilteredWarehouseList();
 
         if (type.equals(Type.SUPPLIER)) {
-            logger.log(Level.INFO, "View Command wants to view a supplier");
+            logger.log(Level.INFO, "View Command wants to view a supplier.");
             if (index.getZeroBased() >= supplierList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
             }
@@ -88,7 +88,7 @@ public class ViewCommand extends Command {
         } else {
             assert type.equals(Type.WAREHOUSE) : "The command type should be warehouse here!";
 
-            logger.log(Level.INFO, "View Command wants to view a warehouse");
+            logger.log(Level.INFO, "View Command wants to view a warehouse.");
 
             if (index.getZeroBased() >= warehouseList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);

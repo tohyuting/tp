@@ -9,12 +9,12 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_PREFIX;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.ViewCommand;
-import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_PREFIX;
 
 public class ViewCommandParserTest {
 
@@ -55,7 +55,7 @@ public class ViewCommandParserTest {
 
     @Test
     public void parse_correctTypeCorrectIndexExtraArguments_throwParseException() {
-        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1" +  " testing",
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1" + " testing",
                 String.format(MESSAGE_INVALID_USAGE, ViewCommand.MESSAGE_USAGE));
 
         assertParseFailure(parser, " " + PREFIX_TYPE + "w" + " testing " + PREFIX_INDEX + "1",
