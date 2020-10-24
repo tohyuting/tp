@@ -1,11 +1,14 @@
 package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import seedu.clinic.commons.core.LogsCenter;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.commons.core.index.Index;
@@ -36,9 +39,12 @@ public class ViewCommand extends Command {
             + "ct/ and i/ prefixes \n%1$s";
     public static final String MESSAGE_INVALID_TYPE_VIEW = "Please specity a correct type,"
             + " either ct/s or ct/w\n%1$s";
+    public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
+            + "ensure that you only include prefixes specified in the User Guide.\n%1$s";
 
     private final Type type;
     private final Index index;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Creates a new ViewCommand object.
@@ -58,31 +64,46 @@ public class ViewCommand extends Command {
         List<Supplier> supplierList = model.getFilteredSupplierList();
         List<Warehouse> warehouseList = model.getFilteredWarehouseList();
 
-
-
         if (type.equals(Type.SUPPLIER)) {
+            logger.log(Level.INFO, "View Command wants to view a supplier");
             if (index.getZeroBased() >= supplierList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
             }
+
             Supplier supplierToView = supplierList.get(index.getZeroBased());
+
+            logger.log(Level.INFO, "Retrieved supplier to be viewed from supplier list.");
+
             NameContainsKeywordsPredicateForSupplier supplierPredicate =
                     new NameContainsKeywordsPredicateForSupplier(
                             Arrays.asList(supplierToView.getName().toString()));
+
             model.updateFilteredSupplierList(supplierPredicate);
+
+            logger.log(Level.INFO, "Updated model to show supplier to be viewed.");
+
             commandResult = new CommandResult(
                     String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,
                             model.getFilteredSupplierList().size()));
         } else {
             assert type.equals(Type.WAREHOUSE) : "The command type should be warehouse here!";
+
+            logger.log(Level.INFO, "View Command wants to view a warehouse");
+
             if (index.getZeroBased() >= warehouseList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);
             }
             Warehouse warehouseToView = warehouseList.get(index.getZeroBased());
 
+            logger.log(Level.INFO, "Retrieved warehouse to be viewed from warehouse list.");
+
             NameContainsKeywordsPredicateForWarehouse warehousePredicate =
                     new NameContainsKeywordsPredicateForWarehouse(
                             Arrays.asList(warehouseToView.getName().toString()));
+
             model.updateFilteredWarehouseList(warehousePredicate);
+            logger.log(Level.INFO, "Updated model to show warehouse to be viewed.");
+
             commandResult = new CommandResult(
                     String.format(Messages.MESSAGE_WAREHOUSE_LISTED_OVERVIEW,
                             model.getFilteredWarehouseList().size()));
