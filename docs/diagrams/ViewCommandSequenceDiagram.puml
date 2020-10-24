@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ClinicParser" as ClinicParser LOGIC_COLOR
+participant ":ViewCommandParser" as ViewCommandParser LOGIC_COLOR
+participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant "argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "v:ViewCommand" as ViewCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("view ct/s i/1")
+activate LogicManager
+LogicManager -> ClinicParser : parseCommand("view ct/s i/1")
+activate ClinicParser
+
+create ViewCommandParser
+ClinicParser -> ViewCommandParser
+activate ViewCommandParser
+ViewCommandParser --> ClinicParser
+deactivate ViewCommandParser
+
+ClinicParser -> ViewCommandParser : parse("ct/s i/1)
+activate ViewCommandParser
+
+create ArgumentTokenizer
+ViewCommandParser --> ArgumentTokenizer
+activate ArgumentTokenizer
+ArgumentTokenizer --> ViewCommandParser
+deactivate
+
+
+ViewCommandParser --> ArgumentTokenizer : tokenize(args, PREFIX_TYPE, PREFIX_INDEX)
+activate ArgumentTokenizer
+create ArgumentMultimap
+ArgumentTokenizer --> ArgumentMultimap
+activate ArgumentMultimap
+ArgumentMultimap --> ArgumentTokenizer
+deactivate
+ArgumentTokenizer --> ViewCommandParser : argMultimap
+deactivate ArgumentTokenizer
+
+ViewCommandParser --> ArgumentMultimap : getValue(PREFIX_TYPE), getValue(PREFIX_INDEX)
+activate ArgumentMultimap
+ArgumentMultimap --> ViewCommandParser : type, index
+deactivate ArgumentMultimap
+
+create ParserUtil
+ViewCommandParser --> ParserUtil : parseType(type), parseIndex(index)
+activate ParserUtil
+ParserUtil --> ViewCommandParser
+deactivate ParserUtil
+
+create ViewCommand
+ViewCommandParser --> ViewCommand : ViewCommand(type, index)
+activate ViewCommand
+ViewCommand --> ViewCommandParser
+deactivate ViewCommand
+
+ViewCommandParser --> ClinicParser : v
+ClinicParser --> LogicManager : v
+
+LogicManager --> ViewCommand : execute(model);
+activate ViewCommand
+
+ref over ViewCommand, CommandResult, Model, LogicManager
+    executing ViewCommand
+end ref
+
+ViewCommand --> LogicManager : result
+deactivate ViewCommand
+[<--LogicManager
+deactivate LogicManager
+
+
+
+
+
+
+
+
+@enduml
