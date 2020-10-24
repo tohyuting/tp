@@ -42,6 +42,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+        assert type != null : "type cannot be null";
 
         if (!type.equals(SUPPLIER) && !type.equals(WAREHOUSE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_INVALID_TYPE));
