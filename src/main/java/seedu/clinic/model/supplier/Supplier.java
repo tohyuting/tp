@@ -93,6 +93,18 @@ public class Supplier {
     }
 
     /**
+     * Returns true if both suppliers have the same name.
+     * This defines a weakest notion of equality between two suppliers.
+     */
+    public boolean isSameSupplierByName(Supplier otherSupplier) {
+        if (otherSupplier == this) {
+            return true;
+        }
+        return otherSupplier != null
+                && otherSupplier.getName().equals(getName());
+    }
+
+    /**
      * Returns true if both suppliers have the same identity and data fields.
      * This defines a stronger notion of equality between two suppliers.
      */

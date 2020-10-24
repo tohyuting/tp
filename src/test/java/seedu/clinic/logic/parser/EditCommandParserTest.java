@@ -30,12 +30,19 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_A
 import static seedu.clinic.logic.commands.CommandTestUtil.WAREHOUSE_NAME_DESC_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.WAREHOUSE_NAME_DESC_A2;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX;
+import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_USAGE;
+import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
+import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_INDEX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_PREFIX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_NO_ADDRESS;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_WAREHOUSE_NO_EMAIL;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_PREFIX;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
@@ -72,99 +79,131 @@ public class EditCommandParserTest {
             EditCommand.MESSAGE_USAGE);
     private static final String MESSAGE_TWO_INDEX_INPUT = String.format(
             MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX, EditCommand.MESSAGE_USAGE);
-    private static final String MESSAGE_INVALID_INDEX = String.format(
-            EditCommand.MESSAGE_INVALID_COMMAND_FORMAT, ParserUtil.MESSAGE_INVALID_INDEX);
 
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_NO_INDEX_INPUT);
-        assertParseFailure(parser, VALID_PHONE_AMY, MESSAGE_NO_INDEX_INPUT);
-        assertParseFailure(parser, VALID_REMARK_AMY, MESSAGE_NO_INDEX_INPUT);
-        assertParseFailure(parser, VALID_ADDRESS_AMY, MESSAGE_NO_INDEX_INPUT);
-        assertParseFailure(parser, VALID_EMAIL_AMY, MESSAGE_NO_INDEX_INPUT);
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + VALID_NAME_AMY,
+                String.format(MESSAGE_NO_INDEX, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + VALID_PHONE_AMY,
+                String.format(MESSAGE_NO_INDEX, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + VALID_REMARK_AMY,
+                String.format(MESSAGE_NO_INDEX, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + VALID_ADDRESS_AMY,
+                String.format(MESSAGE_NO_INDEX, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + VALID_EMAIL_AMY,
+                String.format(MESSAGE_NO_INDEX, EditCommand.MESSAGE_USAGE));
 
         // no field specified
-        assertParseFailure(parser, " ct/s i/1", EditCommand.MESSAGE_NOT_EDITED);
-        assertParseFailure(parser, " ct/w i/2", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 ",
+                String.format(MESSAGE_NOT_EDITED, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "2 ",
+                String.format(MESSAGE_NOT_EDITED, EditCommand.MESSAGE_USAGE));
 
-        // no index and no field specified
-        assertParseFailure(parser, "", MESSAGE_NO_INDEX_INPUT);
-        assertParseFailure(parser, PREAMBLE_WHITESPACE, MESSAGE_NO_INDEX_INPUT);
+        // no type and no field specified
+        assertParseFailure(parser, " " + PREFIX_INDEX + "1 ", String.format(MESSAGE_NO_PREFIX,
+                EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_INDEX + "2 " + PREAMBLE_WHITESPACE,
+                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
+
+        //no type specified
+        assertParseFailure(parser, " " + PREFIX_INDEX + "1 " + VALID_NAME_AMY,
+                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_INDEX + "1 " + VALID_PHONE_AMY,
+                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_INDEX + "1 " + VALID_REMARK_AMY,
+                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_INDEX + "1 " + VALID_ADDRESS_AMY,
+                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_INDEX + "1 " + VALID_EMAIL_AMY,
+                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidIndex_failure() {
         // negative index
-        assertParseFailure(parser, " ct/s i/-5 " + NAME_DESC_AMY2, MESSAGE_INVALID_INDEX);
-        assertParseFailure(parser, " ct/w i/-5 " + WAREHOUSE_NAME_DESC_A2, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "-5 "
+                + NAME_DESC_AMY2, MESSAGE_INVALID_INDEX + "\n" + EditCommand.MESSAGE_USAGE);
+
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "-5 "
+                + WAREHOUSE_NAME_DESC_A2, MESSAGE_INVALID_INDEX + "\n"
+                + EditCommand.MESSAGE_USAGE);
 
         // zero index
-        assertParseFailure(parser, " ct/s i/0 " + NAME_DESC_AMY2, MESSAGE_INVALID_INDEX);
-        assertParseFailure(parser, " ct/w i/0 " + WAREHOUSE_NAME_DESC_A2, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "0 "
+                + NAME_DESC_AMY2, MESSAGE_INVALID_INDEX + "\n" + EditCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "0 "
+                + WAREHOUSE_NAME_DESC_A2, MESSAGE_INVALID_INDEX + "\n"
+                + EditCommand.MESSAGE_USAGE);
 
         // invalid arguments being parsed as index
-        assertParseFailure(parser, " ct/s i/1 some random string "
-                + NAME_DESC_AMY2, MESSAGE_INVALID_INDEX);
-        assertParseFailure(parser, " ct/w i/1 some random string "
-                + WAREHOUSE_NAME_DESC_A2, MESSAGE_INVALID_INDEX);
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 testing"
+                + NAME_DESC_AMY2, String.format(MESSAGE_INVALID_USAGE, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 testing"
+                + WAREHOUSE_NAME_DESC_A2, String.format(MESSAGE_INVALID_USAGE, EditCommand.MESSAGE_USAGE));
 
         // invalid prefix being parsed as index
-        assertParseFailure(parser, " ct/s i/ string", String.format(
-                EditCommand.MESSAGE_INVALID_COMMAND_FORMAT, ParserUtil.MESSAGE_INVALID_INDEX));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + " z/testing",
+                MESSAGE_INVALID_PREFIX + "\n" + EditCommand.MESSAGE_USAGE);
 
-        assertParseFailure(parser, " ct/w i/ string", String.format(
-                EditCommand.MESSAGE_INVALID_COMMAND_FORMAT, ParserUtil.MESSAGE_INVALID_INDEX));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + " z/testing",
+                MESSAGE_INVALID_PREFIX + "\n" + EditCommand.MESSAGE_USAGE);
     }
 
     @Test
     public void parse_invalidValue_failure() {
 
-        assertParseFailure(parser, " ct/s i/1 " + INVALID_NAME_DESC2,
-                Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, " ct/s i/1 " + INVALID_PHONE_DESC,
-                String.format(EditCommand.MESSAGE_INVALID_COMMAND_FORMAT,
-                        Phone.MESSAGE_CONSTRAINTS)); // invalid phone
-        assertParseFailure(parser, " ct/s i/1 " + INVALID_EMAIL_DESC,
-                Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, " ct/s i/1 " + INVALID_ADDRESS_DESC,
-                MESSAGE_SUPPLIER_ADDRESS_PREFIX); // address not allowed
-        assertParseFailure(parser, " ct/s i/1 " + INVALID_REMARK_DESC,
-                Remark.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
+                        + INVALID_NAME_DESC2, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
+                        + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS
+                + "\n" + EditCommand.MESSAGE_USAGE); // invalid phone
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
+                        + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
+                        + INVALID_ADDRESS_DESC, MESSAGE_SUPPLIER_ADDRESS_PREFIX); // address not allowed
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
+                        + INVALID_REMARK_DESC, Remark.MESSAGE_CONSTRAINTS); // invalid tag
 
-        assertParseFailure(parser, " ct/w i/1 " + INVALID_NAME_DESC_WAREHOUSE2,
-                Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, " ct/w i/1 " + INVALID_PHONE_DESC,
-                String.format(EditCommand.MESSAGE_INVALID_COMMAND_FORMAT,
-                        Phone.MESSAGE_CONSTRAINTS)); // invalid phone
-        assertParseFailure(parser, " ct/w i/1 " + INVALID_EMAIL_DESC,
-                MESSAGE_WAREHOUSE_EMAIL_PREFIX); // email not allowed
-        assertParseFailure(parser, " ct/w i/1 " + INVALID_ADDRESS_DESC,
-                Address.MESSAGE_CONSTRAINTS); // invalid address
-        assertParseFailure(parser, " ct/w i/1 " + INVALID_REMARK_DESC,
-                Remark.MESSAGE_CONSTRAINTS); // invalid remark
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
+                        + INVALID_NAME_DESC_WAREHOUSE2, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
+                        + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS
+                + "\n" + EditCommand.MESSAGE_USAGE); // invalid phone
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
+                        + INVALID_EMAIL_DESC, MESSAGE_WAREHOUSE_EMAIL_PREFIX); // email not allowed
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
+                        + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
+                        + INVALID_REMARK_DESC, Remark.MESSAGE_CONSTRAINTS); // invalid remark
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, " ct/s i/1 " + INVALID_PHONE_DESC + EMAIL_DESC_AMY,
-                String.format(EditCommand.MESSAGE_INVALID_COMMAND_FORMAT, Phone.MESSAGE_CONSTRAINTS));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
+                        + INVALID_PHONE_DESC + EMAIL_DESC_AMY,
+                Phone.MESSAGE_CONSTRAINTS + "\n" + EditCommand.MESSAGE_USAGE);
 
         //invalid phone followed by valid address
-        assertParseFailure(parser, " ct/w i/1 " + INVALID_PHONE_DESC + ADDRESS_DESC_AMY,
-                String.format(EditCommand.MESSAGE_INVALID_COMMAND_FORMAT, Phone.MESSAGE_CONSTRAINTS));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
+                        + INVALID_PHONE_DESC + ADDRESS_DESC_AMY, Phone.MESSAGE_CONSTRAINTS
+                + "\n" + EditCommand.MESSAGE_USAGE);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, " ct/s i/1 " + PHONE_DESC_BOB + INVALID_PHONE_DESC,
-                String.format(EditCommand.MESSAGE_INVALID_COMMAND_FORMAT, Phone.MESSAGE_CONSTRAINTS));
-        assertParseFailure(parser, " ct/w i/1 " + PHONE_DESC_BOB + INVALID_PHONE_DESC,
-                String.format(EditCommand.MESSAGE_INVALID_COMMAND_FORMAT, Phone.MESSAGE_CONSTRAINTS));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
+                        + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS
+                + "\n" + EditCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
+                        + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS
+                        + "\n" + EditCommand.MESSAGE_USAGE);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, " ct/s i/1 " + INVALID_NAME_DESC2 + INVALID_EMAIL_DESC
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
+                + INVALID_NAME_DESC2 + INVALID_EMAIL_DESC
                 + PHONE_DESC_AMY, Name.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, " ct/w i/1 " + INVALID_NAME_DESC_WAREHOUSE2
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
+                + INVALID_NAME_DESC_WAREHOUSE2
                 + INVALID_ADDRESS_DESC + PHONE_DESC_AMY, Name.MESSAGE_CONSTRAINTS);
     }
 
@@ -172,10 +211,12 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         //all fields for suppliers
         Index targetIndexSupplier = INDEX_SECOND_SUPPLIER;
-        String userInputSupplier = " ct/s i/" + targetIndexSupplier.getOneBased() + PHONE_DESC_BOB
+        String userInputSupplier = " " + PREFIX_TYPE + "s " + PREFIX_INDEX
+                + targetIndexSupplier.getOneBased() + PHONE_DESC_BOB
                 + EMAIL_DESC_AMY + NAME_DESC_AMY + REMARK_DESC_AMY;
 
-        EditSupplierDescriptor descriptorSupplier = new EditSupplierDescriptorBuilder().withName(VALID_NAME_AMY)
+        EditSupplierDescriptor descriptorSupplier = new EditSupplierDescriptorBuilder()
+                .withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withRemark(VALID_REMARK_AMY).build();
         EditCommand expectedCommandSupplier = new EditCommand(targetIndexSupplier, descriptorSupplier);
 
@@ -183,7 +224,8 @@ public class EditCommandParserTest {
 
         //all fields for warehouses
         Index targetIndexWarehouse = INDEX_SECOND_WAREHOUSE;
-        String userInputWarehouse = " ct/w i/" + targetIndexWarehouse.getOneBased() + PHONE_DESC_BOB
+        String userInputWarehouse = " " + PREFIX_TYPE + "w " + PREFIX_INDEX
+                + targetIndexWarehouse.getOneBased() + PHONE_DESC_BOB
                 + ADDRESS_DESC_AMY + WAREHOUSE_NAME_DESC_A2 + REMARK_DESC_AMY;
 
         EditWarehouseDescriptor descriptorWarehouse = new EditWarehouseDescriptorBuilder()
@@ -198,7 +240,8 @@ public class EditCommandParserTest {
     public void parse_someFieldsSpecified_success() {
         //some fields for suppliers
         Index targetIndexSupplier = INDEX_SECOND_SUPPLIER;
-        String userInputSupplier = " ct/s i/" + targetIndexSupplier.getOneBased() + PHONE_DESC_BOB
+        String userInputSupplier = " " + PREFIX_TYPE + "s " + PREFIX_INDEX
+                + targetIndexSupplier.getOneBased() + PHONE_DESC_BOB
                 + EMAIL_DESC_AMY;
 
         EditSupplierDescriptor descriptorSupplier = new EditSupplierDescriptorBuilder()
@@ -209,7 +252,8 @@ public class EditCommandParserTest {
 
         //some fields for warehouses
         Index targetIndexWarehouse = INDEX_SECOND_WAREHOUSE;
-        String userInputWarehouse = " ct/w i/" + targetIndexWarehouse.getOneBased() + PHONE_DESC_BOB
+        String userInputWarehouse = " " + PREFIX_TYPE + "w " + PREFIX_INDEX
+                + targetIndexWarehouse.getOneBased() + PHONE_DESC_BOB
                 + ADDRESS_DESC_AMY;
 
         EditWarehouseDescriptor descriptorWarehouse = new EditWarehouseDescriptorBuilder()
@@ -225,7 +269,8 @@ public class EditCommandParserTest {
         // name
         //supplier
         Index targetIndexSupplier = INDEX_SECOND_SUPPLIER;
-        String userInputSupplier = " ct/s i/" + targetIndexSupplier.getOneBased() + NAME_DESC_AMY;
+        String userInputSupplier = " " + PREFIX_TYPE + "s " + PREFIX_INDEX
+                + targetIndexSupplier.getOneBased() + NAME_DESC_AMY;
 
         EditSupplierDescriptor descriptorSupplier = new EditSupplierDescriptorBuilder()
                 .withName(VALID_NAME_AMY).build();
@@ -235,7 +280,8 @@ public class EditCommandParserTest {
 
         //warehouse
         Index targetIndexWarehouse = INDEX_SECOND_WAREHOUSE;
-        String userInputWarehouse = " ct/w i/" + targetIndexWarehouse.getOneBased() + WAREHOUSE_NAME_DESC_A;
+        String userInputWarehouse = " " + PREFIX_TYPE + "w " + PREFIX_INDEX
+                + targetIndexWarehouse.getOneBased() + WAREHOUSE_NAME_DESC_A;
 
         EditWarehouseDescriptor descriptorWarehouse = new EditWarehouseDescriptorBuilder()
                 .withName(VALID_WAREHOUSE_NAME_A).build();
@@ -245,14 +291,16 @@ public class EditCommandParserTest {
 
         // phone
         //supplier
-        userInputSupplier = " ct/s i/" + targetIndexSupplier.getOneBased() + PHONE_DESC_AMY;
+        userInputSupplier = " " + PREFIX_TYPE + "s " + PREFIX_INDEX
+                + targetIndexSupplier.getOneBased() + PHONE_DESC_AMY;
         descriptorSupplier = new EditSupplierDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
         expectedCommandSupplier = new EditCommand(targetIndexSupplier, descriptorSupplier);
 
         assertParseSuccess(parser, userInputSupplier, expectedCommandSupplier);
 
         //warehouse
-        userInputWarehouse = " ct/w i/" + targetIndexWarehouse.getOneBased() + PHONE_DESC_AMY;
+        userInputWarehouse = " " + PREFIX_TYPE + "w " + PREFIX_INDEX
+                + targetIndexWarehouse.getOneBased() + PHONE_DESC_AMY;
         descriptorWarehouse = new EditWarehouseDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
         expectedCommandWarehouse = new EditCommand(targetIndexWarehouse, descriptorWarehouse);
 
@@ -260,7 +308,8 @@ public class EditCommandParserTest {
 
         // remark
         //supplier
-        userInputSupplier = " ct/s i/" + targetIndexSupplier.getOneBased() + REMARK_DESC_AMY;
+        userInputSupplier = " " + PREFIX_TYPE + "s " + PREFIX_INDEX
+                + targetIndexSupplier.getOneBased() + REMARK_DESC_AMY;
 
         descriptorSupplier = new EditSupplierDescriptorBuilder().withRemark(VALID_REMARK_AMY).build();
         expectedCommandSupplier = new EditCommand(targetIndexSupplier, descriptorSupplier);
@@ -268,7 +317,8 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInputSupplier, expectedCommandSupplier);
 
         //warehouse
-        userInputWarehouse = " ct/w i/" + targetIndexWarehouse.getOneBased() + REMARK_DESC_AMY;
+        userInputWarehouse = " " + PREFIX_TYPE + "w " + PREFIX_INDEX
+                + targetIndexWarehouse.getOneBased() + REMARK_DESC_AMY;
         descriptorWarehouse = new EditWarehouseDescriptorBuilder().withRemark(VALID_REMARK_AMY).build();
         expectedCommandWarehouse = new EditCommand(targetIndexWarehouse, descriptorWarehouse);
 
@@ -276,14 +326,16 @@ public class EditCommandParserTest {
 
         // email
         //supplier only
-        userInputSupplier = " ct/s i/" + targetIndexSupplier.getOneBased() + EMAIL_DESC_AMY;
+        userInputSupplier = " " + PREFIX_TYPE + "s " + PREFIX_INDEX
+                + targetIndexSupplier.getOneBased() + EMAIL_DESC_AMY;
         descriptorSupplier = new EditSupplierDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
         expectedCommandSupplier = new EditCommand(targetIndexSupplier, descriptorSupplier);
         assertParseSuccess(parser, userInputSupplier, expectedCommandSupplier);
 
         // address
         //warehouse only
-        userInputWarehouse = " ct/w i/" + targetIndexWarehouse.getOneBased() + ADDRESS_DESC_AMY;
+        userInputWarehouse = " " + PREFIX_TYPE + "w " + PREFIX_INDEX
+                + targetIndexWarehouse.getOneBased() + ADDRESS_DESC_AMY;
         descriptorWarehouse = new EditWarehouseDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
         expectedCommandWarehouse = new EditCommand(targetIndexWarehouse, descriptorWarehouse);
         assertParseSuccess(parser, userInputWarehouse, expectedCommandWarehouse);
@@ -295,7 +347,8 @@ public class EditCommandParserTest {
     public void parse_multipleRepeatedFields_acceptsLast() {
         //supplier
         Index targetIndexSupplier = INDEX_FIRST_SUPPLIER;
-        String userInputSupplier = " ct/s i/" + targetIndexSupplier.getOneBased() + PHONE_DESC_AMY
+        String userInputSupplier = " " + PREFIX_TYPE + "s " + PREFIX_INDEX
+                + targetIndexSupplier.getOneBased() + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB;
 
         EditSupplierDescriptor descriptorSupplier = new EditSupplierDescriptorBuilder()
@@ -306,7 +359,8 @@ public class EditCommandParserTest {
 
         //warehouse
         Index targetIndexWarehouse = INDEX_FIRST_WAREHOUSE;
-        String userInputWarehouse = " ct/w i/" + targetIndexWarehouse.getOneBased() + PHONE_DESC_AMY
+        String userInputWarehouse = " " + PREFIX_TYPE + "w " + PREFIX_INDEX
+                + targetIndexWarehouse.getOneBased() + PHONE_DESC_AMY
                 + ADDRESS_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY + PHONE_DESC_BOB + ADDRESS_DESC_BOB;
 
         EditWarehouseDescriptor descriptorWarehouse = new EditWarehouseDescriptorBuilder()
@@ -358,18 +412,22 @@ public class EditCommandParserTest {
     public void parse_resetRemarks_success() {
         //supplier
         Index targetIndexSupplier = INDEX_THIRD_SUPPLIER;
-        String userInputSupplier = " ct/s i/" + targetIndexSupplier.getOneBased() + REMARK_EMPTY;
+        String userInputSupplier = " " + PREFIX_TYPE + "s " + PREFIX_INDEX
+                + targetIndexSupplier.getOneBased() + REMARK_EMPTY;
 
-        EditSupplierDescriptor descriptorSupplier = new EditSupplierDescriptorBuilder().withRemark("").build();
+        EditSupplierDescriptor descriptorSupplier = new EditSupplierDescriptorBuilder()
+                .withRemark("").build();
         EditCommand expectedCommandSupplier = new EditCommand(targetIndexSupplier, descriptorSupplier);
 
         assertParseSuccess(parser, userInputSupplier, expectedCommandSupplier);
 
         //warehouse
         Index targetIndexWarehouse = INDEX_THIRD_WAREHOUSE;
-        String userInputWarehouse = " ct/w i/" + targetIndexWarehouse.getOneBased() + REMARK_EMPTY;
+        String userInputWarehouse = " " + PREFIX_TYPE + "w " + PREFIX_INDEX
+                + targetIndexWarehouse.getOneBased() + REMARK_EMPTY;
 
-        EditWarehouseDescriptor descriptorWarehouse = new EditWarehouseDescriptorBuilder().withRemark("").build();
+        EditWarehouseDescriptor descriptorWarehouse = new EditWarehouseDescriptorBuilder()
+                .withRemark("").build();
         EditCommand expectedCommandWarehouse = new EditCommand(targetIndexWarehouse, descriptorWarehouse);
 
         assertParseSuccess(parser, userInputWarehouse, expectedCommandWarehouse);

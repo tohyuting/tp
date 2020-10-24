@@ -62,6 +62,12 @@ public interface Model {
     boolean hasSupplier(Supplier supplier);
 
     /**
+     * Returns true if a supplier with the same name as {@code supplier} exists in the CLI-nic app. This is
+     * a weaker notion as compared to hasSupplier.
+     */
+    boolean hasSupplierByName(Supplier supplier);
+
+    /**
      * Deletes the given supplier.
      * The supplier must exist in the CLI-nic app.
      */

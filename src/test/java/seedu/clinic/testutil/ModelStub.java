@@ -63,6 +63,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean hasSupplierByName(Supplier supplier) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void deleteSupplier(Supplier target) {
         throw new AssertionError("This method should not be called.");
     }

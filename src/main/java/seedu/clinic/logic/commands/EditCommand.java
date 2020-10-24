@@ -3,9 +3,10 @@ package seedu.clinic.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_SUPPLIER_NAME;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
 import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 
@@ -43,41 +44,43 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the supplier/warehouse"
             + " identified by the index number used in the displayed supplier/warehouse list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: [si/INDEX] [wi/INDEX] "
-            + "[" + PREFIX_SUPPLIER_NAME + "NAME] "
+            + "Parameters: ct/TYPE i/INDEX "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_REMARK + "REMARK] \n"
-            + "Example: " + COMMAND_WORD + " si/1 "
+            + "Example: " + COMMAND_WORD + " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com\n"
-            + "Note that either si or wi (not both) has to be provided, where si is the supplier list index"
-            + " and wi is the warehouse list index. In addition, a supplier should not have an address"
-            + " prefix entered while a warehouse should not have an email prefix entered. ";
+            + "A supplier should not have an address prefix entered "
+            + "while a warehouse should not have an email prefix entered. ";
 
+    public static final String MESSAGE_NO_PREFIX_AND_INDEX = "Command type and index must be present!\n%1$s";
     public static final String MESSAGE_EDIT_SUPPLIER_SUCCESS = "Edited Supplier: %1$s";
     public static final String MESSAGE_EDIT_WAREHOUSE_SUCCESS = "Edited Warehouse: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already"
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.\n%1$s";
+    public static final String MESSAGE_DUPLICATE_SUPPLIER = "A supplier with the same name already"
             + " exists in CLInic.";
-    public static final String MESSAGE_DUPLICATE_WAREHOUSE = "This warehouse already"
+    public static final String MESSAGE_DUPLICATE_WAREHOUSE = "A warehouse with the same name already"
             + " exists in CLInic.";
-    public static final String MESSAGE_SUPPLIER_NO_ADDRESS = "Supplier do not have address!";
-    public static final String MESSAGE_WAREHOUSE_NO_EMAIL = "Warehouse do not have email!";
+    public static final String MESSAGE_SUPPLIER_NO_ADDRESS = "Supplier do not have address!\n%1$s";
+    public static final String MESSAGE_WAREHOUSE_NO_EMAIL = "Warehouse do not have email!\n%1$s";
     public static final String MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX = "Please only enter one type of"
             + " index, i.e. either wi/INDEX or si/INDEX";
     public static final String MESSAGE_NO_PREFIX = "Please enter at least one type of"
-            + " command under ct (i.e. either ct/s or ct/w)";
+            + " command under ct (i.e. either ct/s or ct/w)\n%1$s";
     public static final String MESSAGE_NO_INDEX = "Please enter index of supplier/warehouse you wish"
-            + " to edit.";
+            + " to edit.%1$s";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! %1$s \n"
             + MESSAGE_USAGE;
-    public static final String MESSAGE_INVALID_PREFIX = "You used an invalid prefix!";
-    public static final String MESSAGE_SUPPLIER_PREFIX_NOT_ALLOWED = "Supplier prefix (s/) not allowed "
-            + "when editing warehouses.";
-    public static final String MESSAGE_WAREHOUSE_PREFIX_NOT_ALLOWED = "Warehouse prefix (w/) not allowed "
-            + "when editing suppliers.";
+    public static final String MESSAGE_INVALID_TYPE_EDIT = "You used an invalid type! Type for Edit command "
+            + "should be either ct/s or ct/w only.\n%1$s";
+    public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
+            + "ensure that you only include prefixes specified in the User Guide.\n%1$s";
+    public static final String MESSAGE_SUPPLIER_UNCHANGED = "The edited field will results in no change to "
+            + "supplier selected. Please check your arguments again and re-enter your edit command.";
+    public static final String MESSAGE_WAREHOUSE_UNCHANGED = "The edited field will results in no change to "
+            + "warehouse selected. Please check your arguments again and re-enter your edit command.";
 
     private final Index index;
     private final EditDescriptor editDescriptor;
@@ -125,7 +128,11 @@ public class EditCommand extends Command {
 
             logger.log(Level.INFO, "Supplier with edited information has been created.");
 
-            if (!supplierToEdit.isSameSupplier(editedSupplier) && model.hasSupplier(editedSupplier)) {
+            if (supplierToEdit.equals(editedSupplier)) {
+                throw new CommandException(MESSAGE_SUPPLIER_UNCHANGED);
+            }
+
+            if (model.hasSupplierByName(editedSupplier)) {
                 throw new CommandException(MESSAGE_DUPLICATE_SUPPLIER);
             }
 
@@ -153,6 +160,10 @@ public class EditCommand extends Command {
                     (EditWarehouseDescriptor) editDescriptor);
 
             logger.log(Level.INFO, "Warehouse with edited information has been created.");
+
+            if (warehouseToEdit.equals(editedWarehouse)) {
+                throw new CommandException(MESSAGE_WAREHOUSE_UNCHANGED);
+            }
 
             if (!warehouseToEdit.isSameWarehouse(editedWarehouse) && model.hasWarehouse(editedWarehouse)) {
                 throw new CommandException(MESSAGE_DUPLICATE_WAREHOUSE);

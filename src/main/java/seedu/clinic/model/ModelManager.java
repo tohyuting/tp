@@ -98,6 +98,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasSupplierByName(Supplier supplier) {
+        requireNonNull(supplier);
+        return clinic.hasSupplierByName(supplier);
+    }
+
+    @Override
     public boolean hasWarehouse(Warehouse warehouse) {
         requireNonNull(warehouse);
         return clinic.hasWarehouse(warehouse);
