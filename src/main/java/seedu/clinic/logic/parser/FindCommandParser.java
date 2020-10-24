@@ -10,8 +10,11 @@ import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Name;
@@ -23,6 +26,7 @@ import seedu.clinic.model.warehouse.WarehousePredicate;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -68,10 +72,12 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (type.toString().equals("s")) {
+            logger.log(Level.INFO, "Returning FindCommand to find relevant suppliers.");
             return new FindCommand(new SupplierPredicate(Arrays.asList(nameKeywords),
                     Arrays.asList(productKeywords), Arrays.asList(remarkKeywords)));
         }
 
+        logger.log(Level.INFO, "Returning FindCommand to find relevant warehouses.");
         return new FindCommand(new WarehousePredicate(Arrays.asList(nameKeywords),
                 Arrays.asList(productKeywords), Arrays.asList(remarkKeywords)));
     }
