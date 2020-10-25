@@ -1,0 +1,34 @@
+@startuml
+start
+:User enters view commands with relevant prefixes;
+:Parse user input;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([index and command type prefixes present])
+    :Parse command arguments;
+    if () then ([command type and index valid])
+        :Creates new View Command;
+        :Execute View Command;
+        if () then ([SUPPLIER])
+            :Get supplier at Index from model;
+            :Update Supplier List to show supplier only;
+        else ([WAREHOUSE])
+            :Get warehouse at Index from model;
+            :Update Warehouse List to show warehouse only;
+        endif
+        :Generate View command success message;
+
+    else ([command type and/or index invalid])
+        : Generate message indicating either
+         one or both prefixes are wrong;
+    endif
+
+else ([index and command type prefix(es) missing])
+    :Generate message indicating
+    either one or both prefixes missing;
+endif
+:Display result message to user;
+stop
+@enduml

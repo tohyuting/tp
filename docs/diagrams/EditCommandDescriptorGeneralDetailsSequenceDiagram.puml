@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+
+mainframe sd Parsing General Details
+box Logic LOGIC_COLOR_T1
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant "argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "editDescriptor:EditSupplierDescriptor" as EditSupplierDescriptor LOGIC_COLOR
+participant "editDescriptor:EditWarehouseDescriptor" as EditWarehouseDescriptor LOGIC_COLOR
+end box
+
+opt Name prefix present
+EditCommandParser -> ArgumentMultimap : getValue(PREFIX_NAME)
+activate EditCommandParser
+activate ArgumentMultimap
+ArgumentMultimap --> EditCommandParser : Name
+deactivate ArgumentMultimap
+
+EditCommandParser -> ParserUtil : parseName(Name)
+activate ParserUtil
+ParserUtil --> EditCommandParser : parsedName
+deactivate ParserUtil
+
+alt SUPPLIER
+EditCommandParser -> EditSupplierDescriptor : setName(parsedName)
+activate EditSupplierDescriptor
+deactivate EditSupplierDescriptor
+
+else WAREHOUSE
+EditCommandParser -> EditWarehouseDescriptor : setName(parsedName)
+activate EditWarehouseDescriptor
+deactivate EditWarehouseDescriptor
+end
+end
+
+opt Phone prefix present
+EditCommandParser -> ArgumentMultimap : getValue(PREFIX_PHONE)
+activate ArgumentMultimap
+ArgumentMultimap --> EditCommandParser : Phone
+deactivate ArgumentMultimap
+
+EditCommandParser -> ParserUtil : parsePhone(Phone)
+activate ParserUtil
+ParserUtil --> EditCommandParser : parsedPhone
+deactivate ParserUtil
+
+alt SUPPLIER
+EditCommandParser -> EditSupplierDescriptor : setPhone(parsedPhone)
+activate EditSupplierDescriptor
+deactivate EditSupplierDescriptor
+
+else WAREHOUSE
+EditCommandParser -> EditWarehouseDescriptor : setPhone(parsedPhone)
+activate EditWarehouseDescriptor
+deactivate EditWarehouseDescriptor
+end
+end
+
+opt Remark prefix present
+EditCommandParser -> ArgumentMultimap : getValue(PREFIX_REMARK)
+activate ArgumentMultimap
+ArgumentMultimap --> EditCommandParser : Remark
+deactivate ArgumentMultimap
+
+EditCommandParser -> ParserUtil : parseRemark(Remark)
+activate ParserUtil
+ParserUtil --> EditCommandParser : parsedRemark
+deactivate ParserUtil
+
+alt SUPPLIER
+EditCommandParser -> EditSupplierDescriptor : setRemark(parsedRemark)
+activate EditSupplierDescriptor
+deactivate EditSupplierDescriptor
+
+else WAREHOUSE
+EditCommandParser -> EditWarehouseDescriptor : setRemark(parsedRemark)
+activate EditWarehouseDescriptor
+deactivate EditWarehouseDescriptor
+end
+end
+
+[<-- EditCommandParser : editDescriptor
+deactivate EditCommandParser
+
+@enduml

@@ -67,6 +67,7 @@ deactivate ViewCommand
 ViewCommandParser --> ClinicParser : v
 destroy ViewCommandParser
 ClinicParser --> LogicManager : v
+deactivate ClinicParser
 
 LogicManager -> ViewCommand : execute(model);
 activate ViewCommand
