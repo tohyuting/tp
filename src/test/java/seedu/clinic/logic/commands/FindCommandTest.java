@@ -55,44 +55,44 @@ public class FindCommandTest {
                 Collections.singletonList("second warehouse"));
 
 
-        FindCommand firstFindCommand = new FindCommand(firstSupplierPredicate);
-        FindCommand secondFindCommand = new FindCommand(secondSupplierPredicate);
-        FindCommand thirdFindCommand = new FindCommand(firstWarehousePredicate);
-        FindCommand fourthFindCommand = new FindCommand(secondWarehousePredicate);
+        FindCommand firstFindCommandForSupplier = new FindCommand(firstSupplierPredicate);
+        FindCommand secondFindCommandForSupplier = new FindCommand(secondSupplierPredicate);
+        FindCommand firstFindCommandForWarehouse = new FindCommand(firstWarehousePredicate);
+        FindCommand secondFindCommandForWarehouse = new FindCommand(secondWarehousePredicate);
 
         // same object -> returns true
-        assertTrue(firstFindCommand.equals(firstFindCommand));
-        assertTrue(secondFindCommand.equals(secondFindCommand));
-        assertTrue(thirdFindCommand.equals(thirdFindCommand));
-        assertTrue(fourthFindCommand.equals(fourthFindCommand));
+        assertTrue(firstFindCommandForSupplier.equals(firstFindCommandForSupplier));
+        assertTrue(secondFindCommandForSupplier.equals(secondFindCommandForSupplier));
+        assertTrue(firstFindCommandForWarehouse.equals(firstFindCommandForWarehouse));
+        assertTrue(secondFindCommandForWarehouse.equals(secondFindCommandForWarehouse));
 
         // same values -> returns true
-        FindCommand firstFindCommandCopy = new FindCommand(firstSupplierPredicate);
-        assertTrue(firstFindCommand.equals(firstFindCommandCopy));
-        FindCommand secondFindCommandCopy = new FindCommand(secondSupplierPredicate);
-        assertTrue(secondFindCommand.equals(secondFindCommandCopy));
-        FindCommand thirdFindCommandCopy = new FindCommand(firstWarehousePredicate);
-        assertTrue(thirdFindCommand.equals(thirdFindCommandCopy));
-        FindCommand fourthFindCommandCopy = new FindCommand(secondWarehousePredicate);
-        assertTrue(fourthFindCommand.equals(fourthFindCommandCopy));
+        FindCommand firstFindCommandForSupplierCopy = new FindCommand(firstSupplierPredicate);
+        assertTrue(firstFindCommandForSupplier.equals(firstFindCommandForSupplierCopy));
+        FindCommand secondFindCommandForSupplierCopy = new FindCommand(secondSupplierPredicate);
+        assertTrue(secondFindCommandForSupplier.equals(secondFindCommandForSupplierCopy));
+        FindCommand firstFindCommandForWarehouseCopy = new FindCommand(firstWarehousePredicate);
+        assertTrue(firstFindCommandForWarehouse.equals(firstFindCommandForWarehouseCopy));
+        FindCommand secondFindCommandForWarehouseCopy = new FindCommand(secondWarehousePredicate);
+        assertTrue(secondFindCommandForWarehouse.equals(secondFindCommandForWarehouseCopy));
 
         // different types -> returns false
-        assertFalse(firstFindCommand.equals(1));
-        assertFalse(secondFindCommand.equals(1));
-        assertFalse(thirdFindCommand.equals(1));
-        assertFalse(fourthFindCommand.equals(1));
+        assertFalse(firstFindCommandForSupplier.equals(1));
+        assertFalse(secondFindCommandForSupplier.equals(1));
+        assertFalse(firstFindCommandForWarehouse.equals(1));
+        assertFalse(secondFindCommandForWarehouse.equals(1));
 
         // null -> returns false
-        assertFalse(firstFindCommand.equals(null));
-        assertFalse(secondFindCommand.equals(null));
-        assertFalse(thirdFindCommand.equals(null));
-        assertFalse(fourthFindCommand.equals(null));
+        assertFalse(firstFindCommandForSupplier.equals(null));
+        assertFalse(secondFindCommandForSupplier.equals(null));
+        assertFalse(firstFindCommandForWarehouse.equals(null));
+        assertFalse(secondFindCommandForWarehouse.equals(null));
 
         // different supplier -> returns false
-        assertFalse(firstFindCommand.equals(secondFindCommand));
+        assertFalse(firstFindCommandForSupplier.equals(secondFindCommandForSupplier));
 
         // different warehouse -> return false
-        assertFalse(thirdFindCommand.equals(fourthFindCommand));
+        assertFalse(firstFindCommandForWarehouse.equals(secondFindCommandForWarehouse));
     }
 
     @Test
