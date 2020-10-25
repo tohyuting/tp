@@ -95,8 +95,7 @@ public class Supplier {
         }
 
         return otherSupplier != null
-                && otherSupplier.getName().equals(getName())
-                && (otherSupplier.getPhone().equals(getPhone()) || otherSupplier.getEmail().equals(getEmail()));
+                && otherSupplier.getName().equals(getName());
     }
 
     /**

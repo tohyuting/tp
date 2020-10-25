@@ -34,9 +34,10 @@ public class SupplierTest {
         // null -> returns false
         assertFalse(ALICE.isSameSupplier(null));
 
-        // different phone and email -> returns false
-        Supplier editedAlice = new SupplierBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameSupplier(editedAlice));
+        // different phone and email -> returns true
+        Supplier editedAlice = new SupplierBuilder(ALICE).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).build();
+        assertTrue(ALICE.isSameSupplier(editedAlice));
 
         // different name -> returns false
         editedAlice = new SupplierBuilder(ALICE).withName(VALID_NAME_BOB).build();
