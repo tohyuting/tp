@@ -1,6 +1,7 @@
 package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinic.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
@@ -67,10 +68,7 @@ public class UpdateCommand extends Command {
      */
     public UpdateCommand(Type entityType, Name entityName, Name productName,
             UpdateProductDescriptor updateProductDescriptor) {
-        requireNonNull(entityType);
-        requireNonNull(entityName);
-        requireNonNull(productName);
-        requireNonNull(updateProductDescriptor);
+        requireAllNonNull(entityType, entityName, productName, updateProductDescriptor);
 
         this.entityName = entityName;
         this.productName = productName;
