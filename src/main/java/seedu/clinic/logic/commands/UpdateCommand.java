@@ -36,19 +36,19 @@ public class UpdateCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the quantity/tags of a product in a "
             + "specific warehouse/supplier, or adds the product if it does not already exist for that "
-            + "warehouse/supplier."
+            + "warehouse/supplier. If the product already exists, at least one optional argument must be specified."
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
-            + PREFIX_NAME + "WAREHOUSE/SUPPLIER NAME "
+            + PREFIX_NAME + "ENTITY_NAME "
             + PREFIX_PRODUCT_NAME + "PRODUCT_NAME "
-            + PREFIX_PRODUCT_QUANTITY + "PRODUCT_QUANTITY (Must be a non-negative integer)\n"
+            + "[" + PREFIX_PRODUCT_QUANTITY + "PRODUCT_QUANTITY (Must be a non-negative integer)]\n"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "w "
             + PREFIX_NAME + "Jurong Warehouse "
             + PREFIX_PRODUCT_NAME + "Panadol "
             + PREFIX_PRODUCT_QUANTITY + "350 "
-            + PREFIX_TAG + "primary largest \n";
+            + PREFIX_TAG + "Fever";
 
     public static final String MESSAGE_SUCCESS = "Product stock updated: %1$s for %2$s";
     private static final String MESSAGE_NO_SUCH_ENTITY = "The specified warehouse/supplier cannot be found.";

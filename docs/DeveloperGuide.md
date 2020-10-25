@@ -254,9 +254,9 @@ considering code quality and end user experience.
 
 ### Update product feature
 
-The update product mechanism is facilitated by the `UpdateCommandParser` and the `UpdateCommand`.
-The `UpdateCommandParser` implements `Parser` and the `UpdateCommand` extends `Command`, allowing the user to 
-create or update a product under either a supplier or a warehouse.
+The update product mechanism is facilitated by the `UpdateCommandParser`, `UpdateCommand`,  and the `UpdateProductDescriptor`.
+The `UpdateCommandParser` implements `Parser` to parse the user input, the `UpdateCommand` extends `Command` to execute the main logic, 
+and the `UpdateProductDescriptor` allows the parser to pass a specification of the product to the command.
 
 Given below is an example usage scenario and how the update product mechanism behaves at each step.
 
