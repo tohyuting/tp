@@ -72,14 +72,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (type.equals(SUPPLIER)) {
             logger.log(Level.INFO, "User input contains type prefix for supplier.");
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE)
+            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
                     || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_SUPPLIER_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
             }
 
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(""));
+            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
             Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
             Set<Product> productList = new HashSet<>();
 

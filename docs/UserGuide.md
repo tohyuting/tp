@@ -68,7 +68,7 @@ and efficient Graphical User Interface interaction.
   e.g. in `delete TYPE INDEX`, `TYPE` is a parameter which can be used as `delete warehouse 1`.
 
 * Items in square brackets are optional.<br>
-  e.g `add ct/s n/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS]` can be used as `add ct/s n/Philips Pharmaceutical p
+  e.g `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS` can be used as `add ct/s n/Philips Pharmaceutical p
   /00000000 e/philipsPharm@gmail.com` or as `add ct/s n/Philips Pharmaceutical p/00000000`.
 
 * Items with `…`​ after them can be used multiple times.<br>
@@ -110,7 +110,7 @@ Examples:
 
 Adds a supplier to the CLI-nic application.
 
-Format: `add ct/TYPE n/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]`
+Format: `add ct/TYPE n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`
 * The TYPE specified here should be s for supplier.
 
 Examples:
@@ -273,7 +273,7 @@ Examples:
 Action | Format, Examples
 --------|------------------
 **Add** Warehouse | `add ct/w n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
-**Add** Supplier | `add ct/s n/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]`<br> e.g., `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
+**Add** Supplier | `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`<br> e.g., `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
 **Addp** Product | `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `addp s/SupplierA pd/PANADOL SUSP t/FEVER`
 **Clear** | `clear`
 **Delete** | `delete ct/TYPE i/INDEX`<br> e.g., `delete ct/w i/1`
