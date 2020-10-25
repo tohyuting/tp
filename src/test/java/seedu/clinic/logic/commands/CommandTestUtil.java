@@ -17,7 +17,6 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 import static seedu.clinic.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -233,8 +232,8 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredSupplierList().size());
 
         Supplier supplier = model.getFilteredSupplierList().get(targetIndex.getZeroBased());
-        final String[] splitName = supplier.getName().fullName.split("\\s+");
-        model.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(Arrays.asList(splitName[0])));
+        model.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(
+                supplier.getName().fullName));
 
         assertEquals(1, model.getFilteredSupplierList().size());
     }
@@ -246,8 +245,8 @@ public class CommandTestUtil {
     public static void showWarehouseAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredWarehouseList().size());
         Warehouse warehouse = model.getFilteredWarehouseList().get(targetIndex.getZeroBased());
-        final String[] splitName = warehouse.getName().fullName.split("\\s+");
-        model.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(splitName[0])));
+        model.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(
+                warehouse.getName().fullName));
         assertEquals(1, model.getFilteredWarehouseList().size());
     }
 }

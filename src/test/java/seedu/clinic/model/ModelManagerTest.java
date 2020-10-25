@@ -14,7 +14,6 @@ import static seedu.clinic.testutil.TypicalWarehouse.B;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -222,15 +221,13 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, differentUserMacros)));
 
         // different filteredSupplierList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        String[] query = Arrays.copyOfRange(keywords, 0, 2);
-        modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(Arrays.asList(query)));
+        modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(
+                ALICE.getName().fullName));
         assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, userMacros)));
 
         // different filteredWarehouseList -> returns false
-        keywords = A.getName().fullName.split("\\s+");
-        query = Arrays.copyOfRange(keywords, 0, 2);
-        modelManager.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(query)));
+        modelManager.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(
+                A.getName().fullName));
         assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, userMacros)));
 
         // resets modelManager to initial state for upcoming tests
