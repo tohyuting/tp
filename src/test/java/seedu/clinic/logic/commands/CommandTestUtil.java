@@ -86,10 +86,9 @@ public class CommandTestUtil {
     public static final String NAME_DESC_AMY = " " + PREFIX_SUPPLIER_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_AMY2 = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_SUPPLIER_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_BOB2 = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String NAME_DESC_WAREHOUSE_A = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_A;
     public static final String NAME_DESC_WAREHOUSE_B = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_B;
-    public static final String NAME_DESC_AMY2 = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB2 = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String NAME_DESC_WAREHOUSE_A2 = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_A;
     public static final String NAME_DESC_WAREHOUSE_B2 = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_B;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
