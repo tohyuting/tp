@@ -1,90 +1,82 @@
 package seedu.clinic.logic.parser;
 
-import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinic.logic.commands.ViewCommand.MESSAGE_INVALID_TYPE_VIEW;
+import static seedu.clinic.logic.commands.ViewCommand.MESSAGE_INVALID_USAGE;
+import static seedu.clinic.logic.commands.ViewCommand.MESSAGE_MISSING_INDEX;
+import static seedu.clinic.logic.commands.ViewCommand.MESSAGE_MISSING_TYPE;
+import static seedu.clinic.logic.commands.ViewCommand.MESSAGE_NO_PREFIX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
-import java.util.List;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_PREFIX;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.ViewCommand;
 
 public class ViewCommandParserTest {
 
     private final Parser parser = new ViewCommandParser();
-
     @Test
-    public void parse_zeroKeywords_throwParsesException() {
-        assertParseFailure(parser, "", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " ", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
+    public void parse_zeroKeywords_throwParseException() {
+        assertParseFailure(parser, "", String.format(MESSAGE_NO_PREFIX, ViewCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " ", String.format(MESSAGE_NO_PREFIX, ViewCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_onlyTypeNoKeywords_throwParsesException() {
-        assertParseFailure(parser, "supplier ", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_TOO_FEW_ARGUMENTS));
-        assertParseFailure(parser, "suPPLIEr ", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_TOO_FEW_ARGUMENTS));
-        assertParseFailure(parser, "WAREHOUSE ", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_TOO_FEW_ARGUMENTS));
-        assertParseFailure(parser, "WAREhouse ", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_TOO_FEW_ARGUMENTS));
-        assertParseFailure(parser, "warehouse ", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_TOO_FEW_ARGUMENTS));
+    public void parse_onlyTypeNoIndex_throwParseException() {
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s ", String.format(
+                MESSAGE_MISSING_INDEX, ViewCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w ", String.format(
+                MESSAGE_MISSING_INDEX, ViewCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_onlyOneKeywordNoType_throwParsesException() {
-        assertParseFailure(parser, "alice", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_TOO_FEW_ARGUMENTS));
-        assertParseFailure(parser, "bENson", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_TOO_FEW_ARGUMENTS));
+    public void parse_onlyIndexNoType_throwParseException() {
+        assertParseFailure(parser, " " + PREFIX_INDEX + "3 ", String.format(
+                MESSAGE_MISSING_TYPE, ViewCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_INDEX + "1 ", String.format(
+                MESSAGE_MISSING_TYPE, ViewCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_onlyMultipleKeywordsNoType_throwParsesException() {
-        assertParseFailure(parser, "alice benson", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_INVALID_TYPE));
-        assertParseFailure(parser, "ALIce bENson", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_INVALID_TYPE));
+    public void parse_wrongTypeIndexPresent_throwParseException() {
+        assertParseFailure(parser, " " + PREFIX_TYPE + "z " + PREFIX_INDEX + "1",
+                String.format(MESSAGE_INVALID_TYPE_VIEW, ViewCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "2 " + PREFIX_INDEX + "1",
+                String.format(MESSAGE_INVALID_TYPE_VIEW, ViewCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "pw " + PREFIX_INDEX + "1",
+                String.format(MESSAGE_INVALID_TYPE_VIEW, ViewCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_TYPE + "ps " + PREFIX_INDEX + "3",
+                String.format(MESSAGE_INVALID_TYPE_VIEW, ViewCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_wrongTypeCorrectMultipleKeyWords_throwParsesException() {
-        assertParseFailure(parser, "VIEWWArehouse alice benson", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_INVALID_TYPE));
-        assertParseFailure(parser, "VIEWSupplier ALIce bENson", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_INVALID_TYPE));
-        assertParseFailure(parser, "See ALIce bENson", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_INVALID_TYPE));
+    public void parse_correctTypeCorrectIndexExtraArguments_throwParseException() {
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1" + " testing",
+                String.format(MESSAGE_INVALID_USAGE, ViewCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, " " + PREFIX_TYPE + "w" + " testing " + PREFIX_INDEX + "1",
+                String.format(MESSAGE_INVALID_USAGE, ViewCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + " z/testing " + PREFIX_INDEX + "2",
+                MESSAGE_INVALID_PREFIX + "\n" + ViewCommand.MESSAGE_USAGE);
+
+        assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "2" + " z/testing",
+                MESSAGE_INVALID_PREFIX + "\n" + ViewCommand.MESSAGE_USAGE);
+
     }
 
     @Test
-    public void parse_wrongTypeCorrectOneKeyWord_throwParsesException() {
-        assertParseFailure(parser, "VIEWWArehouse alice", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_INVALID_TYPE));
-        assertParseFailure(parser, "VIEWSupplier bENson", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_INVALID_TYPE));
-        assertParseFailure(parser, "See ALIce", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_INVALID_TYPE));
-    }
+    public void parse_correctTypeCorrectIndex_success() {
+        ViewCommand expectedViewCommand1 = new ViewCommand(Type.SUPPLIER, Index.fromOneBased(1));
+        assertParseSuccess(parser, PREFIX_TYPE + "s " + PREFIX_INDEX + "1", expectedViewCommand1);
 
-    @Test
-    public void parse_correctTypeCorrectKeyWords_success() {
-        ViewCommand expectedViewCommand1 = new ViewCommand("supplier", List.of("alice", "benson"));
-        assertParseSuccess(parser, "supplier alice benson", expectedViewCommand1);
+        ViewCommand expectedViewCommand3 = new ViewCommand(Type.WAREHOUSE, Index.fromOneBased(2));
+        assertParseSuccess(parser, PREFIX_TYPE + "s " + PREFIX_INDEX + "2", expectedViewCommand3);
 
-        ViewCommand expectedViewCommand2 = new ViewCommand("supplier", List.of("ALIce", "bENson"));
-        assertParseSuccess(parser, "Supplier ALIce bENson", expectedViewCommand2);
-
-        ViewCommand expectedViewCommand3 = new ViewCommand("warehouse", List.of("ALIce", "bENson"));
-        assertParseSuccess(parser, "warehouse ALIce bENson", expectedViewCommand3);
-
-        ViewCommand expectedViewCommand4 = new ViewCommand("warehouse", List.of("alice", "benson"));
-        assertParseSuccess(parser, "wArehouse alice benson", expectedViewCommand4);
     }
 
 

@@ -1,5 +1,7 @@
 package seedu.clinic.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -76,7 +78,10 @@ public class SupplierCard extends UiPart<Region> {
             noProductsLabel.setVisible(false);
             for (Product product : supplier.getProducts()) {
                 products.getChildren().add(
-                        new Label(productIndex + ". " + product.toStringForSupplier()));
+                        new Label(productIndex + ". " + product.getProductName().fullName));
+                product.getProductTags().stream()
+                        .sorted(Comparator.comparing(tag -> tag.tagName))
+                        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
                 productIndex++;
             }
         }
