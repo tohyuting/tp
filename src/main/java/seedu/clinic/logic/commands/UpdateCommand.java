@@ -27,7 +27,7 @@ import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 
 /**
- * Update the quantity/tags for a product in a specific warehouse/supplier, or adds the product if it does not
+ * Updates the quantity/tags for a product in a specific warehouse/supplier, or adds the product if it does not
  * already exist for that warehouse/supplier.
  */
 public class UpdateCommand extends Command {
