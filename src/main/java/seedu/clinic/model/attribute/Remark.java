@@ -16,7 +16,7 @@ public class Remark {
      * otherwise " " (a blank string) becomes a valid input.
      * String must not contain forward slashes (i.e. '/').
      */
-    public static final String VALIDATION_REGEX = "[^\\s].[^/]*";
+    public static final String VALIDATION_REGEX = "[^\\s][^/]*";
 
     public final String value;
 
