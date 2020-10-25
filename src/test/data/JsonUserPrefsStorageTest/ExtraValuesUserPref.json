@@ -9,5 +9,6 @@
       "z" : 99
     }
   },
-  "clinicFilePath" : "clinic.json"
+  "clinicFilePath" : "clinic.json",
+  "userMacrosFilePath" : "userMacros.json"
 }

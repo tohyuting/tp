@@ -27,13 +27,13 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class TypicalWarehouse {
 
     public static final Warehouse ALICE = new WarehouseBuilder().withName("Alice Warehouse")
-            .withRemark("Warehouse 1").withAddress("alice address")
+            .withRemark("Warehouse 1 biggest").withAddress("alice address")
             .withPhone("94351253")
-            .withProducts(Map.of("Panadol", 100)).build();
+            .withProducts(Map.of("Gauze", 100)).build();
     public static final Warehouse BENSON = new WarehouseBuilder().withName("Warehouse Benson")
-            .withRemark("Warehouse 2").withAddress("benson address")
+            .withRemark("Warehouse 2 near central").withAddress("benson address")
             .withPhone("94351453")
-            .withProducts(Map.of("Panadol", 200)).build();
+            .withProducts(Map.of("Towel", 200)).build();
     public static final Warehouse CARL = new WarehouseBuilder().withName("Warehouse Carl")
             .withRemark("Warehouse 3").withAddress("carl address")
             .withPhone("94361253")
