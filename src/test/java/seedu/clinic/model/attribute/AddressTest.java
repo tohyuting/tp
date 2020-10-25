@@ -29,6 +29,9 @@ public class AddressTest {
         assertFalse(Address.isValidAddress("")); // empty string
         assertFalse(Address.isValidAddress(" ")); // spaces only
         assertFalse(Address.isValidAddress(" dsfas")); // spaces at the start only
+        assertFalse(Name.isValidName("/")); // no forward slash
+        assertFalse(Address.isValidAddress("CCK/Yew Tee")); // contains slash within string
+        assertFalse(Address.isValidAddress("Kidzania z/Weekend")); // contains slash as a non-matching prefix
 
         // valid addresses
         assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));

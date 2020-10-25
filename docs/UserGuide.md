@@ -27,12 +27,13 @@ and efficient Graphical User Interface interaction.
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will display instructions on various commands.<br>
    Some example commands you can try:
 
-   * **`add`** `w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` : Adds a warehouse
-    with the name warehouseA located at John street, block 123, #01-01. The warehouse is noted to be the “First warehouse”.
+   * **`add`** `ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` : Adds a
+    warehouse with the name warehouseA located at John street, block 123, #01-01. This warehouse is the
+    “First warehouse”.
 
-   * **`add`** `s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor` : Adds a
-    supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is
-    philipsPharm@gmail.com. The supplier is noted to be the “largest contractor”.
+   * **`add`** `ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor` : Adds a
+    supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com.
+    This supplier is the “largest contractor”.
 
    * **`add`** `s/SupplierA pd/PANADOL SUSP t/FEVER` : Adds the product PANADOL SUSP to list of products from
     supplierA. This indicates that supplierA is selling this product. PANADOL SUSP also has a tag of FEVER.
@@ -66,13 +67,14 @@ and efficient Graphical User Interface interaction.
   e.g. in `delete TYPE INDEX`, `TYPE` is a parameter which can be used as `delete warehouse 1`.
 
 * Items in square brackets are optional.<br>
-  e.g `add s/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS]` can be used as `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com` or as `add s/Philips Pharmaceutical p/00000000`.
+  e.g `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS` can be used as `add ct/s n/Philips Pharmaceutical p
+  /00000000 e/philipsPharm@gmail.com` or as `add ct/s n/Philips Pharmaceutical p/00000000`.
 
 * Items with `…`​ after them can be used multiple times.<br>
   e.g. `[t/TAG]…​` can be used as `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `s/NAME p/PHONE`, `p/PHONE s/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
 </div>
 
@@ -94,23 +96,27 @@ Examples:
 
 Adds warehouse to the CLI-nic application.
 
-Format: `add w/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
+Format: `add ct/TYPE n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
+* The TYPE specified here should be w for warehouse.
 
 Examples:
 
-* `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` Adds a warehouse with the name
- warehouseA located at John street, block 123, #01-01. The warehouse's contact number is 00000000. The warehouse is noted to be the “First warehouse”.
+* `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` Adds a warehouse
+ with the name warehouseA located at John street, block 123, #01-01. The warehouse's contact number is 00000000.
+ This warehouse is the “First warehouse”.
 
 ### Adding a supplier : `add`
 
 Adds a supplier to the CLI-nic application.
 
-Format: `add s/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]`
+Format: `add ct/TYPE n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`
+* The TYPE specified here should be s for supplier.
 
 Examples:
 
-* `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor` Adds a
- supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com. The supplier is noted to be the “largest contractor”.
+* `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
+Adds a supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com.
+This supplier is the “largest contractor”.
 
 ### Adding a product to a supplier : `add`
 
@@ -265,8 +271,8 @@ Examples:
 
 Action | Format, Examples
 --------|------------------
-**Add** Warehouse | `add w/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
-**Add** Supplier | `add s/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]`<br> e.g., `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
+**Add** Warehouse | `add ct/w n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
+**Add** Supplier | `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`<br> e.g., `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
 **Addp** Product | `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `addp s/SupplierA pd/PANADOL SUSP t/FEVER`
 **Clear** | `clear`
 **Delete** | `delete ct/TYPE i/INDEX`<br> e.g., `delete ct/w i/1`
