@@ -123,6 +123,16 @@ public class AddCommandParserTest {
                         + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
                 String.format(AddCommand.MESSAGE_WAREHOUSE_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
 
+        // missing email prefix
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB
+                        + VALID_EMAIL_BOB + REMARK_DESC_BOB,
+                String.format(AddCommand.MESSAGE_SUPPLIER_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
+
+        // missing address prefix
+        assertParseFailure(parser, TYPE_DESC_WAREHOUSE + NAME_DESC_WAREHOUSE_A2 + PHONE_DESC_WAREHOUSE_A
+                        + VALID_WAREHOUSE_ADDRESS_A + REMARK_DESC_WAREHOUSE_A,
+                String.format(AddCommand.MESSAGE_WAREHOUSE_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
+
         // all prefixes missing
         assertParseFailure(parser, VALID_TYPE_SUPPLIER + VALID_NAME_BOB + VALID_PHONE_BOB
                         + VALID_EMAIL_BOB + VALID_REMARK_BOB,
