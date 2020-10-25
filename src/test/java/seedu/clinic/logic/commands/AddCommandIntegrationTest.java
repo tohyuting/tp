@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
+import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
@@ -24,14 +25,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalClinic(), new UserPrefs());
+        model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
     }
 
     @Test
     public void execute_newSupplier_success() {
         Supplier validSupplier = new SupplierBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.addSupplier(validSupplier);
 
         assertCommandSuccess(new AddCommand(validSupplier), model,
@@ -48,7 +49,7 @@ public class AddCommandIntegrationTest {
     public void execute_newWarehouse_success() {
         Warehouse validWarehouse = new WarehouseBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.addWarehouse(validWarehouse);
 
         assertCommandSuccess(new AddCommand(validWarehouse), model,

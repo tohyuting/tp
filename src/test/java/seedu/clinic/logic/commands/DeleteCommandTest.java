@@ -26,6 +26,7 @@ import seedu.clinic.commons.core.Messages;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
+import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.supplier.Supplier;
@@ -38,8 +39,10 @@ import seedu.clinic.testutil.SupplierBuilder;
  */
 public class DeleteCommandTest {
 
-    private Model modelForSupplier = new ModelManager(getTypicalSupplierOnlyClinic(), new UserPrefs());
-    private Model modelForWarehouse = new ModelManager(getTypicalWarehouseOnlyClinic(), new UserPrefs());
+    private Model modelForSupplier = new ModelManager(getTypicalSupplierOnlyClinic(), new UserPrefs(),
+            new UserMacros());
+    private Model modelForWarehouse = new ModelManager(getTypicalWarehouseOnlyClinic(), new UserPrefs(),
+            new UserMacros());
 
     @Test
     public void execute_noModel_throwsCommandException() {
@@ -55,7 +58,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_SUPPLIER_SUCCESS, supplierToDelete);
 
-        ModelManager expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.deleteSupplier(supplierToDelete);
 
         assertCommandSuccess(deleteCommand, modelForSupplier, expectedMessage, expectedModel);
@@ -66,7 +69,7 @@ public class DeleteCommandTest {
 
         expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_WAREHOUSE_SUCCESS, warehouseToDelete);
 
-        expectedModel = new ModelManager(modelForWarehouse.getClinic(), new UserPrefs());
+        expectedModel = new ModelManager(modelForWarehouse.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.deleteWarehouse(warehouseToDelete);
 
         assertCommandSuccess(deleteCommand, modelForWarehouse, expectedMessage, expectedModel);
@@ -86,7 +89,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(MESSAGE_DELETE_PRODUCT_IN_SUPPLIER_SUCCESS,
                 productToDeleteName, supplierToUpdate.getName());
 
-        ModelManager expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.setSupplier(supplierToUpdate, expectedSupplier);
         assertCommandSuccess(deleteCommand, modelForSupplier, expectedMessage, expectedModel);
     }
@@ -126,7 +129,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_SUPPLIER_SUCCESS, supplierToDelete);
 
-        Model expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs());
+        Model expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.deleteSupplier(supplierToDelete);
         showNoSupplier(expectedModel);
 
@@ -140,7 +143,7 @@ public class DeleteCommandTest {
 
         expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_WAREHOUSE_SUCCESS, warehouseToDelete);
 
-        expectedModel = new ModelManager(modelForWarehouse.getClinic(), new UserPrefs());
+        expectedModel = new ModelManager(modelForWarehouse.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.deleteWarehouse(warehouseToDelete);
         showNoWarehouse(expectedModel);
 
