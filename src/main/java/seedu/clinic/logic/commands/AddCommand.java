@@ -57,7 +57,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_MISSING_TYPE_PREFIX = "Please enter either one of the type to add,"
             + " i.e. either ct/s or ct/w";
     public static final String MESSAGE_SUPPLIER_MISSING_PREFIX = "There are missing prefixes, ensure"
-            + " that you at least include: ct/s n/SUPPLIER_NAME and p/PHONE";
+            + " that you at least include: ct/s n/SUPPLIER_NAME, p/PHONE and e/EMAIL_ADDRESS";
     public static final String MESSAGE_WAREHOUSE_MISSING_PREFIX = "There are missing prefixes, ensure"
             + " that you at least include: ct/w n/WAREHOUSE_NAME, p/PHONE and addr/ADDRESS";
 
