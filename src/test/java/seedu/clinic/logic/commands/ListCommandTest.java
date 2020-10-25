@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
+import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 
 /**
@@ -24,8 +25,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalClinic(), new UserPrefs());
-        expectedModel = new ModelManager(model.getClinic(), new UserPrefs());
+        model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+        expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros());
     }
 
     @Test

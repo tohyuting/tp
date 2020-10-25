@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path clinicFilePath = Paths.get("data" , "clinic.json");
+    private Path userMacrosFilePath = Paths.get("data" , "userMacros.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setClinicFilePath(newUserPrefs.getClinicFilePath());
+        setUserMacrosFilePath(newUserPrefs.getUserMacrosFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -45,6 +47,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
+    }
+
+    public Path getUserMacrosFilePath() {
+        return userMacrosFilePath;
+    }
+
+    public void setUserMacrosFilePath(Path userMacrosFilePath) {
+        requireNonNull(userMacrosFilePath);
+        this.userMacrosFilePath = userMacrosFilePath;
     }
 
     public Path getClinicFilePath() {
@@ -68,19 +79,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && clinicFilePath.equals(o.clinicFilePath);
+                && clinicFilePath.equals(o.clinicFilePath)
+                && userMacrosFilePath.equals(o.userMacrosFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, clinicFilePath);
+        return Objects.hash(guiSettings, clinicFilePath, userMacrosFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + clinicFilePath);
+        sb.append("\nClinic data file location : " + clinicFilePath);
+        sb.append("\nUser macros file location : " + userMacrosFilePath);
         return sb.toString();
     }
 

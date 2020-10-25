@@ -50,7 +50,7 @@ public class UpdateCommand extends Command {
             + PREFIX_PRODUCT_QUANTITY + "350 "
             + PREFIX_TAG + "Fever";
 
-    public static final String MESSAGE_SUCCESS = "Product stock updated: %1$s for %2$s";
+    public static final String MESSAGE_SUCCESS = "Product stock updated: %1$s in %2$s";
     private static final String MESSAGE_NO_SUCH_ENTITY = "The specified warehouse/supplier cannot be found.";
     private static final String MESSAGE_INVALID_TYPE = "Invalid Type.";
     private static final String MESSAGE_EMPTY_DESCRIPTOR = "Either the quantity or tags (or both) has to be "
@@ -121,7 +121,7 @@ public class UpdateCommand extends Command {
         model.setWarehouse(warehouseToUpdate, updatedWarehouse);
         model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toStringForWareHouse(),
-                updatedWarehouse));
+                updatedWarehouse.getName().fullName));
     }
 
     private CommandResult updateProductForSupplier(Model model) throws CommandException {

@@ -2,6 +2,7 @@ package seedu.clinic.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static seedu.clinic.testutil.TypicalMacro.getTypicalUserMacros;
 import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
 
 import java.nio.file.Path;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.ReadOnlyClinic;
+import seedu.clinic.model.ReadOnlyUserMacros;
+import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,9 +27,10 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonClinicStorage clinicStorage = new JsonClinicStorage(getTempFilePath("ab"));
+        JsonClinicStorage clinicStorage = new JsonClinicStorage(getTempFilePath("clinic"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(clinicStorage, userPrefsStorage);
+        JsonUserMacrosStorage userMacrosStorage = new JsonUserMacrosStorage(getTempFilePath("userMacros"));
+        storageManager = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -61,8 +65,26 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void userMacrosReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonUserMacrosStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonUserMacrosStorageTest} class.
+         */
+        UserMacros original = getTypicalUserMacros();
+        storageManager.saveUserMacros(original);
+        ReadOnlyUserMacros retrieved = storageManager.readUserMacros().get();
+        assertEquals(original, new UserMacros(retrieved));
+    }
+
+    @Test
     public void getClinicFilePath() {
         assertNotNull(storageManager.getClinicFilePath());
+    }
+
+    @Test
+    public void getUserMacrosFilePath() {
+        assertNotNull(storageManager.getUserMacrosFilePath());
     }
 
 }
