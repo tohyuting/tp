@@ -8,7 +8,7 @@ start
 
 if () then ([index and command type prefixes present])
     :Parse command arguments;
-    if () then([prefixes valid])
+    if () then([at least one of the prefixes is valid])
         if () then([supplier])
         :Generate new
         EditSupplierDescriptor;

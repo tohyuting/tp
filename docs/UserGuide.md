@@ -41,6 +41,8 @@ and efficient Graphical User Interface interaction.
 
    * **`delete`** `delete supplier 12` : Removes supplier at index 12 from the list of suppliers.
 
+   * **`edit`** `edit ct/s i/1 n/Alice p/68574214` : Edits supplier at index 1 in supplier list to have name Alice and phone number 685742141.
+
    * **`exit`** : Exits the app.
 
    * **`find`** `PANADOL warehouse` : Displays all the warehouses managed by the manager that has a product
@@ -48,10 +50,9 @@ and efficient Graphical User Interface interaction.
 
    * **`list`** `list`: Displays all the warehouses and suppliers in CLI-nic.
 
-   * **`update`** `w/WarehouseA pd/Panadol q/10` : Updates the quantity of PANADOL in WarehouseA to 10. The
-    quantity of PANADOL in WarehouseA can be more than 10 or lesser than 10 before the update is done.
+   * **`update`** `w/WarehouseA pd/Panadol q/10` : Updates the quantity of PANADOL in WarehouseA to 10. The quantity of PANADOL in WarehouseA can be more than 10 or lesser than 10 before the update is done.
 
-   * **`view supplier supplierA`** : Displays all the information associated with supplierA e.g. address, contact, email, products sold by the supplier etc.
+   * **`view ct/w i/3`** : Displays all the information associated with warehouse at index 3 of warehouse list e.g. name, address, contact, products sold by the warehouse etc.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -73,7 +74,7 @@ and efficient Graphical User Interface interaction.
   e.g. `[t/TAG]…​` can be used as `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `s/NAME p/PHONE`, `p/PHONE s/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
 </div>
 
@@ -81,6 +82,7 @@ and efficient Graphical User Interface interaction.
 
 Displays a list of available commands and their utility description.
 Narrows down to a specific command and its actual input format and samples if specified.
+The user guide can also be accessed by pressing F1 to copy the webpage link. Internet connection is needed to view the user guide.
 
 ![help message](images/helpMessage.png)
 
@@ -177,6 +179,21 @@ the warehouse at index 1 of the list of warehouses.
 * `delete supplier 12 pd/Aspirin` Removes product with the name _Aspirin_
 from the supplier at index 12 of the list of suppliers.
 
+### Edit a warehouse or supplier : `edit`
+
+Edits a warehouse or supplier at specified index. Name, Phone, Remarks of specified supplier and warehouse can be edited. In addition, a warehouse's address and a supplier's email can be edited as well. Note that no two warehouses or suppliers can share the same name in CLI-nic.
+
+Format: `edit ct/TYPE i/INDEX [n/NAME] [p/PHONE] [r/REMARK] [addr/ADDRESS] [e/EMAIL]`
+
+* `addr/ADDRESS` prefix can only be used for Warehouses and `e/EMAIL` prefix can only be used for Suppliers.
+* At least one field has to be specified in the edit command.
+* Edited supplier or warehouse must be different from one started with.
+
+Examples:
+
+* `edit ct/s i/1 n/Alice p/85236417 r/Largest Supplier e/alicekoh@example.com` Edits the first supplier in the displayed supplier list to be named _Alice_ with contact number of _85236417_ and remark of _Largest Supplier_. In addition, email field of supplier is to be edited as _alicekoh@example.com_.
+* `edit ct/w i/2 n/Bob p/67851234 r/Largest Warehouse addr/Jurong Street 11` Edits the second warehouse in the displayed warehouse list to be named _Bob_ with contact number of _67851234_ and remark of _Largest Warehouse_. In addition, address field of warehouse is to be edited as _Jurong Street 11_.
+
 ### Finding medical product associated with warehouses / suppliers: `find`
 
 Finds all suppliers or warehouses managed by the manager that sells the relevant medical products.
@@ -199,17 +216,17 @@ Format: `list`
 
 ### View a specific supplier / warehouse: `view`
 
-Shows a particular supplier/warehouse with their relevant information e.g. products associated with the supplier/warehouse, address etc.
+Shows the supplier/warehouse at the specified index with their relevant information e.g. products associated with the supplier/warehouse, address etc.
 
-Format: `view TYPE NAME`
+Format: `view ct/TYPE i/INDEX`
 
-* The TYPE specified should be one of these values: supplier or warehouse.
-* The supplier/warehouse NAME specified is case-insensitive.
+* The TYPE specified should be one of these values: s or w representing supplier or warehouse.
+* The supplier/warehouse INDEX specified should be within range of the supplier/warehouse list, corresponding to the number on the list.
 
 Examples:
 
-* `view supplier supplierA` Displays all the information associated with supplierA e.g. address, contact, email, products sold by the supplier etc.
-* `view warehouse warehouseB` Displays all the information associated with warehouseB e.g. address, all the products stored in the warehouse etc.
+* `view ct/s 1` Displays all the information associated with supplier at index 1 in the supplier list e.g. name, contact, email, remarks, products sold by the supplier.
+* `view ct/w 2` Displays all the information associated with at index 2 in the warehouse list e.g. name, contact, address, remarks, all the products stored in the warehouse.
 
 ### Update the stock for a product: `update`
 
@@ -269,8 +286,9 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete ct/TYPE i/INDEX`<br> e.g., `delete ct/w i/1`
 **Delete** Product| `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`<br> e.g., `delete ct/pw i/1 pd/Panadol`
+**Edit** | `edit ct/TYPE i/INDEX [n/NAME] [p/PHONE] [r/REMARK] [addr/ADDRESS] [e/EMAIL]`<br> e.g., `edit ct/w i/1 n/Alice Warehouse p/98765432 r/second largest warehouse addr/21 Lower Kent Ridge Rd`
 **Find** | `find TYPE KEYWORD [KEYWORD]…`<br> e.g. `find warehouse panadol`
 **Help** | `help [COMMAND]`<br> e.g., `help add`
 **List** | `list`
 **Update** | `update w/WAREHOUSE_NAME pd/PRODUCT_NAME q/QUANTITY` <br> e.g., `update w/WarehouseA pd/Panadol q/10`
-**View** | `view TYPE NAME`<br> e.g. `view supplier supplierA`
+**View** | `view ct/TYPE i/INDEX`<br> e.g. `view ct/s i/1`

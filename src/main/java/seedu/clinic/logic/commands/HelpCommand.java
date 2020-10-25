@@ -16,11 +16,11 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_TOO_MANY_ARGUMENTS = "You can only enter one command at a time\n\n"
             + MESSAGE_USAGE;
     public static final String MESSAGE_WRONG_ARGUMENT = "You can only enter command from one of the "
-            + "following keywords: add, clear, delete, exit, find, view, update";
+            + "following keywords: add, clear, delete, edit, exit, find, view, update";
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
     public static final String[] ALLOWED_ARGUMENTS = new String[]{
-        "add", "clear", "delete", "exit", "find", "list", "view", "update"};
+        "add", "clear", "delete", "edit", "exit", "find", "list", "view", "update"};
 
     public static final String HELP_MESSAGE_FOR_COMMAND_FORMAT = "How to interpret command format?\n"
             + "Words in UPPER_CASE are the parameters to be supplied by the user."
@@ -53,6 +53,9 @@ public class HelpCommand extends Command {
             break;
         case "delete":
             helpMessage = generateHelpDeleteMessage();
+            break;
+        case "edit":
+            helpMessage = generateHelpEditMessage();
             break;
         case "exit":
             helpMessage = generateHelpExitMessage();
@@ -90,6 +93,9 @@ public class HelpCommand extends Command {
                 + " in CLI-nic using clear command.";
         String aboutDeleteCommand = "delete\nYou can delete warehouse or supplier that are no longer"
                 + " needed by using the delete command.";
+        String aboutEditCommand = "edit\nYou can edit warehouse or supplier by using the edit command. Name"
+                + ", Phone, Remarks can be edited in both warehouse and suppliers. In addition, a"
+                + " warehouse's address and a supplier's email can be edited as well.";
         String aboutExitCommand = "exit\nYou can exit the application using the exit command.";
         String aboutFindCommand = "find\nYou can find suppliers or warehouses that sells the products using"
                 + " the find command.";
@@ -100,9 +106,9 @@ public class HelpCommand extends Command {
                 + " using the update command";
 
         String finalGenericHelpMessage = aboutHelpCommand + "\n\n" + aboutAddCommand + "\n\n"
-                + aboutClearCommand + "\n\n" + aboutDeleteCommand + "\n\n" + aboutExitCommand
-                + "\n\n" + aboutFindCommand + "\n\n" + aboutListCommand + "\n\n" + aboutViewCommand
-                + "\n\n" + aboutUpdateCommand;
+                + aboutClearCommand + "\n\n" + aboutDeleteCommand + "\n\n" + aboutEditCommand + "\n\n"
+                + aboutExitCommand + "\n\n" + aboutFindCommand + "\n\n" + aboutListCommand + "\n\n"
+                + aboutViewCommand + "\n\n" + aboutUpdateCommand;
         return finalGenericHelpMessage;
     }
 
@@ -159,6 +165,32 @@ public class HelpCommand extends Command {
         return deleteHelpMessage;
     }
 
+    private String generateHelpEditMessage() {
+        String editDescriptionMessage = "Edits a warehouse or supplier at specified index."
+                + " Name, Phone, Remarks of specified supplier and warehouse can be edited."
+                + " In addition, a warehouse's address and a supplier's email can be edited as well. "
+                + " Note that no two warehouses or suppliers can share the same name in CLI-nic.";
+        String editCommandFormat = "edit ct/TYPE i/INDEX [n/NAME] [p/PHONE] [r/REMARK] [addr/ADDRESS] "
+                + "[e/EMAIL]";
+        String editCommandSpecialInstructions = "addr/ADDRESS prefix can only be used for Warehouses "
+                + "and e/EMAIL prefix can only be used for Suppliers. \nAt least one field has to be"
+                + " specified in the edit command.\nEdited supplier or warehouse must be different"
+                + " from one started with.";
+        String editCommandSupplierSample = "edit ct/s i/1 n/Alice p/85236417 r/Largest Supplier"
+                + " e/alicekoh@example.com\nEdits the first supplier in the displayed supplier list to be"
+                + " named Alice with contact number of 85236417 and remark of Largest Supplier."
+                + " In addition, email field of supplier is to be edited as alicekoh@example.com.";
+        String editCommandWarehouseSample = "edit ct/w i/2 n/Bob p/67851234 r/Largest Warehouse"
+                + " addr/Jurong Street 11\nEdits the second warehouse in the displayed warehouse list to be"
+                + " named Bob with contact number of 67851234 and remark of Largest Warehouse."
+                + " In addition, address field of warehouse is to be edited as Jurong Street 11.";
+        String editHelpMessage = HELP_MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + editDescriptionMessage
+                + "\n\n" + editCommandFormat + "\n\n"
+                + editCommandSpecialInstructions + "\n\n" + editCommandSupplierSample + "\n\n"
+                + editCommandWarehouseSample + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
+        return editHelpMessage;
+    }
+
     private String generateHelpExitMessage() {
         return "Exit\n\nExits the program.\n\nSample Command:\nexit";
     }
@@ -184,17 +216,16 @@ public class HelpCommand extends Command {
     }
 
     private String generateHelpViewMessage() {
-        String viewWarehouseOrSupplier = "View\nShows a particular supplier/warehouse with their relevant"
-            + " information e.g. products associated with the supplier/warehouse, address etc.";
-        String viewWarehouseOrSupplierCommandFormat = "Command format: \nview TYPE NAME\n"
-            + "The TYPE specified should be one of these values: supplier or warehouse.\n"
-            + "The supplier/warehouse NAME specified is case-insensitive.";
-        String viewWarehouseOrSupplierSampleCommand = "Sample Command: \nview supplier supplierA"
-            + "\nview warehouse warehouseB";
+        String viewWarehouseOrSupplier = "View\nShows the supplier/warehouse at the specified index with"
+                + " their relevant information e.g. products associated with the supplier/warehouse, "
+                + "address etc.";
+        String viewCommandFormat = "Command format: \nview ct/TYPE i/INDEX\n"
+            + "The TYPE specified should be one of these values: s or w representing supplier or warehouse.\n"
+            + "The supplier/warehouse INDEX specified should be within range of the supplier/warehouse "
+            + "list, corresponding to the number on the list.";
         String viewCommandHelpMessage = HELP_MESSAGE_FOR_COMMAND_FORMAT + "\n\n"
             + viewWarehouseOrSupplier + "\n\n"
-            + viewWarehouseOrSupplierCommandFormat + "\n\n"
-            + viewWarehouseOrSupplierSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
+            + viewCommandFormat + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
         return viewCommandHelpMessage;
     }
 
