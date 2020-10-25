@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -27,11 +28,17 @@
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <FlowPane fx:id="products" />
-      <FlowPane fx:id="tags" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
       <FlowPane fx:id="remark" />
+      <TitledPane fx:id="productsTitledPane" text="Products">
+        <VBox>
+          <VBox fx:id="products" />
+          <FlowPane fx:id="tags" />
+          <Label fx:id="noProductsLabel" styleClass="cell_small_label"
+                 text="This supplier has no products." />
+        </VBox>
+      </TitledPane>
     </VBox>
   </GridPane>
 </HBox>

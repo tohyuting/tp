@@ -6,7 +6,6 @@ import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -16,6 +15,7 @@ import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
+import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
 import seedu.clinic.model.warehouse.Warehouse;
@@ -25,8 +25,8 @@ public class ViewWarehousesCommandTest {
     private final Index index1 = Index.fromOneBased(1);
     private final Index index2 = Index.fromOneBased(20);
 
-    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+    private Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
 
     @Test
     public void equals() {
@@ -57,8 +57,7 @@ public class ViewWarehousesCommandTest {
         Warehouse warehouseToView = warehouseList.get(index1.getZeroBased());
         ViewCommand viewFirstCommand = new ViewCommand(type, index1);
         NameContainsKeywordsPredicateForWarehouse warehousePredicate =
-                new NameContainsKeywordsPredicateForWarehouse(
-                        Arrays.asList(warehouseToView.getName().toString()));
+                new NameContainsKeywordsPredicateForWarehouse(warehouseToView.getName().toString());
         model.updateFilteredWarehouseList(warehousePredicate);
         expectedModel.updateFilteredWarehouseList(warehousePredicate);
         String expectedMessage = String.format(Messages.MESSAGE_WAREHOUSE_LISTED_OVERVIEW,

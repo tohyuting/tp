@@ -3,10 +3,6 @@ package seedu.clinic.model.attribute;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.clinic.testutil.SupplierBuilder;
@@ -15,62 +11,45 @@ public class NameContainsKeywordsPredicateForSupplierTest {
 
     @Test
     public void equals() {
-        List<String> firstPredicateKeywordList = Collections.singletonList("first");
-        List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
-        List<String> firstPredicateKeywordListWithSpaces = Arrays.asList("first keywords");
-
-        NameContainsKeywordsPredicateForSupplier firstPredicate =
-                new NameContainsKeywordsPredicateForSupplier(firstPredicateKeywordList);
-        NameContainsKeywordsPredicateForSupplier secondPredicate =
-                new NameContainsKeywordsPredicateForSupplier(secondPredicateKeywordList);
+        String firstPredicateKeywordWithSpaces = "first keywords";
+        String secondPredicateKeywordWithSpaces = "second keywords";
 
         NameContainsKeywordsPredicateForSupplier firstPredicateWithSpaces =
-                new NameContainsKeywordsPredicateForSupplier(firstPredicateKeywordListWithSpaces);
+                new NameContainsKeywordsPredicateForSupplier(firstPredicateKeywordWithSpaces);
+        NameContainsKeywordsPredicateForSupplier secondPredicateWithSpaces =
+                new NameContainsKeywordsPredicateForSupplier(secondPredicateKeywordWithSpaces);
 
         // same object -> returns true
-        assertTrue(firstPredicate.equals(firstPredicate));
         assertTrue(firstPredicateWithSpaces.equals(firstPredicateWithSpaces));
 
         // same values -> returns true
         NameContainsKeywordsPredicateForSupplier firstPredicateCopy =
-                new NameContainsKeywordsPredicateForSupplier(firstPredicateKeywordList);
-        assertTrue(firstPredicate.equals(firstPredicateCopy));
+                new NameContainsKeywordsPredicateForSupplier(firstPredicateKeywordWithSpaces);
+        assertTrue(firstPredicateWithSpaces.equals(firstPredicateCopy));
 
         // different types -> returns false
-        assertFalse(firstPredicate.equals(1));
+        assertFalse(firstPredicateWithSpaces.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(firstPredicateWithSpaces.equals(null));
 
         // different supplier -> returns false
-        assertFalse(firstPredicate.equals(secondPredicate));
+        assertFalse(firstPredicateWithSpaces.equals(secondPredicateWithSpaces));
     }
 
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
         NameContainsKeywordsPredicateForSupplier predicate =
-                new NameContainsKeywordsPredicateForSupplier(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new SupplierBuilder().withName("Alice Bob").build()));
-
-        // Multiple keywords
-        predicate = new NameContainsKeywordsPredicateForSupplier(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new SupplierBuilder().withName("Alice Bob").build()));
-
-        // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicateForSupplier(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new SupplierBuilder().withName("Alice Carol").build()));
-
-        // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicateForSupplier(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new SupplierBuilder().withName("Alice Bob").build()));
+                new NameContainsKeywordsPredicateForSupplier("Alice");
+        assertTrue(predicate.test(new SupplierBuilder().withName("Alice").build()));
 
         // Non-alphanumeric keywords included
-        predicate = new NameContainsKeywordsPredicateForSupplier(Arrays.asList("Pte.Ltd", "&"));
-        assertTrue(predicate.test(new SupplierBuilder().withName("M & M Pte.Ltd").build()));
+        predicate = new NameContainsKeywordsPredicateForSupplier("Pte.Ltd &");
+        assertTrue(predicate.test(new SupplierBuilder().withName("Pte.Ltd &").build()));
 
         // keywords containing spaces
-        predicate = new NameContainsKeywordsPredicateForSupplier(Arrays.asList("Bernice Yu Pte Ltd"));
+        predicate = new NameContainsKeywordsPredicateForSupplier("Bernice Yu Pte Ltd");
         assertTrue(predicate.test(new SupplierBuilder().withName("Bernice Yu Pte Ltd").build()));
     }
 
@@ -78,17 +57,11 @@ public class NameContainsKeywordsPredicateForSupplierTest {
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicateForSupplier predicate =
-                new NameContainsKeywordsPredicateForSupplier(Collections.emptyList());
+                new NameContainsKeywordsPredicateForSupplier("");
         assertFalse(predicate.test(new SupplierBuilder().withName("Alice").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicateForSupplier(Arrays.asList("Carol"));
+        predicate = new NameContainsKeywordsPredicateForSupplier("Carol");
         assertFalse(predicate.test(new SupplierBuilder().withName("Alice Bob").build()));
-
-        // Keywords match phone, email and address, but does not match name
-        predicate = new NameContainsKeywordsPredicateForSupplier(
-                Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new SupplierBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withRemark("Main Street").build()));
     }
 }

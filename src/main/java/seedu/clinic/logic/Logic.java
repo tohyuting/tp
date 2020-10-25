@@ -7,7 +7,10 @@ import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.logic.commands.CommandResult;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.exceptions.ParseException;
+import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
+import seedu.clinic.model.ReadOnlyUserMacros;
+import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 
@@ -41,6 +44,21 @@ public interface Logic {
      * Returns the user prefs' clinic file path.
      */
     Path getClinicFilePath();
+
+    /**
+     * Returns the User Macros.
+     *
+     * @see Model#getUserMacros()
+     */
+    ReadOnlyUserMacros getUserMacros();
+
+    /** Returns an unmodifiable view of the list of macros */
+    ObservableList<Macro> getMacroList();
+
+    /**
+     * Returns the user macros file path according to user prefs.
+     */
+    Path getUserMacrosFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

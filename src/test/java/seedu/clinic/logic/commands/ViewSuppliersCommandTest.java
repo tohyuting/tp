@@ -6,7 +6,6 @@ import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -16,6 +15,7 @@ import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
+import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 import seedu.clinic.model.supplier.Supplier;
@@ -28,8 +28,8 @@ public class ViewSuppliersCommandTest {
     private final Index index1 = Index.fromOneBased(1);
     private final Index index2 = Index.fromOneBased(20);
 
-    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+    private Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
 
     @Test
     public void equals() {
@@ -60,8 +60,7 @@ public class ViewSuppliersCommandTest {
         Supplier supplierToView = supplierList.get(index1.getZeroBased());
         ViewCommand viewFirstCommand = new ViewCommand(type, index1);
         NameContainsKeywordsPredicateForSupplier supplierPredicate =
-                new NameContainsKeywordsPredicateForSupplier(
-                        Arrays.asList(supplierToView.getName().toString()));
+                new NameContainsKeywordsPredicateForSupplier(supplierToView.getName().toString());
         model.updateFilteredSupplierList(supplierPredicate);
         expectedModel.updateFilteredSupplierList(supplierPredicate);
         String expectedMessage = String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,

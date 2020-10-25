@@ -1,0 +1,106 @@
+.pane-with-border {
+     -fx-background-color: derive(#233d4d, 20%);
+     -fx-border-color: derive(#1233d4d, 10%);
+     -fx-border-top-width: 1px;
+}
+
+.context-menu {
+    -fx-background-color: derive(#192b36, 50%);
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.menu-bar {
+    -fx-background-color: derive(#192b36, 20%);
+}
+
+.menu-bar .label {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 13px;
+}
+
+.cell_small_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+}
+
+.list-cell:filled:even {
+    -fx-background-color: #99CAF0; /*bluish*/
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.list-cell:filled:odd {
+    -fx-background-color: #FEFEFE; /*white*/
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #75a2c7;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #75a2c7; /*on click*/
+}
+
+#commandTextField {
+    -fx-border-width: 1;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: black;
+}
+
+#resultDisplay {
+    -fx-border-width: 1;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: black;
+}
+
+#tags {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#tags .label {
+    -fx-background-color: #E6B89C; /*light blue for tags*/
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-text-fill: white;
+}
+
+#remark {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#remark .label {
+    -fx-background-color: #E6B89C; /*light blue for tags*/
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-text-fill: white;
+}
+
+#warehouseListView {
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: innershadow(gaussian, white, 1, 0, 0, 0);
+}
+
+#supplierListView {
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: innershadow(gaussian, white, 1, 0, 0, 0);
+}

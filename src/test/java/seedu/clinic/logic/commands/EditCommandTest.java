@@ -32,6 +32,7 @@ import seedu.clinic.model.Clinic;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.ReadOnlyClinic;
+import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.attribute.Address;
 import seedu.clinic.model.attribute.Email;
@@ -51,7 +52,7 @@ import seedu.clinic.testutil.WarehouseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -63,20 +64,22 @@ public class EditCommandTest {
 
         String expectedMessageSupplier = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier);
 
-        Model expectedModelSupplier = new ModelManager(new Clinic(model.getClinic()), new UserPrefs());
+        Model expectedModelSupplier = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
+                new UserMacros());
         expectedModelSupplier.setSupplier(model.getFilteredSupplierList().get(0), editedSupplier);
 
         assertCommandSuccess(editCommandSupplier, model, expectedMessageSupplier, expectedModelSupplier);
 
         //warehouse
-        Warehouse editedWarehouse = new WarehouseBuilder().withProducts(Map.of("Panadol", 100)).build();
+        Warehouse editedWarehouse = new WarehouseBuilder().withProducts(Map.of("Gauze", 100)).build();
         EditWarehouseDescriptor descriptorWarehouse = new EditWarehouseDescriptorBuilder(editedWarehouse)
                 .build();
         EditCommand editCommandWarehouse = new EditCommand(INDEX_FIRST_WAREHOUSE, descriptorWarehouse);
 
         String expectedMessageWarehouse = String.format(EditCommand.MESSAGE_EDIT_WAREHOUSE_SUCCESS, editedWarehouse);
 
-        Model expectedModelWarehouse = new ModelManager(new Clinic(model.getClinic()), new UserPrefs());
+        Model expectedModelWarehouse = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
+                new UserMacros());
         expectedModelWarehouse.setWarehouse(model.getFilteredWarehouseList().get(0), editedWarehouse);
 
         assertCommandSuccess(editCommandWarehouse, model, expectedMessageWarehouse, expectedModelWarehouse);
@@ -98,7 +101,8 @@ public class EditCommandTest {
         String expectedMessageSupplier = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS,
                 editedSupplier);
 
-        Model expectedModelSupplier = new ModelManager(new Clinic(model.getClinic()), new UserPrefs());
+        Model expectedModelSupplier = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
+                new UserMacros());
         expectedModelSupplier.setSupplier(lastSupplier, editedSupplier);
 
         assertCommandSuccess(editCommandSupplier, model, expectedMessageSupplier, expectedModelSupplier);
@@ -117,7 +121,8 @@ public class EditCommandTest {
 
         String expectedMessageWarehouse = String.format(EditCommand.MESSAGE_EDIT_WAREHOUSE_SUCCESS, editedWarehouse);
 
-        Model expectedModelWarehouse = new ModelManager(new Clinic(model.getClinic()), new UserPrefs());
+        Model expectedModelWarehouse = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
+                new UserMacros());
         expectedModelWarehouse.setWarehouse(lastWarehouse, editedWarehouse);
 
         assertCommandSuccess(editCommandWarehouse, model, expectedMessageWarehouse, expectedModelWarehouse);
@@ -133,7 +138,8 @@ public class EditCommandTest {
         String expectedMessageSupplier = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS,
                 editedSupplier);
 
-        Model expectedModelSupplier = new ModelManager(new Clinic(model.getClinic()), new UserPrefs());
+        Model expectedModelSupplier = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
+                new UserMacros());
 
         assertCommandSuccess(editCommandSupplier, model, expectedMessageSupplier, expectedModelSupplier);
 
@@ -145,7 +151,8 @@ public class EditCommandTest {
         String expectedMessageWarehouse = String.format(EditCommand.MESSAGE_EDIT_WAREHOUSE_SUCCESS,
                 editedWarehouse);
 
-        Model expectedModelWarehouse = new ModelManager(new Clinic(model.getClinic()), new UserPrefs());
+        Model expectedModelWarehouse = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
+                new UserMacros());
 
         assertCommandSuccess(editCommandWarehouse, model, expectedMessageWarehouse, expectedModelWarehouse);
     }
@@ -165,7 +172,8 @@ public class EditCommandTest {
         String expectedMessageSupplier = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS,
                 editedSupplier);
 
-        Model expectedModelSupplier = new ModelManager(new Clinic(model.getClinic()), new UserPrefs());
+        Model expectedModelSupplier = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
+                new UserMacros());
         expectedModelSupplier.setSupplier(model.getFilteredSupplierList().get(0), editedSupplier);
 
         assertCommandSuccess(editCommandSupplier, model, expectedMessageSupplier, expectedModelSupplier);
@@ -176,14 +184,15 @@ public class EditCommandTest {
         Warehouse warehouseInFilteredList = model.getFilteredWarehouseList()
                 .get(INDEX_FIRST_WAREHOUSE.getZeroBased());
         Warehouse editedWarehouse = new WarehouseBuilder(warehouseInFilteredList).withName(VALID_NAME_BOB)
-                .withProducts(Map.of("Panadol", 100)).build();
+                .withProducts(Map.of("Gauze", 100)).build();
         EditCommand editCommandWarehouse = new EditCommand(INDEX_FIRST_WAREHOUSE,
                 new EditWarehouseDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessageWarehouse = String.format(EditCommand.MESSAGE_EDIT_WAREHOUSE_SUCCESS,
                 editedWarehouse);
 
-        Model expectedModelWarehouse = new ModelManager(new Clinic(model.getClinic()), new UserPrefs());
+        Model expectedModelWarehouse = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
+                new UserMacros());
         expectedModelWarehouse.setWarehouse(model.getFilteredWarehouseList().get(0), editedWarehouse);
 
         assertCommandSuccess(editCommandWarehouse, model, expectedMessageWarehouse, expectedModelWarehouse);

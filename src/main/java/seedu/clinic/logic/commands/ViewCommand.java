@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,9 +74,7 @@ public class ViewCommand extends Command {
             logger.log(Level.INFO, "Retrieved supplier to be viewed from supplier list.");
 
             NameContainsKeywordsPredicateForSupplier supplierPredicate =
-                    new NameContainsKeywordsPredicateForSupplier(
-                            Arrays.asList(supplierToView.getName().toString()));
-
+                    new NameContainsKeywordsPredicateForSupplier(supplierToView.getName().fullName);
             model.updateFilteredSupplierList(supplierPredicate);
 
             logger.log(Level.INFO, "Updated model to show supplier to be viewed.");
@@ -98,8 +95,7 @@ public class ViewCommand extends Command {
             logger.log(Level.INFO, "Retrieved warehouse to be viewed from warehouse list.");
 
             NameContainsKeywordsPredicateForWarehouse warehousePredicate =
-                    new NameContainsKeywordsPredicateForWarehouse(
-                            Arrays.asList(warehouseToView.getName().toString()));
+                    new NameContainsKeywordsPredicateForWarehouse(warehouseToView.getName().fullName);
 
             model.updateFilteredWarehouseList(warehousePredicate);
             logger.log(Level.INFO, "Updated model to show warehouse to be viewed.");

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
 import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 import static seedu.clinic.testutil.Assert.assertThrows;
+import static seedu.clinic.testutil.TypicalMacro.MACRO_AS;
 import static seedu.clinic.testutil.TypicalSupplier.ALICE;
 import static seedu.clinic.testutil.TypicalSupplier.BENSON;
 import static seedu.clinic.testutil.TypicalWarehouse.A;
@@ -13,7 +14,6 @@ import static seedu.clinic.testutil.TypicalWarehouse.B;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +21,7 @@ import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
 import seedu.clinic.testutil.ClinicBuilder;
+import seedu.clinic.testutil.UserMacrosBuilder;
 
 public class ModelManagerTest {
 
@@ -31,6 +32,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new Clinic(), new Clinic(modelManager.getClinic()));
+        assertEquals(new UserMacros(), new UserMacros(modelManager.getUserMacros()));
     }
 
     @Test
@@ -42,6 +44,7 @@ public class ModelManagerTest {
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setClinicFilePath(Paths.get("clinic/book/file/path"));
+        userPrefs.setUserMacrosFilePath(Paths.get("userMacros/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
@@ -49,6 +52,7 @@ public class ModelManagerTest {
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setClinicFilePath(Paths.get("new/clinic/book/file/path"));
+        userPrefs.setUserMacrosFilePath(Paths.get("new/userMacros/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -70,10 +74,22 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setUserMacrosFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setUserMacrosFilePath(null));
+    }
+
+    @Test
     public void setClinicFilePath_validPath_setsClinicFilePath() {
         Path path = Paths.get("clinic/book/file/path");
         modelManager.setClinicFilePath(path);
         assertEquals(path, modelManager.getClinicFilePath());
+    }
+
+    @Test
+    public void setUserMacrosFilePath_validPath_setsUserMacrosFilePath() {
+        Path path = Paths.get("userMacros/book/file/path");
+        modelManager.setUserMacrosFilePath(path);
+        assertEquals(path, modelManager.getUserMacrosFilePath());
     }
 
     @Test
@@ -87,6 +103,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasMacro_nullMacro_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasMacro(null));
+    }
+
+    @Test
     public void hasSupplier_supplierNotInClinic_returnsFalse() {
         assertFalse(modelManager.hasSupplier(ALICE));
     }
@@ -94,6 +115,11 @@ public class ModelManagerTest {
     @Test
     public void hasWarehouse_warehouseNotInClinic_returnsFalse() {
         assertFalse(modelManager.hasWarehouse(A));
+    }
+
+    @Test
+    public void hasMacro_macroNotInUserMacros_returnsFalse() {
+        assertFalse(modelManager.hasMacro(MACRO_AS));
     }
 
     @Test
@@ -109,6 +135,25 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasMacro_macroInUserMacros_returnsTrue() {
+        modelManager.addMacro(MACRO_AS);
+        assertTrue(modelManager.hasMacro(MACRO_AS));
+    }
+
+    @Test
+    public void getMacro_macroInUserMacros_returnMacroInOptional() {
+        modelManager.addMacro(MACRO_AS);
+        assertEquals(modelManager.getMacro(MACRO_AS.getAlias()).orElseThrow(), MACRO_AS);
+        assertEquals(modelManager.getMacro(MACRO_AS.getAlias().aliasString).orElseThrow(), MACRO_AS);
+    }
+
+    @Test
+    public void getMacro_macroNotInUserMacros_returnEmptyOptional() {
+        assertTrue(modelManager.getMacro(MACRO_AS.getAlias()).isEmpty());
+        assertTrue(modelManager.getMacro(MACRO_AS.getAlias().aliasString).isEmpty());
+    }
+
+    @Test
     public void getFilteredSupplierList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredSupplierList().remove(0));
     }
@@ -120,6 +165,12 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getMacroList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, ()
+            -> modelManager.getMacroList().remove(0));
+    }
+
+    @Test
     public void equals() {
         Clinic clinic = new ClinicBuilder()
                 .withSupplier(ALICE)
@@ -127,12 +178,15 @@ public class ModelManagerTest {
                 .withWarehouse(A)
                 .withWarehouse(B)
                 .build();
+
+        UserMacros userMacros = new UserMacrosBuilder().withMacro(MACRO_AS).build();
         Clinic differentClinic = new Clinic();
         UserPrefs userPrefs = new UserPrefs();
+        UserMacros differentUserMacros = new UserMacros();
 
         // same values -> returns true
-        modelManager = new ModelManager(clinic, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(clinic, userPrefs);
+        modelManager = new ModelManager(clinic, userPrefs, userMacros);
+        ModelManager modelManagerCopy = new ModelManager(clinic, userPrefs, userMacros);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -145,19 +199,20 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different clinic -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentClinic, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentClinic, userPrefs, userMacros)));
+
+        // different userMacros -> returns false
+        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, differentUserMacros)));
 
         // different filteredSupplierList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        String[] query = Arrays.copyOfRange(keywords, 0, 2);
-        modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(Arrays.asList(query)));
-        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs)));
+        modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(
+                ALICE.getName().fullName));
+        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, userMacros)));
 
         // different filteredWarehouseList -> returns false
-        keywords = A.getName().fullName.split("\\s+");
-        query = Arrays.copyOfRange(keywords, 0, 2);
-        modelManager.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(query)));
-        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs)));
+        modelManager.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(
+                A.getName().fullName));
+        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, userMacros)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
@@ -166,6 +221,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setClinicFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(clinic, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(clinic, differentUserPrefs, userMacros)));
     }
 }

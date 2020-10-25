@@ -15,6 +15,8 @@ import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Phone;
 import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.attribute.Tag;
+import seedu.clinic.model.macro.Alias;
+import seedu.clinic.model.macro.SavedCommandString;
 import seedu.clinic.model.product.Product;
 
 /**
@@ -183,5 +185,29 @@ public class ParserUtil {
         return new Remark(trimmedRemark);
     }
 
+    /**
+     * Parses a {@code String alias} into an {@code Alias}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Alias parseAlias(String alias) throws ParseException {
+        requireNonNull(alias);
+        String trimmedAlias = alias.trim();
+        if (!Alias.isValidAlias(trimmedAlias)) {
+            throw new ParseException(Alias.MESSAGE_CONSTRAINTS);
+        }
+        return new Alias(trimmedAlias);
+    }
 
+    /**
+     * Parses a {@code String commandString} into an {@code SavedCommandString}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static SavedCommandString parseCommandString(String commandString) throws ParseException {
+        requireNonNull(commandString);
+        String trimmedCommandString = commandString.trim();
+        if (!SavedCommandString.isValidSavedCommandString(trimmedCommandString)) {
+            throw new ParseException(SavedCommandString.MESSAGE_CONSTRAINTS);
+        }
+        return new SavedCommandString(trimmedCommandString);
+    }
 }
