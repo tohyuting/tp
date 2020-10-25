@@ -103,6 +103,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasSupplierByName_nullSupplier_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasSupplier(null));
+    }
+
+    @Test
     public void hasMacro_nullMacro_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasMacro(null));
     }
@@ -115,6 +120,11 @@ public class ModelManagerTest {
     @Test
     public void hasWarehouse_warehouseNotInClinic_returnsFalse() {
         assertFalse(modelManager.hasWarehouse(A));
+    }
+
+    @Test
+    public void hasSupplierByName_supplierNotInClinic_returnsFalse() {
+        assertFalse(modelManager.hasSupplier(ALICE));
     }
 
     @Test
@@ -132,6 +142,12 @@ public class ModelManagerTest {
     public void hasWarehouse_warehouseInClinic_returnsTrue() {
         modelManager.addWarehouse(A);
         assertTrue(modelManager.hasWarehouse(A));
+    }
+
+    @Test
+    public void hasSupplierByName_supplierInClinic_returnsTrue() {
+        modelManager.addSupplier(ALICE);
+        assertTrue(modelManager.hasSupplier(ALICE));
     }
 
     @Test

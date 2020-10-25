@@ -84,6 +84,7 @@ public class CommandTestUtil {
     public static final String VALID_REMARK_GEORGE = "frequent discount";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_SUPPLIER_NAME + VALID_NAME_AMY;
+    public static final String NAME_DESC_AMY2 = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_SUPPLIER_NAME + VALID_NAME_BOB;
     public static final String NAME_DESC_WAREHOUSE_A = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_A;
     public static final String NAME_DESC_WAREHOUSE_B = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_B;
@@ -121,6 +122,7 @@ public class CommandTestUtil {
     public static final String SUPPLIER_NAME_DESC_C = " " + PREFIX_NAME + VALID_NAME_BOB;
     // Todo, keeping for backward compatibility. Standardize naming convention as above
     public static final String WAREHOUSE_NAME_DESC_A = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_A;
+    public static final String WAREHOUSE_NAME_DESC_A2 = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_A;
     public static final String WAREHOUSE_NAME_DESC_B = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_B;
     public static final String PRODUCT_NAME_DESC_A = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_ASPIRIN;
     public static final String PRODUCT_NAME_DESC_B = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_PANADOL;
