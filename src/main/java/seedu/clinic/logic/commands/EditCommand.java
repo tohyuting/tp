@@ -132,7 +132,7 @@ public class EditCommand extends Command {
                 throw new CommandException(MESSAGE_SUPPLIER_UNCHANGED);
             }
 
-            if (model.hasSupplierByName(editedSupplier)) {
+            if (!supplierToEdit.isSameSupplierByName(editedSupplier) && model.hasSupplierByName(editedSupplier)) {
                 throw new CommandException(MESSAGE_DUPLICATE_SUPPLIER);
             }
 
