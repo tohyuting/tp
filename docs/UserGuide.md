@@ -186,12 +186,13 @@ Format: `find ct/TYPE [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`
 * Keywords specified are case-insensitive.
 * The TYPE specified should be one of these values: s/w.
 * Any combination of the name, product and remark prefix can be provided but at least one of the prefix for name,
-product and remark must be specified.
+product or remark must be specified.
 
 Examples:
 
 * `find ct/s pd/masks` Displays all the suppliers that sell masks.
-* `find ct/w pd/PANADOL SUSP r/biggest` Displays the biggest warehouse that stores PANADOL SUSP.
+* `find ct/w pd/PANADOL SUSP r/biggest` Displays the biggest warehouse that stores products matching either PANADOL or
+SUSP.
 
 ### List all suppliers and warehouses entries : `list`
 
