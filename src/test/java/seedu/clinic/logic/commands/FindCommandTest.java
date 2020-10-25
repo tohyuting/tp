@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
+import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.supplier.SupplierPredicate;
 import seedu.clinic.model.warehouse.WarehousePredicate;
@@ -30,10 +31,12 @@ import seedu.clinic.model.warehouse.WarehousePredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model modelForSupplier = new ModelManager(getTypicalClinic(), new UserPrefs());
-    private Model expectedModelForSupplier = new ModelManager(getTypicalClinic(), new UserPrefs());
-    private Model modelForWarehouse = new ModelManager(getTypicalWarehouseOnlyClinic(), new UserPrefs());
-    private Model expectedModelForWarehouse = new ModelManager(getTypicalWarehouseOnlyClinic(), new UserPrefs());
+    private Model modelForSupplier = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+    private Model expectedModelForSupplier = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+    private Model modelForWarehouse = new ModelManager(getTypicalWarehouseOnlyClinic(), new UserPrefs(),
+            new UserMacros());
+    private Model expectedModelForWarehouse = new ModelManager(getTypicalWarehouseOnlyClinic(), new UserPrefs(),
+            new UserMacros());
 
     @Test
     public void equals() {
