@@ -48,8 +48,7 @@ and efficient Graphical User Interface interaction.
 
    * **`list`** `list`: Displays all the warehouses and suppliers in CLI-nic.
 
-   * **`update`** `w/WarehouseA pd/Panadol q/10` : Updates the quantity of PANADOL in WarehouseA to 10. The
-    quantity of PANADOL in WarehouseA can be more than 10 or lesser than 10 before the update is done.
+   * **`update`** `ct/w n/WarehouseA pd/Panadol q/10 t/fever` : Updates the quantity of PANADOL in WarehouseA to 10, and assigns the tag 'fever' to the product.
 
    * **`view supplier supplierA`** : Displays all the information associated with supplierA e.g. address, contact, email, products sold by the supplier etc.
 
@@ -214,15 +213,15 @@ Examples:
 * `view supplier supplierA` Displays all the information associated with supplierA e.g. address, contact, email, products sold by the supplier etc.
 * `view warehouse warehouseB` Displays all the information associated with warehouseB e.g. address, all the products stored in the warehouse etc.
 
-### Update the stock for a product: `update`
+### Update the quantity/tags of a product for a supplier/warehouse: `update`
 
-* If the product does not exist for that warehouse, it will associate the new product with the warehouse and the input quantity. Otherwise, it will update the stock of the existing product with the new quantity.
+* If the product does not exist for that warehouse/supplier, it will associate the new product (optionally with quantity/tags) with the warehouse/supplier. Otherwise, it will update the existing product in the warehouse/supplier with the new quantity/tags. If the product already exists, at least one optional argument has to be supplied.
 
-Format:	`update w/WAREHOUSE_NAME pd/PRODUCT_NAME q/QUANTITY`
+Format:	`update ct/TYPE n/ENTITY_NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG]`
 
 Example:
 
-* `update w/WarehouseA pd/Panadol q/10` Updates the quantity of Panadol in WarehouseA to 10. The quantity of Panadol in WarehouseA can be more than 10 or lesser than 10 before the update is done.
+* `update ct/w n/WarehouseA pd/Panadol q/10 t/fever` Updates the quantity of Panadol in WarehouseA to 10, and gives the product the tag 'fever'.
 
 ### Exiting the program : `exit`
 
@@ -275,5 +274,5 @@ Action | Format, Examples
 **Find** | `find ct/TYPE [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`<br> e.g. `find ct/w pd/panadol`
 **Help** | `help [COMMAND]`<br> e.g., `help add`
 **List** | `list`
-**Update** | `update w/WAREHOUSE_NAME pd/PRODUCT_NAME q/QUANTITY` <br> e.g., `update w/WarehouseA pd/Panadol q/10`
+**Update** | `update ct/TYPE n/ENTITY_NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` <br> e.g., `update ct/w n/WarehouseA pd/Panadol q/10 t/fever`
 **View** | `view TYPE NAME`<br> e.g. `view supplier supplierA`
