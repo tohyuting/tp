@@ -12,30 +12,24 @@ import seedu.clinic.model.product.Product;
  * of the keywords given.
  */
 public class SupplierPredicate implements Predicate<Supplier> {
-    private final Optional<List<String>> nameKeywords;
-    private final Optional<List<String>> productKeywords;
-    private final Optional<List<String>> remarkKeywords;
+    private Optional<List<String>> nameKeywords = Optional.empty();
+    private Optional<List<String>> productKeywords = Optional.empty();
+    private Optional<List<String>> remarkKeywords = Optional.empty();
 
     /**
      * Constructs a new {@code SupplierPredicate}.
      */
     public SupplierPredicate(List<String> nameKeywords, List<String> productKeywords,
             List<String> remarkKeywords) {
-        if (nameKeywords.size() == 0) {
-            this.nameKeywords = Optional.empty();
-        } else {
+        if (nameKeywords.size() != 0) {
             this.nameKeywords = Optional.ofNullable(nameKeywords);
         }
 
-        if (productKeywords.size() == 0) {
-            this.productKeywords = Optional.empty();
-        } else {
+        if (productKeywords.size() != 0) {
             this.productKeywords = Optional.ofNullable(productKeywords);
         }
 
-        if (remarkKeywords.size() == 0) {
-            this.remarkKeywords = Optional.empty();
-        } else {
+        if (remarkKeywords.size() != 0) {
             this.remarkKeywords = Optional.ofNullable(remarkKeywords);
         }
     }
