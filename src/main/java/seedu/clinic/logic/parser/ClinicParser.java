@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.commands.AddProductCommand;
+import seedu.clinic.logic.commands.AssignMacroCommand;
 import seedu.clinic.logic.commands.ClearCommand;
 import seedu.clinic.logic.commands.Command;
 import seedu.clinic.logic.commands.DeleteCommand;
@@ -16,6 +17,7 @@ import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.RemoveMacroCommand;
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.ViewCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
@@ -28,17 +30,17 @@ public class ClinicParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * Parses user input into command for execution.
+     * Parses command string into a command for execution.
      *
-     * @param userInput full user input string
-     * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
+     * @param commandString full command string
+     * @return the command based on the command string
+     * @throws ParseException if the command string does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+    public Command parseCommand(String commandString) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(commandString.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
@@ -79,6 +81,12 @@ public class ClinicParser {
 
         case ViewCommand.COMMAND_WORD:
             return new ViewCommandParser().parse(arguments);
+
+        case AssignMacroCommand.COMMAND_WORD:
+            return new AssignMacroCommandParser().parse(arguments);
+
+        case RemoveMacroCommand.COMMAND_WORD:
+            return new RemoveMacroCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

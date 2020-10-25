@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
+import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 
@@ -23,8 +24,8 @@ import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 public class ViewSuppliersCommandTest {
     private final String type = "supplier";
 
-    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+    private Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
 
     @Test
     public void equals() {
