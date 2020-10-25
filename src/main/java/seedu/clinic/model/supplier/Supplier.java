@@ -79,6 +79,13 @@ public class Supplier {
     }
 
     /**
+     * Returns true if a product with the {@code targetName} is found in the warehouse.
+     */
+    public boolean hasProductWithName(Name targetName) {
+        return products.stream().anyMatch(p -> p.getProductName().equals(targetName));
+    }
+
+    /**
      * Returns true if both suppliers of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two suppliers.
      */
@@ -87,18 +94,6 @@ public class Supplier {
             return true;
         }
 
-        return otherSupplier != null
-                && otherSupplier.getName().equals(getName());
-    }
-
-    /**
-     * Returns true if both suppliers have the same name.
-     * This defines a weakest notion of equality between two suppliers.
-     */
-    public boolean isSameSupplierByName(Supplier otherSupplier) {
-        if (otherSupplier == this) {
-            return true;
-        }
         return otherSupplier != null
                 && otherSupplier.getName().equals(getName());
     }

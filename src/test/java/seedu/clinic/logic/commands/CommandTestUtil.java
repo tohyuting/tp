@@ -24,6 +24,7 @@ import java.util.Map;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
+import seedu.clinic.logic.commands.UpdateCommand.UpdateProductDescriptor;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Clinic;
@@ -34,6 +35,7 @@ import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
 import seedu.clinic.testutil.EditWarehouseDescriptorBuilder;
+import seedu.clinic.testutil.UpdateProductDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -102,6 +104,8 @@ public class CommandTestUtil {
     public static final String TYPE_DESC_WAREHOUSE_PRODUCT = " " + PREFIX_TYPE + Type.WAREHOUSE_PRODUCT;
     public static final String INDEX_DESC = " " + PREFIX_INDEX;
 
+    public static final String WAREHOUSE_NAME_DESC_C = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_A;
+    public static final String SUPPLIER_NAME_DESC_C = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String WAREHOUSE_NAME_DESC_A = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_A;
     public static final String WAREHOUSE_NAME_DESC_A2 = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_A;
     public static final String WAREHOUSE_NAME_DESC_B = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_B;
@@ -113,6 +117,8 @@ public class CommandTestUtil {
             + VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
 
     // invalid test samples
+    public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "pp"; // Type can only be one of 's',
+    // 'w', 'ps', 'pw'
     public static final String INVALID_NAME_DESC = " " + PREFIX_SUPPLIER_NAME + "&James"; // names cannot
     // start with '&'
     public static final String INVALID_NAME_DESC2 = " " + PREFIX_NAME + "&James"; // names cannot
@@ -129,6 +135,8 @@ public class CommandTestUtil {
     public static final String INVALID_SUPPLIER_NAME_DESC = " " + PREFIX_SUPPLIER_NAME
             + "&Amy"; // names cannot start with '&'
     public static final String INVALID_WAREHOUSE_NAME_DESC = " " + PREFIX_WAREHOUSE_NAME
+            + "&Amy"; // names cannot start with '&'
+    public static final String INVALID_ENTITY_NAME_DESC = " " + PREFIX_NAME
             + "&Amy"; // names cannot start with '&'
     public static final String INVALID_PRODUCT_NAME_DESC = " " + PREFIX_PRODUCT_NAME
             + "&Amy"; // names cannot start with '&'
@@ -147,6 +155,10 @@ public class CommandTestUtil {
     public static final EditWarehouseDescriptor DESC_A;
     public static final EditWarehouseDescriptor DESC_B;
 
+    public static final UpdateProductDescriptor DESC_PRODUCT_A;
+    public static final UpdateProductDescriptor DESC_PRODUCT_B;
+
+
     static {
         DESC_AMY = new EditSupplierDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withRemark(VALID_REMARK_AMY)
@@ -162,6 +174,9 @@ public class CommandTestUtil {
                 .withPhone(VALID_WAREHOUSE_PHONE_B).withAddress(VALID_WAREHOUSE_ADDRESS_B)
                 .withRemark(VALID_WAREHOUSE_REMARK_B)
                 .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_B, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
+        DESC_PRODUCT_A = new UpdateProductDescriptorBuilder().withQuantity(VALID_WAREHOUSE_PRODUCT_QUANTITY_A)
+                .withTags(VALID_TAG_FEVER).build();
+        DESC_PRODUCT_B = new UpdateProductDescriptorBuilder().withQuantity(VALID_PRODUCT_QUANTITY_B).build();
     }
 
     /**

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,6 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.commons.core.LogsCenter;
+import seedu.clinic.model.macro.Alias;
+import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 
@@ -22,26 +25,32 @@ public class ModelManager implements Model {
 
     private final Clinic clinic;
     private final UserPrefs userPrefs;
+    private final UserMacros userMacros;
     private final FilteredList<Supplier> filteredSuppliers;
     private final FilteredList<Warehouse> filteredWarehouses;
+    private final ObservableList<Macro> macroList;
 
     /**
-     * Initializes a ModelManager with the given clinic and userPrefs.
+     * Initializes a ModelManager with the given clinic, userPrefs, and userMacros.
      */
-    public ModelManager(ReadOnlyClinic clinic, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyClinic clinic, ReadOnlyUserPrefs userPrefs,
+            ReadOnlyUserMacros userMacros) {
         super();
-        requireAllNonNull(clinic, userPrefs);
+        requireAllNonNull(clinic, userPrefs, userMacros);
 
-        logger.fine("Initializing with clinic: " + clinic + " and user prefs " + userPrefs);
+        logger.fine("Initializing with clinic: " + clinic + ", with user prefs " + userPrefs
+                + " and with user macros " + userMacros);
 
         this.clinic = new Clinic(clinic);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.userMacros = new UserMacros(userMacros);
         filteredSuppliers = new FilteredList<>(this.clinic.getSupplierList());
         filteredWarehouses = new FilteredList<>(this.clinic.getWarehouseList());
+        macroList = this.userMacros.getMacroList();
     }
 
     public ModelManager() {
-        this(new Clinic(), new UserPrefs());
+        this(new Clinic(), new UserPrefs(), new UserMacros());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -79,6 +88,70 @@ public class ModelManager implements Model {
         userPrefs.setClinicFilePath(clinicFilePath);
     }
 
+    @Override
+    public Path getUserMacrosFilePath() {
+        return userPrefs.getUserMacrosFilePath();
+    }
+
+    @Override
+    public void setUserMacrosFilePath(Path userMacrosFilePath) {
+        requireNonNull(userMacrosFilePath);
+        userPrefs.setUserMacrosFilePath(userMacrosFilePath);
+    }
+    //=========== UserMacros ==================================================================================
+
+    @Override
+    public void setUserMacros(ReadOnlyUserMacros userMacros) {
+        this.userMacros.resetData(userMacros);
+    }
+
+    @Override
+    public ReadOnlyUserMacros getUserMacros() {
+        return userMacros;
+    }
+
+    @Override
+    public boolean hasMacro(Macro macro) {
+        requireNonNull(macro);
+        return userMacros.hasMacro(macro);
+    }
+
+    @Override
+    public Optional<Macro> getMacro(String aliasString) {
+        requireNonNull(aliasString);
+        return userMacros.getMacro(aliasString);
+    }
+
+    @Override public Optional<Macro> getMacro(Alias alias) {
+        requireNonNull(alias);
+        return userMacros.getMacro(alias);
+    }
+
+    @Override
+    public void deleteMacro(Macro target) {
+        userMacros.removeMacro(target);
+    }
+
+    @Override
+    public void addMacro(Macro macro) {
+        userMacros.addMacro(macro);
+    }
+
+    @Override
+    public void setMacro(Macro target, Macro editedMacro) {
+        requireAllNonNull(target, editedMacro);
+
+        userMacros.setMacro(target, editedMacro);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Macro}
+     */
+    @Override
+    public ObservableList<Macro> getMacroList() {
+        return macroList;
+    }
+
     //=========== Clinic ================================================================================
 
     @Override
@@ -95,12 +168,6 @@ public class ModelManager implements Model {
     public boolean hasSupplier(Supplier supplier) {
         requireNonNull(supplier);
         return clinic.hasSupplier(supplier);
-    }
-
-    @Override
-    public boolean hasSupplierByName(Supplier supplier) {
-        requireNonNull(supplier);
-        return clinic.hasSupplierByName(supplier);
     }
 
     @Override
@@ -197,8 +264,8 @@ public class ModelManager implements Model {
         return clinic.equals(other.clinic)
                 && userPrefs.equals(other.userPrefs)
                 && filteredSuppliers.equals(other.filteredSuppliers)
-                && filteredWarehouses.equals(other.filteredWarehouses);
+                && filteredWarehouses.equals(other.filteredWarehouses)
+                && macroList.equals((other.macroList));
     }
-
 
 }

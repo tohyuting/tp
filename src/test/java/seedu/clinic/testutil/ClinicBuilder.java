@@ -7,7 +7,7 @@ import seedu.clinic.model.warehouse.Warehouse;
 /**
  * A utility class to help with building Clinic objects.
  * Example usage: <br>
- *     {@code Clinic ab = new ClinicBuilder().withSupplier("John", "Doe").build();}
+ *     {@code Clinic clinic = new ClinicBuilder().withSupplier(ALICE).build();}
  */
 public class ClinicBuilder {
 

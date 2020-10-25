@@ -37,14 +37,6 @@ public class UniqueSupplierList implements Iterable<Supplier> {
     }
 
     /**
-     * Returns true if the list contains an equivalent supplier as the given argument.
-     */
-    public boolean containsByName(Supplier toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameSupplierByName);
-    }
-
-    /**
      * Adds a supplier to the list.
      * The supplier must not already exist in the list.
      */

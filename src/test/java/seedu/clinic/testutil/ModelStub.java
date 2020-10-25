@@ -1,13 +1,17 @@
 package seedu.clinic.testutil;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
+import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.ReadOnlyUserPrefs;
+import seedu.clinic.model.macro.Alias;
+import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 
@@ -29,6 +33,60 @@ public class ModelStub implements Model {
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Path getUserMacrosFilePath() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyUserMacros getUserMacros() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setUserMacrosFilePath(Path clinicFilePath) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setUserMacros(ReadOnlyUserMacros userMacros) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasMacro(Macro macro) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Optional<Macro> getMacro(String aliasString) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override public Optional<Macro> getMacro(Alias alias) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteMacro(Macro target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addMacro(Macro macro) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setMacro(Macro target, Macro editedMacro) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Macro> getMacroList() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -59,11 +117,6 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasSupplier(Supplier supplier) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public boolean hasSupplierByName(Supplier supplier) {
         throw new AssertionError("This method should not be called.");
     }
 

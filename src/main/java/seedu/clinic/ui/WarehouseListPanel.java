@@ -3,6 +3,7 @@ package seedu.clinic.ui;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -26,6 +27,7 @@ public class WarehouseListPanel extends UiPart<Region> {
         super(FXML);
         warehouseListView.setItems(warehouseList);
         warehouseListView.setCellFactory(listView -> new WarehouseListViewCall());
+        warehouseListView.setPlaceholder(new Label("There are no warehouses yet."));
     }
 
     /**

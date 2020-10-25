@@ -119,14 +119,6 @@ public class Clinic implements ReadOnlyClinic {
     }
 
     /**
-     * Returns true if a supplier with the same name as {@code supplier} exists in the CLI-nic app.
-     */
-    public boolean hasSupplierByName(Supplier supplier) {
-        requireNonNull(supplier);
-        return suppliers.containsByName(supplier);
-    }
-
-    /**
      * Adds a supplier to the CLI-nic app.
      * The supplier must not already exist in clinic.
      */

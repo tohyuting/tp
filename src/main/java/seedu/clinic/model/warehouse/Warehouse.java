@@ -84,6 +84,13 @@ public class Warehouse {
     }
 
     /**
+     * Returns true if a product with the {@code targetName} is found in the warehouse.
+     */
+    public boolean hasProductWithName(Name targetName) {
+        return products.stream().anyMatch(p -> p.getProductName().equals(targetName));
+    }
+
+    /**
      * Returns true if both warehouses of the same name.
      * This defines a weaker notion of equality between two warehouses.
      */
