@@ -123,7 +123,7 @@ public class HelpCommandTest {
         String findCommandFormat = "Command format: \nfind ct/TYPE [n/NAME...]"
                 + " [pd/PRODUCT_NAME...] [r/REMARK...]\n\n"
                 + "TYPE should be one of these values: s / w.\n"
-                + "At least one of the name, product and remark prefix must be provided.\n"
+                + "At least one of the name, product or remark prefix must be provided.\n"
                 + "Keywords specified are case-insensitive.\n";
         String findSampleCommand = "Sample Command: \n"
                 + "find ct/s pd/panadol \nfind ct/w pd/face mask r/biggest";
