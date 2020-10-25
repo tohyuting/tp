@@ -9,13 +9,14 @@ import static seedu.clinic.commons.util.AppUtil.checkArgument;
  */
 public class Name {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Names should start with an alphanumeric character, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Names should start with an alphanumeric character,"
+            + " and it should not be blank. Name should not contain forward slashes (i.e. '/')";
 
     /**
      * The first character of the name must be alphanumeric.
+     * String must not contain forward slashes (i.e. '/')
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Print}]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Print}][^/]*";
 
     public final String fullName;
 
