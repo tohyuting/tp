@@ -3,6 +3,7 @@ package seedu.clinic.ui;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.FlowPane;
@@ -47,8 +48,6 @@ public class SupplierCard extends UiPart<Region> {
     private VBox products;
     @FXML
     private TitledPane productsTitledPane;
-    @FXML
-    private FlowPane tags;
 
     /**
      * Creates a {@code supplierCode} with the given {@code Supplier} and index to display.
@@ -77,11 +76,24 @@ public class SupplierCard extends UiPart<Region> {
         if (!supplier.getProducts().isEmpty()) {
             noProductsLabel.setVisible(false);
             for (Product product : supplier.getProducts()) {
-                products.getChildren().add(
-                        new Label(productIndex + ". " + product.getProductName().fullName));
+                VBox productBox = new VBox();
+                productBox.setMaxWidth(500);
+                FlowPane productTags = new FlowPane();
+                productTags.setId("tags");
+                Label productName = new Label(productIndex + ". " + product.getProductName().fullName);
+                productName.setWrapText(true);
+                productName.setMaxWidth(500);
+                productBox.getChildren().add(productName);
                 product.getProductTags().stream()
                         .sorted(Comparator.comparing(tag -> tag.tagName))
-                        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                        .forEach(tag -> {
+                            Label tagLabel = new Label(tag.tagName);
+                            tagLabel.setWrapText(true);
+                            tagLabel.setMaxWidth(500);
+                            productTags.getChildren().add(tagLabel);
+                        });
+                productBox.getChildren().add(productTags);
+                products.getChildren().add(productBox);
                 productIndex++;
             }
         }
