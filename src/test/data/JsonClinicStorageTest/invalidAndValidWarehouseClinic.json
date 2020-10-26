@@ -1,0 +1,14 @@
+{
+  "suppliers": [ ],
+  "warehouse": [ {
+    "name": "Valid Warehouse",
+    "phone": "9482424",
+    "address": "hans address",
+    "remark": "Trusted warehouse"
+  }, {
+    "name": "Warehouse With Invalid Phone Field",
+    "phone": "948asdf2424",
+    "address": "hans address",
+    "remark": "small warehouse"
+  } ]
+}

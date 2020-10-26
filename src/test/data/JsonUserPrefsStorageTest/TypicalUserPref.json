@@ -7,5 +7,6 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "clinicFilePath" : "clinic.json",
+  "userMacrosFilePath" : "userMacros.json"
 }

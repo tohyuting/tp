@@ -1,0 +1,9 @@
+{
+  "suppliers": [ {
+    "name": "Supplier with invalid name field: Ha!ns Mu@ster",
+    "phone": "9482424",
+    "email": "hans@example.com",
+    "remark": "Trusted seller"
+  } ],
+  "warehouse": [ ]
+}

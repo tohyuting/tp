@@ -1,0 +1,22 @@
+{
+  "suppliers" : [ ],
+  "warehouses": [ {
+    "name" : "Alice Pauline Ltd",
+    "phone" : "94351253",
+    "address" : "alice address",
+    "remark" : "long term warehouse",
+    "products": [ {
+      "name": "Panadol",
+      "quantity": 10
+    } ]
+  }, {
+    "name" : "Alice Pauline Ltd",
+    "phone" : "98765432",
+    "address" : "johnd address",
+    "remark" : "biggest warehouse",
+    "products": [ {
+      "name": "Panadol",
+      "quantity": 20
+    }]
+  } ]
+}

@@ -1,0 +1,18 @@
+{
+  "suppliers": [ {
+    "name": "Alice Pauline Ltd",
+    "phone": "94351253",
+    "email": "alice@example.com",
+    "remark": "Trusted company",
+    "products": [ {
+      "name": "Panadol",
+      "tagged": ["fever"]
+    } ]
+  }, {
+    "name": "Alice Pauline Ltd",
+    "phone": "94351253",
+    "email": "pauline@example.com",
+    "remark": "Focuses on skin medication"
+  } ],
+  "warehouses" : [ ]
+}
