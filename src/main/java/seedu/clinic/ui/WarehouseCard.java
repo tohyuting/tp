@@ -1,5 +1,7 @@
 package seedu.clinic.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -68,8 +70,24 @@ public class WarehouseCard extends UiPart<Region> {
         if (!warehouse.getProducts().isEmpty()) {
             noProductsLabel.setVisible(false);
             for (Product product : warehouse.getProducts()) {
-                products.getChildren().add(
-                        new Label(productIndex + ". " + product.toStringForWareHouse()));
+                VBox productBox = new VBox();
+                productBox.setMaxWidth(400);
+                FlowPane productTags = new FlowPane();
+                productTags.setId("tags");
+                Label productName = new Label(productIndex + ". " + product.getProductName().fullName);
+                productName.setWrapText(true);
+                productName.setMaxWidth(400);
+                productBox.getChildren().add(productName);
+                product.getProductTags().stream()
+                        .sorted(Comparator.comparing(tag -> tag.tagName))
+                        .forEach(tag -> {
+                            Label tagLabel = new Label(tag.tagName);
+                            tagLabel.setWrapText(true);
+                            tagLabel.setMaxWidth(400);
+                            productTags.getChildren().add(tagLabel);
+                        });
+                productBox.getChildren().add(productTags);
+                products.getChildren().add(productBox);
                 productIndex++;
             }
         }
