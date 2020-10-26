@@ -13,7 +13,7 @@ If () then ([Command contains invalid prefixes
     :Throws CommandException;
 
     else ([Supplier/Warehouse is unique])
-        :Inserts new Supplier/Warehouse;
+        :Adds new Supplier/Warehouse;
         :Returns Message to user indicating Success;
         :LogicManager prints result to user;
         endif
