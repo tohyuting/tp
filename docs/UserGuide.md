@@ -79,9 +79,8 @@ and efficient Graphical User Interface interaction.
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
 * Usage of additional prefixes or forward slashes `/` are not allowed
-  e.e `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG]…​` can be used as `addp s/SupplierA pd/PANADOL SUSP t
-  /FEVER` but not `addp s/SupplierA pd/PANADOL SUSP t/FEVER r/Fast relief` nor `addp s/SupplierA pd/PANADOL
-   SUSP t/FEVER/HEADACHE`.
+  e.e `delete ct/TYPE i/INDEX pd/PRODUCT_NAME` can be used as `delete ct/pw i/1 pd/Panadol` but not
+  `delete ct/pw i/1 pd/Panadol r/Fast relief` nor `delete ct/pw i/1 pd/Panadol/Panadol Strong`.
 
 </div>
 

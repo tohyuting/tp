@@ -752,9 +752,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 |e/ |Email Address |Add, Edit |
 |addr/ |Address |Add, Edit |
 |r/ |Remark |Add, Find, Edit |
-|pd/ |Product Name |Addp, Edit, Delete, Find, Update |
+|pd/ |Product Name |Edit, Delete, Find, Update |
 |i/ |Index |Delete |
-|t/ |Tag |Addp, Update |
+|t/ |Tag |Update |
 |q/ |Quantity of product |Update |
 
 --------------------------------------------------------------------------------------------------------------------
