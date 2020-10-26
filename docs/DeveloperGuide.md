@@ -302,6 +302,7 @@ The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command
 add a supplier/warehouse to the app using the command line.
 
 The supplier consists of : Type, Name, Phone, Email
+
 The warehouse consists of : Type, Name, Phone, Address
 
 The supplier/warehouse also consists of one optional field that can be added:
@@ -315,8 +316,8 @@ The overview of the AddCommand Activity Diagram is shown below:
 After the user calls the Add command, the code will check for the presence of all the compulsory prefixes
 in the command. The code will throw a ParseException if there are any missing/invalid prefixes. After that is
 checked, it will check if the new supplier/warehouse added is a duplicate (The supplier/warehouse already
-exist in the application). It will throw a CommandException when the user tries to insert a duplicate
-order. Otherwise, it will insert the supplier/warehouse and prints a success message to the user.
+exist in the application). It will throw a CommandException when the user tries to add a duplicate
+order. Otherwise, it will add the supplier/warehouse and prints a success message to the user.
 
 #### Structure of Add feature
 The following diagram shows the overview of the AddCommand Class Diagram:
@@ -340,24 +341,24 @@ arguments parsed in matches with the tokenized arguments using the arePrefixesPr
 
 There are two scenarios :
 
-Some compulsory prefixes are not present :
+1. Some compulsory prefixes are not present :
 
-AddCommandParser will throw a new ParseException object to the LogicManager.
+   AddCommandParser will throw a new ParseException object to the LogicManager.
 
-All compulsory prefixes are present in the arguments :
+1. All compulsory prefixes are present in the arguments :
 
-It will then proceed to use the getValue method of the ArgumentMultimap class to get the value of the
-prefixes. For example, if the argument parsed in is ct/s, the getValue method will get the value 's'.
-Subsequently, it will use the ParseUtil methods to get the corresponding object values and put it into
-the parameters of the new Supplier/Warehouse object. The Supplier/Warehouse object will be put into the
-parameter of the AddCommand object and this will be returned to the LogicManager class for execution.
+   It will then proceed to use the getValue method of the ArgumentMultimap class to get the value of the
+   prefixes. For example, if the argument parsed in is ct/s, the getValue method will get the value 's'.
+   Subsequently, it will use the ParseUtil methods to get the corresponding object values and put it into
+   the parameters of the new Supplier/Warehouse object. The Supplier/Warehouse object will be put into the
+   parameter of the AddCommand object and this will be returned to the LogicManager class for execution.
 
-LogicManager will call the execute() method of this AddCommand object. In the execute() method, it will
-use the Model class to call hasSupplier/hasWarehouse method to check for duplicates, if it is a duplicate, the
-order will throw a CommandException which indicates that there is a duplicate supplier/warehouse in the CLI-nic
-application already. Else, it will successfully add the new supplier/warehouse using addSupplier/addWarehouse
-method. Finally, it return a new CommandResult object, containing a String that indicates a successful
-addition.
+   LogicManager will then call the execute() method of this AddCommand object. In the execute() method, it will
+   use the Model class to call hasSupplier/hasWarehouse method to check for duplicates, if it is a duplicate, the
+   order will throw a CommandException which indicates that there is a duplicate supplier/warehouse in the CLI-nic
+   application already. Else, it will successfully add the new supplier/warehouse using addSupplier/addWarehouse
+   method. Finally, it return a new CommandResult object, containing a String that indicates a successful
+   addition.
 
 --------------------------------------------------------------------------------------------------------------------
 
