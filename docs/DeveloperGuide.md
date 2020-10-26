@@ -137,6 +137,7 @@ Classes used by multiple components are in the `seedu.clinic.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
 ### Delete feature
 
 #### What Delete Feature does
@@ -291,54 +292,70 @@ is saved and the GUI is updated with the success message.
 
 The following activity diagram summarizes what happens when a user updates a product: (TODO: Insert Diagram)
 
-### Add supplier/warehouse feature
-The add supplier/warehouse mechanism is facilitated by the `AddCommandParser` and the `AddCommand`.
+### Add feature
+In this section, the functionality of the add feature, the expected execution path, the structure of
+the AddCommand class, the interactions between objects with the AddCommand object will be discussed.
+
+#### What is the Add supplier/warehouse feature
+The add supplier/warehouse feature is facilitated by the `AddCommandParser` and the `AddCommand`.
 The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to 
-add a supplier/warehouse to the app.
+add a supplier/warehouse to the app using the command line.
 
-#### What Add feature does
-The add feature allows users to add supplier/warehouse name, phone number and remarks. In addition, users
-can add email for suppliers and address for warehouses. Each supplier/warehouse is initialized without products associated to them.
-To add products, the add product feature should be invoked instead. Note that users are only able to add
- either a supplier or warehouse in a single add command and not both or multiple at the same time.
+The supplier consists of : Type, Name, Phone, Email
+The warehouse consists of : Type, Name, Phone, Address
 
-#### How it is implemented
-Step 1. After the `add` command is called, the user input will be sent to **AddCommandParser** for parsing.
+The supplier/warehouse also consists of one optional field that can be added:
+* Remark
 
-Step 2. **AddCommandParser** will then check if the compulsory prefixes `ct/COMMAND_TYPE n/NAME p
-/PHONE_NUMBER` and `addr/ADDRESS` (for warehouse only) is present. If the user enters any of the prefixes
-more than once, only the last prefix specified will be used to process user's input. A **ParseException** 
-will be thrown if any of the compulsory prefixes is not given. 
+#### Path Execution of Add Command
+The overview of the AddCommand Activity Diagram is shown below:
 
-Step 3. **AddCommandParser** will then proceed to check for the existence of optional prefixes `r/REMARK`
-and `e/EMAIL (for supplier only)`. Again, if the user specifies the same prefix more than once, only the last
-prefix specified will be used to process the user's input.
+![Add Command Activity Diagram](images/AddCommandActivityDiagram.png)
 
-Step 4. Once the user has entered the correct format for the command, their input will be parsed. A
-**ParseException** will be thrown if the `NAME` exists in the respective list of suppliers/warehouses.
- 
-The following sequence diagram shows how the add product operation works: (TODO: Insert diagram)
- 
-Step 5. **AddCommandParser** will create a new **AddCommand** to be executed and the relevant supplier
-/warehouse will be added.
+After the user calls the Add command, the code will check for the presence of all the compulsory prefixes
+in the command. The code will throw a ParseException if there are any missing/invalid prefixes. After that is
+checked, it will check if the new supplier/warehouse added is a duplicate (The supplier/warehouse already
+exist in the application). It will throw a CommandException when the user tries to insert a duplicate
+order. Otherwise, it will insert the supplier/warehouse and prints a success message to the user.
 
-Step 6. The model will be updated with the new supplier/warehouse via the method 
-`model#addSupplier(supplier)` or `model#addWarehouse(warehouse)`.
+#### Structure of Add feature
+The following diagram shows the overview of the AddCommand Class Diagram:
 
-The following activity diagram summarizes what happens when a user updates a product: (TODO: Insert Diagram)
+![Add Command Class Diagram](images/AddCommandClassDiagram.png)
 
-#### Why it is implemented this way
-The `add` command is implemented this way to ensure consistency with the other commands in the application
-regarding the prefixes. This helps to minimise any potential confusion for the users by standardising the
-prefixes that `add` command takes in with the other relevant commands. In addition, a command type
-prefix, `ct/COMMAND_TYPE` is required in the implementation of `add` command to indicate whether the
-user add a supplier/warehouse. Without this prefix, the application will not be able to know if the
-user wishes to add a supplier/warehouse.
+The above class diagram shows the structure of the AddCommand and its associated classes and interfaces. Some
+methods and fields are not included because they are not extensively utilised in AddCommand; such as public
+static fields and getter/setter methods.
 
-#### Alternatives considered
-In our previous implementation, we did not require the user to enter the command type prefix. Instead, we only required
-the user to enter the `TYPE` parameter in the form of either `s/` or `w/`. However, it was not
-consistent throughout the commands and that could lead to some confusion.
+#### Interaction between objects when the Add Command is executed
+The sequence for adding supplier and warehouse is similar, here is the sequence diagram for the Add Command
+for supplier as shown below:
+
+![Add Command Sequence Diagram](images/AddCommandSequenceDiagram.png)
+
+The arguments of the add command will be parsed using the parse method of the AddCommandParser class.
+The AddCommandParser will tokenize the arguments parsed in using the tokenize method of ArgumentTokenizer
+class which returns the tokenized arguments. Using the tokenized arguments, the Parser will check if the
+arguments parsed in matches with the tokenized arguments using the arePrefixesPresent method.
+
+There are two scenarios :
+
+Some compulsory prefixes are not present :
+AddCommandParser will throw a new ParseException object to the LogicManager.
+
+All compulsory prefixes are present in the arguments :
+It will then proceed to use the getValue method of the ArgumentMultimap class to get the value of the
+prefixes. For example, if the argument parsed in is ct/s, the getValue method will get the value 's'.
+Subsequently, it will use the ParseUtil methods to get the corresponding object values and put it into
+the parameters of the new Supplier/Warehouse object. The Supplier/Warehouse object will be put into the
+parameter of the AddCommand object and this will be returned to the LogicManager class for execution.
+
+LogicManager will call the execute() method of this AddCommand object. In the execute() method, it will
+use the Model class to call hasSupplier/hasWarehouse method to check for duplicates, if it is a duplicate, the
+order will throw a CommandException which indicates that there is a duplicate supplier/warehouse in the CLI-nic
+application already. Else, it will successfully add the new supplier/warehouse using addSupplier/addWarehouse
+method. Finally, it return a new CommandResult object, containing a String that indicates a successful
+addition.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -403,15 +420,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. CLI-nic detects an error in the entered warehouse info.
+* 1a. CLI-nic detects invalid syntax in the entered warehouse info.
 
   * 1a1. CLI-nic shows an error message.
-  * 1a2. CLI-nic requests for the correct format of warehouse info.
+  * 1a2. CLI-nic requests for the correct syntax of warehouse info.
   * 1a3. User enters new data.
 
     Steps 1a1-1a3 are repeated until the data entered are correct. <br>
     Use case resumes from step 2.
 
+* 1b. CLI-nic detects addition of duplicated warehouse.
+
+  * 1b1. CLI-nic shows duplicated warehouse message.
+  * 1b2. CLI-nic requests for the correct warehouse info.
+  * 1b3. User enters new data.
+
+    Steps 1b1-1b3 are repeated until the data entered are correct. <br>
+    Use case resumes from step 2.
+    
 **Use case: UC02 Add a supplier**
 
 **MSS**
@@ -714,6 +740,50 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Supplier**: The companies / entities providing the sources of medical products
 * **Warehouse**: The places where the medical supplies are channeled to and kept. The storage condition of these warehouses are managed by the manager, which is our app user
 
+Command Prefix
+|===
+|Prefix |Meaning |Used in the following Command(s)
+
+|ct/
+|Command Type
+|Add, Delete, Edit, Find, Update
+
+|n/
+|Supplier/Warehouse Name
+|Add, Edit, Find, Update
+
+|p/
+|Phone Number
+|Add, Edit>>
+
+|e/
+|Email Address
+|Add, Edit
+
+|addr/
+|Address
+|Add, Edit
+
+|r/
+|Remark
+|Add, Find, Edit
+
+|pd/
+|Product Name
+|Addp, Edit, Delete, Find, Update
+
+|i/
+|Index
+|Delete
+
+|t/
+|Tag
+|Addp, Update
+
+|q/
+|Quantity of product
+|Update
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -742,6 +812,44 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Adding a supplier
+
+1. Add command format: `add ct/TYPE n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`
+
+   1. Test case: Minimal information e.g. `add ct/s n/John Doe p/98766789 e/johndoe@example.com`<br>
+      Expected: Adds a supplier with the above details to the list and displayed on the GUI
+   1. Test case: With remarks e.g. `add ct/s n/John Doe p/98766789 e/johndoe@example.com r/Fast
+      delivery`<br>
+      Expected: Adds the supplier to the list, including the remark
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/s n/John Doe p/98766789` 
+      or `add ct/s n/John Doe p/98766789 e/johndoe@example.com z/friend`<br>
+      Expected: No supplier is added. Error details shown in the response message. A help message displayed
+      to guide user accordingly. SupplierList on GUI remain unchanged.
+   1. Test case: Add order with existing SUPPLIER_NAME in list e.g. `add ct/s n/John Doe p/98766789 e
+      /johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
+      Expected: An error will occur and a message will be displayed, stating that a supplier with duplicate
+      SUPPLIER NAME cannot be added into the list. SupplierList on GUI remain unchanged.
+
+### Adding a warehouse
+
+1. Add command format: `add ct/TYPE n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
+
+   1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123
+      , #01-01`<br>
+      Expected: Adds a warehouse with the above details to the list and displayed on the GUI.
+   1. Test case: With remarks e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01
+      r/Largest warehouse`<br>
+      Expected: Adds the warehouse to the list, including the remark
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Ptd Ltd p/98766789` 
+      or `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01 z/large`<br>
+      Expected: No warehouse is added. Error details shown in the response message. A help message displayed
+      to guide user accordingly. WarehouseList on GUI remain unchanged.
+   1. Test case: Add order with existing WAREHOUSE_NAME in list e.g. `add ct/w n/John Ptd Ltd p/98766789
+      addr/John street, block 123, #01-01` followed by `add ct/w n/John Ptd Ltd p/91234567 addr/Ang Mo Kio
+      street 12, block 123, #01-01`<br>
+      Expected: An error will occur and a message will be displayed, stating that a warehouse with duplicate
+      WAREHOUSE NAME cannot be added into the list. WarehouseList on GUI remain unchanged.
+      
 ### Deleting a supplier
 
 1. Deleting a supplier while all suppliers are being shown

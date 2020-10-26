@@ -1,0 +1,96 @@
+@startuml
+/' Sequence Diagram for add supplier'/
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ClinicParser" as ClinicParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "addCommand:AddCommand" as AddCommand LOGIC_COLOR
+participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+create LogicManager
+[-> LogicManager : execute("add ct/s n/John Doe p/98766789"...")
+activate LogicManager
+
+LogicManager -> ClinicParser : parseCommand()
+activate ClinicParser
+
+create AddCommandParser
+
+ClinicParser -> AddCommandParser ++ : parse()
+activate AddCommandParser
+create ArgumentTokenizer
+
+AddCommandParser -> ArgumentTokenizer ++ : tokenize(args, PREFIX_TYPE...)
+activate ArgumentTokenizer
+
+ArgumentTokenizer --> AddCommandParser -- : argMultimap
+deactivate ArgumentTokenizer
+
+AddCommandParser -> AddCommandParser ++ : arePrefixesPresent(argMultimap, PREFIX_TYPE..)
+AddCommandParser --> AddCommandParser -- :
+
+create ArgumentMultimap
+AddCommandParser -> ArgumentMultimap ++ : getValue(PREFIX_TYPE), getValue(PREFIX_NAME), ....
+activate ArgumentMultimap
+
+ArgumentMultimap --> AddCommandParser -- : argType, argName ....
+deactivate ArgumentMultimap
+
+create ParserUtil
+AddCommandParser -> ParserUtil ++ : parseType(argType), parseName(argName), ....
+activate ParserUtil
+
+ParserUtil --> AddCommandParser --
+deactivate ParserUtil
+
+create AddCommand
+
+AddCommandParser -> AddCommand ++ : Supplier
+activate AddCommand
+
+AddCommand --> AddCommandParser -- : addCommand
+deactivate AddCommand
+AddCommandParser --> ClinicParser -- : addCommand
+
+deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> ClinicParser
+
+ClinicParser --> LogicManager -- : addCommand
+
+LogicManager -> AddCommand ++ : execute(model)
+
+activate AddCommand
+
+AddCommand -> Model ++ : hasSupplier(supplierToAdd)
+
+Model --> AddCommand -- :
+
+AddCommand -> Model : addSupplier(supplierToAdd)
+
+
+create CommandResult
+
+AddCommand -> CommandResult ++ : message
+activate CommandResult
+
+CommandResult --> AddCommand -- : commandResult
+
+deactivate CommandResult
+
+AddCommand --> LogicManager -- : commandResult
+
+ref over LogicManager,  Model : Execution of the Add Command Sequence Diagram
+deactivate AddCommand
+[<--LogicManager
+deactivate LogicManager
+@enduml
