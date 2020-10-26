@@ -4,9 +4,12 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
@@ -39,9 +42,11 @@ public class SupplierCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane products;
+    private Label noProductsLabel;
     @FXML
-    private FlowPane tags;
+    private VBox products;
+    @FXML
+    private TitledPane productsTitledPane;
 
     /**
      * Creates a {@code supplierCode} with the given {@code Supplier} and index to display.
@@ -54,6 +59,7 @@ public class SupplierCard extends UiPart<Region> {
         phone.setText(supplier.getPhone().value);
         remark.getChildren().add(new Label(supplier.getRemark().value));
         email.setText(supplier.getEmail().value);
+        /*
         supplier.getProducts().stream()
                 .sorted(Comparator.comparing(product -> product.getProductName().fullName))
                 .forEach(product -> {
@@ -62,6 +68,34 @@ public class SupplierCard extends UiPart<Region> {
                             .sorted(Comparator.comparing(tag -> tag.tagName))
                             .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
                 });
+        */
+        //Keep products pane closed by default
+        productsTitledPane.setExpanded(false);
+        int productIndex = 1;
+        if (!supplier.getProducts().isEmpty()) {
+            noProductsLabel.setVisible(false);
+            for (Product product : supplier.getProducts()) {
+                VBox productBox = new VBox();
+                productBox.setMaxWidth(500);
+                FlowPane productTags = new FlowPane();
+                productTags.setId("tags");
+                Label productName = new Label(productIndex + ". " + product.getProductName().fullName);
+                productName.setWrapText(true);
+                productName.setMaxWidth(500);
+                productBox.getChildren().add(productName);
+                product.getProductTags().stream()
+                        .sorted(Comparator.comparing(tag -> tag.tagName))
+                        .forEach(tag -> {
+                            Label tagLabel = new Label(tag.tagName);
+                            tagLabel.setWrapText(true);
+                            tagLabel.setMaxWidth(500);
+                            productTags.getChildren().add(tagLabel);
+                        });
+                productBox.getChildren().add(productTags);
+                products.getChildren().add(productBox);
+                productIndex++;
+            }
+        }
     }
 
     @Override

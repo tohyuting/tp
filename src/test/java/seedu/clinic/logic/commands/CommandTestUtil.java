@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
@@ -16,13 +17,13 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 import static seedu.clinic.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
+import seedu.clinic.logic.commands.UpdateCommand.UpdateProductDescriptor;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Clinic;
@@ -33,6 +34,7 @@ import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
 import seedu.clinic.testutil.EditWarehouseDescriptorBuilder;
+import seedu.clinic.testutil.UpdateProductDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -75,18 +77,31 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FEVER = "fever";
     public static final String VALID_TAG_ANTIBIOTICS = "antibiotics";
     public static final String VALID_TAG_PAINKILLER = "painkiller";
+    public static final String VALID_TYPE_SUPPLIER = "s";
+    public static final String VALID_TYPE_WAREHOUSE = "w";
     public static final String VALID_REMARK_AMY = "Sells a diverse range of products";
     public static final String VALID_REMARK_BOB = "Long term partner";
     public static final String VALID_REMARK_GEORGE = "frequent discount";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_SUPPLIER_NAME + VALID_NAME_AMY;
+    public static final String NAME_DESC_AMY2 = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_SUPPLIER_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_BOB2 = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_WAREHOUSE_A = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_A;
+    public static final String NAME_DESC_WAREHOUSE_B = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_B;
+    public static final String NAME_DESC_WAREHOUSE_A2 = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_A;
+    public static final String NAME_DESC_WAREHOUSE_B2 = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_B;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
+    public static final String PHONE_DESC_WAREHOUSE_A = " " + PREFIX_PHONE + VALID_WAREHOUSE_PHONE_A;
+    public static final String PHONE_DESC_WAREHOUSE_B = " " + PREFIX_PHONE + VALID_WAREHOUSE_PHONE_B;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+    // Todo remove address for suppliers
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String ADDRESS_DESC_WAREHOUSE_A = " " + PREFIX_ADDRESS + VALID_WAREHOUSE_ADDRESS_A;
+    public static final String ADDRESS_DESC_WAREHOUSE_B = " " + PREFIX_ADDRESS + VALID_WAREHOUSE_ADDRESS_B;
     public static final String PRODUCT_NAME_DESC_AMY = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_ASPIRIN;
     public static final String PRODUCT_NAME_DESC_BOB = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_PANADOL;
     public static final String TAG_DESC_FEVER = " " + PREFIX_TAG + VALID_TAG_FEVER;
@@ -94,13 +109,19 @@ public class CommandTestUtil {
     public static final String TAG_DESC_ANTIBIOTICS_FEVER = " " + PREFIX_TAG + VALID_TAG_ANTIBIOTICS + VALID_TAG_FEVER;
     public static final String REMARK_DESC_AMY = " " + PREFIX_REMARK + VALID_REMARK_AMY;
     public static final String REMARK_DESC_BOB = " " + PREFIX_REMARK + VALID_REMARK_BOB;
-    public static final String TYPE_DESC_SUPPLIER = " " + PREFIX_TYPE + Type.SUPPLIER;
-    public static final String TYPE_DESC_WAREHOUSE = " " + PREFIX_TYPE + Type.WAREHOUSE;
+    public static final String REMARK_DESC_WAREHOUSE_A = " " + PREFIX_REMARK + VALID_WAREHOUSE_REMARK_A;
+    public static final String REMARK_DESC_WAREHOUSE_B = " " + PREFIX_REMARK + VALID_WAREHOUSE_REMARK_B;
+    public static final String TYPE_DESC_SUPPLIER = " " + PREFIX_TYPE + VALID_TYPE_SUPPLIER;
+    public static final String TYPE_DESC_WAREHOUSE = " " + PREFIX_TYPE + VALID_TYPE_WAREHOUSE;
     public static final String TYPE_DESC_SUPPLIER_PRODUCT = " " + PREFIX_TYPE + Type.SUPPLIER_PRODUCT;
     public static final String TYPE_DESC_WAREHOUSE_PRODUCT = " " + PREFIX_TYPE + Type.WAREHOUSE_PRODUCT;
     public static final String INDEX_DESC = " " + PREFIX_INDEX;
 
+    public static final String WAREHOUSE_NAME_DESC_C = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_A;
+    public static final String SUPPLIER_NAME_DESC_C = " " + PREFIX_NAME + VALID_NAME_BOB;
+    // Todo, keeping for backward compatibility. Standardize naming convention as above
     public static final String WAREHOUSE_NAME_DESC_A = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_A;
+    public static final String WAREHOUSE_NAME_DESC_A2 = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_A;
     public static final String WAREHOUSE_NAME_DESC_B = " " + PREFIX_WAREHOUSE_NAME + VALID_WAREHOUSE_NAME_B;
     public static final String PRODUCT_NAME_DESC_A = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_ASPIRIN;
     public static final String PRODUCT_NAME_DESC_B = " " + PREFIX_PRODUCT_NAME + VALID_PRODUCT_NAME_PANADOL;
@@ -110,9 +131,14 @@ public class CommandTestUtil {
             + VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
 
     // invalid test samples
+    public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "pp"; // Type can only be one of 's',
+    // 'w', 'ps', 'pw'
     public static final String INVALID_NAME_DESC = " " + PREFIX_SUPPLIER_NAME + "&James"; // names cannot
     // start with '&'
+    public static final String INVALID_NAME_DESC2 = " " + PREFIX_NAME + "&James"; // names cannot
+    // start with '&'
     public static final String INVALID_NAME_DESC_WAREHOUSE = " " + PREFIX_WAREHOUSE_NAME + "&John";
+    public static final String INVALID_NAME_DESC_WAREHOUSE2 = " " + PREFIX_NAME + "&John";
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
@@ -123,6 +149,8 @@ public class CommandTestUtil {
     public static final String INVALID_SUPPLIER_NAME_DESC = " " + PREFIX_SUPPLIER_NAME
             + "&Amy"; // names cannot start with '&'
     public static final String INVALID_WAREHOUSE_NAME_DESC = " " + PREFIX_WAREHOUSE_NAME
+            + "&Amy"; // names cannot start with '&'
+    public static final String INVALID_ENTITY_NAME_DESC = " " + PREFIX_NAME
             + "&Amy"; // names cannot start with '&'
     public static final String INVALID_PRODUCT_NAME_DESC = " " + PREFIX_PRODUCT_NAME
             + "&Amy"; // names cannot start with '&'
@@ -141,6 +169,10 @@ public class CommandTestUtil {
     public static final EditWarehouseDescriptor DESC_A;
     public static final EditWarehouseDescriptor DESC_B;
 
+    public static final UpdateProductDescriptor DESC_PRODUCT_A;
+    public static final UpdateProductDescriptor DESC_PRODUCT_B;
+
+
     static {
         DESC_AMY = new EditSupplierDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withRemark(VALID_REMARK_AMY)
@@ -156,6 +188,9 @@ public class CommandTestUtil {
                 .withPhone(VALID_WAREHOUSE_PHONE_B).withAddress(VALID_WAREHOUSE_ADDRESS_B)
                 .withRemark(VALID_WAREHOUSE_REMARK_B)
                 .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_B, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
+        DESC_PRODUCT_A = new UpdateProductDescriptorBuilder().withQuantity(VALID_WAREHOUSE_PRODUCT_QUANTITY_A)
+                .withTags(VALID_TAG_FEVER).build();
+        DESC_PRODUCT_B = new UpdateProductDescriptorBuilder().withQuantity(VALID_PRODUCT_QUANTITY_B).build();
     }
 
     /**
@@ -212,8 +247,8 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredSupplierList().size());
 
         Supplier supplier = model.getFilteredSupplierList().get(targetIndex.getZeroBased());
-        final String[] splitName = supplier.getName().fullName.split("\\s+");
-        model.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(Arrays.asList(splitName[0])));
+        model.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(
+                supplier.getName().fullName));
 
         assertEquals(1, model.getFilteredSupplierList().size());
     }
@@ -225,8 +260,8 @@ public class CommandTestUtil {
     public static void showWarehouseAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredWarehouseList().size());
         Warehouse warehouse = model.getFilteredWarehouseList().get(targetIndex.getZeroBased());
-        final String[] splitName = warehouse.getName().fullName.split("\\s+");
-        model.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(Arrays.asList(splitName[0])));
+        model.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(
+                warehouse.getName().fullName));
         assertEquals(1, model.getFilteredWarehouseList().size());
     }
 }

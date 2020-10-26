@@ -32,8 +32,7 @@ public class HelpCommandTest {
                 + ", Phone, Remarks can be edited in both warehouse and suppliers. In addition, a"
                 + " warehouse's address and a supplier's email can be edited as well.";
         String aboutExitCommand = "exit\nYou can exit the application using the exit command.";
-        String aboutFindCommand = "find\nYou can find suppliers or warehouses that sells the products using"
-                + " the find command.";
+        String aboutFindCommand = "find\nYou can find suppliers or warehouses using the find command.";
         String aboutListCommand = "list\nYou can list all suppliers and warehouses by using list command.";
         String aboutViewCommand = "view\nYou can view a specific warehouse or supplier using"
                 + " the view command.";
@@ -152,18 +151,19 @@ public class HelpCommandTest {
 
     @Test
     public void execute_findHelp_success() {
-        String findProductsInSupplierOrWarehouse = "Find\nFinds all suppliers or warehouses managed by the manager"
-                + " that sells the relevant medical products.";
-        String findProductsInSupplierOrWarehouseCommandFormat = "Command format: \nfind TYPE KEYWORD"
-                + "[KEYWORD]...\n\n"
-                + "KEYWORD specified is case-insensitive and must contain at least one keyword.\n"
-                + "The TYPE specified should be one of these values: warehouse / supplier.";
-        String findProductsInSupplierOrWarehouseSampleCommand = "Sample Command: \n"
-                + "find warehouse PANADOL SUSP \nfind supplier masks";
+        String findDescription = "Find\nFinds all suppliers or warehouses whose name, remark and/or"
+                + " products matches the argument keywords provided.";
+        String findCommandFormat = "Command format: \nfind ct/TYPE [n/NAME...]"
+                + " [pd/PRODUCT_NAME...] [r/REMARK...]\n\n"
+                + "TYPE should be one of these values: s / w.\n"
+                + "At least one of the name, product or remark prefix must be provided.\n"
+                + "Keywords specified are case-insensitive.\n";
+        String findSampleCommand = "Sample Command: \n"
+                + "find ct/s pd/panadol \nfind ct/w pd/face mask r/biggest";
         String findHelpMessage = HELP_MESSAGE_FOR_COMMAND_FORMAT + "\n\n"
-                + findProductsInSupplierOrWarehouse + "\n\n"
-                + findProductsInSupplierOrWarehouseCommandFormat + "\n\n"
-                + findProductsInSupplierOrWarehouseSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
+                + findDescription + "\n\n"
+                + findCommandFormat + "\n\n"
+                + findSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
         CommandResult expectedCommandResult = new CommandResult(findHelpMessage, false, false);
         assertCommandSuccess(new HelpCommand("find"), model,
                 expectedCommandResult, expectedModel);

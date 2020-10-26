@@ -39,6 +39,12 @@ class RemarkTest {
 
         // invalid remarks: spaces only
         assertFalse(Remark.isValidRemark(" "));
+        // invalid remarks: contains forward slash
+        assertFalse(Name.isValidName("/")); // no forward slash
+        // invalid remarks: contains forward slash within string
+        assertFalse(Remark.isValidRemark("Monday/Tuesday"));
+        // invalid remarks: contains forward slash as a non-matching prefix
+        assertFalse(Remark.isValidRemark("Remark z/Weekend"));
         // invalid remarks: remark exceed the 100 char limit
         assertFalse(Remark.isValidRemark(remarkWithMoreThanOneHundredCharacters));
 

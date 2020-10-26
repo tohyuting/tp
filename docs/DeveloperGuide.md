@@ -82,8 +82,7 @@ The `UI` component,
 ![Structure of the Logic Component](images/LogicClassDiagram.png)
 
 **API** :
-[`Logic.java`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/logic/Logic
-.java)
+[`Logic.java`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/logic/Logic.java)
 
 1. `Logic` uses the `ClinicParser` class to parse the user command.
 1. This results in a `Command` object which is executed by the `LogicManager`.
@@ -295,9 +294,9 @@ considering code quality and end user experience.
 
 ### Update product feature
 
-The update product mechanism is facilitated by the `UpdateCommandParser` and the `UpdateCommand`.
-The `UpdateCommandParser` implements `Parser` and the `UpdateCommand` extends `Command`, allowing the user to 
-create or update a product under either a supplier or a warehouse.
+The update product mechanism is facilitated by the `UpdateCommandParser`, `UpdateCommand`,  and the `UpdateProductDescriptor`.
+The `UpdateCommandParser` implements `Parser` to parse the user input, the `UpdateCommand` extends `Command` to execute the main logic, 
+and the `UpdateProductDescriptor` allows the parser to pass a specification of the updated product to the `UpdateCommand`.
 
 Given below is an example usage scenario and how the update product mechanism behaves at each step.
 
@@ -307,11 +306,9 @@ The user does this by executing the `update ct/w n/Jurong Warehouse pd/Panadol q
 The `ClinicParser#parseCommand` will then call the `UpdateCommandParser#parse` method with all the arguments 
 passed by the user.
  
-Step 2. `UpdateCommandParser#parse` then attempts to create new `Name` instances for the supplier/warehouse 
-and the product, and new `tag` instances for the product. An exception will be thrown if any of the names or 
-tags are invalid, which will be presented on the GUI. Similarly, 
-a new `Product` will be instantiated based on the product name and any quantity or tags given, if valid.
-After which, it will call the `UpdateCommand` with the `Type`, warehouse/supplier's `Name` and `Product` created, 
+Step 2. `UpdateCommandParser#parse` then attempts to create new instances of `name` for the supplier/warehouse 
+and the product, and a new `UpdateProductDescriptor` with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, which will be presented on the GUI. 
+After which, it will call the `UpdateCommand` with the `Type`, warehouse/supplier's `Name` and `UpdateProductDescriptor` created, 
 and return it to `ClinicParser#Parse` which will in turn return the `UpdateCommand` to `LogicManager#execute`.
 
 The following sequence diagram shows how the update product operation works: (TODO: Insert diagram)

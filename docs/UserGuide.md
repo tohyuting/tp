@@ -27,12 +27,13 @@ and efficient Graphical User Interface interaction.
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will display instructions on various commands.<br>
    Some example commands you can try:
 
-   * **`add`** `w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` : Adds a warehouse
-    with the name warehouseA located at John street, block 123, #01-01. The warehouse is noted to be the “First warehouse”.
+   * **`add`** `ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` : Adds a
+    warehouse with the name warehouseA located at John street, block 123, #01-01. This warehouse is the
+    “First warehouse”.
 
-   * **`add`** `s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor` : Adds a
-    supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is
-    philipsPharm@gmail.com. The supplier is noted to be the “largest contractor”.
+   * **`add`** `ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor` : Adds a
+    supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com.
+    This supplier is the “largest contractor”.
 
    * **`add`** `s/SupplierA pd/PANADOL SUSP t/FEVER` : Adds the product PANADOL SUSP to list of products from
     supplierA. This indicates that supplierA is selling this product. PANADOL SUSP also has a tag of FEVER.
@@ -45,12 +46,12 @@ and efficient Graphical User Interface interaction.
 
    * **`exit`** : Exits the app.
 
-   * **`find`** `PANADOL warehouse` : Displays all the warehouses managed by the manager that has a product
+   * **`find`** `ct/w pd/panadol` : Displays all the warehouses managed by the manager that has a product
     named PANADOL.
 
    * **`list`** `list`: Displays all the warehouses and suppliers in CLI-nic.
 
-   * **`update`** `w/WarehouseA pd/Panadol q/10` : Updates the quantity of PANADOL in WarehouseA to 10. The quantity of PANADOL in WarehouseA can be more than 10 or lesser than 10 before the update is done.
+   * **`update`** `ct/w n/WarehouseA pd/Panadol q/10 t/fever` : Updates the quantity of PANADOL in WarehouseA to 10, and assigns the tag 'fever' to the product.
 
    * **`view ct/w i/3`** : Displays all the information associated with warehouse at index 3 of warehouse list e.g. name, address, contact, products sold by the warehouse etc.
 
@@ -68,7 +69,8 @@ and efficient Graphical User Interface interaction.
   e.g. in `delete TYPE INDEX`, `TYPE` is a parameter which can be used as `delete warehouse 1`.
 
 * Items in square brackets are optional.<br>
-  e.g `add s/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS]` can be used as `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com` or as `add s/Philips Pharmaceutical p/00000000`.
+  e.g `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS` can be used as `add ct/s n/Philips Pharmaceutical p
+  /00000000 e/philipsPharm@gmail.com` or as `add ct/s n/Philips Pharmaceutical p/00000000`.
 
 * Items with `…`​ after them can be used multiple times.<br>
   e.g. `[t/TAG]…​` can be used as `t/friend`, `t/friend t/family` etc.
@@ -97,23 +99,27 @@ Examples:
 
 Adds warehouse to the CLI-nic application.
 
-Format: `add w/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
+Format: `add ct/TYPE n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
+* The TYPE specified here should be w for warehouse.
 
 Examples:
 
-* `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` Adds a warehouse with the name
- warehouseA located at John street, block 123, #01-01. The warehouse's contact number is 00000000. The warehouse is noted to be the “First warehouse”.
+* `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` Adds a warehouse
+ with the name warehouseA located at John street, block 123, #01-01. The warehouse's contact number is 00000000.
+ This warehouse is the “First warehouse”.
 
 ### Adding a supplier : `add`
 
 Adds a supplier to the CLI-nic application.
 
-Format: `add s/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]`
+Format: `add ct/TYPE n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`
+* The TYPE specified here should be s for supplier.
 
 Examples:
 
-* `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor` Adds a
- supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com. The supplier is noted to be the “largest contractor”.
+* `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
+Adds a supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com.
+This supplier is the “largest contractor”.
 
 ### Adding a product to a supplier : `add`
 
@@ -196,17 +202,20 @@ Examples:
 
 ### Finding medical product associated with warehouses / suppliers: `find`
 
-Finds all suppliers or warehouses managed by the manager that sells the relevant medical products.
+Finds all suppliers or warehouses whose name, remark and/or products sold/stored matches the provided argument keywords.
 
-Format: `find TYPE KEYWORD [KEYWORD]…​`
+Format: `find ct/TYPE [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`
 
-* KEYWORD specified is case-insensitive and must contain at least one keyword.
-* The TYPE specified should be one of these values: warehouse / supplier.
+* Keywords specified are case-insensitive.
+* The TYPE specified should be one of these values: s/w.
+* Any combination of the name, product and remark prefix can be provided but at least one of the prefix for name,
+product or remark must be specified.
 
 Examples:
 
-* `find warehouse PANADOL SUSP` Displays all the warehouses managed by the manager that has a product named PANADOL SUSP.
-* `find supplier masks` Displays all the suppliers that have stock for the input product.
+* `find ct/s pd/masks` Displays all the suppliers that sell masks.
+* `find ct/w pd/PANADOL SUSP r/biggest` Displays the biggest warehouse that stores products matching either PANADOL or
+SUSP.
 
 ### List all suppliers and warehouses entries : `list`
 
@@ -228,15 +237,15 @@ Examples:
 * `view ct/s 1` Displays all the information associated with supplier at index 1 in the supplier list e.g. name, contact, email, remarks, products sold by the supplier.
 * `view ct/w 2` Displays all the information associated with at index 2 in the warehouse list e.g. name, contact, address, remarks, all the products stored in the warehouse.
 
-### Update the stock for a product: `update`
+### Update the quantity/tags of a product for a supplier/warehouse: `update`
 
-* If the product does not exist for that warehouse, it will associate the new product with the warehouse and the input quantity. Otherwise, it will update the stock of the existing product with the new quantity.
+* If the product does not exist for that warehouse/supplier, it will associate the new product (optionally with quantity/tags) with the warehouse/supplier. Otherwise, it will update the existing product in the warehouse/supplier with the new quantity/tags. If the product already exists, at least one optional argument has to be supplied.
 
-Format:	`update w/WAREHOUSE_NAME pd/PRODUCT_NAME q/QUANTITY`
+Format:	`update ct/TYPE n/ENTITY_NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG]`
 
 Example:
 
-* `update w/WarehouseA pd/Panadol q/10` Updates the quantity of Panadol in WarehouseA to 10. The quantity of Panadol in WarehouseA can be more than 10 or lesser than 10 before the update is done.
+* `update ct/w n/WarehouseA pd/Panadol q/10 t/fever` Updates the quantity of Panadol in WarehouseA to 10, and gives the product the tag 'fever'.
 
 ### Exiting the program : `exit`
 
@@ -280,15 +289,15 @@ Examples:
 
 Action | Format, Examples
 --------|------------------
-**Add** Warehouse | `add w/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add w/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
-**Add** Supplier | `add s/SUPPLIER_NAME p/PHONE [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]`<br> e.g., `add s/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
+**Add** Warehouse | `add ct/w n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
+**Add** Supplier | `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`<br> e.g., `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
 **Addp** Product | `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `addp s/SupplierA pd/PANADOL SUSP t/FEVER`
 **Clear** | `clear`
 **Delete** | `delete ct/TYPE i/INDEX`<br> e.g., `delete ct/w i/1`
 **Delete** Product| `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`<br> e.g., `delete ct/pw i/1 pd/Panadol`
 **Edit** | `edit ct/TYPE i/INDEX [n/NAME] [p/PHONE] [r/REMARK] [addr/ADDRESS] [e/EMAIL]`<br> e.g., `edit ct/w i/1 n/Alice Warehouse p/98765432 r/second largest warehouse addr/21 Lower Kent Ridge Rd`
-**Find** | `find TYPE KEYWORD [KEYWORD]…`<br> e.g. `find warehouse panadol`
+**Find** | `find ct/TYPE [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`<br> e.g. `find ct/w pd/panadol`
 **Help** | `help [COMMAND]`<br> e.g., `help add`
 **List** | `list`
-**Update** | `update w/WAREHOUSE_NAME pd/PRODUCT_NAME q/QUANTITY` <br> e.g., `update w/WarehouseA pd/Panadol q/10`
+**Update** | `update ct/TYPE n/ENTITY_NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` <br> e.g., `update ct/w n/WarehouseA pd/Panadol q/10 t/fever`
 **View** | `view ct/TYPE i/INDEX`<br> e.g. `view ct/s i/1`

@@ -2,10 +2,13 @@ package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.clinic.logic.commands.CommandTestUtil.DESC_PRODUCT_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.DESC_PRODUCT_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_QUANTITY_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_QUANTITY_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_A;
-import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_A;
-import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
 import static seedu.clinic.logic.commands.UpdateCommand.getWarehouseByName;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalWarehouse.ALICE;
@@ -14,6 +17,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -21,61 +25,91 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.logic.commands.exceptions.CommandException;
+import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
+import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.ReadOnlyUserPrefs;
 import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.macro.Alias;
+import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
+import seedu.clinic.testutil.UpdateProductDescriptorBuilder;
 import seedu.clinic.testutil.WarehouseBuilder;
 
 public class UpdateCommandTest {
     private static final Product VALID_PRODUCT_A = new Product(new Name(VALID_WAREHOUSE_PRODUCT_NAME_A),
-            VALID_WAREHOUSE_PRODUCT_QUANTITY_A);
+            VALID_PRODUCT_QUANTITY_B);
 
     @Test
     public void constructor_nullWarehouse_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new UpdateCommand(null, VALID_PRODUCT_A));
+        assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.SUPPLIER, null,
+                new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_A));
     }
 
     @Test
-    public void constructor_nullProduct_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new UpdateCommand(ALICE.getName(), null));
+    public void constructor_nullProductName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.WAREHOUSE, ALICE.getName(),
+                null, DESC_PRODUCT_A));
     }
 
     @Test
-    public void execute_productExistsInWarehouse_updateSuccessful() throws Exception {
+    public void constructor_nullEntityType_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new UpdateCommand(null, ALICE.getName(),
+                new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_A));
+    }
+
+    @Test
+    public void constructor_nullUpdateProductDescriptor_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.WAREHOUSE, ALICE.getName(),
+                new Name(VALID_PRODUCT_NAME_ASPIRIN), null));
+    }
+
+    @Test
+    public void execute_productExistsInWarehouseAndFieldEdited_updateSuccessful() throws Exception {
         Warehouse originalWarehouse = new WarehouseBuilder().withProducts(
-                Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_B)).build();
+                Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_A)).build();
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(originalWarehouse);
-        CommandResult commandResult = new UpdateCommand(originalWarehouse.getName(), VALID_PRODUCT_A)
-                .execute(modelStub);
+        CommandResult commandResult = new UpdateCommand(Type.WAREHOUSE, originalWarehouse.getName(),
+                new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), DESC_PRODUCT_B).execute(modelStub);
         Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
-                Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
+                Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_B)).build();
         assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_A.toStringForWareHouse(),
-                editedWarehouse), commandResult.getFeedbackToUser());
+                editedWarehouse.getName()), commandResult.getFeedbackToUser());
         assertEquals(editedWarehouse, modelStub.warehouse);
+    }
+
+    @Test
+    public void execute_productExistsInWarehouseAndNoFieldEdited_throwsCommandException() throws Exception {
+        Warehouse originalWarehouse = new WarehouseBuilder().withProducts(
+                Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_A)).build();
+        ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(originalWarehouse);
+        assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, originalWarehouse.getName(),
+                new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), new UpdateProductDescriptorBuilder().build())
+                .execute(modelStub));
     }
 
     @Test
     public void execute_productDoesNotExistInWarehouse_updateSuccessful() throws Exception {
         Warehouse emptyWarehouse = new WarehouseBuilder().build();
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(emptyWarehouse);
-        CommandResult commandResult = new UpdateCommand(emptyWarehouse.getName(), VALID_PRODUCT_A).execute(modelStub);
+        CommandResult commandResult = new UpdateCommand(Type.WAREHOUSE, emptyWarehouse.getName(),
+                new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), DESC_PRODUCT_B).execute(modelStub);
         Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
-                Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
+                Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_B)).build();
         assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_A.toStringForWareHouse(),
-                editedWarehouse), commandResult.getFeedbackToUser());
+                editedWarehouse.getName()), commandResult.getFeedbackToUser());
         assertEquals(editedWarehouse, modelStub.warehouse);
     }
 
     @Test
-    public void execute_warehouseNotFound_throwsCommandException() {
+    public void execute_entityNotFound_throwsCommandException() {
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
-        assertThrows(CommandException.class, () -> new UpdateCommand(new Name(VALID_NAME_AMY), VALID_PRODUCT_A)
-                .execute(modelStub));
+        assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, new Name(VALID_NAME_AMY),
+                new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_A).execute(modelStub));
     }
 
     @Test
@@ -113,6 +147,60 @@ public class UpdateCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getUserMacrosFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyUserMacros getUserMacros() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserMacrosFilePath(Path clinicFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setUserMacros(ReadOnlyUserMacros userMacros) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMacro(Macro macro) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Macro> getMacro(String aliasString) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override public Optional<Macro> getMacro(Alias alias) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMacro(Macro target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMacro(Macro macro) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMacro(Macro target, Macro editedMacro) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Macro> getMacroList() {
             throw new AssertionError("This method should not be called.");
         }
 

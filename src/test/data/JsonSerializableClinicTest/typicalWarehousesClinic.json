@@ -5,18 +5,18 @@
     "name" : "Alice Warehouse",
     "phone" : "94351253",
     "address" : "alice address",
-    "remark" : "Warehouse 1",
+    "remark" : "Warehouse 1 biggest",
     "products": [ {
-      "name": "Panadol",
+      "name": "Gauze",
       "quantity": 100
     } ]
   }, {
     "name" : "Warehouse Benson",
     "phone" : "94351453",
     "address" : "benson address",
-    "remark" : "Warehouse 2",
+    "remark" : "Warehouse 2 near central",
     "products": [ {
-      "name": "Panadol",
+      "name": "Towel",
       "quantity": 200
     }]
   }, {
