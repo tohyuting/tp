@@ -191,54 +191,64 @@ The following activity diagram summarizes the execution procedure: (to be upload
 The edit feature will be elaborated in this section by its' functionality and path execution with the aid of a sequence and an activity diagram.
 
 #### What Edit Feature does
-The edit feature allows user to edit supplier/warehouse name, phone number and remarks. In addition, the edit feature also allows user to edit a supplier's email and a warehouse's address. This is important as warehouses and suppliers might change their contact details from time to time and the user has to be able to edit those information quickly. One thing to note is that the edit feature does not allow users to edit any products associated with a particular supplier or warehouse. To edit the quantity or tags of a product, the update feature should be invoked instead. This feature will be elaborated in the **Update** feature section below.
+The edit feature allows user to edit supplier/warehouse name, phone number and remarks. In addition, the edit feature also allows user to edit a supplier's email and a warehouse's address. This is important as warehouses and suppliers might change their contact details from time to time and the user has to be able to edit those information quickly. One thing to note is that the edit feature does not allow users to edit any products associated with a particular supplier or warehouse. To edit the quantity or tags of a product, the update feature should be invoked instead. This feature will be elaborated in **Update** feature section below.
 
 #### Path Execution of Edit Command
 The workflow of an Edit Command when it is executed by a user is shown in the activity diagram below:
 
 ![Edit Command Activity Diagram](images/EditCommandActivityDiagram.png)
 
-With reference to the activity diagram above, after the `edit` command is called, the user input will be sent to **`EditCommandParser`** for parsing. The `edit` command only allows editing of a single warehouse or supplier for every single command. If two types of `ct/COMMAND_TYPE` is provided, the last type specified will be used to process user's input. This applies for other prefixes used as inputs as well.
+After the `edit` command is called, user input will be sent to **`EditCommandParser`** for parsing. The `edit` command only allows editing of a single warehouse or supplier for every single command. If two types of `ct/COMMAND_TYPE` is provided, the last type specified will be used to process user's input. This applies for other prefixes used as inputs as well.
 
-The **`EditCommandParser`** will check if the compulsory prefixes are present (i.e. `ct/COMMAND_TYPE` and `i/INDEX`). A **`ParseException`** will be thrown if no compulsory prefixes or only one of the compulsory prefixes are given.
+If the compulsory prefixes are not present (i.e. `ct/COMMAND_TYPE` and `i/INDEX`), **`ParseException`** will be thrown if no compulsory prefixes or only one of the compulsory prefixes are given.
 
-Afterwards, **`EditCommandParser`** will check if at least one field is provided for editing. Similarly, a **`ParseException`** will be thrown if no field for editing of suppliers or warehouses is provided. If there are any inappropriate fields supplied (e.g. input a string for index or phone prefix), **`ParseException`** will also be thrown. Furthermore, fields resulting in no changes to an existing supplier or warehouse entry will throw a **`ParseException`** as well to remind user that the supplier or warehouse is unchanged after edits. 
+ Similarly, **`ParseException`** will be thrown if no field for editing of suppliers or warehouses is provided or if there are any inappropriate fields supplied (e.g. input a string for index or phone prefix), Furthermore, fields resulting in no changes to an existing supplier or warehouse entry will throw a **`ParseException`** as well to remind user that the supplier or warehouse is unchanged after edits. 
 
-Finally, a new **`EditCommand`** will be created and executed. **`EditCommand`** takes in an index for supplier or warehouse list and an **`EditDescriptor`** containing the fields to be edited when the command is executed. The edited supplier or warehouse will be updated in the model, allowing users to see the changes done for the respective supplier or warehouse.
+**`EditCommand`** will then be executed. The edited supplier or warehouse will be updated in the model, allowing users to see the changes done for the respective supplier or warehouse.
 
 In the following section, the interaction between different objects with the aid of a sequence diagram will be discussed to have a deeper understanding of the workflow when a user executes an edit command feature.
 
 ![Edit Command Sequence Diagram](images/EditCommandSequenceDiagram.png)
 
-After receiving an input from user for edit command, these inputs will be parsed by a `parse` method found in **`EditCommandParser`**. 
+After receiving an input from user for edit command, `parse` method found in **`EditCommandParser`** will be invoked. 
 
-The input will first be tokenised using an **`ArgumentTokenizer`**. This helps to tokenise out the arguments provided for the relevant prefixes. These results will be stored in **`ArgumentMultimap`** for quick retrieval in subsequent parsing. 
+The input is tokenised by **`ArgumentTokenizer`** and **`ArgumentMultimap`** for quick retrieval in subsequent parsing will be returned.
 
-**`EditCommandParser`** will first check if both `type` and `index` prefixes are given. If either one of these compulsory prefixes are missing, a **`ParseException`** will be thrown to remind users that they are missing. 
+If either one of these compulsory prefixes (i.e. `type` and `index`) are missing, a **`ParseException`** will be thrown to remind users.
 
-Afterwards, an attempt to parse values of `type` and `index` will be carried out. If the values supplied for `type` and `index` is not valid (e.g. String value for `index`), a **`ParseException`** will be thrown to inform user of the incorrect type. 
+If the values supplied for `type` and `index` is not valid (e.g. String value for `index`), a **`ParseException`** will be thrown.
 
-When the parsing of `type` and `index` is completed successfully, checking of incorrect prefix will be carried out. An example of incorrect prefix includes the use of email prefix for warehouse and an address prefix for supplier. In this case, a **`ParseException`** will be thrown.
+If incorrect prefixes such as the use of email prefix for warehouse and an address prefix for supplier was parsed, a **`ParseException`** will be thrown.
 
 An attempt to determine the correct type and creating the relevant **`EditDescriptor`** will then be carried out. It should be noted that both **`EditSupplierDescriptor`** and **`EditWarehouseDescriptor`** are subclasses of **`EditDescriptor`**. The logical workflow of this process if shown in the sequence diagram below:
 
 ![Edit Command Descriptor Sequence Diagram](images/EditCommandDescriptorSequenceDiagram.png)
 
-From the sequence diagram above, if the `type` matches a Supplier, parsing of general details will occur. These include parsing of Name, Phone and Remarks. During this parsing process, **`ParseException`** will be thrown if any of the inputs are invalid.
+Parsing of general details will occur for both Supplier and Warehouse type. These include parsing of **`Name`**, **`Phone`** and **`Remarks`**. 
 
-In addition, since Supplier contains an Email attribute, parsing of this field will be carried out. Similarly, a **`ParseException`** will be thrown if this field is invalid. 
+This is represented in the sequence diagram below:
 
-At the end of parsing, an **`EditSupplierDescriptor`** will be created which will be used to instantiate an EditCommand.
+![Edit Command General Details Sequence Diagram](images/EditCommandDescriptorGeneralDetailsSequenceDiagram.png)
 
-A similar process will be carried out if the `type` is determined to be a Warehouse. However, since a warehouse entity does not contain an Email attribute, parsing of Address will be carried out instead. Likewise, a **`ParseException`** will be thrown if the Email field provided is invalid. In this case, an **`EditWarehouseDescriptor`** will be created which will be used to instantiate an EditCommand.
+In addition, since Supplier contains an **`Email`** attribute, parsing of this field will be carried out. On the other hand, parsing of **`Address`** will be carried out for warehouse entity instead since they do not contain an **`Email`** attribute. These respective parsing are represented by the sequence diagrams below:
 
-Lastly, **`EditCommandParser`** then 
+![Edit Command Supplier Details Sequence Diagram](images/EditCommandDescriptorSupplierDetailsSequenceDiagram.png)
 
 
-  
+![Edit Command Warehouse Details Sequence Diagram](images/EditCommandDescriptorWarehouseDetailsSequenceDiagram.png)
+
+
+During this parsing process, **`ParseException`** will be thrown if any of the inputs are invalid.
+
+At the end of parsing, if the type is a Supplier, an **`EditSupplierDescriptor`** will be created which will be used to instantiate an EditCommand. Similarly, if the type is a Warehouse, an **`EditWarehouseDescriptor`** will be created which will be used to instantiate an EditCommand.
+
+EditCommand will be executed and the workflow is illustrated below:
+![Edit Command Execution Sequence Diagram](images/EditCommandExecutionSequenceDiagram.png)
+
+After the execution of EditCommand, an edit success message will be displayed to user, with the changes made to the relevant supplier/warehouse as well.
 
 #### Why it is implemented this way
-The `edit` command is implemented this way to ensure consistency with the other commands in the application. This helps to minimise any potential confusion for the users by standardising the prefixes that `edit` command takes in with the other relevant commands. In addition, it was intended for **EditCommandParser** to throw out a **ParseException** when none of the field changes an existing entry. This is to remind users in case they made a minor mistake, resulting in a supplier or warehouse to not update the way they intended for it to. Lastly, a command type prefix, `ct/COMMAND_TYPE` is required in the implementation of `edit` command to indicate whether user wishes to edit a warehouse or supplier entry. Without a command type prefix, an alternative would be for a `TYPE` parameter, where user have to indicate `supplier` or `warehouse`. However, this may not be suitable for our target user, who wishes to update stocks quickly. Hence, our team decided to use a command type prefix in place of a parameter. Furthermore, another alternative considered would be to create separate commands for warehouses and suppliers respectively. For example, `editw` and `edits` to represent edit warehouse and edit supplier. However, this might increase duplicated codes, since minimal changes to the code would be found for each class of command. By using a prefix, this helps us to reduce any potential code duplication. Therefore, our team decided to implement edit command by taking in prefixes and throwing our relevant exceptions at appropriate points after considering code quality and end user experience.
+The `edit` command is implemented this way to ensure consistency with the other commands in the application. This helps to minimise any potential confusion for the users. In addition, it was intended for **EditCommandParser** to throw out a **ParseException** when none of the field changes an existing entry. This serves as a reminder for users in case they made a minor mistake, resulting in a supplier or warehouse to not update the way they intended for it to. Lastly, a command type prefix, `ct/COMMAND_TYPE` is required in the implementation of `edit` command to indicate whether user wishes to edit a warehouse or supplier entry. Without this, an alternative would be for a `TYPE` parameter, where user have to indicate `supplier` or `warehouse`. However, this may not be suitable for our target user, who wishes to update stocks quickly. Furthermore, another alternative considered was to create separate commands for warehouses and suppliers respectively. For example, `editw` and `edits` to represent edit warehouse and edit supplier. However, this might increase duplicated codes, since minimal changes to the code would be found for each class of command. Therefore, our team decided to implement `edit` command by taking in prefixes and throwing our relevant exceptions at appropriate points after considering code quality and end user experience.
 
 ### Find feature
 
