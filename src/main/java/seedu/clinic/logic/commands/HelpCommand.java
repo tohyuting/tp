@@ -86,7 +86,7 @@ public class HelpCommand extends Command {
                 + " each command, feel free to copy our website User Guide URL,"
                 + " which can be found by pressing F1.";
 
-        String aboutAddCommand = "add\nYou can add warehouse, supplier using the add command";
+        String aboutAddCommand = "add\nYou can add warehouse or supplier to CLI-nic using the add command";
         String aboutClearCommand = "clear\nYou can clear all entries (suppliers and warehouses)"
                 + " in CLI-nic using clear command.";
         String aboutDeleteCommand = "delete\nYou can delete warehouse, supplier or products associated to"
@@ -99,8 +99,8 @@ public class HelpCommand extends Command {
         String aboutListCommand = "list\nYou can list all suppliers and warehouses by using list command.";
         String aboutViewCommand = "view\nYou can view a specific warehouse or supplier using"
                 + " the view command.";
-        String aboutUpdateCommand = "update\nYou can update a product in a supplier or warehouse by"
-                + " using the update command";
+        String aboutUpdateCommand = "update\nYou can update a product managed by a supplier or"
+                + " warehouse with the update command";
 
         String finalGenericHelpMessage = aboutHelpCommand + "\n\n" + aboutAddCommand + "\n\n"
                 + aboutClearCommand + "\n\n" + aboutDeleteCommand + "\n\n" + aboutEditCommand + "\n\n"
@@ -111,7 +111,7 @@ public class HelpCommand extends Command {
 
     private String generateHelpAddMessage() {
         String generalDescriptionOfAdd = "Add\nAdd command allows you to add warehouse or supplier"
-                + " to a supplier.";
+                + " to CLI-nic.";
 
         String addWarehouse = "Add Warehouse \nAdds warehouse to the CLI-nic application.";
         String addWarehouseCommandFormat = "Command format: \nadd ct/TYPE n/WAREHOUSE_NAME p/PHONE"

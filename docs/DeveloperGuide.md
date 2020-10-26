@@ -296,6 +296,10 @@ The workflow for an execution of **`ViewCommand`** is as shown:
 The `help` feature will be elaborated in this section by its' functionality.
 
 #### What Help feature does
+An activity diagram showing the workflow of `help` command is shown below:
+
+![Help Command Activity Diagram](images/HelpCommandActivityDiagram.png)
+
 `help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have a over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
 
 #### Why Help feature is implemented this way
