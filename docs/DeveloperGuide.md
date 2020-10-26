@@ -180,7 +180,7 @@ from the list in the `model`.
 If the user wants to delete a product inside the entry, the set of `Product` for the warehouse/supplier entry will be retrieved first.
 The `warehouse#getProductByName` or `supplier#getProductByName` will give the target product to delete from the name argument,
 and the retrieved product will be removed from the current product set in the selected warehouse/supplier entry.
-Afterwards, the updated product set will replace the existing set in this warehouse/supplier. The selected warehouse/supplier entry in the model is then 
+Afterwards, the updated product set will replace the existing set in this warehouse/supplier. The selected warehouse/supplier entry in the model is then
 replaced by the updated warehouse/supplier with the target product deleted.
 
 Step 5. With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with a success message, which will
@@ -213,12 +213,12 @@ Step 1. After the `find` command is called, the user input will be sent to **Fin
 
 Step 2. **FindCommandParser** will then check if the compulsory prefix `ct/COMMAND_TYPE` is present. If the user enters
 `ct/COMMAND_TYPE` prefix more than once, only the last prefix specified will be used to process user's input. If the
-prefix `ct/COMMAND_TYPE` is not present, a **ParseException** will be thrown. 
+prefix `ct/COMMAND_TYPE` is not present, a **ParseException** will be thrown.
 
 Step 3. **FindCommandParser** will then proceed to check for the existence of at least one of the following prefixes
  `n/NAME`, `r/REMARK` and `pd/PRODUCT`. If none is found, a **ParseException** will be thrown. Again, if the user
  specifies the same prefix more than once, only the last prefix specified will be used to process the user's input.
- 
+
 Step 4. Once the user has entered the correct format for the command, their input will then be parsed.
 
 Step 5. **FindCommandParser** will create a new **FindCommand** to be executed and the relevant suppliers or warehouses
@@ -240,7 +240,7 @@ the user to enter the `TYPE` parameter in the form of either `supplier` or `ware
 out may not have been suitable for our target user, who wishes to find suppliers or warehouses quickly. Hence, our team
 decided to use a command type prefix in place of a `TYPE` parameter, which is shorter and easier to type.
 
-In our current implementation, users are required to enter at least one or a combination of the following prefixes: 
+In our current implementation, users are required to enter at least one or a combination of the following prefixes:
 `n/NAME`, `r/REMARK`, `pd/PRODUCT`. This allows the application to determine which criterion/criteria to filter by.
 Another alternative that was previously implemented was to split the find command into three separate commands: `findn`
 which allows users to search by name, `findr` which allows users to search by remarks and `findp` which allows users to
@@ -255,39 +255,39 @@ considering code quality and end user experience.
 ### Update product feature
 
 The update product mechanism is facilitated by the `UpdateCommandParser`, `UpdateCommand`,  and the `UpdateProductDescriptor`.
-The `UpdateCommandParser` implements `Parser` to parse the user input, the `UpdateCommand` extends `Command` to execute the main logic, 
+The `UpdateCommandParser` implements `Parser` to parse the user input, the `UpdateCommand` extends `Command` to execute the main logic,
 and the `UpdateProductDescriptor` allows the parser to pass a specification of the updated product to the `UpdateCommand`.
 
 Given below is an example usage scenario and how the update product mechanism behaves at each step.
 
-Step 1. The user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units 
-in the warehouse named 'Jurong Warehouse'. The user also decides that he wants to give 'Panadol' a tag 'fever'. 
+Step 1. The user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units
+in the warehouse named 'Jurong Warehouse'. The user also decides that he wants to give 'Panadol' a tag 'fever'.
 The user does this by executing the `update ct/w n/Jurong Warehouse pd/Panadol q/50 t/fever` command.
-The `ClinicParser#parseCommand` will then call the `UpdateCommandParser#parse` method with all the arguments 
+The `ClinicParser#parseCommand` will then call the `UpdateCommandParser#parse` method with all the arguments
 passed by the user.
- 
-Step 2. `UpdateCommandParser#parse` then attempts to create new instances of `name` for the supplier/warehouse 
-and the product, and a new `UpdateProductDescriptor` with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, which will be presented on the GUI. 
-After which, it will call the `UpdateCommand` with the `Type`, warehouse/supplier's `Name` and `UpdateProductDescriptor` created, 
+
+Step 2. `UpdateCommandParser#parse` then attempts to create new instances of `name` for the supplier/warehouse
+and the product, and a new `UpdateProductDescriptor` with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, which will be presented on the GUI.
+After which, it will call the `UpdateCommand` with the `Type`, warehouse/supplier's `Name` and `UpdateProductDescriptor` created,
 and return it to `ClinicParser#Parse` which will in turn return the `UpdateCommand` to `LogicManager#execute`.
 
 The following sequence diagram shows how the update product operation works: (TODO: Insert diagram)
 
-Step 3. `LogicManager#execute` calls `UpdateCommand#execute` with the `Model` instance. In `LogicManager#execute`, 
-the `Model#getWarehouseByName` or `Model#getSupplierByName` is called (to be implemented), which 
-iterates through the warehouse/supplier list to find a warehouse/supplier with a `Name` that matches the one provided 
-in the `UpdateCommand`. If it is not found, `NoSuchElementException` is thrown, otherwise, the `UpdateCommand#execute` 
-method copies the existing product set for that warehouse/supplier to a new `Set<Product>`. 
+Step 3. `LogicManager#execute` calls `UpdateCommand#execute` with the `Model` instance. In `LogicManager#execute`,
+the `Model#getWarehouseByName` or `Model#getSupplierByName` is called (to be implemented), which
+iterates through the warehouse/supplier list to find a warehouse/supplier with a `Name` that matches the one provided
+in the `UpdateCommand`. If it is not found, `NoSuchElementException` is thrown, otherwise, the `UpdateCommand#execute`
+method copies the existing product set for that warehouse/supplier to a new `Set<Product>`.
 
-Step 4. `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`. 
+Step 4. `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
 If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
-is supplied for the `Product` to be updated, failing which, an exception is thrown. If the check passes, the original 
-`Product` is removed from the set. 
+is supplied for the `Product` to be updated, failing which, an exception is thrown. If the check passes, the original
+`Product` is removed from the set.
 
-Step 5. `UpdateCommand#execute` adds the updated `Product` to the `Set<Product>`, and creates an updated 
-warehouse/supplier with the updated product. The method then calls `Model#setWarehouse` or `Model#setSupplier` to update the model, 
+Step 5. `UpdateCommand#execute` adds the updated `Product` to the `Set<Product>`, and creates an updated
+warehouse/supplier with the updated product. The method then calls `Model#setWarehouse` or `Model#setSupplier` to update the model,
 and calls `Model#updateFilteredWarehouseList` to update the list to be displayed to the user.
-The method then passes a `CommandResult` with a success message back to `LogicManager#execute`. Finally, the model 
+The method then passes a `CommandResult` with a success message back to `LogicManager#execute`. Finally, the model
 is saved and the GUI is updated with the success message.
 
 The following activity diagram summarizes what happens when a user updates a product: (TODO: Insert Diagram)
@@ -298,7 +298,7 @@ the AddCommand class, the interactions between objects with the AddCommand objec
 
 #### What is the Add supplier/warehouse feature
 The add supplier/warehouse feature is facilitated by the `AddCommandParser` and the `AddCommand`.
-The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to 
+The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to
 add a supplier/warehouse to the app using the command line.
 
 The supplier consists of : Type, Name, Phone, Email
@@ -439,7 +439,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Steps 1b1-1b3 are repeated until the data entered are correct. <br>
     Use case resumes from step 2.
-    
+
 **Use case: UC02 Add a supplier**
 
 **MSS**
@@ -742,7 +742,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Supplier**: The companies / entities providing the sources of medical products
 * **Warehouse**: The places where the medical supplies are channeled to and kept. The storage condition of these warehouses are managed by the manager, which is our app user
 
-Command Prefix
+#### Command Prefix
 |Prefix |Meaning |Used in the following Command(s)|
 | ------- |-------- | ------------ |
 |ct/ |Command Type |Add, Delete, Edit, Find, Update |
@@ -793,7 +793,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: With remarks e.g. `add ct/s n/John Doe p/98766789 e/johndoe@example.com r/Fast
       delivery`<br>
       Expected: Adds the supplier to the list, including the remark
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/s n/John Doe p/98766789` 
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/s n/John Doe p/98766789`
       or `add ct/s n/John Doe p/98766789 e/johndoe@example.com z/friend`<br>
       Expected: No supplier is added. Error details shown in the response message. A help message displayed
       to guide user accordingly. SupplierList on GUI remain unchanged.
@@ -812,7 +812,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: With remarks e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01
       r/Largest warehouse`<br>
       Expected: Adds the warehouse to the list, including the remark
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Ptd Ltd p/98766789` 
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Ptd Ltd p/98766789`
       or `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01 z/large`<br>
       Expected: No warehouse is added. Error details shown in the response message. A help message displayed
       to guide user accordingly. WarehouseList on GUI remain unchanged.
@@ -821,7 +821,7 @@ testers are expected to do more *exploratory* testing.
       street 12, block 123, #01-01`<br>
       Expected: An error will occur and a message will be displayed, stating that a warehouse with duplicate
       WAREHOUSE NAME cannot be added into the list. WarehouseList on GUI remain unchanged.
-      
+
 ### Deleting a supplier
 
 1. Deleting a supplier while all suppliers are being shown

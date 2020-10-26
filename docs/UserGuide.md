@@ -71,13 +71,13 @@ and efficient Graphical User Interface interaction.
   /Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/fast reply` or as `add ct/s n/Philips
   Pharmaceutical p/00000000 e/philipsPharm@gmail.com`. The latter command is equivalent to `add ct/s n/Philips
   Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/ `.
-   
+
 * Items with `…`​ after them can be used multiple times.<br>
   e.g. `[t/TAG]…​` can be used as `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
-  
+
 * Usage of additional prefixes or forward slashes `/` are not allowed
   e.e `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG]…​` can be used as `addp s/SupplierA pd/PANADOL SUSP t
   /FEVER` but not `addp s/SupplierA pd/PANADOL SUSP t/FEVER r/Fast relief` nor `addp s/SupplierA pd/PANADOL
