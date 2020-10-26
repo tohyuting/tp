@@ -24,7 +24,7 @@ and efficient Graphical User Interface interaction.
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will display instructions on various commands.<br>
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will display instructions on various commands. In addition, you can also type **`help COMMAND`** to understand the command format and sample commands associated with `COMMAND`.<br>
    Some example commands you can try:
 
    * **`add`** `ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` : Adds a
@@ -121,17 +121,6 @@ Examples:
 Adds a supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com.
 This supplier is the “largest contractor”.
 
-### Adding a product to a supplier : `add`
-
-Adds product information to a supplier; associates a particular product with the supplier in the CLI-nic application.
-
-Format: `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG]…​`
-
-Examples:
-
-* `addp s/SupplierA pd/PANADOL SUSP t/FEVER` Adds the product PANADOL SUSP to list of products from supplierA.
-* This indicates that supplierA is selling this product. PANADOL SUSP also has a tag of FEVER.
-
 ### Clearing all entries : `clear`
 
 Clears all entries (Suppliers and Warehouses) from the CLI-nic.
@@ -169,22 +158,6 @@ the warehouse at index 1 of the list of warehouses.
 * `delete ct/ps i/12 pd/Aspirin` Removes product with the name _Aspirin_
 from the supplier at index 12 of the list of suppliers.
 
-### Deletes a product in a certain warehouse or supplier : `delete`
-
-Deletes a product entry no longer stored by a certain warehouse or sold by a specific supplier.
-
-Format: `delete TYPE INDEX pd/PRODUCT_NAME`
-
-* The PRODUCT_NAME must be identifiable and starts with alphanumeric character.
-* The product with the PRODUCT_NAME should be in the INDEX-th supplier/warehouse in the displayed list.
-
-Examples:
-
-* `delete warehouse 1 pd/Panadol` Removes product with the name _Panadol_ from
-the warehouse at index 1 of the list of warehouses.
-* `delete supplier 12 pd/Aspirin` Removes product with the name _Aspirin_
-from the supplier at index 12 of the list of suppliers.
-
 ### Edit a warehouse or supplier : `edit`
 
 Edits a warehouse or supplier at specified index. Name, Phone, Remarks of specified supplier and warehouse can be edited. In addition, a warehouse's address and a supplier's email can be edited as well. Note that no two warehouses or suppliers can share the same name in CLI-nic.
@@ -194,6 +167,7 @@ Format: `edit ct/TYPE i/INDEX [n/NAME] [p/PHONE] [r/REMARK] [addr/ADDRESS] [e/EM
 * `addr/ADDRESS` prefix can only be used for Warehouses and `e/EMAIL` prefix can only be used for Suppliers.
 * At least one field has to be specified in the edit command.
 * Edited supplier or warehouse must be different from one started with.
+* No two suppliers or two warehouses can share the same name.
 
 Examples:
 
@@ -291,7 +265,6 @@ Action | Format, Examples
 --------|------------------
 **Add** Warehouse | `add ct/w n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
 **Add** Supplier | `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`<br> e.g., `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
-**Addp** Product | `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `addp s/SupplierA pd/PANADOL SUSP t/FEVER`
 **Clear** | `clear`
 **Delete** | `delete ct/TYPE i/INDEX`<br> e.g., `delete ct/w i/1`
 **Delete** Product| `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`<br> e.g., `delete ct/pw i/1 pd/Panadol`
