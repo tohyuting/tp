@@ -34,7 +34,6 @@
       <TitledPane fx:id="productsTitledPane" text="Products">
         <VBox>
           <VBox fx:id="products" />
-          <FlowPane fx:id="tags" />
           <Label fx:id="noProductsLabel" styleClass="cell_small_label"
                  text="This supplier has no products." />
         </VBox>
