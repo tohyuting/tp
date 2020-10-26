@@ -204,9 +204,16 @@ Examples:
 
 ### Update the quantity/tags of a product for a supplier/warehouse: `update`
 
-* If the product does not exist for that warehouse/supplier, it will associate the new product (optionally with quantity/tags) with the warehouse/supplier. Otherwise, it will update the existing product in the warehouse/supplier with the new quantity/tags. If the product already exists, at least one optional argument has to be supplied.
+Updates the quantity/tags of the product with the specified name in the specified supplier/warehouse. If the product does not exist for that warehouse/supplier, it will associate the new product (optionally with quantity/tags) with the warehouse/supplier. 
 
 Format:	`update ct/TYPE n/ENTITY_NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG]`
+
+* The TYPE specified should be one of these values: supplier or warehouse.
+* The supplier/warehouse, and the product NAME specified is case-insensitive.
+* The supplier/warehouse should currently exist in the CLI-nic application.
+* Quantity should be a non-negative unsigned integer.
+* Tag names should be a single alphanumeric word.
+* If the product already exists, at least one optional argument has to be supplied.
 
 Example:
 
@@ -214,19 +221,25 @@ Example:
 
 ### Assign Macro to selected command string: `assignmacro`
 
-* The alias cannot be an existing command word or already used in an existing macro , and should only consist of alphanumeric characters and/or underscores. The saved command string can consist of any number of prefixes, but the first word has to be a pre-defined command word.  
+Assign a macro that pairs the specified alias to the specified command string.
 
 Format:	`assignmacro a/ALIAS cs/COMMAND_STRING`
+
+* The alias cannot be an existing command word or already used in an existing macro .
+* The alias should only consist of alphanumeric characters and/or underscores. 
+* The saved command string can consist of any number of prefixes, but the first word has to be a pre-defined command word.  
 
 Example:
 
 * `assignmacro a/uwm cs/update ct/w n/main warehouse` Assign a macro that pairs the alias "uwm" to the command string "update ct/w n/main warehouse".
 
-### Remove Macro with specified alias: `removemacro`
+### Remove Macro: `removemacro`
 
-* The alias specified has to exist.
+Removes the macro with the specified alias
 
 Format:	`removemacro ALIAS`
+
+* The alias specified has to exist.
 
 Example:
 
