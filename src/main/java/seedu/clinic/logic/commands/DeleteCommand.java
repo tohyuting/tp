@@ -10,10 +10,8 @@ import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_SUPPLIERS;
 import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.commons.core.index.Index;
@@ -107,19 +105,15 @@ public class DeleteCommand extends Command {
         }
 
         Warehouse warehouseToUpdate = lastShownList.get(targetIndex.getZeroBased());
-        Set<Product> productSetToUpdate = new HashSet<>(warehouseToUpdate.getProducts());
-        Product matchedProduct;
         try {
-            matchedProduct = warehouseToUpdate.getProductByName(targetProductName.get());
-            productSetToUpdate.remove(matchedProduct); // removes the matching product
-            Warehouse updatedWarehouse = new Warehouse(warehouseToUpdate.getName(), warehouseToUpdate.getPhone(),
-                    warehouseToUpdate.getAddress(), warehouseToUpdate.getRemark(), productSetToUpdate);
+            Product matchedProduct = warehouseToUpdate.getProductByName(targetProductName.get());
+            Warehouse updatedWarehouse = warehouseToUpdate.removeProduct(matchedProduct);
             model.setWarehouse(warehouseToUpdate, updatedWarehouse);
             model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
             return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_IN_WAREHOUSE_SUCCESS,
                     matchedProduct.getProductName(), updatedWarehouse.getName()));
         } catch (ProductNotFoundException e) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX,
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_NAME_IN_WAREHOUSE,
                     targetProductName.get(), warehouseToUpdate.getName()));
         }
     }
@@ -138,13 +132,9 @@ public class DeleteCommand extends Command {
         }
 
         Supplier supplierToUpdate = lastShownList.get(targetIndex.getZeroBased());
-        Set<Product> updatedProductSet = new HashSet<>(supplierToUpdate.getProducts());
-        Product matchedProduct;
         try {
-            matchedProduct = supplierToUpdate.getProductByName(targetProductName.get());
-            updatedProductSet.remove(matchedProduct); // removes the matching product
-            Supplier updatedSupplier = new Supplier(supplierToUpdate.getName(), supplierToUpdate.getPhone(),
-                    supplierToUpdate.getEmail(), supplierToUpdate.getRemark(), updatedProductSet);
+            Product matchedProduct = supplierToUpdate.getProductByName(targetProductName.get());
+            Supplier updatedSupplier = supplierToUpdate.removeProduct(matchedProduct);
             model.setSupplier(supplierToUpdate, updatedSupplier);
             model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
             return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_IN_SUPPLIER_SUCCESS,
