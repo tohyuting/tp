@@ -1,0 +1,22 @@
+@startuml
+start
+:User enters Add Command;
+
+
+If () then ([Command contains invalid prefixes
+ or missing compulsory prefixes])
+    :Throws ParseException;
+
+    else ([Command is valid])
+
+    If () then ([Supplier/Warehouse is a duplicate])
+    :Throws CommandException;
+
+    else ([Supplier/Warehouse is unique])
+        :Adds new Supplier/Warehouse;
+        :Returns Message to user indicating Success;
+        :LogicManager prints result to user;
+        endif
+    endif
+stop
+@enduml

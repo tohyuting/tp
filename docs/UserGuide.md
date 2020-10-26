@@ -69,9 +69,11 @@ and efficient Graphical User Interface interaction.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `delete TYPE INDEX`, `TYPE` is a parameter which can be used as `delete warehouse 1`.
 
-* Items in square brackets are optional.<br>
-  e.g `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS` can be used as `add ct/s n/Philips Pharmaceutical p
-  /00000000 e/philipsPharm@gmail.com` or as `add ct/s n/Philips Pharmaceutical p/00000000`.
+* Items in square brackets are optional and thus empty fields are allowed.<br>
+  e.g. `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]` can be used as `add ct/s n
+  /Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/fast reply` or as `add ct/s n/Philips
+  Pharmaceutical p/00000000 e/philipsPharm@gmail.com`. The latter command is equivalent to `add ct/s n/Philips
+  Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/ `.
 
 * Items with `…`​ after them can be used multiple times.<br>
   e.g. `[t/TAG]…​` can be used as `t/friend`, `t/friend t/family` etc.
@@ -81,6 +83,11 @@ and efficient Graphical User Interface interaction.
 
 * If multiple arguments with same prefixes are in the input and all the values are valid, the last value is chosen. <br>
   e.g. if a user's input specifies `ct/w ct/s` where both `w` and `s` are valid, there will be no error thrown. However, the type __s - supplier__ will be chosen instead.
+
+* Usage of additional prefixes or forward slashes `/` are not allowed by default except when user chooses to
+  define it in their assigned Macro commands
+  e.e `delete ct/TYPE i/INDEX pd/PRODUCT_NAME` can be used as `delete ct/pw i/1 pd/Panadol` but not
+  `delete ct/pw i/1 pd/Panadol r/Fast relief` nor `delete ct/pw i/1 pd/Panadol/Panadol Strong`.
 
 </div>
 
@@ -99,31 +106,27 @@ Examples:
 * `help`  Display entire list of `COMMAND` and their description.
 * `help add` Displays the detailed description, input format and an input example of add command.
 
-### Adding a warehouse : `add`
+### Adding a supplier/warehouse : `add`
 
-Adds warehouse to the CLI-nic application.
-
-Format: `add ct/TYPE n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
-* The TYPE specified here should be w for warehouse.
-
-Examples:
-
-* `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` Adds a warehouse
- with the name warehouseA located at John street, block 123, #01-01. The warehouse's contact number is 00000000.
- This warehouse is the “First warehouse”.
-
-### Adding a supplier : `add`
-
-Adds a supplier to the CLI-nic application.
+Adds a supplier/warehouse to the CLI-nic application.
 
 Format: `add ct/TYPE n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`
-* The TYPE specified here should be s for supplier.
+Format: `add ct/TYPE n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
+
+* The `TYPE` specified here should only be `s` for supplier and `w` for warehouse.
+* The `SUPPLIER_NAME`/`WAREHOUSE_NAME` should start with an alphanumeric character.
+* The `PHONE_NUMBER` should not have a spacing in between. `n/98761234` is allowed,
+  but `n/9876 1234` is not allowed. Only numbers are allowed.
+* The `EMAIL_ADDRESS` should be a valid email address.
+* The `ADDRESS` should contain a valid address.
 
 Examples:
-
 * `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
 Adds a supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com.
 This supplier is the “largest contractor”.
+* `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` Adds a warehouse
+ with the name warehouseA located at John street, block 123, #01-01. The warehouse's contact number is 00000000.
+ This warehouse is the “First warehouse”.
 
 ### Clearing all entries : `clear`
 
@@ -306,8 +309,8 @@ Examples:
 
 Action | Format, Examples
 --------|------------------
-**Add** Warehouse | `add ct/w n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
 **Add** Supplier | `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`<br> e.g., `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
+**Add** Warehouse | `add ct/w n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
 **Assign Macro** | `assignmacro a/ALIAS cs/COMMAND_STRING`<br> e.g., `assignmacro a/uwm cs/update ct/w n/main warehouse`
 **Clear** | `clear`
 **Delete** | `delete ct/TYPE i/INDEX`<br> e.g., `delete ct/w i/1`
