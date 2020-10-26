@@ -84,6 +84,21 @@ public class Warehouse {
     }
 
     /**
+     * Removes a product sold by the Warehouse.
+     *
+     * @return a new Warehouse with the {@code targetProduct} removed.
+     */
+    public Warehouse removeProduct(Product targetProduct) {
+        assert this.getProducts().contains(targetProduct) : "Target product not in list";
+
+        Set<Product> updatedProductSet = new HashSet<>(this.getProducts());
+        updatedProductSet.remove(targetProduct); // removes the matching product
+        Warehouse updatedWarehouse = new Warehouse(this.getName(), this.getPhone(),
+                this.getAddress(), this.getRemark(), updatedProductSet);
+        return updatedWarehouse;
+    }
+
+    /**
      * Returns true if a product with the {@code targetName} is found in the warehouse.
      */
     public boolean hasProductWithName(Name targetName) {
