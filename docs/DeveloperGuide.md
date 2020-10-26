@@ -262,17 +262,130 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
     be shown to the user in the UI.
 
 
-### Edit feature (to be implemented)
-The edit feature will be elaborated in this section by its' functionality, path execution, class diagrams associated to edit feature (next update) and the interactions between the different objects when the feature is used by a user (next update).
+### Edit feature
+The`edit` feature will be elaborated in this section by its' functionality and path execution with the aid of a sequence and an activity diagram.
 
 #### What Edit Feature does
-The edit feature allows user to edit supplier/warehouse name, phone number and remarks. In addition, the edit feature also allows user to edit a supplier's email and a warehouse's address. One thing to note is that the edit feature does not allow users to edit any products associated with a particular supplier or warehouse. To edit the quantity or tags of a product, the update feature should be invoked instead. This feature will be elaborated in the section below.
+The edit feature allows user to edit supplier/warehouse name, phone number and remarks. In addition, the edit feature also allows user to edit a supplier's email and a warehouse's address. This is important as warehouses and suppliers might change their contact details from time to time and the user has to be able to edit those information quickly. One thing to note is that the edit feature does not allow users to edit any products associated with a particular supplier or warehouse. To edit the quantity or tags of a product, the update feature should be invoked instead. This feature will be elaborated in **Update** feature section below.
 
-#### How it is implemented
-After the `edit` command is called, the user input will be sent to **EditCommandParser** for parsing. The **EditCommandParser** will check if the compulsory prefixes are present (i.e. `ct/COMMAND_TYPE` and `i/INDEX`). The `edit` command only allows editing of a single warehouse or supplier for every single command. If two types of `ct/COMMAND_TYPE` is provided, the last type specified will be used to process user's input. This applies for other prefixes used as inputs as well. The code will throw a **ParseException** if no compulsory prefixes or only one of the compulsory prefixes are given. Afterwards, **EditCommandParser** will check to see if at least one field is provided for editing. The code will throw a **ParseException** if no field for editing of suppliers or warehouses is provided. Parsing of user input then begins. If there are any inappropriate fields supplied (e.g. input a string for index or phone prefix), **ParseException** will be thrown. Furthermore, **EditCommandParser** will also throw a **ParseException** if the fields input result in no changes to the existing supplier or warehouse entry. Finally, **EditCommandParser** will create a new **EditCommand** to be executed. **EditCommand** takes in an index for supplier or warehouse list and an **EditDescriptor** containing the fields to be edited when the command is executed. The edited supplier or warehouse will be updated in the model, allowing users to see the changes done for the respective supplier or warehouse.
+#### Path Execution of Edit Command
+The workflow of an `edit` command when it is executed by a user is shown in the activity diagram below:
 
-#### Why it is implemented this way
-The `edit` command is implemented this way to ensure consistency with the other commands in the application. This helps to minimise any potential confusion for the users by standardising the prefixes that `edit` command takes in with the other relevant commands. In addition, it was intended for **EditCommandParser** to throw out a **ParseException** when none of the field changes an existing entry. This is to remind users in case they made a minor mistake, resulting in a supplier or warehouse to not update the way they intended for it to. Lastly, a command type prefix, `ct/COMMAND_TYPE` is required in the implementation of `edit` command to indicate whether user wishes to edit a warehouse or supplier entry. Without a command type prefix, an alternative would be for a `TYPE` parameter, where user have to indicate `supplier` or `warehouse`. However, this may not be suitable for our target user, who wishes to update stocks quickly. Hence, our team decided to use a command type prefix in place of a parameter. Furthermore, another alternative considered would be to create separate commands for warehouses and suppliers respectively. For example, `editw` and `edits` to represent edit warehouse and edit supplier. However, this might increase duplicated codes, since minimal changes to the code would be found for each class of command. By using a prefix, this helps us to reduce any potential code duplication. Therefore, our team decided to implement edit command by taking in prefixes and throwing our relevant exceptions at appropriate points after considering code quality and end user experience.
+![Edit Command Activity Diagram](images/EditCommandActivityDiagram.png)
+
+After the `edit` command is called, user input will be sent to **`EditCommandParser`** for parsing. The `edit` command only allows editing of a single warehouse or supplier for every single command. If two types of `ct/COMMAND_TYPE` is provided, the last type specified will be used to process user's input. This applies for other prefixes used as inputs as well.
+
+If the compulsory prefixes are not present (i.e. `ct/COMMAND_TYPE` and `i/INDEX`), **`ParseException`** will be thrown if no compulsory prefixes or only one of the compulsory prefixes are given.
+
+Similarly, **`ParseException`** will be thrown if no field for editing of suppliers or warehouses is provided or if there are any inappropriate fields supplied (e.g. input a string for index or phone prefix), Furthermore, fields resulting in no changes to an existing supplier or warehouse entry will throw a **`ParseException`** as well to remind user that the supplier or warehouse is unchanged after edits. 
+
+**`EditCommand`** will then be executed. The edited supplier or warehouse will be updated in the model, allowing users to see the changes done for the respective supplier or warehouse.
+
+In the following section, the interaction between different objects with the aid of a sequence diagram will be discussed to have a deeper understanding of the workflow when a user executes an edit command feature.
+
+![Edit Command Sequence Diagram](images/EditCommandSequenceDiagram.png)
+
+After receiving an input from user for edit command, `parse` method found in **`EditCommandParser`** will be invoked. 
+
+The input is tokenised by **`ArgumentTokenizer`** and **`ArgumentMultimap`** for quick retrieval in subsequent parsing will be returned.
+
+If either one of these compulsory prefixes (i.e. `type` and `index`) are missing, a **`ParseException`** will be thrown to remind users.
+
+If the values supplied for `type` and `index` is not valid (e.g. String value for `index`), a **`ParseException`** will be thrown.
+
+If incorrect prefixes such as the use of email prefix for warehouse and an address prefix for supplier was parsed, a **`ParseException`** will be thrown.
+
+An attempt to determine the correct type and creating the relevant **`EditDescriptor`** will then be carried out. It should be noted that both **`EditSupplierDescriptor`** and **`EditWarehouseDescriptor`** are subclasses of **`EditDescriptor`**.
+
+The logical workflow of this process is shown in the sequence diagram below:
+
+![Edit Command Descriptor Sequence Diagram](images/EditCommandDescriptorSequenceDiagram.png)
+
+Parsing of general details will occur for both Supplier and Warehouse type. These include parsing of **`Name`**, **`Phone`** and **`Remarks`**. 
+
+This is represented in the sequence diagram below:
+
+![Edit Command General Details Sequence Diagram](images/EditCommandDescriptorGeneralDetailsSequenceDiagram.png)
+
+In addition, since Supplier contains an **`Email`** attribute, parsing of this field will be carried out. On the other hand, parsing of **`Address`** will be carried out for warehouse entity instead since they do not contain an **`Email`** attribute. These respective parsing are represented by the sequence diagrams below:
+
+![Edit Command Supplier Details Sequence Diagram](images/EditCommandDescriptorSupplierDetailsSequenceDiagram.png)
+
+
+![Edit Command Warehouse Details Sequence Diagram](images/EditCommandDescriptorWarehouseDetailsSequenceDiagram.png)
+
+
+During this parsing process, **`ParseException`** will be thrown if any of the inputs are invalid.
+
+At the end of parsing, if the type is a Supplier, an **`EditSupplierDescriptor`** will be created which will be used to instantiate an EditCommand. Similarly, if the type is a Warehouse, an **`EditWarehouseDescriptor`** will be created which will be used to instantiate an EditCommand.
+
+EditCommand will be executed and the workflow is illustrated below:
+
+![Edit Command Execution Sequence Diagram](images/EditCommandExecutionSequenceDiagram.png)
+
+The current list of suppliers or warehouses shown to user is first obtained from model. Afterwards, supplier or warehouse at the specified index will be retrieved.
+A supplier with edited properties is created by invoking `createEditedSupplier` or `createdEditedWarehouse` method. If the model already contains a supplier or warehouse with the same name, an error will be thrown to inform user of the duplicated supplier or warehouse. **`Model`** will be updated to reflect the edited supplier or warehouse and an edit success message will be displayed to user, with the changes made to the relevant supplier/warehouse as well.
+
+#### Why Edit feature is implemented this way
+The `edit` command is implemented this way to ensure consistency with the other commands in the application. This helps to minimise any potential confusion for the users.
+
+In addition, it was intended for **EditCommandParser** to throw out a **ParseException** when none of the field changes an existing entry. This serves as a reminder for users in case they made a minor mistake, resulting in a supplier or warehouse to not update the way they intended for it to.
+
+Besides, a command type prefix, `ct/COMMAND_TYPE` is required in the implementation of `edit` command to indicate whether user wishes to edit a warehouse or supplier entry. Without this, an alternative would be for a `TYPE` parameter, where user have to indicate `supplier` or `warehouse`. However, this may not be suitable for our target user, who wishes to update stocks quickly.
+
+Lastly, another alternative considered was to create separate commands for warehouses and suppliers respectively. For example, `editw` and `edits` to represent edit warehouse and edit supplier. However, this might increase duplicated codes, since minimal changes to the code would be found for each class of command.
+
+Therefore, our team decided to implement `edit` command by taking in prefixes and throwing our relevant exceptions at appropriate points after considering code quality and end user experience.
+
+### View feature
+The `view` feature will be elaborated in this section by its' functionality and path execution with the aid of a sequence and an activity diagram.
+
+#### What View feature does
+`view` command allows user to view a particular warehouse or supplier in warehouse or supplier list displayed. This allows users to take a closer look at the contact details of a specific warehouse or supplier which they might be interested to contact for further details. For each command, only one warehouse or one supplier can be requested for viewing.
+
+#### Path Execution of View Command
+The workflow of an `view` command when it is executed by a user is shown in the activity diagram below:
+
+![View Command Activity Diagram](images/ViewCommandActivity.png)
+
+When a user's input is parsed, **`ViewCommandParser`** checks if both command type and index are present in the input. A **`ParseException`** will be thrown if either one or both are missing in user's input.
+
+Only 2 command types are allowed, they are `ct/s` and `ct/w`. In addition, if any values for prefixes are invalid (e.g. invaid command type specified), a **`ParseException`** will be thrown.
+
+If parsing is successful, **`ViewCommand`** will be created and executed. If the `INDEX` specified by user is greater than the length of the list, a **`ParseException`** will be thrown. At the end, a view command success message will be displayed and the relevant supplier or warehouse list will only show one supplier or warehouse.
+
+The logical workflow of this process is further explained in the sequence diagram below:
+![View Command Sequence Diagram](images/ViewCommandSequenceDiagram.png)
+
+Upon receiving user's input, parse command of **`ViewCommandParser`** will be invoked. Values associated with prefixes `ct/` and `i/` will be obtained by invoking `tokenize` method of **`ArgumentTokenizer`**. As mentioned above, if either or both prefixes are missing, an error will be thrown to inform the user of a missing prefix. When parsing `index` and `type` values, a **`ParseException`** will be thrown if the values specified are invalid (e.g wrong type or does not conform to `TYPE_CONSTRAINTS`). **`ViewCommand`** is created with `index` and `type` as input. It will then be executed.
+
+The workflow for an execution of **`ViewCommand`** is as shown:
+
+![View Command Execution Sequence Diagram](images/ViewCommandExecutionSequenceDiagram.png)
+
+**`Supplier`** or **`Warehouse`** at the specified index is retrieved from `supplierList` or `warehouseList` respectively. Predicate containing the **`Supplier`** or **`Warehouse`** name will be created and parsed into `updateFilteredSupplierList` or `updateFilteredWarehouseList` method under **`Model`** class to show only a particular supplier or warehouse in the list. A successful execution of **`ViewCommand`** will also be displayed to user.
+
+#### Why View feature is implemented this way
+**`view`** command contains standardise prefix as with other commands in **CLI-nic** to help user learn how to use **CLI-nic** faster. In addition, a choice to view by `index` instead of by `name` ensures efficiency since users do not need to key in the full name of supplier or warehouse.
+
+### Help feature
+The `help` feature will be elaborated in this section by its' functionality.
+
+#### What Help feature does
+An activity diagram showing the workflow of `help` command is shown below:
+
+![Help Command Activity Diagram](images/HelpCommandActivityDiagram.png)
+
+`help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have a over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
+
+#### Why Help feature is implemented this way
+Instead of providing a link and asking users to read the user guide, our team decided that it would be more convenient for users to access the help message for each command within the application itself. This allows user to instantly know what to key into the command box instead of switching between user guide in the browser and **CLI-nic**. In addition, this allows user to access `help` page even without an internet connection as well.
+
+### List feature
+The `list` feature will be elaborated in this section by its' functionality.
+
+#### What List feature does
+`list` feature allows user to list all suppliers and warehouses stored in **CLI-nic**. This feature allows users to retrieve back all suppliers and warehouses in the displayed supplier and warehouse lists after executing a `view` or `find` command.
 
 ### Find feature
 
@@ -454,12 +567,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | standard user  | add details of warehouses and stocks for each product | easily keep track of the stocks in each of my warehouse |
 | `* * *`  | standard user  | add remarks to a supplier entry         | note down details that are specific to the supplier          |
 | `* * *`  | standard user  | access the command list/user guide  | easily refer to instructions for commands and guidance for usage    |
+| `* * *`  | standard user  | clear all suppliers and warehouses entries in one command | easily remove all entries if I am managing a new group of suppliers and warehouses |
 | `* * *`  | standard user  | delete a supplier/warehouse entry   | remove suppliers/warehouses no longer operating |
 | `* * *`  | standard user  | delete a particular product from a supplier/warehouse entry   | remove product no longer sold/stored for the supplier/warehouse|
+| `* * *`  | standard user  | edit the information of a specific warehouse or supplier          | easily update any changes in contact information of a particular supplier/warehouse |
 | `* * *`  | standard user  | find medical products associated with warehouses or suppliers     | locate relevant items without having to go through all the lists                |
+| `* * *`  | standard user  | list all warehouses or suppliers     | easily see all the suppliers and warehouses I am in charge of|
 | `* * *`  | standard user  | view the information of a specific warehouse or supplier          | retrieve details about suppliers/warehouses I can't remember and contact them       |
-| `* * * ` | intermediate user | update the stock of a specific product in warehouses           | keep track of the changes in the stocks of the warehouses |
-
+| `* * * ` | intermediate user | update the information for a specific product in warehouses and suppliers | keep track of the changes in the stocks of the warehouses |
 
 *{More to be added}*
 
@@ -600,7 +715,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 3a1-3a2 are repeated until the data entered are correct.
     Use case resumes at step 4.
 
-**Use case: UC05 Delete a product from a supplier**
+**Use case: UC07 Delete a product from a supplier**
 
 **MSS**
 
@@ -608,7 +723,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. CLI-nic shows the specific supplier and its index.
 3. User requests to delete a product from the supplier via the index returned and the product name displayed.
 4. CLI-nic deletes the specified product from the target supplier and shows a success message.
-
+    
     Use case ends.
 
 **Extensions**
@@ -635,8 +750,79 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 3b1-3b2 are repeated until the name entered are correct. <br>
     Use case resumes at step 4.
 
+**Use case: UC08 Edits a supplier**
 
-**Use case: UC07 Find Suppliers of a product**
+**MSS**
+
+1. User requests to edit a specific supplier according to the index in the supplier list displayed.
+2. CLI-nic shows the specific supplier at that index.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The index specified is larger than the size of the supplier list.
+
+  * 1a1. CLI-nic informs the user the index input is larger than the current size of supplier list displayed. 
+  * 1a2. User enters a new supplier index.
+
+    Steps 1a1-1a2 are repeated until the index entered is within the size of the supplier list.
+
+    Use case ends.
+  
+* 1a. User requests to edit the address of a specific supplier.
+
+  * 1a1. CLI-nic informs the user that warehouse does not contain address.
+  * 1a2. User removes address as a field to be edited.
+
+    User case ends.
+
+* 1a. Users uses an invalid command format.
+
+  * 1a1. CLI-nic informs user of the invalid command format.
+  * 1a2. User enters a new edit command.
+
+    Steps 1a1-1a2 are repeated until the index entered are correct.
+    
+    Use case ends.
+
+**Use case: UC09 Edits a warehouse**
+
+**MSS**
+
+1. User requests to edit a specific warehouse according to the index in the warehouse list displayed.
+2. CLI-nic shows the specific warehouse at that index.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The index specified is larger than the size of the warehouse list.
+
+  * 1a1. CLI-nic informs the user the index input is larger than the current size of warehouse list displayed. 
+  * 1a2. User enters a new warehouse index.
+
+    Steps 1a1-1a2 are repeated until the index entered is within the size of the warehouse list.
+
+    Use case ends.
+  
+* 1a. User requests to edit the email address of a specific warehouse.
+
+  * 1a1. CLI-nic informs the user that warehouse does not contain email address.
+  * 1a2. User removes email address as a field to be edited.
+
+    User case ends.
+
+* 1a. Users uses an invalid command format.
+
+  * 1a1. CLI-nic informs user of the invalid command format.
+  * 1a2. User enters a new edit command.
+
+    Steps 1a1-1a2 are repeated until the index entered are correct.
+    
+    Use case ends.
+
+**Use case: UC10 Find Suppliers of a product**
 
 **MSS**
 
@@ -656,7 +842,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1a1 and 1a2 are repeated until a valid find command is entered. <br>
     Use case resumes at step 2.
 
-**Use case: UC08 Find Warehouses containing a product**
+**Use case: UC11 Find Warehouses containing a product**
 
 **MSS**
 
@@ -676,7 +862,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1a1 and 1a2 are repeated until a valid find command is entered. <br>
     Use case resumes from step 2.
 
-**Use case: UC09 List all supplier and warehouse entries**
+**Use case: UC12 List all supplier and warehouse entries**
 
 **MSS**
 
@@ -685,7 +871,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case: UC09 View Help**
+**Use case: UC13 View Help**
 
 **MSS**
 1. User asks for the list of command.
@@ -710,7 +896,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1b1-1b3 are repeated until a valid help command is entered. <br>
     Use case resumes from step 2.
 
-**Use case: UC10 Update quantity of a Product in a Warehouse**
+**Use case: UC14 Update quantity of a Product in a Warehouse**
 
 **MSS**
 
@@ -729,7 +915,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1a1-1a3 are repeated until the data entered are correct. <br>
     Use case resumes from step 2.
 
-**Use case: UC11 View Supplier**
+**Use case: UC15 View Supplier**
 
 **MSS**
 
@@ -748,7 +934,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1a1 and 1a2 are repeated until a valid supplier name is entered. <br>
     Use case resumes from step 2.
 
-**Use case: UC12 View Warehouse**
+**Use case: UC16 View Warehouse**
 
 **MSS**
 
