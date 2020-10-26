@@ -179,15 +179,15 @@ from the list in the `model`.
 If the user wants to delete a product inside the entry, the set of `Product` for the warehouse/supplier entry will be retrieved first.
 The `warehouse#getProductByName` or `supplier#getProductByName` will give the target product to delete from the name argument,
 and the retrieved product will be removed from the current product set in the selected warehouse/supplier entry.
-Afterwards, the updated product set will replace the existing set in this warehouse/supplier. The selected warehouse/supplier entry in the model is then 
-replaced by the updated warehouse/supplier with the target product deleted.
+Afterwards, the updated product set will replace the existing set in this warehouse/supplier. The selected warehouse/supplier entry in the model is then
+ replaced by the updated warehouse/supplier with the target product deleted.
 
 Step 5. With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with a success message, which will
 be shown to the user in the UI.
 
 The following activity diagram summarizes the execution procedure: (to be uploaded)
 
-### Edit feature 
+### Edit feature
 The edit feature will be elaborated in this section by its' functionality and path execution with the aid of a sequence and an activity diagram.
 
 #### What Edit Feature does
@@ -198,9 +198,9 @@ The workflow of an Edit Command when it is executed by a user is shown in the ac
 
 ![Edit Command Activity Diagram](images/EditCommandActivityDiagram.png)
 
-With reference to the activity diagram above, after the `edit` command is called, the user input will be sent to **`EditCommandParser`** for parsing. The `edit` command only allows editing of a single warehouse or supplier for every single command. If two types of `ct/COMMAND_TYPE` is provided, the last type specified will be used to process user's input. This applies for other prefixes used as inputs as well. 
+With reference to the activity diagram above, after the `edit` command is called, the user input will be sent to **`EditCommandParser`** for parsing. The `edit` command only allows editing of a single warehouse or supplier for every single command. If two types of `ct/COMMAND_TYPE` is provided, the last type specified will be used to process user's input. This applies for other prefixes used as inputs as well.
 
-The **`EditCommandParser`** will check if the compulsory prefixes are present (i.e. `ct/COMMAND_TYPE` and `i/INDEX`). A **`ParseException`** will be thrown if no compulsory prefixes or only one of the compulsory prefixes are given. 
+The **`EditCommandParser`** will check if the compulsory prefixes are present (i.e. `ct/COMMAND_TYPE` and `i/INDEX`). A **`ParseException`** will be thrown if no compulsory prefixes or only one of the compulsory prefixes are given.
 
 Afterwards, **`EditCommandParser`** will check if at least one field is provided for editing. Similarly, a **`ParseException`** will be thrown if no field for editing of suppliers or warehouses is provided. If there are any inappropriate fields supplied (e.g. input a string for index or phone prefix), **`ParseException`** will also be thrown. Furthermore, fields resulting in no changes to an existing supplier or warehouse entry will throw a **`ParseException`** as well to remind user that the supplier or warehouse is unchanged after edits. 
 
