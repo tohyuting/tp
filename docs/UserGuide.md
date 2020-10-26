@@ -78,7 +78,8 @@ and efficient Graphical User Interface interaction.
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
-* Usage of additional prefixes or forward slashes `/` are not allowed
+* Usage of additional prefixes or forward slashes `/` are not allowed by default except when user chooses to
+  define it in their assigned Macro commands
   e.e `delete ct/TYPE i/INDEX pd/PRODUCT_NAME` can be used as `delete ct/pw i/1 pd/Panadol` but not
   `delete ct/pw i/1 pd/Panadol r/Fast relief` nor `delete ct/pw i/1 pd/Panadol/Panadol Strong`.
 
