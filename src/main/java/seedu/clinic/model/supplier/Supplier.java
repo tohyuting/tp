@@ -79,7 +79,7 @@ public class Supplier {
     }
 
     /**
-     * Returns true if a product with the {@code targetName} is found in the warehouse.
+     * Returns true if a product with the {@code targetName} is found in the supplier.
      */
     public boolean hasProductWithName(Name targetName) {
         return products.stream().anyMatch(p -> p.getProductName().equals(targetName));
