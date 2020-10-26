@@ -86,12 +86,11 @@ public class HelpCommand extends Command {
                 + " each command, feel free to copy our website User Guide URL,"
                 + " which can be found by pressing F1.";
 
-        String aboutAddCommand = "add\nYou can add warehouse, supplier or product to a supplier using the add"
-                + " command";
+        String aboutAddCommand = "add\nYou can add warehouse, supplier using the add command";
         String aboutClearCommand = "clear\nYou can clear all entries (suppliers and warehouses)"
                 + " in CLI-nic using clear command.";
-        String aboutDeleteCommand = "delete\nYou can delete warehouse or supplier that are no longer"
-                + " needed by using the delete command.";
+        String aboutDeleteCommand = "delete\nYou can delete warehouse, supplier or products associated to"
+                + " them that are no longer needed by using the delete command.";
         String aboutEditCommand = "edit\nYou can edit warehouse or supplier by using the edit command. Name"
                 + ", Phone, Remarks can be edited in both warehouse and suppliers. In addition, a"
                 + " warehouse's address and a supplier's email can be edited as well.";
@@ -100,7 +99,7 @@ public class HelpCommand extends Command {
         String aboutListCommand = "list\nYou can list all suppliers and warehouses by using list command.";
         String aboutViewCommand = "view\nYou can view a specific warehouse or supplier using"
                 + " the view command.";
-        String aboutUpdateCommand = "update\nYou can update stock of a product in the warehouse by"
+        String aboutUpdateCommand = "update\nYou can update a product in a supplier or warehouse by"
                 + " using the update command";
 
         String finalGenericHelpMessage = aboutHelpCommand + "\n\n" + aboutAddCommand + "\n\n"
@@ -111,37 +110,27 @@ public class HelpCommand extends Command {
     }
 
     private String generateHelpAddMessage() {
-        String generalDescriptionOfAdd = "There are three types of add command to add warehouse,"
-                + " add supplier or add a product to a supplier.";
+        String generalDescriptionOfAdd = "Add\nAdd command allows you to add warehouse or supplier"
+                + " to a supplier.";
 
         String addWarehouse = "Add Warehouse \nAdds warehouse to the CLI-nic application.";
-        String addWarehouseCommandFormat = "Command format: \nadd w/WAREHOUSE_NAME p/CONTACT_NUMBER"
-                + " addr/ADDRESS" + " [r/WAREHOUSE_NOTE]";
-        String addWarehouseSampleCommand = "Sample Command: \nadd w/warehouseA p/00000000"
+        String addWarehouseCommandFormat = "Command format: \nadd ct/TYPE n/WAREHOUSE_NAME p/PHONE"
+                + " addr/ADDRESS [r/WAREHOUSE_REMARK]\nThe TYPE specified here should be w for warehouse.";
+        String addWarehouseSampleCommand = "Sample Command: \nadd ct/w n/warehouseA p/00000000"
                 + " addr/John street, block 123, #01-01 r/First warehouse";
         String finalAddWarehouse = addWarehouse + "\n\n" + addWarehouseCommandFormat + "\n\n"
                 + addWarehouseSampleCommand;
 
         String addSupplier = "Add Supplier \nAdds a supplier to the CLI-nic application.";
-        String addSupplierCommandFormat = "Command format: \nadd s/SUPPLIER_NAME p/PHONE"
-                + " [e/EMAIL_ADDRESS] [r/SUPPLIER_REMARK]";
-        String addSupplierSampleCommand = "Sample Command: \nadd s/Philips Pharmaceutical p/00000000"
+        String addSupplierCommandFormat = "Command format: \nadd ct/TYPE n/SUPPLIER_NAME p/PHONE"
+                + " e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]\nThe TYPE specified here should be s for supplier.";
+        String addSupplierSampleCommand = "Sample Command: \nadd ct/s n/Philips Pharmaceutical p/00000000"
                 + " e/philipsPharm@gmail.com r/largest contractor";
         String finalAddSupplier = addSupplier + "\n\n" + addSupplierCommandFormat + "\n\n"
                 + addSupplierSampleCommand;
 
-        String addProductToSupplier = "Add Product to Supplier \nAdds product information to a supplier;"
-                + " associates a particular" + " product with the supplier in the CLI-nic application.";
-        String addProductToSupplierCommandFormat = "Command format: \naddp s/SUPPLIER_NAME pd/PRODUCT_NAME"
-                + " [t/TAG...]";
-        String addProductToSupplierSampleCommand = "Sample Command: \n"
-                + "add s/SupplierA pd/PANADOL SUSP t/FEVER";
-        String finalAddProductToSupplier = addProductToSupplier + "\n\n" + addProductToSupplierCommandFormat
-                + "\n\n" + addProductToSupplierSampleCommand;
-
         String addHelpMessage = HELP_MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + generalDescriptionOfAdd + "\n\n"
-                + finalAddWarehouse + "\n\n" + finalAddSupplier + "\n\n" + finalAddProductToSupplier
-                + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
+                + finalAddWarehouse + "\n\n" + finalAddSupplier + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
 
         return addHelpMessage;
     }
@@ -151,23 +140,37 @@ public class HelpCommand extends Command {
     }
 
     private String generateHelpDeleteMessage() {
-        String deleteSupplierOrWarehouse = "Delete\nDelete entries of warehouses or suppliers that are"
-                + " not needed anymore.";
-        String deleteSupplierOrWarehouseCommandFormat = "Command format: \ndelete TYPE INDEX";
-        String deleteSupplierOrWarehouseSampleCommand = "Sample Command: \ndelete warehouse 1 \n"
-                + "delete supplier 12";
+        String deleteSupplierOrWarehouse = "Delete\nYou can delete warehouse/supplier"
+                + " or products associated with them.\n\nDeletes a particular warehouse or supplier\n"
+                + "The TYPE specified should be one of these values: w / s.\n"
+                + "The INDEX must be a positive integer, not exceeding the total number of items.";
+        String deleteSupplierOrWarehouseCommandFormat = "Command format: \ndelete ct/TYPE i/INDEX";
+        String deleteSupplierOrWarehouseSampleCommand = "Sample Command: \ndelete delete ct/w i/1 \n"
+                + "delete ct/s i/12";
+
+        String deleteProductInstruction = "Deletes a product entry no longer stored by a certain warehouse"
+                + " or sold by a specific supplier.\nThe TYPE specified should be one of these"
+                + " values: pw / ps.\nThe PRODUCT_NAME must be identifiable and starts with"
+                + " alphanumeric character.\n"
+                + "The product with the PRODUCT_NAME should be in the INDEX-th supplier/warehouse"
+                + " in the displayed list.";
+        String deleteProductCommandFormat = "Command format: \ndelete ct/TYPE i/INDEX pd/PRODUCT_NAME";
+        String deleteProductSampleCommand = "Sample Command: \ndelete ct/pw i/1 pd/Panadol\n"
+                + "delete ct/ps i/12 pd/Aspirin";
 
         String deleteHelpMessage = HELP_MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + deleteSupplierOrWarehouse
                 + "\n\n" + deleteSupplierOrWarehouseCommandFormat + "\n\n"
-                + deleteSupplierOrWarehouseSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
+                + deleteSupplierOrWarehouseSampleCommand + "\n\n" + deleteProductInstruction
+                + "\n\n" + deleteProductCommandFormat + "\n\n" + deleteProductSampleCommand
+                + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
         return deleteHelpMessage;
     }
 
     private String generateHelpEditMessage() {
-        String editDescriptionMessage = "Edits a warehouse or supplier at specified index."
+        String editDescriptionMessage = "Edit\nEdits a warehouse or supplier at specified index."
                 + " Name, Phone, Remarks of specified supplier and warehouse can be edited."
                 + " In addition, a warehouse's address and a supplier's email can be edited as well. "
-                + " Note that no two warehouses or suppliers can share the same name in CLI-nic.";
+                + " Note that no two warehouses or two suppliers can share the same name in CLI-nic.";
         String editCommandFormat = "edit ct/TYPE i/INDEX [n/NAME] [p/PHONE] [r/REMARK] [addr/ADDRESS] "
                 + "[e/EMAIL]";
         String editCommandSpecialInstructions = "addr/ADDRESS prefix can only be used for Warehouses "
@@ -175,13 +178,9 @@ public class HelpCommand extends Command {
                 + " specified in the edit command.\nEdited supplier or warehouse must be different"
                 + " from one started with.";
         String editCommandSupplierSample = "edit ct/s i/1 n/Alice p/85236417 r/Largest Supplier"
-                + " e/alicekoh@example.com\nEdits the first supplier in the displayed supplier list to be"
-                + " named Alice with contact number of 85236417 and remark of Largest Supplier."
-                + " In addition, email field of supplier is to be edited as alicekoh@example.com.";
+                + " e/alicekoh@example.com";
         String editCommandWarehouseSample = "edit ct/w i/2 n/Bob p/67851234 r/Largest Warehouse"
-                + " addr/Jurong Street 11\nEdits the second warehouse in the displayed warehouse list to be"
-                + " named Bob with contact number of 67851234 and remark of Largest Warehouse."
-                + " In addition, address field of warehouse is to be edited as Jurong Street 11.";
+                + " addr/Jurong Street 11";
         String editHelpMessage = HELP_MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + editDescriptionMessage
                 + "\n\n" + editCommandFormat + "\n\n"
                 + editCommandSpecialInstructions + "\n\n" + editCommandSupplierSample + "\n\n"
@@ -194,13 +193,13 @@ public class HelpCommand extends Command {
     }
 
     private String generateHelpFindMessage() {
-        String findDescription = "Find\nFinds all suppliers or warehouses whose name, remark and/or"
-                + " products matches the argument keywords provided.";
+        String findDescription = "Find\nFinds all suppliers or warehouses whose name,"
+                + " remark and/or products sold/stored matches the provided argument keywords.";
         String findCommandFormat = "Command format: \nfind ct/TYPE [n/NAME...]"
-                + " [pd/PRODUCT_NAME...] [r/REMARK...]\n\n"
+                + " [pd/PRODUCT_NAME...] [r/REMARK...]\n"
                 + "TYPE should be one of these values: s / w.\n"
                 + "At least one of the name, product or remark prefix must be provided.\n"
-                + "Keywords specified are case-insensitive.\n";
+                + "Keywords specified are case-insensitive.";
         String findSampleCommand = "Sample Command: \n"
                 + "find ct/s pd/panadol \nfind ct/w pd/face mask r/biggest";
         String findHelpMessage = HELP_MESSAGE_FOR_COMMAND_FORMAT + "\n\n"
@@ -222,24 +221,27 @@ public class HelpCommand extends Command {
             + "The TYPE specified should be one of these values: s or w representing supplier or warehouse.\n"
             + "The supplier/warehouse INDEX specified should be within range of the supplier/warehouse "
             + "list, corresponding to the number on the list.";
+        String viewSampleCommand = "view ct/s 1\nview ct/w 2";
         String viewCommandHelpMessage = HELP_MESSAGE_FOR_COMMAND_FORMAT + "\n\n"
             + viewWarehouseOrSupplier + "\n\n"
-            + viewCommandFormat + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
+            + viewCommandFormat + "\n\n" + viewSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
         return viewCommandHelpMessage;
     }
 
     private String generateHelpUpdateMessage() {
-        String updateWarehouseProduct = "Update\nIf the product does not exist for that warehouse,"
-                + " it will associate the new product with the warehouse and the input quantity."
-                + " Otherwise, it will update the stock of the existing product with the new quantity.";
-        String updateWarehouseProductCommandFormat = "Command format: \n"
-                + "update w/WAREHOUSE_NAME pd/PRODUCT_NAME q/QUANTITY";
-        String updateWarehouseProductSampleCommand = "Sample Command: \n"
-                + "update w/WarehouseA pd/Panadol q/10";
+        String updateProductInstruction = "Update\nIf the product does not exist for that warehouse/supplier,"
+                + " it will associate the new product (optionally with quantity/tags) with the"
+                + " warehouse/supplier. Otherwise, it will update the existing product in the"
+                + " warehouse/supplier with the new quantity/tags. If the product already exists,"
+                + " at least one optional argument has to be supplied.";
+        String updateProductCommandFormat = "Command format: \n"
+                + "update ct/TYPE n/ENTITY_NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG]";
+        String updateProductSampleCommand = "Sample Command: \n"
+                + "update ct/w n/WarehouseA pd/Panadol q/10 t/fever";
         String updateCommandHelpMessage = HELP_MESSAGE_FOR_COMMAND_FORMAT + "\n\n"
-                + updateWarehouseProduct + "\n\n"
-                + updateWarehouseProductCommandFormat + "\n\n"
-                + updateWarehouseProductSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
+                + updateProductInstruction + "\n\n"
+                + updateProductCommandFormat + "\n\n"
+                + updateProductSampleCommand + "\n\n" + HELP_MESSAGE_FOR_USER_GUIDE;
         return updateCommandHelpMessage;
     }
 
