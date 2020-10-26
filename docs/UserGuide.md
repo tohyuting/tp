@@ -218,7 +218,7 @@ Format: `view ct/TYPE i/INDEX`
 Examples:
 
 * `view ct/s 1` Displays all the information associated with supplier at index 1 in the supplier list e.g. name, contact, email, remarks, products sold by the supplier.
-* `view ct/w 2` Displays all the information associated with at index 2 in the warehouse list e.g. name, contact, address, remarks, all the products stored in the warehouse.
+* `view ct/w 2` Displays all the information associated with warehouse at index 2 in the warehouse list e.g. name, contact, address, remarks, all the products stored in the warehouse.
 
 ### Update the quantity/tags of a product for a supplier/warehouse: `update`
 
