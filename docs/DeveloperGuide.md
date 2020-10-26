@@ -195,7 +195,7 @@ We demonstrate the structure of the `delete` feature implementation below.
 <center><i>Figure n. Delete Command Class Diagram</i></center>
 <br>
 
-Note that some commonly applied methods (like getter/setter methods for each attribute) are not included to reduce verbosity.
+Note that some commonly applied methods (such as getter/setter methods for each attribute) are not included to reduce verbosity.
 
 #### Delete Command's interaction with related objects
 
@@ -209,25 +209,25 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 1. Parsing <br>
 
     CLI-nic's `ClinicParser` will parse the user input and if the `delete` command word is present, the parser will try to parse the
-    input into a valid `DeleteCommand` via `DeleteCommandParser`. <br>
+    input to generate a valid `DeleteCommand` via `DeleteCommandParser`. <br>
 
     Checks for compulsory prefixes and valid arguments (`ct/TYPE` and `i/INDEX` in this case) are done. The code will throw a `ParseException` if the check fails.<br>
 
     If multiple entries of `ct/TYPE` or `i/INDEX` are found, the last entry will be used as the argument. <br>
 
-    Afterwards, all the valid arguments (`INDEX` and `TYPE`) will form a `DeleteCommand`, which will be executed.
+    Afterwards, all the valid arguments (`INDEX` and `TYPE`) will create a new `DeleteCommand`, which will be executed.
 
 2. Execution <br>
 
     The `DeleteCommand` is executed via a `execute` call from `LogicManager`. <br>
 
-    Using the `targetType` attribute, the execution is first classified as either Supplier deletion (`s`) or Warehouse deletions (`w`). <br>
+    Using the `targetType` attribute, the execution is first classified as either Supplier deletion (`s`) or Warehouse deletion (`w`). <br>
 
     Base on the classification, the model will retrieve the relevant displayed list of warehouse/supplier via `model#getFilteredWarehouseList()`/`model#getFilteredSupplierList()`. <br>
     
     It then locates the warehouse/supplier entry that user wants to delete via the `INDEX` passed in.
 
-    Afterwards, `model#deleteWarehouse`/`model#deleteSupplier` will remove the target entry from the list in the `model`, and the `model` will then update the displayed list.
+    Afterwards, `model#deleteWarehouse`/`model#deleteSupplier` will remove the target entry from the list in the `model`. The `model` will then update the displayed list.
 
 3. Result display <br>
     With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with a success message, which will
@@ -241,21 +241,21 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     The parsing workflow is the same except that now an additional field `pd/PRODUCT_NAME` will be checked (with both prefix and argument) and parsed. <br>
 
-    Afterwards, all the valid arguments (`INDEX`, `TYPE` and `PRODUCT_NAME`) will form a `DeleteCommand`, which will be executed.
+    Afterwards, all the valid arguments (`INDEX`, `TYPE` and `PRODUCT_NAME`) will create a new `DeleteCommand`, which will be executed.
     
 2. Execution
 
-    The `DeleteCommand` is executed via a `execute` call from `LogicManager`. <br>
+    The `DeleteCommand` is executed via an `execute` call from `LogicManager`. <br>
 
-    Using the `targetType` attribute, the execution is now classified as either Supplier-related product deletion (`ps`) or Warehouse-related product deletions (`pw`). <br>
+    Using the `targetType` attribute, the execution is now classified as either Supplier-related product deletion (`ps`) or Warehouse-related product deletion (`pw`). <br>
 
-    Base on the classification, the model will again retrieve the relevant displayed list of warehouse/supplier via `model#getFilteredWarehouseList()`/`model#getFilteredSupplierList()`. <br>
+    Based on the classification, the model will again retrieve the relevant displayed list of warehouse/supplier via `model#getFilteredWarehouseList()`/`model#getFilteredSupplierList()`. <br>
 
-    It then locates the warehouse/supplier entry from whom the product to delete via the `INDEX` passed in.
+    It then locates the respective warehouse/supplier entry at the `INDEX` passed. A product in this entry is to be deleted.
 
     Next, the product matching the required `PRODUCT_NAME` will be retrieved via `getProductByName`, and an updated target entry with this product removed will be returned through `removeProduct` call.
 
-    Afterwards, `model#setWarehouse`/`model#setSupplier` will replace the old entry with the updated target entry from the list in the `model`, and the `model` will then update the displayed list.
+    Afterwards, `model#setWarehouse`/`model#setSupplier` will replace the old entry with the updated target entry from the list in the `model`. The `model` will then update the displayed list.
 
 3. Result display <br>
     With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with a success message, which will
