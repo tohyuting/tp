@@ -7,32 +7,30 @@ start
 'diamond we place it as the true branch instead.
 
 if () then ([required prefixes present & all values valid])
-    :Generate Parse Exception;
-    if () then ([is supplier/warehouse deletion])
-        :Generate new DeleteCommand
-        without a product name;
-        :Execute DeleteCommand;
+    :Generate new DeleteCommand;
+    :Execute DeleteCommand;
+    if () then ([index is out of bound])
+        :Generate Command Exception;
 
-        if () then([supplier])
-        :Remove the target supplier;
-        else ([warehouse])
-        :Remove the target warehouse;
+    else ([else])
+        :Retrieve supplier/warehouse
+        by specified index;
+        if () then ([is supplier/warehouse deletion])
+            if () then([supplier])
+            :Remove target supplier;
+            else ([warehouse])
+            :Remove target warehouse;
+            endif
+        else ([is product deletion])
+            if () then ([no matching product])
+                :Generate Command Exception;
+            else ([else])
+                : Retrieve matching product
+                from the set;
+                :Remove the target product;
+            endif
         endif
-    else ([is product deletion])
-        :Generate new DeleteCommand
-        without a product name;
-        :Execute DeleteCommand;
-
-        if () then([product from supplier])
-            :Identify the required supplier;
-            :Remove the target product;
-        else ([product from warehouse])
-            :Identify the required warehouse;
-            :Remove the target product;
-        endif
-
     endif
-        :Generate edit success message;
 else ([else])
     :Generate Parse Exception;
 endif

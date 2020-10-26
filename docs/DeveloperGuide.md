@@ -159,7 +159,7 @@ The deletion is limited to the items shown in the list displayed in GUI, and is 
 
 #### Path Execution of Delete Command
 
-The workflow of an `Delete` Command when it is executed by a user is shown in the activity diagram below:
+The workflow of a `Delete` Command when executed by a user is shown in the activity diagram below:
 
 ![Delete Command Activity Diagram](images/DeleteCommandActivityDiagram.png)
 <center><i>Figure n. Delete Command Activity Diagram</i></center>
@@ -261,7 +261,6 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
     With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with a success message, which will
     be shown to the user in the UI.
 
-Step 5. 
 
 ### Edit feature (to be implemented)
 The edit feature will be elaborated in this section by its' functionality, path execution, class diagrams associated to edit feature (next update) and the interactions between the different objects when the feature is used by a user (next update).
@@ -456,6 +455,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | standard user  | add remarks to a supplier entry         | note down details that are specific to the supplier          |
 | `* * *`  | standard user  | access the command list/user guide  | easily refer to instructions for commands and guidance for usage    |
 | `* * *`  | standard user  | delete a supplier/warehouse entry   | remove suppliers/warehouses no longer operating |
+| `* * *`  | standard user  | delete a particular product from a supplier/warehouse entry   | remove product no longer sold/stored for the supplier/warehouse|
 | `* * *`  | standard user  | find medical products associated with warehouses or suppliers     | locate relevant items without having to go through all the lists                |
 | `* * *`  | standard user  | view the information of a specific warehouse or supplier          | retrieve details about suppliers/warehouses I can't remember and contact them       |
 | `* * * ` | intermediate user | update the stock of a specific product in warehouses           | keep track of the changes in the stocks of the warehouses |
@@ -598,6 +598,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3a2. User enters the new warehouse index.
 
     Steps 3a1-3a2 are repeated until the data entered are correct.
+    Use case resumes at step 4.
+
+**Use case: UC05 Delete a product from a supplier**
+
+**MSS**
+
+1. User requests to view a specific supplier by keyword.
+2. CLI-nic shows the specific supplier and its index.
+3. User requests to delete a product from the supplier via the index  returned and the product name displayed.
+4. CLI-nic deletes the supplier in the list and shows a success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The supplier list is empty.
+
+  * 2a1. CLI-nic informs the user there is no supplier in the list currently.
+
+    Use case ends.
+
+* 3a. The given index is invalid.
+
+  * 3a1. CLI-nic shows an error message and gives command suggestions.
+  * 3a2. User enters the new supplier index.
+
+    Steps 3a1-3a2 are repeated until the data entered are correct. <br>
     Use case resumes at step 4.
 
 

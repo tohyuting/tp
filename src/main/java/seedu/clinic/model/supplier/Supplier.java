@@ -79,7 +79,7 @@ public class Supplier {
     }
 
     /**
-     * Remove a product sold by the Supplier.
+     * Removes a product sold by the Supplier.
      *
      * @return a new Supplier with the {@code targetProduct} removed.
      */

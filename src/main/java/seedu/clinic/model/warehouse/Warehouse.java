@@ -84,7 +84,7 @@ public class Warehouse {
     }
 
     /**
-     * Remove a product sold by the Warehouse.
+     * Removes a product sold by the Warehouse.
      *
      * @return a new Warehouse with the {@code targetProduct} removed.
      */
