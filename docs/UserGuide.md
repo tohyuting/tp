@@ -34,9 +34,8 @@ and efficient Graphical User Interface interaction.
    * **`add`** `ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor` : Adds a
     supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com.
     This supplier is the “largest contractor”.
-
-   * **`add`** `s/SupplierA pd/PANADOL SUSP t/FEVER` : Adds the product PANADOL SUSP to list of products from
-    supplierA. This indicates that supplierA is selling this product. PANADOL SUSP also has a tag of FEVER.
+    
+   * **`assignmacro`** `a/uwm cs/update ct/w n/main warehouse` : Assign a macro that pairs the alias "uwm" to the command string "update ct/w n/main warehouse".
 
    * **`clear`** : Deletes all contacts.
 
@@ -48,6 +47,8 @@ and efficient Graphical User Interface interaction.
     named PANADOL.
 
    * **`list`** `list`: Displays all the warehouses and suppliers in CLI-nic.
+   
+   * **`removemacro`** `uwm` : Removes the macro with the alias 'uwm'.
 
    * **`update`** `ct/w n/WarehouseA pd/Panadol q/10 t/fever` : Updates the quantity of PANADOL in WarehouseA to 10, and assigns the tag 'fever' to the product.
 
@@ -117,17 +118,6 @@ Examples:
 * `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
 Adds a supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com.
 This supplier is the “largest contractor”.
-
-### Adding a product to a supplier : `add`
-
-Adds product information to a supplier; associates a particular product with the supplier in the CLI-nic application.
-
-Format: `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG]…​`
-
-Examples:
-
-* `addp s/SupplierA pd/PANADOL SUSP t/FEVER` Adds the product PANADOL SUSP to list of products from supplierA.
-* This indicates that supplierA is selling this product. PANADOL SUSP also has a tag of FEVER.
 
 ### Clearing all entries : `clear`
 
@@ -229,6 +219,26 @@ Example:
 
 * `update ct/w n/WarehouseA pd/Panadol q/10 t/fever` Updates the quantity of Panadol in WarehouseA to 10, and gives the product the tag 'fever'.
 
+### Assign Macro to selected command string: `assignmacro`
+
+* The alias cannot be an existing command word or already used in an existing macro , and should only consist of alphanumeric characters and/or underscores. The saved command string can consist of any number of prefixes, but the first word has to be a pre-defined command word.  
+
+Format:	`assignmacro a/TYPE cs/COMMAND_STRING`
+
+Example:
+
+* `assignmacro a/uwm cs/update ct/w n/main warehouse` Assign a macro that pairs the alias "uwm" to the command string "update ct/w n/main warehouse".
+
+### Remove Macro with specified alias: `removemacro`
+
+* The alias specified has to exist.
+
+Format:	`removemacro ALIAS`
+
+Example:
+
+* `removemacro uwm` Removes the macro with the alias 'uwm'.
+
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -273,12 +283,13 @@ Action | Format, Examples
 --------|------------------
 **Add** Warehouse | `add ct/w n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
 **Add** Supplier | `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`<br> e.g., `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
-**Addp** Product | `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `addp s/SupplierA pd/PANADOL SUSP t/FEVER`
+**Assign Macro** | `assignmacro a/ALIAS cs/COMMAND_STRING`<br> e.g., `assignmacro a/uwm cs/update ct/w n/main warehouse`
 **Clear** | `clear`
 **Delete** | `delete ct/TYPE i/INDEX`<br> e.g., `delete ct/w i/1`
 **Delete** Product| `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`<br> e.g., `delete ct/pw i/1 pd/Panadol`
 **Find** | `find ct/TYPE [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`<br> e.g. `find ct/w pd/panadol`
 **Help** | `help [COMMAND]`<br> e.g., `help add`
 **List** | `list`
+**Remove Macro** | `removemacro ALIAS`<br> e.g.`removemacro uwm`
 **Update** | `update ct/TYPE n/ENTITY_NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` <br> e.g., `update ct/w n/WarehouseA pd/Panadol q/10 t/fever`
 **View** | `view TYPE NAME`<br> e.g. `view supplier supplierA`
