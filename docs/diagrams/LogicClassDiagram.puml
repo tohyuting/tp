@@ -53,7 +53,7 @@ LogicManager .left.> Command : executes >
 
 LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, DeleteCommand, FindCommand, ListCommand, UpdateCommand, etc
+note right of XYZCommand: XYZCommand = AddCommand, \nDeleteCommand, FindCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

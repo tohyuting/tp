@@ -341,9 +341,11 @@ arguments parsed in matches with the tokenized arguments using the arePrefixesPr
 There are two scenarios :
 
 Some compulsory prefixes are not present :
+
 AddCommandParser will throw a new ParseException object to the LogicManager.
 
 All compulsory prefixes are present in the arguments :
+
 It will then proceed to use the getValue method of the ArgumentMultimap class to get the value of the
 prefixes. For example, if the argument parsed in is ct/s, the getValue method will get the value 's'.
 Subsequently, it will use the ParseUtil methods to get the corresponding object values and put it into
@@ -741,48 +743,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Warehouse**: The places where the medical supplies are channeled to and kept. The storage condition of these warehouses are managed by the manager, which is our app user
 
 Command Prefix
-|===
-|Prefix |Meaning |Used in the following Command(s)
-
-|ct/
-|Command Type
-|Add, Delete, Edit, Find, Update
-
-|n/
-|Supplier/Warehouse Name
-|Add, Edit, Find, Update
-
-|p/
-|Phone Number
-|Add, Edit>>
-
-|e/
-|Email Address
-|Add, Edit
-
-|addr/
-|Address
-|Add, Edit
-
-|r/
-|Remark
-|Add, Find, Edit
-
-|pd/
-|Product Name
-|Addp, Edit, Delete, Find, Update
-
-|i/
-|Index
-|Delete
-
-|t/
-|Tag
-|Addp, Update
-
-|q/
-|Quantity of product
-|Update
+|Prefix |Meaning |Used in the following Command(s)|
+| ------- |-------- | ------------ |
+|ct/ |Command Type |Add, Delete, Edit, Find, Update |
+|n/ |Supplier/Warehouse Name |Add, Edit, Find, Update |
+|p/ |Phone Number |Add, Edit |
+|e/ |Email Address |Add, Edit |
+|addr/ |Address |Add, Edit |
+|r/ |Remark |Add, Find, Edit |
+|pd/ |Product Name |Addp, Edit, Delete, Find, Update |
+|i/ |Index |Delete |
+|t/ |Tag |Addp, Update |
+|q/ |Quantity of product |Update |
 
 --------------------------------------------------------------------------------------------------------------------
 
