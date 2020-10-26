@@ -75,7 +75,7 @@ and efficient Graphical User Interface interaction.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
-  
+
 * If multiple arguments with same prefixes are in the input and all the values are valid, the last value is chosen. <br>
   e.g. if the command specifies `ct/w ct/s`, because both `w` and `s` are valid, there is no error, and the type __s - supplier__ is chosen.
 
