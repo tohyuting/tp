@@ -1,0 +1,39 @@
+@startuml
+start
+:User enters delete commands with relevant prefixes;
+:Parse command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([required prefixes present & all values valid])
+    :Generate new DeleteCommand;
+    :Execute DeleteCommand;
+    if () then ([index is out of bound])
+        :Generate Command Exception;
+
+    else ([else])
+        :Retrieve supplier/warehouse
+        by specified index;
+        if () then ([is supplier/warehouse deletion])
+            if () then([supplier])
+            :Remove target supplier;
+            else ([warehouse])
+            :Remove target warehouse;
+            endif
+        else ([is product deletion])
+            if () then ([no matching product])
+                :Generate Command Exception;
+            else ([else])
+                : Retrieve matching product
+                from the set;
+                :Remove the target product;
+            endif
+        endif
+    endif
+else ([else])
+    :Generate Parse Exception;
+endif
+:Display result message to user;
+stop
+@enduml

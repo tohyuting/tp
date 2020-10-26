@@ -40,7 +40,7 @@ and efficient Graphical User Interface interaction.
 
    * **`clear`** : Deletes all contacts.
 
-   * **`delete`** `delete supplier 12` : Removes supplier at index 12 from the list of suppliers.
+   * **`delete`** `ct/s i/12` : Removes supplier at index 12 from the list of suppliers.
 
    * **`edit`** `edit ct/s i/1 n/Alice p/68574214` : Edits supplier at index 1 in supplier list to have name Alice and phone number 685742141.
 
@@ -49,7 +49,7 @@ and efficient Graphical User Interface interaction.
    * **`find`** `ct/w pd/panadol` : Displays all the warehouses managed by the manager that has a product
     named PANADOL.
 
-   * **`list`** `list`: Displays all the warehouses and suppliers in CLI-nic.
+   * **`list`**: Displays all the warehouses and suppliers in CLI-nic.
 
    * **`update`** `ct/w n/WarehouseA pd/Panadol q/10 t/fever` : Updates the quantity of PANADOL in WarehouseA to 10, and assigns the tag 'fever' to the product.
 
@@ -77,6 +77,9 @@ and efficient Graphical User Interface interaction.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
+
+* If multiple arguments with same prefixes are in the input and all the values are valid, the last value is chosen. <br>
+  e.g. if a user's input specifies `ct/w ct/s` where both `w` and `s` are valid, there will be no error thrown. However, the type __s - supplier__ will be chosen instead.
 
 </div>
 
@@ -133,13 +136,13 @@ Deletes entries of warehouses or suppliers that are not needed anymore.
 
 Format: `delete ct/TYPE i/INDEX`
 
-* The TYPE specified should be one of these values: w / s.
-* The INDEX must be a positive integer, not exceeding the total number of items.
+* The TYPE specified should be one of these values: `w` / `s`.
+* The INDEX must be a positive integer, not exceeding the total length of the displayed list.
 
 Examples:
 
-* `delete ct/w i/1` Removes the warehouse at index 1.
-* `delete ct/s i/12` Removes supplier at index 12 from the list of suppliers.
+* `delete ct/w i/1` Removes the warehouse at index 1 of the list of warehouses.
+* `delete ct/s i/12` Removes supplier at index 12 of the list of suppliers.
 
 ### Deletes a product in a certain warehouse or supplier : `delete`
 
@@ -147,8 +150,9 @@ Deletes a product entry no longer stored by a certain warehouse or sold by a spe
 
 Format: `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`
 
-* The TYPE specified should be one of these values: pw / ps.
-* The PRODUCT_NAME must be identifiable and starts with alphanumeric character.
+* The TYPE specified should be one of these values: `pw` / `ps`.
+* The INDEX must be a positive integer, not exceeding the total length of the displayed list.
+* The PRODUCT_NAME must be an identifiable full name of the product chosen, and must starts with an alphanumeric character.
 * The product with the PRODUCT_NAME should be in the INDEX-th supplier/warehouse in the displayed list.
 
 Examples:
@@ -157,6 +161,11 @@ Examples:
 the warehouse at index 1 of the list of warehouses.
 * `delete ct/ps i/12 pd/Aspirin` Removes product with the name _Aspirin_
 from the supplier at index 12 of the list of suppliers.
+
+<div markdown="span" class="alert alert-info">
+**:information_source: Note:** If additional PRODUCT_NAME behind prefix `pd/` is added when the TYPE `ct/` given is "w" or "s", the PRODUCT_NAME will be ignored
+as the entire warehouse/supplier entry is removed.
+</div>
 
 ### Edit a warehouse or supplier : `edit`
 
