@@ -1,0 +1,61 @@
+@startuml
+!include style.puml
+
+mainframe sd Creation of appropriate EditDesciptor for EditCommand
+box Logic LOGIC_COLOR_T1
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant "argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "editDescriptor:EditSupplierDescriptor" as EditSupplierDescriptor LOGIC_COLOR
+participant "editDescriptor:EditWarehouseDescriptor" as EditWarehouseDescriptor LOGIC_COLOR
+end box
+
+activate EditCommandParser
+
+alt SUPPLIER
+EditCommandParser -> EditCommandParser : parseSupplierForEditing(editSupplierDescriptor, argMultimap)
+activate EditCommandParser
+EditCommandParser -> EditCommandParser : parseGeneralDetails(editSupplierDescriptor, argMultimap)
+activate EditCommandParser
+ref over EditCommandParser, ParserUtil
+Parsing General Details
+end
+EditCommandParser --> EditCommandParser
+deactivate EditCommandParser
+ref over EditCommandParser, ParserUtil
+Parsing Supplier specific details
+end
+EditCommandParser --> EditCommandParser
+deactivate EditCommandParser
+
+create EditSupplierDescriptor
+EditCommandParser --> EditSupplierDescriptor
+activate EditSupplierDescriptor
+EditSupplierDescriptor --> EditCommandParser
+deactivate EditSupplierDescriptor
+
+else WAREHOUSE
+EditCommandParser -> EditCommandParser : parseWarehouseForEditing(editWarehouseDescriptor, argMultimap)
+activate EditCommandParser
+EditCommandParser -> EditCommandParser : parseGeneralDetails(editWarehouseDescriptor, argMultimap)
+activate EditCommandParser
+
+ref over EditCommandParser, ParserUtil
+Parsing General Details
+end
+EditCommandParser --> EditCommandParser
+deactivate EditCommandParser
+ref over EditCommandParser, ParserUtil
+Parsing Warehouse specific details
+end
+EditCommandParser --> EditCommandParser
+deactivate EditCommandParser
+
+create EditWarehouseDescriptor
+EditCommandParser --> EditWarehouseDescriptor
+activate EditWarehouseDescriptor
+EditWarehouseDescriptor --> EditCommandParser
+deactivate EditWarehouseDescriptor
+
+end
+@enduml

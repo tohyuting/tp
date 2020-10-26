@@ -79,6 +79,21 @@ public class Supplier {
     }
 
     /**
+     * Removes a product sold by the Supplier.
+     *
+     * @return a new Supplier with the {@code targetProduct} removed.
+     */
+    public Supplier removeProduct(Product targetProduct) {
+        assert this.getProducts().contains(targetProduct) : "Target product not in list";
+
+        Set<Product> updatedProductSet = new HashSet<>(this.getProducts());
+        updatedProductSet.remove(targetProduct); // removes the matching product
+        Supplier updatedSupplier = new Supplier(this.getName(), this.getPhone(),
+                this.getEmail(), this.getRemark(), updatedProductSet);
+        return updatedSupplier;
+    }
+
+    /**
      * Returns true if a product with the {@code targetName} is found in the supplier.
      */
     public boolean hasProductWithName(Name targetName) {

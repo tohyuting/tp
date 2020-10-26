@@ -1,0 +1,43 @@
+@startuml
+start
+:User enters edit commands with relevant prefixes;
+:Parse user input;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([index and command type prefixes present])
+    :Parse command arguments;
+    if () then([at least one of the prefixes is valid])
+        if () then([supplier])
+        :Generate new
+        EditSupplierDescriptor;
+        else ([warehouse])
+        :Generate new
+        EditWarehouseDescriptor;
+        endif
+
+        :Generate new Edit Command;
+        :Execute Edit Command;
+
+        if () then([Editing Supplier])
+        :Obtain Supplier to edit
+        from Supplier List;
+        :Edits Supplier in Supplier List;
+        else ([Editing Warehouse])
+        :Obtain Warehouse to edit
+        from Warehouse List;
+        :Edits Warehouse in Warehouse List;
+        endif
+        :Generate edit success message;
+    else ([invalid prefixes/arguments])
+    :Generate message indicating
+    wrong prefixes or arguments;
+    endif
+else ([index and command type prefix(es) missing])
+    :Generate message indicating
+    either one or both prefixes missing;
+endif
+:Display result message to user;
+stop
+@enduml
