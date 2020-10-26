@@ -223,7 +223,7 @@ Example:
 
 * The alias cannot be an existing command word or already used in an existing macro , and should only consist of alphanumeric characters and/or underscores. The saved command string can consist of any number of prefixes, but the first word has to be a pre-defined command word.  
 
-Format:	`assignmacro a/TYPE cs/COMMAND_STRING`
+Format:	`assignmacro a/ALIAS cs/COMMAND_STRING`
 
 Example:
 
