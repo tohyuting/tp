@@ -1,8 +1,8 @@
 @startuml
 /' Sequence Diagram for add supplier'/
 !include style.puml
-skinparam defaultFontSize 50
-skinparam ArrowFontSize 60
+skinparam defaultFontSize 45
+skinparam ArrowFontSize 50
 skinparam ArrowThickness 3
 
 box Logic LOGIC_COLOR_T1
