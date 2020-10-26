@@ -33,7 +33,7 @@
             <FlowPane fx:id="remark" />
             <TitledPane fx:id="productsTitledPane" text="Products">
                 <VBox>
-                    <VBox fx:id="products" />
+                    <VBox fx:id="products" minWidth="10" prefWidth="450" />
                     <Label fx:id="noProductsLabel" styleClass="cell_small_label"
                            text="This warehouse has no products." />
                 </VBox>

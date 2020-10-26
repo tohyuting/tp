@@ -152,7 +152,7 @@ public class Supplier {
                 .append(" Remarks: ")
                 .append(getRemark())
                 .append(" Products: ");
-        getProducts().forEach(s -> builder.append(s.toStringForSupplier()));
+        getProducts().forEach(s -> builder.append(s.toString()));
         return builder.toString();
     }
 }
