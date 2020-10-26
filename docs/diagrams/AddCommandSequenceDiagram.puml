@@ -1,7 +1,9 @@
 @startuml
 /' Sequence Diagram for add supplier'/
 !include style.puml
-skinparam defaultFontSize 22
+skinparam defaultFontSize 50
+skinparam ArrowFontSize 60
+skinparam ArrowThickness 3
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
@@ -19,7 +21,7 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 create LogicManager
-[-> LogicManager : execute("add ct/s n/John Doe p/987667"...")
+[-> LogicManager : execute("add ct/s n/John Doe p/9876"...")
 activate LogicManager
 
 LogicManager -> ClinicParser : parseCommand()
