@@ -24,7 +24,7 @@ and efficient Graphical User Interface interaction.
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will display instructions on various commands.<br>
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will display instructions on various commands. In addition, you can also type **`help COMMAND`** to understand the command format and sample commands associated with `COMMAND`.<br>
    Some example commands you can try:
 
    * **`add`** `ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` : Adds a
@@ -40,18 +40,20 @@ and efficient Graphical User Interface interaction.
 
    * **`clear`** : Deletes all contacts.
 
-   * **`delete`** `delete supplier 12` : Removes supplier at index 12 from the list of suppliers.
+   * **`delete`** `ct/s i/12` : Removes supplier at index 12 from the list of suppliers.
+
+   * **`edit`** `edit ct/s i/1 n/Alice p/68574214` : Edits supplier at index 1 in supplier list to have name Alice and phone number 685742141.
 
    * **`exit`** : Exits the app.
 
    * **`find`** `ct/w pd/panadol` : Displays all the warehouses managed by the manager that has a product
     named PANADOL.
 
-   * **`list`** `list`: Displays all the warehouses and suppliers in CLI-nic.
+   * **`list`**: Displays all the warehouses and suppliers in CLI-nic.
 
    * **`update`** `ct/w n/WarehouseA pd/Panadol q/10 t/fever` : Updates the quantity of PANADOL in WarehouseA to 10, and assigns the tag 'fever' to the product.
 
-   * **`view supplier supplierA`** : Displays all the information associated with supplierA e.g. address, contact, email, products sold by the supplier etc.
+   * **`view ct/w i/3`** : Displays all the information associated with warehouse at index 3 of warehouse list e.g. name, address, contact, products sold by the warehouse etc.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -76,12 +78,16 @@ and efficient Graphical User Interface interaction.
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
+* If multiple arguments with same prefixes are in the input and all the values are valid, the last value is chosen. <br>
+  e.g. if a user's input specifies `ct/w ct/s` where both `w` and `s` are valid, there will be no error thrown. However, the type __s - supplier__ will be chosen instead.
+
 </div>
 
 ### Viewing help : `help`
 
 Displays a list of available commands and their utility description.
 Narrows down to a specific command and its actual input format and samples if specified.
+The user guide can also be accessed by pressing F1 to copy the webpage link. Internet connection is needed to view the user guide.
 
 ![help message](images/helpMessage.png)
 
@@ -118,17 +124,6 @@ Examples:
 Adds a supplier named Philips Pharmaceutical. His contact number is 00000000 and his email is philipsPharm@gmail.com.
 This supplier is the “largest contractor”.
 
-### Adding a product to a supplier : `add`
-
-Adds product information to a supplier; associates a particular product with the supplier in the CLI-nic application.
-
-Format: `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG]…​`
-
-Examples:
-
-* `addp s/SupplierA pd/PANADOL SUSP t/FEVER` Adds the product PANADOL SUSP to list of products from supplierA.
-* This indicates that supplierA is selling this product. PANADOL SUSP also has a tag of FEVER.
-
 ### Clearing all entries : `clear`
 
 Clears all entries (Suppliers and Warehouses) from the CLI-nic.
@@ -141,13 +136,13 @@ Deletes entries of warehouses or suppliers that are not needed anymore.
 
 Format: `delete ct/TYPE i/INDEX`
 
-* The TYPE specified should be one of these values: w / s.
-* The INDEX must be a positive integer, not exceeding the total number of items.
+* The TYPE specified should be one of these values: `w` / `s`.
+* The INDEX must be a positive integer, not exceeding the total length of the displayed list.
 
 Examples:
 
-* `delete ct/w i/1` Removes the warehouse at index 1.
-* `delete ct/s i/12` Removes supplier at index 12 from the list of suppliers.
+* `delete ct/w i/1` Removes the warehouse at index 1 of the list of warehouses.
+* `delete ct/s i/12` Removes supplier at index 12 of the list of suppliers.
 
 ### Deletes a product in a certain warehouse or supplier : `delete`
 
@@ -155,8 +150,9 @@ Deletes a product entry no longer stored by a certain warehouse or sold by a spe
 
 Format: `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`
 
-* The TYPE specified should be one of these values: pw / ps.
-* The PRODUCT_NAME must be identifiable and starts with alphanumeric character.
+* The TYPE specified should be one of these values: `pw` / `ps`.
+* The INDEX must be a positive integer, not exceeding the total length of the displayed list.
+* The PRODUCT_NAME must be an identifiable full name of the product chosen, and must starts with an alphanumeric character.
 * The product with the PRODUCT_NAME should be in the INDEX-th supplier/warehouse in the displayed list.
 
 Examples:
@@ -166,23 +162,28 @@ the warehouse at index 1 of the list of warehouses.
 * `delete ct/ps i/12 pd/Aspirin` Removes product with the name _Aspirin_
 from the supplier at index 12 of the list of suppliers.
 
-### Deletes a product in a certain warehouse or supplier : `delete`
+<div markdown="span" class="alert alert-info">
+**:information_source: Note:** If additional PRODUCT_NAME behind prefix `pd/` is added when the TYPE `ct/` given is "w" or "s", the PRODUCT_NAME will be ignored
+as the entire warehouse/supplier entry is removed.
+</div>
 
-Deletes a product entry no longer stored by a certain warehouse or sold by a specific supplier.
+### Edit a warehouse or supplier : `edit`
 
-Format: `delete TYPE INDEX pd/PRODUCT_NAME`
+Edits a warehouse or supplier at specified index. Name, Phone, Remarks of specified supplier and warehouse can be edited. In addition, a warehouse's address and a supplier's email can be edited as well. Note that no two warehouses or suppliers can share the same name in CLI-nic.
 
-* The PRODUCT_NAME must be identifiable and starts with alphanumeric character.
-* The product with the PRODUCT_NAME should be in the INDEX-th supplier/warehouse in the displayed list.
+Format: `edit ct/TYPE i/INDEX [n/NAME] [p/PHONE] [r/REMARK] [addr/ADDRESS] [e/EMAIL]`
+
+* `addr/ADDRESS` prefix can only be used for Warehouses and `e/EMAIL` prefix can only be used for Suppliers.
+* At least one field has to be specified in the edit command.
+* Edited supplier or warehouse must be different from one started with.
+* No two suppliers or two warehouses can share the same name.
 
 Examples:
 
-* `delete warehouse 1 pd/Panadol` Removes product with the name _Panadol_ from
-the warehouse at index 1 of the list of warehouses.
-* `delete supplier 12 pd/Aspirin` Removes product with the name _Aspirin_
-from the supplier at index 12 of the list of suppliers.
+* `edit ct/s i/1 n/Alice p/85236417 r/Largest Supplier e/alicekoh@example.com` Edits the first supplier in the displayed supplier list to be named _Alice_ with contact number of _85236417_ and remark of _Largest Supplier_. In addition, email field of supplier is to be edited as _alicekoh@example.com_.
+* `edit ct/w i/2 n/Bob p/67851234 r/Largest Warehouse addr/Jurong Street 11` Edits the second warehouse in the displayed warehouse list to be named _Bob_ with contact number of _67851234_ and remark of _Largest Warehouse_. In addition, address field of warehouse is to be edited as _Jurong Street 11_.
 
-### Finding suppliers/warehouses: `find`
+### Finding medical product associated with warehouses / suppliers: `find`
 
 Finds all suppliers or warehouses whose name, remark and/or products sold/stored matches the provided argument keywords.
 
@@ -207,17 +208,17 @@ Format: `list`
 
 ### View a specific supplier / warehouse: `view`
 
-Shows a particular supplier/warehouse with their relevant information e.g. products associated with the supplier/warehouse, address etc.
+Shows the supplier/warehouse at the specified index with their relevant information e.g. products associated with the supplier/warehouse, address etc.
 
-Format: `view TYPE NAME`
+Format: `view ct/TYPE i/INDEX`
 
-* The TYPE specified should be one of these values: supplier or warehouse.
-* The supplier/warehouse NAME specified is case-insensitive.
+* The TYPE specified should be one of these values: s or w representing supplier or warehouse.
+* The supplier/warehouse INDEX specified should be within range of the supplier/warehouse list, corresponding to the number on the list.
 
 Examples:
 
-* `view supplier supplierA` Displays all the information associated with supplierA e.g. address, contact, email, products sold by the supplier etc.
-* `view warehouse warehouseB` Displays all the information associated with warehouseB e.g. address, all the products stored in the warehouse etc.
+* `view ct/s 1` Displays all the information associated with supplier at index 1 in the supplier list e.g. name, contact, email, remarks, products sold by the supplier.
+* `view ct/w 2` Displays all the information associated with warehouse at index 2 in the warehouse list e.g. name, contact, address, remarks, all the products stored in the warehouse.
 
 ### Update the quantity/tags of a product for a supplier/warehouse: `update`
 
@@ -273,12 +274,12 @@ Action | Format, Examples
 --------|------------------
 **Add** Warehouse | `add ct/w n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`<br> e.g., `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
 **Add** Supplier | `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`<br> e.g., `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/largest contractor`
-**Addp** Product | `addp s/SUPPLIER_NAME pd/PRODUCT_NAME [t/TAG…​]`<br> e.g., `addp s/SupplierA pd/PANADOL SUSP t/FEVER`
 **Clear** | `clear`
 **Delete** | `delete ct/TYPE i/INDEX`<br> e.g., `delete ct/w i/1`
 **Delete** Product| `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`<br> e.g., `delete ct/pw i/1 pd/Panadol`
+**Edit** | `edit ct/TYPE i/INDEX [n/NAME] [p/PHONE] [r/REMARK] [addr/ADDRESS] [e/EMAIL]`<br> e.g., `edit ct/w i/1 n/Alice Warehouse p/98765432 r/second largest warehouse addr/21 Lower Kent Ridge Rd`
 **Find** | `find ct/TYPE [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`<br> e.g. `find ct/w pd/panadol`
 **Help** | `help [COMMAND]`<br> e.g., `help add`
 **List** | `list`
 **Update** | `update ct/TYPE n/ENTITY_NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` <br> e.g., `update ct/w n/WarehouseA pd/Panadol q/10 t/fever`
-**View** | `view TYPE NAME`<br> e.g. `view supplier supplierA`
+**View** | `view ct/TYPE i/INDEX`<br> e.g. `view ct/s i/1`

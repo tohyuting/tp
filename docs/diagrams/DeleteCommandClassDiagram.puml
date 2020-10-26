@@ -1,0 +1,69 @@
+@startuml
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+
+hide circle
+
+abstract class "{abstract}\nCommand" {
+    + {abstract} execute(model : Model) : CommandResult
+}
+
+class Model <<Interface>> {
+    + getFilteredWarehouseList() : ObservableList<Warehouse>
+    + getFilteredSupplierList() : ObservableList<Supplier>
+    + setWarehouse(target : Warehouse, editedWarehouse : Warehouse) : void
+    + setSupplier(target : Supplier, editedSupplier : Supplier) : void
+    + deleteWarehouse(target : Warehouse) : void
+    + deleteSupplier(target : Supplier) : void
+    + updateFilteredWarehouseList(predicate : Predicate<Warehouse>) : void
+    + updateFilteredSupplierList(predicate : Predicate<Supplier>) : void
+}
+
+Model ..> Warehouse
+Model ..> Supplier
+
+class Warehouse {
+    + getProducts() : Set<Product>
+    + getProductByName(targetName : Name) : Product
+}
+
+class Supplier {
+    + getProducts() : Set<Product>
+    + getProductByName(targetName : Name) : Product
+}
+
+enum Type <<enumeration>> {
+    SUPPLIER
+    WAREHOUSE
+    SUPPLIER_PRODUCT
+    WAREHOUSE_PRODUCT
+}
+
+
+class DeleteCommand {
+    /' Fields '/
+    - targetType : Type
+    - targetIndex : Index
+    - targetProductName : Optional<Name>
+
+    /' Methods '/
+    + execute(model : Model) : CommandResult
+    - executeWarehouseRelatedDeletion(model : Model) : CommandResult
+    - executeSupplierRelatedDeletion(model : Model) : CommandResult
+}
+
+class DeleteCommandParser implements Parser {
+    /' Methods '/
+    - arePrefixesPresent(ArgumentMultimap, Prefix...) : boolean {abstract}
+    + parse(args : String) : DeleteCommand
+}
+
+interface Parser<T> <<interface>> {
+    parse(userInput : String) : ClearCommand
+}
+
+DeleteCommandParser --> Type
+DeleteCommand <..left DeleteCommandParser
+DeleteCommand ..> Model
+DeleteCommand --up|> "{abstract}\nCommand"
+@enduml
