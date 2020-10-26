@@ -119,7 +119,7 @@ public class DeleteCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_IN_WAREHOUSE_SUCCESS,
                     matchedProduct.getProductName(), updatedWarehouse.getName()));
         } catch (ProductNotFoundException e) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX,
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_PRODUCT_NAME_IN_WAREHOUSE,
                     targetProductName.get(), warehouseToUpdate.getName()));
         }
     }

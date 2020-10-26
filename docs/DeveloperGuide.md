@@ -137,16 +137,64 @@ Classes used by multiple components are in the `seedu.clinic.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
 ### Delete feature
 
-#### What Delete Feature does
-The delete feature allows user to delete a particular warehouse or supplier __(case 1)__.
-The feature also allows user to delete a product from a specific warehouse or supplier __(case 2)__.
-The deletion is limited to the items shown in the UI, i.e. the displayed results, and is done 1 item at a time.
+The `delete` feature will be elaborated in this section by its' functionality, the path execution with the aid of a sequence and an activity diagram.
+The details of __DeleteCommand__'s class implementation and its interactions with associated classes will also be discussed.
 
-#### How it is implemented
-The `delete` feature is mainly facilitated via the `DeleteCommand` class.
-It extends the abstract `Command` class, with the ability to handle __case 1__ and __case 2__ separately:
+#### What Delete Feature does
+
+The `delete` feature allows user to remove a warehouse or supplier __(case 1)__.
+<br>
+The `delete` feature also allows user to remove a product from a certain warehouse or supplier __(case 2)__.
+<br>
+<br>
+In case 1, `TYPE` needs to be set to `w` or `s`.
+<br>
+In case 2, `TYPE` needs to be set to `pw` or `ps`, and a `PRODUCT_NAME` needs to be specified.
+<br>
+<br>
+The deletion is limited to the items shown in the list displayed in GUI, and is done one item at a time.
+
+#### Path Execution of Delete Command
+
+The workflow of an `Delete` Command when it is executed by a user is shown in the activity diagram below:
+
+![Delete Command Activity Diagram](images/DeleteCommandActivityDiagram.png)
+<center><i>Figure n. Delete Command Activity Diagram</i></center>
+<br>
+
+With reference to the activity diagram above, the user input will be sent to **`DeleteCommandParser`** for parsing.
+The **`DeleteCommandParser`** will check if the compulsory prefixes are present (i.e. `ct/TYPE` and `i/INDEX`) and the corresponding
+argument values are all valid.
+A **`ParseException`** will be thrown if the check fails.
+
+If the `TYPE` parsed indicates a product deletion (via `ct/ps` or `ct/pw`), an additional field `PRODUCT_NAME` is parsed with its prefix and value checked.
+
+Next, a new **`DeleteCommand`** will be generated and executed. There are four possible paths for the `delete` command:
+
+1. The target to delete is a `supplier`/`warehouse` <br>
+CLI-nic finds the target `supplier`/`warehouse` at the specified `INDEX` of the displayed list, and remove it completely.
+
+1. The `INDEX` specified is invalid (e.g. exceeds the length of the list) <br>
+A **`CommandException`** error message wil be thrown.
+
+1. The target to delete is a `product` in a particular 'supplier' <br>
+CLI-nic finds the target `supplier` at the specified `INDEX` of the displayed supplier list, and retrieve its product list.<br>
+It finds the `product` with specified `PRODUCT_NAME` and remove it from the product list.
+
+1. No `product` has the `PRODUCT_NAME` in the target warehouse/supplier <br>
+A **`CommandException`** error message wil be thrown.
+
+#### Structure of Delete command
+
+We demonstrate the structure of the `delete` feature implementation below.
+
+
+
+In the following section, the interaction between different objects with the aid of a sequence diagram will be discussed
+to have a deeper understanding of the workflow when a user executes an edit command feature.
 
 * `DeleteCommand#executeWarehouseRelatedDeletion()` — Delete the entire target warehouse or its specific product.
 * `DeleteCommand#executeSupplierRelatedDeletion()` — Delete the entire target supplier or its specific product.
