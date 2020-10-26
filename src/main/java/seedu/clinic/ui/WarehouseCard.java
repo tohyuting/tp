@@ -74,7 +74,7 @@ public class WarehouseCard extends UiPart<Region> {
                 productBox.setMaxWidth(400);
                 FlowPane productTags = new FlowPane();
                 productTags.setId("tags");
-                Label productName = new Label(productIndex + ". " + product.getProductName().fullName);
+                Label productName = new Label(productIndex + ". " + product.toString());
                 productName.setWrapText(true);
                 productName.setMaxWidth(400);
                 productBox.getChildren().add(productName);

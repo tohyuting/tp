@@ -76,19 +76,19 @@ public class SupplierCard extends UiPart<Region> {
             noProductsLabel.setVisible(false);
             for (Product product : supplier.getProducts()) {
                 VBox productBox = new VBox();
-                productBox.setMaxWidth(450);
+                productBox.setMaxWidth(400);
                 FlowPane productTags = new FlowPane();
                 productTags.setId("tags");
-                Label productName = new Label(productIndex + ". " + product.getProductName().fullName);
+                Label productName = new Label(productIndex + ". " + product.toString());
                 productName.setWrapText(true);
-                productName.setMaxWidth(450);
+                productName.setMaxWidth(400);
                 productBox.getChildren().add(productName);
                 product.getProductTags().stream()
                         .sorted(Comparator.comparing(tag -> tag.tagName))
                         .forEach(tag -> {
                             Label tagLabel = new Label(tag.tagName);
                             tagLabel.setWrapText(true);
-                            tagLabel.setMaxWidth(450);
+                            tagLabel.setMaxWidth(400);
                             productTags.getChildren().add(tagLabel);
                         });
                 productBox.getChildren().add(productTags);

@@ -99,24 +99,11 @@ public class Product {
     }
 
     /**
-     * Displays String representation of Product in Supplier.
-     *
-     * @return String representation of Product in Supplier.
-     */
-    public String toStringForSupplier() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getProductName())
-                .append(" Tags: ");
-        getProductTags().forEach(builder::append);
-        return builder.toString();
-    }
-
-    /**
      * Displays String representation of Product displayed under a warehouse.
      *
      * @return String representation of Product displayed under a warehouse.
      */
-    public String toStringForWareHouse() {
+    public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getProductName())
                 .append(" - ")
