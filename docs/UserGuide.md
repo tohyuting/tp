@@ -44,7 +44,7 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
 
    * **`delete`** `ct/s i/12` : Deletes the supplier at index 12 from the list of suppliers.
 
-   * **`edit`** `edit ct/s i/1 n/Alice p/68574214` : Edits the name and phone number of the supplier at index 1 in
+   * **`edit`** `ct/s i/1 n/Alice p/68574214` : Edits the name and phone number of the supplier at index 1 in
    the list of suppliers to be `Alice` and `685742141`.
 
    * **`exit`** : Exits the app.
@@ -81,7 +81,9 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
   Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/`.
 
 * Items with `…`​ after them can be used multiple times.<br>
-  e.g. `[pd/PRODUCT_NAME…​]` can be used as `pd/panadol`, `pd/panadol face mask` etc.
+  e.g. `[pd/PRODUCT_NAME…​]` can be used as `pd/panadol`, `pd/panadol needle syringe` and so on. Note that only
+  **one prefix is used with multiple keywords** if necessary. As such, the format
+  `pd/panadol pd/needle pd/syringe` where multiple prefixes are used is incorrect.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
@@ -91,7 +93,7 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
   e.g. if a user enters `n/Alice n/Bob` where both `Alice` and `Bob` are valid, no error will be thrown. Instead, the
   name `Bob` will be used instead of `Alice`.
 
-* Usage of additional prefixes or forward slashes `/` are not allowed by default except when user chooses to
+* Usage of irrelevant prefixes or forward slashes `/` are not allowed by default except when user chooses to
   define it in their assigned Macro commands
   e.g `delete ct/TYPE i/INDEX pd/PRODUCT_NAME` can be used as `delete ct/pw i/1 pd/Panadol` but not
   `delete ct/pw i/1 pd/Panadol r/Fast relief` nor `delete ct/pw i/1 pd/Panadol/Panadol Strong`.
@@ -100,7 +102,7 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
 
 ### Viewing help : `help`
 
-Displays a list of available commands and their utility description.
+Displays a list of available commands and their utility descriptions.
 Narrows down to a specific command and its input format and sample commands if specified.
 The link to the user guide can also be accessed by pressing F1. Note that an active Internet connection is needed to
 view the user guide.
@@ -122,9 +124,10 @@ Format: `add ct/TYPE n/NAME p/PHONE [e/EMAIL] [addr/ADDRESS] [r/REMARK]`
 
 * `TYPE` specified should be either `s` for supplier or `w` for warehouse.
 * Note that a warehouse cannot have an `EMAIL` and a supplier cannot have an `ADDRESS`. 
-* Although `EMAIL` and `ADDRESS` are marked as optional parameters, `EMAIL` must be present when adding a supplier and
-  `ADDRESS` should not be present. When adding a warehouse, `ADDRESS` should be present but `EMAIL` should not be
-  present.  
+* Although `EMAIL` and `ADDRESS` are marked as optional parameters, either one of these parameters must be present
+  in the input.
+* When adding a supplier, `EMAIL` must be present but `ADDRESS` must not.
+* When adding a warehouse, `ADDRESS` must be present but `EMAIL` must not.  
 * `NAME` should start with an alphanumeric character.
 * `PHONE` should not have a spacing in between. `p/98761234` is allowed, but `p/9876 1234` is not allowed.
    Only numbers are allowed.
@@ -210,6 +213,7 @@ Finds all supplier(s) or warehouse(s) whose name, remark and/or products sold/st
 Format: `find ct/TYPE [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`
 
 * `NAME`, `PRODUCT_NAME` and `REMARK` are case-insensitive.
+* Note that only full words will be matched. `needle` will match `needle` but not `needles`. 
 * `TYPE` specified should be either `s` for supplier or `w` for warehouse.
 * Any combination of the `NAME`, `PRODUCT_NAME` and `REMARK` parameters can be provided but at least one of the prefix
   must be specified.
@@ -217,7 +221,8 @@ Format: `find ct/TYPE [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`
 Examples:
 
 * `find ct/s pd/masks` : Displays all the suppliers that sell `masks`.
-* `find ct/w pd/panadol r/biggest` : Displays the biggest warehouse that stores products matching `panadol`.
+* `find ct/w pd/panadol r/biggest` : Displays the warehouse(s) that stores products with names matching
+  `panadol` or with remark matching `biggest`.
 
 ### Listing all suppliers and warehouses entries : `list`
 
@@ -242,8 +247,9 @@ Examples:
 
 ### Updating the quantity and or tags of a product for a supplier or warehouse: `update`
 
-Updates the quantity and or tags of the product with the specified name in the specified supplier or warehouse.
-If the product does not exist for that supplier or warehouse, a new product will be created for supplier or warehouse. 
+Updates the quantity and/or tags of the product with the specified name in the specified supplier or warehouse.
+If the product does not exist for that supplier or warehouse, a new product will be created for that supplier
+or warehouse. 
 
 Format:	`update ct/TYPE n/NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG]`
 
@@ -265,7 +271,8 @@ Assigns a macro that pairs the specified alias to the specified command string.
 
 Format:	`assignmacro a/ALIAS cs/COMMAND_STRING`
 
-* `alias` cannot be an existing command word or already used in an existing macro.
+* `alias` cannot be an existing command word such as `add`, `delete` etc.
+* `alias` cannot be already used in an existing macro.
 * `alias` should only consist of alphanumeric characters and/or underscores. 
 * `COMMAND_STRING` can consist of any number of prefixes, but the first word has to be a pre-defined command word.  
 
