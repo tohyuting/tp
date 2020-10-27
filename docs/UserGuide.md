@@ -294,7 +294,7 @@ Format: `exit`
 
 ### Saving the data
 
-CLI-nic data is saved in the hard disk automatically after any command that changes the data.
+CLI-nic data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
 <br />
