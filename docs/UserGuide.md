@@ -95,7 +95,7 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
 
 * Usage of irrelevant prefixes or forward slashes `/` are not allowed by default except when user chooses to
   define it in their assigned Macro commands
-  e.g `delete ct/TYPE i/INDEX pd/PRODUCT_NAME` can be used as `delete ct/pw i/1 pd/Panadol` but not
+  e.g. `delete ct/TYPE i/INDEX pd/PRODUCT_NAME` can be used as `delete ct/pw i/1 pd/Panadol` but not
   `delete ct/pw i/1 pd/Panadol r/Fast relief` nor `delete ct/pw i/1 pd/Panadol/Panadol Strong`.
 
 </div>
@@ -215,8 +215,8 @@ Format: `find ct/TYPE [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`
 * `NAME`, `PRODUCT_NAME` and `REMARK` are case-insensitive.
 * Note that only full words will be matched. `needle` will match `needle` but not `needles`. 
 * `TYPE` specified should be either `s` for supplier or `w` for warehouse.
-* Any combination of the `NAME`, `PRODUCT_NAME` and `REMARK` parameters can be provided but at least one of the prefix
-  must be specified.
+* Any combination of the `NAME`, `PRODUCT_NAME` and `REMARK` parameters can be provided but at least one of the
+  parameters with its corresponding prefix must be specified.
 
 Examples:
 
@@ -243,7 +243,7 @@ Format: `view ct/TYPE i/INDEX`
 Examples:
 
 * `view ct/s i/1` : Displays all the information associated with the supplier at index 1 in the supplier list.
-* `view ct/w i/2`: Displays all the information associated with the warehouse at index 2 in the warehouse list.
+* `view ct/w i/2` : Displays all the information associated with the warehouse at index 2 in the warehouse list.
 
 ### Updating the quantity and or tags of a product for a supplier or warehouse: `update`
 
