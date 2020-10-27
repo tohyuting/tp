@@ -17,7 +17,7 @@ public class RemoveMacroCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the macro identified by the alias used in the macro list.\n"
-            + "Parameters: ALIAS (must exist in the macro list)\n"
+            + "Parameters: ALIAS (has to be an existing macro)\n"
             + "Example: " + COMMAND_WORD + " uw";
 
     public static final String MESSAGE_REMOVE_MACRO_SUCCESS = "Removed Macro: %1$s";

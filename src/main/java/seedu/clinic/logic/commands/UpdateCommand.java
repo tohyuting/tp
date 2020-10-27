@@ -37,7 +37,7 @@ public class UpdateCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the quantity/tags of a product in a "
             + "specific warehouse/supplier, or adds the product if it does not already exist for that "
-            + "warehouse/supplier. If the product already exists, at least one optional argument must be specified."
+            + "warehouse/supplier. If the product already exists, at least one optional argument must be specified.\n"
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
             + PREFIX_NAME + "ENTITY_NAME "
@@ -152,7 +152,7 @@ public class UpdateCommand extends Command {
         model.setSupplier(supplierToUpdate, updatedSupplier);
         model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toString(),
-                updatedSupplier));
+                updatedSupplier.getName().fullName));
     }
 
     /**
