@@ -102,7 +102,7 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
 
 Displays a list of available commands and their utility description.
 Narrows down to a specific command and its input format and sample commands if specified.
-The link to the user guide can also be accessed by pressing F1. Note that an active internet connection is needed to
+The link to the user guide can also be accessed by pressing F1. Note that an active Internet connection is needed to
 view the user guide.
 
 ![help message](images/helpMessage.png)
