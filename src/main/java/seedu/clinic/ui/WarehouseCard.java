@@ -17,7 +17,7 @@ import seedu.clinic.model.warehouse.Warehouse;
  */
 public class WarehouseCard extends UiPart<Region> {
 
-    private static final String FXML = "warehouseListCard.fxml";
+    private static final String FXML = "WarehouseListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
