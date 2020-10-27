@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
  */
 public class SavedCommandString {
 
-    public static final String MESSAGE_CONSTRAINTS = "SavedCommandStrings should be a pre-defined command word, "
+    public static final String MESSAGE_CONSTRAINTS = "Command strings should be a pre-defined command word, "
             + "optionally followed by arguments";
 
     public final String internalString;

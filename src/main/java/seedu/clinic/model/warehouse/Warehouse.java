@@ -157,7 +157,7 @@ public class Warehouse {
                 .append(" Remark: ")
                 .append(getRemark());
         builder.append(" Products: ");
-        getProducts().forEach(s -> builder.append(s.toString()));
+        getProducts().forEach(s -> builder.append(s.toString()).append(" "));
         return builder.toString();
     }
 }
