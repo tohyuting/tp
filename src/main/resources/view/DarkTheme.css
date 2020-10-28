@@ -151,6 +151,7 @@
 
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: #424d5f;
 }
 
 .pane-with-border {
@@ -335,6 +336,11 @@
     -fx-text-fill: white;
 }
 
+#products {
+    background-color: #424d5f;
+    -fx-background-color: #424d5f;
+}
+
 #filterField,
 #supplierListPanel,
 #supplierWebpage {
@@ -360,16 +366,13 @@
     -fx-font-size: 11;
 }
 
-#remark {
+.remark {
     -fx-hgap: 7;
     -fx-vgap: 3;
-}
-
-#remark .label {
-    -fx-text-fill: white;
     -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+    -fx-text-fill: white;
 }
