@@ -187,6 +187,8 @@ Examples:
 * `delete ct/s i/12` : Removes the supplier at index 12 of the list of suppliers.
 * `delete ct/w i/1` : Removes the warehouse at index 1 of the list of warehouses.
 
+![delete](images/deleteWarehouse.png)
+
 ### Deleting a product in a supplier or warehouse : `delete`
 
 Deletes a product entry no longer sold by a specific supplier or stored by a specific warehouse.
@@ -203,6 +205,8 @@ Examples:
 
 * `delete ct/pw i/1 pd/Panadol` : Removes the `Panadol` product from the warehouse at index 1 of the list of warehouses.
 * `delete ct/ps i/12 pd/Aspirin` : Removes the `Aspirin` product from the supplier at index 12 of the list of suppliers.
+
+![delete product](images/deleteWarehouseProduct.png)
 
 <div markdown="span" class="alert alert-info">
 **:information_source: Note:** The prefix `pd/` will be ignored when `ct/` given is `s` or `w`.
@@ -258,6 +262,8 @@ Examples:
 * `find ct/s pd/masks` : Displays all the suppliers that sell `masks`.
 * `find ct/w pd/panadol r/biggest` : Displays the warehouse(s) that stores products with names matching
   `panadol` or with remark matching `biggest`.
+  
+![find](images/findWarehouse.png)
 
 ### Listing all suppliers and warehouses entries : `list`
 
@@ -279,12 +285,14 @@ Example:
 
 * `removemacro uwm` : Removes the macro with the alias `uwm`.
 
+![remove macro](images/removeMacro.png)
+
 ### Saving the data
 
 CLI-nic data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
-### Updating the quantity and or tags of a product for a supplier or warehouse: `update`
+### Updating the quantity and/or tags of a product for a supplier or warehouse: `update`
 
 Updates the quantity and/or tags of the product with the specified name in the specified supplier or warehouse.
 If the product does not exist for that supplier or warehouse, a new product will be created for that supplier
@@ -303,6 +311,8 @@ Example:
 
 * `update ct/w n/WarehouseA pd/Panadol q/10 t/fever` : Updates the quantity of `Panadol` in `WarehouseA` to `10`
   and gives `Panadol` a tag of `fever`.
+  
+![update warehouse product](images/updateWarehouseProduct.png)
   
 ### Viewing a specific supplier or warehouse: `view`
 
