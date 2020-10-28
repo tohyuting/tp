@@ -144,6 +144,9 @@ Examples:
   named `WarehouseA` located at `John street, block 123, #01-01` with the phone number `00000000`. This warehouse is
   the `First warehouse`.
   
+![add](images/addSupplier.png)
+![add](images/addWarehouse.png)
+  
 ### Assigning macro to selected command string: `assignmacro`
 
 Assigns a macro that pairs the specified alias to the specified command string.
