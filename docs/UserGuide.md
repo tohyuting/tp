@@ -314,6 +314,10 @@ Examples:
 * `view ct/s i/1` : Displays all the information associated with the supplier at index 1 in the supplier list.
 * `view ct/w i/2` : Displays all the information associated with the warehouse at index 2 in the warehouse list.
 
+![view](images/viewSupplier.png)
+
+![view](images/viewWarehouse.png)
+
 <br />
 
 --------------------------------------------------------------------------------------------------------------------
