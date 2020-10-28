@@ -256,6 +256,8 @@ Lists all suppliers and warehouses' entries in CLI-nic.
 
 Format: `list`
 
+![list](images/listCommand.png)
+
 ### Removing macro: `removemacro`
 
 Removes the macro with the specified alias.
