@@ -166,6 +166,8 @@ Deletes all suppliers and warehouses entries in CLI-nic.
 
 Format: `clear`
 
+![clear](images/clearCommand.png)
+
 ### Deleting a particular supplier or warehouse : `delete`
 
 Deletes a particular supplier or warehouse entry that is not needed anymore.
