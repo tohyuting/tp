@@ -64,11 +64,6 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
 
-        if (!type.equals(SUPPLIER) && !type.equals(WAREHOUSE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_TYPE,
-                    AddCommand.MESSAGE_USAGE));
-        }
-
         if (type.equals(SUPPLIER)) {
             logger.log(Level.INFO, "User input contains type prefix for supplier.");
 

@@ -1,5 +1,6 @@
 package seedu.clinic.logic.parser;
 
+import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.logic.commands.CommandTestUtil.ADDRESS_DESC_WAREHOUSE_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.ADDRESS_DESC_WAREHOUSE_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -10,6 +11,7 @@ import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_NAME_DESC2;
 import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_NAME_DESC_WAREHOUSE2;
 import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_REMARK_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.INVALID_TYPE_DESC;
 import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_AMY2;
 import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_BOB2;
 import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_WAREHOUSE_A2;
@@ -37,8 +39,10 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_ADDRES
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PHONE_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_A;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
 import static seedu.clinic.testutil.TypicalSupplier.BOB;
 import static seedu.clinic.testutil.TypicalWarehouse.B;
 
@@ -64,37 +68,53 @@ public class AddCommandParserTest {
         Warehouse expectedWarehouse = new WarehouseBuilder(B).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB2 + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_WAREHOUSE_B2 + PHONE_DESC_WAREHOUSE_B
-                + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_BOB, new AddCommand(expectedWarehouse));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_TYPE_SUPPLIER + NAME_DESC_BOB2
+                + PHONE_DESC_BOB + EMAIL_DESC_BOB + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_TYPE_WAREHOUSE + NAME_DESC_WAREHOUSE_B2
+                + PHONE_DESC_WAREHOUSE_B + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B,
+                new AddCommand(expectedWarehouse));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY2 + NAME_DESC_BOB2 + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + EMAIL_DESC_BOB, new AddCommand(expectedSupplier));
-        assertParseSuccess(parser, NAME_DESC_WAREHOUSE_A2 + NAME_DESC_WAREHOUSE_B2 + PHONE_DESC_WAREHOUSE_B
-                + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B, new AddCommand(expectedWarehouse));
+        assertParseSuccess(parser, VALID_TYPE_SUPPLIER + NAME_DESC_AMY2 + NAME_DESC_BOB2 + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + EMAIL_DESC_BOB + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
+        assertParseSuccess(parser, VALID_TYPE_WAREHOUSE + NAME_DESC_WAREHOUSE_A2 + NAME_DESC_WAREHOUSE_B2
+                + PHONE_DESC_WAREHOUSE_B + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B,
+                new AddCommand(expectedWarehouse));
 
         // multiple phones - last phone accepted
-        assertParseSuccess(parser, NAME_DESC_BOB2 + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
-        assertParseSuccess(parser, NAME_DESC_WAREHOUSE_B2 + PHONE_DESC_WAREHOUSE_A + PHONE_DESC_WAREHOUSE_B
-                + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B, new AddCommand(expectedWarehouse));
+        assertParseSuccess(parser, VALID_TYPE_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_AMY + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
+        assertParseSuccess(parser, VALID_TYPE_WAREHOUSE + NAME_DESC_WAREHOUSE_B2 + PHONE_DESC_WAREHOUSE_A
+                + PHONE_DESC_WAREHOUSE_B + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B,
+                new AddCommand(expectedWarehouse));
 
         // multiple emails - last email accepted
-        assertParseSuccess(parser, NAME_DESC_BOB2 + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
+        assertParseSuccess(parser, VALID_TYPE_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB + EMAIL_DESC_AMY
+                + EMAIL_DESC_BOB + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
 
         // multiple addresses - last email accepted
-        assertParseSuccess(parser, NAME_DESC_WAREHOUSE_B2 + PHONE_DESC_WAREHOUSE_B + ADDRESS_DESC_WAREHOUSE_A
-                + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B, new AddCommand(expectedWarehouse));
+        assertParseSuccess(parser, VALID_TYPE_WAREHOUSE + NAME_DESC_WAREHOUSE_B2 + PHONE_DESC_WAREHOUSE_B
+                + ADDRESS_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B,
+                new AddCommand(expectedWarehouse));
 
         // multiple remarks - last remark accepted
-        assertParseSuccess(parser, NAME_DESC_BOB2 + PHONE_DESC_BOB + EMAIL_DESC_BOB + REMARK_DESC_AMY
-                + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
-        assertParseSuccess(parser, NAME_DESC_WAREHOUSE_B + PHONE_DESC_WAREHOUSE_B
+        assertParseSuccess(parser, VALID_TYPE_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + REMARK_DESC_AMY + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
+        assertParseSuccess(parser, VALID_TYPE_WAREHOUSE + NAME_DESC_WAREHOUSE_B + PHONE_DESC_WAREHOUSE_B
                 + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_B,
                 new AddCommand(expectedWarehouse));
+
+        //all fields for suppliers
+        String userInputSupplier = " " + PREFIX_TYPE + "s " + NAME_DESC_BOB2 + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + REMARK_DESC_BOB;
+        AddCommand expectedCommandSupplier = new AddCommand(expectedSupplier);
+        assertParseSuccess(parser, userInputSupplier, expectedCommandSupplier);
+
+        //all fields for warehouses
+        String userInputWarehouse = " " + PREFIX_TYPE + "w " + NAME_DESC_WAREHOUSE_B2 + PHONE_DESC_WAREHOUSE_B
+                + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B;
+        AddCommand expectedCommandWarehouse = new AddCommand(expectedWarehouse);
+        assertParseSuccess(parser, userInputWarehouse, expectedCommandWarehouse);
     }
 
     @Test
@@ -144,6 +164,14 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
+        // invalid type
+        assertParseFailure(parser, INVALID_TYPE_DESC + NAME_DESC_BOB2 + PHONE_DESC_BOB
+                        + EMAIL_DESC_BOB + REMARK_DESC_BOB,
+                String.format(MESSAGE_INVALID_TYPE, AddCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, INVALID_TYPE_DESC + NAME_DESC_WAREHOUSE_A2
+                        + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
+                String.format(MESSAGE_INVALID_TYPE, AddCommand.MESSAGE_USAGE));
+
         // invalid name
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_NAME_DESC2 + PHONE_DESC_BOB
                         + EMAIL_DESC_BOB + REMARK_DESC_BOB,
@@ -193,5 +221,9 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TYPE_DESC_WAREHOUSE + NAME_DESC_WAREHOUSE_A2
                         + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
                 String.format(AddCommand.MESSAGE_WAREHOUSE_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
+
+        // empty input
+        assertParseFailure(parser, "",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }
