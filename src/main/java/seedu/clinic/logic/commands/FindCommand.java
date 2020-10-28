@@ -26,22 +26,22 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all suppliers/warehouses whose name, remark"
-            + " and/or products matches any of the specified keywords (case-insensitive) and displays them as a list"
-            + " with index numbers. Prefixes provided can be in any order. At least one of the name, remark or product"
-            + " prefixes must be provided.\n\n"
+    public static final String MESSAGE_USAGE = "Finds all supplier(s) or warehouse(s) whose name,"
+            + " remark and/or name of products matches any of the specified keywords (case-insensitive) and displays"
+            + " them as a list with index numbers. Prefixes provided can be in any order. At least one of the name,"
+            + "  remark or product prefixes along with its parameters must be provided.\n\n"
             + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "
             + "[" + PREFIX_NAME + "NAME...] "
             + "[" + PREFIX_PRODUCT_NAME + "PRODUCT_NAME...] "
             + "[" + PREFIX_REMARK + "REMARK...]\n\n"
-            + "Example:\n"
+            + "Examples:\n"
             + "1) " + COMMAND_WORD + " ct/s pd/panadol\n"
             + "2) " + COMMAND_WORD + " ct/s pd/panadol face mask n/alex\n"
             + "3) " + COMMAND_WORD + " ct/w pd/panadol n/bernice r/biggest";
 
     public static final String MESSAGE_INVALID_TYPE = "Type must be either 's' or 'w'.\n\n"
-            + "Example:\n"
+            + "Examples:\n"
             + "1) ct/s\n"
             + "2) ct/w";
 

@@ -20,17 +20,20 @@ import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 
 /**
- * Display specific supplier(s) or warehouse(s) with name that matches any of keywords input by user.
+ * Displays specific supplier(s) or warehouse(s) with name that matches any of keywords input by user.
  * Keyword matching is case insensitive.
  * Keyword only matches whole word e.g. bernice will match "bernice yeoh" but not "berniceyeoh".
- * Keyword specified by user
  */
 public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":View information related to a"
-            + " particular supplier or warehouse.\n"
-            + "Parameters:\nview " + PREFIX_TYPE + "TYPE " + PREFIX_INDEX + "INDEX\n"
-            + "Example:\nview " + PREFIX_TYPE + "s " + PREFIX_INDEX + "2\n";
+    public static final String MESSAGE_USAGE = "Views information related to a particular supplier or warehouse."
+            + "TYPE specified should be either s for supplier or w for warehouse."
+            + "INDEX must be a positive integer, not exceeding the total length of the supplier/warehouse list.\n\n"
+            + "Parameters:\n"
+            + "view " + PREFIX_TYPE + "TYPE " + PREFIX_INDEX + "INDEX\n\n"
+            + "Example:\n"
+            + "1) " + COMMAND_WORD + " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "2\n"
+            + "2) " + COMMAND_WORD + " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "5";
     public static final String MESSAGE_MISSING_INDEX = "Index has to be present!\n%1$s";
     public static final String MESSAGE_MISSING_TYPE = "A type, supplier (ct/s) or warehouse (ct/s)"
             + " has to be present!\n%1$s";
