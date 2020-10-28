@@ -38,7 +38,7 @@ public class SupplierCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private FlowPane remark;
+    private Label remark;
     @FXML
     private Label email;
     @FXML
@@ -56,9 +56,13 @@ public class SupplierCard extends UiPart<Region> {
         this.supplier = supplier;
         id.setText(displayedIndex + ". ");
         name.setText(supplier.getName().fullName);
+        name.setWrapText(true);
         phone.setText(supplier.getPhone().value);
-        remark.getChildren().add(new Label(supplier.getRemark().value));
+        //remark.getChildren().add(new Label(supplier.getRemark().value));
+        remark.setText(supplier.getRemark().value);
+        remark.setWrapText(true);
         email.setText(supplier.getEmail().value);
+
         /*
         supplier.getProducts().stream()
                 .sorted(Comparator.comparing(product -> product.getProductName().fullName))

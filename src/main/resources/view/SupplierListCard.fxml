@@ -30,10 +30,10 @@
       </HBox>
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-      <FlowPane fx:id="remark" />
+      <Label fx:id="remark" styleClass="remark" />
       <TitledPane fx:id="productsTitledPane" text="Products">
         <VBox>
-          <VBox fx:id="products" minWidth="10" prefWidth="450" />
+          <VBox fx:id="products" styleClass="products" minWidth="10" prefWidth="450" />
           <Label fx:id="noProductsLabel" styleClass="cell_small_label"
                  text="This supplier has no products." />
         </VBox>
