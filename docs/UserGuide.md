@@ -107,7 +107,8 @@ Narrows down to a specific command and its input format and sample commands if s
 The link to the user guide can also be accessed by pressing F1. Note that an active Internet connection is needed to
 view the user guide.
 
-![help message](images/helpMessage.png)
+![help message](images/helpCommandGenericMessage.png)
+![help message](images/helpCommandLinkToUG.png)
 
 Format: `help [COMMAND]`
 
