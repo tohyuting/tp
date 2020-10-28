@@ -145,6 +145,7 @@ Examples:
   the `First warehouse`.
   
 ![add](images/addSupplier.png)
+
 ![add](images/addWarehouse.png)
   
 ### Assigning macro to selected command string: `assignmacro`
