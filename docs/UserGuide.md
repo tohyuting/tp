@@ -107,7 +107,6 @@ Narrows down to a specific command and its input format and sample commands if s
 The link to the user guide can also be accessed by pressing F1. Note that an active Internet connection is needed to
 view the user guide.
 
-![help message](images/helpCommandGenericMessage.png)
 ![help message](images/helpCommandLinkToUG.png)
 
 Format: `help [COMMAND]`
@@ -116,6 +115,8 @@ Examples:
 
 * `help` : Displays a list of available commands and their description.
 * `help add` : Displays the detailed description, input format and sample commands for the `add` command.
+
+![help message](images/helpCommandGenericMessage.png)
 
 ### Adding a supplier/warehouse : `add`
 
