@@ -226,6 +226,10 @@ Examples:
   address of the second warehouse in the list of warehouses to be `Bob`, `67851234`, `Largest warehouse`
   and `Jurong Street 11`.
   
+![edit](images/editCommandEditSupplier.png)
+
+![edit](images/editCommandEditWarehouse.png)
+  
 ### Exiting the program : `exit`
 
 Exits the program.
