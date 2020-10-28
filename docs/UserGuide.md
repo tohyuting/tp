@@ -107,7 +107,7 @@ Narrows down to a specific command and its input format and sample commands if s
 The link to the user guide can also be accessed by pressing F1. Note that an active Internet connection is needed to
 view the user guide.
 
-![help message](images/helpCommandLinkToUG.png)
+![help](images/helpLinkToUG.png)
 
 Format: `help [COMMAND]`
 
@@ -116,7 +116,7 @@ Examples:
 * `help` : Displays a list of available commands and their description.
 * `help add` : Displays the detailed description, input format and sample commands for the `add` command.
 
-![help message](images/helpCommandGenericMessage.png)
+![help](images/helpGenericMessage.png)
 
 ### Adding a supplier/warehouse : `add`
 
@@ -226,9 +226,9 @@ Examples:
   address of the second warehouse in the list of warehouses to be `Bob`, `67851234`, `Largest warehouse`
   and `Jurong Street 11`.
   
-![edit](images/editCommandEditSupplier.png)
+![edit](images/editSupplier.png)
 
-![edit](images/editCommandEditWarehouse.png)
+![edit](images/editWarehouse.png)
   
 ### Exiting the program : `exit`
 
