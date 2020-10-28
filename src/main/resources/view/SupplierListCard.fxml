@@ -33,7 +33,7 @@
       <Label fx:id="remark" styleClass="remark" />
       <TitledPane fx:id="productsTitledPane" text="Products">
         <VBox>
-          <VBox fx:id="products" minWidth="10" prefWidth="450" />
+          <VBox fx:id="products" styleClass="products" minWidth="10" prefWidth="450" />
           <Label fx:id="noProductsLabel" styleClass="cell_small_label"
                  text="This supplier has no products." />
         </VBox>
