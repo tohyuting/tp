@@ -163,6 +163,8 @@ Example:
 * `assignmacro a/uwm cs/update ct/w n/main warehouse` : Assigns a macro that pairs the alias `uwm` to the command string
   `update ct/w n/main warehouse`.
 
+![assign macro](images/assignMacro.png)
+
 ### Clearing all entries : `clear`
 
 Deletes all suppliers and warehouses entries in CLI-nic.
