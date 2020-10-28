@@ -25,7 +25,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = "Adds a supplier or warehouse to CLI-nic.\n\n"
-            + "Supplier Parameters:\n"
+            + "Usage 1 - Adds a supplier into CLI-nic.\n\n"
+            + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -38,7 +39,8 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_REMARK + "Largest contractor \n\n"
-            + "Warehouse Parameters:\n"
+            + "Usage 2 - Adds a warehouse into CLI-nic\n\n"
+            + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
