@@ -141,6 +141,22 @@ Examples:
 * `add ct/w n/WarehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` : Adds a warehouse
   named `WarehouseA` located at `John street, block 123, #01-01` with the phone number `00000000`. This warehouse is
   the `First warehouse`.
+  
+### Assigning macro to selected command string: `assignmacro`
+
+Assigns a macro that pairs the specified alias to the specified command string.
+
+Format:	`assignmacro a/ALIAS cs/COMMAND_STRING`
+
+* `alias` cannot be an existing command word such as `add`, `delete` etc.
+* `alias` cannot be already used in an existing macro.
+* `alias` should only consist of alphanumeric characters and/or underscores. 
+* `COMMAND_STRING` can consist of any number of prefixes, but the first word has to be a pre-defined command word.  
+
+Example:
+
+* `assignmacro a/uwm cs/update ct/w n/main warehouse` : Assigns a macro that pairs the alias `uwm` to the command string
+  `update ct/w n/main warehouse`.
 
 ### Clearing all entries : `clear`
 
@@ -205,6 +221,12 @@ Examples:
 * `edit ct/w i/2 n/Bob p/67851234 r/Largest warehouse addr/Jurong Street 11` : Edits the name, phone, remark and
   address of the second warehouse in the list of warehouses to be `Bob`, `67851234`, `Largest warehouse`
   and `Jurong Street 11`.
+  
+### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
 
 ### Finding relevant supplier(s) or warehouse(s): `find`
 
@@ -226,24 +248,26 @@ Examples:
 
 ### Listing all suppliers and warehouses entries : `list`
 
-List all suppliers and warehouses entries in CLI-nic.
+Lists all suppliers and warehouses' entries in CLI-nic.
 
 Format: `list`
 
-### Viewing a specific supplier or warehouse: `view`
+### Removing macro: `removemacro`
 
-Shows a specific supplier or warehouse at the specified index with their relevant information e.g. products sold/stored,
-phone, remark etc.
+Removes the macro with the specified alias.
 
-Format: `view ct/TYPE i/INDEX`
+Format:	`removemacro ALIAS`
 
-* `TYPE` specified should be either `s` for supplier or `w` for warehouse.
-* `INDEX` must be a positive integer, not exceeding the total length of the supplier/warehouse list.
+* `ALIAS` specified must exist to be deleted.
 
-Examples:
+Example:
 
-* `view ct/s i/1` : Displays all the information associated with the supplier at index 1 in the supplier list.
-* `view ct/w i/2` : Displays all the information associated with the warehouse at index 2 in the warehouse list.
+* `removemacro uwm` : Removes the macro with the alias `uwm`.
+
+### Saving the data
+
+CLI-nic data are saved in the hard disk automatically after any command that changes the data.
+There is no need to save manually.
 
 ### Updating the quantity and or tags of a product for a supplier or warehouse: `update`
 
@@ -264,45 +288,21 @@ Example:
 
 * `update ct/w n/WarehouseA pd/Panadol q/10 t/fever` : Updates the quantity of `Panadol` in `WarehouseA` to `10`
   and gives `Panadol` a tag of `fever`.
+  
+### Viewing a specific supplier or warehouse: `view`
 
-### Assigning macro to selected command string: `assignmacro`
+Shows a specific supplier or warehouse at the specified index with their relevant information e.g. products sold/stored,
+phone, remark etc.
 
-Assigns a macro that pairs the specified alias to the specified command string.
+Format: `view ct/TYPE i/INDEX`
 
-Format:	`assignmacro a/ALIAS cs/COMMAND_STRING`
+* `TYPE` specified should be either `s` for supplier or `w` for warehouse.
+* `INDEX` must be a positive integer, not exceeding the total length of the supplier/warehouse list.
 
-* `alias` cannot be an existing command word such as `add`, `delete` etc.
-* `alias` cannot be already used in an existing macro.
-* `alias` should only consist of alphanumeric characters and/or underscores. 
-* `COMMAND_STRING` can consist of any number of prefixes, but the first word has to be a pre-defined command word.  
+Examples:
 
-Example:
-
-* `assignmacro a/uwm cs/update ct/w n/main warehouse` : Assigns a macro that pairs the alias `uwm` to the command string
-  `update ct/w n/main warehouse`.
-
-### Removing macro: `removemacro`
-
-Removes the macro with the specified alias.
-
-Format:	`removemacro ALIAS`
-
-* `ALIAS` specified must exist to be deleted.
-
-Example:
-
-* `removemacro uwm` : Removes the macro with the alias `uwm`.
-
-### Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
-
-### Saving the data
-
-CLI-nic data are saved in the hard disk automatically after any command that changes the data.
-There is no need to save manually.
+* `view ct/s i/1` : Displays all the information associated with the supplier at index 1 in the supplier list.
+* `view ct/w i/2` : Displays all the information associated with the warehouse at index 2 in the warehouse list.
 
 <br />
 
@@ -346,6 +346,7 @@ Action | Format | Example
 **Delete** | `delete ct/TYPE i/INDEX` | `delete ct/w i/1`
 **Delete** Product| `delete ct/TYPE i/INDEX pd/PRODUCT_NAME` | `delete ct/pw i/1 pd/Panadol`
 **Edit** | `edit ct/TYPE i/INDEX [n/NAME] [p/PHONE] [r/REMARK] [addr/ADDRESS] [e/EMAIL]` | `edit ct/w i/1 n/Alice Warehouse p/98765432 r/Second largest warehouse addr/21 Lower Kent Ridge Rd`
+**Exit** | `exit`
 **Find** | `find ct/TYPE [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]` | `find ct/w pd/panadol face mask needle`
 **Help** | `help [COMMAND]` | `help add`
 **List** | `list`
