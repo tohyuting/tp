@@ -53,6 +53,7 @@ public class CommandTestUtil {
     public static final String VALID_WAREHOUSE_PRODUCT_NAME_B = "Aspirin";
     public static final int VALID_WAREHOUSE_PRODUCT_QUANTITY_A = 10;
     public static final int VALID_WAREHOUSE_PRODUCT_QUANTITY_B = 20;
+    public static final int VALID_WAREHOUSE_PRODUCT_QUANTITY_50 = 50;
     public static final String VALID_WAREHOUSE_PRODUCT_TAG_FEVER = "fever";
     public static final String VALID_WAREHOUSE_PRODUCT_TAG_HEADACHE = "headache";
 

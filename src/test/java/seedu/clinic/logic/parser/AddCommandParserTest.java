@@ -39,7 +39,6 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_ADDRES
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PHONE_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_A;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
@@ -104,15 +103,15 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_B,
                 new AddCommand(expectedWarehouse));
 
-        //all fields for suppliers
-        String userInputSupplier = " " + PREFIX_TYPE + "s " + NAME_DESC_BOB2 + PHONE_DESC_BOB
+        // all fields for suppliers
+        String userInputSupplier = " " + TYPE_DESC_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + REMARK_DESC_BOB;
         AddCommand expectedCommandSupplier = new AddCommand(expectedSupplier);
         assertParseSuccess(parser, userInputSupplier, expectedCommandSupplier);
 
-        //all fields for warehouses
-        String userInputWarehouse = " " + PREFIX_TYPE + "w " + NAME_DESC_WAREHOUSE_B2 + PHONE_DESC_WAREHOUSE_B
-                + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B;
+        // all fields for warehouses
+        String userInputWarehouse = " " + TYPE_DESC_WAREHOUSE + NAME_DESC_WAREHOUSE_B2
+                + PHONE_DESC_WAREHOUSE_B + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B;
         AddCommand expectedCommandWarehouse = new AddCommand(expectedWarehouse);
         assertParseSuccess(parser, userInputWarehouse, expectedCommandWarehouse);
     }
