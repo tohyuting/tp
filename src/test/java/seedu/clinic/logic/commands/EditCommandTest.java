@@ -9,6 +9,8 @@ import static seedu.clinic.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_50;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.logic.commands.CommandTestUtil.showSupplierAtIndex;
@@ -119,10 +121,12 @@ public class EditCommandTest {
 
         WarehouseBuilder warehouseInList = new WarehouseBuilder(lastWarehouse);
         Warehouse editedWarehouse = warehouseInList.withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).build();
+                .withPhone(VALID_PHONE_BOB)
+                .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_50)).build();
 
         EditWarehouseDescriptor descriptorWarehouse = new EditWarehouseDescriptorBuilder()
-                .withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
+                .withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_50)).build();
         EditCommand editCommandWarehouse = new EditCommand(indexLastWarehouse, descriptorWarehouse);
 
         String expectedMessageWarehouse = String.format(EditCommand.MESSAGE_EDIT_WAREHOUSE_SUCCESS,
