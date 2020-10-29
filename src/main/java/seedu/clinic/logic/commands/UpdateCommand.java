@@ -50,7 +50,7 @@ public class UpdateCommand extends Command {
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_TYPE + "w "
-            + PREFIX_NAME + "Jurong Warehouse "
+            + PREFIX_NAME + "Alex Yeoh warehouse "
             + PREFIX_PRODUCT_NAME + "Panadol "
             + PREFIX_PRODUCT_QUANTITY + "350 "
             + PREFIX_TAG + "Fever";

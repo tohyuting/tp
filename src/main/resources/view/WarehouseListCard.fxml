@@ -51,7 +51,7 @@
             </HBox>
             <HBox spacing="5">
                 <children>
-                    <Button id="remark-icon" styleClass="icon-button-2" text="Button">
+                    <Button id="remark-icon" styleClass="icon-button" text="Button">
                         <HBox.margin>
                             <Insets left="15" right="3.0" top="5"/>
                         </HBox.margin>
@@ -59,7 +59,7 @@
                     <Label fx:id="remark" styleClass="cell_small_label" text="\$remark"/>
                 </children>
             </HBox>
-            <TitledPane fx:id="productsTitledPane" text="Products">
+            <TitledPane fx:id="productsTitledPane" styleClass="productsTitledPane" text="Products">
                 <VBox>
                     <VBox fx:id="products" minWidth="10" prefWidth="450" />
                     <Label fx:id="noProductsLabel" styleClass="cell_small_label"

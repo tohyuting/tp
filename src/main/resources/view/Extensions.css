@@ -22,7 +22,7 @@
 
 .title-pane {
     -fx-background-color: white;
-    -fx-background-radius: 3;
+    -fx-background-radius: 10;
 }
 
 .list-title {
