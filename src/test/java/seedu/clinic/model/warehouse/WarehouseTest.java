@@ -6,7 +6,9 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_ADDRESS_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PHONE_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_B;
+import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_QUANTITY_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_B;
 import static seedu.clinic.testutil.Assert.assertThrows;
@@ -63,7 +65,8 @@ class WarehouseTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Warehouse aCopy = new WarehouseBuilder(A).build();
+        Warehouse aCopy = new WarehouseBuilder(A)
+                .withProducts(Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_WAREHOUSE_PRODUCT_QUANTITY_A)).build();
         assertTrue(A.equals(aCopy));
 
         // same object -> returns true

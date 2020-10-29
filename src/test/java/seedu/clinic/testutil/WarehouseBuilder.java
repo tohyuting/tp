@@ -46,7 +46,7 @@ public class WarehouseBuilder {
         phone = warehouseToCopy.getPhone();
         address = warehouseToCopy.getAddress();
         remark = warehouseToCopy.getRemark();
-        products = new HashSet<>(warehouseToCopy.getProducts());
+        products = new HashSet<>();
     }
 
     /**

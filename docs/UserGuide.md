@@ -107,7 +107,7 @@ Narrows down to a specific command and its input format and sample commands if s
 The link to the user guide can also be accessed by pressing F1. Note that an active Internet connection is needed to
 view the user guide.
 
-![help message](images/helpMessage.png)
+![help](images/helpLinkToUG.png)
 
 Format: `help [COMMAND]`
 
@@ -115,6 +115,8 @@ Examples:
 
 * `help` : Displays a list of available commands and their description.
 * `help add` : Displays the detailed description, input format and sample commands for the `add` command.
+
+![help](images/helpGenericMessage.png)
 
 ### Adding a supplier/warehouse : `add`
 
@@ -142,6 +144,10 @@ Examples:
   named `WarehouseA` located at `John street, block 123, #01-01` with the phone number `00000000`. This warehouse is
   the `First warehouse`.
   
+![add](images/addSupplier.png)
+
+![add](images/addWarehouse.png)
+  
 ### Assigning macro to selected command string: `assignmacro`
 
 Assigns a macro that pairs the specified alias to the specified command string.
@@ -158,11 +164,15 @@ Example:
 * `assignmacro a/uwm cs/update ct/w n/main warehouse` : Assigns a macro that pairs the alias `uwm` to the command string
   `update ct/w n/main warehouse`.
 
+![assign macro](images/assignMacro.png)
+
 ### Clearing all entries : `clear`
 
 Deletes all suppliers and warehouses entries in CLI-nic.
 
 Format: `clear`
+
+![clear](images/clearCommand.png)
 
 ### Deleting a particular supplier or warehouse : `delete`
 
@@ -177,6 +187,8 @@ Examples:
 
 * `delete ct/s i/12` : Removes the supplier at index 12 of the list of suppliers.
 * `delete ct/w i/1` : Removes the warehouse at index 1 of the list of warehouses.
+
+![delete](images/deleteWarehouse.png)
 
 ### Deleting a product in a supplier or warehouse : `delete`
 
@@ -194,6 +206,8 @@ Examples:
 
 * `delete ct/pw i/1 pd/Panadol` : Removes the `Panadol` product from the warehouse at index 1 of the list of warehouses.
 * `delete ct/ps i/12 pd/Aspirin` : Removes the `Aspirin` product from the supplier at index 12 of the list of suppliers.
+
+![delete product](images/deleteWarehouseProduct.png)
 
 <div markdown="span" class="alert alert-info">
 **:information_source: Note:** The prefix `pd/` will be ignored when `ct/` given is `s` or `w`.
@@ -222,6 +236,10 @@ Examples:
   address of the second warehouse in the list of warehouses to be `Bob`, `67851234`, `Largest warehouse`
   and `Jurong Street 11`.
   
+![edit](images/editSupplier.png)
+
+![edit](images/editWarehouse.png)
+  
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -245,12 +263,16 @@ Examples:
 * `find ct/s pd/masks` : Displays all the suppliers that sell `masks`.
 * `find ct/w pd/panadol r/biggest` : Displays the warehouse(s) that stores products with names matching
   `panadol` or with remark matching `biggest`.
+  
+![find](images/findWarehouse.png)
 
 ### Listing all suppliers and warehouses entries : `list`
 
 Lists all suppliers and warehouses' entries in CLI-nic.
 
 Format: `list`
+
+![list](images/listCommand.png)
 
 ### Removing macro: `removemacro`
 
@@ -264,12 +286,14 @@ Example:
 
 * `removemacro uwm` : Removes the macro with the alias `uwm`.
 
+![remove macro](images/removeMacro.png)
+
 ### Saving the data
 
 CLI-nic data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
-### Updating the quantity and or tags of a product for a supplier or warehouse: `update`
+### Updating the quantity and/or tags of a product for a supplier or warehouse: `update`
 
 Updates the quantity and/or tags of the product with the specified name in the specified supplier or warehouse.
 If the product does not exist for that supplier or warehouse, a new product will be created for that supplier
@@ -289,6 +313,8 @@ Example:
 * `update ct/w n/WarehouseA pd/Panadol q/10 t/fever` : Updates the quantity of `Panadol` in `WarehouseA` to `10`
   and gives `Panadol` a tag of `fever`.
   
+![update warehouse product](images/updateWarehouseProduct.png)
+  
 ### Viewing a specific supplier or warehouse: `view`
 
 Shows a specific supplier or warehouse at the specified index with their relevant information e.g. products sold/stored,
@@ -303,6 +329,10 @@ Examples:
 
 * `view ct/s i/1` : Displays all the information associated with the supplier at index 1 in the supplier list.
 * `view ct/w i/2` : Displays all the information associated with the warehouse at index 2 in the warehouse list.
+
+![view](images/viewSupplier.png)
+
+![view](images/viewWarehouse.png)
 
 <br />
 

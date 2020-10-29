@@ -31,24 +31,27 @@ public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + "\nUsage 1 - Deletes the supplier/warehouse identified by the index number used in the displayed lists."
-            + "\nParameters:"
+    public static final String MESSAGE_USAGE =
+            "Usage 1 - Deletes the supplier or warehouse identified by the index number used in the displayed lists."
+            + " INDEX must be a positive integer, not exceeding the total length of the displayed list.\n\n"
+            + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "
-            + PREFIX_INDEX + "INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_INDEX + "INDEX\n\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_TYPE + "s "
-            + PREFIX_INDEX + "1 \n"
-            + "\nUsage 2 - Deletes product the supplier/warehouse identified by the index number used "
-            + "in the displayed lists.\n"
-            + "Parameters: "
+            + PREFIX_INDEX + "1\n\n"
+            + "Usage 2 - Deletes a product associated with a specific supplier or warehouse identified by the index"
+            + " number used in the displayed lists.\n\n"
+            + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "
             + PREFIX_INDEX + "INDEX "
-            + PREFIX_PRODUCT_NAME + " PRODUCT_NAME \n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TYPE + "s "
+            + PREFIX_PRODUCT_NAME + " PRODUCT_NAME\n\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
+            + PREFIX_TYPE + "ps "
             + PREFIX_INDEX + "2 "
-            + PREFIX_PRODUCT_NAME + "new product \n";
+            + PREFIX_PRODUCT_NAME + "panadol";
 
     public static final String MESSAGE_DELETE_SUPPLIER_SUCCESS = "Deleted Supplier: %1$s";
     public static final String MESSAGE_DELETE_WAREHOUSE_SUCCESS = "Deleted Warehouse: %1$s";

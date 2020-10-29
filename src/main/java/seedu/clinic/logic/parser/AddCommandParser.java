@@ -10,7 +10,6 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
-import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
 import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 
@@ -63,11 +62,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-
-        if (!type.equals(SUPPLIER) && !type.equals(WAREHOUSE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_TYPE,
-                    AddCommand.MESSAGE_USAGE));
-        }
 
         if (type.equals(SUPPLIER)) {
             logger.log(Level.INFO, "User input contains type prefix for supplier.");
