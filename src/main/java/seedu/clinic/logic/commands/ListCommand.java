@@ -13,6 +13,10 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
+    public static final String MESSAGE_USAGE = "Lists all suppliers and warehouses in CLI-nic.\n\n"
+            + "Example:\n"
+            + COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Listed all suppliers and warehouses";
 
 

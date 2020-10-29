@@ -17,11 +17,12 @@ public class AssignMacroCommand extends Command {
 
     public static final String COMMAND_WORD = "assignmacro";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns a macro to a command string.\n"
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = "Assigns a macro to a command string.\n\n"
+            + "Parameters:\n"
             + PREFIX_ALIAS + "ALIAS "
-            + PREFIX_COMMAND_STRING + "COMMAND_STRING\n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_COMMAND_STRING + "COMMAND_STRING\n\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_ALIAS + "uwm "
             + PREFIX_COMMAND_STRING + "update ct/w n/MainWarehouse";
 

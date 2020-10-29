@@ -9,6 +9,10 @@ public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
 
+    public static final String MESSAGE_USAGE = "Exits the application.\n\n"
+        + "Example:\n"
+        + COMMAND_WORD;
+
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Clinic as requested ...";
 
     @Override

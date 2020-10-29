@@ -41,19 +41,22 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the supplier/warehouse"
-            + " identified by the index number used in the displayed supplier/warehouse list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: ct/TYPE i/INDEX "
+    public static final String MESSAGE_USAGE = "Edits a supplier or warehouse at the specified index."
+            + " For suppliers, only its name, phone, email and remarks can be edited."
+            + " For warehouses, only its name, phone, address and remark can be edited."
+            + "Note that EMAIL can only be used for suppliers while ADDRESS can only be used for warehouses."
+            + "TYPE specified should be either s for supplier or w for warehouse.\n\n"
+            + "Parameters:\n"
+            + "ct/TYPE i/INDEX "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_REMARK + "REMARK] \n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
-            + PREFIX_PHONE + "91234567 "
+            + "[" + PREFIX_REMARK + "REMARK]\n\n"
+            + "Examples:\n"
+            + "1) " + COMMAND_WORD + " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 " + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com\n"
-            + "A supplier should not have an address prefix entered "
-            + "while a warehouse should not have an email prefix entered. ";
+            + "2) " + COMMAND_WORD + " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "5 " + PREFIX_PHONE + "99876544 "
+            + PREFIX_ADDRESS + "21 Lower Kent Ridge Road";
 
     public static final String MESSAGE_NO_PREFIX_AND_INDEX = "Command type and index must be present!\n%1$s";
     public static final String MESSAGE_EDIT_SUPPLIER_SUCCESS = "Edited Supplier: %1$s";
