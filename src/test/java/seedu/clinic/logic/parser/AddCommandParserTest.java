@@ -75,7 +75,7 @@ public class AddCommandParserTest {
 
         // multiple names - last name accepted
         assertParseSuccess(parser, VALID_TYPE_SUPPLIER + NAME_DESC_AMY2 + NAME_DESC_BOB2 + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + EMAIL_DESC_BOB + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
+                + EMAIL_DESC_BOB + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
         assertParseSuccess(parser, VALID_TYPE_WAREHOUSE + NAME_DESC_WAREHOUSE_A2 + NAME_DESC_WAREHOUSE_B2
                 + PHONE_DESC_WAREHOUSE_B + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B,
                 new AddCommand(expectedWarehouse));
@@ -91,7 +91,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, VALID_TYPE_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + EMAIL_DESC_BOB + REMARK_DESC_BOB, new AddCommand(expectedSupplier));
 
-        // multiple addresses - last email accepted
+        // multiple addresses - last address accepted
         assertParseSuccess(parser, VALID_TYPE_WAREHOUSE + NAME_DESC_WAREHOUSE_B2 + PHONE_DESC_WAREHOUSE_B
                 + ADDRESS_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_B + REMARK_DESC_WAREHOUSE_B,
                 new AddCommand(expectedWarehouse));
