@@ -23,8 +23,8 @@ public class AssignMacroCommand extends Command {
             + PREFIX_COMMAND_STRING + "COMMAND_STRING\n\n"
             + "Example:\n"
             + COMMAND_WORD + " "
-            + PREFIX_ALIAS + "uwm "
-            + PREFIX_COMMAND_STRING + "update ct/w n/MainWarehouse";
+            + PREFIX_ALIAS + "uwa "
+            + PREFIX_COMMAND_STRING + "update ct/w n/Alex Yeoh warehouse";
 
     public static final String MESSAGE_SUCCESS = "Macro assigned: %1$s";
     public static final String MESSAGE_DUPLICATE_MACRO = "This macro already exists in the CLI-nic app.";
