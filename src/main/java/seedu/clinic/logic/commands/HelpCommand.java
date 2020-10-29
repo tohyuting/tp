@@ -22,19 +22,17 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_TOO_MANY_ARGUMENTS = "Only one command can be entered at any time\n\n"
             + MESSAGE_USAGE;
 
-    public static final String[] ALLOWED_ARGUMENTS = new String[]{
+    public static final String[] ALLOWED_ARGUMENTS = new String[] {
         AddCommand.COMMAND_WORD, AssignMacroCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
         EditCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD, FindCommand.COMMAND_WORD, ListCommand.COMMAND_WORD,
         RemoveMacroCommand.COMMAND_WORD, UpdateCommand.COMMAND_WORD, ViewCommand.COMMAND_WORD};
 
+    public static final String ALLOWED_KEYWORDS = Arrays.stream(ALLOWED_ARGUMENTS)
+            .reduce("", (x, y) -> x.equals("") ? y : x + ", " + y);
+
     public static final String MESSAGE_WRONG_ARGUMENT = "You can only enter command from one of the "
             + "following keywords:\n"
-            + Arrays.stream(ALLOWED_ARGUMENTS).reduce("", (x, y) -> {
-                if (x.equals("")) {
-                    return y;
-                }
-                return x + ", " + y;
-            });
+            + ALLOWED_KEYWORDS;
 
     public static final String MESSAGE_FOR_COMMAND_FORMAT = "How to interpret command format?\n"
             + "1) Words in UPPER_CASE are parameters to be supplied by the user.\n"
@@ -122,10 +120,18 @@ public class HelpCommand extends Command {
         String aboutViewCommand = ViewCommand.COMMAND_WORD + "\nViews the in-depth information associated with a"
                 + "specific supplier or warehouse";
 
-        String genericHelpMessage = aboutHelpCommand + "\n\n" + aboutAddCommand + "\n\n"
-                + aboutAssignMacroCommand + "\n\n" + aboutClearCommand + "\n\n" + aboutDeleteCommand + "\n\n"
-                + aboutEditCommand + "\n\n" + aboutExitCommand + "\n\n" + aboutFindCommand + "\n\n" + aboutListCommand
-                + "\n\n" + aboutRemoveMacroCommand + "\n\n" + aboutUpdateCommand + "\n\n" + aboutViewCommand;
+        String genericHelpMessage = aboutHelpCommand + "\n\n"
+                + aboutAddCommand + "\n\n"
+                + aboutAssignMacroCommand + "\n\n"
+                + aboutClearCommand + "\n\n"
+                + aboutDeleteCommand + "\n\n"
+                + aboutEditCommand + "\n\n"
+                + aboutExitCommand + "\n\n"
+                + aboutFindCommand + "\n\n"
+                + aboutListCommand + "\n\n"
+                + aboutRemoveMacroCommand + "\n\n"
+                + aboutUpdateCommand + "\n\n"
+                + aboutViewCommand;
         return genericHelpMessage;
     }
 

@@ -53,14 +53,6 @@ public class ClinicParserTest {
      */
 
     @Test
-    public void parserCommand_addProduct() throws Exception {
-        Supplier supplier = new SupplierBuilder().build();
-        Product product = new Product(VALID_NAME_DESC, getTagSet(VALID_TAG_FEVER));
-        AddProductCommand command = (AddProductCommand) parser.parseCommand(getAddProductCommand(supplier, product));
-        assertEquals(new AddProductCommand(supplier.getName(), product), command);
-    }
-
-    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);

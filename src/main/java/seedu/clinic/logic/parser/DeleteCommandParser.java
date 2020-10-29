@@ -7,8 +7,6 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 
-import java.util.stream.Stream;
-
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.DeleteCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
@@ -19,6 +17,8 @@ import seedu.clinic.model.attribute.Name;
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
 
+    private static final String INVALID_INDEX_ASSERTION = "The index is less than 1!";
+
     /**
      * Parses the given {@code String} of arguments, identifies the correct type of DeleteCommand via argument length
      * and returns the DeleteCommand object for execution.
@@ -26,24 +26,25 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         try {
-            ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_INDEX, PREFIX_PRODUCT_NAME);
+            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
+                    args, PREFIX_TYPE, PREFIX_INDEX, PREFIX_PRODUCT_NAME);
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_INDEX) || !argMultimap.getPreamble().isEmpty()) {
+            if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_INDEX)
+                    || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
 
             Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
             Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
 
-            assert index.getOneBased() >= 1 : "The index is less than 1!";
+            assert index.getOneBased() >= 1 : INVALID_INDEX_ASSERTION;
 
             if (type.equals(SUPPLIER) || type.equals(WAREHOUSE)) {
                 return new DeleteCommand(type, index);
             }
 
             // The product deletion must have product name prefix
-            if (!arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME)) {
+            if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
 
@@ -53,13 +54,5 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

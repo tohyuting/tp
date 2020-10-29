@@ -52,9 +52,6 @@ public class ClinicParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case AddProductCommand.COMMAND_WORD:
-            return new AddProductCommandParser().parse(arguments);
-
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
