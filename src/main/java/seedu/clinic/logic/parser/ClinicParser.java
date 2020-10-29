@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.clinic.logic.commands.AddCommand;
-import seedu.clinic.logic.commands.AddProductCommand;
 import seedu.clinic.logic.commands.AssignMacroCommand;
 import seedu.clinic.logic.commands.ClearCommand;
 import seedu.clinic.logic.commands.Command;

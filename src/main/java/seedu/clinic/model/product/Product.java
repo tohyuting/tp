@@ -73,15 +73,6 @@ public class Product {
     }
 
     /**
-     * Returns a new Product with the change in quantity reflected.
-     *
-     * @param updatedQuantity
-     */
-    public Product updateQuantityForWarehouse(int updatedQuantity) {
-        return new Product(this.productName, updatedQuantity, this.productTags);
-    }
-
-    /**
      * Compares if two products are equal by checking if they have the same product name.
      *
      * @param other Object to compare with.

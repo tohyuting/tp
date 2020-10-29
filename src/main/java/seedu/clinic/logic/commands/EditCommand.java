@@ -330,7 +330,13 @@ public class EditCommand extends Command {
          * A defensive copy of {@code products} is used internally.
          */
         public void setProducts(Set<Product> products) {
-            this.products = (products != null) ? new HashSet<>(products) : null;
+            if (products == null) {
+                this.products = null;
+            } else if (products.isEmpty()) {
+                this.products = null;
+            } else {
+                this.products = new HashSet<>(products);
+            }
         }
 
         /**
