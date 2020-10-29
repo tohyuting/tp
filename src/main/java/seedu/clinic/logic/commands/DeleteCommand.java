@@ -49,7 +49,7 @@ public class DeleteCommand extends Command {
             + PREFIX_PRODUCT_NAME + " PRODUCT_NAME\n\n"
             + "Example:\n"
             + COMMAND_WORD + " "
-            + PREFIX_TYPE + "s "
+            + PREFIX_TYPE + "ps "
             + PREFIX_INDEX + "2 "
             + PREFIX_PRODUCT_NAME + "panadol";
 
