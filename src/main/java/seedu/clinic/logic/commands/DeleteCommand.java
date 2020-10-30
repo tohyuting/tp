@@ -12,7 +12,10 @@ import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.exceptions.CommandException;
@@ -25,7 +28,7 @@ import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 
 /**
- * Deletes a supplier identified using it's displayed index from the CLI-nic app.
+ * Deletes a supplier identified using its displayed index from the CLI-nic app.
  */
 public class DeleteCommand extends Command {
 
@@ -49,7 +52,7 @@ public class DeleteCommand extends Command {
             + PREFIX_PRODUCT_NAME + " PRODUCT_NAME\n\n"
             + "Example:\n"
             + COMMAND_WORD + " "
-            + PREFIX_TYPE + "s "
+            + PREFIX_TYPE + "ps "
             + PREFIX_INDEX + "2 "
             + PREFIX_PRODUCT_NAME + "panadol";
 
@@ -60,9 +63,15 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_PRODUCT_IN_SUPPLIER_SUCCESS =
             "Deleted Product: %1$s from Supplier: %2$s";
 
+    private static final String LOG_MESSAGE_NORMAL_DELETION =
+            "Received information to delete a supplier or a warehouse";
+    private static final String LOG_MESSAGE_PRODUCT_DELETION =
+            "Received information to delete a product from a supplier or a warehouse";
+
     private final Type targetType;
     private final Index targetIndex;
     private final Optional<Name> targetProductName;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Creates an DeleteCommand to delete the warehouse/supplier at {@code targetIndex} of the displayed list.
@@ -71,6 +80,7 @@ public class DeleteCommand extends Command {
         this.targetType = targetType;
         this.targetIndex = targetIndex;
         this.targetProductName = Optional.empty();
+        logger.log(Level.INFO, LOG_MESSAGE_NORMAL_DELETION);
     }
 
     /**
@@ -81,6 +91,7 @@ public class DeleteCommand extends Command {
         this.targetType = targetType;
         this.targetIndex = targetIndex;
         this.targetProductName = Optional.of(targetProductName);
+        logger.log(Level.INFO, LOG_MESSAGE_PRODUCT_DELETION);
     }
 
     @Override
@@ -109,8 +120,13 @@ public class DeleteCommand extends Command {
 
         Warehouse warehouseToUpdate = lastShownList.get(targetIndex.getZeroBased());
         try {
+            // Find the product with name matching the targetProductName
             Product matchedProduct = warehouseToUpdate.getProductByName(targetProductName.get());
+
+            // Remove the matchedProduct form the target warehouse
             Warehouse updatedWarehouse = warehouseToUpdate.removeProduct(matchedProduct);
+
+            // Update the warehouse list in the model
             model.setWarehouse(warehouseToUpdate, updatedWarehouse);
             model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
             return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_IN_WAREHOUSE_SUCCESS,

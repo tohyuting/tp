@@ -17,14 +17,17 @@ public class AssignMacroCommand extends Command {
 
     public static final String COMMAND_WORD = "assignmacro";
 
-    public static final String MESSAGE_USAGE = "Assigns a macro to a command string.\n\n"
+    public static final String MESSAGE_USAGE = "Assigns a macro to a command string. ALIAS should only consist "
+            + "of alphanumeric characters and/or underscores. ALIAS cannot be an existing command word and cannot "
+            + "be used in an existing macro. COMMAND_STRING can consist of any number of prefixes, but the first "
+            + "word has to be a pre-defined command word.\n\n"
             + "Parameters:\n"
             + PREFIX_ALIAS + "ALIAS "
             + PREFIX_COMMAND_STRING + "COMMAND_STRING\n\n"
             + "Example:\n"
             + COMMAND_WORD + " "
-            + PREFIX_ALIAS + "uwm "
-            + PREFIX_COMMAND_STRING + "update ct/w n/MainWarehouse";
+            + PREFIX_ALIAS + "uwa "
+            + PREFIX_COMMAND_STRING + "update ct/w n/Alex Yeoh warehouse";
 
     public static final String MESSAGE_SUCCESS = "Macro assigned: %1$s";
     public static final String MESSAGE_DUPLICATE_MACRO = "This macro already exists in the CLI-nic app.";
@@ -48,7 +51,6 @@ public class AssignMacroCommand extends Command {
         }
 
         model.addMacro(toAssign);
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAssign));
     }
 

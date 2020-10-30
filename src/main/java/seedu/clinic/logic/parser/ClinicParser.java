@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.clinic.logic.commands.AddCommand;
-import seedu.clinic.logic.commands.AddProductCommand;
 import seedu.clinic.logic.commands.AssignMacroCommand;
 import seedu.clinic.logic.commands.ClearCommand;
 import seedu.clinic.logic.commands.Command;
@@ -51,9 +50,6 @@ public class ClinicParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
-
-        case AddProductCommand.COMMAND_WORD:
-            return new AddProductCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

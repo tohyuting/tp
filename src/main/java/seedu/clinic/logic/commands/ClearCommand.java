@@ -15,8 +15,8 @@ public class ClearCommand extends Command {
             + " CLI-nic.\n\n"
             + "Example:\n"
             + COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS = "Clinic has been cleared!";
 
+    public static final String MESSAGE_SUCCESS = "Clinic has been cleared!";
 
     @Override
     public CommandResult execute(Model model) {

@@ -4,12 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Button?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
@@ -28,16 +28,46 @@
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-      <Label fx:id="remark" styleClass="remark" />
-      <TitledPane fx:id="productsTitledPane" text="Products">
-        <VBox>
-          <VBox fx:id="products" styleClass="products" minWidth="10" prefWidth="450" />
-          <Label fx:id="noProductsLabel" styleClass="cell_small_label"
-                 text="This supplier has no products." />
-        </VBox>
-      </TitledPane>
+      <HBox spacing="5">
+        <children>
+          <Button id="phone" styleClass="icon-button" text="Button">
+            <HBox.margin>
+              <Insets left="15" right="3.0" top="4"/>
+            </HBox.margin>
+          </Button>
+          <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+        </children>
+      </HBox>
+      <HBox spacing="5">
+        <children>
+          <Button id="email" styleClass="icon-button-2" text="Button">
+            <HBox.margin>
+              <Insets left="15" right="3.0" top="5"/>
+            </HBox.margin>
+          </Button>
+          <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+        </children>
+      </HBox>
+      <HBox spacing="5">
+        <children>
+          <Button id="remark-icon" styleClass="icon-button" text="Button">
+            <HBox.margin>
+              <Insets left="15" right="3.0" top="5"/>
+            </HBox.margin>
+          </Button>
+          <Label fx:id="remark" styleClass="cell_small_label" text="\$remark"/>
+        </children>
+
+      </HBox>
+      <HBox spacing="5">
+        <TitledPane fx:id="productsTitledPane" styleClass="productsTitledPane" text="Products">
+          <VBox>
+            <VBox fx:id="products" styleClass="products" minWidth="10" prefWidth="450" />
+            <Label fx:id="noProductsLabel" styleClass="cell_small_label"
+                   text="This supplier has no products." />
+          </VBox>
+        </TitledPane>
+      </HBox>
     </VBox>
   </GridPane>
 </HBox>

@@ -25,15 +25,13 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         if (trimmedArgs.isEmpty()) {
             return new HelpCommand("all");
         }
-        String[] helpKeyword = trimmedArgs.split("\\s+");
-        if (helpKeyword.length > 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_TOO_MANY_ARGUMENTS));
+        String[] helpArguments = trimmedArgs.split("\\s+");
+        if (helpArguments.length > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_TOO_MANY_ARGUMENTS));
         }
-        String helpArgument = helpKeyword[0].toLowerCase();
+        String helpArgument = helpArguments[0].toLowerCase();
         if (!Arrays.asList(ALLOWED_ARGUMENTS).contains(helpArgument)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_WRONG_ARGUMENT));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_WRONG_ARGUMENT));
         }
         return new HelpCommand(helpArgument);
     }

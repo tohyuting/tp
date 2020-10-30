@@ -76,6 +76,25 @@
     -fx-text-fill: white;
 }
 
+.list-cell .label {
+    -fx-text-fill: white;
+}
+
+.result-display .label {
+    -fx-text-fill: black !important;
+}
+
+.status-bar-with-border .label {
+    -fx-text-fill: white;
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
 .table-view .column-header .label {
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Light";
@@ -133,10 +152,6 @@
     -fx-border-width: 1;
 }
 
-.list-cell .label {
-    -fx-text-fill: white;
-}
-
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
@@ -171,18 +186,10 @@
     -fx-text-fill: white;
 }
 
-.result-display .label {
-    -fx-text-fill: black !important;
-}
-
 .status-bar-with-border {
     -fx-background-color: derive(#1d1d1d, 30%);
     -fx-border-color: derive(#1d1d1d, 25%);
     -fx-border-width: 1px;
-}
-
-.status-bar-with-border .label {
-    -fx-text-fill: white;
 }
 
 .grid-pane {
@@ -201,13 +208,6 @@
 
 .menu-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.menu-bar .label {
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-opacity: 0.9;
 }
 
 .menu .left-container {
@@ -243,10 +243,13 @@
     -fx-border-insets: 1 1 1 1, 0;
 }
 
-.button:pressed,
-.button:default:hover:pressed {
-  -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(-fx-focus-color, 30%);
 }
 
 .button:disabled,
@@ -256,13 +259,10 @@
     -fx-text-fill: white;
 }
 
-.button:default {
-    -fx-background-color: -fx-focus-color;
-    -fx-text-fill: #ffffff;
-}
-
-.button:default:hover {
-    -fx-background-color: derive(-fx-focus-color, 30%);
+.button:pressed,
+.button:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
 }
 
 .dialog-pane {

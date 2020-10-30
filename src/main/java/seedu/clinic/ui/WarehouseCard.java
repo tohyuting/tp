@@ -38,7 +38,7 @@ public class WarehouseCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private FlowPane remark;
+    private Label remark;
     @FXML
     private Label address;
     @FXML
@@ -57,7 +57,9 @@ public class WarehouseCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(warehouse.getName().fullName);
         phone.setText(warehouse.getPhone().value);
-        remark.getChildren().add(new Label(warehouse.getRemark().value));
+        // remark.getChildren().add(new Label(warehouse.getRemark().value));
+        remark.setText(warehouse.getRemark().value);
+        remark.setWrapText(true);
         address.setText(warehouse.getAddress().value);
         /*
         warehouse.getProducts().stream()
