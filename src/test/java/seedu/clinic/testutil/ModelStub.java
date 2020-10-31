@@ -10,6 +10,7 @@ import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.ReadOnlyUserPrefs;
+import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.macro.Alias;
 import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
@@ -120,6 +121,10 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override public Optional<Supplier> getSupplier(Name supplierName) {
+        throw new AssertionError("This method should not be called.");
+    }
+
     @Override
     public void deleteSupplier(Supplier target) {
         throw new AssertionError("This method should not be called.");
@@ -142,6 +147,10 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasWarehouse(Warehouse warehouse) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override public Optional<Warehouse> getWarehouse(Name warehouseName) {
         throw new AssertionError("This method should not be called.");
     }
 

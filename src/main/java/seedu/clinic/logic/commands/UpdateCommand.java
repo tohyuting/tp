@@ -12,7 +12,6 @@ import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -95,12 +94,13 @@ public class UpdateCommand extends Command {
 
     private CommandResult updateProductForWarehouse(Model model) throws CommandException {
         Warehouse warehouseToUpdate;
+        Optional<Warehouse> optionalWarehouse = model.getWarehouse(entityName);
 
-        try {
-            warehouseToUpdate = getWarehouseByName(entityName, model);
-        } catch (NoSuchElementException e) {
+        if (optionalWarehouse.isEmpty()) {
             throw new CommandException(MESSAGE_NO_SUCH_ENTITY);
         }
+
+        warehouseToUpdate = optionalWarehouse.orElseThrow();
 
         Set<Product> updatedProductSet = new HashSet<>(warehouseToUpdate.getProducts());
         Product productToUpdate;
@@ -129,11 +129,13 @@ public class UpdateCommand extends Command {
     private CommandResult updateProductForSupplier(Model model) throws CommandException {
         Supplier supplierToUpdate;
 
-        try {
-            supplierToUpdate = getSupplierByName(entityName, model);
-        } catch (NoSuchElementException e) {
+        Optional<Supplier> optionalSupplier = model.getSupplier(entityName);
+
+        if (optionalSupplier.isEmpty()) {
             throw new CommandException(MESSAGE_NO_SUCH_ENTITY);
         }
+
+        supplierToUpdate = optionalSupplier.orElseThrow();
 
         Set<Product> updatedProductSet = new HashSet<>(supplierToUpdate.getProducts());
         Product productToUpdate;
@@ -171,16 +173,6 @@ public class UpdateCommand extends Command {
         Set<Tag> updatedTags = updateProductDescriptor.getTags().orElse(productToUpdate.getProductTags());
 
         return new Product(productToUpdate.getProductName(), updatedQuantity, updatedTags);
-    }
-
-    public static Warehouse getWarehouseByName(Name warehouseName, Model model) throws NoSuchElementException {
-        return model.getClinic().getWarehouseList().stream()
-                .filter(warehouse -> warehouse.getName().equals(warehouseName)).findFirst().orElseThrow();
-    }
-
-    public static Supplier getSupplierByName(Name supplierName, Model model) throws NoSuchElementException {
-        return model.getClinic().getSupplierList().stream()
-                .filter(supplier -> supplier.getName().equals(supplierName)).findFirst().orElseThrow();
     }
 
     @Override
