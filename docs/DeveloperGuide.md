@@ -479,14 +479,14 @@ warehouse/supplier with the updated product. The method then updates the model w
 The method then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model
 is saved and the GUI is updated with the success message.
 
-The following activity diagram summarizes what happens when a user updates a product: 
+The following activity diagram summarizes what happens when a user updates a product:
 ![Update Product Command Activity Diagram](images/UpdateCommandActivityDiagram.png)
 
 ### Assign macro feature
 
 #### What the assign macro feature does
 
-The assign macro feature allows users to be able to create their own alias for a specific command string which can be used to enter commands after the macro is saved. 
+The assign macro feature allows users to be able to create their own alias for a specific command string which can be used to enter commands after the macro is saved.
 
 #### How it is implemented
 
@@ -904,7 +904,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1a1-1a2 are repeated until the index entered is within the size of the warehouse list.
 
     Use case ends.
- 
+
 * 1a. User requests to edit the email address of a specific warehouse.
 
   * 1a1. CLI-nic informs the user that warehouse does not contain email address.
@@ -1030,14 +1030,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1b1-1b2 are repeated until the command provided by the user adheres to the correct format. <br>
     Use case resumes from step 2.
 
-* 1c. The product exists in the supplier but neither the quantity nor the tags was supplied in the command 
+* 1c. The product exists in the supplier but neither the quantity nor the tags was supplied in the command.
   * 1c1. CLI-nic shows an error message and informs the user that either the tags or quantity (or both) has to be supplied.
   * 1c2. User enters a new command.
 
     Steps 1c1-1c2 are repeated until the command provided by the user has either a quantity or tags specified for the product. <br>
     Use case resumes from step 2.
 
-* 1d. The product name, quantity, or tags are invalid
+* 1d. The product name, quantity, or tags are invalid.
   * 1d1. CLI-nic shows an error message informing the user of the constraints that the fields supplied must adhere to.
   * 1d2. User enters a new command.
 
@@ -1069,14 +1069,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1b1-1b2 are repeated until the command provided by the user adheres to the correct format. <br>
     Use case resumes from step 2.
 
-* 1c. The product exists in the warehouse but neither the quantity nor the tags was supplied in the command 
+* 1c. The product exists in the warehouse but neither the quantity nor the tags was supplied in the command.
   * 1c1. CLI-nic shows an error message and informs the user that either the tags or quantity (or both) has to be supplied.
   * 1c2. User enters a new command.
 
     Steps 1c1-1c2 are repeated until the command provided by the user has either a quantity or tags specified for the product. <br>
     Use case resumes from step 2.
 
-* 1d. The product name, quantity, or tags are invalid
+* 1d. The product name, quantity, or tags are invalid.
   * 1d1. CLI-nic shows an error message informing the user of the constraints that the fields supplied must adhere to.
   * 1d2. User enters a new command.
 
