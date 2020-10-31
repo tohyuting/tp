@@ -31,6 +31,7 @@ import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.ReadOnlyUserPrefs;
+import seedu.clinic.model.VersionedClinic;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.macro.Alias;
 import seedu.clinic.model.macro.Macro;
@@ -129,6 +130,11 @@ public class UpdateCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+        private final VersionedClinic sampleClinic;
+
+        ModelStub() {
+            sampleClinic = new VersionedClinic(new Clinic());
+        }
 
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -282,6 +288,31 @@ public class UpdateCommandTest {
         @Override
         public void updateFilteredWarehouseList(Predicate<Warehouse> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoClinic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoClinic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoClinic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoClinic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveVersionedClinic() {
+            sampleClinic.save();
         }
     }
 

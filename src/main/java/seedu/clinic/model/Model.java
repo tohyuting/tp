@@ -188,4 +188,29 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredWarehouseList(Predicate<Warehouse> predicate);
+
+    /**
+     * Returns true if the model has earlier Clinic version to recover.
+     */
+    boolean canUndoClinic();
+
+    /**
+     * Returns true if the model has earlier undone Clinic version to restore.
+     */
+    boolean canRedoClinic();
+
+    /**
+     * Recovers the Clinic to its previous version.
+     */
+    void undoClinic();
+
+    /**
+     * Restores the Clinic to its previously undone version.
+     */
+    void redoClinic();
+
+    /**
+     * Saves the current Clinic version.
+     */
+    void saveVersionedClinic();
 }

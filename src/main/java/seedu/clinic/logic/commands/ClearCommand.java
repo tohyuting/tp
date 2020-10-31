@@ -22,6 +22,7 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setClinic(new Clinic());
+        model.saveVersionedClinic();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

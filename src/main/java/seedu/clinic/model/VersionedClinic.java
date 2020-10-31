@@ -57,10 +57,8 @@ public class VersionedClinic extends Clinic {
         }
 
         redoVersionStack.push(new Clinic(currentClinic));
-
         ReadOnlyClinic prev = undoVersionStack.pop();
         resetData(prev);
-        currentClinic = prev;
     }
 
     /**
@@ -72,10 +70,12 @@ public class VersionedClinic extends Clinic {
         }
 
         undoVersionStack.push(new Clinic(currentClinic));
-
         ReadOnlyClinic prev = redoVersionStack.pop();
         resetData(prev);
-        currentClinic = prev;
+    }
+
+    public ReadOnlyClinic getCurrentClinic() {
+        return currentClinic;
     }
 
     public Stack<ReadOnlyClinic> getUndoVersion() {
@@ -84,6 +84,12 @@ public class VersionedClinic extends Clinic {
 
     public Stack<ReadOnlyClinic> getRedoVersion() {
         return redoVersionStack;
+    }
+
+    @Override
+    public void resetData(ReadOnlyClinic newData) {
+        super.resetData(newData);
+        this.currentClinic = newData;
     }
 
     @Override
@@ -100,7 +106,7 @@ public class VersionedClinic extends Clinic {
 
         VersionedClinic otherVersionedClinic = (VersionedClinic) other;
 
-        // check for both stack
+        // check for both stack and current Clinic
         return super.equals(otherVersionedClinic)
                 && currentClinic.equals(otherVersionedClinic.currentClinic)
                 && undoVersionStack.equals(otherVersionedClinic.undoVersionStack)

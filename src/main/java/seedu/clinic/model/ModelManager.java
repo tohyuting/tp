@@ -23,7 +23,7 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Clinic clinic;
+    private final VersionedClinic clinic;
     private final UserPrefs userPrefs;
     private final UserMacros userMacros;
     private final FilteredList<Supplier> filteredSuppliers;
@@ -41,7 +41,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with clinic: " + clinic + ", with user prefs " + userPrefs
                 + " and with user macros " + userMacros);
 
-        this.clinic = new Clinic(clinic);
+        this.clinic = new VersionedClinic(clinic);
         this.userPrefs = new UserPrefs(userPrefs);
         this.userMacros = new UserMacros(userMacros);
         filteredSuppliers = new FilteredList<>(this.clinic.getSupplierList());
@@ -161,7 +161,7 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyClinic getClinic() {
-        return clinic;
+        return clinic.getCurrentClinic();
     }
 
     @Override
@@ -245,6 +245,37 @@ public class ModelManager implements Model {
     public void updateFilteredWarehouseList(Predicate<Warehouse> predicate) {
         requireNonNull(predicate);
         filteredWarehouses.setPredicate(predicate);
+    }
+
+    //=========== Redo/Undo  ====================================================================================
+
+    @Override
+    public boolean canUndoClinic() {
+        return clinic.canUndo();
+    }
+
+    @Override
+    public boolean canRedoClinic() {
+        return clinic.canRedo();
+    }
+
+    @Override
+    public void undoClinic() {
+        clinic.undo();
+        updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+        updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+    }
+
+    @Override
+    public void redoClinic() {
+        clinic.redo();
+        updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+        updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+    }
+
+    @Override
+    public void saveVersionedClinic() {
+        clinic.save();
     }
 
     @Override

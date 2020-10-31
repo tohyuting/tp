@@ -91,7 +91,6 @@ public class HelpCommand extends Command {
         default:
             helpMessage = generateHelpGenericMessage();
         }
-
         return new CommandResult(helpMessage, false, false);
     }
 
