@@ -1,0 +1,31 @@
+@startuml
+start
+:User enters Assign Macro Command;
+
+
+if () then ([alias and command string
+prefixes are both supplied])
+  :Parse command arguments;
+  if() then ([all prefix arguments supplied are valid])
+    :Create new macro;
+    :Create new AssignMacroCommand;
+    :execute AssignMacroCommand;
+    if() then ([an existing macro with the
+    same alias exists])
+      :Generate message indicating
+      duplicate macro;
+    else ([else])
+      :Save new macro into model;
+      :Generate success message;
+    endif
+  else ([else])
+      :Generate message indicating
+      invalid arguments;
+  endif
+else ([else])
+  :Generate message indicating
+  invalid format;
+endif
+:Display result message to user;
+stop
+@enduml
