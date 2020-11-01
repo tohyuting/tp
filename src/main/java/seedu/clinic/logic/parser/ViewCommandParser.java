@@ -21,6 +21,12 @@ import seedu.clinic.logic.parser.exceptions.ParseException;
 
 public class ViewCommandParser implements Parser<ViewCommand> {
 
+    private static final String LOG_MESSAGE_TOKENIZE_SUCCESS = "Successfully tokenized user input.";
+    private static final String LOG_MESSAGE_PARSE_INPUT_SUCCESS = "Successfully parsed command type of user input.";
+    private static final String LOG_MESSAGE_CREATE_VIEW_COMMAND =
+            "Successfully parsed index of user input, creating new ViewCommand.";
+    private static final String INVALID_INDEX_PREFIX_ASSERTION = "The prefix here should be of Index type!";
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @Override
@@ -29,10 +35,9 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_INDEX);
 
-        logger.log(Level.INFO, "Tokenised user inputs.");
+        logger.log(Level.INFO, LOG_MESSAGE_TOKENIZE_SUCCESS);
 
-        if (!argMultimap.getValue(PREFIX_TYPE).isPresent()
-                && !argMultimap.getValue(PREFIX_INDEX).isPresent()) {
+        if (!argMultimap.getValue(PREFIX_TYPE).isPresent() && !argMultimap.getValue(PREFIX_INDEX).isPresent()) {
             throw new ParseException(String.format(MESSAGE_NO_PREFIX, ViewCommand.MESSAGE_USAGE));
         }
 
@@ -41,8 +46,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         }
 
         if (!argMultimap.getValue(PREFIX_INDEX).isPresent()) {
-            throw new ParseException(
-                    String.format(MESSAGE_MISSING_INDEX, ViewCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_MISSING_INDEX, ViewCommand.MESSAGE_USAGE));
         }
 
         Type type;
@@ -52,7 +56,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
             throw checkInvalidArguments(PREFIX_TYPE, argMultimap);
         }
 
-        logger.log(Level.INFO, "Successfully parsed command type of user input.");
+        logger.log(Level.INFO, LOG_MESSAGE_PARSE_INPUT_SUCCESS);
 
         if (type.equals(Type.SUPPLIER_PRODUCT) || type.equals(Type.WAREHOUSE_PRODUCT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_TYPE_VIEW, ViewCommand.MESSAGE_USAGE));
@@ -66,7 +70,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
             throw checkInvalidArguments(PREFIX_INDEX, argMultimap);
         }
 
-        logger.log(Level.INFO, "Successfully parsed index of user input, creating new ViewCommand.");
+        logger.log(Level.INFO, LOG_MESSAGE_CREATE_VIEW_COMMAND);
 
         return new ViewCommand(type, index);
     }
@@ -81,7 +85,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         if (prefix.equals(PREFIX_TYPE)) {
             return new ParseException(String.format(MESSAGE_INVALID_TYPE_VIEW, ViewCommand.MESSAGE_USAGE));
         } else {
-            assert prefix.equals(PREFIX_INDEX) : "The prefix here should be of Index type!";
+            assert prefix.equals(PREFIX_INDEX) : INVALID_INDEX_PREFIX_ASSERTION;
             return new ParseException(MESSAGE_INVALID_INDEX + "\n" + ViewCommand.MESSAGE_USAGE);
         }
     }

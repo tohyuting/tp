@@ -42,7 +42,7 @@ public class UniqueMacroList implements Iterable<Macro> {
      */
     public boolean contains(Alias toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch((Macro macro)->macro.getAlias().equals(toCheck));
+        return internalList.stream().anyMatch((Macro macro) -> macro.getAlias().equals(toCheck));
     }
 
     /**
@@ -68,7 +68,7 @@ public class UniqueMacroList implements Iterable<Macro> {
      */
     public Optional<Macro> getMacro(Alias alias) {
         requireNonNull(alias);
-        return internalList.stream().filter((Macro macro)->macro.getAlias().equals(alias)).findFirst();
+        return internalList.stream().filter((Macro macro) -> macro.getAlias().equals(alias)).findFirst();
     }
 
     /**

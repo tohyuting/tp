@@ -16,8 +16,6 @@ public class Alias {
                     + " word, and it should not be blank";
     public static final String VALIDATION_REGEX = "\\w+";
 
-
-
     public final String aliasString;
 
     /**

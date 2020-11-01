@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.commons.util.StringUtil;
@@ -209,5 +210,22 @@ public class ParserUtil {
             throw new ParseException(SavedCommandString.MESSAGE_CONSTRAINTS);
         }
         return new SavedCommandString(trimmedCommandString);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+
+    /**
+     * Returns true if at least one of the prefixes does not have empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean atLeastOnePrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
