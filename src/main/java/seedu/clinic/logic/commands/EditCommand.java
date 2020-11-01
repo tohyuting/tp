@@ -97,7 +97,7 @@ public class EditCommand extends Command {
     private static final String LOG_WAREHOUSE_UPDATED_IN_UI = "Updated warehouse in UI.";
 
     private static final String INVALID_EDIT_SUPPLIER_DESCRIPTOR_ASSERTION = "editDescriptor supplied should be "
-            + "of EditWarehouseDescriptor type here.";
+            + "of EditSupplierDescriptor type here.";
     private static final String INVALID_EDIT_WAREHOUSE_DESCRIPTOR_ASSERTION = "editDescriptor supplied"
             + " should be of EditWarehouseDescriptor type here.";
     private static final String INVALID_OBJECT_IN_COMPARISON_ASSERTION =

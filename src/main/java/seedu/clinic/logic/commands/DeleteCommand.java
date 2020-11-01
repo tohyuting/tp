@@ -120,13 +120,13 @@ public class DeleteCommand extends Command {
 
         Warehouse warehouseToUpdate = lastShownList.get(targetIndex.getZeroBased());
         try {
-            // Find the product with name matching the targetProductName
+            // Finds the product with name matching the targetProductName
             Product matchedProduct = warehouseToUpdate.getProductByName(targetProductName.get());
 
-            // Remove the matchedProduct form the target warehouse
+            // Removes the matchedProduct form the target warehouse
             Warehouse updatedWarehouse = warehouseToUpdate.removeProduct(matchedProduct);
 
-            // Update the warehouse list in the model
+            // Updates the warehouse list in the model
             model.setWarehouse(warehouseToUpdate, updatedWarehouse);
             model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
             return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_IN_WAREHOUSE_SUCCESS,
