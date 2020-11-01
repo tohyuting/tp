@@ -2,6 +2,7 @@ package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.Model;
 
@@ -16,11 +17,14 @@ public class ClearCommand extends Command {
             + "Example:\n"
             + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Clinic has been cleared!";
+    public static final String MESSAGE_SUCCESS = "CLI-nic has been cleared!";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (model.getClinic().equals(new Clinic())) {
+            throw new CommandException("CLI-nic already empty, nothing to clear");
+        }
         model.setClinic(new Clinic());
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -9,7 +9,7 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redo the previously undone command"
-            + " if the undone was successfully executed\n\n"
+            + " if undo was successfully executed\n\n"
             + "Example:\n"
             + COMMAND_WORD;
 
