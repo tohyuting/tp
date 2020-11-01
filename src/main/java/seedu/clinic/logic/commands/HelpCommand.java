@@ -25,7 +25,9 @@ public class HelpCommand extends Command {
     public static final String[] ALLOWED_ARGUMENTS = new String[] {
         AddCommand.COMMAND_WORD, AssignMacroCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
         EditCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD, FindCommand.COMMAND_WORD, ListCommand.COMMAND_WORD,
-        RemoveMacroCommand.COMMAND_WORD, UpdateCommand.COMMAND_WORD, ViewCommand.COMMAND_WORD};
+        RemoveMacroCommand.COMMAND_WORD, UpdateCommand.COMMAND_WORD, ViewCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
+        UndoCommand.COMMAND_WORD
+    };
 
     public static final String ALLOWED_KEYWORDS = Arrays.stream(ALLOWED_ARGUMENTS)
             .reduce("", (x, y) -> x.equals("") ? y : x + ", " + y);
@@ -88,6 +90,12 @@ public class HelpCommand extends Command {
         case ViewCommand.COMMAND_WORD:
             helpMessage = generateHelpViewMessage();
             break;
+        case UndoCommand.COMMAND_WORD:
+            helpMessage = generateHelpUndoMessage();
+            break;
+        case RedoCommand.COMMAND_WORD:
+            helpMessage = generateHelpRedoMessage();
+            break;
         default:
             helpMessage = generateHelpGenericMessage();
         }
@@ -117,7 +125,10 @@ public class HelpCommand extends Command {
         String aboutUpdateCommand = UpdateCommand.COMMAND_WORD + "\nUpdates a product associated with a supplier or"
                 + " warehouse";
         String aboutViewCommand = ViewCommand.COMMAND_WORD + "\nViews the in-depth information associated with a"
-                + "specific supplier or warehouse";
+                + " specific supplier or warehouse";
+        String aboutUndoCommand = UndoCommand.COMMAND_WORD + "\nUndo the previous editing on the data of CLI-nic";
+        String aboutRedoCommand = RedoCommand.COMMAND_WORD + "\nUndo the previously undone editing"
+                + " on the data of CLI-nic";
 
         String genericHelpMessage = aboutHelpCommand + "\n\n"
                 + aboutAddCommand + "\n\n"
@@ -130,7 +141,9 @@ public class HelpCommand extends Command {
                 + aboutListCommand + "\n\n"
                 + aboutRemoveMacroCommand + "\n\n"
                 + aboutUpdateCommand + "\n\n"
-                + aboutViewCommand;
+                + aboutViewCommand + "\n\n"
+                + aboutUndoCommand + "\n\n"
+                + aboutRedoCommand;
         return genericHelpMessage;
     }
 
@@ -176,6 +189,14 @@ public class HelpCommand extends Command {
 
     private String generateHelpViewMessage() {
         return MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + ViewCommand.MESSAGE_USAGE;
+    }
+
+    private String generateHelpUndoMessage() {
+        return MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + UndoCommand.MESSAGE_USAGE;
+    }
+
+    private String generateHelpRedoMessage() {
+        return MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + RedoCommand.MESSAGE_USAGE;
     }
 
     @Override

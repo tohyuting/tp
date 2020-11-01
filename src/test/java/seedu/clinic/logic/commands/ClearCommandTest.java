@@ -26,7 +26,6 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros());
         Model expectedModel = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros());
         expectedModel.setClinic(new Clinic());
-        expectedModel.saveVersionedClinic();
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

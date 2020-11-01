@@ -9,8 +9,8 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo the previous command"
-            + " if the command was in effect\n"
-            + "Example:\n\n"
+            + " if the command was in effect\n\n"
+            + "Example:\n"
             + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Undo successfully";
