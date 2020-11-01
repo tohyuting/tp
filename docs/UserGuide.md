@@ -334,7 +334,18 @@ Examples:
 
 ![view](images/viewWarehouse.png)
 
+### Undo/Redo a previous editing : `undo`/`redo`
+
+Recovers the previous version before an editing on the CLI-nic data or restores the later version of edited data after
+a recovery to previous version.
+
+Format: `undo` / `redo`
+
+* Any trailing words behind the command words will be ignored.
+* For example: if one types `undo redo`, the command will be to `undo` the editing.
+
 <br />
+
 
 --------------------------------------------------------------------------------------------------------------------
 

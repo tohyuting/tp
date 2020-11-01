@@ -36,9 +36,9 @@ public class HelpCommandTest {
         String aboutUpdateCommand = UpdateCommand.COMMAND_WORD + "\nUpdates a product associated with a supplier or"
                 + " warehouse";
         String aboutViewCommand = ViewCommand.COMMAND_WORD + "\nViews the in-depth information associated with a"
-                + "specific supplier or warehouse";
+                + " specific supplier or warehouse";
         String aboutUndoCommand = UndoCommand.COMMAND_WORD + "\nUndo the previous editing on the data of CLI-nic";
-        String aboutRedoCommand = RedoCommand.COMMAND_WORD + "\nUndo the previously undone editing"
+        String aboutRedoCommand = RedoCommand.COMMAND_WORD + "\nRedo the previously undone editing"
                 + " on the data of CLI-nic";
 
         String genericHelpMessage = aboutHelpCommand + "\n\n" + aboutAddCommand + "\n\n"
