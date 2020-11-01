@@ -277,7 +277,8 @@ After the `edit` command is called, user input will be sent to **`EditCommandPar
 
 If the compulsory prefixes are not present (i.e. `ct/COMMAND_TYPE` and `i/INDEX`), **`ParseException`** will be thrown if no compulsory prefixes or only one of the compulsory prefixes are given.
 
-Similarly, **`ParseException`** will be thrown if no field for editing of suppliers or warehouses is provided or if there are any inappropriate fields supplied (e.g. input a string for index or phone prefix), Furthermore, fields resulting in no changes to an existing supplier or warehouse entry will throw a **`ParseException`** as well to remind user that the supplier or warehouse is unchanged after edits.
+Similarly, **`ParseException`** will be thrown if no field for editing of suppliers or warehouses is provided or if there are any inappropriate fields supplied (e.g. input a string for index or phone prefix).
+Furthermore, fields resulting in no changes to an existing supplier or warehouse entry will throw a **`ParseException`** as well to remind user that the supplier or warehouse is unchanged after edits.
 
 **`EditCommand`** will then be executed. The edited supplier or warehouse will be updated in the model, allowing users to see the changes done for the respective supplier or warehouse.
 
@@ -442,12 +443,12 @@ considering code quality and end user experience.
 ### Update product feature
 
 #### What the update product feature does
+
 The update product feature allows users to modify the quantity or tags of existing products listed under suppliers and warehouses, or add new products to their existing lists.
 
-
 #### How it is implemented
-The update product mechanism is facilitated by 3 major components: `UpdateCommandParser`, `UpdateCommand`,  and the `UpdateProductDescriptor`.
-`UpdateCommandParser`'s job is to parse the user input to generate the correct objects for the `UpdateCommand`.
+The update product mechanism is facilitated by 3 major components: `UpdateCommandParser`, `UpdateCommand`, and the `UpdateProductDescriptor`.
+`UpdateCommandParser`'s job is to parse the user input to generate the correct `Type`, `Name`, `Index`, and `AssignMacroDescriptor` objects for the `UpdateCommand`.
 `UpdateCommand`'s job is to execute the main logic for generating the updated list of products for the model.
 `UpdateProductDescriptor`'s job is to serve as a medium to allow the `UpdateCommandParser` to pass a specification of the updated product to the `UpdateCommand`.
 
@@ -459,9 +460,9 @@ in the warehouse named 'Jurong Warehouse'. The user also decides that he wants t
 The user does this by executing the `update ct/w n/Jurong Warehouse pd/Panadol q/50 t/fever` command.
 The input string will then be passed to the `UpdateCommandParser`.
 
-Step 2. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Name` for the supplier/warehouse
-and the product, and a new `UpdateProductDescriptor` with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type and names of the supplier/warehouse and product are not supplied, where an error message will be presented on the GUI.
-After which, it will create an `UpdateCommand` with the `Type`, warehouse/supplier and product's `Name`, and the `UpdateProductDescriptor`.
+Step 2. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
+and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type and names of the supplier/warehouse and product are not supplied. If so, an error message will be presented on the GUI.
+Otherwise, the method will create an `UpdateCommand` with the `Type`, warehouse/supplier and product's `Name`, and the `UpdateProductDescriptor`.
 
 The following sequence diagram zooms in on how the `UpdateCommand#execute` is implemented:
 ![Update Product Command Execution Sequence Diagram](images/UpdateCommandExecutionSequenceDiagram.png)
@@ -491,21 +492,21 @@ The assign macro feature allows users to be able to create their own alias for a
 #### How it is implemented
 
 The assign macro mechanism is facilitated by 2 components: `AssignMacroCommandParser` and `AssignMacroCommand`.
-`AssignMacroCommandParser`'s job is to parse the user input to generate the correct objects for the `AssignMacroCommand`.
+`AssignMacroCommandParser`'s job is to parse the user input to generate the correct `Alias` and `SavedCommandString`  objects for the `AssignMacroCommand`.
 `AssignMacroCommand`'s job is to execute the main logic for updating the model with the new macro.
 
 Given below is an example usage scenario, together with a sequence diagram, to show how the assign macro mechanism behaves at each step.
 ![Assign Macro Command Sequence Diagram](images/AssignMacroCommandSequenceDiagram.png)
 
-Step 1. The user discovers that he frequently updates a specific warehouse and decides to create a new macro with the alias "uwm" for the command string "update ct/w n/MainWarehouse" so that he can enter a shorter command in the future.
+Step 1. The user frequently updates a specific warehouse and decides to create a new macro with the alias "uwm" for the command string "update ct/w n/MainWarehouse" so as to shorten subsequent command inputs.
 The user does this by executing the `assignmacro a/uwm cs/update ct/w n/MainWarehouse` command. The input string will then be passed to the `AssignMacroCommandParser`.
 
 Step 2. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
 an exception to be displayed on the GUI if the alias or command string supplied by the user is invalid, or if any of them is not supplied at all. If all prefixes are parsed without error,
 a `Macro` is created from the `Alias` and `SavedCommandString` instances. Then, a new `AssignMacroCommand` instance is created with the new `Macro`.
 
-Step 3. The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias,
-throwing an exception which will be shown on the GUI as an error message if that is true. Otherwise, the new macro will be added to the model.
+Step 3. The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias.
+If that is true, an exception will be thrown. This will be shown on the GUI as an error message. Otherwise, the new macro will be added to the model.
 
 Step 4. The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
 The user now updates the quantity of the product "Panadol" in the aforementioned warehouse by simply executing the command `uwm pd/Panadol`.
@@ -522,13 +523,13 @@ The remove macro feature allows users to be able to remove an existing macro wit
 #### How it is implemented
 
 The remove macro mechanism is facilitated by 2 components: `RemoveMacroCommandParser` and `RemoveMacroCommand`.
-`RemoveMacroCommandParser`'s job is to parse the user input to generate the correct objects for the `RemoveMacroCommand`.
+`RemoveMacroCommandParser`'s job is to parse the user input to generate the correct `Alias` objects for the `RemoveMacroCommand`.
 `RemoveMacroCommand`'s job is to execute the main logic for updating the model with the specified macro removed.
 
 Given below is an example usage scenario, together with a sequence diagram, to show how the remove macro mechanism behaves at each step.
 ![Remove Macro Command Sequence Diagram](images/RemoveMacroCommandSequenceDiagram.png)
 
-Step 1. The user decides that he no longer needs the macro with the alias "uwm" and decides to remove it. He does this by executing the `removemacro uwm` command.
+Step 1. The user decides that he/she no longer needs the macro with the alias "uwm" and decides to remove it. He does this by executing the `removemacro uwm` command.
 The input string will then be passed to the `RemoveMacroCommand parser`.
 
 Step 2. By matching the prefixes provided, `RemoveMacroCommandParser#parse` then attempts to create a new instance of `Alias` by parsing the arguments provided. If the `Alias` is
@@ -684,16 +685,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1a2. CLI-nic requests for the correct syntax of warehouse info.
   * 1a3. User enters new data.
 
-    Steps 1a1-1a3 are repeated until the data entered are correct. <br>
+    Steps 1a1-1a3 are repeated until the data entered are valid. <br>
     Use case resumes from step 2.
 
 * 1b. CLI-nic detects addition of duplicated warehouse.
 
   * 1b1. CLI-nic shows duplicated warehouse message.
-  * 1b2. CLI-nic requests for the correct warehouse info.
+  * 1b2. CLI-nic requests for a different warehouse.
   * 1b3. User enters new data.
 
-    Steps 1b1-1b3 are repeated until the data entered are correct. <br>
+    Steps 1b1-1b3 are repeated until the data entered are valid. <br>
     Use case resumes from step 2.
 
 **Use case: UC02 Add a supplier**
@@ -710,10 +711,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a. CLI-nic detects an error in the entered supplier info.
 
   * 1a1. CLI-nic shows an error message .
-  * 1a2. CLI-nic requests for the correct data.
+  * 1a2. CLI-nic requests for valid data.
   * 1a3. User enters new data.
 
-    Steps 1a1-1a3 are repeated until the data entered are correct. <br>
+    Steps 1a1-1a3 are repeated until the data entered are valid. <br>
     Use case resumes from step 2.
 
 **Use case: UC03 Assign a macro**
@@ -735,12 +736,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1a1-1a2 are repeated until the data entered is valid. <br>
     Use case resumes from step 2.
 
-* 1b. The command supplied is not in the correct format.
+* 1b. The command supplied is not in the valid format.
 
-  * 1b1. CLI-nic shows an error message and the correct format, along with examples of the correct usage.
+  * 1b1. CLI-nic shows an error message and the valid format, along with examples of the valid usage.
   * 1b2. User enters a new command.
 
-    Steps 1b1-1b2 are repeated until the command format is correct. <br>
+    Steps 1b1-1b2 are repeated until the command format is valid. <br>
     Use case resumes from step 2.
 
 * 1c. An existing macro with the same alias as the one supplied is found.
@@ -784,7 +785,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3a1. CLI-nic shows an error message and gives command suggestions.
   * 3a2. User enters the new supplier index.
 
-    Steps 3a1-3a2 are repeated until the data entered are correct. <br>
+    Steps 3a1-3a2 are repeated until the data entered are valid. <br>
     Use case resumes at step 4.
 
 **Use case: UC06 Delete a warehouse**
@@ -811,7 +812,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3a1. CLI-nic shows an error message and gives command suggestions.
   * 3a2. User enters the new warehouse index.
 
-    Steps 3a1-3a2 are repeated until the data entered are correct.
+    Steps 3a1-3a2 are repeated until the data entered are valid.
     Use case resumes at step 4.
 
 **Use case: UC07 Delete a product from a supplier**
@@ -838,7 +839,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3a1. CLI-nic shows an error message and gives command suggestions.
   * 3a2. User enters the new supplier index.
 
-    Steps 3a1-3a2 are repeated until the index entered are correct. <br>
+    Steps 3a1-3a2 are repeated until the index entered is valid. <br>
     Use case resumes at step 4.
 
 * 3b. The given name is invalid.
@@ -846,7 +847,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3b1. CLI-nic shows an error message and gives command suggestions.
   * 3b2. User enters the new product name.
 
-    Steps 3b1-3b2 are repeated until the name entered are correct. <br>
+    Steps 3b1-3b2 are repeated until the name entered is valid. <br>
     Use case resumes at step 4.
 
 **Use case: UC08 Edits a supplier**
@@ -876,12 +877,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     User case ends.
 
-* 1a. Users uses an invalid command format.
+* 1a. User uses an invalid command format.
 
   * 1a1. CLI-nic informs user of the invalid command format.
   * 1a2. User enters a new edit command.
 
-    Steps 1a1-1a2 are repeated until the index entered are correct.
+    Steps 1a1-1a2 are repeated until the index entered is valid.
 
     Use case ends.
 
@@ -912,12 +913,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     User case ends.
 
-* 1a. Users uses an invalid command format.
+* 1a. User uses an invalid command format.
 
   * 1a1. CLI-nic informs user of the invalid command format.
   * 1a2. User enters a new edit command.
 
-    Steps 1a1-1a2 are repeated until the index entered are correct.
+    Steps 1a1-1a2 are repeated until the index entered is valid.
 
     Use case ends.
 
@@ -935,7 +936,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. User enters invalid command for finding.
 
-  * 1a1. CLI-nic requests for the correct command.
+  * 1a1. CLI-nic requests for the valid command.
   * 1a2. User enter a new command for finding.
 
     Steps 1a1 and 1a2 are repeated until a valid find command is entered. <br>
@@ -955,7 +956,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. User enters invalid command for finding.
 
-  * 1a1. CLI-nic requests for the correct command.
+  * 1a1. CLI-nic requests for the valid command.
   * 1a2. User enter a new command for finding.
 
     Steps 1a1 and 1a2 are repeated until a valid find command is entered. <br>
@@ -989,12 +990,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1a1-1a2 are repeated until the alias entered is valid. <br>
     Use case resumes from step 2.
 
-* 1b. The command supplied is not in the correct format.
+* 1b. The command supplied is not in the valid format.
 
-  * 1b1. CLI-nic shows an error message and the correct format, along with examples of the correct usage.
+  * 1b1. CLI-nic shows an error message and the valid format, along with examples of the valid usage.
   * 1b2. User enters a new command.
 
-    Steps 1b1-1b2 are repeated until the command format is correct. <br>
+    Steps 1b1-1b2 are repeated until the command format is valid. <br>
     Use case resumes from step 2.
 
 * 1c. An existing macro with the alias supplied cannot be found.
@@ -1010,7 +1011,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User keys in command to update a product in a supplier with updated quantity/tags.
-2. If the product exists, CLI-nic overwrites the existing product with the updated product details. If the product does not exist, CLI-nic adds the product and its associated quantity/tags to the supplier. CLI-nic shows a success message.
+2. CLI-nic overwrites the existing product with the updated product details. CLI-nic shows a success message.
 
     Use case ends.
 
@@ -1024,10 +1025,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case resumes from step 2.
 
 * 1b. User enters the command in an invalid format.
-  * 1b1. CLI-nic shows an error message and displays the correct format together with examples.
+  * 1b1. CLI-nic shows an error message and displays the valid format together with examples.
   * 1b2. User enters a new command.
 
-    Steps 1b1-1b2 are repeated until the command provided by the user adheres to the correct format. <br>
+    Steps 1b1-1b2 are repeated until the command provided by the user adheres to the valid format. <br>
     Use case resumes from step 2.
 
 * 1c. The product exists in the supplier but neither the quantity nor the tags was supplied in the command.
@@ -1043,6 +1044,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Steps 1d1-1d2 are repeated until all the fields required by the command are valid. <br>
     Use case resumes from step 2.
+
+* 1e. The product does not exist in the Supplier.
+  * 1e1. CLI-nic adds the product with its associated quantity/tags to the supplier.
+    Use case ends.
 
 **Use case: UC16 Update a Product in a Warehouse**
 
@@ -1063,10 +1068,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case resumes from step 2.
 
 * 1b. User enters the command in an invalid format.
-  * 1b1. CLI-nic shows an error message and displays the correct format together with examples.
+  * 1b1. CLI-nic shows an error message and displays the valid format together with examples.
   * 1b2. User enters a new command.
 
-    Steps 1b1-1b2 are repeated until the command provided by the user adheres to the correct format. <br>
+    Steps 1b1-1b2 are repeated until the command provided by the user adheres to the valid format. <br>
     Use case resumes from step 2.
 
 * 1c. The product exists in the warehouse but neither the quantity nor the tags was supplied in the command.
@@ -1082,6 +1087,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Steps 1d1-1d2 are repeated until all the fields required by the command are valid. <br>
     Use case resumes from step 2.
+
+* 1e. The product does not exist in the warehouse.
+  * 1e1. CLI-nic adds the product with its associated quantity/tags to the warehouse.
+    Use case ends.
 
 **Use case: UC17 View Help**
 
@@ -1102,7 +1111,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1b. User enters invalid help command.
   * 1b1. CLI-nic shows an error message.
-  * 1b2. CLI-nic requests for the correct command.
+  * 1b2. CLI-nic requests for a valid command.
   * 1b3. User enters a new help command.
 
     Steps 1b1-1b3 are repeated until a valid help command is entered. <br>
