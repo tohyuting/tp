@@ -85,11 +85,31 @@ public class EditCommand extends Command {
     public static final String MESSAGE_WAREHOUSE_UNCHANGED = "The edited field will results in no change to "
             + "warehouse selected. Please check your arguments again and re-enter your edit command.";
 
+    private static final String LOG_MESSAGE_RECEIVE_EDIT_SUPPLIER = "Received instructions to edit supplier.";
+    private static final String LOG_MESSAGE_RECEIVE_EDIT_WAREHOUSE = "Received instructions to edit warehouse.";
+    private static final String LOG_MESSAGE_SUPPLIER_RETRIEVED = "Supplier to edit is retrieved from supplier list.";
+    private static final String LOG_MESSAGE_WAREHOUSE_RETRIEVED = "Warehouse to edit is retrieved from warehouse list.";
+    private static final String LOG_MESSAGE_SUPPLIER_EDITED = "Supplier with edited information has been created.";
+    private static final String LOG_MESSAGE_WAREHOUSE_EDITED = "Warehouse with edited information has been created.";
+    private static final String LOG_MESSAGE_SUPPLIER_REPLACED_IN_MODEL = "Replaced supplier in supplier list.";
+    private static final String LOG_MESSAGE_WAREHOUSE_REPLACED_IN_MODEL = "Replaced warehouse in warehouse list.";
+    private static final String LOG_SUPPLIER_UPDATED_IN_UI = "Updated supplier in UI.";
+    private static final String LOG_WAREHOUSE_UPDATED_IN_UI = "Updated warehouse in UI.";
+
+    private static final String INVALID_EDIT_SUPPLIER_DESCRIPTOR_ASSERTION = "editDescriptor supplied should be "
+            + "of EditSupplierDescriptor type here.";
+    private static final String INVALID_EDIT_WAREHOUSE_DESCRIPTOR_ASSERTION = "editDescriptor supplied"
+            + " should be of EditWarehouseDescriptor type here.";
+    private static final String INVALID_OBJECT_IN_COMPARISON_ASSERTION =
+            "Both editDescriptors should be of editDescriptor type.";
+
     private final Index index;
     private final EditDescriptor editDescriptor;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
+     * Creates an EditCommand to edit a warehouse/supplier at {@code index} of the displayed list.
+     *
      * @param index of the supplier or warehouse in the filtered supplier or warehouse list to edit
      * @param editDescriptor details to edit the supplier with
      */
@@ -100,12 +120,11 @@ public class EditCommand extends Command {
         this.index = index;
         if (editDescriptor instanceof EditSupplierDescriptor) {
             this.editDescriptor = new EditSupplierDescriptor((EditSupplierDescriptor) editDescriptor);
-            logger.log(Level.INFO, "Received instructions to edit supplier");
+            logger.log(Level.INFO, LOG_MESSAGE_RECEIVE_EDIT_SUPPLIER);
         } else {
-            assert editDescriptor instanceof EditWarehouseDescriptor : "editDescriptor supplied should be "
-                    + "of EditWarehouseDescriptor type here.";
+            assert editDescriptor instanceof EditWarehouseDescriptor : INVALID_EDIT_SUPPLIER_DESCRIPTOR_ASSERTION;
             this.editDescriptor = new EditWarehouseDescriptor((EditWarehouseDescriptor) editDescriptor);
-            logger.log(Level.INFO, "Received instructions to edit warehouse");
+            logger.log(Level.INFO, LOG_MESSAGE_RECEIVE_EDIT_WAREHOUSE);
         }
 
     }
@@ -113,76 +132,81 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Supplier> lastShownSupplierList = model.getFilteredSupplierList();
-        List<Warehouse> lastShownWarehouseList = model.getFilteredWarehouseList();
-        CommandResult commandResult;
 
         if (this.editDescriptor instanceof EditSupplierDescriptor) {
-            if (index.getZeroBased() >= lastShownSupplierList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
-            }
-
-            Supplier supplierToEdit = lastShownSupplierList.get(index.getZeroBased());
-
-            logger.log(Level.INFO, "Supplier to edit is retrieved from supplier list.");
-
-            Supplier editedSupplier = createEditedSupplier(supplierToEdit,
-                    (EditSupplierDescriptor) editDescriptor);
-
-            logger.log(Level.INFO, "Supplier with edited information has been created.");
-
-            if (supplierToEdit.equals(editedSupplier)) {
-                throw new CommandException(MESSAGE_SUPPLIER_UNCHANGED);
-            }
-
-            if (!supplierToEdit.isSameSupplier(editedSupplier) && model.hasSupplier(editedSupplier)) {
-                throw new CommandException(MESSAGE_DUPLICATE_SUPPLIER);
-            }
-
-            model.setSupplier(supplierToEdit, editedSupplier);
-
-            logger.log(Level.INFO, "Replaced supplier in supplier list.");
-
-            model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
-
-            logger.log(Level.INFO, "Updated supplier in UI.");
-
-            commandResult = new CommandResult(String.format(MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier));
+            return executeSupplierEditing(model);
         } else {
-            assert this.editDescriptor instanceof EditWarehouseDescriptor : "editDescriptor supplied"
-                    + " should be of EditWarehouseDescriptor type here.";
-
-            if (index.getZeroBased() >= lastShownWarehouseList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);
-            }
-            Warehouse warehouseToEdit = lastShownWarehouseList.get(index.getZeroBased());
-
-            logger.log(Level.INFO, "Warehouse to edit is retrieved from warehouse list.");
-
-            Warehouse editedWarehouse = createEditedWarehouse(warehouseToEdit,
-                    (EditWarehouseDescriptor) editDescriptor);
-
-            logger.log(Level.INFO, "Warehouse with edited information has been created.");
-
-            if (warehouseToEdit.equals(editedWarehouse)) {
-                throw new CommandException(MESSAGE_WAREHOUSE_UNCHANGED);
-            }
-
-            if (!warehouseToEdit.isSameWarehouse(editedWarehouse) && model.hasWarehouse(editedWarehouse)) {
-                throw new CommandException(MESSAGE_DUPLICATE_WAREHOUSE);
-            }
-
-            model.setWarehouse(warehouseToEdit, editedWarehouse);
-
-            logger.log(Level.INFO, "Replaced warehouse in warehouse list.");
-
-            model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
-
-            logger.log(Level.INFO, "Updated warehouse in UI.");
-
-            commandResult = new CommandResult(String.format(MESSAGE_EDIT_WAREHOUSE_SUCCESS, editedWarehouse));
+            return executeWarehouseEditing(model);
         }
-        return commandResult;
+    }
+
+    private CommandResult executeSupplierEditing(Model model) throws CommandException {
+        List<Supplier> lastShownSupplierList = model.getFilteredSupplierList();
+
+        if (index.getZeroBased() >= lastShownSupplierList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
+        }
+
+        Supplier supplierToEdit = lastShownSupplierList.get(index.getZeroBased());
+
+        logger.log(Level.INFO, LOG_MESSAGE_SUPPLIER_RETRIEVED);
+
+        Supplier editedSupplier = createEditedSupplier(supplierToEdit, (EditSupplierDescriptor) editDescriptor);
+
+        logger.log(Level.INFO, LOG_MESSAGE_SUPPLIER_EDITED);
+
+        if (supplierToEdit.equals(editedSupplier)) {
+            throw new CommandException(MESSAGE_SUPPLIER_UNCHANGED);
+        }
+
+        if (!supplierToEdit.isSameSupplier(editedSupplier) && model.hasSupplier(editedSupplier)) {
+            throw new CommandException(MESSAGE_DUPLICATE_SUPPLIER);
+        }
+
+        model.setSupplier(supplierToEdit, editedSupplier);
+
+        logger.log(Level.INFO, LOG_MESSAGE_SUPPLIER_REPLACED_IN_MODEL);
+
+        model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+
+        logger.log(Level.INFO, LOG_SUPPLIER_UPDATED_IN_UI);
+
+        return new CommandResult(String.format(MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier));
+    }
+
+    private CommandResult executeWarehouseEditing(Model model) throws CommandException {
+        List<Warehouse> lastShownWarehouseList = model.getFilteredWarehouseList();
+        assert this.editDescriptor instanceof EditWarehouseDescriptor : INVALID_EDIT_WAREHOUSE_DESCRIPTOR_ASSERTION;
+
+        if (index.getZeroBased() >= lastShownWarehouseList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);
+        }
+        Warehouse warehouseToEdit = lastShownWarehouseList.get(index.getZeroBased());
+
+        logger.log(Level.INFO, LOG_MESSAGE_WAREHOUSE_RETRIEVED);
+
+        Warehouse editedWarehouse = createEditedWarehouse(warehouseToEdit,
+                (EditWarehouseDescriptor) editDescriptor);
+
+        logger.log(Level.INFO, LOG_MESSAGE_WAREHOUSE_EDITED);
+
+        if (warehouseToEdit.equals(editedWarehouse)) {
+            throw new CommandException(MESSAGE_WAREHOUSE_UNCHANGED);
+        }
+
+        if (!warehouseToEdit.isSameWarehouse(editedWarehouse) && model.hasWarehouse(editedWarehouse)) {
+            throw new CommandException(MESSAGE_DUPLICATE_WAREHOUSE);
+        }
+
+        model.setWarehouse(warehouseToEdit, editedWarehouse);
+
+        logger.log(Level.INFO, LOG_MESSAGE_WAREHOUSE_REPLACED_IN_MODEL);
+
+        model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+
+        logger.log(Level.INFO, LOG_WAREHOUSE_UPDATED_IN_UI);
+
+        return new CommandResult(String.format(MESSAGE_EDIT_WAREHOUSE_SUCCESS, editedWarehouse));
     }
 
     /**
@@ -207,7 +231,7 @@ public class EditCommand extends Command {
      * edited with {@code editWarehouseDescriptor}.
      */
     private static Warehouse createEditedWarehouse(Warehouse warehouseToEdit,
-                                                   EditWarehouseDescriptor editWarehouseDescriptor) {
+            EditWarehouseDescriptor editWarehouseDescriptor) {
         assert warehouseToEdit != null;
 
         Name updatedName = editWarehouseDescriptor.getName().orElse(warehouseToEdit.getName());
@@ -240,10 +264,11 @@ public class EditCommand extends Command {
                 && (editDescriptor instanceof EditSupplierDescriptor)) {
             return false;
         }
-        assert this.editDescriptor instanceof EditDescriptor && e.editDescriptor instanceof EditDescriptor
-                : "Both editDescriptors should be of editDescriptor type.";
-        return index.equals(e.index)
-                && editDescriptor.equals(e.editDescriptor);
+
+        assert (this.editDescriptor instanceof EditDescriptor && e.editDescriptor instanceof EditDescriptor)
+                : INVALID_OBJECT_IN_COMPARISON_ASSERTION;
+
+        return index.equals(e.index) && editDescriptor.equals(e.editDescriptor);
     }
 
     /**
@@ -262,7 +287,7 @@ public class EditCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code products} is used internally.
          */
-        public EditDescriptor (EditDescriptor toCopy) {
+        public EditDescriptor(EditDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setRemark(toCopy.remark);
@@ -305,7 +330,13 @@ public class EditCommand extends Command {
          * A defensive copy of {@code products} is used internally.
          */
         public void setProducts(Set<Product> products) {
-            this.products = (products != null) ? new HashSet<>(products) : null;
+            if (products == null) {
+                this.products = null;
+            } else if (products.isEmpty()) {
+                this.products = null;
+            } else {
+                this.products = new HashSet<>(products);
+            }
         }
 
         /**

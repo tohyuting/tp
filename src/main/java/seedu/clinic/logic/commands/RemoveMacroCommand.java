@@ -21,7 +21,7 @@ public class RemoveMacroCommand extends Command {
             + "Example:\n"
             + COMMAND_WORD + " uwa";
 
-    public static final String MESSAGE_REMOVE_MACRO_SUCCESS = "Removed Macro: %1$s";
+    public static final String MESSAGE_REMOVE_MACRO_SUCCESS = "Removed Macro: %1$s.";
     public static final String MESSAGE_MACRO_DOES_NOT_EXIST = "Macro does not exist.";
 
     private final Alias targetAlias;

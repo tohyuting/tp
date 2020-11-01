@@ -39,10 +39,20 @@ public class ViewCommand extends Command {
             + " has to be present!\n%1$s";
     public static final String MESSAGE_NO_PREFIX = "Please specify type and index using "
             + "ct/ and i/ prefixes \n%1$s";
-    public static final String MESSAGE_INVALID_TYPE_VIEW = "Please specity a correct type,"
+    public static final String MESSAGE_INVALID_TYPE_VIEW = "Please specify a correct type,"
             + " either ct/s or ct/w\n%1$s";
     public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
             + "ensure that you only include prefixes specified in the User Guide.\n%1$s";
+
+    private static final String LOG_MESSAGE_VIEW_SUPPLIER = "View Command wants to view a supplier.";
+    private static final String LOG_MESSAGE_VIEW_WAREHOUSE = "View Command wants to view a warehouse.";
+    private static final String LOG_MESSAGE_SUPPLIER_RETRIEVED = "Retrieved supplier to be viewed from supplier list.";
+    private static final String LOG_MESSAGE_WAREHOUSE_RETRIEVED =
+            "Retrieved warehouse to be viewed from warehouse list.";
+    private static final String LOG_MESSAGE_MODEL_SHOW_SUPPLIER = "Updated model to show supplier to be viewed.";
+    private static final String LOG_MESSAGE_MODEL_SHOW_WAREHOUSE = "Updated model to show warehouse to be viewed.";
+
+    private static final String INVALID_WAREHOUSE_ASSERTION = "The command type should be warehouse here!";
 
     private final Type type;
     private final Index index;
@@ -62,52 +72,59 @@ public class ViewCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        CommandResult commandResult;
-        List<Supplier> supplierList = model.getFilteredSupplierList();
-        List<Warehouse> warehouseList = model.getFilteredWarehouseList();
 
         if (type.equals(Type.SUPPLIER)) {
-            logger.log(Level.INFO, "View Command wants to view a supplier.");
-            if (index.getZeroBased() >= supplierList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
-            }
-
-            Supplier supplierToView = supplierList.get(index.getZeroBased());
-
-            logger.log(Level.INFO, "Retrieved supplier to be viewed from supplier list.");
-
-            NameContainsKeywordsPredicateForSupplier supplierPredicate =
-                    new NameContainsKeywordsPredicateForSupplier(supplierToView.getName().fullName);
-            model.updateFilteredSupplierList(supplierPredicate);
-
-            logger.log(Level.INFO, "Updated model to show supplier to be viewed.");
-
-            commandResult = new CommandResult(
-                    String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,
-                            model.getFilteredSupplierList().size()));
+            return viewSupplier(model);
         } else {
-            assert type.equals(Type.WAREHOUSE) : "The command type should be warehouse here!";
-
-            logger.log(Level.INFO, "View Command wants to view a warehouse.");
-
-            if (index.getZeroBased() >= warehouseList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);
-            }
-            Warehouse warehouseToView = warehouseList.get(index.getZeroBased());
-
-            logger.log(Level.INFO, "Retrieved warehouse to be viewed from warehouse list.");
-
-            NameContainsKeywordsPredicateForWarehouse warehousePredicate =
-                    new NameContainsKeywordsPredicateForWarehouse(warehouseToView.getName().fullName);
-
-            model.updateFilteredWarehouseList(warehousePredicate);
-            logger.log(Level.INFO, "Updated model to show warehouse to be viewed.");
-
-            commandResult = new CommandResult(
-                    String.format(Messages.MESSAGE_WAREHOUSE_LISTED_OVERVIEW,
-                            model.getFilteredWarehouseList().size()));
+            return viewWarehouse(model);
         }
-        return commandResult;
+    }
+
+    private CommandResult viewSupplier(Model model) throws CommandException {
+        List<Supplier> supplierList = model.getFilteredSupplierList();
+
+        logger.log(Level.INFO, LOG_MESSAGE_VIEW_SUPPLIER);
+
+        if (index.getZeroBased() >= supplierList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
+        }
+
+        Supplier supplierToView = supplierList.get(index.getZeroBased());
+
+        logger.log(Level.INFO, LOG_MESSAGE_SUPPLIER_RETRIEVED);
+
+        NameContainsKeywordsPredicateForSupplier supplierPredicate =
+                new NameContainsKeywordsPredicateForSupplier(supplierToView.getName().fullName);
+        model.updateFilteredSupplierList(supplierPredicate);
+
+        logger.log(Level.INFO, LOG_MESSAGE_MODEL_SHOW_SUPPLIER);
+
+        return new CommandResult(String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,
+                        model.getFilteredSupplierList().size()));
+    }
+
+    private CommandResult viewWarehouse(Model model) throws CommandException {
+        List<Warehouse> warehouseList = model.getFilteredWarehouseList();
+
+        assert type.equals(Type.WAREHOUSE) : INVALID_WAREHOUSE_ASSERTION;
+
+        logger.log(Level.INFO, LOG_MESSAGE_VIEW_WAREHOUSE);
+
+        if (index.getZeroBased() >= warehouseList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);
+        }
+        Warehouse warehouseToView = warehouseList.get(index.getZeroBased());
+
+        logger.log(Level.INFO, LOG_MESSAGE_WAREHOUSE_RETRIEVED);
+
+        NameContainsKeywordsPredicateForWarehouse warehousePredicate =
+                new NameContainsKeywordsPredicateForWarehouse(warehouseToView.getName().fullName);
+
+        model.updateFilteredWarehouseList(warehousePredicate);
+        logger.log(Level.INFO, LOG_MESSAGE_MODEL_SHOW_WAREHOUSE);
+
+        return new CommandResult(String.format(Messages.MESSAGE_WAREHOUSE_LISTED_OVERVIEW,
+                        model.getFilteredWarehouseList().size()));
     }
 
     @Override

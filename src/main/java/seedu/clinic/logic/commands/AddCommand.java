@@ -21,7 +21,6 @@ import seedu.clinic.model.warehouse.Warehouse;
  * Adds a supplier/warehouse to the CLI-nic app.
  */
 public class AddCommand extends Command {
-
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = "Adds a supplier or warehouse to CLI-nic.\n\n"
@@ -65,6 +64,15 @@ public class AddCommand extends Command {
     public static final String MESSAGE_WAREHOUSE_MISSING_PREFIX = "There are missing prefixes, ensure"
             + " that you at least include: ct/w n/WAREHOUSE_NAME, p/PHONE and addr/ADDRESS";
 
+    private static final String LOG_MESSAGE_RECEIVE_SUPPLIER = "Received information to add supplier.";
+    private static final String LOG_MESSAGE_RECEIVE_WAREHOUSE = "Received information to add warehouse.";
+    private static final String LOG_MESSAGE_ADD_SUPPLIER_SUCCESS = "Supplier with given information has been added"
+            + " and supplier list is updated on UI.";
+    private static final String LOG_MESSAGE_ADD_WAREHOUSE_SUCCESS = "Warehouse with given information has been added"
+            + " and warehouse list is updated on UI.";
+    private static final String INVALID_WAREHOUSE_ASSERTION = "warehouseToAdd specified"
+            + " should be of Warehouse type and not null here.";
+
     private final Supplier supplierToAdd;
     private final Warehouse warehouseToAdd;
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -76,7 +84,7 @@ public class AddCommand extends Command {
         requireNonNull(supplier);
         this.supplierToAdd = supplier;
         this.warehouseToAdd = null;
-        logger.log(Level.INFO, "Received information to add supplier");
+        logger.log(Level.INFO, LOG_MESSAGE_RECEIVE_SUPPLIER);
     }
 
     /**
@@ -86,7 +94,7 @@ public class AddCommand extends Command {
         requireNonNull(warehouse);
         this.supplierToAdd = null;
         this.warehouseToAdd = warehouse;
-        logger.log(Level.INFO, "Received information to add warehouse");
+        logger.log(Level.INFO, LOG_MESSAGE_RECEIVE_WAREHOUSE);
     }
 
     @Override
@@ -98,20 +106,19 @@ public class AddCommand extends Command {
             if (model.hasSupplier(supplierToAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_SUPPLIER);
             }
+
             model.addSupplier(supplierToAdd);
-            logger.log(Level.INFO, "Supplier with given information has been added and supplier list is"
-                    + " updated on UI.");
+            logger.log(Level.INFO, LOG_MESSAGE_ADD_SUPPLIER_SUCCESS);
 
             commandResult = new CommandResult(String.format(MESSAGE_SUPPLIER_SUCCESS, supplierToAdd));
         } else {
-            assert this.warehouseToAdd != null : "warehouseToAdd specified"
-                    + " should be of Warehouse type and not null here.";
+            assert this.warehouseToAdd != null : INVALID_WAREHOUSE_ASSERTION;
             if (model.hasWarehouse(warehouseToAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_WAREHOUSE);
             }
+
             model.addWarehouse(warehouseToAdd);
-            logger.log(Level.INFO, "Warehouse with given information has been added and warehouse list is"
-                    + " updated on UI.");
+            logger.log(Level.INFO, LOG_MESSAGE_ADD_WAREHOUSE_SUCCESS);
 
             commandResult = new CommandResult(String.format(MESSAGE_WAREHOUSE_SUCCESS, warehouseToAdd));
         }
