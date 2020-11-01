@@ -81,7 +81,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             logger.log(Level.INFO, "Successfully created Supplier with given user input.");
 
             addCommand = new AddCommand(supplier);
-        } else {
+        } else if (type.equals(WAREHOUSE)) {
             assert type.equals(WAREHOUSE) : "The type prefix for warehouse should be present here.";
             logger.log(Level.INFO, "User input contains type prefix for warehouse.");
 
@@ -100,6 +100,9 @@ public class AddCommandParser implements Parser<AddCommand> {
             logger.log(Level.INFO, "Successfully created Warehouse with given user input.");
 
             addCommand = new AddCommand(warehouse);
+        } else {
+            throw new ParseException(String.format(MESSAGE_MISSING_TYPE_PREFIX,
+                    AddCommand.MESSAGE_USAGE));
         }
         return addCommand;
     }
