@@ -64,8 +64,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_WAREHOUSE_MISSING_PREFIX = "There are missing prefixes, ensure"
             + " that you at least include: ct/w n/WAREHOUSE_NAME, p/PHONE and addr/ADDRESS";
 
-    private static final String LOG_MESSAGE_RECEIVE_SUPPLIER = "Received information to add supplier";
-    private static final String LOG_MESSAGE_RECEIVE_WAREHOUSE = "Received information to add warehouse";
+    private static final String LOG_MESSAGE_RECEIVE_SUPPLIER = "Received information to add supplier.";
+    private static final String LOG_MESSAGE_RECEIVE_WAREHOUSE = "Received information to add warehouse.";
     private static final String LOG_MESSAGE_ADD_SUPPLIER_SUCCESS = "Supplier with given information has been added"
             + " and supplier list is updated on UI.";
     private static final String LOG_MESSAGE_ADD_WAREHOUSE_SUCCESS = "Warehouse with given information has been added"
