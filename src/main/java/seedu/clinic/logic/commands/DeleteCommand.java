@@ -64,9 +64,9 @@ public class DeleteCommand extends Command {
             "Deleted Product: %1$s from Supplier: %2$s";
 
     private static final String LOG_MESSAGE_NORMAL_DELETION =
-            "Received information to delete a supplier or a warehouse";
+            "Received information to delete a supplier or a warehouse.";
     private static final String LOG_MESSAGE_PRODUCT_DELETION =
-            "Received information to delete a product from a supplier or a warehouse";
+            "Received information to delete a product from a supplier or a warehouse.";
 
     private final Type targetType;
     private final Index targetIndex;
@@ -121,13 +121,13 @@ public class DeleteCommand extends Command {
 
         Warehouse warehouseToUpdate = lastShownList.get(targetIndex.getZeroBased());
         try {
-            // Find the product with name matching the targetProductName
+            // Finds the product with name matching the targetProductName
             Product matchedProduct = warehouseToUpdate.getProductByName(targetProductName.get());
 
-            // Remove the matchedProduct form the target warehouse
+            // Removes the matchedProduct from the target warehouse
             Warehouse updatedWarehouse = warehouseToUpdate.removeProduct(matchedProduct);
 
-            // Update the warehouse list in the model
+            // Updates the warehouse list in the model
             model.setWarehouse(warehouseToUpdate, updatedWarehouse);
             model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
             model.saveVersionedClinic();

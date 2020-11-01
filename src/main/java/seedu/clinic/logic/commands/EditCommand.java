@@ -85,8 +85,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_WAREHOUSE_UNCHANGED = "The edited field will results in no change to "
             + "warehouse selected. Please check your arguments again and re-enter your edit command.";
 
-    private static final String LOG_MESSAGE_RECEIVE_EDIT_SUPPLIER = "Received instructions to edit supplier";
-    private static final String LOG_MESSAGE_RECEIVE_EDIT_WAREHOUSE = "Received instructions to edit warehouse";
+    private static final String LOG_MESSAGE_RECEIVE_EDIT_SUPPLIER = "Received instructions to edit supplier.";
+    private static final String LOG_MESSAGE_RECEIVE_EDIT_WAREHOUSE = "Received instructions to edit warehouse.";
     private static final String LOG_MESSAGE_SUPPLIER_RETRIEVED = "Supplier to edit is retrieved from supplier list.";
     private static final String LOG_MESSAGE_WAREHOUSE_RETRIEVED = "Warehouse to edit is retrieved from warehouse list.";
     private static final String LOG_MESSAGE_SUPPLIER_EDITED = "Supplier with edited information has been created.";
@@ -97,7 +97,7 @@ public class EditCommand extends Command {
     private static final String LOG_WAREHOUSE_UPDATED_IN_UI = "Updated warehouse in UI.";
 
     private static final String INVALID_EDIT_SUPPLIER_DESCRIPTOR_ASSERTION = "editDescriptor supplied should be "
-            + "of EditWarehouseDescriptor type here.";
+            + "of EditSupplierDescriptor type here.";
     private static final String INVALID_EDIT_WAREHOUSE_DESCRIPTOR_ASSERTION = "editDescriptor supplied"
             + " should be of EditWarehouseDescriptor type here.";
     private static final String INVALID_OBJECT_IN_COMPARISON_ASSERTION =
