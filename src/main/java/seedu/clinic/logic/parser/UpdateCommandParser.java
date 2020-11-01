@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.UpdateCommand.UpdateProductDescriptor;
@@ -31,11 +30,10 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
     public UpdateCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_PRODUCT_NAME,
-                        PREFIX_PRODUCT_QUANTITY, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_PRODUCT_NAME,
+                PREFIX_PRODUCT_QUANTITY, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_PRODUCT_NAME)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_PRODUCT_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
@@ -46,21 +44,13 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         UpdateProductDescriptor updateProductDescriptor = new UpdateProductDescriptor();
 
         if (argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).isPresent()) {
-            updateProductDescriptor.setQuantity(ParserUtil.parseQuantity(argMultimap
-                    .getValue(PREFIX_PRODUCT_QUANTITY).get()));
+            updateProductDescriptor.setQuantity(ParserUtil
+                    .parseQuantity(argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get()));
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updateProductDescriptor::setTags);
 
         return new UpdateCommand(entityType, entityName, productName, updateProductDescriptor);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
     /**
@@ -74,7 +64,14 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         if (tags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+
+        Collection<String> tagSet;
+
+        if (tags.size() == 1 && tags.contains("")) {
+            tagSet = Collections.emptySet();
+        } else {
+            tagSet = tags;
+        }
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 }
