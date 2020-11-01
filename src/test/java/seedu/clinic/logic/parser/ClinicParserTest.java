@@ -9,12 +9,9 @@ import static seedu.clinic.logic.commands.CommandTestUtil.PRODUCT_NAME_DESC_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER_PRODUCT;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_PANADOL;
-import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_FEVER;
 import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.SUPPLIER_PRODUCT;
-import static seedu.clinic.model.util.SampleDataUtil.getTagSet;
 import static seedu.clinic.testutil.Assert.assertThrows;
-import static seedu.clinic.testutil.SupplierUtil.getAddProductCommand;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 
@@ -23,41 +20,34 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.clinic.logic.commands.AddProductCommand;
+import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.commands.ClearCommand;
 import seedu.clinic.logic.commands.DeleteCommand;
+import seedu.clinic.logic.commands.EditCommand;
 import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Name;
-import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.supplier.SupplierPredicate;
 import seedu.clinic.model.warehouse.WarehousePredicate;
+import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
 import seedu.clinic.testutil.SupplierBuilder;
+import seedu.clinic.testutil.SupplierUtil;
 
 public class ClinicParserTest {
 
     private static final Name VALID_NAME_DESC = new Name(VALID_PRODUCT_NAME_PANADOL);
     private final ClinicParser parser = new ClinicParser();
 
-    /*
+
     @Test
     public void parseCommand_add() throws Exception {
         Supplier supplier = new SupplierBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(SupplierUtil.getAddCommand(supplier));
         assertEquals(new AddCommand(supplier), command);
-    }
-     */
-
-    @Test
-    public void parserCommand_addProduct() throws Exception {
-        Supplier supplier = new SupplierBuilder().build();
-        Product product = new Product(VALID_NAME_DESC, getTagSet(VALID_TAG_FEVER));
-        AddProductCommand command = (AddProductCommand) parser.parseCommand(getAddProductCommand(supplier, product));
-        assertEquals(new AddProductCommand(supplier.getName(), product), command);
     }
 
     @Test
@@ -78,16 +68,17 @@ public class ClinicParserTest {
         assertEquals(new DeleteCommand(SUPPLIER_PRODUCT, INDEX_FIRST_SUPPLIER, VALID_NAME_DESC), command);
     }
 
-    /*
+
     @Test
     public void parseCommand_edit() throws Exception {
         Supplier supplier = new SupplierBuilder().build();
-        EditSupplierDescriptor descriptor = new EditSupplierDescriptorBuilder(supplier).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_SUPPLIER.getOneBased() + " " + SupplierUtil.getEditSupplierDescriptorDetails(descriptor));
+        EditCommand.EditSupplierDescriptor descriptor = new EditSupplierDescriptorBuilder(supplier).build();
+        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD
+                + TYPE_DESC_SUPPLIER
+                + INDEX_DESC + INDEX_FIRST_SUPPLIER.getOneBased() + " "
+                + SupplierUtil.getEditSupplierDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_SUPPLIER, descriptor), command);
     }
-     */
 
     @Test
     public void parseCommand_exit() throws Exception {

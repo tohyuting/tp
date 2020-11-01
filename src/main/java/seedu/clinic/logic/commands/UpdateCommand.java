@@ -38,8 +38,8 @@ public class UpdateCommand extends Command {
             + " name in the specified supplier or warehouse. If the product does not exist for that supplier or"
             + " warehouse, a new product will be created for that supplier or warehouse."
             + " TYPE specified should be either s for supplier or w for warehouse. QUANTITY should"
-            + " be a non-negative unsigned integer. If the PRODUCT_NAME already exists in the supplier or warehouse, at"
-            + " least one optional argument has to be entered.\n\n"
+            + " be a non-negative unsigned integer. If the PRODUCT_NAME already exists in the supplier or warehouse,"
+            + " at least one optional argument has to be entered.\n\n"
             + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "
             + PREFIX_NAME + "NAME "
@@ -54,11 +54,11 @@ public class UpdateCommand extends Command {
             + PREFIX_PRODUCT_QUANTITY + "350 "
             + PREFIX_TAG + "Fever";
 
-    public static final String MESSAGE_SUCCESS = "Product stock updated: %1$s in %2$s";
+    public static final String MESSAGE_SUCCESS = "Product stock updated: %1$s in %2$s.";
     private static final String MESSAGE_NO_SUCH_ENTITY = "The specified warehouse/supplier cannot be found.";
     private static final String MESSAGE_INVALID_TYPE = "Invalid Type.";
     private static final String MESSAGE_EMPTY_DESCRIPTOR = "Either the quantity or tags (or both) has to be "
-            + "supplied to update an existing product";
+            + "supplied to update an existing product.";
 
     private final Type entityType;
     private final Name entityName;

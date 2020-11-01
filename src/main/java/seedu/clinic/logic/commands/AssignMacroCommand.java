@@ -51,7 +51,6 @@ public class AssignMacroCommand extends Command {
         }
 
         model.addMacro(toAssign);
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAssign));
     }
 

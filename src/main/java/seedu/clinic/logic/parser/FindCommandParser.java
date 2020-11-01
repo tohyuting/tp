@@ -12,7 +12,6 @@ import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.logic.commands.FindCommand;
@@ -26,6 +25,11 @@ import seedu.clinic.model.warehouse.WarehousePredicate;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
+    private static final String LOG_MESSAGE_PARSE_FIND_SUPPLIER = "Returning FindCommand to find relevant suppliers.";
+    private static final String LOG_MESSAGE_PARSE_FIND_WAREHOUSE = "Returning FindCommand to find relevant warehouses.";
+
+    private static final String NULL_TYPE_ASSERTION = "type cannot be null";
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
@@ -39,14 +43,14 @@ public class FindCommandParser implements Parser<FindCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_PRODUCT_NAME, PREFIX_REMARK);
 
         // Ensures that the type prefix is present and at least one of the name, product or remark prefix is present
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE)
-                || !atLeastOnePrefixPresent(argMultimap, PREFIX_NAME, PREFIX_PRODUCT_NAME, PREFIX_REMARK)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE)
+                || !ParserUtil.atLeastOnePrefixPresent(argMultimap, PREFIX_NAME, PREFIX_PRODUCT_NAME, PREFIX_REMARK)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-        assert type != null : "type cannot be null";
+        assert type != null : NULL_TYPE_ASSERTION;
 
         if (!type.equals(SUPPLIER) && !type.equals(WAREHOUSE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_INVALID_TYPE));
@@ -71,31 +75,15 @@ public class FindCommandParser implements Parser<FindCommand> {
             remarkKeywords = remark.value.split("\\s+");
         }
 
-        if (type.toString().equals("s")) {
-            logger.log(Level.INFO, "Returning FindCommand to find relevant suppliers.");
+        if (type.equals(SUPPLIER)) {
+            logger.log(Level.INFO, LOG_MESSAGE_PARSE_FIND_SUPPLIER);
             return new FindCommand(new SupplierPredicate(Arrays.asList(nameKeywords),
                     Arrays.asList(productKeywords), Arrays.asList(remarkKeywords)));
         }
 
-        logger.log(Level.INFO, "Returning FindCommand to find relevant warehouses.");
+        logger.log(Level.INFO, LOG_MESSAGE_PARSE_FIND_WAREHOUSE);
         return new FindCommand(new WarehousePredicate(Arrays.asList(nameKeywords),
                 Arrays.asList(productKeywords), Arrays.asList(remarkKeywords)));
-    }
-
-    /**
-     * Returns true if none of the prefixes contain empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    /**
-     * Returns true if at least one of the prefixes does not have empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean atLeastOnePrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
