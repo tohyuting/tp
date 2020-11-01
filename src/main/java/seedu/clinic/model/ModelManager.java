@@ -156,6 +156,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setClinic(ReadOnlyClinic clinic) {
+        saveVersionedClinic();
         this.clinic.resetData(clinic);
     }
 

@@ -26,12 +26,18 @@
     -fx-background-color: #99CAF0; /* bluish */
     -fx-border-radius: 8;
     -fx-background-radius: 8;
+    -fx-padding: 5;
+    -fx-border-insets: 5;
+    -fx-background-insets: 5;
 }
 
 .list-cell:filled:odd {
     -fx-background-color: #FEFEFE; /* white */
     -fx-border-radius: 8;
     -fx-background-radius: 8;
+    -fx-padding: 5;
+    -fx-border-insets: 5;
+    -fx-background-insets: 5;
 }
 
 .list-cell:filled:selected {
@@ -45,8 +51,12 @@
     -fx-opacity: 0.9;
 }
 
-.table-row-cell:filled:selected {
-    -fx-background-color: #75a2c7;
+.list-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.list-cell:empty .table-cell {
+    -fx-border-width: 0px;
 }
 
 #commandTextField {
@@ -92,11 +102,13 @@
 #warehouseListView {
     -fx-border-radius: 8;
     -fx-background-radius: 8;
+    -fx-background-color: transparent;
     -fx-effect: innershadow(gaussian, white, 1, 0, 0, 0);
 }
 
 #supplierListView {
     -fx-border-radius: 8;
     -fx-background-radius: 8;
+    -fx-background-color: transparent;
     -fx-effect: innershadow(gaussian, white, 1, 0, 0, 0);
 }
