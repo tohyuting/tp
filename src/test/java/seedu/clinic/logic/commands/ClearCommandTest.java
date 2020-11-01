@@ -1,5 +1,6 @@
 package seedu.clinic.logic.commands;
 
+import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 
@@ -18,7 +19,7 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         expectedModel.saveVersionedClinic();
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandFailure(new ClearCommand(), model, ClearCommand.MESSAGE_EMPTY_CLINIC);
     }
 
     @Test

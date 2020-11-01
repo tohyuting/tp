@@ -18,12 +18,13 @@ public class ClearCommand extends Command {
             + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "CLI-nic has been cleared!";
+    public static final String MESSAGE_EMPTY_CLINIC = "The CLI-nic is already empty, not data to clear";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (model.getClinic().equals(new Clinic())) {
-            throw new CommandException("CLI-nic already empty, nothing to clear");
+            throw new CommandException(MESSAGE_EMPTY_CLINIC);
         }
         model.setClinic(new Clinic());
         return new CommandResult(MESSAGE_SUCCESS);

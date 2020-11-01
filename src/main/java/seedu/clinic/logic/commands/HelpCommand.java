@@ -128,7 +128,7 @@ public class HelpCommand extends Command {
                 + " specific supplier or warehouse";
         String aboutUndoCommand = UndoCommand.COMMAND_WORD + "\nUndo the previous editing on the data of CLI-nic";
         String aboutRedoCommand = RedoCommand.COMMAND_WORD + "\nRecovers the previous state of CLI-nic before"
-                + "  the undo command on the data of CLI-nic";
+                + " the undo command on the data of CLI-nic";
 
         String genericHelpMessage = aboutHelpCommand + "\n\n"
                 + aboutAddCommand + "\n\n"
