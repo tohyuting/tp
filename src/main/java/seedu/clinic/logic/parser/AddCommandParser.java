@@ -73,7 +73,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (type.equals(SUPPLIER)) {
             return parseAddSupplier(argMultimap);
-        } else if (type.equals(WAREHOUSE)){
+        } else if (type.equals(WAREHOUSE)) {
             return parseAddWarehouse(argMultimap, type);
         } else {
             throw new ParseException(String.format(MESSAGE_MISSING_TYPE_PREFIX,
@@ -98,8 +98,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Supplier supplier = new Supplier(name, phone, email, remark, productList);
         logger.log(Level.INFO, LOG_MESSAGE_PARSE_SUPPLIER_SUCCESS);
 
-            return new AddCommand(supplier);
-        }
+        return new AddCommand(supplier);
+    }
 
     private AddCommand parseAddWarehouse(ArgumentMultimap argMultimap, Type type) throws ParseException {
         assert type.equals(WAREHOUSE) : INVALID_WAREHOUSE_ASSERTION;
