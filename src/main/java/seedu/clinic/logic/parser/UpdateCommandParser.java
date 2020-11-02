@@ -2,7 +2,7 @@ package seedu.clinic.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.UpdateCommand.UpdateProductDescriptor;
 import seedu.clinic.logic.parser.exceptions.ParseException;
@@ -32,16 +33,16 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_PRODUCT_NAME,
+                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_INDEX, PREFIX_PRODUCT_NAME,
                         PREFIX_PRODUCT_QUANTITY, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_PRODUCT_NAME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_INDEX, PREFIX_PRODUCT_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
 
         Type entityType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-        Name entityName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         Name productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
         UpdateProductDescriptor updateProductDescriptor = new UpdateProductDescriptor();
 
@@ -52,7 +53,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updateProductDescriptor::setTags);
 
-        return new UpdateCommand(entityType, entityName, productName, updateProductDescriptor);
+        return new UpdateCommand(entityType, index, productName, updateProductDescriptor);
     }
 
     /**

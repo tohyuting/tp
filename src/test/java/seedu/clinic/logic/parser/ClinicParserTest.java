@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.clinic.logic.commands.CommandTestUtil.INDEX_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.INDEX_DESC_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.PRODUCT_NAME_DESC_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER_PRODUCT;
@@ -16,7 +16,6 @@ import static seedu.clinic.model.util.SampleDataUtil.getTagSet;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.SupplierUtil.getAddProductCommand;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
-import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -69,12 +68,12 @@ public class ClinicParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + TYPE_DESC_SUPPLIER + INDEX_DESC + INDEX_FIRST_SUPPLIER.getOneBased());
+                DeleteCommand.COMMAND_WORD + TYPE_DESC_SUPPLIER + INDEX_DESC_A);
         assertEquals(new DeleteCommand(SUPPLIER, INDEX_FIRST_SUPPLIER), command);
 
         command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + TYPE_DESC_SUPPLIER_PRODUCT
-                        + INDEX_DESC + INDEX_FIRST_WAREHOUSE.getOneBased() + PRODUCT_NAME_DESC_BOB);
+                        + INDEX_DESC_A + PRODUCT_NAME_DESC_BOB);
         assertEquals(new DeleteCommand(SUPPLIER_PRODUCT, INDEX_FIRST_SUPPLIER, VALID_NAME_DESC), command);
     }
 
