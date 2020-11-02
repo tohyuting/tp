@@ -41,6 +41,24 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
 
+        readCommandHistory();
+    }
+
+    /**
+     * Handles the Enter button pressed event.
+     */
+    @FXML
+    private void handleCommandEntered() {
+        try {
+            commandExecutor.execute(commandTextField.getText());
+            commandTextField.setText("");
+            readCommandHistory();
+        } catch (CommandException | ParseException e) {
+            setStyleToIndicateCommandFailure();
+        }
+    }
+
+    private void readCommandHistory() {
         try {
             String result = FileUtil.readFromFile(Paths.get("data" , "commandHistory.txt"));
 
@@ -58,31 +76,28 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-    /**
-     * Handles the Enter button pressed event.
-     */
-    @FXML
-    private void handleCommandEntered() {
-        try {
-            commandExecutor.execute(commandTextField.getText());
-            commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
-            setStyleToIndicateCommandFailure();
-        }
-    }
-
     @FXML
     private void handleOnKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
         case UP:
             if (commandHistoryIndex > 0) {
                 setCommandTextFieldText(commandHistoryIndex - 1);
+            } else {
+                if (commandHistoryIndex == 0) {
+                    commandHistoryIndex -= 1;
+                }
+                commandTextField.setText("");
             }
             break;
 
         case DOWN:
             if (commandHistoryIndex < this.commandHistory.size() - 1) {
                 setCommandTextFieldText(commandHistoryIndex + 1);
+            } else {
+                if (commandHistoryIndex == commandHistory.size() - 1) {
+                    commandHistoryIndex += 1;
+                }
+                commandTextField.setText("");
             }
             break;
 
