@@ -54,7 +54,7 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
 
    * **`list`**: Displays all the suppliers and warehouses in CLI-nic.
 
-   * **`removemacro`** `uwm` : Removes the macro with the alias `uwm`.
+   * **`removemacro`** `findsup` : Removes the macro with the alias `findsup`.
 
    * **`update`** `ct/w i/2 pd/Panadol q/10 t/Fever` : Updates the quantity of `Panadol` stored in the warehouse at
    index 2 in the list of displayed warehouses on the GUI to `10` and assigns the tag of `Fever` to the product.
