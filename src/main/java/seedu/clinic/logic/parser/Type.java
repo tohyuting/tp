@@ -8,7 +8,7 @@ public enum Type {
 
     private final String code;
 
-    private Type(String code) {
+    Type(String code) {
         this.code = code;
     }
 
