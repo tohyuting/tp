@@ -38,6 +38,12 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public boolean equalsCaseSensitive(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Name // instanceof handles nulls
+                && fullName.equals(((Name) other).fullName)); // state check
+    }
+
 
     @Override
     public String toString() {

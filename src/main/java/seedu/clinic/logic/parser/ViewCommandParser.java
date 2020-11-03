@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.ViewCommand;
+import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 
 public class ViewCommandParser implements Parser<ViewCommand> {
@@ -53,7 +54,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         try {
             type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
         } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_TYPE, argMultimap);
+            throw checkInvalidArguments(PREFIX_TYPE, argMultimap, ViewCommand.MESSAGE_USAGE);
         }
 
         logger.log(Level.INFO, LOG_MESSAGE_PARSE_INPUT_SUCCESS);
@@ -67,7 +68,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_INDEX, argMultimap);
+            throw checkInvalidArguments(PREFIX_INDEX, argMultimap, ViewCommand.MESSAGE_USAGE);
         }
 
         logger.log(Level.INFO, LOG_MESSAGE_CREATE_VIEW_COMMAND);
@@ -75,18 +76,4 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         return new ViewCommand(type, index);
     }
 
-    private ParseException checkInvalidArguments(Prefix prefix, ArgumentMultimap argMultimap) {
-        if (argMultimap.getValue(prefix).get().contains("/")) {
-            return new ParseException(MESSAGE_INVALID_PREFIX + "\n" + ViewCommand.MESSAGE_USAGE);
-        }
-        if (argMultimap.getValue(prefix).get().split("\\s+").length != 1) {
-            return new ParseException(String.format(MESSAGE_INVALID_USAGE, ViewCommand.MESSAGE_USAGE));
-        }
-        if (prefix.equals(PREFIX_TYPE)) {
-            return new ParseException(String.format(MESSAGE_INVALID_TYPE_VIEW, ViewCommand.MESSAGE_USAGE));
-        } else {
-            assert prefix.equals(PREFIX_INDEX) : INVALID_INDEX_PREFIX_ASSERTION;
-            return new ParseException(MESSAGE_INVALID_INDEX + "\n" + ViewCommand.MESSAGE_USAGE);
-        }
-    }
 }

@@ -14,6 +14,7 @@ import seedu.clinic.model.attribute.Phone;
 import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
 import seedu.clinic.model.product.exceptions.ProductNotFoundException;
+import seedu.clinic.model.supplier.Supplier;
 
 /**
  * Represents a Warehouse in the CLI-nic app.
@@ -103,6 +104,19 @@ public class Warehouse {
      */
     public boolean hasProductWithName(Name targetName) {
         return products.stream().anyMatch(p -> p.getProductName().equals(targetName));
+    }
+
+    /**
+     * Returns true if both warehouses of the same name (case sensitive).
+     * This defines a weaker notion of equality between two warehouse than isSameWarehouse.
+     */
+    public boolean isSameSupplierCaseSensitive(Warehouse otherWarehouse) {
+        if (otherWarehouse == this) {
+            return true;
+        }
+
+        return otherWarehouse != null
+                && otherWarehouse.getName().equalsCaseSensitive(getName());
     }
 
     /**

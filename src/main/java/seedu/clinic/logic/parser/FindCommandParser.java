@@ -6,6 +6,7 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 
@@ -49,8 +50,14 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-        assert type != null : NULL_TYPE_ASSERTION;
+        Type type;
+
+        try{
+            type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+            assert type != null : NULL_TYPE_ASSERTION;
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_TYPE, argMultimap, FindCommand.MESSAGE_USAGE);
+        }
 
         if (!type.equals(SUPPLIER) && !type.equals(WAREHOUSE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_INVALID_TYPE));
@@ -59,20 +66,23 @@ public class FindCommandParser implements Parser<FindCommand> {
         String[] nameKeywords = {};
         String[] productKeywords = {};
         String[] remarkKeywords = {};
+        try {
+            if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+                Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+                nameKeywords = name.fullName.split("\\s+");
+            }
 
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-            nameKeywords = name.fullName.split("\\s+");
-        }
+            if (argMultimap.getValue(PREFIX_PRODUCT_NAME).isPresent()) {
+                Name productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
+                productKeywords = productName.fullName.split("\\s+");
+            }
 
-        if (argMultimap.getValue(PREFIX_PRODUCT_NAME).isPresent()) {
-            Name productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
-            productKeywords = productName.fullName.split("\\s+");
-        }
-
-        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
-            Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
-            remarkKeywords = remark.value.split("\\s+");
+            if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+                Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
+                remarkKeywords = remark.value.split("\\s+");
+            }
+        } catch (ParseException pe) {
+            throw new ParseException(pe.getMessage() + "\n" + FindCommand.MESSAGE_USAGE);
         }
 
         if (type.equals(SUPPLIER)) {

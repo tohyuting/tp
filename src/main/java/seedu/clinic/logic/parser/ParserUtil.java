@@ -9,6 +9,15 @@ import java.util.stream.Stream;
 
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.commons.util.StringUtil;
+import seedu.clinic.logic.commands.Command;
+import seedu.clinic.logic.commands.DeleteCommand;
+import seedu.clinic.logic.commands.EditCommand;
+import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_TYPE_EDIT;
+import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_USAGE;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Address;
 import seedu.clinic.model.attribute.Email;
@@ -25,10 +34,19 @@ import seedu.clinic.model.product.Product;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index provided is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_QUANTITY = "Quantity provided is not an unsigned integer.";
-    public static final String MESSAGE_INVALID_TYPE = "Type is invalid, must be one of s/w/ps/pw.";
-    public static final String MESSAGE_INVALID_PREFIX = "One of the prefix specified is not recognised.";
+    public static final String MESSAGE_INVALID_INDEX = "Index provided is not a non-zero unsigned integer."
+            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_QUANTITY = "Quantity provided is not an unsigned integer."
+            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_TYPE_DELETE = "Type is invalid, must be one of s/w/ps/pw."
+            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_TYPE = "Type is invalid, must be either s or w."
+            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_PREFIX = "One of the prefix specified is not recognised."
+            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
+            + "ensure that you only include prefixes specified in the User Guide.\n\n%1$s";
+    private static final String INVALID_TYPE_PREFIX_ASSERTION = "The prefix here should be of Type type!";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -54,7 +72,7 @@ public class ParserUtil {
         try {
             return Type.getType(trimmedType);
         } catch (IllegalArgumentException e) {
-            throw new ParseException(MESSAGE_INVALID_TYPE);
+            throw new ParseException(MESSAGE_INVALID_TYPE_DELETE);
         }
     }
 
@@ -218,6 +236,30 @@ public class ParserUtil {
      */
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    public static ParseException checkInvalidArguments(Prefix prefix, ArgumentMultimap argMultimap
+            , String messageUsage) {
+        if (argMultimap.getValue(prefix).get().contains("/")) {
+            return new ParseException(String.format(MESSAGE_INVALID_PREFIX, messageUsage));
+        } else if (argMultimap.getValue(prefix).get().split("\\s+").length != 1) {
+            return new ParseException(String.format(MESSAGE_INVALID_USAGE, messageUsage));
+        }
+
+        if (prefix.equals(PREFIX_INDEX)) {
+            return new ParseException(String.format(MESSAGE_INVALID_INDEX, messageUsage));
+        } else if (prefix.equals(PREFIX_PHONE)) {
+            return new ParseException(Phone.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
+        } else if (prefix.equals(PREFIX_PRODUCT_QUANTITY)) {
+            return new ParseException(String.format(MESSAGE_INVALID_QUANTITY, messageUsage));
+        } else {
+            assert prefix.equals(PREFIX_TYPE) : INVALID_TYPE_PREFIX_ASSERTION;
+
+            if (messageUsage.equals(DeleteCommand.MESSAGE_USAGE)) {
+                return new ParseException(String.format(MESSAGE_INVALID_TYPE_DELETE, messageUsage));
+            }
+            return new ParseException(String.format(MESSAGE_INVALID_TYPE, messageUsage));
+        }
     }
 
 
