@@ -10,22 +10,22 @@ public interface CommandHistoryStorage {
      */
     Path getCommandHistoryFilePath();
 
-//    /**
-//     * Returns CommandHistory data as a {@link String}.
-//     *   Returns {@code Optional.empty()} if storage file is not found.
-//     * @throws IOException if there was any problem when reading from the storage.
-//     */
-//    Optional<String> readCommandHistory() throws IOException;
+    /**
+     * Returns CommandHistory data as a {@link String}.
+     *   Returns {@code Optional.empty()} if storage file is not found.
+     * @throws IOException if there was any problem when reading from the storage.
+     */
+    // Optional<String> readCommandHistory() throws IOException;
 
     Optional<String> readCommandHistory(Path filePath) throws IOException;
 
-//
-//    /**
-//     * Saves the given {@link String} to the storage.
-//     * @param commandHistory cannot be null.
-//     * @throws IOException if there was any problem writing to the file.
-//     */
-//    void saveCommandHistory(String commandHistory) throws IOException;
+
+    /**
+     * Saves the given {@link String} to the storage.
+     * @param commandHistory cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     */
+    // void saveCommandHistory(String commandHistory) throws IOException;
 
     void saveCommandHistory(String commandHistory, Path filePath) throws IOException;
 
