@@ -218,4 +218,9 @@ public interface Model {
      * Returns the user prefs' command history file path.
      */
     Path getCommandHistoryFilePath();
+
+    /**
+     * Returns the command history.
+     */
+    CommandHistory getCommandHistory();
 }

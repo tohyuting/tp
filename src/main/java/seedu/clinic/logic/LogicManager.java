@@ -13,6 +13,7 @@ import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.ClinicParser;
 import seedu.clinic.logic.parser.MacroParser;
 import seedu.clinic.logic.parser.exceptions.ParseException;
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
@@ -121,5 +122,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public CommandHistory getCommandHistory() {
+        return model.getCommandHistory();
     }
 }

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.commons.exceptions.DataConversionException;
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.ReadOnlyUserPrefs;
@@ -119,7 +120,12 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<String> readCommandHistory(Path filePath) throws IOException {
+    public Optional<CommandHistory> readCommandHistory() throws IOException {
+        return readCommandHistory(commandHistoryStorage.getCommandHistoryFilePath());
+    }
+
+    @Override
+    public Optional<CommandHistory> readCommandHistory(Path filePath) throws IOException {
         return commandHistoryStorage.readCommandHistory(filePath);
     }
 

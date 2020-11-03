@@ -16,6 +16,7 @@ import seedu.clinic.commons.util.StringUtil;
 import seedu.clinic.logic.Logic;
 import seedu.clinic.logic.LogicManager;
 import seedu.clinic.model.Clinic;
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.ReadOnlyClinic;
@@ -121,7 +122,18 @@ public class MainApp extends Application {
             initialUserMacrosData = new UserMacros();
         }
 
-        return new ModelManager(initialClinicData, userPrefs, initialUserMacrosData);
+        Optional<CommandHistory> commandHistoryOptional;
+        CommandHistory initialCommandHistoryData;
+        try {
+            commandHistoryOptional = storage.readCommandHistory();
+            initialCommandHistoryData = commandHistoryOptional.get();
+        } catch (IOException e) {
+            logger.warning("Problem encountered while reading from commandHistory.txt file. Will be starting with"
+                    + " an empty Command History model");
+            initialCommandHistoryData = new CommandHistory();
+        }
+
+        return new ModelManager(initialClinicData, userPrefs, initialUserMacrosData, initialCommandHistoryData);
     }
 
     private void initLogging(Config config) {
