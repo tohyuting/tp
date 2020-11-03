@@ -13,7 +13,7 @@ Given below are my contributions to the project.
 
 * **Major Enhancement**: Enhancement to add command (Pull requests: [#112](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/112), [#113](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/113))
   * What it does: Allows the user to insert new Supplier/Warehouse into the CLI-nic Supplier/Warehouse List
-   respectively.
+   respectively.<br>
    The user can add:
     * A Supplier that contains the following attributes: Name of Supplier, Phone, Email and Remark
      (Optional)
@@ -52,9 +52,9 @@ Given below are my contributions to the project.
     * Added documentation for the `add` commands in the user guide (Pull requests: [#75](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/75), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
   * Developer Guide:
     * Refactored DG to CLI-nic use case (Pull request: [#129](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/129))
-    * Added implementation details of the `add` feature. (Pull requests: [#139](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/139), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
-    * Added UML (Including Activity Diagram, Class Diagram and Sequence Diagram). (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
-    * Added Manual Testing Instructions for Developer Guide. (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
+    * Added implementation details of the `add` feature (Pull requests: [#139](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/139), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
+    * Added UML (Including Activity Diagram, Class Diagram and Sequence Diagram) (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
+    * Added Manual Testing Instructions for Developer Guide (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
     * Added Command Prefix table (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
 
 * **Community**:
@@ -64,5 +64,5 @@ Given below are my contributions to the project.
 
 * **Tools**:
   * Integrated a third party library ([PlantUML Github Action](https://github.com/cloudbees/plantuml-github-action)) 
-  to the project (Pull request: [#145](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/145))
+  to the project (Pull request: [#145](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/145)) <br>
   Credits for workflow to: [qwoprocks](https://github.com/qwoprocks)
