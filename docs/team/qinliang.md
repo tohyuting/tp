@@ -33,13 +33,14 @@ Given below are my contributions to the project.
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=qlchan24)
 
-* **Project management**: Managed v1.2 release on GitHub
+* **Project management**: Managed v1.2 release on GitHub, refactored the name and fields of the Person class into the supplier class.
 
 * **Enhancements to existing features**:
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the update product, assign macro, delete macro, and list macro features.
+    * Added documentation for the update product, assign macro, delete macro, and list macro,
+    and create purchase order(removed) features.
   * Developer Guide:
     * Added implementation details of the update product, assign macro, delete macro and list macro features.
 
