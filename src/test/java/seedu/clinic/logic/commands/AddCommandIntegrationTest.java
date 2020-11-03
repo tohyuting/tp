@@ -2,7 +2,7 @@ package seedu.clinic.logic.commands;
 
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+        model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class AddCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.addSupplier(validSupplier);
-
+        expectedModel.saveVersionedClinic();
         assertCommandSuccess(new AddCommand(validSupplier), model,
                 String.format(AddCommand.MESSAGE_SUPPLIER_SUCCESS, validSupplier), expectedModel);
     }
@@ -51,7 +51,7 @@ public class AddCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.addWarehouse(validWarehouse);
-
+        expectedModel.saveVersionedClinic();
         assertCommandSuccess(new AddCommand(validWarehouse), model,
                 String.format(AddCommand.MESSAGE_WAREHOUSE_SUCCESS, validWarehouse), expectedModel);
     }

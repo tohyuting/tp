@@ -3,7 +3,7 @@ package seedu.clinic.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.clinic.testutil.TypicalMacro.getTypicalUserMacros;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 
 import java.nio.file.Path;
 
@@ -17,6 +17,7 @@ import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
+import seedu.clinic.model.VersionedClinic;
 
 public class StorageManagerTest {
 
@@ -58,10 +59,10 @@ public class StorageManagerTest {
          * {@link JsonClinicStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonClinicStorageTest} class.
          */
-        Clinic original = getTypicalClinic();
+        VersionedClinic original = getTypicalVersionedClinic();
         storageManager.saveClinic(original);
         ReadOnlyClinic retrieved = storageManager.readClinic().get();
-        assertEquals(original, new Clinic(retrieved));
+        assertEquals(original.getCurrentClinic(), new Clinic(retrieved));
     }
 
     @Test
