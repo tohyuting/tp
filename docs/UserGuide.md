@@ -210,7 +210,7 @@ Examples:
 ![delete product](images/deleteWarehouseProduct.png)
 
 <div markdown="span" class="alert alert-info">
-**:information_source: Note:** The prefix `pd/` will be ignored when `ct/` given is `s` or `w`.
+**:information_source: Note:** The prefix `pd/` will be not be allowed when the `ct/` given is `s` (supplier) or `w` (warehouse).
 </div>
 
 ### Editing a supplier or warehouse : `edit`
