@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.clinic.model.Clinic;
+import seedu.clinic.model.VersionedClinic;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 
@@ -74,9 +75,9 @@ public class TypicalSupplier {
     private TypicalSupplier() {} // prevents instantiation
 
     /**
-     * Returns an {@code Clinic} with all the typical suppliers and warehouses.
+     * Returns an {@code VersionedClinic} with all the typical suppliers and warehouses.
      */
-    public static Clinic getTypicalClinic() {
+    public static VersionedClinic getTypicalVersionedClinic() {
         Clinic clinic = new Clinic();
         for (Supplier supplier : getTypicalSuppliers()) {
             clinic.addSupplier(supplier);
@@ -85,18 +86,18 @@ public class TypicalSupplier {
         for (Warehouse warehouse : TypicalWarehouse.getTypicalWarehouses()) {
             clinic.addWarehouse(warehouse);
         }
-        return clinic;
+        return new VersionedClinic(clinic);
     }
 
     /**
-     * Returns an {@code Clinic} with all the typical suppliers.
+     * Returns an {@code VersionedClinic} with all the typical suppliers.
      */
-    public static Clinic getTypicalSupplierOnlyClinic() {
+    public static VersionedClinic getTypicalSupplierOnlyClinic() {
         Clinic clinic = new Clinic();
         for (Supplier supplier : getTypicalSuppliers()) {
             clinic.addSupplier(supplier);
         }
-        return clinic;
+        return new VersionedClinic(clinic);
     }
 
     public static List<Supplier> getTypicalSuppliers() {
