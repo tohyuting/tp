@@ -33,6 +33,7 @@ import seedu.clinic.storage.JsonClinicStorage;
 import seedu.clinic.storage.JsonUserMacrosStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;
 import seedu.clinic.storage.StorageManager;
+import seedu.clinic.storage.TextFileCommandHistory;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -50,7 +51,10 @@ public class LogicManagerTest {
         JsonUserMacrosStorage userMacrosStorage =
                 new JsonUserMacrosStorage(temporaryFolder.resolve("userMacros.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage);
+        TextFileCommandHistory commandHistoryStorage = new TextFileCommandHistory(
+                temporaryFolder.resolve("commandHistory.txt"));
+        StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage,
+                commandHistoryStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -149,7 +153,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), model.getUserMacros());
+        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), model.getUserMacros(),
+                model.getCommandHistory());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

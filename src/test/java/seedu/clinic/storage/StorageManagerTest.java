@@ -31,7 +31,9 @@ public class StorageManagerTest {
         JsonClinicStorage clinicStorage = new JsonClinicStorage(getTempFilePath("clinic"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonUserMacrosStorage userMacrosStorage = new JsonUserMacrosStorage(getTempFilePath("userMacros"));
-        storageManager = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage);
+        TextFileCommandHistory commandHistoryStorage = new TextFileCommandHistory(
+                getTempFilePath("commandHistory"));
+        storageManager = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage, commandHistoryStorage);
     }
 
     private Path getTempFilePath(String fileName) {
