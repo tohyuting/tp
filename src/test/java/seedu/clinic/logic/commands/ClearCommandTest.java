@@ -1,7 +1,8 @@
 package seedu.clinic.logic.commands;
 
+import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,16 +18,15 @@ public class ClearCommandTest {
     public void execute_emptyClinic_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        expectedModel.saveVersionedClinic();
+        assertCommandFailure(new ClearCommand(), model, ClearCommand.MESSAGE_EMPTY_CLINIC);
     }
 
     @Test
     public void execute_nonEmptyClinic_success() {
-        Model model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
-        Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+        Model model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros());
+        Model expectedModel = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros());
         expectedModel.setClinic(new Clinic());
-
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

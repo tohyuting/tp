@@ -60,7 +60,7 @@
 
       </HBox>
       <HBox spacing="5">
-        <TitledPane fx:id="productsTitledPane" styleClass="productsTitledPane" text="Products">
+        <TitledPane fx:id="productsTitledPane" styleClass="productsTitledPane" text="Products" HBox.hgrow="ALWAYS">
           <VBox>
             <VBox fx:id="products" styleClass="products" minWidth="10" prefWidth="450" />
             <Label fx:id="noProductsLabel" styleClass="cell_small_label"
