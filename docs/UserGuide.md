@@ -334,7 +334,18 @@ Examples:
 
 ![view](images/viewWarehouse.png)
 
+### Undo/Redo a previous editing : `undo`/`redo`
+
+Undo command recovers a previous version of CLI-nic data if any data has been changed.
+Redo command restores the data in CLI-nic before an `undo` command was done.
+
+Format: `undo` / `redo`
+
+* Any trailing words behind the command words will be ignored.
+* For example: if one types `undo redo`, the command will be to `undo` the editing.
+
 <br />
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -383,3 +394,5 @@ Action | Format | Example
 **Remove Macro** | `removemacro ALIAS` | `removemacro uwm`
 **Update** | `update ct/TYPE n/NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w n/WarehouseA pd/Panadol q/10 t/fever`
 **View** | `view ct/TYPE i/INDEX` | `view ct/s i/1`
+**Undo** | `undo`
+**Redo** | `redo`

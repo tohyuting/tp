@@ -60,7 +60,7 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.deleteSupplier(supplierToDelete);
-
+        expectedModel.saveVersionedClinic();
         assertCommandSuccess(deleteCommand, modelForSupplier, expectedMessage, expectedModel);
 
         Warehouse warehouseToDelete = modelForWarehouse.getFilteredWarehouseList()
@@ -71,7 +71,7 @@ public class DeleteCommandTest {
 
         expectedModel = new ModelManager(modelForWarehouse.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.deleteWarehouse(warehouseToDelete);
-
+        expectedModel.saveVersionedClinic();
         assertCommandSuccess(deleteCommand, modelForWarehouse, expectedMessage, expectedModel);
     }
 
@@ -91,6 +91,7 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.setSupplier(supplierToUpdate, expectedSupplier);
+        expectedModel.saveVersionedClinic();
         assertCommandSuccess(deleteCommand, modelForSupplier, expectedMessage, expectedModel);
     }
 
@@ -131,6 +132,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(modelForSupplier.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.deleteSupplier(supplierToDelete);
+        expectedModel.saveVersionedClinic();
         showNoSupplier(expectedModel);
 
         assertCommandSuccess(deleteCommand, modelForSupplier, expectedMessage, expectedModel);
@@ -145,6 +147,7 @@ public class DeleteCommandTest {
 
         expectedModel = new ModelManager(modelForWarehouse.getClinic(), new UserPrefs(), new UserMacros());
         expectedModel.deleteWarehouse(warehouseToDelete);
+        expectedModel.saveVersionedClinic();
         showNoWarehouse(expectedModel);
 
         assertCommandSuccess(deleteCommand, modelForWarehouse, expectedMessage, expectedModel);
