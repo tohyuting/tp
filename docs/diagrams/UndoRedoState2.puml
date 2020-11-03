@@ -3,18 +3,30 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "add n/David"
+title After command "add ct/s n/David ..."
 
-package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
+package Versions {
+    class Version1 as "__vc0:VersionedClinic__"
+    class Version2 as "__vc1:VersionedClinic__"
+    class Version3 as "__vc2:VersionedClinic__"
+}
+Version1 -[hidden]right-> Version2
+Version2 -[hidden]right-> Version3
+
+class Pointer as "Current Version" #FFFFF
+
+Pointer -up-> Version3
+
+
+package UndoVersionStack {
+    class UndoVersion0 as "__vc0:VersionedClinic__"
+    class UndoVersion1 as "__vc1:VersionedClinic__"
 }
 
-State1 -[hidden]right-> State2
-State2 -[hidden]right-> State3
+class TopOfStack as "Top of the Stack" #FFFFF
 
-class Pointer as "Current State" #FFFFF
+TopOfStack -up-> UndoVersion1
 
-Pointer -up-> State3
+package RedoVersionStack {
+}
 @end
