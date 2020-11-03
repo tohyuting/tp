@@ -213,4 +213,9 @@ public interface Model {
      * Saves the current Clinic version.
      */
     void saveVersionedClinic();
+
+    /**
+     * Returns the user prefs' command history file path.
+     */
+    Path getCommandHistoryFilePath();
 }

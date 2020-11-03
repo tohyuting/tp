@@ -25,11 +25,13 @@ import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.util.SampleDataUtil;
 import seedu.clinic.storage.ClinicStorage;
+import seedu.clinic.storage.CommandHistoryStorage;
 import seedu.clinic.storage.JsonClinicStorage;
 import seedu.clinic.storage.JsonUserMacrosStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;
 import seedu.clinic.storage.Storage;
 import seedu.clinic.storage.StorageManager;
+import seedu.clinic.storage.TextFileCommandHistory;
 import seedu.clinic.storage.UserMacrosStorage;
 import seedu.clinic.storage.UserPrefsStorage;
 import seedu.clinic.ui.Ui;
@@ -62,7 +64,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ClinicStorage clinicStorage = new JsonClinicStorage(userPrefs.getClinicFilePath());
         UserMacrosStorage userMacrosStorage = new JsonUserMacrosStorage(userPrefs.getUserMacrosFilePath());
-        storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage);
+        CommandHistoryStorage commandHistoryStorage = new TextFileCommandHistory(userPrefs.getCommandHistoryFilePath());
+        storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage, commandHistoryStorage);
 
         initLogging(config);
 

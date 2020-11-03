@@ -280,6 +280,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getCommandHistoryFilePath() {
+        return userPrefs.getCommandHistoryFilePath();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

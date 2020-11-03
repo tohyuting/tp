@@ -2,13 +2,11 @@ package seedu.clinic.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.commons.core.LogsCenter;
-import seedu.clinic.commons.util.FileUtil;
 import seedu.clinic.logic.commands.Command;
 import seedu.clinic.logic.commands.CommandResult;
 import seedu.clinic.logic.commands.exceptions.CommandException;
@@ -70,13 +68,9 @@ public class LogicManager implements Logic {
         }
 
         try {
-            FileUtil.appendToFile(Paths.get("data" , "commandHistory.txt"), commandString + "\n");
-        } catch (IOException e) {
-            try {
-                FileUtil.writeToFile(Paths.get("data" , "commandHistory.txt"), commandString + "\n");
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            storage.saveCommandHistory(commandString, model.getCommandHistoryFilePath());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
         logger.info("----------------[CLI-nic data saved]");

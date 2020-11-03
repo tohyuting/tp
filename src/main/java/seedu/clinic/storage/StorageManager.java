@@ -21,17 +21,19 @@ public class StorageManager implements Storage {
     private ClinicStorage clinicStorage;
     private UserPrefsStorage userPrefsStorage;
     private UserMacrosStorage userMacrosStorage;
+    private CommandHistoryStorage commandHistoryStorage;
 
     /**
      * Creates a {@code StorageManager} with the given {@code ClinicStorage}, {@code UserPrefStorage},
-     * and {@code UserMacrosStorage}.
+     * {@code UserMacrosStorage} and {@code CommandHistoryStorage}.
      */
     public StorageManager(ClinicStorage clinicStorage, UserPrefsStorage userPrefsStorage,
-            UserMacrosStorage userMacrosStorage) {
+            UserMacrosStorage userMacrosStorage, CommandHistoryStorage commandHistoryStorage) {
         super();
         this.clinicStorage = clinicStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.userMacrosStorage = userMacrosStorage;
+        this.commandHistoryStorage = commandHistoryStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -107,6 +109,23 @@ public class StorageManager implements Storage {
     public void saveClinic(ReadOnlyClinic clinic, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         clinicStorage.saveClinic(clinic, filePath);
+    }
+
+    // ================ CommandHistory methods ==============================
+
+    @Override
+    public Path getCommandHistoryFilePath() {
+        return commandHistoryStorage.getCommandHistoryFilePath();
+    }
+
+    @Override
+    public Optional<String> readCommandHistory(Path filePath) throws IOException {
+        return commandHistoryStorage.readCommandHistory(filePath);
+    }
+
+    @Override
+    public void saveCommandHistory(String commandHistory, Path filePath) throws IOException {
+        commandHistoryStorage.saveCommandHistory(commandHistory, filePath);
     }
 
 }
