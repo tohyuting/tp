@@ -255,7 +255,7 @@ Example:
 ![delete product](images/deleteWarehouseProduct.png)
 
 <div markdown="span" class="alert alert-info">
-**:information_source: Note:** The prefix `pd/` will be ignored when `ct/` given is `s` or `w`.
+**:information_source: Note:** The prefix `pd/` will not be allowed when the `ct/` given is `s` (supplier) or `w` (warehouse).
 </div>
 
 ### Editing a supplier : `edit`
@@ -435,6 +435,16 @@ Example:
 
 ![view](images/viewWarehouse.png)
 
+### Undo/Redo a previous editing : `undo`/`redo`
+
+Undo command recovers a previous version of CLI-nic data if any data has been changed.
+Redo command restores the data in CLI-nic before an `undo` command was done.
+
+Format: `undo` / `redo`
+
+* Any trailing words behind the command words will be ignored.
+* For example: if one types `undo redo`, the command will be to `undo` the editing.
+
 <br />
 
 --------------------------------------------------------------------------------------------------------------------
@@ -485,7 +495,9 @@ Action | Format | Example
 **Find** Warehouse(s) | `find ct/w [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]` | `find ct/w pd/panadol face mask needle`
 **Help** | `help [COMMAND]` | `help add`
 **List** | `list`
+**Redo** | `redo`
 **Remove Macro** | `removemacro ALIAS` | `removemacro findsup`
+**Undo** | `undo`
 **Update** Supplier | `update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/s i/1 pd/Panadol q/10 t/fever`
 **Update** Warehouse | `update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w i/2 pd/Panadol q/10 t/fever`
 **View** Supplier | `view ct/s i/INDEX` | `view ct/s i/1`

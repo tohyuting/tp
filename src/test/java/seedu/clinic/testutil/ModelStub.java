@@ -169,4 +169,29 @@ public class ModelStub implements Model {
     public void updateFilteredWarehouseList(Predicate<Warehouse> predicate) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public boolean canUndoClinic() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean canRedoClinic() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void undoClinic() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void redoClinic() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void saveVersionedClinic() {
+        throw new AssertionError("This method should not be called.");
+    }
 }
