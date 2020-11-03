@@ -74,7 +74,7 @@ public class ClinicParserTest {
         EditCommand.EditSupplierDescriptor descriptor = new EditSupplierDescriptorBuilder(supplier).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD
                 + TYPE_DESC_SUPPLIER
-                + INDEX_DESC + INDEX_FIRST_SUPPLIER.getOneBased() + " "
+                + INDEX_DESC_A + " "
                 + SupplierUtil.getEditSupplierDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_SUPPLIER, descriptor), command);
     }
