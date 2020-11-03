@@ -57,7 +57,7 @@ checking on LoC contributions and milestones management
 <img src="images/criss-wang.png" width="200px">
 
 [[github](http://github.com/Criss-Wang)]
-[[portfolio](team/wangZhenlin.md)]
+[[portfolio](team/criss-wang.md)]
 
 * Role: Communication/progress manager; Tech Helper;
 * Responsibilities:
