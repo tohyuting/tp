@@ -27,11 +27,11 @@ You can reach us at the email `cs2103w144@gmail.com`
 [[portfolio](team/jeffrey.md)]
 
 * Role: Developer, Draft manager
-* Responsibilities: 
+* Responsibilities:
     * In charge of Documentation (Including User stories, User guide, Developer guide management,
     UML diagram and product demo
     * UI Design
-    
+
 ### Lim Zheng Wei
 
 <img src="images/zhengweii.png" width="200px">

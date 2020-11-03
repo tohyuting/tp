@@ -224,7 +224,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
     Using the `targetType` attribute, the execution is first classified as either Supplier deletion (`s`) or Warehouse deletion (`w`). <br>
 
     Base on the classification, the model will retrieve the relevant displayed list of warehouse/supplier via `model#getFilteredWarehouseList()`/`model#getFilteredSupplierList()`. <br>
-    
+
     It then locates the warehouse/supplier entry that user wants to delete via the `INDEX` passed in.
 
     Afterwards, `model#deleteWarehouse`/`model#deleteSupplier` will remove the target entry from the list in the `model`. The `model` will then update the displayed list.
@@ -242,7 +242,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
     The parsing workflow is the same except that now an additional field `pd/PRODUCT_NAME` will be checked (with both prefix and argument) and parsed. <br>
 
     Afterwards, all the valid arguments (`INDEX`, `TYPE` and `PRODUCT_NAME`) will create a new `DeleteCommand`, which will be executed.
-    
+
 2. Execution
 
     The `DeleteCommand` is executed via an `execute` call from `LogicManager`. <br>
@@ -277,7 +277,7 @@ After the `edit` command is called, user input will be sent to **`EditCommandPar
 
 If the compulsory prefixes are not present (i.e. `ct/COMMAND_TYPE` and `i/INDEX`), **`ParseException`** will be thrown if no compulsory prefixes or only one of the compulsory prefixes are given.
 
-Similarly, **`ParseException`** will be thrown if no field for editing of suppliers or warehouses is provided or if there are any inappropriate fields supplied (e.g. input a string for index or phone prefix), Furthermore, fields resulting in no changes to an existing supplier or warehouse entry will throw a **`ParseException`** as well to remind user that the supplier or warehouse is unchanged after edits. 
+Similarly, **`ParseException`** will be thrown if no field for editing of suppliers or warehouses is provided or if there are any inappropriate fields supplied (e.g. input a string for index or phone prefix), Furthermore, fields resulting in no changes to an existing supplier or warehouse entry will throw a **`ParseException`** as well to remind user that the supplier or warehouse is unchanged after edits.
 
 **`EditCommand`** will then be executed. The edited supplier or warehouse will be updated in the model, allowing users to see the changes done for the respective supplier or warehouse.
 
@@ -285,7 +285,7 @@ In the following section, the interaction between different objects with the aid
 
 ![Edit Command Sequence Diagram](images/EditCommandSequenceDiagram.png)
 
-After receiving an input from user for edit command, `parse` method found in **`EditCommandParser`** will be invoked. 
+After receiving an input from user for edit command, `parse` method found in **`EditCommandParser`** will be invoked.
 
 The input is tokenised by **`ArgumentTokenizer`** and **`ArgumentMultimap`** for quick retrieval in subsequent parsing will be returned.
 
@@ -301,7 +301,7 @@ The logical workflow of this process is shown in the sequence diagram below:
 
 ![Edit Command Descriptor Sequence Diagram](images/EditCommandDescriptorSequenceDiagram.png)
 
-Parsing of general details will occur for both Supplier and Warehouse type. These include parsing of **`Name`**, **`Phone`** and **`Remarks`**. 
+Parsing of general details will occur for both Supplier and Warehouse type. These include parsing of **`Name`**, **`Phone`** and **`Remarks`**.
 
 This is represented in the sequence diagram below:
 

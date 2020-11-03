@@ -27,12 +27,12 @@ Given below are my contributions to the project.
    * Justification: This is an essential update, which minimises the refactoring that each member has to do
     which could require more time to resolve and synchronise.
    * Credits: The refactoring is done on the codebase provided by [AddressBook-Level3](https://github.com/se-edu/addressbook-level3)
-    
+
 * **Minor Enhancement**: Fix bugs for the Application (Pull requests: [#130](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/130), [#131](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/131), [#141](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/141), [#158](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/158), [#160](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/160), [#165](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/165), [#172](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/212), [#212](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/212))
    * What it does: Restricts user from performing invalid actions and improve user experience when using
     application.
    * Justification: This is an essential update, as invalid actions would affect the functionality of the
-    application. Unresolved UI bugs may not display all the information that users are looking for. 
+    application. Unresolved UI bugs may not display all the information that users are looking for.
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=jeffreytjs)
 
@@ -63,6 +63,6 @@ Given below are my contributions to the project.
   * Written Test Cases for tests broken by refactoring (Pull request: [#100](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/100))
 
 * **Tools**:
-  * Integrated a third party library ([PlantUML Github Action](https://github.com/cloudbees/plantuml-github-action)) 
+  * Integrated a third party library ([PlantUML Github Action](https://github.com/cloudbees/plantuml-github-action))
   to the project (Pull request: [#145](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/145)) <br>
   Credits for workflow to: [qwoprocks](https://github.com/qwoprocks)
