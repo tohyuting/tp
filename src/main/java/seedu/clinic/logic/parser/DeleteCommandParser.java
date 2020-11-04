@@ -43,8 +43,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw checkInvalidArguments(PREFIX_TYPE, argMultimap, DeleteCommand.MESSAGE_USAGE);
         }
 
-        Index index;
 
+        Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
@@ -54,9 +54,13 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         assert index.getOneBased() >= 1 : INVALID_INDEX_ASSERTION;
 
         if (type.equals(SUPPLIER) || type.equals(WAREHOUSE)) {
+            if (ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME)) {
+                throw new ParseException(String.format(
+                        MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
             return new DeleteCommand(type, index);
         }
-
+        
         // The product deletion must have product name prefix
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
