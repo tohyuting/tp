@@ -155,11 +155,10 @@ public class EditCommand extends Command {
         Supplier editedSupplier = createEditedSupplier(supplierToEdit, (EditSupplierDescriptor) editDescriptor);
 
         logger.log(Level.INFO, LOG_MESSAGE_SUPPLIER_EDITED);
-        /**
-        if (supplierToEdit.isSameSupplierCaseSensitive(editedSupplier)
-                && !supplierToEdit.isSameSupplier((editedSupplier))) {
+
+        if (supplierToEdit.equalsSupplierCaseSensitive(editedSupplier)) {
             throw new CommandException(MESSAGE_SUPPLIER_UNCHANGED);
-        }**/
+        }
 
         if (!supplierToEdit.isSameSupplier(editedSupplier) && model.hasSupplier(editedSupplier)) {
             throw new CommandException(MESSAGE_DUPLICATE_SUPPLIER);
@@ -194,7 +193,7 @@ public class EditCommand extends Command {
 
         logger.log(Level.INFO, LOG_MESSAGE_WAREHOUSE_EDITED);
 
-        if (warehouseToEdit.isSameWarehouseCaseSensitive(editedWarehouse)
+        if (warehouseToEdit.equalsWarehouseCaseSensitive(editedWarehouse)
                 && warehouseToEdit.isSameWarehouse(editedWarehouse)) {
             throw new CommandException(MESSAGE_WAREHOUSE_UNCHANGED);
         }

@@ -101,16 +101,20 @@ public class Supplier {
     }
 
     /**
-     * Returns true if both suppliers of the same name (case sensitive).
-     * This defines a weaker notion of equality between two suppliers than isSameSupplier.
+     * Returns true if both suppliers are equal, with name (case sensitive).
+     * This defines a weaker notion of equality between two suppliers than equals.
      */
-    public boolean isSameSupplierCaseSensitive(Supplier otherSupplier) {
+    public boolean equalsSupplierCaseSensitive(Supplier otherSupplier) {
         if (otherSupplier == this) {
             return true;
         }
 
         return otherSupplier != null
-                && otherSupplier.getName().equalsCaseSensitive(getName());
+                && otherSupplier.getName().equalsCaseSensitive(getName())
+                && otherSupplier.getPhone().equals(getPhone())
+                && otherSupplier.getEmail().equals(getEmail())
+                && otherSupplier.getRemark().equals(getRemark())
+                && otherSupplier.getProducts().equals(getProducts());
     }
 
     /**
