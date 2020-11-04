@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.clinic.logic.commands.CommandResult;
-//import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.ListCommand;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.Model;
@@ -22,6 +22,7 @@ import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.UserPrefs;
+import seedu.clinic.storage.CommandHistoryStorage;
 import seedu.clinic.storage.JsonClinicStorage;
 import seedu.clinic.storage.JsonUserMacrosStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;
@@ -44,18 +45,18 @@ public class LogicManagerTest {
         JsonUserMacrosStorage userMacrosStorage =
                 new JsonUserMacrosStorage(temporaryFolder.resolve("userMacros.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        TextFileCommandHistory commandHistoryStorage = new TextFileCommandHistory(
+        CommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryDoesNotSaveStub(
                 temporaryFolder.resolve("commandHistory.txt"));
         StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage,
                 commandHistoryStorage);
         logic = new LogicManager(model, storage);
     }
 
-    //@Test
-    //public void execute_validCommand_success() throws Exception {
-    //    String listCommand = ListCommand.COMMAND_WORD;
-    //    assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-    //}
+    @Test
+    public void execute_validCommand_success() throws CommandException, ParseException {
+        String listCommand = ListCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+    }
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
@@ -189,6 +190,20 @@ public class LogicManagerTest {
         @Override
         public void saveUserMacros(ReadOnlyUserMacros userMacros, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class that doesn't save to commandHistory.txt when the save method is called for Command History data.
+     */
+    private static class TextFileCommandHistoryDoesNotSaveStub extends TextFileCommandHistory {
+        private TextFileCommandHistoryDoesNotSaveStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveCommandHistory(String commandHistory, Path filePath) {
+            return;
         }
     }
 }
