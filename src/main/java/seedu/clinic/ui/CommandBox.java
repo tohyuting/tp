@@ -41,7 +41,7 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         this.commandHistory = commandHistory;
         this.history = commandHistory.getCommandHistoryList();
-        
+
         autoCompleteTextField = new AutoCompleteTextField();
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         autoCompleteTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
