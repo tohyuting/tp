@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_AMY2;
 import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_BOB2;
@@ -21,7 +20,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-
 import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.commands.CommandResult;
 import seedu.clinic.logic.commands.ListCommand;
@@ -37,8 +35,8 @@ import seedu.clinic.storage.JsonClinicStorage;
 import seedu.clinic.storage.JsonUserMacrosStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;
 import seedu.clinic.storage.StorageManager;
-import seedu.clinic.testutil.SupplierBuilder;
 import seedu.clinic.storage.TextFileCommandHistoryStorage;
+import seedu.clinic.testutil.SupplierBuilder;
 
 
 public class LogicManagerTest {
@@ -95,7 +93,10 @@ public class LogicManagerTest {
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonUserMacrosStorage userMacrosStorage =
                 new JsonUserMacrosStorage(temporaryFolder.resolve("userMacros.json"));
-        StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage);
+        TextFileCommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryStorageDoesNotSaveStub(
+                temporaryFolder.resolve("commandHistory.txt"));
+        StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage,
+                commandHistoryStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -113,7 +114,7 @@ public class LogicManagerTest {
         userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         userMacrosStorage = new JsonUserMacrosIoExceptionThrowingStub(
                 temporaryFolder.resolve("ioExceptionUserMacros.json"));
-        storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage);
+        storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage, commandHistoryStorage);
         model = new ModelManager();
         logic = new LogicManager(model, storage);
 

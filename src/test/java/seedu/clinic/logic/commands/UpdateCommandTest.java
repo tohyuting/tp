@@ -19,6 +19,7 @@ import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalSupplier.BOB;
 import static seedu.clinic.testutil.TypicalWarehouse.ALICE;
 
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +33,6 @@ import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Clinic;
 import seedu.clinic.model.CommandHistory;
-import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Tag;

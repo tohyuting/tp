@@ -115,7 +115,8 @@ public class DeleteCommandTest {
         expectedMessage = String.format(MESSAGE_DELETE_PRODUCT_IN_WAREHOUSE_SUCCESS,
                 productToDeleteName, warehouseToUpdate.getName());
 
-        expectedModel = new ModelManager(modelForWarehouse.getClinic(), new UserPrefs(), new UserMacros());
+        expectedModel = new ModelManager(modelForWarehouse.getClinic(), new UserPrefs(), new UserMacros(),
+                new CommandHistory());
         expectedModel.setWarehouse(warehouseToUpdate, expectedWarehouse);
         expectedModel.saveVersionedClinic();
         assertCommandSuccess(deleteCommand, modelForWarehouse, expectedMessage, expectedModel);
