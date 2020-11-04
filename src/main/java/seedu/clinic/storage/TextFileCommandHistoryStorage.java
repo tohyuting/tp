@@ -13,6 +13,9 @@ import seedu.clinic.commons.util.FileUtil;
 import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.ReadOnlyCommandHistory;
 
+/**
+ * A class to access command history data stored as a txt file on the hard disk.
+ */
 public class TextFileCommandHistoryStorage implements CommandHistoryStorage {
     private static final Logger logger = LogsCenter.getLogger(TextFileCommandHistoryStorage.class);
 
@@ -32,11 +35,20 @@ public class TextFileCommandHistoryStorage implements CommandHistoryStorage {
         return readCommandHistoryHelper(filePath);
     }
 
+    /**
+     * Similar to {@link #readCommandHistory()}.
+     *
+     * @param filePath location of the data. Cannot be null.
+     * @throws IOException if the file cannot be read.
+     */
     @Override
     public Optional<ReadOnlyCommandHistory> readCommandHistory(Path filePath) throws IOException {
         return readCommandHistoryHelper(filePath);
     }
 
+    /**
+     * Helper method for reading commandHistory.txt file stored on the hard disk.
+     */
     private Optional<ReadOnlyCommandHistory> readCommandHistoryHelper(Path filePath) throws IOException {
         ArrayList<String> commandHistory = new ArrayList<>();
         Scanner scanner = new Scanner(new File(String.valueOf(filePath)));
@@ -48,6 +60,10 @@ public class TextFileCommandHistoryStorage implements CommandHistoryStorage {
         return Optional.ofNullable(new CommandHistory(commandHistory));
     }
 
+    /**
+     * @param commandHistory takes in the valid command just entered by the user in the GUI.
+     * @param filePath location of the data. Cannot be null.
+     */
     @Override
     public void saveCommandHistory(String commandHistory, Path filePath) throws IOException {
         if (FileUtil.isFileExists(filePath)) {
