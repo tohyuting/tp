@@ -2,10 +2,12 @@ package seedu.clinic.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static seedu.clinic.testutil.TypicalCommandHistory.getTypicalCommandHistory;
 import static seedu.clinic.testutil.TypicalMacro.getTypicalUserMacros;
 import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.model.Clinic;
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.UserMacros;
@@ -81,6 +84,20 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void commandHistoryReadSave() throws Exception {
+        CommandHistory original = getTypicalCommandHistory();
+        storageManager.saveCommandHistory("First command history",
+                storageManager.getCommandHistoryFilePath());
+        storageManager.saveCommandHistory("Second command history",
+                storageManager.getCommandHistoryFilePath());
+        List<String> retrieved = storageManager.readCommandHistory().get().getCommandHistory();
+        CommandHistory newCommandHistory = new CommandHistory(retrieved);
+        assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
+        assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
+        assertEquals(original.readNextHistory(), newCommandHistory.readNextHistory());
+    }
+
+    @Test
     public void getClinicFilePath() {
         assertNotNull(storageManager.getClinicFilePath());
     }
@@ -88,6 +105,11 @@ public class StorageManagerTest {
     @Test
     public void getUserMacrosFilePath() {
         assertNotNull(storageManager.getUserMacrosFilePath());
+    }
+
+    @Test
+    public void getCommandHistoryFilePath() {
+        assertNotNull(storageManager.getCommandHistoryFilePath());
     }
 
 }

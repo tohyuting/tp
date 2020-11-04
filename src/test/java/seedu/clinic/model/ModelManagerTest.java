@@ -221,6 +221,11 @@ public class ModelManagerTest {
         // different userMacros -> returns false
         assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, differentUserMacros, commandHistory)));
 
+        // different userPrefs -> returns false
+        UserPrefs differentUserPrefs = new UserPrefs();
+        differentUserPrefs.setClinicFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(clinic, differentUserPrefs, userMacros, commandHistory)));
+
         // different filteredSupplierList -> returns false
         modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(
                 ALICE.getName().fullName));
@@ -234,10 +239,5 @@ public class ModelManagerTest {
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
         modelManager.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
-
-        // different userPrefs -> returns false
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setClinicFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(clinic, differentUserPrefs, userMacros, commandHistory)));
     }
 }
