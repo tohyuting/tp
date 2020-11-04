@@ -547,6 +547,46 @@ There are two scenarios :
    method. Finally, it return a new CommandResult object, containing a String that indicates a successful
    addition.
 
+### AutoComplete feature
+In this section, the functionality of the auto-complete feature will be discussed together with the expected
+interface.
+
+#### What is the AutoComplete feature
+
+#### How it is implemented
+All possible commands and their compulsory prefixes are saved in a SortedSet.
+
+When a user types a command on the text box, `AutoCompleteTextField#populatePopup` will be called where the
+user’s input will be matched against the set.
+
+If the case of a match, a contextMenu showing all possible auto-complete commands will show up.
+
+This method is implemented such that the results in the contextMenu are constantly updated as the user is
+typing and this would make it more intuitive for users.
+
+#### Why it is implemented this way
+
+The auto-complete feature is implemented this way to reduce the need for space on the GUI by only showing
+up when there is a potential match. It would also serve to value add to the user experience by speeding up
+the process of typing the full command and reduce mistakes by including all the compulsory prefixes.
+
+#### How AutoComplete works
+
+User wishes to enter an `add` command to add a supplier via `add ct/s n/John p/91234567 e/john@example.com
+ r/friend`.
+
+Upon typing either "a", "ad" or even "add", the auto-complete context menu will pop up showing the possible
+auto-complete list, mainly:
+
+add ct/s n/ p/ e/ r/
+
+add ct/w n/ p/ addr/ r/
+
+assignmacro a/ cs/
+
+Upon seeing that, the user will be able to select from those options or use them as a guide to complete
+his/her commands more intuitively.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
