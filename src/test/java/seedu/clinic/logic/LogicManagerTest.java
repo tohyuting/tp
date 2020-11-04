@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_AMY2;
 import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_BOB2;
@@ -19,6 +20,7 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
 
 import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.commands.CommandResult;
@@ -36,6 +38,8 @@ import seedu.clinic.storage.JsonUserMacrosStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;
 import seedu.clinic.storage.StorageManager;
 import seedu.clinic.testutil.SupplierBuilder;
+import seedu.clinic.storage.TextFileCommandHistoryStorage;
+
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -53,12 +57,15 @@ public class LogicManagerTest {
         JsonUserMacrosStorage userMacrosStorage =
                 new JsonUserMacrosStorage(temporaryFolder.resolve("userMacros.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage);
+        TextFileCommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryStorageDoesNotSaveStub(
+                temporaryFolder.resolve("commandHistory.txt"));
+        StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage,
+                commandHistoryStorage);
         logic = new LogicManager(model, storage);
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
+    public void execute_validCommand_success() throws CommandException, ParseException {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
@@ -197,7 +204,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), model.getUserMacros());
+        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), model.getUserMacros(),
+                model.getCommandHistory());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -239,6 +247,20 @@ public class LogicManagerTest {
         @Override
         public void saveUserMacros(ReadOnlyUserMacros userMacros, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class that doesn't save to commandHistory.txt when the save method is called for Command History data.
+     */
+    private static class TextFileCommandHistoryStorageDoesNotSaveStub extends TextFileCommandHistoryStorage {
+        private TextFileCommandHistoryStorageDoesNotSaveStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveCommandHistory(String commandHistory, Path filePath) {
+            return;
         }
     }
 }

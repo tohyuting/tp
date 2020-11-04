@@ -31,6 +31,8 @@ import org.junit.jupiter.api.Test;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Clinic;
+import seedu.clinic.model.CommandHistory;
+import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Tag;
@@ -234,6 +236,16 @@ public class UpdateCommandTest {
 
         @Override
         public void updateFilteredWarehouseList(Predicate<Warehouse> predicate) {
+        }
+
+        @Override
+        public Path getCommandHistoryFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CommandHistory getCommandHistory() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

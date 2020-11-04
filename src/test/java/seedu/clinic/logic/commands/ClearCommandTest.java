@@ -7,6 +7,7 @@ import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 import org.junit.jupiter.api.Test;
 
 import seedu.clinic.model.Clinic;
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserMacros;
@@ -24,8 +25,10 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyClinic_success() {
-        Model model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros());
-        Model expectedModel = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros());
+        Model model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros(),
+                new CommandHistory());
+        Model expectedModel = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros(),
+                new CommandHistory());
         expectedModel.setClinic(new Clinic());
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

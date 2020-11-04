@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.model.Clinic;
+import seedu.clinic.model.CommandHistory;
+import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
