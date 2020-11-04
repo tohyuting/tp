@@ -166,6 +166,26 @@ Example:
 
 ![assign macro](images/assignMacro.png)
 
+### AutoComplete Function
+
+Helps you to complete your commands faster with the compulsory prefixes.
+
+You will be able to see a list of auto-complete options which is constantly updated while you are typing.
+Once the auto complete context menu is displayed, you can use the arrow keys to choose the options you
+want and upon pressing the "ENTER" button, you would be able to select the option.
+
+Examples:
+
+User wants to type the "add" command in the command box
+
+He/she will be able to see a list of dropdown options as shown:
+
+"UP" and "DOWN" button to select the option
+
+"ENTER" button will execute the option
+
+### TODO: Add in a Mac version screenshot here, show the options
+
 ### Clearing all entries : `clear`
 
 Deletes all suppliers and warehouses entries in CLI-nic.
