@@ -40,7 +40,8 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
-
+    public static final String COMPULSORY_EDIT_SUPPLIER_COMMAND = "edit ct/s i/";
+    public static final String COMPULSORY_EDIT_WAREHOUSE_COMMAND = "edit ct/w i/";
     public static final String MESSAGE_USAGE = "Edits a supplier or warehouse at the specified index."
             + " For suppliers, only its name, phone, email and remarks can be edited."
             + " For warehouses, only its name, phone, address and remark can be edited."
