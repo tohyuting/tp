@@ -6,6 +6,7 @@ import static seedu.clinic.testutil.TypicalCommandHistory.getTypicalCommandHisto
 import static seedu.clinic.testutil.TypicalMacro.getTypicalUserMacros;
 import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void commandHistoryReadSave() throws Exception {
+    public void commandHistoryReadSave() throws IOException {
         CommandHistory original = getTypicalCommandHistory();
         storageManager.saveCommandHistory("First command history",
                 storageManager.getCommandHistoryFilePath());
