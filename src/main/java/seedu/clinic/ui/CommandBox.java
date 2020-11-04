@@ -8,7 +8,8 @@ import javafx.scene.layout.Region;
 import seedu.clinic.logic.commands.CommandResult;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.CommandHistory;
+import seedu.clinic.model.CommandHistoryList;
+import seedu.clinic.model.ReadOnlyCommandHistory;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -19,7 +20,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    private final CommandHistory commandHistory;
+    private final ReadOnlyCommandHistory commandHistory;
+    private final CommandHistoryList history;
 
     @FXML
     private TextField commandTextField;
@@ -27,10 +29,12 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
      */
-    public CommandBox(CommandExecutor commandExecutor, CommandHistory commandHistory) {
+    public CommandBox(CommandExecutor commandExecutor, ReadOnlyCommandHistory commandHistory) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.commandHistory = commandHistory;
+        this.history = commandHistory.getCommandHistoryList();
+
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
@@ -44,7 +48,8 @@ public class CommandBox extends UiPart<Region> {
             String textEntered = commandTextField.getText();
             commandExecutor.execute(textEntered);
             commandTextField.setText("");
-            commandHistory.updateHistory(textEntered);
+
+            history.updateHistory(textEntered);
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }

@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.commons.util.FileUtil;
 import seedu.clinic.model.CommandHistory;
+import seedu.clinic.model.ReadOnlyCommandHistory;
 
 public class TextFileCommandHistoryStorage implements CommandHistoryStorage {
     private static final Logger logger = LogsCenter.getLogger(TextFileCommandHistoryStorage.class);
@@ -27,16 +28,16 @@ public class TextFileCommandHistoryStorage implements CommandHistoryStorage {
     }
 
     @Override
-    public Optional<CommandHistory> readCommandHistory() throws IOException {
+    public Optional<ReadOnlyCommandHistory> readCommandHistory() throws IOException {
         return readCommandHistoryHelper(filePath);
     }
 
     @Override
-    public Optional<CommandHistory> readCommandHistory(Path filePath) throws IOException {
+    public Optional<ReadOnlyCommandHistory> readCommandHistory(Path filePath) throws IOException {
         return readCommandHistoryHelper(filePath);
     }
 
-    private Optional<CommandHistory> readCommandHistoryHelper(Path filePath) throws IOException {
+    private Optional<ReadOnlyCommandHistory> readCommandHistoryHelper(Path filePath) throws IOException {
         ArrayList<String> commandHistory = new ArrayList<>();
         Scanner scanner = new Scanner(new File(String.valueOf(filePath)));
         while (scanner.hasNextLine()) {

@@ -35,7 +35,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given clinic, userPrefs, and userMacros.
      */
     public ModelManager(ReadOnlyClinic clinic, ReadOnlyUserPrefs userPrefs,
-            ReadOnlyUserMacros userMacros, CommandHistory commandHistory) {
+            ReadOnlyUserMacros userMacros, ReadOnlyCommandHistory commandHistory) {
         super();
         requireAllNonNull(clinic, userPrefs, userMacros, commandHistory);
 
@@ -45,7 +45,7 @@ public class ModelManager implements Model {
         this.clinic = new VersionedClinic(clinic);
         this.userPrefs = new UserPrefs(userPrefs);
         this.userMacros = new UserMacros(userMacros);
-        this.commandHistory = commandHistory;
+        this.commandHistory = new CommandHistory(commandHistory);
         filteredSuppliers = new FilteredList<>(this.clinic.getSupplierList());
         filteredWarehouses = new FilteredList<>(this.clinic.getWarehouseList());
         macroList = this.userMacros.getMacroList();
@@ -287,7 +287,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public CommandHistory getCommandHistory() {
+    public ReadOnlyCommandHistory getCommandHistory() {
         return commandHistory;
     }
 

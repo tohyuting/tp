@@ -222,5 +222,5 @@ public interface Model {
     /**
      * Returns the command history.
      */
-    CommandHistory getCommandHistory();
+    ReadOnlyCommandHistory getCommandHistory();
 }

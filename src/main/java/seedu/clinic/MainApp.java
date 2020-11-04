@@ -20,6 +20,7 @@ import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.ReadOnlyClinic;
+import seedu.clinic.model.ReadOnlyCommandHistory;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.ReadOnlyUserPrefs;
 import seedu.clinic.model.UserMacros;
@@ -123,8 +124,8 @@ public class MainApp extends Application {
             initialUserMacrosData = new UserMacros();
         }
 
-        Optional<CommandHistory> commandHistoryOptional;
-        CommandHistory initialCommandHistoryData;
+        Optional<ReadOnlyCommandHistory> commandHistoryOptional;
+        ReadOnlyCommandHistory initialCommandHistoryData;
         try {
             commandHistoryOptional = storage.readCommandHistory();
             initialCommandHistoryData = commandHistoryOptional.get();

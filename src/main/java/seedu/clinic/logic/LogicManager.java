@@ -13,9 +13,9 @@ import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.ClinicParser;
 import seedu.clinic.logic.parser.MacroParser;
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
+import seedu.clinic.model.ReadOnlyCommandHistory;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
@@ -125,7 +125,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandHistory getCommandHistory() {
+    public ReadOnlyCommandHistory getCommandHistory() {
         return model.getCommandHistory();
     }
 }
