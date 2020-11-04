@@ -82,19 +82,19 @@ public class StorageManagerTest {
         assertEquals(original, new UserMacros(retrieved));
     }
 
-    @Test
-    public void commandHistoryReadSave() throws Exception {
-        CommandHistory original = getTypicalCommandHistory();
-        storageManager.saveCommandHistory("First command history",
-                storageManager.getCommandHistoryFilePath());
-        storageManager.saveCommandHistory("Second command history",
-                storageManager.getCommandHistoryFilePath());
-
-        CommandHistory newCommandHistory = new CommandHistory(storageManager.readCommandHistory().get());
-        assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
-        assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
-        assertEquals(original.readNextHistory(), newCommandHistory.readNextHistory());
-    }
+    //    @Test
+    //    public void commandHistoryReadSave() throws Exception {
+    //        CommandHistory original = getTypicalCommandHistory();
+    //        storageManager.saveCommandHistory("First command history",
+    //                storageManager.getCommandHistoryFilePath());
+    //        storageManager.saveCommandHistory("Second command history",
+    //                storageManager.getCommandHistoryFilePath());
+    //
+    //        CommandHistory newCommandHistory = new CommandHistory(storageManager.readCommandHistory().get());
+    //        assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
+    //        assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
+    //        assertEquals(original.readNextHistory(), newCommandHistory.readNextHistory());
+    //    }
 
     @Test
     public void getClinicFilePath() {
