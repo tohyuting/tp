@@ -43,7 +43,7 @@ Given below are my contributions to the project.
 
 * **Project management**:
   * Setup all the User Stories and Issue Labels on GitHub
-  * Managed release `v1.2.1` on GitHub
+  * Managed milestone `v1.2` and release `v1.2.1` on GitHub
 
 * **Enhancements to existing features**:
   * Updated the GUI (Pull requests [\#175](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/175), [\#210](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/210))

@@ -342,7 +342,13 @@ Redo command restores the data in CLI-nic before an `undo` command was done.
 Format: `undo` / `redo`
 
 * Any trailing words behind the command words will be ignored.
+* Only commands that modify the CLI-nic data can be undone/redone.
 * For example: if one types `undo redo`, the command will be to `undo` the editing.
+
+<div markdown="span" class="alert alert-info">
+**:information_source: Note:** `assignmacro` and `removemacro` do not modify CLI-nic data directly, and hence are not
+undoable/redoable.
+</div>
 
 <br />
 
