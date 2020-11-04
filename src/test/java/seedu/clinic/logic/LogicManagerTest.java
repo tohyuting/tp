@@ -22,7 +22,6 @@ import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.UserPrefs;
-import seedu.clinic.storage.CommandHistoryStorage;
 import seedu.clinic.storage.JsonClinicStorage;
 import seedu.clinic.storage.JsonUserMacrosStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;

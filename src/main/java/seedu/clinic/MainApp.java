@@ -65,7 +65,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ClinicStorage clinicStorage = new JsonClinicStorage(userPrefs.getClinicFilePath());
         UserMacrosStorage userMacrosStorage = new JsonUserMacrosStorage(userPrefs.getUserMacrosFilePath());
-        CommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryStorage(userPrefs.getCommandHistoryFilePath());
+        CommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryStorage(
+                userPrefs.getCommandHistoryFilePath());
         storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage, commandHistoryStorage);
 
         initLogging(config);
