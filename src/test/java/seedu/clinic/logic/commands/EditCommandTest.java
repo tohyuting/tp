@@ -14,6 +14,7 @@ import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.logic.commands.CommandTestUtil.showSupplierAtIndex;
 import static seedu.clinic.logic.commands.CommandTestUtil.showWarehouseAtIndex;
+import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_UNCHANGED;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_WAREHOUSE_UNCHANGED;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
@@ -139,7 +140,8 @@ public class EditCommandTest {
         //supplier
         EditCommand editCommandSupplier = new EditCommand(INDEX_FIRST_SUPPLIER, new EditSupplierDescriptor());
 
-        String expectedMessageSupplier = MESSAGE_SUPPLIER_UNCHANGED;
+        String expectedMessageSupplier = String.format(MESSAGE_NOT_EDITED,
+                EditCommand.MESSAGE_USAGE);
 
         assertCommandFailure(editCommandSupplier, model, expectedMessageSupplier);
 

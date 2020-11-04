@@ -194,8 +194,8 @@ public class EditCommand extends Command {
 
         logger.log(Level.INFO, LOG_MESSAGE_WAREHOUSE_EDITED);
 
-        if (warehouseToEdit.isSameSupplierCaseSensitive(editedWarehouse)
-                && !warehouseToEdit.isSameWarehouse(editedWarehouse)) {
+        if (warehouseToEdit.isSameWarehouseCaseSensitive(editedWarehouse)
+                && warehouseToEdit.isSameWarehouse(editedWarehouse)) {
             throw new CommandException(MESSAGE_WAREHOUSE_UNCHANGED);
         }
 

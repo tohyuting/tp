@@ -30,8 +30,8 @@ public class AddCommand extends Command {
             + PREFIX_TYPE + "TYPE "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_REMARK + "REMARK\n\n"
+            + PREFIX_EMAIL + "EMAIL ["
+            + PREFIX_REMARK + "REMARK]\n\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_TYPE + "s "
@@ -44,8 +44,8 @@ public class AddCommand extends Command {
             + PREFIX_TYPE + "TYPE "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_REMARK + "REMARK\n\n"
+            + PREFIX_ADDRESS + "ADDRESS ["
+            + PREFIX_REMARK + "REMARK]\n\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_TYPE + "w "
@@ -59,11 +59,11 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in CLI-nic";
     public static final String MESSAGE_DUPLICATE_WAREHOUSE = "This warehouse already exists in CLI-nic";
     public static final String MESSAGE_MISSING_TYPE_PREFIX = "Please enter either one of the type to add,"
-            + " i.e. either ct/s or ct/w";
+            + " i.e. either ct/s or ct/w\n\n%1$s";
     public static final String MESSAGE_SUPPLIER_MISSING_PREFIX = "There are missing prefixes, ensure"
-            + " that you at least include: ct/s n/SUPPLIER_NAME, p/PHONE and e/EMAIL_ADDRESS";
+            + " that you at least include: ct/s n/SUPPLIER_NAME, p/PHONE and e/EMAIL_ADDRESS\n\n%1$s";
     public static final String MESSAGE_WAREHOUSE_MISSING_PREFIX = "There are missing prefixes, ensure"
-            + " that you at least include: ct/w n/WAREHOUSE_NAME, p/PHONE and addr/ADDRESS";
+            + " that you at least include: ct/w n/WAREHOUSE_NAME, p/PHONE and addr/ADDRESS\n\n%1$s";
 
     private static final String LOG_MESSAGE_RECEIVE_SUPPLIER = "Received information to add supplier.";
     private static final String LOG_MESSAGE_RECEIVE_WAREHOUSE = "Received information to add warehouse.";

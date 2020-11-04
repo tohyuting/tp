@@ -10,6 +10,7 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 
@@ -66,10 +67,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         logger.log(Level.INFO, LOG_MESSAGE_TOKENIZE_SUCCESS);
 
         if (argMultimap.getValue(PREFIX_TYPE).isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_MISSING_TYPE_PREFIX, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+        Type type;
+        try {
+            type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_TYPE, argMultimap, AddCommand.MESSAGE_USAGE);
+        }
+
 
         if (type.equals(SUPPLIER)) {
             return parseAddSupplier(argMultimap);
@@ -90,7 +97,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        Phone phone;
+        try {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
+        }
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
         Set<Product> productList = new HashSet<>();
@@ -111,7 +123,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        Phone phone;
+        try {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
+        }
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
         Set<Product> productList = new HashSet<>();

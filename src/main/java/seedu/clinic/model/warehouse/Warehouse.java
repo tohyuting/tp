@@ -110,7 +110,7 @@ public class Warehouse {
      * Returns true if both warehouses of the same name (case sensitive).
      * This defines a weaker notion of equality between two warehouse than isSameWarehouse.
      */
-    public boolean isSameSupplierCaseSensitive(Warehouse otherWarehouse) {
+    public boolean isSameWarehouseCaseSensitive(Warehouse otherWarehouse) {
         if (otherWarehouse == this) {
             return true;
         }
