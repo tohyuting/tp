@@ -7,6 +7,7 @@ import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserMacros;
@@ -25,14 +26,15 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros());
+        model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros(), new CommandHistory());
     }
 
     @Test
     public void execute_newSupplier_success() {
         Supplier validSupplier = new SupplierBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros());
+        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros(),
+                new CommandHistory());
         expectedModel.addSupplier(validSupplier);
         expectedModel.saveVersionedClinic();
         assertCommandSuccess(new AddCommand(validSupplier), model,
@@ -49,7 +51,8 @@ public class AddCommandIntegrationTest {
     public void execute_newWarehouse_success() {
         Warehouse validWarehouse = new WarehouseBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros());
+        Model expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros(),
+                new CommandHistory());
         expectedModel.addWarehouse(validWarehouse);
         expectedModel.saveVersionedClinic();
         assertCommandSuccess(new AddCommand(validWarehouse), model,
