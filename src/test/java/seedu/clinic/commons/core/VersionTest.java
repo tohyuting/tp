@@ -103,6 +103,10 @@ public class VersionTest {
         one = new Version(2, 15, 0, false);
         another = new Version(2, 15, 5, true);
         assertTrue(one.compareTo(another) < 0);
+
+        one = new Version(2, 15, 0, false);
+        another = new Version(2, 15, 0, true);
+        assertTrue(one.compareTo(another) == 1);
     }
 
     @Test

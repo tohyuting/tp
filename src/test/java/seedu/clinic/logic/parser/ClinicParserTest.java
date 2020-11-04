@@ -9,6 +9,8 @@ import static seedu.clinic.logic.commands.CommandTestUtil.PRODUCT_NAME_DESC_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER_PRODUCT;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_PANADOL;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ALIAS;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_COMMAND_STRING;
 import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.SUPPLIER_PRODUCT;
 import static seedu.clinic.testutil.Assert.assertThrows;
@@ -21,6 +23,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.clinic.logic.commands.AddCommand;
+import seedu.clinic.logic.commands.AssignMacroCommand;
 import seedu.clinic.logic.commands.ClearCommand;
 import seedu.clinic.logic.commands.DeleteCommand;
 import seedu.clinic.logic.commands.EditCommand;
@@ -28,12 +31,19 @@ import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.RedoCommand;
+import seedu.clinic.logic.commands.RemoveMacroCommand;
+import seedu.clinic.logic.commands.UndoCommand;
+import seedu.clinic.logic.commands.ViewCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.macro.Alias;
+import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.supplier.SupplierPredicate;
 import seedu.clinic.model.warehouse.WarehousePredicate;
 import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
+import seedu.clinic.testutil.MacroBuilder;
 import seedu.clinic.testutil.SupplierBuilder;
 import seedu.clinic.testutil.SupplierUtil;
 
@@ -81,9 +91,45 @@ public class ClinicParserTest {
     }
 
     @Test
+    public void parseCommand_view() throws Exception {
+        ViewCommand command = (ViewCommand) parser.parseCommand(ViewCommand.COMMAND_WORD
+                + TYPE_DESC_SUPPLIER + INDEX_DESC + INDEX_FIRST_SUPPLIER.getOneBased());
+        assertEquals(new ViewCommand(SUPPLIER, INDEX_FIRST_SUPPLIER), command);
+    }
+
+    @Test
+    public void parseCommand_assignMacro() throws Exception {
+        Macro macro = new MacroBuilder().withAlias("alpha").build();
+        Alias alias = new Alias("alpha");
+        AssignMacroCommand command = (AssignMacroCommand) parser.parseCommand(AssignMacroCommand.COMMAND_WORD
+                + " " + PREFIX_ALIAS + "alpha " + PREFIX_COMMAND_STRING + "update");
+        assertEquals(new AssignMacroCommand(macro), command);
+    }
+
+    @Test
+    public void parseCommand_removeMacro() throws Exception {
+        Alias alias = new Alias("alpha");
+        RemoveMacroCommand command = (RemoveMacroCommand) parser.parseCommand(RemoveMacroCommand.COMMAND_WORD
+                + " alpha ");
+        assertEquals(new RemoveMacroCommand(alias), command);
+    }
+
+    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 3") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_redo() throws Exception {
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 3") instanceof RedoCommand);
     }
 
     @Test

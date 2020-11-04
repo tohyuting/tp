@@ -45,7 +45,6 @@ public class RemoveMacroCommand extends Command {
 
         Macro macroToRemove = optionalMacro.get();
         model.deleteMacro(macroToRemove);
-//        model.saveVersionedClinic();
         return new CommandResult(String.format(MESSAGE_REMOVE_MACRO_SUCCESS, macroToRemove.getAlias()));
     }
 

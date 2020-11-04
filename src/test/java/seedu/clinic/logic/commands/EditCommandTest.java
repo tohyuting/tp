@@ -72,7 +72,7 @@ public class EditCommandTest {
         assertCommandSuccess(editCommandSupplier, model, expectedMessageSupplier, expectedModelSupplier);
 
         //warehouse
-        Warehouse editedWarehouse = new WarehouseBuilder().withProducts(Map.of("Gauze", 100)).build();
+        Warehouse editedWarehouse = new WarehouseBuilder().withProducts(Map.of("Panadol", 100)).build();
         EditWarehouseDescriptor descriptorWarehouse = new EditWarehouseDescriptorBuilder(editedWarehouse)
                 .build();
         EditCommand editCommandWarehouse = new EditCommand(INDEX_FIRST_WAREHOUSE, descriptorWarehouse);
@@ -179,7 +179,7 @@ public class EditCommandTest {
         Warehouse warehouseInFilteredList = modelBackup.getFilteredWarehouseList()
                 .get(INDEX_FIRST_WAREHOUSE.getZeroBased());
         Warehouse editedWarehouse = new WarehouseBuilder(warehouseInFilteredList).withName(VALID_NAME_BOB)
-                .withProducts(Map.of("Gauze", 100)).build();
+                .withProducts(Map.of("Panadol", 100)).build();
         EditCommand editCommandWarehouse = new EditCommand(INDEX_FIRST_WAREHOUSE,
                 new EditWarehouseDescriptorBuilder().withName(VALID_NAME_BOB).build());
 

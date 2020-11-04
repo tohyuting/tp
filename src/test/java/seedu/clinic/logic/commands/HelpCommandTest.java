@@ -122,4 +122,36 @@ public class HelpCommandTest {
         assertCommandSuccess(new HelpCommand("view"), model,
                 expectedCommandResult, expectedModel);
     }
+
+    @Test
+    public void execute_assignMacroHelp_success() {
+        String assignMacroCommandHelpMessage = MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + AssignMacroCommand.MESSAGE_USAGE;
+        CommandResult expectedCommandResult = new CommandResult(assignMacroCommandHelpMessage, false, false);
+        assertCommandSuccess(new HelpCommand("assignmacro"), model,
+                expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_removeMacroHelp_success() {
+        String removeMacroCommandHelpMessage = MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + RemoveMacroCommand.MESSAGE_USAGE;
+        CommandResult expectedCommandResult = new CommandResult(removeMacroCommandHelpMessage, false, false);
+        assertCommandSuccess(new HelpCommand("removemacro"), model,
+                expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_undoHelp_success() {
+        String undoCommandHelpMessage = MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + UndoCommand.MESSAGE_USAGE;
+        CommandResult expectedCommandResult = new CommandResult(undoCommandHelpMessage, false, false);
+        assertCommandSuccess(new HelpCommand("undo"), model,
+                expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_redoHelp_success() {
+        String redoCommandHelpMessage = MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + RedoCommand.MESSAGE_USAGE;
+        CommandResult expectedCommandResult = new CommandResult(redoCommandHelpMessage, false, false);
+        assertCommandSuccess(new HelpCommand("redo"), model,
+                expectedCommandResult, expectedModel);
+    }
 }

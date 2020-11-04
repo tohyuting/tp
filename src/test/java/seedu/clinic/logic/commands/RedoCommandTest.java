@@ -12,21 +12,23 @@ import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 
-public class ClearCommandTest {
-
+class RedoCommandTest {
     @Test
-    public void execute_emptyClinic_throwsCommandException() {
-        Model model = new ModelManager();
-        Model expectedModel = new ModelManager();
-        expectedModel.saveVersionedClinic();
-        assertCommandFailure(new ClearCommand(), model, ClearCommand.MESSAGE_EMPTY_CLINIC);
+    public void execute_cannotRedoClinic_throwCommandException() {
+        Model model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros());
+        model.setClinic(new Clinic());
+        assertCommandFailure(new RedoCommand(), model, RedoCommand.MESSAGE_FAILURE);
     }
 
     @Test
-    public void execute_nonEmptyClinic_success() {
+    public void execute_canRedoClinic_success() {
         Model model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros());
         Model expectedModel = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros());
+        model.setClinic(new Clinic());
+        model.undoClinic();
         expectedModel.setClinic(new Clinic());
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        expectedModel.undoClinic();
+        expectedModel.redoClinic();
+        assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

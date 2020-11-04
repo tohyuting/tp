@@ -122,7 +122,8 @@ public class ModelManager implements Model {
         return userMacros.getMacro(aliasString);
     }
 
-    @Override public Optional<Macro> getMacro(Alias alias) {
+    @Override
+    public Optional<Macro> getMacro(Alias alias) {
         requireNonNull(alias);
         return userMacros.getMacro(alias);
     }
