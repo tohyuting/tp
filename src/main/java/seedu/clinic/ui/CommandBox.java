@@ -5,7 +5,6 @@ import java.io.IOException;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -48,6 +47,11 @@ public class CommandBox extends UiPart<Region> {
         autoCompleteTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         autoCompleteTextField.getStyleClass().add("commandTextField");
 
+        /*
+         * With help from https://stackoverflow
+         * .com/questions/48720101/how-to-pass-scrollpane-event-key-pressed
+         * -keycode-left-to-parent-pane
+         */
         autoCompleteTextField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             switch (keyEvent.getCode()) {
             case UP:
@@ -59,7 +63,7 @@ public class CommandBox extends UiPart<Region> {
                 String nextHistory = commandHistory.readNextHistory();
                 setCommandTextFieldText(nextHistory);
                 break;
-                
+
             case ENTER:
                 handleCommandEntered();
                 break;
