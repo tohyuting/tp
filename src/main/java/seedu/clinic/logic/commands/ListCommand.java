@@ -14,7 +14,7 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_USAGE = "List Command Usage\n\nLists all suppliers and warehouses"
-            +" in CLI-nic.\n\n"
+            + " in CLI-nic.\n\n"
             + "Example:\n"
             + COMMAND_WORD;
 

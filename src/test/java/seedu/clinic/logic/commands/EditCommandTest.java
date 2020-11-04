@@ -14,7 +14,6 @@ import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.logic.commands.CommandTestUtil.showSupplierAtIndex;
 import static seedu.clinic.logic.commands.CommandTestUtil.showWarehouseAtIndex;
-import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_UNCHANGED;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_WAREHOUSE_UNCHANGED;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;

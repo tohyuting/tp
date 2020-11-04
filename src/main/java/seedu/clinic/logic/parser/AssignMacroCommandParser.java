@@ -23,9 +23,12 @@ public class AssignMacroCommandParser implements Parser<AssignMacroCommand> {
     public AssignMacroCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ALIAS, PREFIX_COMMAND_STRING);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_ALIAS, PREFIX_COMMAND_STRING)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_ALIAS, PREFIX_COMMAND_STRING)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignMacroCommand.MESSAGE_USAGE));
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AssignMacroCommand.MESSAGE_USAGE);
         }
 
         Alias alias = ParserUtil.parseAlias(argMultimap.getValue(PREFIX_ALIAS).get());

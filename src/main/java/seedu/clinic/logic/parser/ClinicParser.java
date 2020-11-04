@@ -48,6 +48,7 @@ public class ClinicParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -95,5 +96,4 @@ public class ClinicParser {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }

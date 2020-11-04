@@ -91,9 +91,12 @@ public class AddCommandParser implements Parser<AddCommand> {
     private AddCommand parseAddSupplier(ArgumentMultimap argMultimap) throws ParseException {
         logger.log(Level.INFO, LOG_MESSAGE_VALID_TYPE_PREFIX_SUPPLIER);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)) {
             throw new ParseException(String.format(MESSAGE_SUPPLIER_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AddCommand.MESSAGE_USAGE);
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -117,9 +120,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         assert type.equals(WAREHOUSE) : INVALID_WAREHOUSE_ASSERTION;
         logger.log(Level.INFO, LOG_MESSAGE_VALID_TYPE_PREFIX_WAREHOUSE);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS)) {
             throw new ParseException(String.format(MESSAGE_WAREHOUSE_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AddCommand.MESSAGE_USAGE);
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

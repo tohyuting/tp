@@ -14,7 +14,6 @@ import seedu.clinic.model.attribute.Phone;
 import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.product.Product;
 import seedu.clinic.model.product.exceptions.ProductNotFoundException;
-import seedu.clinic.model.supplier.Supplier;
 
 /**
  * Represents a Warehouse in the CLI-nic app.

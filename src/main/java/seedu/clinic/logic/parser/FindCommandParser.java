@@ -45,14 +45,17 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         // Ensures that the type prefix is present and at least one of the name, product or remark prefix is present
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE)
-                || !ParserUtil.atLeastOnePrefixPresent(argMultimap, PREFIX_NAME, PREFIX_PRODUCT_NAME, PREFIX_REMARK)
-                || !argMultimap.getPreamble().isEmpty()) {
+                || !ParserUtil.atLeastOnePrefixPresent(argMultimap, PREFIX_NAME, PREFIX_PRODUCT_NAME, PREFIX_REMARK)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), FindCommand.MESSAGE_USAGE);
         }
 
         Type type;
 
-        try{
+        try {
             type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
             assert type != null : NULL_TYPE_ASSERTION;
         } catch (ParseException pe) {

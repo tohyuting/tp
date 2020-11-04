@@ -2,15 +2,8 @@ package seedu.clinic.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import seedu.clinic.logic.commands.AddCommand;
-import static seedu.clinic.logic.commands.AddCommand.MESSAGE_SUPPLIER_MISSING_PREFIX;
-import seedu.clinic.logic.commands.DeleteCommand;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_TYPE_EDIT;
-import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_USAGE;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
-import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_INDEX;
-import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_PREFIX;
-import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_PREFIX_AND_INDEX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_NO_ADDRESS;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_WAREHOUSE_NO_EMAIL;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -20,8 +13,7 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
-import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_PREFIX;
+import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +24,6 @@ import seedu.clinic.logic.commands.EditCommand;
 import seedu.clinic.logic.commands.EditCommand.EditDescriptor;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
-import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Phone;
 
@@ -64,12 +55,19 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         logger.log(Level.INFO, LOG_MESSAGE_TOKENIZE_SUCCESS);
 
-        // Check if the prefix and arguments are valid
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_INDEX)
-                || !argMultimap.getPreamble().isEmpty()) {
+        // Check if prefixes are present
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_INDEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditCommand.MESSAGE_USAGE));
         }
+
+        // Check if arguments are valid
+        if (!argMultimap.getPreamble().isEmpty()) {
+            System.out.println(argMultimap.getPreamble());
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), EditCommand.MESSAGE_USAGE);
+        }
+
+        //ParserUtil.checkInvalidArgumentsInCommandString(args, EditCommand.MESSAGE_USAGE);
 
         Index index;
 
@@ -204,21 +202,4 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         return editDescriptor;
     }
-    /**
-    private ParseException checkInvalidArguments(Prefix prefix, ArgumentMultimap argMultimap) {
-        if (argMultimap.getValue(prefix).get().contains("/")) {
-            return new ParseException(MESSAGE_INVALID_PREFIX + "\n" + EditCommand.MESSAGE_USAGE);
-        }
-        if (argMultimap.getValue(prefix).get().split("\\s+").length != 1) {
-            return new ParseException(String.format(MESSAGE_INVALID_USAGE, EditCommand.MESSAGE_USAGE));
-        }
-        if (prefix.equals(PREFIX_TYPE)) {
-            return new ParseException(String.format(MESSAGE_INVALID_TYPE_EDIT, EditCommand.MESSAGE_USAGE));
-        } else if (prefix.equals(PREFIX_INDEX)) {
-            return new ParseException(MESSAGE_INVALID_INDEX + "\n" + EditCommand.MESSAGE_USAGE);
-        } else {
-            assert prefix.equals(PREFIX_PHONE) : INVALID_PHONE_PREFIX_ASSERTION;
-            return new ParseException(Phone.MESSAGE_CONSTRAINTS + "\n" + EditCommand.MESSAGE_USAGE);
-        }
-    }**/
 }

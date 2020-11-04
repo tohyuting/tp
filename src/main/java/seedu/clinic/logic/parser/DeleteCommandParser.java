@@ -32,10 +32,13 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_TYPE, PREFIX_INDEX, PREFIX_PRODUCT_NAME);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_INDEX)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_INDEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteCommand.MESSAGE_USAGE));
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), DeleteCommand.MESSAGE_USAGE);
         }
 
         Type type;

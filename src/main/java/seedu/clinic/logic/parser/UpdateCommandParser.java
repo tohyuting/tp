@@ -7,6 +7,7 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -15,7 +16,6 @@ import java.util.Set;
 
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.UpdateCommand.UpdateProductDescriptor;
-import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Tag;
@@ -34,9 +34,12 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_PRODUCT_NAME,
                 PREFIX_PRODUCT_QUANTITY, PREFIX_TAG);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_PRODUCT_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_PRODUCT_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), UpdateCommand.MESSAGE_USAGE);
         }
 
         Type entityType;
