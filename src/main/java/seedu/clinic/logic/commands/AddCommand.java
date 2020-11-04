@@ -23,7 +23,8 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = "Adds a supplier or warehouse to CLI-nic.\n\n"
+    public static final String MESSAGE_USAGE = "Add Command Usage\n\n"
+            + "Adds a supplier or warehouse to CLI-nic.\n\n"
             + "Usage 1 - Adds a supplier into CLI-nic.\n\n"
             + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "

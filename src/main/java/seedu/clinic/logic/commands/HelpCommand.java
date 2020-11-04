@@ -13,8 +13,8 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays a list of available commands and their"
-            + " utility descriptions\n"
+    public static final String MESSAGE_USAGE = "Help Command Usage\n\nDisplays a list of available commands"
+            + " and their utility descriptions\n"
             + "Example:\n\n"
             + "1) " + COMMAND_WORD + "\n"
             + "2) " + COMMAND_WORD + " find";
@@ -23,10 +23,11 @@ public class HelpCommand extends Command {
             + MESSAGE_USAGE;
 
     public static final String[] ALLOWED_ARGUMENTS = new String[] {
-        AddCommand.COMMAND_WORD, AssignMacroCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
-        EditCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD, FindCommand.COMMAND_WORD, ListCommand.COMMAND_WORD,
-        RemoveMacroCommand.COMMAND_WORD, UpdateCommand.COMMAND_WORD, ViewCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
-        UndoCommand.COMMAND_WORD
+        AddCommand.COMMAND_WORD, AssignMacroCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
+        DeleteCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
+        FindCommand.COMMAND_WORD, ListCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
+        RemoveMacroCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD,
+        UpdateCommand.COMMAND_WORD, ViewCommand.COMMAND_WORD
     };
 
     public static final String ALLOWED_KEYWORDS = Arrays.stream(ALLOWED_ARGUMENTS)
@@ -34,7 +35,7 @@ public class HelpCommand extends Command {
 
     public static final String MESSAGE_WRONG_ARGUMENT = "You can only enter command from one of the "
             + "following keywords:\n"
-            + ALLOWED_KEYWORDS;
+            + ALLOWED_KEYWORDS + "\n\n%1$s";
 
     public static final String MESSAGE_FOR_COMMAND_FORMAT = "How to interpret command format?\n"
             + "1) Words in UPPER_CASE are parameters to be supplied by the user.\n"
@@ -139,11 +140,11 @@ public class HelpCommand extends Command {
                 + aboutExitCommand + "\n\n"
                 + aboutFindCommand + "\n\n"
                 + aboutListCommand + "\n\n"
+                + aboutRedoCommand + "\n\n"
                 + aboutRemoveMacroCommand + "\n\n"
-                + aboutUpdateCommand + "\n\n"
-                + aboutViewCommand + "\n\n"
                 + aboutUndoCommand + "\n\n"
-                + aboutRedoCommand;
+                + aboutUpdateCommand + "\n\n"
+                + aboutViewCommand + "\n\n";
         return genericHelpMessage;
     }
 

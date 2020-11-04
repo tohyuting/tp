@@ -15,6 +15,7 @@ import java.util.Set;
 
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.UpdateCommand.UpdateProductDescriptor;
+import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Tag;
@@ -38,7 +39,13 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
 
-        Type entityType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+        Type entityType;
+        try {
+            entityType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_TYPE, argMultimap, UpdateCommand.MESSAGE_USAGE);
+        }
+
         Name entityName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Name productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
         UpdateProductDescriptor updateProductDescriptor = new UpdateProductDescriptor();

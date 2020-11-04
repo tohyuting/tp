@@ -19,6 +19,8 @@ import seedu.clinic.model.attribute.Name;
 public class DeleteCommandParser implements Parser<DeleteCommand> {
 
     private static final String INVALID_INDEX_ASSERTION = "The index is less than 1!";
+    private static final String MESSAGE_INVALID_PRODUCT_PREFIX = "The product name prefix should not"
+            + " be present when you are deleting a supplier or warehouse!\n\n%1$s";
 
     /**
      * Parses the given {@code String} of arguments, identifies the correct type of DeleteCommand via argument length
@@ -56,11 +58,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         if (type.equals(SUPPLIER) || type.equals(WAREHOUSE)) {
             if (ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME)) {
                 throw new ParseException(String.format(
-                        MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                        MESSAGE_INVALID_PRODUCT_PREFIX, DeleteCommand.MESSAGE_USAGE));
             }
             return new DeleteCommand(type, index);
         }
-        
+
         // The product deletion must have product name prefix
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));

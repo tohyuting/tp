@@ -35,7 +35,8 @@ public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
 
-    public static final String MESSAGE_USAGE = "Updates the quantity and/or tags of the product with the specified"
+    public static final String MESSAGE_USAGE = "Update Command Usage\n\nUpdates the quantity and/or tags of"
+            + " the product with the specified"
             + " name in the specified supplier or warehouse. If the product does not exist for that supplier or"
             + " warehouse, a new product will be created for that supplier or warehouse."
             + " TYPE specified should be either s for supplier or w for warehouse. QUANTITY should"

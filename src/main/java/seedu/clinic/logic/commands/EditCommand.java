@@ -41,7 +41,8 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = "Edits a supplier or warehouse at the specified index."
+    public static final String MESSAGE_USAGE = "Edit Command Usage\n\nEdits a supplier or warehouse at the"
+            + " specified index."
             + " For suppliers, only its name, phone, email and remarks can be edited."
             + " For warehouses, only its name, phone, address and remark can be edited."
             + " Note that EMAIL can only be used for suppliers while ADDRESS can only be used for warehouses."
@@ -155,7 +156,8 @@ public class EditCommand extends Command {
 
         logger.log(Level.INFO, LOG_MESSAGE_SUPPLIER_EDITED);
 
-        if (supplierToEdit.isSameSupplierCaseSensitive(editedSupplier)) {
+        if (supplierToEdit.isSameSupplierCaseSensitive(editedSupplier)
+                && !supplierToEdit.isSameSupplier((editedSupplier))) {
             throw new CommandException(MESSAGE_SUPPLIER_UNCHANGED);
         }
 
@@ -192,7 +194,8 @@ public class EditCommand extends Command {
 
         logger.log(Level.INFO, LOG_MESSAGE_WAREHOUSE_EDITED);
 
-        if (warehouseToEdit.isSameSupplierCaseSensitive(editedWarehouse)) {
+        if (warehouseToEdit.isSameSupplierCaseSensitive(editedWarehouse)
+                && !warehouseToEdit.isSameWarehouse(editedWarehouse)) {
             throw new CommandException(MESSAGE_WAREHOUSE_UNCHANGED);
         }
 
