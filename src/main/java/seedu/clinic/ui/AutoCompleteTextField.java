@@ -48,7 +48,7 @@ public class AutoCompleteTextField extends TextField {
                 searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
                 populatePopup(searchResult);
                 if (!popUpEntries.isShowing()) {
-                    popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 20, 0);
+                    popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -180);
                 }
             }
         });
