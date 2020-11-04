@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.model.Clinic;
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
@@ -307,6 +308,16 @@ public class AddCommandTest {
         @Override
         public void saveVersionedClinic() {
             sampleClinic.save();
+        }
+
+        @Override
+        public Path getCommandHistoryFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CommandHistory getCommandHistory() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

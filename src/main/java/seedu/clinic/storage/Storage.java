@@ -13,7 +13,7 @@ import seedu.clinic.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends ClinicStorage, UserPrefsStorage, UserMacrosStorage {
+public interface Storage extends ClinicStorage, UserPrefsStorage, UserMacrosStorage, CommandHistoryStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
