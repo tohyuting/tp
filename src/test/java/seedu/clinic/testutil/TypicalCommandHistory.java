@@ -10,8 +10,8 @@ public class TypicalCommandHistory {
      */
     public static CommandHistory getTypicalCommandHistory() {
         CommandHistory commandHistory = new CommandHistory();
-        commandHistory.updateHistory("First command history");
-        commandHistory.updateHistory("Second command history");
+        commandHistory.getCommandHistoryList().updateHistory("First command history");
+        commandHistory.getCommandHistoryList().updateHistory("Second command history");
 
         return commandHistory;
     }
