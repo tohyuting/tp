@@ -155,11 +155,11 @@ public class EditCommand extends Command {
         Supplier editedSupplier = createEditedSupplier(supplierToEdit, (EditSupplierDescriptor) editDescriptor);
 
         logger.log(Level.INFO, LOG_MESSAGE_SUPPLIER_EDITED);
-
+        /**
         if (supplierToEdit.isSameSupplierCaseSensitive(editedSupplier)
                 && !supplierToEdit.isSameSupplier((editedSupplier))) {
             throw new CommandException(MESSAGE_SUPPLIER_UNCHANGED);
-        }
+        }**/
 
         if (!supplierToEdit.isSameSupplier(editedSupplier) && model.hasSupplier(editedSupplier)) {
             throw new CommandException(MESSAGE_DUPLICATE_SUPPLIER);
