@@ -49,13 +49,26 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw checkInvalidArguments(PREFIX_TYPE, argMultimap, UpdateCommand.MESSAGE_USAGE);
         }
 
-        Name entityName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Name productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
         UpdateProductDescriptor updateProductDescriptor = new UpdateProductDescriptor();
 
         if (argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).isPresent()) {
-            updateProductDescriptor.setQuantity(ParserUtil
-                    .parseQuantity(argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get()));
+            try {
+                updateProductDescriptor.setQuantity(ParserUtil
+                        .parseQuantity(argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get()));
+            } catch (ParseException pe) {
+                throw checkInvalidArguments(PREFIX_PRODUCT_QUANTITY, argMultimap,
+                        UpdateCommand.MESSAGE_USAGE);
+            }
+        }
+
+        Name entityName;
+        Name productName;
+
+        try {
+            entityName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
+        } catch (ParseException pe) {
+            throw new ParseException(pe.getMessage() + "\n\n" + UpdateCommand.MESSAGE_USAGE);
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updateProductDescriptor::setTags);

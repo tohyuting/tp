@@ -42,6 +42,7 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_USAGE;
 import static seedu.clinic.testutil.TypicalSupplier.BOB;
 import static seedu.clinic.testutil.TypicalWarehouse.B;
 
@@ -169,10 +170,10 @@ public class AddCommandParserTest {
         // invalid name
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_NAME_DESC2 + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + REMARK_DESC_BOB,
-                Name.MESSAGE_CONSTRAINTS);
+                Name.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + INVALID_NAME_DESC_WAREHOUSE2
                 + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
-                Name.MESSAGE_CONSTRAINTS);
+                Name.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
 
         // invalid phone
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + NAME_DESC_BOB2 + INVALID_PHONE_DESC
@@ -185,36 +186,36 @@ public class AddCommandParserTest {
         // invalid email
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB
                 + INVALID_EMAIL_DESC + REMARK_DESC_BOB,
-                Email.MESSAGE_CONSTRAINTS);
+                Email.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
 
         // invalid address
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + NAME_DESC_WAREHOUSE_A2
                 + PHONE_DESC_WAREHOUSE_A + INVALID_ADDRESS_DESC + REMARK_DESC_WAREHOUSE_A,
-                Address.MESSAGE_CONSTRAINTS);
+                Address.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
 
         // invalid remark
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + INVALID_REMARK_DESC,
-                Remark.MESSAGE_CONSTRAINTS);
+                Remark.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + NAME_DESC_WAREHOUSE_A2
                 + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + INVALID_REMARK_DESC,
-                Remark.MESSAGE_CONSTRAINTS);
+                Remark.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_NAME_DESC2 + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + INVALID_REMARK_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+                Name.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + INVALID_NAME_DESC_WAREHOUSE2
                 + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + INVALID_REMARK_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+                Name.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TYPE_DESC_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + REMARK_DESC_BOB,
-                String.format(AddCommand.MESSAGE_SUPPLIER_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_USAGE, AddCommand.MESSAGE_USAGE));
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TYPE_DESC_WAREHOUSE + NAME_DESC_WAREHOUSE_A2
                 + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
-                String.format(AddCommand.MESSAGE_WAREHOUSE_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_USAGE, AddCommand.MESSAGE_USAGE));
 
         // empty input
         assertParseFailure(parser, "",

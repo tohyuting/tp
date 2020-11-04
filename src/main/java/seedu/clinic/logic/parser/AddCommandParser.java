@@ -99,15 +99,23 @@ public class AddCommandParser implements Parser<AddCommand> {
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AddCommand.MESSAGE_USAGE);
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone;
         try {
             phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         } catch (ParseException pe) {
             throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
         }
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+        Name name;
+        Email email;
+        Remark remark;
+        try {
+            name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+            remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+        } catch (ParseException pe) {
+            throw new ParseException(pe.getMessage() + "\n\n" + AddCommand.MESSAGE_USAGE);
+        }
+
         Set<Product> productList = new HashSet<>();
 
         Supplier supplier = new Supplier(name, phone, email, remark, productList);
@@ -128,15 +136,24 @@ public class AddCommandParser implements Parser<AddCommand> {
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AddCommand.MESSAGE_USAGE);
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone;
         try {
             phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         } catch (ParseException pe) {
             throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
         }
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+        Name name;
+        Address address;
+        Remark remark;
+
+        try {
+            name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+            remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+        } catch (ParseException pe) {
+            throw new ParseException(pe.getMessage() + "\n\n" + AddCommand.MESSAGE_USAGE);
+        }
+
         Set<Product> productList = new HashSet<>();
 
         Warehouse warehouse = new Warehouse(name, phone, address, remark, productList);

@@ -85,7 +85,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 remarkKeywords = remark.value.split("\\s+");
             }
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage() + "\n" + FindCommand.MESSAGE_USAGE);
+            throw new ParseException(pe.getMessage() + "\n\n" + FindCommand.MESSAGE_USAGE);
         }
 
         if (type.equals(SUPPLIER)) {

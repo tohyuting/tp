@@ -28,6 +28,7 @@ import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_QUANTITY;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_USAGE;
 
 import org.junit.jupiter.api.Test;
 
@@ -101,31 +102,39 @@ public class UpdateCommandParserTest {
 
         // invalid type
         assertParseFailure(parser, INVALID_TYPE_DESC + WAREHOUSE_NAME_DESC_C + PRODUCT_NAME_DESC_A
-                + PRODUCT_QUANTITY_DESC_A, MESSAGE_INVALID_TYPE);
+                + PRODUCT_QUANTITY_DESC_A, String.format(MESSAGE_INVALID_TYPE, UpdateCommand.MESSAGE_USAGE));
 
         // invalid warehouse name
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + INVALID_ENTITY_NAME_DESC + PRODUCT_NAME_DESC_A
-                        + PRODUCT_QUANTITY_DESC_A, Name.MESSAGE_CONSTRAINTS);
+                        + PRODUCT_QUANTITY_DESC_A, Name.MESSAGE_CONSTRAINTS
+                        + "\n\n" + UpdateCommand.MESSAGE_USAGE);
 
         // invalid supplier name
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_ENTITY_NAME_DESC + PRODUCT_NAME_DESC_A
-                + PRODUCT_QUANTITY_DESC_A, Name.MESSAGE_CONSTRAINTS);
+                        + PRODUCT_QUANTITY_DESC_A, Name.MESSAGE_CONSTRAINTS
+                        + "\n\n" + UpdateCommand.MESSAGE_USAGE);
 
         // invalid product name
-        assertParseFailure(parser, TYPE_DESC_SUPPLIER + WAREHOUSE_NAME_DESC_C + INVALID_PRODUCT_NAME_DESC
-                        + PRODUCT_QUANTITY_DESC_A, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER + WAREHOUSE_NAME_DESC_C
+                        + INVALID_PRODUCT_NAME_DESC
+                        + PRODUCT_QUANTITY_DESC_A, Name.MESSAGE_CONSTRAINTS
+                + "\n\n" + UpdateCommand.MESSAGE_USAGE);
 
         // invalid product quantity
+        System.out.println(TYPE_DESC_SUPPLIER + WAREHOUSE_NAME_DESC_C + PRODUCT_NAME_DESC_A
+                + INVALID_PRODUCT_QUANTITY_DESC);
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + WAREHOUSE_NAME_DESC_C + PRODUCT_NAME_DESC_A
-                        + INVALID_PRODUCT_QUANTITY_DESC, MESSAGE_INVALID_QUANTITY);
+                        + INVALID_PRODUCT_QUANTITY_DESC, String.format(MESSAGE_INVALID_QUANTITY,
+                        UpdateCommand.MESSAGE_USAGE));
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_ENTITY_NAME_DESC + PRODUCT_NAME_DESC_A
-                        + INVALID_PRODUCT_QUANTITY_DESC, Name.MESSAGE_CONSTRAINTS);
+                        + INVALID_PRODUCT_QUANTITY_DESC,
+                        String.format(MESSAGE_INVALID_QUANTITY, UpdateCommand.MESSAGE_USAGE));
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TYPE_DESC_SUPPLIER + WAREHOUSE_NAME_DESC_C
                         + PRODUCT_NAME_DESC_A + PRODUCT_QUANTITY_DESC_A,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_USAGE, UpdateCommand.MESSAGE_USAGE));
     }
 }

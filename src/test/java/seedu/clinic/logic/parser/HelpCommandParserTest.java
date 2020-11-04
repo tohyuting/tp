@@ -117,12 +117,12 @@ public class HelpCommandParserTest {
 
     @Test
     public void parse_invalidCommandsAsArg_throwsParseException() {
-        assertParseFailure(parser, "hello", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_WRONG_ARGUMENT));
-        assertParseFailure(parser, "adding", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_WRONG_ARGUMENT));
-        assertParseFailure(parser, "findingWAREhouses", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_WRONG_ARGUMENT));
+        assertParseFailure(parser, "hello", String.format(MESSAGE_WRONG_ARGUMENT,
+                HelpCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "adding", String.format(MESSAGE_WRONG_ARGUMENT,
+                HelpCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "findingWAREhouses", String.format(MESSAGE_WRONG_ARGUMENT,
+                HelpCommand.MESSAGE_USAGE));
     }
 
     @Test

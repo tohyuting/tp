@@ -149,7 +149,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 editWarehouseDescriptor.setAddress(
                         ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
             } catch (ParseException pe) {
-                throw new ParseException(pe.getMessage() + "\n" + EditCommand.MESSAGE_USAGE);
+                throw new ParseException(pe.getMessage() + "\n\n" + EditCommand.MESSAGE_USAGE);
             }
         }
 
@@ -166,7 +166,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 editSupplierDescriptor.setEmail(
                         ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
             } catch (ParseException pe) {
-                throw new ParseException(pe.getMessage() + "\n" + EditCommand.MESSAGE_USAGE);
+                throw new ParseException(pe.getMessage() + "\n\n" + EditCommand.MESSAGE_USAGE);
             }
         }
 
@@ -187,7 +187,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                         ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
             }
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage() + "\n" + EditCommand.MESSAGE_USAGE);
+            throw new ParseException(pe.getMessage() + "\n\n" + EditCommand.MESSAGE_USAGE);
         }
 
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
