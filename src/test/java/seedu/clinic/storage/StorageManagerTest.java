@@ -25,22 +25,22 @@ import seedu.clinic.model.VersionedClinic;
 public class StorageManagerTest {
 
     @TempDir
-    public Path testFolder;
+    public Path temporaryFolder;
 
     private StorageManager storageManager;
 
     @BeforeEach
     public void setUp() {
-        JsonClinicStorage clinicStorage = new JsonClinicStorage(getTempFilePath("clinic"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        JsonUserMacrosStorage userMacrosStorage = new JsonUserMacrosStorage(getTempFilePath("userMacros"));
+        JsonClinicStorage clinicStorage = new JsonClinicStorage(getTempFilePath("clinic.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs.json"));
+        JsonUserMacrosStorage userMacrosStorage = new JsonUserMacrosStorage(getTempFilePath("userMacros.json"));
         TextFileCommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryStorage(
                 getTempFilePath("commandHistory.txt"));
         storageManager = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage, commandHistoryStorage);
     }
 
     private Path getTempFilePath(String fileName) {
-        return testFolder.resolve(fileName);
+        return temporaryFolder.resolve(fileName);
     }
 
     @Test
