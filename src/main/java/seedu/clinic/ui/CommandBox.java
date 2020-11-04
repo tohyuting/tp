@@ -28,9 +28,6 @@ public class CommandBox extends UiPart<Region> {
     private final CommandHistoryList history;
 
     @FXML
-    private TextField commandTextField;
-
-    @FXML
     private StackPane commandBox;
 
     private AutoCompleteTextField autoCompleteTextField;
@@ -91,26 +88,6 @@ public class CommandBox extends UiPart<Region> {
         });
     }
 
-    @FXML
-    private void handleOnKeyPressed(KeyEvent keyEvent) {
-        switch (keyEvent.getCode()) {
-        case UP:
-            String prevHistory = commandHistory.readPreviousHistory();
-            setCommandTextFieldText(prevHistory);
-            commandBox.getChildren().add(autoCompleteTextField);
-            break;
-
-        case DOWN:
-            String nextHistory = commandHistory.readNextHistory();
-            setCommandTextFieldText(nextHistory);
-            commandBox.getChildren().add(autoCompleteTextField);
-            break;
-
-        default:
-            break;
-        }
-    }
-
     private void setCommandTextFieldText(String newText) {
         autoCompleteTextField.setText(newText);
         autoCompleteTextField.positionCaret(autoCompleteTextField.getText().length());
@@ -134,10 +111,6 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
-    }
-
-    public TextField getCommandTextField() {
-        return commandTextField;
     }
 
     public AutoCompleteTextField getAutoCompleteTextField() {
