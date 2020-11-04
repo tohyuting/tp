@@ -2,15 +2,9 @@ package seedu.clinic.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX;
-//import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-//import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-//import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-//import static seedu.clinic.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-//import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_AMY;
 import static seedu.clinic.testutil.Assert.assertThrows;
-//import static seedu.clinic.testutil.TypicalSupplier.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,9 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-//import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.commands.CommandResult;
-import seedu.clinic.logic.commands.ListCommand;
+//import seedu.clinic.logic.commands.ListCommand;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.Model;
@@ -58,11 +51,11 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
     }
 
-//    @Test
-//    public void execute_validCommand_success() throws Exception {
-//        String listCommand = ListCommand.COMMAND_WORD;
-//        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-//    }
+    //@Test
+    //public void execute_validCommand_success() throws Exception {
+    //    String listCommand = ListCommand.COMMAND_WORD;
+    //    assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+    //}
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
