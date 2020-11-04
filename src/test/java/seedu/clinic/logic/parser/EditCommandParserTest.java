@@ -143,11 +143,12 @@ public class EditCommandParserTest {
                 + WAREHOUSE_NAME_DESC_A2, String.format(MESSAGE_INVALID_USAGE, EditCommand.MESSAGE_USAGE));
 
         // invalid prefix being parsed as index
+        System.out.println(" " + PREFIX_TYPE + "s " + PREFIX_INDEX + " z/testing");
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + " z/testing",
-                String.format(MESSAGE_INVALID_PREFIX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
 
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + " z/testing",
-                String.format(MESSAGE_INVALID_PREFIX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
     }
 
     @Test

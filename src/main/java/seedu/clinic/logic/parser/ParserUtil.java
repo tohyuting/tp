@@ -12,6 +12,7 @@ import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_VIEW;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.Arrays;
@@ -308,7 +309,8 @@ public class ParserUtil {
      */
     public static ParseException checkInvalidArguments(Prefix prefix, ArgumentMultimap argMultimap,
            String messageUsage) {
-        if (argMultimap.getValue(prefix).get().contains("/")) {
+        if (argMultimap.getValue(prefix).get().split("\\s+").length != 1
+                && argMultimap.getValue(prefix).get().contains("/")) {
             return new ParseException(String.format(MESSAGE_INVALID_PREFIX, messageUsage));
         } else if (argMultimap.getValue(prefix).get().split("\\s+").length != 1) {
             return new ParseException(String.format(MESSAGE_INVALID_USAGE, messageUsage));
@@ -318,6 +320,8 @@ public class ParserUtil {
             return new ParseException(String.format(MESSAGE_INVALID_INDEX, messageUsage));
         } else if (prefix.equals(PREFIX_PHONE)) {
             return new ParseException(Phone.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
+        } else if (prefix.equals(PREFIX_TAG)) {
+            return new ParseException(Tag.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
         } else if (prefix.equals(PREFIX_PRODUCT_QUANTITY)) {
             return new ParseException(String.format(MESSAGE_INVALID_QUANTITY, messageUsage));
         } else {

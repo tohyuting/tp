@@ -71,7 +71,12 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw new ParseException(pe.getMessage() + "\n\n" + UpdateCommand.MESSAGE_USAGE);
         }
 
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updateProductDescriptor::setTags);
+        try {
+            parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))
+                    .ifPresent(updateProductDescriptor::setTags);
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_TAG, argMultimap, UpdateCommand.MESSAGE_USAGE);
+        }
 
         return new UpdateCommand(entityType, entityName, productName, updateProductDescriptor);
     }

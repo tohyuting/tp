@@ -88,12 +88,11 @@ public class DeleteCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 
         // invalid index prefix
-        System.out.println(TYPE_DESC_SUPPLIER_PRODUCT + " is/1");
         assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + "is/1",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 
         // invalid productName prefix
-        assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + VALID_INDEX_DESC + "pdf/A",
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + VALID_INDEX_DESC + " pdf/A",
                 String.format(MESSAGE_INVALID_PREFIX, DeleteCommand.MESSAGE_USAGE));
 
         // missing index prefix
