@@ -21,6 +21,10 @@ public class CommandHistory {
         commandHistoryIndex = commandHistory.size();
     }
 
+    public List<String> getCommandHistory() {
+        return commandHistory;
+    }
+
     /**
      * Returns the command previously entered by the user.
      */
