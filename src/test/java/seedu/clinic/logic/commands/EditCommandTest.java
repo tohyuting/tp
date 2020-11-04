@@ -140,8 +140,7 @@ public class EditCommandTest {
         //supplier
         EditCommand editCommandSupplier = new EditCommand(INDEX_FIRST_SUPPLIER, new EditSupplierDescriptor());
 
-        String expectedMessageSupplier = String.format(MESSAGE_NOT_EDITED,
-                EditCommand.MESSAGE_USAGE);
+        String expectedMessageSupplier = String.format(MESSAGE_SUPPLIER_UNCHANGED);
 
         assertCommandFailure(editCommandSupplier, model, expectedMessageSupplier);
 
