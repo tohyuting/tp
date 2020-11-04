@@ -6,7 +6,6 @@ import static seedu.clinic.testutil.TypicalCommandHistory.getTypicalCommandHisto
 import static seedu.clinic.testutil.TypicalMacro.getTypicalUserMacros;
 import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class StorageManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         JsonUserMacrosStorage userMacrosStorage = new JsonUserMacrosStorage(getTempFilePath("userMacros"));
         TextFileCommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryStorage(
-                getTempFilePath("commandHistory"));
+                getTempFilePath("commandHistory.txt"));
         storageManager = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage, commandHistoryStorage);
     }
 
@@ -85,21 +84,17 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void commandHistoryReadSave() {
+    public void commandHistoryReadSave() throws Exception {
         CommandHistory original = getTypicalCommandHistory();
-        try {
-            storageManager.saveCommandHistory("First command history",
-                    storageManager.getCommandHistoryFilePath());
-            storageManager.saveCommandHistory("Second command history",
-                    storageManager.getCommandHistoryFilePath());
-            List<String> retrieved = storageManager.readCommandHistory().get().getCommandHistory();
-            CommandHistory newCommandHistory = new CommandHistory(retrieved);
-            assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
-            assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
-            assertEquals(original.readNextHistory(), newCommandHistory.readNextHistory());
-        } catch (IOException e) {
-            return;
-        }
+        storageManager.saveCommandHistory("First command history",
+                storageManager.getCommandHistoryFilePath());
+        storageManager.saveCommandHistory("Second command history",
+                storageManager.getCommandHistoryFilePath());
+        List<String> retrieved = storageManager.readCommandHistory().get().getCommandHistory();
+        CommandHistory newCommandHistory = new CommandHistory(retrieved);
+        assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
+        assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
+        assertEquals(original.readNextHistory(), newCommandHistory.readNextHistory());
     }
 
     @Test
