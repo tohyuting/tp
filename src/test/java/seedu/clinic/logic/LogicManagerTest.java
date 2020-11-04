@@ -27,7 +27,7 @@ import seedu.clinic.storage.JsonClinicStorage;
 import seedu.clinic.storage.JsonUserMacrosStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;
 import seedu.clinic.storage.StorageManager;
-import seedu.clinic.storage.TextFileCommandHistory;
+import seedu.clinic.storage.TextFileCommandHistoryStorage;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -45,7 +45,7 @@ public class LogicManagerTest {
         JsonUserMacrosStorage userMacrosStorage =
                 new JsonUserMacrosStorage(temporaryFolder.resolve("userMacros.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        CommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryDoesNotSaveStub(
+        TextFileCommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryStorageDoesNotSaveStub(
                 temporaryFolder.resolve("commandHistory.txt"));
         StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage,
                 commandHistoryStorage);
@@ -196,8 +196,8 @@ public class LogicManagerTest {
     /**
      * A stub class that doesn't save to commandHistory.txt when the save method is called for Command History data.
      */
-    private static class TextFileCommandHistoryDoesNotSaveStub extends TextFileCommandHistory {
-        private TextFileCommandHistoryDoesNotSaveStub(Path filePath) {
+    private static class TextFileCommandHistoryStorageDoesNotSaveStub extends TextFileCommandHistoryStorage {
+        private TextFileCommandHistoryStorageDoesNotSaveStub(Path filePath) {
             super(filePath);
         }
 

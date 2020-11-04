@@ -12,12 +12,12 @@ import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.commons.util.FileUtil;
 import seedu.clinic.model.CommandHistory;
 
-public class TextFileCommandHistory implements CommandHistoryStorage {
-    private static final Logger logger = LogsCenter.getLogger(TextFileCommandHistory.class);
+public class TextFileCommandHistoryStorage implements CommandHistoryStorage {
+    private static final Logger logger = LogsCenter.getLogger(TextFileCommandHistoryStorage.class);
 
     private Path filePath;
 
-    public TextFileCommandHistory(Path filePath) {
+    public TextFileCommandHistoryStorage(Path filePath) {
         this.filePath = filePath;
     }
 
