@@ -1,5 +1,6 @@
 package seedu.clinic.logic.parser;
 
+import static seedu.clinic.commons.core.Messages.MESSAGE_DEFAULT_FORMAT;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -22,6 +23,7 @@ import seedu.clinic.logic.commands.UndoCommand;
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.ViewCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
+import seedu.clinic.ui.AutoCompleteTextField;
 
 /**
  * Parses user input.
@@ -41,13 +43,19 @@ public class ClinicParser {
      * @throws ParseException if the command string does not conform the expected format
      */
     public Command parseCommand(String commandString) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(commandString.trim());
+        String trimmedCommandString = commandString.trim();
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(trimmedCommandString);
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
+        if (AutoCompleteTextField.getEntries().contains(trimmedCommandString)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -96,4 +104,41 @@ public class ClinicParser {
         }
     }
 
+    /**
+     * Parses command string into a command for execution.
+     *
+     * @param trimmedCommandString trimmed command string
+     * String messageUsage usage message based on the commandWord
+     * @throws ParseException if the command string is of a default format
+     */
+    public void checkDefaultFormat(String trimmedCommandString, String commandWord) throws ParseException {
+        switch (commandWord) {
+        case AddCommand.COMMAND_WORD:
+            throw new ParseException(String.format(MESSAGE_DEFAULT_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        case EditCommand.COMMAND_WORD:
+            throw new ParseException(String.format(MESSAGE_DEFAULT_FORMAT, EditCommand.MESSAGE_USAGE));
+
+        case DeleteCommand.COMMAND_WORD:
+            throw new ParseException(String.format(MESSAGE_DEFAULT_FORMAT, DeleteCommand.MESSAGE_USAGE));
+
+        case FindCommand.COMMAND_WORD:
+            throw new ParseException(String.format(MESSAGE_DEFAULT_FORMAT, FindCommand.MESSAGE_USAGE));
+
+        case UpdateCommand.COMMAND_WORD:
+            throw new ParseException(String.format(MESSAGE_DEFAULT_FORMAT, UpdateCommand.MESSAGE_USAGE));
+
+        case ViewCommand.COMMAND_WORD:
+            throw new ParseException(String.format(MESSAGE_DEFAULT_FORMAT, ViewCommand.MESSAGE_USAGE));
+
+        case AssignMacroCommand.COMMAND_WORD:
+            throw new ParseException(String.format(MESSAGE_DEFAULT_FORMAT, AssignMacroCommand.MESSAGE_USAGE));
+
+        case RemoveMacroCommand.COMMAND_WORD:
+            throw new ParseException(String.format(MESSAGE_DEFAULT_FORMAT, RemoveMacroCommand.MESSAGE_USAGE));
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
 }
