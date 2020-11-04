@@ -5,11 +5,12 @@ import static seedu.clinic.logic.commands.CommandTestUtil.showSupplierAtIndex;
 import static seedu.clinic.logic.commands.CommandTestUtil.showWarehouseAtIndex;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserMacros;
@@ -25,8 +26,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
-        expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros());
+        model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros(), new CommandHistory());
+        expectedModel = new ModelManager(model.getClinic(), new UserPrefs(), new UserMacros(), new CommandHistory());
     }
 
     @Test

@@ -109,6 +109,7 @@ public class AddCommand extends Command {
             }
 
             model.addSupplier(supplierToAdd);
+            model.saveVersionedClinic();
             logger.log(Level.INFO, LOG_MESSAGE_ADD_SUPPLIER_SUCCESS);
 
             commandResult = new CommandResult(String.format(MESSAGE_SUPPLIER_SUCCESS, supplierToAdd));
@@ -119,6 +120,7 @@ public class AddCommand extends Command {
             }
 
             model.addWarehouse(warehouseToAdd);
+            model.saveVersionedClinic();
             logger.log(Level.INFO, LOG_MESSAGE_ADD_WAREHOUSE_SUCCESS);
 
             commandResult = new CommandResult(String.format(MESSAGE_WAREHOUSE_SUCCESS, warehouseToAdd));

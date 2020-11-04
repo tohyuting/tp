@@ -71,11 +71,14 @@ public class FindCommand extends Command {
 
         if (supplierPredicate.isPresent()) {
             model.updateFilteredSupplierList(supplierPredicate.get());
+            model.saveVersionedClinic();
+
             return new CommandResult(
                     String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW, model.getFilteredSupplierList().size()));
         }
 
         model.updateFilteredWarehouseList(warehousePredicate.get());
+        model.saveVersionedClinic();
         return new CommandResult(
                 String.format(Messages.MESSAGE_WAREHOUSE_LISTED_OVERVIEW, model.getFilteredWarehouseList().size()));
     }

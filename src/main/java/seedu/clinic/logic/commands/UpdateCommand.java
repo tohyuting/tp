@@ -123,6 +123,7 @@ public class UpdateCommand extends Command {
                 warehouseToUpdate.getAddress(), warehouseToUpdate.getRemark(), updatedProductSet);
         model.setWarehouse(warehouseToUpdate, updatedWarehouse);
         model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+        model.saveVersionedClinic();
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toString(),
                 updatedWarehouse.getName().fullName));
     }
@@ -156,6 +157,7 @@ public class UpdateCommand extends Command {
                 supplierToUpdate.getEmail(), supplierToUpdate.getRemark(), updatedProductSet);
         model.setSupplier(supplierToUpdate, updatedSupplier);
         model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+        model.saveVersionedClinic();
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toString(),
                 updatedSupplier.getName().fullName));
     }

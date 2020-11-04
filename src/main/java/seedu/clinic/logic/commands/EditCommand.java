@@ -172,6 +172,8 @@ public class EditCommand extends Command {
 
         logger.log(Level.INFO, LOG_SUPPLIER_UPDATED_IN_UI);
 
+        model.saveVersionedClinic();
+
         return new CommandResult(String.format(MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier));
     }
 
@@ -206,6 +208,7 @@ public class EditCommand extends Command {
         model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
 
         logger.log(Level.INFO, LOG_WAREHOUSE_UPDATED_IN_UI);
+        model.saveVersionedClinic();
 
         return new CommandResult(String.format(MESSAGE_EDIT_WAREHOUSE_SUCCESS, editedWarehouse));
     }

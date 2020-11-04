@@ -9,7 +9,7 @@ import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.testutil.TypicalSupplier.CARL;
 import static seedu.clinic.testutil.TypicalSupplier.ELLE;
 import static seedu.clinic.testutil.TypicalSupplier.FIONA;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 import static seedu.clinic.testutil.TypicalWarehouse.ALICE;
 import static seedu.clinic.testutil.TypicalWarehouse.BENSON;
 import static seedu.clinic.testutil.TypicalWarehouse.getTypicalWarehouseOnlyClinic;
@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserMacros;
@@ -31,12 +32,14 @@ import seedu.clinic.model.warehouse.WarehousePredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model modelForSupplier = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
-    private Model expectedModelForSupplier = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+    private Model modelForSupplier = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros(),
+            new CommandHistory());
+    private Model expectedModelForSupplier = new ModelManager(getTypicalVersionedClinic(),
+            new UserPrefs(), new UserMacros(), new CommandHistory());
     private Model modelForWarehouse = new ModelManager(getTypicalWarehouseOnlyClinic(), new UserPrefs(),
-            new UserMacros());
+            new UserMacros(), new CommandHistory());
     private Model expectedModelForWarehouse = new ModelManager(getTypicalWarehouseOnlyClinic(), new UserPrefs(),
-            new UserMacros());
+            new UserMacros(), new CommandHistory());
 
     @Test
     public void equals() {
@@ -108,6 +111,7 @@ public class FindCommandTest {
         SupplierPredicate supplierPredicate = prepareSupplierPredicate(nameKeywords, productKeywords, remarkKeywords);
         FindCommand command = new FindCommand(supplierPredicate);
         expectedModelForSupplier.updateFilteredSupplierList(supplierPredicate);
+        expectedModelForSupplier.saveVersionedClinic();
         assertCommandSuccess(command, modelForSupplier, expectedMessage, expectedModelForSupplier);
         assertEquals(Collections.emptyList(), modelForSupplier.getFilteredSupplierList());
     }
@@ -123,6 +127,7 @@ public class FindCommandTest {
                 remarkKeywords);
         FindCommand command = new FindCommand(warehousePredicate);
         expectedModelForWarehouse.updateFilteredWarehouseList(warehousePredicate);
+        expectedModelForWarehouse.saveVersionedClinic();
         assertCommandSuccess(command, modelForWarehouse, expectedMessage, expectedModelForWarehouse);
         assertEquals(Collections.emptyList(), modelForWarehouse.getFilteredWarehouseList());
     }
@@ -137,6 +142,7 @@ public class FindCommandTest {
         SupplierPredicate supplierPredicate = prepareSupplierPredicate(nameKeywords, productKeywords, remarkKeywords);
         FindCommand command = new FindCommand(supplierPredicate);
         expectedModelForSupplier.updateFilteredSupplierList(supplierPredicate);
+        expectedModelForSupplier.saveVersionedClinic();
         assertCommandSuccess(command, modelForSupplier, expectedMessage, expectedModelForSupplier);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), modelForSupplier.getFilteredSupplierList());
     }
@@ -151,6 +157,7 @@ public class FindCommandTest {
         SupplierPredicate supplierPredicate = prepareSupplierPredicate(nameKeywords, productKeywords, remarkKeywords);
         FindCommand command = new FindCommand(supplierPredicate);
         expectedModelForSupplier.updateFilteredSupplierList(supplierPredicate);
+        expectedModelForSupplier.saveVersionedClinic();
         assertCommandSuccess(command, modelForSupplier, expectedMessage, expectedModelForSupplier);
         assertEquals(Collections.EMPTY_LIST, modelForSupplier.getFilteredSupplierList());
     }
@@ -166,6 +173,7 @@ public class FindCommandTest {
                 remarkKeywords);
         FindCommand command = new FindCommand(warehousePredicate);
         expectedModelForWarehouse.updateFilteredWarehouseList(warehousePredicate);
+        expectedModelForWarehouse.saveVersionedClinic();
         assertCommandSuccess(command, modelForWarehouse, expectedMessage, expectedModelForWarehouse);
         assertEquals(Arrays.asList(ALICE, BENSON), modelForWarehouse.getFilteredWarehouseList());
     }
@@ -181,6 +189,7 @@ public class FindCommandTest {
                 remarkKeywords);
         FindCommand command = new FindCommand(warehousePredicate);
         expectedModelForWarehouse.updateFilteredWarehouseList(warehousePredicate);
+        expectedModelForWarehouse.saveVersionedClinic();
         assertCommandSuccess(command, modelForWarehouse, expectedMessage, expectedModelForWarehouse);
         assertEquals(Collections.EMPTY_LIST, modelForWarehouse.getFilteredWarehouseList());
     }
