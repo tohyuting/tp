@@ -31,6 +31,7 @@ import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.ListMacroCommand;
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Name;
@@ -110,8 +111,6 @@ public class ClinicParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " ct/w n/alex bernice pd/panadol r/biggest");
         assertEquals(new FindCommand(new WarehousePredicate(nameKeywords, productKeywords, remarkKeywords)), command);
-
-
     }
 
     @Test
@@ -123,6 +122,12 @@ public class ClinicParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_listMacro() throws Exception {
+        assertTrue(parser.parseCommand(ListMacroCommand.COMMAND_WORD) instanceof ListMacroCommand);
+        assertTrue(parser.parseCommand(ListMacroCommand.COMMAND_WORD + " 3") instanceof ListMacroCommand);
     }
 
     @Test
