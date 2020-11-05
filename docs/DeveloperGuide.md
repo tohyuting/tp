@@ -277,7 +277,8 @@ After the `edit` command is called, user input will be sent to **`EditCommandPar
 
 If the compulsory prefixes are not present (i.e. `ct/COMMAND_TYPE` and `i/INDEX`), **`ParseException`** will be thrown if no compulsory prefixes or only one of the compulsory prefixes are given.
 
-Similarly, **`ParseException`** will be thrown if no field for editing of suppliers or warehouses is provided or if there are any inappropriate fields supplied (e.g. input a string for index or phone prefix), Furthermore, fields resulting in no changes to an existing supplier or warehouse entry will throw a **`ParseException`** as well to remind user that the supplier or warehouse is unchanged after edits.
+Similarly, **`ParseException`** will be thrown if no field for editing of suppliers or warehouses is provided or if there are any inappropriate fields supplied (e.g. input a string for index or phone prefix).
+Furthermore, fields resulting in no changes to an existing supplier or warehouse entry will throw a **`ParseException`** as well to remind user that the supplier or warehouse is unchanged after edits.
 
 **`EditCommand`** will then be executed. The edited supplier or warehouse will be updated in the model, allowing users to see the changes done for the respective supplier or warehouse.
 
@@ -381,11 +382,11 @@ An activity diagram showing the workflow of `help` command is shown below:
 #### Why Help feature is implemented this way
 Instead of providing a link and asking users to read the user guide, our team decided that it would be more convenient for users to access the help message for each command within the application itself. This allows user to instantly know what to key into the command box instead of switching between user guide in the browser and **CLI-nic**. In addition, this allows user to access `help` page even without an internet connection as well.
 
-### List feature
-The `list` feature will be elaborated in this section by its' functionality.
+### List Suppliers and Warehouses feature
+The list Suppliers and Warehouses feature will be elaborated in this section by its' functionality.
 
-#### What List feature does
-`list` feature allows user to list all suppliers and warehouses stored in **CLI-nic**. This feature allows users to retrieve back all suppliers and warehouses in the displayed supplier and warehouse lists after executing a `view` or `find` command.
+#### What List Supplier and Warehouses feature does
+The list Suppliers and Warehouses feature allows user to list all suppliers and warehouses stored in **CLI-nic**. This feature allows users to retrieve back all suppliers and warehouses in the displayed supplier and warehouse lists after executing a `view` or `find` command.
 
 ### Find feature
 
@@ -441,49 +442,165 @@ considering code quality and end user experience.
 
 ### Update product feature
 
-The update product mechanism is facilitated by the `UpdateCommandParser`, `UpdateCommand`,  and the `UpdateProductDescriptor`.
-The `UpdateCommandParser` implements `Parser` to parse the user input, the `UpdateCommand` extends `Command` to execute the main logic,
-and the `UpdateProductDescriptor` allows the parser to pass a specification of the updated product to the `UpdateCommand`.
+#### What the update product feature does
 
-Given below is an example usage scenario and how the update product mechanism behaves at each step.
+The update product feature allows users to modify the quantity or tags of existing products listed under suppliers and warehouses, or add new products to their existing lists.
+
+#### How it is implemented
+The update product mechanism is facilitated by 3 major components: `UpdateCommandParser`, `UpdateCommand`, and the `UpdateProductDescriptor`.
+`UpdateCommandParser`'s job is to parse the user input to generate the correct `Type`, `Name`, `Index`, and `AssignMacroDescriptor` objects for the `UpdateCommand`.
+`UpdateCommand`'s job is to execute the main logic for generating the updated list of products for the model.
+`UpdateProductDescriptor`'s job is to serve as a medium to allow the `UpdateCommandParser` to pass a specification of the updated product to the `UpdateCommand`.
+
+Given below is an example usage scenario, together with a sequence diagram, to show how the update product mechanism behaves at each step.
+![Update Product Command Sequence Diagram](images/UpdateCommandSequenceDiagram.png)
 
 Step 1. The user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units
 in the warehouse named 'Jurong Warehouse'. The user also decides that he wants to give 'Panadol' a tag 'fever'.
 The user does this by executing the `update ct/w n/Jurong Warehouse pd/Panadol q/50 t/fever` command.
-The `ClinicParser#parseCommand` will then call the `UpdateCommandParser#parse` method with all the arguments
-passed by the user.
+The input string will then be passed to the `UpdateCommandParser`.
 
-Step 2. `UpdateCommandParser#parse` then attempts to create new instances of `name` for the supplier/warehouse
-and the product, and a new `UpdateProductDescriptor` with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, which will be presented on the GUI.
-After which, it will call the `UpdateCommand` with the `Type`, warehouse/supplier's `Name` and `UpdateProductDescriptor` created,
-and return it to `ClinicParser#Parse` which will in turn return the `UpdateCommand` to `LogicManager#execute`.
+Step 2. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
+and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type and names of the supplier/warehouse and product are not supplied. If so, an error message will be presented on the GUI.
+Otherwise, the method will create an `UpdateCommand` with the `Type`, warehouse/supplier and product's `Name`, and the `UpdateProductDescriptor`.
 
-The following sequence diagram shows how the update product operation works: (TODO: Insert diagram)
+The following sequence diagram zooms in on how the `UpdateCommand#execute` is implemented:
+![Update Product Command Execution Sequence Diagram](images/UpdateCommandExecutionSequenceDiagram.png)
 
-Step 3. `LogicManager#execute` calls `UpdateCommand#execute` with the `Model` instance. In `LogicManager#execute`,
-the `Model#getWarehouseByName` or `Model#getSupplierByName` is called (to be implemented), which
-iterates through the warehouse/supplier list to find a warehouse/supplier with a `Name` that matches the one provided
-in the `UpdateCommand`. If it is not found, `NoSuchElementException` is thrown, otherwise, the `UpdateCommand#execute`
+Step 3. `UpdateCommand#execute` is then called with the `Model` instance. The method then attempts to retrieve the warehouse/supplier from the model with the supplied name. If it is not found, `NoSuchElementException` is thrown, otherwise, the `UpdateCommand#execute`
 method copies the existing product set for that warehouse/supplier to a new `Set<Product>`.
 
 Step 4. `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
 If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
-is supplied for the `Product` to be updated, failing which, an exception is thrown. If the check passes, the original
+is supplied in the `UpdateProductDescriptor`, failing which, an exception is thrown. If the check passes, the original
 `Product` is removed from the set.
 
-Step 5. `UpdateCommand#execute` adds the updated `Product` to the `Set<Product>`, and creates an updated
-warehouse/supplier with the updated product. The method then calls `Model#setWarehouse` or `Model#setSupplier` to update the model,
-and calls `Model#updateFilteredWarehouseList` to update the list to be displayed to the user.
-The method then passes a `CommandResult` with a success message back to `LogicManager#execute`. Finally, the model
+Step 5. `UpdateCommand#createUpdatedProduct` then creates a new product based on the product name and `UpdateProductDescriptor`. The `execute` method then adds the updated `Product` to the `Set<Product>`, and creates an updated
+warehouse/supplier with the updated product. The method then updates the model with the edited warehouse/supplier, and the `FilteredWarehouseList` to be displayed to the user.
+The method then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model
 is saved and the GUI is updated with the success message.
 
-The following activity diagram summarizes what happens when a user updates a product: (TODO: Insert Diagram)
+The following activity diagram summarizes what happens when a user updates a product:
+![Update Product Command Activity Diagram](images/UpdateCommandActivityDiagram.png)
 
-### Add feature
+#### Why it is implemented this way and what alternatives were considered
+The main design considerations associated to the feature include:
+
+* Should the command be separated for suppliers and warehouses.
+* What should the format of the command be.
+* Should the adding of new products be facilitated by this command or should it only deal with existing products.
+* How should the feature enforce separate requirements for new and existing products.
+
+The consideration of whether there should be separate commands to update products under warehouses or suppliers firstly depend on the similarity between the products under both types.
+Initially, we considered that supplier products should only have fields for names and tags, while the warehouse products should only have fields for quantities, as it is arguable that the quantity for suppliers 
+may not be known, and that tagging of warehouse products may not be very important. However, we later decided that it is better to give users this flexibility to include any 
+tags or quantities associated to the product regardless of supplier or warehouse, as these requirements may differ from user to user, and it may not be beneficial to restrict users as such. 
+Then this decision would mean that the updating of products for warehouse and supplier was very similar, and hence we felt that it may also be more user-friendly to combine the 2 into 
+one command so that users do not need to learn an additional command.
+
+Initially, the supplier/warehouse to update the product was referenced by the user using the warehouse/supplier's full name. This allowed the user to update the specific supplier/warehouse regardless of the list view
+so that the same update command will reproduce the same results regardless of the display, and so that the user does not have to enter an additional list command if the supplier/warehouse is not presently displayed.
+However, this would mean that if the user is manually typing the command, it would be take a long time to enter the command if the supplier/warehouse name is very long, and it is also more prone to typos. Hence we decided
+to make the compromise to use list indexing instead, standardising the format with the other commands, as we felt that for most use cases, using the index to reference the supplier/warehouse would be more efficient for the user, 
+and that was our main priority.
+
+Similar to the decision to combine the command for both supplier and warehouse, we decided to allow the update product command to add the product to the warehouse/supplier even if it does not presently exist for that supplier/warehouse, instead of having a separate command
+just for adding products, so as to minimise the total number of commands. With this, all product additions and modifications (excluding deletion) will be processed by the same update command, which also removes the need for users to
+check if a product exists for a supplier/warehouse before updating the product listing.
+
+This combination of commands, however, brings up the consideration of how to enforce the separate requirements for new and existing products. Specifically, if it is a new product,
+it is logical that the user may not supply the tag or quantity prefixes, but if it is an existing product, then not specifying both prefixes would mean that the user is not performing
+any update at all. Hence the user should be required to supply at least 1 of the 2 optional prefixes mentioned above for adding new products, which would mean the application should show an error message if the user does not specify either of the optional arguments
+and the product does not exist under the specified warehouse/supplier in the model. In general, however, the check of whether certain prefixes are supplied falls under the role of the `Parser` classes,
+while the check of whether an entity exists in the model falls under the role of the `Command` classes, where the `Parser` is independent of the model. Hence we decided to implement an additional `UpdateProductDescriptor` class to provide a wrapper of
+the product specification so that both checks can be done by the `UpdateCommand` without exposing the implementation details of the prefixes to the `UpdateCommand` class or using null values in the `UpdateCommand` fields. The `UpdateCommand` can then use the `UpdateProductDescriptor`
+to both execute the checks and create the updated product.
+
+### Assign macro feature
+
+#### What the assign macro feature does
+
+The assign macro feature allows users to be able to create their own alias for a specific command string which can be used to enter commands after the macro is saved.
+
+#### How it is implemented
+
+The assign macro mechanism is facilitated by 2 components: `AssignMacroCommandParser` and `AssignMacroCommand`.
+`AssignMacroCommandParser`'s job is to parse the user input to generate the correct `Alias` and `SavedCommandString`  objects for the `AssignMacroCommand`.
+`AssignMacroCommand`'s job is to execute the main logic for updating the model with the new macro.
+
+Given below is an example usage scenario, together with a sequence diagram, to show how the assign macro mechanism behaves at each step.
+![Assign Macro Command Sequence Diagram](images/AssignMacroCommandSequenceDiagram.png)
+
+Step 1. The user frequently updates a specific warehouse and decides to create a new macro with the alias "uwm" for the command string "update ct/w n/MainWarehouse" so as to shorten subsequent command inputs.
+The user does this by executing the `assignmacro a/uwm cs/update ct/w n/MainWarehouse` command. The input string will then be passed to the `AssignMacroCommandParser`.
+
+Step 2. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
+an exception to be displayed on the GUI if the alias or command string supplied by the user is invalid, or if any of them is not supplied at all. If all prefixes are parsed without error,
+a `Macro` is created from the `Alias` and `SavedCommandString` instances. Then, a new `AssignMacroCommand` instance is created with the new `Macro`.
+
+Step 3. The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias.
+If that is true, an exception will be thrown. This will be shown on the GUI as an error message. Otherwise, the new macro will be added to the model.
+
+Step 4. The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
+The user now updates the quantity of the product "Panadol" in the aforementioned warehouse by simply executing the command `uwm pd/Panadol`.
+
+The following activity diagram summarizes what happens when a user assigns a macro:
+![Assign Macro Command Activity Diagram](images/AssignMacroCommandActivityDiagram.png)
+
+### Remove Macro feature
+
+#### What the remove macro feature does
+
+The remove macro feature allows users to be able to remove an existing macro with a specific alias.
+
+#### How it is implemented
+
+The remove macro mechanism is facilitated by 2 components: `RemoveMacroCommandParser` and `RemoveMacroCommand`.
+`RemoveMacroCommandParser`'s job is to parse the user input to generate the correct `Alias` objects for the `RemoveMacroCommand`.
+`RemoveMacroCommand`'s job is to execute the main logic for updating the model with the specified macro removed.
+
+Given below is an example usage scenario, together with a sequence diagram, to show how the remove macro mechanism behaves at each step.
+![Remove Macro Command Sequence Diagram](images/RemoveMacroCommandSequenceDiagram.png)
+
+Step 1. The user decides that he/she no longer needs the macro with the alias "uwm" and decides to remove it. He does this by executing the `removemacro uwm` command.
+The input string will then be passed to the `RemoveMacroCommand parser`.
+
+Step 2. By matching the prefixes provided, `RemoveMacroCommandParser#parse` then attempts to create a new instance of `Alias` by parsing the arguments provided. If the `Alias` is
+invalid, an exception will be thrown which will be shown as an error message on the GUI. Otherwise, a `RemoveMacroCommand` instance is created with the new `Alias`.
+
+Step 3. `RemoveMacroCommand#execute` is then called with the model instance, which first attempts to retrieve the existing macro in the model with the `Alias` specified by calling the `model#getMacro` method.
+This macro is returned in an optional wrapper, and an exception will be thrown if it is empty, where an error message will be displayed on the GUI. Otherwise, the
+retrieved macro will be removed from the model.
+
+Step 4. The `RemoveMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
+
+The following activity diagram summarizes what happens when a user updates a product:
+![Remove Macro Command Activity Diagram](images/RemoveMacroCommandActivityDiagram.png)
+
+### List Macros feature
+
+#### What the List macros feature does
+
+The list macros feature allows users to be able to view all presently saved macros in the application.
+
+#### How it is implemented
+
+The list macros feature is facilitated by the ListMacroCommand, which retrieves the internal macro list and create a presentable format for displaying the list.
+If no macros are found, an exception is thrown which results in a message displayed on the GUI notifying the user that there are no presently saved macros.
+Otherwise, the success message which contains the formatted list will be passed in a `CommandResult` to the `LogicManager`, to be displayed on the GUI without overriding the existing lists for suppliers and warehouses.
+
+#### Why it is implemented this way
+
+The main implementation consideration of this feature would be the display of the list. The list macros feature was implemented such that it does not use the same display section as the warehouse or supplier lists so that the user would not have to execute and additional command to restore the
+supplier or warehouse lists. I decided not to include a separate display section to display the list of macros either as this feature is designed for advanced users and that the list of macros would not need to be displayed on
+screen except when needed. Hence it is implemented such that it will be displayed with the success message instead, so that the user can quickly refer to the macro list and then proceed to use the intended macro straight after, where
+it would then be no longer necessary to keep the macro list on the display.
+
+### Add Supplier/Warehouse feature
 In this section, the functionality of the add feature, the expected execution path, the structure of
 the AddCommand class, the interactions between objects with the AddCommand object will be discussed.
 
-#### What is the Add supplier/warehouse feature
+#### What is the Add Supplier/Warehouse feature
 The add supplier/warehouse feature is facilitated by the `AddCommandParser` and the `AddCommand`.
 The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to
 add a supplier/warehouse to the app using the command line.
@@ -693,8 +810,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | standard user  | Undo my previous editing on the data    | fix any wrong entry into the data if I've done so by mistake|
 | `* * *`  | standard user  | redo my previous undone editing on the data    | recover the undone editing earlier if I want those editing back|
 | `* * * ` | intermediate user | update the information for a specific product in warehouses and suppliers | keep track of the changes in the stocks of the warehouses |
+| `* *`    | advanced user | create custom alias for my commands | so that I enter commands more efficiently |
+| `* *`    | advanced user | delete a custom alias | remove the aliases that I no longer need |
+| `* *`    | advanced user | list my saved macros | quickly recall which macros I can currently use  |
 
-*{More to be added}*
 
 ### Use cases
 
@@ -718,16 +837,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1a2. CLI-nic requests for the correct syntax of warehouse info.
   * 1a3. User enters new data.
 
-    Steps 1a1-1a3 are repeated until the data entered are correct. <br>
+    Steps 1a1-1a3 are repeated until the data entered are valid. <br>
     Use case resumes from step 2.
 
 * 1b. CLI-nic detects addition of duplicated warehouse.
 
   * 1b1. CLI-nic shows duplicated warehouse message.
-  * 1b2. CLI-nic requests for the correct warehouse info.
+  * 1b2. CLI-nic requests for a different warehouse.
   * 1b3. User enters new data.
 
-    Steps 1b1-1b3 are repeated until the data entered are correct. <br>
+    Steps 1b1-1b3 are repeated until the data entered are valid. <br>
     Use case resumes from step 2.
 
 **Use case: UC02 Add a supplier**
@@ -744,39 +863,45 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a. CLI-nic detects an error in the entered supplier info.
 
   * 1a1. CLI-nic shows an error message .
-  * 1a2. CLI-nic requests for the correct data.
+  * 1a2. CLI-nic requests for valid data.
   * 1a3. User enters new data.
 
-    Steps 1a1-1a3 are repeated until the data entered are correct. <br>
+    Steps 1a1-1a3 are repeated until the data entered are valid. <br>
     Use case resumes from step 2.
 
-**Use case: UC03 Add a new product to supplier**
+**Use case: UC03 Assign a macro**
 
 **MSS**
 
-1. User keys in command to add a product.
-2. CLI-nic adds the product into the list and shows a success message.
+1. User keys in command to assign a macro with an alias and a command string to be saved.
+2. CLI-nic saves the macro and shows a success message.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. CLI-nic detects an overlap in the entered product and the existing products in the supplier's supply list.
+* 1a. The alias or command string supplied is invalid.
 
-  * 1a1. CLI-nic shows an error message.
-  * 1a2. CLI-nic requests for a new product name.
-  * 1a3. User enters a product name.
+  * 1a1. CLI-nic shows an error message with the constraints for the fields required.
+  * 1a2. User enters a new command.
 
-    Steps 1a1-1a3 are repeated until the name entered is correct. <br>
+    Steps 1a1-1a2 are repeated until the data entered is valid. <br>
     Use case resumes from step 2.
 
-* 1b. CLI-nic cannot find the supplier from the supplier list.
+* 1b. The command supplied is not in the valid format.
 
-  * 1b1. CLI-nic shows an error message.
-  * 1b2. CLI-nic requests for a new supplier name.
-  * 1b3. User enters a new supplier name.
+  * 1b1. CLI-nic shows an error message and the valid format, along with examples of the valid usage.
+  * 1b2. User enters a new command.
 
-    Steps 1b1-1b3 are repeated until the supplier is found. <br>
+    Steps 1b1-1b2 are repeated until the command format is valid. <br>
+    Use case resumes from step 2.
+
+* 1c. An existing macro with the same alias as the one supplied is found.
+
+  * 1c1. CLI-nic shows an error message, notifying the user of the conflict.
+  * 1c2. User enters a new command with a new alias.
+
+    Steps 1c1-1c2 are repeated until the alias supplied does not already exist in CLI-nic. <br>
     Use case resumes from step 2.
 
 **Use case: UC04 Clear all supplier and warehouse entries**
@@ -812,7 +937,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3a1. CLI-nic shows an error message and gives command suggestions.
   * 3a2. User enters the new supplier index.
 
-    Steps 3a1-3a2 are repeated until the data entered are correct. <br>
+    Steps 3a1-3a2 are repeated until the data entered are valid. <br>
     Use case resumes at step 4.
 
 **Use case: UC06 Delete a warehouse**
@@ -839,7 +964,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3a1. CLI-nic shows an error message and gives command suggestions.
   * 3a2. User enters the new warehouse index.
 
-    Steps 3a1-3a2 are repeated until the data entered are correct.
+    Steps 3a1-3a2 are repeated until the data entered are valid.
     Use case resumes at step 4.
 
 **Use case: UC07 Delete a product from a supplier**
@@ -866,7 +991,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3a1. CLI-nic shows an error message and gives command suggestions.
   * 3a2. User enters the new supplier index.
 
-    Steps 3a1-3a2 are repeated until the index entered are correct. <br>
+    Steps 3a1-3a2 are repeated until the index entered is valid. <br>
     Use case resumes at step 4.
 
 * 3b. The given name is invalid.
@@ -874,7 +999,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3b1. CLI-nic shows an error message and gives command suggestions.
   * 3b2. User enters the new product name.
 
-    Steps 3b1-3b2 are repeated until the name entered are correct. <br>
+    Steps 3b1-3b2 are repeated until the name entered is valid. <br>
     Use case resumes at step 4.
 
 **Use case: UC08 Edits a supplier**
@@ -904,12 +1029,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     User case ends.
 
-* 1a. Users uses an invalid command format.
+* 1a. User uses an invalid command format.
 
   * 1a1. CLI-nic informs user of the invalid command format.
   * 1a2. User enters a new edit command.
 
-    Steps 1a1-1a2 are repeated until the index entered are correct.
+    Steps 1a1-1a2 are repeated until the index entered is valid.
 
     Use case ends.
 
@@ -940,12 +1065,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     User case ends.
 
-* 1a. Users uses an invalid command format.
+* 1a. User uses an invalid command format.
 
   * 1a1. CLI-nic informs user of the invalid command format.
   * 1a2. User enters a new edit command.
 
-    Steps 1a1-1a2 are repeated until the index entered are correct.
+    Steps 1a1-1a2 are repeated until the index entered is valid.
 
     Use case ends.
 
@@ -963,7 +1088,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. User enters invalid command for finding.
 
-  * 1a1. CLI-nic requests for the correct command.
+  * 1a1. CLI-nic requests for the valid command.
   * 1a2. User enter a new command for finding.
 
     Steps 1a1 and 1a2 are repeated until a valid find command is entered. <br>
@@ -983,7 +1108,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. User enters invalid command for finding.
 
-  * 1a1. CLI-nic requests for the correct command.
+  * 1a1. CLI-nic requests for the valid command.
   * 1a2. User enter a new command for finding.
 
     Steps 1a1 and 1a2 are repeated until a valid find command is entered. <br>
@@ -993,12 +1118,150 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to list the data in the application.
+1. User requests to list the supplier and warehouse data in the application.
 2. CLI-nic retrieves all supplier and warehouse entries, shows lists of suppliers and warehouses and shows a success message.
 
     Use case ends.
+    
+**Use case: UC13 List all macros**
 
-**Use case: UC13 View Help**
+**MSS**
+
+1. User requests to list the macros saved in the application.
+2. CLI-nic retrieves all presently saved macros, and shows it on the GUI.
+
+    Use case ends.
+  
+**Extensions**
+
+* 1a. There are no presently saved macros.
+
+  * 1a1. CLI-nic shows a message to notify the user that no macros were found.
+
+    Use case ends.
+
+**Use case: UC13 Remove a macro**
+
+**MSS**
+
+1. User keys in command to remove a macro with a specified alias.
+2. CLI-nic removes the macro and shows a success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The alias supplied is invalid.
+
+  * 1a1. CLI-nic shows an error message with the constraints for the alias specified.
+  * 1a2. User enters a new command.
+
+    Steps 1a1-1a2 are repeated until the alias entered is valid. <br>
+    Use case resumes from step 2.
+
+* 1b. The command supplied is not in the valid format.
+
+  * 1b1. CLI-nic shows an error message and the valid format, along with examples of the valid usage.
+  * 1b2. User enters a new command.
+
+    Steps 1b1-1b2 are repeated until the command format is valid. <br>
+    Use case resumes from step 2.
+
+* 1c. An existing macro with the alias supplied cannot be found.
+
+  * 1c1. CLI-nic shows an error message, notifying the user that the macro does not exist.
+  * 1c2. User enters a new command with another alias.
+
+    Steps 1c1-1c2 are repeated until a macro with the new alias supplied is found. <br>
+    Use case resumes from step 2.
+
+**Use case: UC15 Update a Product in a Supplier**
+
+**MSS**
+
+1. User keys in command to update a product in a supplier with updated quantity/tags.
+2. CLI-nic overwrites the existing product with the updated product details. CLI-nic shows a success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. CLI-nic cannot find the supplier with the supplied name.
+  * 1a1. CLI-nic shows an error message informing the user that the supplier does not exist.
+  * 1a2. User enters a new supplier name.
+
+    Steps 1a1-1a2 are repeated until the supplier name provided by the user can be found. <br>
+    Use case resumes from step 2.
+
+* 1b. User enters the command in an invalid format.
+  * 1b1. CLI-nic shows an error message and displays the valid format together with examples.
+  * 1b2. User enters a new command.
+
+    Steps 1b1-1b2 are repeated until the command provided by the user adheres to the valid format. <br>
+    Use case resumes from step 2.
+
+* 1c. The product exists in the supplier but neither the quantity nor the tags was supplied in the command.
+  * 1c1. CLI-nic shows an error message and informs the user that either the tags or quantity (or both) has to be supplied.
+  * 1c2. User enters a new command.
+
+    Steps 1c1-1c2 are repeated until the command provided by the user has either a quantity or tags specified for the product. <br>
+    Use case resumes from step 2.
+
+* 1d. The product name, quantity, or tags are invalid.
+  * 1d1. CLI-nic shows an error message informing the user of the constraints that the fields supplied must adhere to.
+  * 1d2. User enters a new command.
+
+    Steps 1d1-1d2 are repeated until all the fields required by the command are valid. <br>
+    Use case resumes from step 2.
+
+* 1e. The product does not exist in the Supplier.
+  * 1e1. CLI-nic adds the product with its associated quantity/tags to the supplier.
+    Use case ends.
+
+**Use case: UC16 Update a Product in a Warehouse**
+
+**MSS**
+
+1. User keys in command to update a product in a warehouse with updated quantity/tags.
+2. If the product exists, CLI-nic overwrites the existing product with the updated product details. If the product does not exist, CLI-nic adds the product and its associated quantity/tags to the warehouse. CLI-nic shows a success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. CLI-nic cannot find the warehouse with the supplied name.
+  * 1a1. CLI-nic shows an error message informing the user that the warehouse does not exist.
+  * 1a2. User enters a new warehouse name.
+
+    Steps 1a1-1a2 are repeated until the warehouse name provided by the user can be found. <br>
+    Use case resumes from step 2.
+
+* 1b. User enters the command in an invalid format.
+  * 1b1. CLI-nic shows an error message and displays the valid format together with examples.
+  * 1b2. User enters a new command.
+
+    Steps 1b1-1b2 are repeated until the command provided by the user adheres to the valid format. <br>
+    Use case resumes from step 2.
+
+* 1c. The product exists in the warehouse but neither the quantity nor the tags was supplied in the command.
+  * 1c1. CLI-nic shows an error message and informs the user that either the tags or quantity (or both) has to be supplied.
+  * 1c2. User enters a new command.
+
+    Steps 1c1-1c2 are repeated until the command provided by the user has either a quantity or tags specified for the product. <br>
+    Use case resumes from step 2.
+
+* 1d. The product name, quantity, or tags are invalid.
+  * 1d1. CLI-nic shows an error message informing the user of the constraints that the fields supplied must adhere to.
+  * 1d2. User enters a new command.
+
+    Steps 1d1-1d2 are repeated until all the fields required by the command are valid. <br>
+    Use case resumes from step 2.
+
+* 1e. The product does not exist in the warehouse.
+  * 1e1. CLI-nic adds the product with its associated quantity/tags to the warehouse.
+    Use case ends.
+
+**Use case: UC17 View Help**
 
 **MSS**
 1. User asks for the list of command.
@@ -1017,32 +1280,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1b. User enters invalid help command.
   * 1b1. CLI-nic shows an error message.
-  * 1b2. CLI-nic requests for the correct command.
+  * 1b2. CLI-nic requests for a valid command.
   * 1b3. User enters a new help command.
 
     Steps 1b1-1b3 are repeated until a valid help command is entered. <br>
     Use case resumes from step 2.
 
-**Use case: UC14 Update quantity of a Product in a Warehouse**
-
-**MSS**
-
-1. User keys in command to update a product’s quantity with a specific product, warehouse and quantity.
-2. If the product exists, CLI-nic overwrites the product’s quantity. Else if the product does not exist, CLI-nic adds the product and its quantity to the warehouse. CLI-nic shows a success message.
-
-    Use case ends.
-
-**Extensions**
-
-* 1a. CLI-nic cannot find the warehouse.
-  * 1a1. CLI-nic shows an error message.
-  * 1a2. CLI-nic requests for a new warehouse name.
-  * 1a3. User enters a new name.
-
-    Steps 1a1-1a3 are repeated until the data entered are correct. <br>
-    Use case resumes from step 2.
-
-**Use case: UC15 View Supplier**
+**Use case: UC18 View Supplier**
 
 **MSS**
 
@@ -1061,7 +1305,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1a1 and 1a2 are repeated until a valid supplier name is entered. <br>
     Use case resumes from step 2.
 
-**Use case: UC16 View Warehouse**
+**Use case: UC19 View Warehouse**
 
 **MSS**
 

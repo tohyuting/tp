@@ -13,7 +13,6 @@ import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -105,7 +104,6 @@ public class UpdateCommand extends Command {
         }
 
         Warehouse warehouseToUpdate = lastShownList.get(index.getZeroBased());
-
         Set<Product> updatedProductSet = new HashSet<>(warehouseToUpdate.getProducts());
         Product productToUpdate;
 
@@ -139,7 +137,6 @@ public class UpdateCommand extends Command {
         }
 
         Supplier supplierToUpdate = lastShownList.get(index.getZeroBased());
-
         Set<Product> updatedProductSet = new HashSet<>(supplierToUpdate.getProducts());
         Product productToUpdate;
 
@@ -177,16 +174,6 @@ public class UpdateCommand extends Command {
         Set<Tag> updatedTags = updateProductDescriptor.getTags().orElse(productToUpdate.getProductTags());
 
         return new Product(productToUpdate.getProductName(), updatedQuantity, updatedTags);
-    }
-
-    public static Warehouse getWarehouseByName(Name warehouseName, Model model) throws NoSuchElementException {
-        return model.getClinic().getWarehouseList().stream()
-                .filter(warehouse -> warehouse.getName().equals(warehouseName)).findFirst().orElseThrow();
-    }
-
-    public static Supplier getSupplierByName(Name supplierName, Model model) throws NoSuchElementException {
-        return model.getClinic().getSupplierList().stream()
-                .filter(supplier -> supplier.getName().equals(supplierName)).findFirst().orElseThrow();
     }
 
     @Override

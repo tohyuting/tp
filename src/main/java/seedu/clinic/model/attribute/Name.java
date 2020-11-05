@@ -16,7 +16,7 @@ public class Name {
      * The first character of the name must be alphanumeric.
      * String must not contain forward slashes (i.e. '/')
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Print}][^/]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][^/]*";
 
     public final String fullName;
 
