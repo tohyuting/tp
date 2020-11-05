@@ -16,6 +16,7 @@ import seedu.clinic.model.macro.Macro;
 public class AssignMacroCommand extends Command {
 
     public static final String COMMAND_WORD = "assignmacro";
+    public static final String COMPLETE_ASSIGN_MACRO_COMMAND = "assignmacro a/ cs/";
 
     public static final String MESSAGE_USAGE = "Assigns a macro to a command string. ALIAS should only consist "
             + "of alphanumeric characters and/or underscores. ALIAS cannot be an existing command word and cannot "
