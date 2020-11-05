@@ -13,7 +13,6 @@ import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -98,8 +97,6 @@ public class UpdateCommand extends Command {
     }
 
     private CommandResult updateProductForWarehouse(Model model) throws CommandException {
-        Warehouse warehouseToUpdate;
-        Optional<Warehouse> optionalWarehouse = model.getWarehouse(entityName);
         List<Warehouse> lastShownList = model.getFilteredWarehouseList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -107,9 +104,6 @@ public class UpdateCommand extends Command {
         }
 
         Warehouse warehouseToUpdate = lastShownList.get(index.getZeroBased());
-
-        warehouseToUpdate = optionalWarehouse.orElseThrow();
-
         Set<Product> updatedProductSet = new HashSet<>(warehouseToUpdate.getProducts());
         Product productToUpdate;
 
@@ -143,9 +137,6 @@ public class UpdateCommand extends Command {
         }
 
         Supplier supplierToUpdate = lastShownList.get(index.getZeroBased());
-
-        supplierToUpdate = optionalSupplier.orElseThrow();
-
         Set<Product> updatedProductSet = new HashSet<>(supplierToUpdate.getProducts());
         Product productToUpdate;
 
