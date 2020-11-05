@@ -36,9 +36,15 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
    * **`add`** `ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor` : Adds a
     supplier named `Philips Pharmaceutical` with the phone number `00000000` and email `philipsPharm@gmail.com` to
     CLI-nic. This supplier is the `Largest contractor`.
+<<<<<<< HEAD
     
    * **`assignmacro`** `a/findsup cs/find ct/s pd/panadol` : Assigns a macro that pairs the alias `findsup` to the
    command string `find ct/s pd/panadol`.
+=======
+
+   * **`assignmacro`** `a/uwm cs/update ct/w n/main warehouse` : Assigns a macro that pairs the alias `uwm` to the
+   command string `update ct/w n/main warehouse`.
+>>>>>>> origin/master
 
    * **`clear`** : Deletes all suppliers and warehouses entries in CLI-nic.
 
@@ -132,8 +138,8 @@ Format: `add ct/s n/NAME p/PHONE e/EMAIL [r/REMARK]`
   details.
 
 Example:
-* `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor`: 
-  Adds a supplier named `Philips Pharmaceutical` with the phone number `00000000` and email `philipsPharm@gmail.com`.
+* `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor` : Adds a supplier
+  named `Philips Pharmaceutical` with the phone number `00000000` and email `philipsPharm@gmail.com`.
   This supplier is the `Largest contractor`.
   
 ![add](images/addSupplier.png)
@@ -157,7 +163,7 @@ Example:
   the `First warehouse`.
 
 ![add](images/addWarehouse.png)
-  
+
 ### Assigning macro to selected command string: `assignmacro`
 
 Assigns a macro that pairs the specified alias to the specified command string.
@@ -295,7 +301,7 @@ Example:
   `Jurong Street 11` and `Largest warehouse`.
 
 ![edit](images/editWarehouse.png)
-  
+
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -334,7 +340,7 @@ Example:
 
 * `find ct/w pd/panadol r/biggest` : Displays the warehouse(s) that stores products with names matching
   `panadol` or with remark matching `biggest`.
-  
+
 ![find](images/findWarehouse.png)
 
 ### Listing all suppliers and warehouses entries : `list`
