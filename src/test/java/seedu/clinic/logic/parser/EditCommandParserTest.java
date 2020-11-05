@@ -1,5 +1,6 @@
 package seedu.clinic.logic.parser;
 
+import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -33,7 +34,6 @@ import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INPUT_BOTH_SUPPLIE
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_TYPE_EDIT;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_USAGE;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
-import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_INDEX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_PREFIX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_NO_ADDRESS;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_WAREHOUSE_NO_EMAIL;
@@ -43,7 +43,7 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_PREFIX;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
@@ -87,15 +87,15 @@ public class EditCommandParserTest {
     public void parse_missingParts_failure() {
         // no index specified
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + VALID_NAME_AMY,
-                String.format(MESSAGE_NO_INDEX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + VALID_PHONE_AMY,
-                String.format(MESSAGE_NO_INDEX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + VALID_REMARK_AMY,
-                String.format(MESSAGE_NO_INDEX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + VALID_ADDRESS_AMY,
-                String.format(MESSAGE_NO_INDEX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + VALID_EMAIL_AMY,
-                String.format(MESSAGE_NO_INDEX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         // no field specified
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 ",
@@ -104,40 +104,38 @@ public class EditCommandParserTest {
                 String.format(MESSAGE_NOT_EDITED, EditCommand.MESSAGE_USAGE));
 
         // no type and no field specified
-        assertParseFailure(parser, " " + PREFIX_INDEX + "1 ", String.format(MESSAGE_NO_PREFIX,
-                EditCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " " + PREFIX_INDEX + "1 ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_INDEX + "2 " + PREAMBLE_WHITESPACE,
-                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         //no type specified
         assertParseFailure(parser, " " + PREFIX_INDEX + "1 " + VALID_NAME_AMY,
-                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_INDEX + "1 " + VALID_PHONE_AMY,
-                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_INDEX + "1 " + VALID_REMARK_AMY,
-                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_INDEX + "1 " + VALID_ADDRESS_AMY,
-                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_INDEX + "1 " + VALID_EMAIL_AMY,
-                String.format(MESSAGE_NO_PREFIX, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidIndex_failure() {
         // negative index
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "-5 "
-                + NAME_DESC_AMY2, MESSAGE_INVALID_INDEX + "\n" + EditCommand.MESSAGE_USAGE);
+                + NAME_DESC_AMY2, String.format(MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
 
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "-5 "
-                + WAREHOUSE_NAME_DESC_A2, MESSAGE_INVALID_INDEX + "\n"
-                + EditCommand.MESSAGE_USAGE);
+                + WAREHOUSE_NAME_DESC_A2, String.format(MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
 
         // zero index
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "0 "
-                + NAME_DESC_AMY2, MESSAGE_INVALID_INDEX + "\n" + EditCommand.MESSAGE_USAGE);
+                + NAME_DESC_AMY2, String.format(MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "0 "
-                + WAREHOUSE_NAME_DESC_A2, MESSAGE_INVALID_INDEX + "\n"
-                + EditCommand.MESSAGE_USAGE);
+                + WAREHOUSE_NAME_DESC_A2, String.format(MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
 
         // invalid arguments being parsed as index
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 testing"
@@ -146,11 +144,12 @@ public class EditCommandParserTest {
                 + WAREHOUSE_NAME_DESC_A2, String.format(MESSAGE_INVALID_USAGE, EditCommand.MESSAGE_USAGE));
 
         // invalid prefix being parsed as index
+        System.out.println(" " + PREFIX_TYPE + "s " + PREFIX_INDEX + " z/testing");
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + " z/testing",
-                MESSAGE_INVALID_PREFIX + "\n" + EditCommand.MESSAGE_USAGE);
+                String.format(MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
 
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + " z/testing",
-                MESSAGE_INVALID_PREFIX + "\n" + EditCommand.MESSAGE_USAGE);
+                String.format(MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -161,7 +160,7 @@ public class EditCommandParserTest {
                 + EMAIL_DESC_AMY + NAME_DESC_AMY + REMARK_DESC_AMY;
 
         assertParseFailure(parser, userInputSupplier,
-                String.format(MESSAGE_INVALID_TYPE_EDIT, EditCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_TYPE, EditCommand.MESSAGE_USAGE));
 
         userInputSupplier = " " + PREFIX_TYPE + "ps " + PREFIX_INDEX
                 + targetIndexSupplier.getOneBased() + PHONE_DESC_BOB
@@ -175,55 +174,63 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
 
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
-                        + INVALID_NAME_DESC2, Name.MESSAGE_CONSTRAINTS); // invalid name
+                        + INVALID_NAME_DESC2, Name.MESSAGE_CONSTRAINTS
+                        + "\n\n" + EditCommand.MESSAGE_USAGE); // invalid name
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
                         + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS
-                + "\n" + EditCommand.MESSAGE_USAGE); // invalid phone
+                        + "\n\n" + EditCommand.MESSAGE_USAGE); // invalid phone
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
-                        + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
+                        + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS
+                        + "\n\n" + EditCommand.MESSAGE_USAGE); // invalid email
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
                         + INVALID_ADDRESS_DESC, MESSAGE_SUPPLIER_ADDRESS_PREFIX); // address not allowed
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
-                        + INVALID_REMARK_DESC, Remark.MESSAGE_CONSTRAINTS); // invalid tag
+                        + INVALID_REMARK_DESC, Remark.MESSAGE_CONSTRAINTS
+                        + "\n\n" + EditCommand.MESSAGE_USAGE); // invalid tag
 
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
-                        + INVALID_NAME_DESC_WAREHOUSE2, Name.MESSAGE_CONSTRAINTS); // invalid name
+                        + INVALID_NAME_DESC_WAREHOUSE2, Name.MESSAGE_CONSTRAINTS
+                        + "\n\n" + EditCommand.MESSAGE_USAGE); // invalid name
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
                         + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS
-                + "\n" + EditCommand.MESSAGE_USAGE); // invalid phone
+                        + "\n\n" + EditCommand.MESSAGE_USAGE); // invalid phone
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
                         + INVALID_EMAIL_DESC, MESSAGE_WAREHOUSE_EMAIL_PREFIX); // email not allowed
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
-                        + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
+                        + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS
+                        + "\n\n" + EditCommand.MESSAGE_USAGE); // invalid address
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
-                        + INVALID_REMARK_DESC, Remark.MESSAGE_CONSTRAINTS); // invalid remark
+                        + INVALID_REMARK_DESC, Remark.MESSAGE_CONSTRAINTS
+                        + "\n\n" + EditCommand.MESSAGE_USAGE); // invalid remark
 
         // invalid phone followed by valid email
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
                         + INVALID_PHONE_DESC + EMAIL_DESC_AMY,
-                Phone.MESSAGE_CONSTRAINTS + "\n" + EditCommand.MESSAGE_USAGE);
+                Phone.MESSAGE_CONSTRAINTS + "\n\n" + EditCommand.MESSAGE_USAGE);
 
         //invalid phone followed by valid address
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
                         + INVALID_PHONE_DESC + ADDRESS_DESC_AMY, Phone.MESSAGE_CONSTRAINTS
-                + "\n" + EditCommand.MESSAGE_USAGE);
+                + "\n\n" + EditCommand.MESSAGE_USAGE);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
                         + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS
-                + "\n" + EditCommand.MESSAGE_USAGE);
+                + "\n\n" + EditCommand.MESSAGE_USAGE);
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
                         + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS
-                        + "\n" + EditCommand.MESSAGE_USAGE);
+                        + "\n\n" + EditCommand.MESSAGE_USAGE);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "1 "
                 + INVALID_NAME_DESC2 + INVALID_EMAIL_DESC
-                + PHONE_DESC_AMY, Name.MESSAGE_CONSTRAINTS);
+                + PHONE_DESC_AMY, Name.MESSAGE_CONSTRAINTS
+                + "\n\n" + EditCommand.MESSAGE_USAGE);
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "1 "
                 + INVALID_NAME_DESC_WAREHOUSE2
-                + INVALID_ADDRESS_DESC + PHONE_DESC_AMY, Name.MESSAGE_CONSTRAINTS);
+                + INVALID_ADDRESS_DESC + PHONE_DESC_AMY, Name.MESSAGE_CONSTRAINTS
+                + "\n\n" + EditCommand.MESSAGE_USAGE);
     }
 
     @Test

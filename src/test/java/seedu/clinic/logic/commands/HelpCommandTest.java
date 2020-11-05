@@ -41,11 +41,20 @@ public class HelpCommandTest {
         String aboutRedoCommand = RedoCommand.COMMAND_WORD + "\nRecovers the previous state of CLI-nic before"
                 + " the undo command on the data of CLI-nic";
 
-        String genericHelpMessage = aboutHelpCommand + "\n\n" + aboutAddCommand + "\n\n"
-                + aboutAssignMacroCommand + "\n\n" + aboutClearCommand + "\n\n" + aboutDeleteCommand + "\n\n"
-                + aboutEditCommand + "\n\n" + aboutExitCommand + "\n\n" + aboutFindCommand + "\n\n" + aboutListCommand
-                + "\n\n" + aboutRemoveMacroCommand + "\n\n" + aboutUpdateCommand + "\n\n"
-                + aboutViewCommand + "\n\n" + aboutUndoCommand + "\n\n" + aboutRedoCommand;
+        String genericHelpMessage = aboutHelpCommand + "\n\n"
+                + aboutAddCommand + "\n\n"
+                + aboutAssignMacroCommand + "\n\n"
+                + aboutClearCommand + "\n\n"
+                + aboutDeleteCommand + "\n\n"
+                + aboutEditCommand + "\n\n"
+                + aboutExitCommand + "\n\n"
+                + aboutFindCommand + "\n\n"
+                + aboutListCommand + "\n\n"
+                + aboutRedoCommand + "\n\n"
+                + aboutRemoveMacroCommand + "\n\n"
+                + aboutUndoCommand + "\n\n"
+                + aboutUpdateCommand + "\n\n"
+                + aboutViewCommand + "\n\n";
         CommandResult expectedCommandResult = new CommandResult(genericHelpMessage,
                 false, false);
         assertCommandSuccess(new HelpCommand("all"), model,

@@ -31,7 +31,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         }
         String helpArgument = helpArguments[0].toLowerCase();
         if (!Arrays.asList(ALLOWED_ARGUMENTS).contains(helpArgument)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_WRONG_ARGUMENT));
+            throw new ParseException(String.format(MESSAGE_WRONG_ARGUMENT, HelpCommand.MESSAGE_USAGE));
         }
         return new HelpCommand(helpArgument);
     }

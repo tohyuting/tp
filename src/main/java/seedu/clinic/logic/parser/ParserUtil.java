@@ -1,7 +1,21 @@
 package seedu.clinic.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinic.logic.parser.CliSyntax.ALLOWED_PREFIXES;
+import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_ADD;
+import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_ASSIGNMACRO;
+import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_DELETE;
+import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_EDIT;
+import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_FIND;
+import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_UPDATE;
+import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_VIEW;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +23,13 @@ import java.util.stream.Stream;
 
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.commons.util.StringUtil;
+import seedu.clinic.logic.commands.AddCommand;
+import seedu.clinic.logic.commands.AssignMacroCommand;
+import seedu.clinic.logic.commands.DeleteCommand;
+import seedu.clinic.logic.commands.EditCommand;
+import seedu.clinic.logic.commands.FindCommand;
+import seedu.clinic.logic.commands.UpdateCommand;
+import seedu.clinic.logic.commands.ViewCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Address;
 import seedu.clinic.model.attribute.Email;
@@ -24,10 +45,21 @@ import seedu.clinic.model.macro.SavedCommandString;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index provided is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_QUANTITY = "Quantity provided is not an unsigned integer.";
-    public static final String MESSAGE_INVALID_TYPE = "Type is invalid, must be one of s/w/ps/pw.";
-    public static final String MESSAGE_INVALID_PREFIX = "One of the prefix specified is not recognised.";
+    public static final String MESSAGE_INVALID_INDEX = "Index provided is not a non-zero unsigned integer."
+            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_QUANTITY = "Quantity provided is not an unsigned integer."
+            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_TYPE_DELETE = "Type is invalid, must be one of s/w/ps/pw."
+            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_TYPE = "Type is invalid, must be either s or w."
+            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_PREFIX = "One of the prefix specified is not recognised."
+            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
+            + "ensure that you only include prefixes specified in the User Guide.\n\n%1$s";
+    private static final String INVALID_TYPE_PREFIX_ASSERTION = "The prefix here should be of Type type!";
+    private static final String INVALID_MESSAGE_USAGE_ASSERTION = "The message usage here should be"
+            + " of View Command!";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -53,7 +85,7 @@ public class ParserUtil {
         try {
             return Type.getType(trimmedType);
         } catch (IllegalArgumentException e) {
-            throw new ParseException(MESSAGE_INVALID_TYPE);
+            throw new ParseException(MESSAGE_INVALID_TYPE_DELETE);
         }
     }
 
@@ -202,6 +234,88 @@ public class ParserUtil {
      */
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Checks if there are any invalid arguments, such as invalid prefixes or unnecessary arguments used in
+     * given {@code preamble}. Invalid prefixes includes prefixes that are not supposed to be used in certain
+     * commands. E.g. i/ prefix should not be used in Add command input.
+     */
+    public static void checkInvalidArgumentsInPreamble(String preamble, String messageUsage)
+            throws ParseException {
+        assert !preamble.isEmpty() : "The preamble should not be empty here!";
+        String trimmedCommandString = preamble;
+        if (!trimmedCommandString.contains("/")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_USAGE, messageUsage));
+        }
+
+        if (trimmedCommandString.contains(("/"))) {
+            int slashIndex = trimmedCommandString.indexOf("/");
+            String stringOfPrefixUsed = trimmedCommandString.substring(0, slashIndex + 1);
+            Prefix prefixUsed = new Prefix(stringOfPrefixUsed);
+            checkPrefixValid(prefixUsed, messageUsage);
+        }
+    }
+
+    /**
+     * Helper function for {@code checkInvalidArgumentsInPreamble} to check if there are any
+     *  invalid arguments, such as invalid prefixes or unnecessary arguments used in given {@code preamble}.
+     */
+    private static void checkPrefixValid(Prefix prefixUsed, String messageUsage) throws ParseException {
+        Prefix[] prefixesNotAccepted;
+        if (messageUsage.equals(AddCommand.MESSAGE_USAGE)) {
+            prefixesNotAccepted = NOT_ALLOWED_PREFIXES_ADD;
+        } else if (messageUsage.equals(AssignMacroCommand.MESSAGE_USAGE)) {
+            prefixesNotAccepted = NOT_ALLOWED_PREFIXES_ASSIGNMACRO;
+        } else if (messageUsage.equals(DeleteCommand.MESSAGE_USAGE)) {
+            prefixesNotAccepted = NOT_ALLOWED_PREFIXES_DELETE;
+        } else if (messageUsage.equals(EditCommand.MESSAGE_USAGE)) {
+            prefixesNotAccepted = NOT_ALLOWED_PREFIXES_EDIT;
+        } else if (messageUsage.equals(FindCommand.MESSAGE_USAGE)) {
+            prefixesNotAccepted = NOT_ALLOWED_PREFIXES_FIND;
+        } else if (messageUsage.equals(UpdateCommand.MESSAGE_USAGE)) {
+            prefixesNotAccepted = NOT_ALLOWED_PREFIXES_UPDATE;
+        } else {
+            assert messageUsage.equals(ViewCommand.MESSAGE_USAGE) : INVALID_MESSAGE_USAGE_ASSERTION;
+            prefixesNotAccepted = NOT_ALLOWED_PREFIXES_VIEW;
+        }
+
+        if (Arrays.asList(prefixesNotAccepted).contains(prefixUsed)
+                || !Arrays.asList(ALLOWED_PREFIXES).contains(prefixUsed)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PREFIX, messageUsage));
+        }
+    }
+
+    /**
+     * Checks if there are any invalid arguments, such as invalid prefixes or unnecessary arguments used in
+     * given {@code prefix}. This allows a more specific error to be thrown, instead of detecting it as a
+     * violation of any variable constraints.
+     */
+    public static ParseException checkInvalidArguments(Prefix prefix, ArgumentMultimap argMultimap,
+           String messageUsage) {
+        if (argMultimap.getValue(prefix).get().split("\\s+").length != 1
+                && argMultimap.getValue(prefix).get().contains("/")) {
+            return new ParseException(String.format(MESSAGE_INVALID_PREFIX, messageUsage));
+        } else if (argMultimap.getValue(prefix).get().split("\\s+").length != 1) {
+            return new ParseException(String.format(MESSAGE_INVALID_USAGE, messageUsage));
+        }
+
+        if (prefix.equals(PREFIX_INDEX)) {
+            return new ParseException(String.format(MESSAGE_INVALID_INDEX, messageUsage));
+        } else if (prefix.equals(PREFIX_PHONE)) {
+            return new ParseException(Phone.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
+        } else if (prefix.equals(PREFIX_TAG)) {
+            return new ParseException(Tag.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
+        } else if (prefix.equals(PREFIX_PRODUCT_QUANTITY)) {
+            return new ParseException(String.format(MESSAGE_INVALID_QUANTITY, messageUsage));
+        } else {
+            assert prefix.equals(PREFIX_TYPE) : INVALID_TYPE_PREFIX_ASSERTION;
+
+            if (messageUsage.equals(DeleteCommand.MESSAGE_USAGE)) {
+                return new ParseException(String.format(MESSAGE_INVALID_TYPE_DELETE, messageUsage));
+            }
+            return new ParseException(String.format(MESSAGE_INVALID_TYPE, messageUsage));
+        }
     }
 
 

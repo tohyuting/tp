@@ -8,9 +8,8 @@ import seedu.clinic.model.Model;
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo the previous command"
-            + " if the command edited data\n\n"
-            + " The list of undoable commands include "
+    public static final String MESSAGE_USAGE = "Undo Command Usage\n\nUndo the previous command"
+            + " if the command was in effect and edited data\n\n"
             + "Example:\n"
             + COMMAND_WORD;
 

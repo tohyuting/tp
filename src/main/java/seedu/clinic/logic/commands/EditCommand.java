@@ -43,7 +43,8 @@ public class EditCommand extends Command {
     public static final String COMPULSORY_EDIT_SUPPLIER_COMMAND = "edit ct/s i/";
     public static final String COMPULSORY_EDIT_WAREHOUSE_COMMAND = "edit ct/w i/";
 
-    public static final String MESSAGE_USAGE = "Edits a supplier or warehouse at the specified index."
+    public static final String MESSAGE_USAGE = "Edit Command Usage\n\nEdits a supplier or warehouse at the"
+            + " specified index."
             + " For suppliers, only its name, phone, email and remarks can be edited."
             + " For warehouses, only its name, phone, address and remark can be edited."
             + " Note that EMAIL can only be used for suppliers while ADDRESS can only be used for warehouses."
@@ -60,10 +61,9 @@ public class EditCommand extends Command {
             + "2) " + COMMAND_WORD + " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "5 " + PREFIX_PHONE + "99876544 "
             + PREFIX_ADDRESS + "21 Lower Kent Ridge Road";
 
-    public static final String MESSAGE_NO_PREFIX_AND_INDEX = "Command type and index must be present!\n%1$s";
     public static final String MESSAGE_EDIT_SUPPLIER_SUCCESS = "Edited Supplier: %1$s";
     public static final String MESSAGE_EDIT_WAREHOUSE_SUCCESS = "Edited Warehouse: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.\n%1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.\n\n%1$s";
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "A supplier with the same name already"
             + " exists in CLInic.";
     public static final String MESSAGE_DUPLICATE_WAREHOUSE = "A warehouse with the same name already"
@@ -74,14 +74,10 @@ public class EditCommand extends Command {
             + " index, i.e. either wi/INDEX or si/INDEX";
     public static final String MESSAGE_NO_PREFIX = "Please enter at least one type of"
             + " command under ct (i.e. either ct/s or ct/w)\n%1$s";
-    public static final String MESSAGE_NO_INDEX = "Please enter index of supplier/warehouse you wish"
-            + " to edit.%1$s";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! %1$s \n"
-            + MESSAGE_USAGE;
     public static final String MESSAGE_INVALID_TYPE_EDIT = "You used an invalid type! Type for Edit command "
             + "should be either ct/s or ct/w only.\n%1$s";
     public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
-            + "ensure that you only include prefixes specified in the User Guide.\n%1$s";
+            + "ensure that you only include prefixes specified in the User Guide.\n\n%1$s";
     public static final String MESSAGE_SUPPLIER_UNCHANGED = "The edited field will results in no change to "
             + "supplier selected. Please check your arguments again and re-enter your edit command.";
     public static final String MESSAGE_WAREHOUSE_UNCHANGED = "The edited field will results in no change to "
@@ -157,7 +153,7 @@ public class EditCommand extends Command {
 
         logger.log(Level.INFO, LOG_MESSAGE_SUPPLIER_EDITED);
 
-        if (supplierToEdit.equals(editedSupplier)) {
+        if (supplierToEdit.equalsSupplierCaseSensitive(editedSupplier)) {
             throw new CommandException(MESSAGE_SUPPLIER_UNCHANGED);
         }
 
@@ -194,7 +190,8 @@ public class EditCommand extends Command {
 
         logger.log(Level.INFO, LOG_MESSAGE_WAREHOUSE_EDITED);
 
-        if (warehouseToEdit.equals(editedWarehouse)) {
+        if (warehouseToEdit.equalsWarehouseCaseSensitive(editedWarehouse)
+                && warehouseToEdit.isSameWarehouse(editedWarehouse)) {
             throw new CommandException(MESSAGE_WAREHOUSE_UNCHANGED);
         }
 

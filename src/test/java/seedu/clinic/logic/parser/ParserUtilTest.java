@@ -3,7 +3,7 @@ package seedu.clinic.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE_DELETE;
 import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 import static seedu.clinic.testutil.Assert.assertThrows;
@@ -70,7 +70,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseType_invalidInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_TYPE, ()
+        assertThrows(ParseException.class, MESSAGE_INVALID_TYPE_DELETE, ()
             -> ParserUtil.parseType("a"));
     }
 
