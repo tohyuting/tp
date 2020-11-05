@@ -20,6 +20,8 @@ import org.junit.jupiter.api.Test;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
+import seedu.clinic.model.exceptions.NoRedoableVersionException;
+import seedu.clinic.model.exceptions.NoUndoableVersionException;
 import seedu.clinic.testutil.ClinicBuilder;
 import seedu.clinic.testutil.UserMacrosBuilder;
 
@@ -167,6 +169,16 @@ public class ModelManagerTest {
     public void getMacro_macroNotInUserMacros_returnEmptyOptional() {
         assertTrue(modelManager.getMacro(MACRO_AS.getAlias()).isEmpty());
         assertTrue(modelManager.getMacro(MACRO_AS.getAlias().aliasString).isEmpty());
+    }
+
+    @Test
+    public void undoClinic_cannotUndo_throwsNoUndoableVersionException() {
+        assertThrows(NoUndoableVersionException.class, () -> modelManager.undoClinic());
+    }
+
+    @Test
+    public void redoClinic_cannotRedo_throwsNoRedoableVersionException() {
+        assertThrows(NoRedoableVersionException.class, () -> modelManager.redoClinic());
     }
 
     @Test

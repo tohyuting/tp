@@ -56,7 +56,8 @@ public class WarehouseCard extends UiPart<Region> {
         name.setText(warehouse.getName().fullName);
         phone.setText(warehouse.getPhone().value);
         // remark.getChildren().add(new Label(warehouse.getRemark().value));
-        remark.setText(warehouse.getRemark().value);
+        String remarkText = warehouse.getRemark().value == "" ? "No Remark" : warehouse.getRemark().value;
+        remark.setText(remarkText);
         remark.setWrapText(true);
         address.setText(warehouse.getAddress().value);
         /*

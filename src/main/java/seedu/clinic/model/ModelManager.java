@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.commons.core.LogsCenter;
+import seedu.clinic.model.exceptions.NoRedoableVersionException;
+import seedu.clinic.model.exceptions.NoUndoableVersionException;
 import seedu.clinic.model.macro.Alias;
 import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
@@ -264,14 +266,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undoClinic() {
+    public void undoClinic() throws NoUndoableVersionException {
         clinic.undo();
         updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
         updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
     }
 
     @Override
-    public void redoClinic() {
+    public void redoClinic() throws NoRedoableVersionException {
         clinic.redo();
         updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
         updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
