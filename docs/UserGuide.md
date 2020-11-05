@@ -446,13 +446,13 @@ Example:
 ### Undo/Redo a previous editing : `undo`/`redo`
 
 Undo command recovers a previous version of CLI-nic data if any data has been changed.
-Redo command restores the data in CLI-nic before an `undo` command was done.
+Redo command restores the data in CLI-nic before an `undo` command was executed.
 
 Format: `undo` / `redo`
 
+* Undo/Redo can only be used for commands that modified the CLI-nic data.
 * Any trailing words behind the command words will be ignored.
-* Only commands that modify the CLI-nic data can be undone/redone.
-* For example: if one types `undo redo`, the command will be to `undo` the editing.
+* For example: if the user types `undo redo`, the command executed will be `undo`.
 
 <div markdown="span" class="alert alert-info">
 **:information_source: Note:** `assignmacro` and `removemacro` do not modify CLI-nic data directly, and hence are not

@@ -95,24 +95,4 @@ class UniqueMacroListTest {
         List<Macro> listWithDuplicateMacros = Arrays.asList(ALPHA, ALPHA);
         assertThrows(DuplicateMacroException.class, () -> uniqueMacroList.setMacros(listWithDuplicateMacros));
     }
-
-    @Test
-    void remove() {
-    }
-
-    @Test
-    void setMacros() {
-    }
-
-    @Test
-    void testSetMacros() {
-    }
-
-    @Test
-    void asUnmodifiableObservableList() {
-    }
-
-    @Test
-    void testEquals() {
-    }
 }
