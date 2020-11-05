@@ -19,6 +19,7 @@ import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
+import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Supplier;
 
 /**
@@ -68,7 +69,13 @@ public class ViewSuppliersCommandTest {
         expectedModel.updateFilteredSupplierList(supplierPredicate);
         expectedModel.saveVersionedClinic();
         String expectedMessage = String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,
-                expectedModel.getFilteredSupplierList().size());
+                expectedModel.getFilteredSupplierList().size()) + "\n\n"
+                + "Here are the products associated with the Supplier"
+                + " for your convenience:\n\n";
+
+        for (Product product : supplierToView.getProducts()) {
+            expectedMessage += product.toStringWithTags();
+        }
         assertCommandSuccess(viewFirstCommand, model, expectedMessage, expectedModel);
     }
 

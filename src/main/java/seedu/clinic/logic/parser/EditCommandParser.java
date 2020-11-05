@@ -39,7 +39,6 @@ public class EditCommandParser implements Parser<EditCommand> {
             "Successfully created an editSupplierDescriptor using the given user input.";
     private static final String INVALID_WAREHOUSE_PREFIX_ASSERTION =
             "The warehouse prefix should have been present.";
-    private static final String INVALID_PHONE_PREFIX_ASSERTION = "The prefix here should be of Phone type!";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -66,8 +65,6 @@ public class EditCommandParser implements Parser<EditCommand> {
             System.out.println(argMultimap.getPreamble());
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), EditCommand.MESSAGE_USAGE);
         }
-
-        //ParserUtil.checkInvalidArgumentsInCommandString(args, EditCommand.MESSAGE_USAGE);
 
         Index index;
 
