@@ -52,16 +52,21 @@ public class AutoCompleteTextField extends TextField {
                 LinkedList<String> searchResult = new LinkedList<>();
                 searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
                 populatePopup(searchResult);
-                if (!popUpEntries.isShowing()) {
-                    if (!getText().equals("list") && !allowedEntries.contains(getText())) {
-                        popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -180);
-                    }
-                }
+                checkPopUpEntries();
             }
         });
 
         focusedProperty().addListener((observableValue, aBoolean, aBoolean2) ->
                 popUpEntries.hide());
+    }
+
+    private void checkPopUpEntries() {
+        System.out.println(getText());
+        if (!popUpEntries.isShowing()) {
+            if (!getText().equals("list") && !allowedEntries.contains(getText())) {
+                popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -180);
+            }
+        }
     }
 
     /**
