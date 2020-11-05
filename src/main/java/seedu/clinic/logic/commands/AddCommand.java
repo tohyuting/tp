@@ -22,8 +22,9 @@ import seedu.clinic.model.warehouse.Warehouse;
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
-    public static final String COMPLETE_ADD_SUPPLIER_COMMAND = "add ct/s n/ p/ e/ r/";
-    public static final String COMPLETE_ADD_WAREHOUSE_COMMAND = "add ct/w n/ p/ addr/ r/";
+    public static final String COMPULSORY_ADD_SUPPLIER_COMMAND = "add ct/s n/ p/ e/";
+    public static final String COMPULSORY_ADD_WAREHOUSE_COMMAND = "add ct/w n/ p/ addr/";
+
     public static final String MESSAGE_USAGE = "Adds a supplier or warehouse to CLI-nic.\n\n"
             + "Usage 1 - Adds a supplier into CLI-nic.\n\n"
             + "Parameters:\n"

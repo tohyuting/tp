@@ -19,7 +19,9 @@ import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.RedoCommand;
 import seedu.clinic.logic.commands.RemoveMacroCommand;
+import seedu.clinic.logic.commands.UndoCommand;
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.ViewCommand;
 
@@ -61,8 +63,8 @@ public class AutoCompleteTextField extends TextField {
      * Create the existing set of autocomplete entries.
      */
     private void setEntries() {
-        entries.add(AddCommand.COMPLETE_ADD_SUPPLIER_COMMAND);
-        entries.add(AddCommand.COMPLETE_ADD_WAREHOUSE_COMMAND);
+        entries.add(AddCommand.COMPULSORY_ADD_SUPPLIER_COMMAND);
+        entries.add(AddCommand.COMPULSORY_ADD_WAREHOUSE_COMMAND);
         entries.add(AssignMacroCommand.COMPLETE_ASSIGN_MACRO_COMMAND);
         entries.add(ClearCommand.COMMAND_WORD);
         entries.add(DeleteCommand.COMPLETE_DELETE_SUPPLIER_COMMAND);
@@ -75,8 +77,11 @@ public class AutoCompleteTextField extends TextField {
         entries.add(FindCommand.COMPLETE_FIND_SUPPLIER_COMMAND);
         entries.add(FindCommand.COMPLETE_FIND_WAREHOUSE_COMMAND);
         entries.add(ListCommand.COMMAND_WORD);
+        //entries.add(ListMacroCommand.COMMAND_WORD);
         entries.add(HelpCommand.COMMAND_WORD);
+        entries.add(RedoCommand.COMMAND_WORD);
         entries.add(RemoveMacroCommand.COMPLETE_REMOVE_MACRO_COMMAND);
+        entries.add(UndoCommand.COMMAND_WORD);
         entries.add(UpdateCommand.COMPULSORY_UPDATE_SUPPLIER_COMMAND);
         entries.add(UpdateCommand.COMPULSORY_UPDATE_WAREHOUSE_COMMAND);
         entries.add(ViewCommand.COMMAND_WORD);

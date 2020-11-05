@@ -26,6 +26,7 @@ import seedu.clinic.model.warehouse.Warehouse;
  */
 public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
+
     public static final String MESSAGE_USAGE = "Views information related to a particular supplier or warehouse."
             + " TYPE specified should be either s for supplier or w for warehouse."
             + " INDEX must be a positive integer, not exceeding the total length of the supplier/warehouse list.\n\n"
