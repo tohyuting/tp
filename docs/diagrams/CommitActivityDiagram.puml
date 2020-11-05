@@ -5,10 +5,12 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
-if () then ([command commits AddressBook])
-    :Purge redunant states;
-    :Save AddressBook to
-    addressBookStateList;
+if () then ([command updates CLI-nic])
+    :Purge redundant versions;
+    :Save currentClinic version to
+    undoVersionStack;
+    :Set currentClinic to updated
+     CLI-nic version;
 else ([else])
 endif
 stop

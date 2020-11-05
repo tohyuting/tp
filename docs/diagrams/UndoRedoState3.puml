@@ -5,16 +5,32 @@ skinparam ClassBorderColor #000000
 
 title After command "undo"
 
-package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
+package Versions {
+    class Version1 as "__vc0:VersionedClinic__"
+    class Version2 as "__vc1:VersionedClinic__"
+    class Version3 as "__vc2:VersionedClinic__"
+}
+Version1 -[hidden]right-> Version2
+Version2 -[hidden]right-> Version3
+
+class Pointer as "Current Version" #FFFFF
+
+Pointer -up-> Version2
+
+package UndoVersionStack {
+    class UndoVersion0 as "__vc0:VersionedClinic__"
 }
 
-State1 -[hidden]right-> State2
-State2 -[hidden]right-> State3
+class TopOfStack as "Top of the Stack" #FFFFF
 
-class Pointer as "Current State" #FFFFF
+TopOfStack -up-> UndoVersion0
 
-Pointer -up-> State2
+package RedoVersionStack {
+    class RedoVersion0 as "__vc2:VersionedClinic__"
+}
+
+class TopOfStack2 as "Top of the Stack" #FFFFF
+
+TopOfStack2 -up-> RedoVersion0
+
 @end

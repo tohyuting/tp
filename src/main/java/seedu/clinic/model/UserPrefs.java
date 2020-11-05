@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path clinicFilePath = Paths.get("data" , "clinic.json");
     private Path userMacrosFilePath = Paths.get("data" , "userMacros.json");
+    private Path commandHistoryFilePath = Paths.get("data" , "commandHistory.txt");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -38,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setClinicFilePath(newUserPrefs.getClinicFilePath());
         setUserMacrosFilePath(newUserPrefs.getUserMacrosFilePath());
+        setCommandHistoryFilePath(newUserPrefs.getCommandHistoryFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -68,6 +70,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     @Override
+    public Path getCommandHistoryFilePath() {
+        return commandHistoryFilePath;
+    }
+
+    public void setCommandHistoryFilePath(Path commandHistoryFilePath) {
+        requireNonNull(commandHistoryFilePath);
+        this.commandHistoryFilePath = commandHistoryFilePath;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -80,12 +92,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && clinicFilePath.equals(o.clinicFilePath)
-                && userMacrosFilePath.equals(o.userMacrosFilePath);
+                && userMacrosFilePath.equals(o.userMacrosFilePath)
+                && commandHistoryFilePath.equals(o.commandHistoryFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, clinicFilePath, userMacrosFilePath);
+        return Objects.hash(guiSettings, clinicFilePath, userMacrosFilePath, commandHistoryFilePath);
     }
 
     @Override
@@ -94,6 +107,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nClinic data file location : " + clinicFilePath);
         sb.append("\nUser macros file location : " + userMacrosFilePath);
+        sb.append("\nCommand history file location : " + commandHistoryFilePath);
         return sb.toString();
     }
 

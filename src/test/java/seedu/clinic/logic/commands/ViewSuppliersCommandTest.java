@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.clinic.commons.core.Messages;
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.parser.Type;
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserMacros;
@@ -28,8 +29,10 @@ public class ViewSuppliersCommandTest {
     private final Index index1 = Index.fromOneBased(1);
     private final Index index2 = Index.fromOneBased(20);
 
-    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
-    private Model expectedModel = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+    private Model model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros(),
+            new CommandHistory());
+    private Model expectedModel = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros(),
+            new CommandHistory());
 
     @Test
     public void equals() {
@@ -63,6 +66,7 @@ public class ViewSuppliersCommandTest {
                 new NameContainsKeywordsPredicateForSupplier(supplierToView.getName().toString());
         model.updateFilteredSupplierList(supplierPredicate);
         expectedModel.updateFilteredSupplierList(supplierPredicate);
+        expectedModel.saveVersionedClinic();
         String expectedMessage = String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,
                 expectedModel.getFilteredSupplierList().size());
         assertCommandSuccess(viewFirstCommand, model, expectedMessage, expectedModel);

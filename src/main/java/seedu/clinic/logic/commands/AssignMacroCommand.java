@@ -51,6 +51,7 @@ public class AssignMacroCommand extends Command {
         }
 
         model.addMacro(toAssign);
+        model.saveVersionedClinic();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAssign));
     }
 
