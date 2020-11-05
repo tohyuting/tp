@@ -2,7 +2,7 @@ package seedu.clinic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
@@ -12,11 +12,14 @@ import static seedu.clinic.model.Model.PREDICATE_SHOW_ALL_WAREHOUSES;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.clinic.commons.core.Messages;
+import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.commons.util.CollectionUtil;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.Type;
@@ -34,49 +37,50 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
+    public static final String COMPULSORY_UPDATE_SUPPLIER_COMMAND = "update ct/s n/ pd/";
+    public static final String COMPULSORY_UPDATE_WAREHOUSE_COMMAND = "update ct/w n/ pd/";
 
-    public static final String MESSAGE_USAGE = "Updates the quantity and/or tags of the product with the specified"
-            + " name in the specified supplier or warehouse. If the product does not exist for that supplier or"
+    public static final String MESSAGE_USAGE = "Updates the quantity and/or tags of the product for the supplier"
+            + " or warehouse at the specified index. If the product does not exist for that supplier or"
             + " warehouse, a new product will be created for that supplier or warehouse."
             + " TYPE specified should be either s for supplier or w for warehouse. QUANTITY should"
             + " be a non-negative unsigned integer. If the PRODUCT_NAME already exists in the supplier or warehouse,"
             + " at least one optional argument has to be entered.\n\n"
             + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "
-            + PREFIX_NAME + "NAME "
+            + PREFIX_INDEX + "INDEX (Must be a positive integer) "
             + PREFIX_PRODUCT_NAME + "PRODUCT_NAME "
             + "[" + PREFIX_PRODUCT_QUANTITY + "QUANTITY]"
             + "[" + PREFIX_TAG + "TAG]\n\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_TYPE + "w "
-            + PREFIX_NAME + "Alex Yeoh warehouse "
+            + PREFIX_INDEX + "1 "
             + PREFIX_PRODUCT_NAME + "Panadol "
             + PREFIX_PRODUCT_QUANTITY + "350 "
             + PREFIX_TAG + "Fever";
 
     public static final String MESSAGE_SUCCESS = "Product stock updated: %1$s in %2$s.";
-    private static final String MESSAGE_NO_SUCH_ENTITY = "The specified warehouse/supplier cannot be found.";
     private static final String MESSAGE_INVALID_TYPE = "Invalid Type.";
     private static final String MESSAGE_EMPTY_DESCRIPTOR = "Either the quantity or tags (or both) has to be "
             + "supplied to update an existing product.";
 
     private final Type entityType;
-    private final Name entityName;
+    private final Index index;
     private final Name productName;
     private final UpdateProductDescriptor updateProductDescriptor;
 
     /**
      * Creates an UpdateCommand to update the product with the specified {@code productName} for the
-     * supplier/warehouse with the specified {@code entityName}
+     * supplier/warehouse at the specified {@code index}
      */
-    public UpdateCommand(Type entityType, Name entityName, Name productName,
+    public UpdateCommand(Type entityType, Index index, Name productName,
             UpdateProductDescriptor updateProductDescriptor) {
-        requireAllNonNull(entityType, entityName, productName, updateProductDescriptor);
+        requireAllNonNull(entityType, index, productName, updateProductDescriptor);
 
-        this.entityName = entityName;
-        this.productName = productName;
         this.entityType = entityType;
+        this.index = index;
+        this.productName = productName;
         this.updateProductDescriptor = updateProductDescriptor;
     }
 
@@ -94,13 +98,13 @@ public class UpdateCommand extends Command {
     }
 
     private CommandResult updateProductForWarehouse(Model model) throws CommandException {
-        Warehouse warehouseToUpdate;
+        List<Warehouse> lastShownList = model.getFilteredWarehouseList();
 
-        try {
-            warehouseToUpdate = getWarehouseByName(entityName, model);
-        } catch (NoSuchElementException e) {
-            throw new CommandException(MESSAGE_NO_SUCH_ENTITY);
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);
         }
+
+        Warehouse warehouseToUpdate = lastShownList.get(index.getZeroBased());
 
         Set<Product> updatedProductSet = new HashSet<>(warehouseToUpdate.getProducts());
         Product productToUpdate;
@@ -122,18 +126,19 @@ public class UpdateCommand extends Command {
                 warehouseToUpdate.getAddress(), warehouseToUpdate.getRemark(), updatedProductSet);
         model.setWarehouse(warehouseToUpdate, updatedWarehouse);
         model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+        model.saveVersionedClinic();
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toString(),
                 updatedWarehouse.getName().fullName));
     }
 
     private CommandResult updateProductForSupplier(Model model) throws CommandException {
-        Supplier supplierToUpdate;
+        List<Supplier> lastShownList = model.getFilteredSupplierList();
 
-        try {
-            supplierToUpdate = getSupplierByName(entityName, model);
-        } catch (NoSuchElementException e) {
-            throw new CommandException(MESSAGE_NO_SUCH_ENTITY);
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
         }
+
+        Supplier supplierToUpdate = lastShownList.get(index.getZeroBased());
 
         Set<Product> updatedProductSet = new HashSet<>(supplierToUpdate.getProducts());
         Product productToUpdate;
@@ -155,6 +160,7 @@ public class UpdateCommand extends Command {
                 supplierToUpdate.getEmail(), supplierToUpdate.getRemark(), updatedProductSet);
         model.setSupplier(supplierToUpdate, updatedSupplier);
         model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+        model.saveVersionedClinic();
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toString(),
                 updatedSupplier.getName().fullName));
     }
@@ -188,14 +194,14 @@ public class UpdateCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof UpdateCommand // instanceof handles nulls
                 && entityType.equals(((UpdateCommand) other).entityType)
-                && entityName.equals(((UpdateCommand) other).entityName)
+                && index.equals(((UpdateCommand) other).index)
                 && productName.equals(((UpdateCommand) other).productName)
                 && updateProductDescriptor.equals(((UpdateCommand) other).updateProductDescriptor));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(entityType, entityName, productName, updateProductDescriptor);
+        return Objects.hash(entityType, index, productName, updateProductDescriptor);
     }
 
     /**

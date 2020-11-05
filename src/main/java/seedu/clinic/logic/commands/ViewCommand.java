@@ -26,6 +26,7 @@ import seedu.clinic.model.warehouse.Warehouse;
  */
 public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
+
     public static final String MESSAGE_USAGE = "Views information related to a particular supplier or warehouse."
             + " TYPE specified should be either s for supplier or w for warehouse."
             + " INDEX must be a positive integer, not exceeding the total length of the supplier/warehouse list.\n\n"
@@ -98,7 +99,7 @@ public class ViewCommand extends Command {
         model.updateFilteredSupplierList(supplierPredicate);
 
         logger.log(Level.INFO, LOG_MESSAGE_MODEL_SHOW_SUPPLIER);
-
+        model.saveVersionedClinic();
         return new CommandResult(String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,
                         model.getFilteredSupplierList().size()));
     }
@@ -122,7 +123,7 @@ public class ViewCommand extends Command {
 
         model.updateFilteredWarehouseList(warehousePredicate);
         logger.log(Level.INFO, LOG_MESSAGE_MODEL_SHOW_WAREHOUSE);
-
+        model.saveVersionedClinic();
         return new CommandResult(String.format(Messages.MESSAGE_WAREHOUSE_LISTED_OVERVIEW,
                         model.getFilteredWarehouseList().size()));
     }

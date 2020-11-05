@@ -199,10 +199,11 @@ public class ModelManagerTest {
         Clinic differentClinic = new Clinic();
         UserPrefs userPrefs = new UserPrefs();
         UserMacros differentUserMacros = new UserMacros();
+        CommandHistory commandHistory = new CommandHistory();
 
         // same values -> returns true
-        modelManager = new ModelManager(clinic, userPrefs, userMacros);
-        ModelManager modelManagerCopy = new ModelManager(clinic, userPrefs, userMacros);
+        modelManager = new ModelManager(clinic, userPrefs, userMacros, commandHistory);
+        ModelManager modelManagerCopy = new ModelManager(clinic, userPrefs, userMacros, commandHistory);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -215,28 +216,28 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different clinic -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentClinic, userPrefs, userMacros)));
+        assertFalse(modelManager.equals(new ModelManager(differentClinic, userPrefs, userMacros, commandHistory)));
 
         // different userMacros -> returns false
-        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, differentUserMacros)));
-
-        // different filteredSupplierList -> returns false
-        modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(
-                ALICE.getName().fullName));
-        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, userMacros)));
-
-        // different filteredWarehouseList -> returns false
-        modelManager.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(
-                A.getName().fullName));
-        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, userMacros)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
-        modelManager.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, differentUserMacros, commandHistory)));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setClinicFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(clinic, differentUserPrefs, userMacros)));
+        assertFalse(modelManager.equals(new ModelManager(clinic, differentUserPrefs, userMacros, commandHistory)));
+
+        // different filteredSupplierList -> returns false
+        modelManager.updateFilteredSupplierList(new NameContainsKeywordsPredicateForSupplier(
+                ALICE.getName().fullName));
+        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, userMacros, commandHistory)));
+
+        // different filteredWarehouseList -> returns false
+        modelManager.updateFilteredWarehouseList(new NameContainsKeywordsPredicateForWarehouse(
+                A.getName().fullName));
+        assertFalse(modelManager.equals(new ModelManager(clinic, userPrefs, userMacros, commandHistory)));
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+        modelManager.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
     }
 }

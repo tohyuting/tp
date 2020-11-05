@@ -40,6 +40,8 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
+    public static final String COMPULSORY_EDIT_SUPPLIER_COMMAND = "edit ct/s i/";
+    public static final String COMPULSORY_EDIT_WAREHOUSE_COMMAND = "edit ct/w i/";
 
     public static final String MESSAGE_USAGE = "Edits a supplier or warehouse at the specified index."
             + " For suppliers, only its name, phone, email and remarks can be edited."
@@ -171,6 +173,8 @@ public class EditCommand extends Command {
 
         logger.log(Level.INFO, LOG_SUPPLIER_UPDATED_IN_UI);
 
+        model.saveVersionedClinic();
+
         return new CommandResult(String.format(MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier));
     }
 
@@ -205,6 +209,7 @@ public class EditCommand extends Command {
         model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
 
         logger.log(Level.INFO, LOG_WAREHOUSE_UPDATED_IN_UI);
+        model.saveVersionedClinic();
 
         return new CommandResult(String.format(MESSAGE_EDIT_WAREHOUSE_SUCCESS, editedWarehouse));
     }

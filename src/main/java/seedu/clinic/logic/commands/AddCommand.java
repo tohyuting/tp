@@ -22,6 +22,8 @@ import seedu.clinic.model.warehouse.Warehouse;
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
+    public static final String COMPULSORY_ADD_SUPPLIER_COMMAND = "add ct/s n/ p/ e/";
+    public static final String COMPULSORY_ADD_WAREHOUSE_COMMAND = "add ct/w n/ p/ addr/";
 
     public static final String MESSAGE_USAGE = "Adds a supplier or warehouse to CLI-nic.\n\n"
             + "Usage 1 - Adds a supplier into CLI-nic.\n\n"
@@ -108,6 +110,7 @@ public class AddCommand extends Command {
             }
 
             model.addSupplier(supplierToAdd);
+            model.saveVersionedClinic();
             logger.log(Level.INFO, LOG_MESSAGE_ADD_SUPPLIER_SUCCESS);
 
             commandResult = new CommandResult(String.format(MESSAGE_SUPPLIER_SUCCESS, supplierToAdd));
@@ -118,6 +121,7 @@ public class AddCommand extends Command {
             }
 
             model.addWarehouse(warehouseToAdd);
+            model.saveVersionedClinic();
             logger.log(Level.INFO, LOG_MESSAGE_ADD_WAREHOUSE_SUCCESS);
 
             commandResult = new CommandResult(String.format(MESSAGE_WAREHOUSE_SUCCESS, warehouseToAdd));

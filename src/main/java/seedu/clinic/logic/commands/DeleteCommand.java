@@ -33,6 +33,10 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String COMPLETE_DELETE_SUPPLIER_COMMAND = "delete ct/s i/";
+    public static final String COMPLETE_DELETE_WAREHOUSE_COMMAND = "delete ct/w i/";
+    public static final String COMPLETE_DELETE_SUPPLIER_PRODUCT_COMMAND = "delete ct/ps i/ pd/";
+    public static final String COMPLETE_DELETE_WAREHOUSE_PRODUCT_COMMAND = "delete ct/pw i/ pd/";
 
     public static final String MESSAGE_USAGE =
             "Usage 1 - Deletes the supplier or warehouse identified by the index number used in the displayed lists."
@@ -115,6 +119,7 @@ public class DeleteCommand extends Command {
         if (targetType.equals(WAREHOUSE)) {
             Warehouse warehouseToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteWarehouse(warehouseToDelete);
+            model.saveVersionedClinic();
             return new CommandResult(String.format(MESSAGE_DELETE_WAREHOUSE_SUCCESS, warehouseToDelete));
         }
 
@@ -129,6 +134,7 @@ public class DeleteCommand extends Command {
             // Updates the warehouse list in the model
             model.setWarehouse(warehouseToUpdate, updatedWarehouse);
             model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+            model.saveVersionedClinic();
             return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_IN_WAREHOUSE_SUCCESS,
                     matchedProduct.getProductName(), updatedWarehouse.getName()));
         } catch (ProductNotFoundException e) {
@@ -147,6 +153,7 @@ public class DeleteCommand extends Command {
         if (targetType.equals(SUPPLIER)) {
             Supplier supplierToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteSupplier(supplierToDelete);
+            model.saveVersionedClinic();
             return new CommandResult(String.format(MESSAGE_DELETE_SUPPLIER_SUCCESS, supplierToDelete));
         }
 
@@ -156,6 +163,7 @@ public class DeleteCommand extends Command {
             Supplier updatedSupplier = supplierToUpdate.removeProduct(matchedProduct);
             model.setSupplier(supplierToUpdate, updatedSupplier);
             model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+            model.saveVersionedClinic();
             return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_IN_SUPPLIER_SUCCESS,
                     matchedProduct.getProductName(), updatedSupplier.getName()));
         } catch (ProductNotFoundException e) {

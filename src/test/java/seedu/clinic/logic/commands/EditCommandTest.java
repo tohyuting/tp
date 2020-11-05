@@ -1,6 +1,5 @@
 package seedu.clinic.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX;
@@ -21,21 +20,18 @@ import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_WAREHOUSE;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 
-import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.clinic.commons.core.index.Index;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
-import seedu.clinic.model.Clinic;
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
-import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.attribute.Address;
@@ -47,7 +43,6 @@ import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
 import seedu.clinic.testutil.EditWarehouseDescriptorBuilder;
-import seedu.clinic.testutil.ModelStub;
 import seedu.clinic.testutil.SupplierBuilder;
 import seedu.clinic.testutil.WarehouseBuilder;
 
@@ -56,7 +51,10 @@ import seedu.clinic.testutil.WarehouseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalClinic(), new UserPrefs(), new UserMacros());
+    private Model model = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros(),
+            new CommandHistory());
+    private Model modelBackup = new ModelManager(getTypicalVersionedClinic(), new UserPrefs(), new UserMacros(),
+            new CommandHistory());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -70,10 +68,10 @@ public class EditCommandTest {
         String expectedMessageSupplier = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS,
                 editedSupplier);
 
-        Model expectedModelSupplier = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
-                new UserMacros());
+        Model expectedModelSupplier = new ModelManager(model.getClinic(), new UserPrefs(),
+                new UserMacros(), new CommandHistory());
         expectedModelSupplier.setSupplier(model.getFilteredSupplierList().get(0), editedSupplier);
-
+        expectedModelSupplier.saveVersionedClinic();
         assertCommandSuccess(editCommandSupplier, model, expectedMessageSupplier, expectedModelSupplier);
 
         //warehouse
@@ -85,11 +83,11 @@ public class EditCommandTest {
         String expectedMessageWarehouse = String.format(EditCommand.MESSAGE_EDIT_WAREHOUSE_SUCCESS,
                 editedWarehouse);
 
-        Model expectedModelWarehouse = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
-                new UserMacros());
-        expectedModelWarehouse.setWarehouse(model.getFilteredWarehouseList().get(0), editedWarehouse);
-
-        assertCommandSuccess(editCommandWarehouse, model, expectedMessageWarehouse, expectedModelWarehouse);
+        Model expectedModelWarehouse = new ModelManager(modelBackup.getClinic(), new UserPrefs(),
+                new UserMacros(), new CommandHistory());
+        expectedModelWarehouse.setWarehouse(modelBackup.getFilteredWarehouseList().get(0), editedWarehouse);
+        expectedModelWarehouse.saveVersionedClinic();
+        assertCommandSuccess(editCommandWarehouse, modelBackup, expectedMessageWarehouse, expectedModelWarehouse);
     }
 
     @Test
@@ -109,15 +107,15 @@ public class EditCommandTest {
         String expectedMessageSupplier = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS,
                 editedSupplier);
 
-        Model expectedModelSupplier = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
-                new UserMacros());
+        Model expectedModelSupplier = new ModelManager(model.getClinic(), new UserPrefs(),
+                new UserMacros(), new CommandHistory());
         expectedModelSupplier.setSupplier(lastSupplier, editedSupplier);
-
+        expectedModelSupplier.saveVersionedClinic();
         assertCommandSuccess(editCommandSupplier, model, expectedMessageSupplier, expectedModelSupplier);
 
         //warehouse
-        Index indexLastWarehouse = Index.fromOneBased(model.getFilteredWarehouseList().size());
-        Warehouse lastWarehouse = model.getFilteredWarehouseList().get(indexLastWarehouse.getZeroBased());
+        Index indexLastWarehouse = Index.fromOneBased(modelBackup.getFilteredWarehouseList().size());
+        Warehouse lastWarehouse = modelBackup.getFilteredWarehouseList().get(indexLastWarehouse.getZeroBased());
 
         WarehouseBuilder warehouseInList = new WarehouseBuilder(lastWarehouse);
         Warehouse editedWarehouse = warehouseInList.withName(VALID_NAME_BOB)
@@ -132,11 +130,11 @@ public class EditCommandTest {
         String expectedMessageWarehouse = String.format(EditCommand.MESSAGE_EDIT_WAREHOUSE_SUCCESS,
                 editedWarehouse);
 
-        Model expectedModelWarehouse = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
-                new UserMacros());
+        Model expectedModelWarehouse = new ModelManager(modelBackup.getClinic(), new UserPrefs(),
+                new UserMacros(), new CommandHistory());
         expectedModelWarehouse.setWarehouse(lastWarehouse, editedWarehouse);
-
-        assertCommandSuccess(editCommandWarehouse, model, expectedMessageWarehouse, expectedModelWarehouse);
+        expectedModelWarehouse.saveVersionedClinic();
+        assertCommandSuccess(editCommandWarehouse, modelBackup, expectedMessageWarehouse, expectedModelWarehouse);
     }
 
     @Test
@@ -154,7 +152,7 @@ public class EditCommandTest {
 
         String expectedMessageWarehouse = MESSAGE_WAREHOUSE_UNCHANGED;
 
-        assertCommandFailure(editCommandWarehouse, model, expectedMessageWarehouse);
+        assertCommandFailure(editCommandWarehouse, modelBackup, expectedMessageWarehouse);
     }
 
     @Test
@@ -172,16 +170,16 @@ public class EditCommandTest {
         String expectedMessageSupplier = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS,
                 editedSupplier);
 
-        Model expectedModelSupplier = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
-                new UserMacros());
+        Model expectedModelSupplier = new ModelManager(model.getClinic(), new UserPrefs(),
+                new UserMacros(), new CommandHistory());
         expectedModelSupplier.setSupplier(model.getFilteredSupplierList().get(0), editedSupplier);
-
+        expectedModelSupplier.saveVersionedClinic();
         assertCommandSuccess(editCommandSupplier, model, expectedMessageSupplier, expectedModelSupplier);
 
         //warehouse
-        showWarehouseAtIndex(model, INDEX_FIRST_WAREHOUSE);
+        showWarehouseAtIndex(modelBackup, INDEX_FIRST_WAREHOUSE);
 
-        Warehouse warehouseInFilteredList = model.getFilteredWarehouseList()
+        Warehouse warehouseInFilteredList = modelBackup.getFilteredWarehouseList()
                 .get(INDEX_FIRST_WAREHOUSE.getZeroBased());
         Warehouse editedWarehouse = new WarehouseBuilder(warehouseInFilteredList).withName(VALID_NAME_BOB)
                 .withProducts(Map.of("Gauze", 100)).build();
@@ -191,11 +189,11 @@ public class EditCommandTest {
         String expectedMessageWarehouse = String.format(EditCommand.MESSAGE_EDIT_WAREHOUSE_SUCCESS,
                 editedWarehouse);
 
-        Model expectedModelWarehouse = new ModelManager(new Clinic(model.getClinic()), new UserPrefs(),
-                new UserMacros());
-        expectedModelWarehouse.setWarehouse(model.getFilteredWarehouseList().get(0), editedWarehouse);
-
-        assertCommandSuccess(editCommandWarehouse, model, expectedMessageWarehouse, expectedModelWarehouse);
+        Model expectedModelWarehouse = new ModelManager(modelBackup.getClinic(), new UserPrefs(),
+                new UserMacros(), new CommandHistory());
+        expectedModelWarehouse.setWarehouse(modelBackup.getFilteredWarehouseList().get(0), editedWarehouse);
+        expectedModelWarehouse.saveVersionedClinic();
+        assertCommandSuccess(editCommandWarehouse, modelBackup, expectedMessageWarehouse, expectedModelWarehouse);
     }
 
     @Test
@@ -359,32 +357,6 @@ public class EditCommandTest {
         assertFalse(standardCommandSupplier.equals(new EditCommand(INDEX_FIRST_SUPPLIER, DESC_BOB)));
         assertFalse(standardCommandWarehouse.equals(commandForWarehouse));
 
-    }
-
-    private class ModelStubWithWarehouse extends ModelStub {
-        private Warehouse warehouse;
-        private Clinic clinic = new Clinic();
-
-        ModelStubWithWarehouse(Warehouse warehouse) {
-            requireNonNull(warehouse);
-            this.warehouse = warehouse;
-            clinic.setWarehouses(List.of(warehouse));
-        }
-
-        @Override public ReadOnlyClinic getClinic() {
-            return clinic;
-        }
-
-        @Override
-        public void setWarehouse(Warehouse target, Warehouse editedWarehouse) {
-            this.warehouse = editedWarehouse;
-            clinic.setWarehouses(List.of(editedWarehouse));
-        }
-
-        @Override
-        public void updateFilteredWarehouseList(Predicate<Warehouse> predicate) {
-
-        }
     }
 
 }

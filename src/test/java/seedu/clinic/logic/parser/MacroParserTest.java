@@ -11,6 +11,7 @@ import static seedu.clinic.testutil.TypicalMacro.getTypicalUserMacros;
 import org.junit.jupiter.api.Test;
 
 import seedu.clinic.model.Clinic;
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserMacros;
@@ -19,7 +20,7 @@ import seedu.clinic.model.UserPrefs;
 class MacroParserTest {
     private final MacroParser macroParser = new MacroParser();
     private final Model model = new ModelManager(new Clinic(), new UserPrefs(),
-            new UserMacros(getTypicalUserMacros()));
+            new UserMacros(getTypicalUserMacros()), new CommandHistory());
 
 
     @Test

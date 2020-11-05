@@ -16,20 +16,24 @@ import seedu.clinic.commons.util.StringUtil;
 import seedu.clinic.logic.Logic;
 import seedu.clinic.logic.LogicManager;
 import seedu.clinic.model.Clinic;
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.ReadOnlyClinic;
+import seedu.clinic.model.ReadOnlyCommandHistory;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.ReadOnlyUserPrefs;
 import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.util.SampleDataUtil;
 import seedu.clinic.storage.ClinicStorage;
+import seedu.clinic.storage.CommandHistoryStorage;
 import seedu.clinic.storage.JsonClinicStorage;
 import seedu.clinic.storage.JsonUserMacrosStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;
 import seedu.clinic.storage.Storage;
 import seedu.clinic.storage.StorageManager;
+import seedu.clinic.storage.TextFileCommandHistoryStorage;
 import seedu.clinic.storage.UserMacrosStorage;
 import seedu.clinic.storage.UserPrefsStorage;
 import seedu.clinic.ui.Ui;
@@ -40,7 +44,7 @@ import seedu.clinic.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 3, 0, true);
+    public static final Version VERSION = new Version(1, 3, 2, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -62,7 +66,9 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ClinicStorage clinicStorage = new JsonClinicStorage(userPrefs.getClinicFilePath());
         UserMacrosStorage userMacrosStorage = new JsonUserMacrosStorage(userPrefs.getUserMacrosFilePath());
-        storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage);
+        CommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryStorage(
+                userPrefs.getCommandHistoryFilePath());
+        storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage, commandHistoryStorage);
 
         initLogging(config);
 
@@ -118,7 +124,18 @@ public class MainApp extends Application {
             initialUserMacrosData = new UserMacros();
         }
 
-        return new ModelManager(initialClinicData, userPrefs, initialUserMacrosData);
+        Optional<ReadOnlyCommandHistory> commandHistoryOptional;
+        ReadOnlyCommandHistory initialCommandHistoryData;
+        try {
+            commandHistoryOptional = storage.readCommandHistory();
+            initialCommandHistoryData = commandHistoryOptional.get();
+        } catch (IOException e) {
+            logger.warning("Problem encountered while reading from commandHistory.txt file. Will be starting with"
+                    + " an empty Command History model");
+            initialCommandHistoryData = new CommandHistory();
+        }
+
+        return new ModelManager(initialClinicData, userPrefs, initialUserMacrosData, initialCommandHistoryData);
     }
 
     private void initLogging(Config config) {

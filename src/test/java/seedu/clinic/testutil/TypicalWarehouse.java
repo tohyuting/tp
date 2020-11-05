@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import seedu.clinic.model.Clinic;
+import seedu.clinic.model.VersionedClinic;
 import seedu.clinic.model.warehouse.Warehouse;
 
 /**
@@ -83,14 +84,14 @@ public class TypicalWarehouse {
     private TypicalWarehouse() {} // prevents instantiation
 
     /**
-     * Returns an {@code Clinic} with all the typical warehouses.
+     * Returns an {@code VersionedClinic} with all the typical warehouses.
      */
-    public static Clinic getTypicalWarehouseOnlyClinic() {
+    public static VersionedClinic getTypicalWarehouseOnlyClinic() {
         Clinic clinic = new Clinic();
         for (Warehouse warehouse : getTypicalWarehouses()) {
             clinic.addWarehouse(warehouse);
         }
-        return clinic;
+        return new VersionedClinic(clinic);
     }
 
     public static List<Warehouse> getTypicalWarehouses() {
