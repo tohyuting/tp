@@ -15,6 +15,7 @@ import seedu.clinic.logic.parser.MacroParser;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
+import seedu.clinic.model.ReadOnlyCommandHistory;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
@@ -67,6 +68,12 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        try {
+            storage.saveCommandHistory(commandString, model.getCommandHistoryFilePath());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
         logger.info("----------------[CLI-nic data saved]");
 
         return commandResult;
@@ -115,5 +122,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ReadOnlyCommandHistory getCommandHistory() {
+        return model.getCommandHistory();
     }
 }

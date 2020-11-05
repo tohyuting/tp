@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 /**
  * Writes and reads files
@@ -78,6 +79,13 @@ public class FileUtil {
      */
     public static void writeToFile(Path file, String content) throws IOException {
         Files.write(file, content.getBytes(CHARSET));
+    }
+
+    /**
+     * Appends given string to a file.
+     */
+    public static void appendToFile(Path file, String content) throws IOException {
+        Files.write(file, content.getBytes(CHARSET), StandardOpenOption.APPEND);
     }
 
 }
