@@ -43,7 +43,8 @@ public class EditCommand extends Command {
     public static final String COMPULSORY_EDIT_SUPPLIER_COMMAND = "edit ct/s i/";
     public static final String COMPULSORY_EDIT_WAREHOUSE_COMMAND = "edit ct/w i/";
 
-    public static final String MESSAGE_USAGE = "Edits a supplier or warehouse at the specified index."
+    public static final String MESSAGE_USAGE = "Edit Command Usage\n\nEdits a supplier or warehouse at the"
+            + " specified index."
             + " For suppliers, only its name, phone, email and remarks can be edited."
             + " For warehouses, only its name, phone, address and remark can be edited."
             + " Note that EMAIL can only be used for suppliers while ADDRESS can only be used for warehouses."
@@ -63,7 +64,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NO_PREFIX_AND_INDEX = "Command type and index must be present!\n%1$s";
     public static final String MESSAGE_EDIT_SUPPLIER_SUCCESS = "Edited Supplier: %1$s";
     public static final String MESSAGE_EDIT_WAREHOUSE_SUCCESS = "Edited Warehouse: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.\n%1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.\n\n%1$s";
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "A supplier with the same name already"
             + " exists in CLInic.";
     public static final String MESSAGE_DUPLICATE_WAREHOUSE = "A warehouse with the same name already"
@@ -157,7 +158,7 @@ public class EditCommand extends Command {
 
         logger.log(Level.INFO, LOG_MESSAGE_SUPPLIER_EDITED);
 
-        if (supplierToEdit.equals(editedSupplier)) {
+        if (supplierToEdit.equalsSupplierCaseSensitive(editedSupplier)) {
             throw new CommandException(MESSAGE_SUPPLIER_UNCHANGED);
         }
 
@@ -194,7 +195,8 @@ public class EditCommand extends Command {
 
         logger.log(Level.INFO, LOG_MESSAGE_WAREHOUSE_EDITED);
 
-        if (warehouseToEdit.equals(editedWarehouse)) {
+        if (warehouseToEdit.equalsWarehouseCaseSensitive(editedWarehouse)
+                && warehouseToEdit.isSameWarehouse(editedWarehouse)) {
             throw new CommandException(MESSAGE_WAREHOUSE_UNCHANGED);
         }
 

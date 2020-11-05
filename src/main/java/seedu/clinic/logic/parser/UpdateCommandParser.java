@@ -7,6 +7,7 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -34,22 +35,55 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_INDEX, PREFIX_PRODUCT_NAME,
                         PREFIX_PRODUCT_QUANTITY, PREFIX_TAG);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_INDEX, PREFIX_PRODUCT_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_TYPE, PREFIX_PRODUCT_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
 
-        Type entityType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
-        Name productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
+        if (!argMultimap.getPreamble().isEmpty()) {
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), UpdateCommand.MESSAGE_USAGE);
+        }
+
+        Type entityType;
+        try {
+            entityType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_TYPE, argMultimap, UpdateCommand.MESSAGE_USAGE);
+        }
+
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_INDEX, argMultimap, UpdateCommand.MESSAGE_USAGE);
+        }
+
         UpdateProductDescriptor updateProductDescriptor = new UpdateProductDescriptor();
 
         if (argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).isPresent()) {
-            updateProductDescriptor.setQuantity(ParserUtil
-                    .parseQuantity(argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get()));
+            try {
+                updateProductDescriptor.setQuantity(ParserUtil
+                        .parseQuantity(argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).get()));
+            } catch (ParseException pe) {
+                throw checkInvalidArguments(PREFIX_PRODUCT_QUANTITY, argMultimap,
+                        UpdateCommand.MESSAGE_USAGE);
+            }
         }
 
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updateProductDescriptor::setTags);
+        Name productName;
+
+        try {
+            productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
+        } catch (ParseException pe) {
+            throw new ParseException(pe.getMessage() + "\n\n" + UpdateCommand.MESSAGE_USAGE);
+        }
+
+        try {
+            parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))
+                    .ifPresent(updateProductDescriptor::setTags);
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_TAG, argMultimap, UpdateCommand.MESSAGE_USAGE);
+        }
 
         return new UpdateCommand(entityType, index, productName, updateProductDescriptor);
     }

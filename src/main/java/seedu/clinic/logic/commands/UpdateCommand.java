@@ -39,8 +39,9 @@ public class UpdateCommand extends Command {
     public static final String COMPULSORY_UPDATE_SUPPLIER_COMMAND = "update ct/s n/ pd/";
     public static final String COMPULSORY_UPDATE_WAREHOUSE_COMMAND = "update ct/w n/ pd/";
 
-    public static final String MESSAGE_USAGE = "Updates the quantity and/or tags of the product for the supplier"
-            + " or warehouse at the specified index. If the product does not exist for that supplier or"
+    public static final String MESSAGE_USAGE = "Update Command Usage\n\nUpdates the quantity and/or tags of"
+            + " the product with the specified"
+            + " name in the specified supplier or warehouse. If the product does not exist for that supplier or"
             + " warehouse, a new product will be created for that supplier or warehouse."
             + " TYPE specified should be either s for supplier or w for warehouse. QUANTITY should"
             + " be a non-negative unsigned integer. If the PRODUCT_NAME already exists in the supplier or warehouse,"

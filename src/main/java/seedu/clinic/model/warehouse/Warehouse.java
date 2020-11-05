@@ -106,6 +106,23 @@ public class Warehouse {
     }
 
     /**
+     * Returns true if both warehouses of the same name (case sensitive).
+     * This defines a weaker notion of equality between two warehouse than isSameWarehouse.
+     */
+    public boolean equalsWarehouseCaseSensitive(Warehouse otherWarehouse) {
+        if (otherWarehouse == this) {
+            return true;
+        }
+
+        return otherWarehouse != null
+                && otherWarehouse.getName().equalsCaseSensitive(getName())
+                && otherWarehouse.getPhone().equals(getPhone())
+                && otherWarehouse.getAddress().equals(getAddress())
+                && otherWarehouse.getProducts().equals(getProducts())
+                && otherWarehouse.getRemark().equals(getRemark());
+    }
+
+    /**
      * Returns true if both warehouses of the same name.
      * This defines a weaker notion of equality between two warehouses.
      */
