@@ -4,8 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.clinic.logic.commands.CommandTestUtil.INDEX_DESC;
+import static seedu.clinic.logic.commands.CommandTestUtil.DESC_PRODUCT_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.INDEX_DESC_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.PRODUCT_NAME_DESC_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.PRODUCT_NAME_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.PRODUCT_QUANTITY_DESC_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.TAG_DESC_FEVER;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER_PRODUCT;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_PANADOL;
@@ -15,7 +19,6 @@ import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.SUPPLIER_PRODUCT;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
-import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,19 +34,23 @@ import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.ListMacroCommand;
 import seedu.clinic.logic.commands.RedoCommand;
 import seedu.clinic.logic.commands.RemoveMacroCommand;
 import seedu.clinic.logic.commands.UndoCommand;
+import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.ViewCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.macro.Alias;
 import seedu.clinic.model.macro.Macro;
+import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.supplier.SupplierPredicate;
 import seedu.clinic.model.warehouse.WarehousePredicate;
 import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
 import seedu.clinic.testutil.MacroBuilder;
+import seedu.clinic.testutil.ProductBuilderSupplier;
 import seedu.clinic.testutil.SupplierBuilder;
 import seedu.clinic.testutil.SupplierUtil;
 
@@ -69,12 +76,12 @@ public class ClinicParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + TYPE_DESC_SUPPLIER + INDEX_DESC + INDEX_FIRST_SUPPLIER.getOneBased());
+                DeleteCommand.COMMAND_WORD + TYPE_DESC_SUPPLIER + INDEX_DESC_A);
         assertEquals(new DeleteCommand(SUPPLIER, INDEX_FIRST_SUPPLIER), command);
 
         command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + TYPE_DESC_SUPPLIER_PRODUCT
-                        + INDEX_DESC + INDEX_FIRST_WAREHOUSE.getOneBased() + PRODUCT_NAME_DESC_BOB);
+                        + INDEX_DESC_A + PRODUCT_NAME_DESC_BOB);
         assertEquals(new DeleteCommand(SUPPLIER_PRODUCT, INDEX_FIRST_SUPPLIER, VALID_NAME_DESC), command);
     }
 
@@ -85,7 +92,7 @@ public class ClinicParserTest {
         EditCommand.EditSupplierDescriptor descriptor = new EditSupplierDescriptorBuilder(supplier).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD
                 + TYPE_DESC_SUPPLIER
-                + INDEX_DESC + INDEX_FIRST_SUPPLIER.getOneBased() + " "
+                + INDEX_DESC_A + " "
                 + SupplierUtil.getEditSupplierDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_SUPPLIER, descriptor), command);
     }
@@ -93,7 +100,7 @@ public class ClinicParserTest {
     @Test
     public void parseCommand_view() throws Exception {
         ViewCommand command = (ViewCommand) parser.parseCommand(ViewCommand.COMMAND_WORD
-                + TYPE_DESC_SUPPLIER + INDEX_DESC + INDEX_FIRST_SUPPLIER.getOneBased());
+                + TYPE_DESC_SUPPLIER + INDEX_DESC_A);
         assertEquals(new ViewCommand(SUPPLIER, INDEX_FIRST_SUPPLIER), command);
     }
 
@@ -150,8 +157,6 @@ public class ClinicParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " ct/w n/alex bernice pd/panadol r/biggest");
         assertEquals(new FindCommand(new WarehousePredicate(nameKeywords, productKeywords, remarkKeywords)), command);
-
-
     }
 
     @Test
@@ -163,6 +168,26 @@ public class ClinicParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_listMacro() throws Exception {
+        assertTrue(parser.parseCommand(ListMacroCommand.COMMAND_WORD) instanceof ListMacroCommand);
+        assertTrue(parser.parseCommand(ListMacroCommand.COMMAND_WORD + " 3") instanceof ListMacroCommand);
+    }
+
+    @Test
+    public void parseCommand_update() throws Exception {
+        Product product = new ProductBuilderSupplier().withName(VALID_PRODUCT_NAME_PANADOL).build();
+        UpdateCommand.UpdateProductDescriptor descriptor = DESC_PRODUCT_A;
+        UpdateCommand command = (UpdateCommand) parser.parseCommand(UpdateCommand.COMMAND_WORD
+                + TYPE_DESC_SUPPLIER
+                + INDEX_DESC_A + " "
+                + PRODUCT_NAME_DESC_B
+                + PRODUCT_QUANTITY_DESC_A
+                + TAG_DESC_FEVER);
+        assertEquals(new UpdateCommand(Type.SUPPLIER, INDEX_FIRST_SUPPLIER, product.getProductName(), descriptor),
+                command);
     }
 
     @Test

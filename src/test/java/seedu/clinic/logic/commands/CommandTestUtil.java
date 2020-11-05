@@ -15,6 +15,8 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_WAREHOUSE_NAME;
 import static seedu.clinic.testutil.Assert.assertThrows;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +118,8 @@ public class CommandTestUtil {
     public static final String TYPE_DESC_WAREHOUSE = " " + PREFIX_TYPE + VALID_TYPE_WAREHOUSE;
     public static final String TYPE_DESC_SUPPLIER_PRODUCT = " " + PREFIX_TYPE + Type.SUPPLIER_PRODUCT;
     public static final String TYPE_DESC_WAREHOUSE_PRODUCT = " " + PREFIX_TYPE + Type.WAREHOUSE_PRODUCT;
-    public static final String INDEX_DESC = " " + PREFIX_INDEX;
+    public static final String INDEX_DESC_A = " " + PREFIX_INDEX + INDEX_FIRST_SUPPLIER.getOneBased();
+    public static final String INDEX_DESC_B = " " + PREFIX_INDEX + INDEX_SECOND_SUPPLIER.getOneBased();
 
     public static final String WAREHOUSE_NAME_DESC_C = " " + PREFIX_NAME + VALID_WAREHOUSE_NAME_A;
     public static final String SUPPLIER_NAME_DESC_C = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -158,6 +161,8 @@ public class CommandTestUtil {
     public static final String INVALID_WAREHOUSE_ADDRESS_DESC = " "
             + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_PRODUCT_QUANTITY_DESC = " " + PREFIX_PRODUCT_QUANTITY
+            + "+20"; // Signed integers are not allowed
+    public static final String INVALID_INDEX_DESC = " " + PREFIX_INDEX
             + "+20"; // Signed integers are not allowed
 
 

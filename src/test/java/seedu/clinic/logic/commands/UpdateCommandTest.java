@@ -16,7 +16,11 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUC
 import static seedu.clinic.logic.commands.UpdateCommand.UpdateProductDescriptor;
 import static seedu.clinic.logic.commands.UpdateCommand.getWarehouseByName;
 import static seedu.clinic.testutil.Assert.assertThrows;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
 import static seedu.clinic.testutil.TypicalSupplier.BOB;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_WAREHOUSE;
 import static seedu.clinic.testutil.TypicalWarehouse.ALICE;
 
 import java.nio.file.Path;
@@ -29,6 +33,8 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Clinic;
@@ -51,26 +57,26 @@ public class UpdateCommandTest {
             new HashSet<>(Arrays.asList(new Tag(VALID_TAG_ANTIBIOTICS))));
 
     @Test
-    public void constructor_nullWarehouse_throwsNullPointerException() {
+    public void constructor_nullIndex_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.SUPPLIER, null,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_A));
     }
 
     @Test
     public void constructor_nullProductName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.WAREHOUSE, ALICE.getName(),
+        assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.WAREHOUSE, INDEX_FIRST_WAREHOUSE,
                 null, DESC_PRODUCT_A));
     }
 
     @Test
     public void constructor_nullEntityType_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new UpdateCommand(null, ALICE.getName(),
+        assertThrows(NullPointerException.class, () -> new UpdateCommand(null, INDEX_FIRST_WAREHOUSE,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_A));
     }
 
     @Test
     public void constructor_nullUpdateProductDescriptor_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.WAREHOUSE, ALICE.getName(),
+        assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.WAREHOUSE, INDEX_FIRST_WAREHOUSE,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), null));
     }
 
@@ -79,7 +85,7 @@ public class UpdateCommandTest {
         Warehouse originalWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_A)).build();
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(originalWarehouse);
-        CommandResult commandResult = new UpdateCommand(Type.WAREHOUSE, originalWarehouse.getName(),
+        CommandResult commandResult = new UpdateCommand(Type.WAREHOUSE, INDEX_FIRST_WAREHOUSE,
                 new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), DESC_PRODUCT_B).execute(modelStub);
         Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_B)).build();
@@ -93,7 +99,7 @@ public class UpdateCommandTest {
         Supplier originalSupplier = new SupplierBuilder().withProducts(
                 Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
         ModelStubWithSupplier modelStub = new ModelStubWithSupplier(originalSupplier);
-        CommandResult commandResult = new UpdateCommand(Type.SUPPLIER, originalSupplier.getName(),
+        CommandResult commandResult = new UpdateCommand(Type.SUPPLIER, INDEX_FIRST_SUPPLIER,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_C).execute(modelStub);
         Supplier editedSupplier = new SupplierBuilder().withProducts(
                 Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
@@ -107,7 +113,7 @@ public class UpdateCommandTest {
         Warehouse originalWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_A)).build();
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(originalWarehouse);
-        UpdateCommand updateCommand = new UpdateCommand(Type.WAREHOUSE_PRODUCT, originalWarehouse.getName(),
+        UpdateCommand updateCommand = new UpdateCommand(Type.WAREHOUSE_PRODUCT, INDEX_FIRST_WAREHOUSE,
                 new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), DESC_PRODUCT_B);
         assertThrows(CommandException.class, () -> updateCommand.execute(modelStub));
     }
@@ -117,7 +123,7 @@ public class UpdateCommandTest {
         Warehouse originalWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_A)).build();
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(originalWarehouse);
-        assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, originalWarehouse.getName(),
+        assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, INDEX_FIRST_WAREHOUSE,
                 new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), new UpdateProductDescriptorBuilder().build())
                 .execute(modelStub));
     }
@@ -127,7 +133,7 @@ public class UpdateCommandTest {
         Supplier originalSupplier = new SupplierBuilder().withProducts(
                 Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
         ModelStubWithSupplier modelStub = new ModelStubWithSupplier(originalSupplier);
-        assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, originalSupplier.getName(),
+        assertThrows(CommandException.class, () -> new UpdateCommand(Type.SUPPLIER, INDEX_FIRST_SUPPLIER,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), new UpdateProductDescriptorBuilder().build())
                 .execute(modelStub));
     }
@@ -136,7 +142,7 @@ public class UpdateCommandTest {
     public void execute_productDoesNotExistInWarehouse_updateSuccessful() throws Exception {
         Warehouse emptyWarehouse = new WarehouseBuilder().build();
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(emptyWarehouse);
-        CommandResult commandResult = new UpdateCommand(Type.WAREHOUSE, emptyWarehouse.getName(),
+        CommandResult commandResult = new UpdateCommand(Type.WAREHOUSE, INDEX_FIRST_WAREHOUSE,
                 new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), DESC_PRODUCT_B).execute(modelStub);
         Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_B)).build();
@@ -149,7 +155,7 @@ public class UpdateCommandTest {
     public void execute_productDoesNotExistInSupplier_updateSuccessful() throws Exception {
         Supplier originalSupplier = new SupplierBuilder().build();
         ModelStubWithSupplier modelStub = new ModelStubWithSupplier(originalSupplier);
-        CommandResult commandResult = new UpdateCommand(Type.SUPPLIER, originalSupplier.getName(),
+        CommandResult commandResult = new UpdateCommand(Type.SUPPLIER, INDEX_FIRST_SUPPLIER,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_C).execute(modelStub);
         Supplier editedSupplier = new SupplierBuilder().withProducts(
                 Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
@@ -161,14 +167,14 @@ public class UpdateCommandTest {
     @Test
     public void execute_warehouseEntityNotFound_throwsCommandException() {
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
-        assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, new Name(VALID_NAME_AMY),
+        assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, INDEX_SECOND_WAREHOUSE,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_A).execute(modelStub));
     }
 
     @Test
     public void execute_supplierEntityNotFound_throwsCommandException() {
         ModelStubWithSupplier modelStub = new ModelStubWithSupplier(BOB);
-        assertThrows(CommandException.class, () -> new UpdateCommand(Type.SUPPLIER, new Name(VALID_NAME_AMY),
+        assertThrows(CommandException.class, () -> new UpdateCommand(Type.SUPPLIER, INDEX_SECOND_SUPPLIER,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_A).execute(modelStub));
     }
 
@@ -247,6 +253,11 @@ public class UpdateCommandTest {
         public CommandHistory getCommandHistory() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Warehouse> getFilteredWarehouseList() {
+            return FXCollections.observableArrayList(List.of(warehouse));
+        }
     }
 
     private class ModelStubWithSupplier extends ModelStub {
@@ -271,6 +282,11 @@ public class UpdateCommandTest {
 
         @Override
         public void updateFilteredSupplierList(Predicate<Supplier> predicate) {
+        }
+
+        @Override
+        public ObservableList<Supplier> getFilteredSupplierList() {
+            return FXCollections.observableArrayList(List.of(supplier));
         }
     }
 }
