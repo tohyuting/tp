@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_PRODUCT_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_PRODUCT_B;
-import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_QUANTITY_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_QUANTITY_B;
