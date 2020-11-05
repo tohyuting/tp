@@ -10,6 +10,8 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_QUANTITY
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_QUANTITY_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_A;
 import static seedu.clinic.testutil.Assert.assertThrows;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_WAREHOUSE;
 import static seedu.clinic.testutil.TypicalWarehouse.ALICE;
 
 import java.nio.file.Path;
@@ -20,6 +22,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.logic.commands.exceptions.CommandException;
@@ -45,26 +48,26 @@ public class UpdateCommandTest {
             VALID_PRODUCT_QUANTITY_B);
 
     @Test
-    public void constructor_nullWarehouse_throwsNullPointerException() {
+    public void constructor_nullIndex_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.SUPPLIER, null,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_A));
     }
 
     @Test
     public void constructor_nullProductName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.WAREHOUSE, ALICE.getName(),
+        assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.WAREHOUSE, INDEX_FIRST_WAREHOUSE,
                 null, DESC_PRODUCT_A));
     }
 
     @Test
     public void constructor_nullEntityType_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new UpdateCommand(null, ALICE.getName(),
+        assertThrows(NullPointerException.class, () -> new UpdateCommand(null, INDEX_FIRST_WAREHOUSE,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_A));
     }
 
     @Test
     public void constructor_nullUpdateProductDescriptor_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.WAREHOUSE, ALICE.getName(),
+        assertThrows(NullPointerException.class, () -> new UpdateCommand(Type.WAREHOUSE, INDEX_FIRST_WAREHOUSE,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), null));
     }
 
@@ -73,7 +76,7 @@ public class UpdateCommandTest {
         Warehouse originalWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_A)).build();
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(originalWarehouse);
-        CommandResult commandResult = new UpdateCommand(Type.WAREHOUSE, originalWarehouse.getName(),
+        CommandResult commandResult = new UpdateCommand(Type.WAREHOUSE, INDEX_FIRST_WAREHOUSE,
                 new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), DESC_PRODUCT_B).execute(modelStub);
         Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_B)).build();
@@ -87,7 +90,7 @@ public class UpdateCommandTest {
         Warehouse originalWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_A)).build();
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(originalWarehouse);
-        assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, originalWarehouse.getName(),
+        assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, INDEX_FIRST_WAREHOUSE,
                 new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), new UpdateProductDescriptorBuilder().build())
                 .execute(modelStub));
     }
@@ -96,7 +99,7 @@ public class UpdateCommandTest {
     public void execute_productDoesNotExistInWarehouse_updateSuccessful() throws Exception {
         Warehouse emptyWarehouse = new WarehouseBuilder().build();
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(emptyWarehouse);
-        CommandResult commandResult = new UpdateCommand(Type.WAREHOUSE, emptyWarehouse.getName(),
+        CommandResult commandResult = new UpdateCommand(Type.WAREHOUSE, INDEX_FIRST_WAREHOUSE,
                 new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), DESC_PRODUCT_B).execute(modelStub);
         Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_B)).build();
@@ -108,7 +111,7 @@ public class UpdateCommandTest {
     @Test
     public void execute_entityNotFound_throwsCommandException() {
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
-        assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, new Name(VALID_NAME_AMY),
+        assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, INDEX_SECOND_WAREHOUSE,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_A).execute(modelStub));
     }
 
@@ -351,6 +354,11 @@ public class UpdateCommandTest {
         @Override
         public void updateFilteredWarehouseList(Predicate<Warehouse> predicate) {
 
+        }
+
+        @Override
+        public ObservableList<Warehouse> getFilteredWarehouseList() {
+            return FXCollections.observableArrayList(List.of(warehouse));
         }
     }
 }

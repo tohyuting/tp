@@ -16,6 +16,7 @@ import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.ListMacroCommand;
 import seedu.clinic.logic.commands.RedoCommand;
 import seedu.clinic.logic.commands.RemoveMacroCommand;
 import seedu.clinic.logic.commands.UndoCommand;
@@ -66,6 +67,9 @@ public class ClinicParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ListMacroCommand.COMMAND_WORD:
+            return new ListMacroCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
