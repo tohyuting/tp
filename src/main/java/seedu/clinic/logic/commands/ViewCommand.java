@@ -40,8 +40,6 @@ public class ViewCommand extends Command {
 
     public static final String MESSAGE_INVALID_TYPE_VIEW = "Please specify a correct type,"
             + " either ct/s or ct/w\n%1$s";
-    public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
-            + "ensure that you only include prefixes specified in the User Guide.\n%1$s";
 
     private static final String LOG_MESSAGE_VIEW_SUPPLIER = "View Command wants to view a supplier.";
     private static final String LOG_MESSAGE_VIEW_WAREHOUSE = "View Command wants to view a warehouse.";
@@ -99,12 +97,17 @@ public class ViewCommand extends Command {
         logger.log(Level.INFO, LOG_MESSAGE_MODEL_SHOW_SUPPLIER);
 
         Set<Product> supplierProducts = supplierToView.getProducts();
+        String resultMessageSupplier = String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,
+                model.getFilteredSupplierList().size()) + "\n\n"
+                + "Here are the products associated with the Supplier"
+                + " for your convenience:\n\n";
 
-
+        for (Product product : supplierProducts) {
+            resultMessageSupplier += product.toStringWithTags();
+        }
 
         model.saveVersionedClinic();
-        return new CommandResult(String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,
-                        model.getFilteredSupplierList().size()));
+        return new CommandResult(resultMessageSupplier);
     }
 
     private CommandResult viewWarehouse(Model model) throws CommandException {
@@ -126,9 +129,19 @@ public class ViewCommand extends Command {
 
         model.updateFilteredWarehouseList(warehousePredicate);
         logger.log(Level.INFO, LOG_MESSAGE_MODEL_SHOW_WAREHOUSE);
+
+        Set<Product> warehouseProducts = warehouseToView.getProducts();
+        String resultMessageWarehouse = String.format(Messages.MESSAGE_WAREHOUSE_LISTED_OVERVIEW,
+                model.getFilteredWarehouseList().size()) + "\n\n"
+                + "Here are the products associated with the Warehouse"
+                + " for your convenience:\n\n";
+
+        for (Product product : warehouseProducts) {
+            resultMessageWarehouse += product.toStringWithTags();
+        }
+
         model.saveVersionedClinic();
-        return new CommandResult(String.format(Messages.MESSAGE_WAREHOUSE_LISTED_OVERVIEW,
-                        model.getFilteredWarehouseList().size()));
+        return new CommandResult(resultMessageWarehouse);
     }
 
     @Override

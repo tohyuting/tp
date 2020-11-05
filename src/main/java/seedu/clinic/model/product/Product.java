@@ -90,9 +90,9 @@ public class Product {
     }
 
     /**
-     * Displays String representation of Product displayed under a warehouse.
+     * Displays String representation of Product displayed under a supplier or warehouse.
      *
-     * @return String representation of Product displayed under a warehouse.
+     * @return String representation of Product displayed under a supplier or warehouse.
      */
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -100,6 +100,24 @@ public class Product {
                 .append(" - ")
                 .append(getProductQuantity())
                 .append(" left");
+        return builder.toString();
+    }
+
+    /**
+     * Displays String representation of Product including Tags.
+     */
+    public String toStringWithTags() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getProductName())
+                .append("\nQuantity: ")
+                .append(getProductQuantity())
+                .append(" left \n")
+                .append("Tag(s): \n");
+
+        for (Tag tag : getProductTags()) {
+            builder.append("- " + tag + "\n");
+        }
+        builder.append("\n");
         return builder.toString();
     }
 

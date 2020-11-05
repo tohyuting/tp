@@ -61,7 +61,7 @@ public class UpdateCommand extends Command {
             + PREFIX_PRODUCT_QUANTITY + "350 "
             + PREFIX_TAG + "Fever";
 
-    public static final String MESSAGE_SUCCESS = "Product stock updated: %1$s in %2$s.";
+    public static final String MESSAGE_SUCCESS = "Product stock updated: \n\n%1$s\n\nin %2$s.";
     private static final String MESSAGE_INVALID_TYPE = "Invalid Type.";
     private static final String MESSAGE_EMPTY_DESCRIPTOR = "Either the quantity or tags (or both) has to be "
             + "supplied to update an existing product.";
@@ -128,7 +128,7 @@ public class UpdateCommand extends Command {
         model.setWarehouse(warehouseToUpdate, updatedWarehouse);
         model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
         model.saveVersionedClinic();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toString(),
+        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toStringWithTags().trim(),
                 updatedWarehouse.getName().fullName));
     }
 
@@ -162,7 +162,7 @@ public class UpdateCommand extends Command {
         model.setSupplier(supplierToUpdate, updatedSupplier);
         model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
         model.saveVersionedClinic();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toString(),
+        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toStringWithTags().trim(),
                 updatedSupplier.getName().fullName));
     }
 
