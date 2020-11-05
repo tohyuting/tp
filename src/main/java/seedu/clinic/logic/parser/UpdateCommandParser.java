@@ -50,6 +50,14 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw checkInvalidArguments(PREFIX_TYPE, argMultimap, UpdateCommand.MESSAGE_USAGE);
         }
 
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_INDEX, argMultimap, UpdateCommand.MESSAGE_USAGE);
+        }
+
         UpdateProductDescriptor updateProductDescriptor = new UpdateProductDescriptor();
 
         if (argMultimap.getValue(PREFIX_PRODUCT_QUANTITY).isPresent()) {
@@ -60,14 +68,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                 throw checkInvalidArguments(PREFIX_PRODUCT_QUANTITY, argMultimap,
                         UpdateCommand.MESSAGE_USAGE);
             }
-        }
-
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
-        } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_INDEX, argMultimap, UpdateCommand.MESSAGE_USAGE);
         }
 
         Name productName;

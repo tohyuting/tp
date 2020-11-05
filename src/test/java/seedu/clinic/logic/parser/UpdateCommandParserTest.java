@@ -26,11 +26,8 @@ import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_QUANTITY;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
-<<<<<<< HEAD
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_USAGE;
-=======
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
->>>>>>> 3db487f04cdd6864f6d0628641db1391ef21f9dd
 
 import org.junit.jupiter.api.Test;
 
@@ -85,7 +82,7 @@ public class UpdateCommandParserTest {
 
         // missing index prefix
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + INDEX_FIRST_WAREHOUSE + PRODUCT_NAME_DESC_A
-                + PRODUCT_QUANTITY_DESC_A, expectedMessage);
+                + PRODUCT_QUANTITY_DESC_A, String.format(MESSAGE_INVALID_TYPE, UpdateCommand.MESSAGE_USAGE));
 
         // missing product name prefix
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + INDEX_DESC_A + VALID_PRODUCT_NAME_ASPIRIN
@@ -100,57 +97,31 @@ public class UpdateCommandParserTest {
     public void parse_invalidValue_failure() {
 
         // invalid type
-<<<<<<< HEAD
-        assertParseFailure(parser, INVALID_TYPE_DESC + WAREHOUSE_NAME_DESC_C + PRODUCT_NAME_DESC_A
-                + PRODUCT_QUANTITY_DESC_A, String.format(MESSAGE_INVALID_TYPE, UpdateCommand.MESSAGE_USAGE));
-
-        // invalid warehouse name
-        assertParseFailure(parser, TYPE_DESC_WAREHOUSE + INVALID_ENTITY_NAME_DESC + PRODUCT_NAME_DESC_A
-                        + PRODUCT_QUANTITY_DESC_A, Name.MESSAGE_CONSTRAINTS
-                        + "\n\n" + UpdateCommand.MESSAGE_USAGE);
-
-        // invalid supplier name
-        assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_ENTITY_NAME_DESC + PRODUCT_NAME_DESC_A
-                        + PRODUCT_QUANTITY_DESC_A, Name.MESSAGE_CONSTRAINTS
-                        + "\n\n" + UpdateCommand.MESSAGE_USAGE);
-
-        // invalid product name
-        assertParseFailure(parser, TYPE_DESC_SUPPLIER + WAREHOUSE_NAME_DESC_C
-                        + INVALID_PRODUCT_NAME_DESC
-                        + PRODUCT_QUANTITY_DESC_A, Name.MESSAGE_CONSTRAINTS
-                + "\n\n" + UpdateCommand.MESSAGE_USAGE);
-
-        // invalid product quantity
-        System.out.println(TYPE_DESC_SUPPLIER + WAREHOUSE_NAME_DESC_C + PRODUCT_NAME_DESC_A
-                + INVALID_PRODUCT_QUANTITY_DESC);
-        assertParseFailure(parser, TYPE_DESC_SUPPLIER + WAREHOUSE_NAME_DESC_C + PRODUCT_NAME_DESC_A
-                        + INVALID_PRODUCT_QUANTITY_DESC, String.format(MESSAGE_INVALID_QUANTITY,
-                        UpdateCommand.MESSAGE_USAGE));
-
-        // two invalid values, only first invalid value reported
-        assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_ENTITY_NAME_DESC + PRODUCT_NAME_DESC_A
-                        + INVALID_PRODUCT_QUANTITY_DESC,
-                        String.format(MESSAGE_INVALID_QUANTITY, UpdateCommand.MESSAGE_USAGE));
-=======
         assertParseFailure(parser, INVALID_TYPE_DESC + INDEX_DESC_A + PRODUCT_NAME_DESC_A
-                + PRODUCT_QUANTITY_DESC_A, MESSAGE_INVALID_TYPE);
+                + PRODUCT_QUANTITY_DESC_A, String.format(MESSAGE_INVALID_TYPE, UpdateCommand.MESSAGE_USAGE));
 
         // invalid index
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + INVALID_INDEX_DESC
-                + PRODUCT_NAME_DESC_A + PRODUCT_QUANTITY_DESC_A, MESSAGE_INVALID_INDEX);
+                + PRODUCT_NAME_DESC_A + PRODUCT_QUANTITY_DESC_A,
+                String.format(MESSAGE_INVALID_INDEX, UpdateCommand.MESSAGE_USAGE));
 
         // invalid product name
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + INDEX_DESC_A + INVALID_PRODUCT_NAME_DESC
-                        + PRODUCT_QUANTITY_DESC_A, Name.MESSAGE_CONSTRAINTS);
+                + PRODUCT_QUANTITY_DESC_A, Name.MESSAGE_CONSTRAINTS
+                + "\n\n" + UpdateCommand.MESSAGE_USAGE);
 
         // invalid product quantity
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + INDEX_DESC_A + PRODUCT_NAME_DESC_A
-                        + INVALID_PRODUCT_QUANTITY_DESC, MESSAGE_INVALID_QUANTITY);
+                + INVALID_PRODUCT_QUANTITY_DESC, String.format(MESSAGE_INVALID_QUANTITY,
+                        UpdateCommand.MESSAGE_USAGE));
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_INDEX_DESC + PRODUCT_NAME_DESC_A
-                        + INVALID_PRODUCT_QUANTITY_DESC, MESSAGE_INVALID_INDEX);
->>>>>>> 3db487f04cdd6864f6d0628641db1391ef21f9dd
+                        + INVALID_PRODUCT_QUANTITY_DESC,
+                        String.format(MESSAGE_INVALID_INDEX, UpdateCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, INVALID_TYPE_DESC + INDEX_DESC_A + PRODUCT_NAME_DESC_A
+                + PRODUCT_QUANTITY_DESC_A, String.format(MESSAGE_INVALID_TYPE, UpdateCommand.MESSAGE_USAGE));
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TYPE_DESC_SUPPLIER + INDEX_DESC_A
