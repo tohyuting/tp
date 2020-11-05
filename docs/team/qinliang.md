@@ -20,9 +20,9 @@ Given below are my contributions to the project.
 * **New Feature**: Update product Feature
   * What it does: Allows the user to update the quantity and/or tags of the product in the selected supplier or warehouse.
   If the product does not already exist for that supplier/warehouse, the feature allows the user to add new products with their associated tags/quantity to the supplier/warehouse.
-  * Justification: This is a key feature of CLI-nic to as keeping track of products under each supplier/warehouse is one of the fundamental functionalities that our application is based on.  
+  * Justification: This is a key feature of CLI-nic to as keeping track of products under each supplier/warehouse is one of the fundamental functionalities that our application is based on.
   * Highlights: This feature had underwent several changes in the fields that it accepts, which meant re-implementations of various parts of the code. Another challenge presented was that the prefixes required by the command differs whether the product exists in the warehouse/supplier, hence it required analysis of design alternatives so as not to create dependency between the parser and the model.
-  * Credits: The feature was originally split into separate commands for supplier and warehouse, as they originally had different fields for the products listed. 
+  * Credits: The feature was originally split into separate commands for supplier and warehouse, as they originally had different fields for the products listed.
   My teammate Zhenlin did the supplier-side command, while I did the warehouse-side. I eventually integrated the 2 commands together into 1 command and implemented access to all fields of products for both suppliers and warehouses as part of a revamp of our commands.
 
 * **New Feature**: Assigning, deleting and listing of macros
@@ -45,6 +45,6 @@ Given below are my contributions to the project.
     * Added implementation details of the update product, assign macro, delete macro and list macro features.
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): 
+  * PRs reviewed (with non-trivial review comments):
   * Contributed to forum discussions (examples: )
   * Reported bugs and suggestions for other teams in the class (examples: )
