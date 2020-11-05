@@ -26,8 +26,11 @@ You can reach us at the email `cs2103w144@gmail.com`
 [[github](http://github.com/jeffreytjs)]
 [[portfolio](team/jeffrey.md)]
 
-* Role: Developer (Draft manager)
-* Responsibilities: User stories, User guide, Developer guide management, UML diagram and product demo
+* Role: Developer, Draft manager
+* Responsibilities:
+    * In charge of Documentation (Including User stories, User guide, Developer guide management,
+    UML diagram and product demo
+    * UI Design
 
 ### Lim Zheng Wei
 
@@ -57,7 +60,7 @@ checking on LoC contributions and milestones management
 <img src="images/criss-wang.png" width="200px">
 
 [[github](http://github.com/Criss-Wang)]
-[[portfolio](team/wangZhenlin.md)]
+[[portfolio](team/criss-wang.md)]
 
 * Role: Communication/progress manager; Tech Helper;
 * Responsibilities:

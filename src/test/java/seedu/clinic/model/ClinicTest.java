@@ -11,8 +11,8 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUC
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK_B;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalSupplier.ALICE;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
 import static seedu.clinic.testutil.TypicalSupplier.getTypicalSupplierOnlyClinic;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 import static seedu.clinic.testutil.TypicalWarehouse.A;
 import static seedu.clinic.testutil.TypicalWarehouse.getTypicalWarehouseOnlyClinic;
 
@@ -33,9 +33,10 @@ import seedu.clinic.model.warehouse.exceptions.DuplicateWarehouseException;
 import seedu.clinic.testutil.SupplierBuilder;
 import seedu.clinic.testutil.WarehouseBuilder;
 
+
 public class ClinicTest {
 
-    private final Clinic clinic = new Clinic();
+    private final VersionedClinic clinic = new VersionedClinic(new Clinic());
 
     @Test
     public void constructor() {
@@ -58,7 +59,7 @@ public class ClinicTest {
         clinic.resetData(newWarehouseData);
         assertEquals(newWarehouseData, clinic);
 
-        Clinic newData = getTypicalClinic();
+        Clinic newData = getTypicalVersionedClinic();
         clinic.resetData(newData);
         assertEquals(newData, clinic);
     }

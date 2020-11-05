@@ -2,8 +2,9 @@ package seedu.clinic.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+//import static seedu.clinic.testutil.TypicalCommandHistory.getTypicalCommandHistory;
 import static seedu.clinic.testutil.TypicalMacro.getTypicalUserMacros;
-import static seedu.clinic.testutil.TypicalSupplier.getTypicalClinic;
+import static seedu.clinic.testutil.TypicalSupplier.getTypicalVersionedClinic;
 
 import java.nio.file.Path;
 
@@ -13,28 +14,32 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.model.Clinic;
+//import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
+import seedu.clinic.model.VersionedClinic;
 
 public class StorageManagerTest {
 
     @TempDir
-    public Path testFolder;
+    public Path temporaryFolder;
 
     private StorageManager storageManager;
 
     @BeforeEach
     public void setUp() {
-        JsonClinicStorage clinicStorage = new JsonClinicStorage(getTempFilePath("clinic"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        JsonUserMacrosStorage userMacrosStorage = new JsonUserMacrosStorage(getTempFilePath("userMacros"));
-        storageManager = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage);
+        JsonClinicStorage clinicStorage = new JsonClinicStorage(getTempFilePath("clinic.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs.json"));
+        JsonUserMacrosStorage userMacrosStorage = new JsonUserMacrosStorage(getTempFilePath("userMacros.json"));
+        TextFileCommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryStorage(
+                getTempFilePath("commandHistory.txt"));
+        storageManager = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage, commandHistoryStorage);
     }
 
     private Path getTempFilePath(String fileName) {
-        return testFolder.resolve(fileName);
+        return temporaryFolder.resolve(fileName);
     }
 
     @Test
@@ -58,10 +63,10 @@ public class StorageManagerTest {
          * {@link JsonClinicStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonClinicStorageTest} class.
          */
-        Clinic original = getTypicalClinic();
+        VersionedClinic original = getTypicalVersionedClinic();
         storageManager.saveClinic(original);
         ReadOnlyClinic retrieved = storageManager.readClinic().get();
-        assertEquals(original, new Clinic(retrieved));
+        assertEquals(original.getCurrentClinic(), new Clinic(retrieved));
     }
 
     @Test
@@ -77,6 +82,20 @@ public class StorageManagerTest {
         assertEquals(original, new UserMacros(retrieved));
     }
 
+    //    @Test
+    //    public void commandHistoryReadSave() throws Exception {
+    //        CommandHistory original = getTypicalCommandHistory();
+    //        storageManager.saveCommandHistory("First command history",
+    //                storageManager.getCommandHistoryFilePath());
+    //        storageManager.saveCommandHistory("Second command history",
+    //                storageManager.getCommandHistoryFilePath());
+    //
+    //        CommandHistory newCommandHistory = new CommandHistory(storageManager.readCommandHistory().get());
+    //        assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
+    //        assertEquals(original.readPreviousHistory(), newCommandHistory.readPreviousHistory());
+    //        assertEquals(original.readNextHistory(), newCommandHistory.readNextHistory());
+    //    }
+
     @Test
     public void getClinicFilePath() {
         assertNotNull(storageManager.getClinicFilePath());
@@ -85,6 +104,11 @@ public class StorageManagerTest {
     @Test
     public void getUserMacrosFilePath() {
         assertNotNull(storageManager.getUserMacrosFilePath());
+    }
+
+    @Test
+    public void getCommandHistoryFilePath() {
+        assertNotNull(storageManager.getCommandHistoryFilePath());
     }
 
 }
