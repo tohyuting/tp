@@ -33,7 +33,7 @@ import seedu.clinic.logic.commands.ViewCommand;
  */
 public class AutoCompleteTextField extends TextField {
     private static final SortedSet<String> entries = new TreeSet<>();
-    private static final SortedSet<String> allowedEntries = new TreeSet<>();
+    private static final SortedSet<String> singleCommandEntries = new TreeSet<>();
     private ContextMenu popUpEntries;
 
     /**
@@ -63,7 +63,7 @@ public class AutoCompleteTextField extends TextField {
     private void checkPopUpEntries() {
         System.out.println(getText());
         if (!popUpEntries.isShowing()) {
-            if (!getText().equals("list") && !allowedEntries.contains(getText())) {
+            if (getText().equals("list") && !singleCommandEntries.contains(getText())) {
                 popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -180);
             }
         }
@@ -73,14 +73,14 @@ public class AutoCompleteTextField extends TextField {
      * Create the existing set of autocomplete entries with single command word.
      */
     private void setSingleCommandEntries() {
-        allowedEntries.add(ClearCommand.COMMAND_WORD);
-        allowedEntries.add(ExitCommand.COMMAND_WORD);
-        allowedEntries.add(ListCommand.COMMAND_WORD);
-        allowedEntries.add(ListMacroCommand.COMMAND_WORD);
-        allowedEntries.add(HelpCommand.COMMAND_WORD);
-        allowedEntries.add(RedoCommand.COMMAND_WORD);
-        allowedEntries.add(RemoveMacroCommand.COMPLETE_REMOVE_MACRO_COMMAND);
-        allowedEntries.add(UndoCommand.COMMAND_WORD);
+        singleCommandEntries.add(ClearCommand.COMMAND_WORD);
+        singleCommandEntries.add(ExitCommand.COMMAND_WORD);
+        singleCommandEntries.add(ListCommand.COMMAND_WORD);
+        singleCommandEntries.add(ListMacroCommand.COMMAND_WORD);
+        singleCommandEntries.add(HelpCommand.COMMAND_WORD);
+        singleCommandEntries.add(RedoCommand.COMMAND_WORD);
+        singleCommandEntries.add(RemoveMacroCommand.COMPLETE_REMOVE_MACRO_COMMAND);
+        singleCommandEntries.add(UndoCommand.COMMAND_WORD);
     }
 
     /**
