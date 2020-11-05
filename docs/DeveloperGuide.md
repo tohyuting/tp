@@ -850,7 +850,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. CLI-nic shows the specific supplier and its index.
 3. User requests to delete a product from the supplier via the index returned and the product name displayed.
 4. CLI-nic deletes the specified product from the target supplier and shows a success message.
-    
+
     Use case ends.
 
 **Extensions**
@@ -873,7 +873,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   * 3b1. CLI-nic shows an error message and gives command suggestions.
   * 3b2. User enters the new product name.
- 
+
     Steps 3b1-3b2 are repeated until the name entered are correct. <br>
     Use case resumes at step 4.
 
@@ -890,13 +890,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The index specified is larger than the size of the supplier list.
 
-  * 1a1. CLI-nic informs the user the index input is larger than the current size of supplier list displayed. 
+  * 1a1. CLI-nic informs the user the index input is larger than the current size of supplier list displayed.
   * 1a2. User enters a new supplier index.
 
     Steps 1a1-1a2 are repeated until the index entered is within the size of the supplier list.
 
     Use case ends.
-  
+
 * 1a. User requests to edit the address of a specific supplier.
 
   * 1a1. CLI-nic informs the user that warehouse does not contain address.
@@ -910,7 +910,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1a2. User enters a new edit command.
 
     Steps 1a1-1a2 are repeated until the index entered are correct.
-    
+
     Use case ends.
 
 **Use case: UC09 Edits a warehouse**
@@ -926,13 +926,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The index specified is larger than the size of the warehouse list.
 
-  * 1a1. CLI-nic informs the user the index input is larger than the current size of warehouse list displayed. 
+  * 1a1. CLI-nic informs the user the index input is larger than the current size of warehouse list displayed.
   * 1a2. User enters a new warehouse index.
 
     Steps 1a1-1a2 are repeated until the index entered is within the size of the warehouse list.
 
     Use case ends.
-  
+
 * 1a. User requests to edit the email address of a specific warehouse.
 
   * 1a1. CLI-nic informs the user that warehouse does not contain email address.
@@ -946,7 +946,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1a2. User enters a new edit command.
 
     Steps 1a1-1a2 are repeated until the index entered are correct.
-    
+
     Use case ends.
 
 **Use case: UC10 Find Suppliers of a product**

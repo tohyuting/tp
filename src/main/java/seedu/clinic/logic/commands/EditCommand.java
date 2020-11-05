@@ -40,6 +40,8 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
+    public static final String COMPULSORY_EDIT_SUPPLIER_COMMAND = "edit ct/s i/";
+    public static final String COMPULSORY_EDIT_WAREHOUSE_COMMAND = "edit ct/w i/";
 
     public static final String MESSAGE_USAGE = "Edit Command Usage\n\nEdits a supplier or warehouse at the"
             + " specified index."

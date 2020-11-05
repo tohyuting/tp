@@ -14,16 +14,16 @@ Given below are my contributions to the project.
   * List all suppliers and warehouses at once.
     * What it does
       * Allow users to know all suppliers and warehouses present in CLI-nic with one command.
-  
-  * Display help for various commands within the application 
+
+  * Display help for various commands within the application
     * What it does
       * Allow users to have a quick look up of what they can do with CLI-nic without having to open the User Guide in another separate browser.
 
   * View a particular supplier and warehouse via index on the displayed supplier/warehouse list.
     * What it does
       * Allow users to view all information (e.g. Name, Phone) related to a supplier or warehouse at a particular index of displayed supplier/warehouse list.
-  
-  * Edit a particular supplier and warehouse entry via index on the displayed supplier/warehouse list. 
+
+  * Edit a particular supplier and warehouse entry via index on the displayed supplier/warehouse list.
     * What it does
       * Allow users to edit a supplier's Name, Phone, Remark and Email.
       * Allow users to edit a warehouse's Name, Phone, Remark and Address.

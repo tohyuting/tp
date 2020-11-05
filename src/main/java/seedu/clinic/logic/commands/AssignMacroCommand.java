@@ -16,6 +16,7 @@ import seedu.clinic.model.macro.Macro;
 public class AssignMacroCommand extends Command {
 
     public static final String COMMAND_WORD = "assignmacro";
+    public static final String COMPLETE_ASSIGN_MACRO_COMMAND = "assignmacro a/ cs/";
 
     public static final String MESSAGE_USAGE = "Assign Macro Usage\n\n"
             + "Assigns a macro to a command string. ALIAS should only consist "
@@ -27,8 +28,8 @@ public class AssignMacroCommand extends Command {
             + PREFIX_COMMAND_STRING + "COMMAND_STRING\n\n"
             + "Example:\n"
             + COMMAND_WORD + " "
-            + PREFIX_ALIAS + "uwa "
-            + PREFIX_COMMAND_STRING + "update ct/w n/Alex Yeoh warehouse";
+            + PREFIX_ALIAS + "uwp "
+            + PREFIX_COMMAND_STRING + "update ct/w pd/Panadol";
 
     public static final String MESSAGE_SUCCESS = "Macro assigned: %1$s";
     public static final String MESSAGE_DUPLICATE_MACRO = "This macro already exists in the CLI-nic app.";
