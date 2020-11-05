@@ -382,11 +382,11 @@ An activity diagram showing the workflow of `help` command is shown below:
 #### Why Help feature is implemented this way
 Instead of providing a link and asking users to read the user guide, our team decided that it would be more convenient for users to access the help message for each command within the application itself. This allows user to instantly know what to key into the command box instead of switching between user guide in the browser and **CLI-nic**. In addition, this allows user to access `help` page even without an internet connection as well.
 
-### List feature
-The `list` feature will be elaborated in this section by its' functionality.
+### List Suppliers and Warehouses feature
+The list Suppliers and Warehouses feature will be elaborated in this section by its' functionality.
 
-#### What List feature does
-`list` feature allows user to list all suppliers and warehouses stored in **CLI-nic**. This feature allows users to retrieve back all suppliers and warehouses in the displayed supplier and warehouse lists after executing a `view` or `find` command.
+#### What List Supplier and Warehouses feature does
+The list Suppliers and Warehouses feature allows user to list all suppliers and warehouses stored in **CLI-nic**. This feature allows users to retrieve back all suppliers and warehouses in the displayed supplier and warehouse lists after executing a `view` or `find` command.
 
 ### Find feature
 
@@ -483,6 +483,39 @@ is saved and the GUI is updated with the success message.
 The following activity diagram summarizes what happens when a user updates a product:
 ![Update Product Command Activity Diagram](images/UpdateCommandActivityDiagram.png)
 
+#### Why it is implemented this way and what alternatives were considered
+The main design considerations associated to the feature include:
+
+* Should the command be separated for suppliers and warehouses.
+* What should the format of the command be.
+* Should the adding of new products be facilitated by this command or should it only deal with existing products.
+* How should the feature enforce separate requirements for new and existing products.
+
+The consideration of whether there should be separate commands to update products under warehouses or suppliers firstly depend on the similarity between the products under both types.
+Initially, we considered that supplier products should only have fields for names and tags, while the warehouse products should only have fields for quantities, as it is arguable that the quantity for suppliers 
+may not be known, and that tagging of warehouse products may not be very important. However, we later decided that it is better to give users this flexibility to include any 
+tags or quantities associated to the product regardless of supplier or warehouse, as these requirements may differ from user to user, and it may not be beneficial to restrict users as such. 
+Then this decision would mean that the updating of products for warehouse and supplier was very similar, and hence we felt that it may also be more user-friendly to combine the 2 into 
+one command so that users do not need to learn an additional command.
+
+Initially, the supplier/warehouse to update the product was referenced by the user using the warehouse/supplier's full name. This allowed the user to update the specific supplier/warehouse regardless of the list view
+so that the same update command will reproduce the same results regardless of the display, and so that the user does not have to enter an additional list command if the supplier/warehouse is not presently displayed.
+However, this would mean that if the user is manually typing the command, it would be take a long time to enter the command if the supplier/warehouse name is very long, and it is also more prone to typos. Hence we decided
+to make the compromise to use list indexing instead, standardising the format with the other commands, as we felt that for most use cases, using the index to reference the supplier/warehouse would be more efficient for the user, 
+and that was our main priority.
+
+Similar to the decision to combine the command for both supplier and warehouse, we decided to allow the update product command to add the product to the warehouse/supplier even if it does not presently exist for that supplier/warehouse, instead of having a separate command
+just for adding products, so as to minimise the total number of commands. With this, all product additions and modifications (excluding deletion) will be processed by the same update command, which also removes the need for users to
+check if a product exists for a supplier/warehouse before updating the product listing.
+
+This combination of commands, however, brings up the consideration of how to enforce the separate requirements for new and existing products. Specifically, if it is a new product,
+it is logical that the user may not supply the tag or quantity prefixes, but if it is an existing product, then not specifying both prefixes would mean that the user is not performing
+any update at all. Hence the user should be required to supply at least 1 of the 2 optional prefixes mentioned above for adding new products, which would mean the application should show an error message if the user does not specify either of the optional arguments
+and the product does not exist under the specified warehouse/supplier in the model. In general, however, the check of whether certain prefixes are supplied falls under the role of the `Parser` classes,
+while the check of whether an entity exists in the model falls under the role of the `Command` classes, where the `Parser` is independent of the model. Hence we decided to implement an additional `UpdateProductDescriptor` class to provide a wrapper of
+the product specification so that both checks can be done by the `UpdateCommand` without exposing the implementation details of the prefixes to the `UpdateCommand` class or using null values in the `UpdateCommand` fields. The `UpdateCommand` can then use the `UpdateProductDescriptor`
+to both execute the checks and create the updated product.
+
 ### Assign macro feature
 
 #### What the assign macro feature does
@@ -544,11 +577,30 @@ Step 4. The `RemoveMacroCommand#execute` then passes a `CommandResult` with a su
 The following activity diagram summarizes what happens when a user updates a product:
 ![Remove Macro Command Activity Diagram](images/RemoveMacroCommandActivityDiagram.png)
 
-### Add feature
+### List Macros feature
+
+#### What the List macros feature does
+
+The list macros feature allows users to be able to view all presently saved macros in the application.
+
+#### How it is implemented
+
+The list macros feature is facilitated by the ListMacroCommand, which retrieves the internal macro list and create a presentable format for displaying the list.
+If no macros are found, an exception is thrown which results in a message displayed on the GUI notifying the user that there are no presently saved macros.
+Otherwise, the success message which contains the formatted list will be passed in a `CommandResult` to the `LogicManager`, to be displayed on the GUI without overriding the existing lists for suppliers and warehouses.
+
+#### Why it is implemented this way
+
+The main implementation consideration of this feature would be the display of the list. The list macros feature was implemented such that it does not use the same display section as the warehouse or supplier lists so that the user would not have to execute and additional command to restore the
+supplier or warehouse lists. I decided not to include a separate display section to display the list of macros either as this feature is designed for advanced users and that the list of macros would not need to be displayed on
+screen except when needed. Hence it is implemented such that it will be displayed with the success message instead, so that the user can quickly refer to the macro list and then proceed to use the intended macro straight after, where
+it would then be no longer necessary to keep the macro list on the display.
+
+### Add Supplier/Warehouse feature
 In this section, the functionality of the add feature, the expected execution path, the structure of
 the AddCommand class, the interactions between objects with the AddCommand object will be discussed.
 
-#### What is the Add supplier/warehouse feature
+#### What is the Add Supplier/Warehouse feature
 The add supplier/warehouse feature is facilitated by the `AddCommandParser` and the `AddCommand`.
 The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to
 add a supplier/warehouse to the app using the command line.
@@ -661,6 +713,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | intermediate user | update the information for a specific product in warehouses and suppliers | keep track of the changes in the stocks of the warehouses |
 | `* *`    | advanced user | create custom alias for my commands | so that I enter commands more efficiently |
 | `* *`    | advanced user | delete a custom alias | remove the aliases that I no longer need |
+| `* *`    | advanced user | list my saved macros | quickly recall which macros I can currently use  |
 
 
 ### Use cases
@@ -966,8 +1019,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to list the data in the application.
+1. User requests to list the supplier and warehouse data in the application.
 2. CLI-nic retrieves all supplier and warehouse entries, shows lists of suppliers and warehouses and shows a success message.
+
+    Use case ends.
+    
+**Use case: UC13 List all macros**
+
+**MSS**
+
+1. User requests to list the macros saved in the application.
+2. CLI-nic retrieves all presently saved macros, and shows it on the GUI.
+
+    Use case ends.
+  
+**Extensions**
+
+* 1a. There are no presently saved macros.
+
+  * 1a1. CLI-nic shows a message to notify the user that no macros were found.
 
     Use case ends.
 
