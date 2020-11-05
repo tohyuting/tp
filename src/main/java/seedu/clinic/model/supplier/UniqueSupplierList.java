@@ -5,9 +5,11 @@ import static seedu.clinic.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.supplier.exceptions.DuplicateSupplierException;
 import seedu.clinic.model.supplier.exceptions.SupplierNotFoundException;
 
@@ -46,6 +48,15 @@ public class UniqueSupplierList implements Iterable<Supplier> {
             throw new DuplicateSupplierException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Returns the supplier corresponding to the name specified in an optional wrapper if it exists,
+     * and an empty optional otherwise.
+     */
+    public Optional<Supplier> getSupplier(Name supplierName) {
+        requireNonNull(supplierName);
+        return internalList.stream().filter((Supplier supplier)->supplier.getName().equals(supplierName)).findFirst();
     }
 
     /**

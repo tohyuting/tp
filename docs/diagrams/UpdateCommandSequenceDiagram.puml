@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ClinicParser" as ClinicParser LOGIC_COLOR
+participant ":UpdateCommandParser" as UpdateCommandParser LOGIC_COLOR
+participant ":UpdateCommand" as UpdateCommand LOGIC_COLOR
+participant ":UpdateProductDescriptor" as UpdateProductDescriptor LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("update ct/s n/Med ltd pd/Xodol q/97 t/cold")
+activate LogicManager
+
+LogicManager -> ClinicParser : parseCommand("update ct/s n/Med ltd pd/Xodol q/97 t/cold")
+activate ClinicParser
+
+create UpdateCommandParser
+ClinicParser -> UpdateCommandParser
+activate UpdateCommandParser
+
+UpdateCommandParser --> ClinicParser
+deactivate UpdateCommandParser
+
+ClinicParser -> UpdateCommandParser : parse("ct/s n/Med ltd pd/Xodol q/97 t/cold")
+activate UpdateCommandParser
+
+create UpdateProductDescriptor
+UpdateCommandParser -> UpdateProductDescriptor
+activate UpdateProductDescriptor
+
+UpdateProductDescriptor --> UpdateCommandParser :
+deactivate UpdateProductDescriptor
+
+create UpdateCommand
+UpdateCommandParser -> UpdateCommand
+activate UpdateCommand
+
+UpdateCommand --> UpdateCommandParser :
+deactivate UpdateCommand
+
+UpdateCommandParser --> ClinicParser : command
+deactivate UpdateCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+UpdateCommandParser -[hidden]-> ClinicParser
+destroy UpdateCommandParser
+
+ClinicParser --> LogicManager :
+deactivate ClinicParser
+
+LogicManager -> UpdateCommand : execute()
+activate UpdateCommand
+
+ref over UpdateCommand, UpdateProductDescriptor, Model, CommandResult
+Execution of UpdateCommand
+end
+
+
+UpdateCommand --> LogicManager : result
+deactivate UpdateCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

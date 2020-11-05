@@ -5,9 +5,11 @@ import static seedu.clinic.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.warehouse.exceptions.DuplicateWarehouseException;
 import seedu.clinic.model.warehouse.exceptions.WarehouseNotFoundException;
 
@@ -47,6 +49,17 @@ public class UniqueWarehouseList implements Iterable<Warehouse> {
         }
         internalList.add(warehouseToAdd);
     }
+
+    /**
+     * Returns the warehouse corresponding to the name specified in an optional wrapper if it exists,
+     * and an empty optional otherwise.
+     */
+    public Optional<Warehouse> getWarehouse(Name warehouseName) {
+        requireNonNull(warehouseName);
+        return internalList.stream().filter((Warehouse warehouse)->warehouse.getName()
+                .equals(warehouseName)).findFirst();
+    }
+
 
     /**
      * Replaces the warehouse {@code target} in the list with {@code editedWarehouse}.
