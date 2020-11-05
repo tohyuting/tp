@@ -5,6 +5,7 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,6 +17,7 @@ import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
+import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 
@@ -35,11 +37,7 @@ public class ViewCommand extends Command {
             + "Example:\n"
             + "1) " + COMMAND_WORD + " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "2\n"
             + "2) " + COMMAND_WORD + " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "5";
-    public static final String MESSAGE_MISSING_INDEX = "Index has to be present!\n%1$s";
-    public static final String MESSAGE_MISSING_TYPE = "A type, supplier (ct/s) or warehouse (ct/s)"
-            + " has to be present!\n%1$s";
-    public static final String MESSAGE_NO_PREFIX = "Please specify type and index using "
-            + "ct/ and i/ prefixes \n%1$s";
+
     public static final String MESSAGE_INVALID_TYPE_VIEW = "Please specify a correct type,"
             + " either ct/s or ct/w\n%1$s";
     public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
@@ -99,6 +97,11 @@ public class ViewCommand extends Command {
         model.updateFilteredSupplierList(supplierPredicate);
 
         logger.log(Level.INFO, LOG_MESSAGE_MODEL_SHOW_SUPPLIER);
+
+        Set<Product> supplierProducts = supplierToView.getProducts();
+
+
+
         model.saveVersionedClinic();
         return new CommandResult(String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,
                         model.getFilteredSupplierList().size()));
