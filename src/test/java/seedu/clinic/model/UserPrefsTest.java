@@ -1,5 +1,6 @@
 package seedu.clinic.model;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.clinic.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -24,4 +25,13 @@ public class UserPrefsTest {
         assertThrows(NullPointerException.class, () -> userPrefs.setUserMacrosFilePath(null));
     }
 
+    @Test
+    public void equalsTest() {
+        // null - false
+        UserPrefs userPrefs = new UserPrefs();
+        assertFalse(userPrefs.equals(null));
+
+        // different type - false
+        assertFalse(userPrefs.equals(1));
+    }
 }

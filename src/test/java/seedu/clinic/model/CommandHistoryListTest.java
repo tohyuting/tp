@@ -1,8 +1,9 @@
 package seedu.clinic.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -34,10 +35,30 @@ class CommandHistoryListTest {
     }
 
     @Test
-    void updateHistory() {
+    void updateHistory_success() {
+        String commandString = "clear";
+        commandHistoryList.updateHistory(commandString);
+        CommandHistoryList updatedCommandHistoryList = new CommandHistoryList(Arrays.asList("clear", "view", "clear"));
+        assertEquals(updatedCommandHistoryList, commandHistoryList);
     }
 
     @Test
     void testEquals() {
+        CommandHistoryList updatedCommandHistoryList = new CommandHistoryList(Arrays.asList("clear", "view", "clear"));
+        // null - false
+        assertFalse(commandHistoryList.equals(null));
+
+        // different type - false
+        assertFalse(commandHistoryList.equals(1));
+
+        // different content - false
+        assertFalse(commandHistoryList.equals(updatedCommandHistoryList));
+
+        // same object - true
+        assertTrue(commandHistoryList.equals(commandHistoryList));
+
+        // same content - true
+        CommandHistoryList commandHistoryListCopy = new CommandHistoryList(Arrays.asList("clear", "view"));
+        assertTrue(commandHistoryList.equals(commandHistoryListCopy));
     }
 }
