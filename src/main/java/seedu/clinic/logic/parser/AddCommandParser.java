@@ -73,8 +73,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (type.equals(SUPPLIER)) {
             return parseAddSupplier(argMultimap);
-        } else {
+        } else if (type.equals(WAREHOUSE)) {
             return parseAddWarehouse(argMultimap, type);
+        } else {
+            throw new ParseException(String.format(MESSAGE_MISSING_TYPE_PREFIX,
+                    AddCommand.MESSAGE_USAGE));
         }
     }
 

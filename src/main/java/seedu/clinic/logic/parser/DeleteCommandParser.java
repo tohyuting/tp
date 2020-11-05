@@ -40,6 +40,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             assert index.getOneBased() >= 1 : INVALID_INDEX_ASSERTION;
 
             if (type.equals(SUPPLIER) || type.equals(WAREHOUSE)) {
+                if (ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME)) {
+                    throw new ParseException(String.format(
+                            MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                }
                 return new DeleteCommand(type, index);
             }
 

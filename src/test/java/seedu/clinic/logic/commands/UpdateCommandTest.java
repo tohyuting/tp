@@ -25,10 +25,12 @@ import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Clinic;
+import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.Model;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.ReadOnlyUserPrefs;
+import seedu.clinic.model.VersionedClinic;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.macro.Alias;
 import seedu.clinic.model.macro.Macro;
@@ -114,6 +116,11 @@ public class UpdateCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+        private final VersionedClinic sampleClinic;
+
+        ModelStub() {
+            sampleClinic = new VersionedClinic(new Clinic());
+        }
 
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -274,6 +281,41 @@ public class UpdateCommandTest {
 
         @Override
         public void updateFilteredWarehouseList(Predicate<Warehouse> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoClinic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoClinic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoClinic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoClinic() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveVersionedClinic() {
+            sampleClinic.save();
+        }
+
+        @Override
+        public Path getCommandHistoryFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CommandHistory getCommandHistory() {
             throw new AssertionError("This method should not be called.");
         }
     }

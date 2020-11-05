@@ -24,9 +24,10 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Clinic clinic;
+    private final VersionedClinic clinic;
     private final UserPrefs userPrefs;
     private final UserMacros userMacros;
+    private final CommandHistory commandHistory;
     private final FilteredList<Supplier> filteredSuppliers;
     private final FilteredList<Warehouse> filteredWarehouses;
     private final ObservableList<Macro> macroList;
@@ -35,23 +36,24 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given clinic, userPrefs, and userMacros.
      */
     public ModelManager(ReadOnlyClinic clinic, ReadOnlyUserPrefs userPrefs,
-            ReadOnlyUserMacros userMacros) {
+            ReadOnlyUserMacros userMacros, ReadOnlyCommandHistory commandHistory) {
         super();
-        requireAllNonNull(clinic, userPrefs, userMacros);
+        requireAllNonNull(clinic, userPrefs, userMacros, commandHistory);
 
         logger.fine("Initializing with clinic: " + clinic + ", with user prefs " + userPrefs
-                + " and with user macros " + userMacros);
+                + " with user macros " + userMacros + " and with " + commandHistory);
 
-        this.clinic = new Clinic(clinic);
+        this.clinic = new VersionedClinic(clinic);
         this.userPrefs = new UserPrefs(userPrefs);
         this.userMacros = new UserMacros(userMacros);
+        this.commandHistory = new CommandHistory(commandHistory);
         filteredSuppliers = new FilteredList<>(this.clinic.getSupplierList());
         filteredWarehouses = new FilteredList<>(this.clinic.getWarehouseList());
         macroList = this.userMacros.getMacroList();
     }
 
     public ModelManager() {
-        this(new Clinic(), new UserPrefs(), new UserMacros());
+        this(new Clinic(), new UserPrefs(), new UserMacros(), new CommandHistory());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -157,12 +159,13 @@ public class ModelManager implements Model {
 
     @Override
     public void setClinic(ReadOnlyClinic clinic) {
+        saveVersionedClinic();
         this.clinic.resetData(clinic);
     }
 
     @Override
     public ReadOnlyClinic getClinic() {
-        return clinic;
+        return clinic.getCurrentClinic();
     }
 
     @Override
@@ -258,6 +261,47 @@ public class ModelManager implements Model {
     public void updateFilteredWarehouseList(Predicate<Warehouse> predicate) {
         requireNonNull(predicate);
         filteredWarehouses.setPredicate(predicate);
+    }
+
+    //=========== Redo/Undo  ====================================================================================
+
+    @Override
+    public boolean canUndoClinic() {
+        return clinic.canUndo();
+    }
+
+    @Override
+    public boolean canRedoClinic() {
+        return clinic.canRedo();
+    }
+
+    @Override
+    public void undoClinic() {
+        clinic.undo();
+        updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+        updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+    }
+
+    @Override
+    public void redoClinic() {
+        clinic.redo();
+        updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
+        updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
+    }
+
+    @Override
+    public void saveVersionedClinic() {
+        clinic.save();
+    }
+
+    @Override
+    public Path getCommandHistoryFilePath() {
+        return userPrefs.getCommandHistoryFilePath();
+    }
+
+    @Override
+    public ReadOnlyCommandHistory getCommandHistory() {
+        return commandHistory;
     }
 
     @Override

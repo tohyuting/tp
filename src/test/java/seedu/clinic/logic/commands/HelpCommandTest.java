@@ -36,12 +36,16 @@ public class HelpCommandTest {
         String aboutUpdateCommand = UpdateCommand.COMMAND_WORD + "\nUpdates a product associated with a supplier or"
                 + " warehouse";
         String aboutViewCommand = ViewCommand.COMMAND_WORD + "\nViews the in-depth information associated with a"
-                + "specific supplier or warehouse";
+                + " specific supplier or warehouse";
+        String aboutUndoCommand = UndoCommand.COMMAND_WORD + "\nUndo the previous editing on the data of CLI-nic";
+        String aboutRedoCommand = RedoCommand.COMMAND_WORD + "\nRecovers the previous state of CLI-nic before"
+                + " the undo command on the data of CLI-nic";
 
         String genericHelpMessage = aboutHelpCommand + "\n\n" + aboutAddCommand + "\n\n"
                 + aboutAssignMacroCommand + "\n\n" + aboutClearCommand + "\n\n" + aboutDeleteCommand + "\n\n"
                 + aboutEditCommand + "\n\n" + aboutExitCommand + "\n\n" + aboutFindCommand + "\n\n" + aboutListCommand
-                + "\n\n" + aboutRemoveMacroCommand + "\n\n" + aboutUpdateCommand + "\n\n" + aboutViewCommand;
+                + "\n\n" + aboutRemoveMacroCommand + "\n\n" + aboutUpdateCommand + "\n\n"
+                + aboutViewCommand + "\n\n" + aboutUndoCommand + "\n\n" + aboutRedoCommand;
         CommandResult expectedCommandResult = new CommandResult(genericHelpMessage,
                 false, false);
         assertCommandSuccess(new HelpCommand("all"), model,
