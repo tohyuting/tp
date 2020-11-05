@@ -22,7 +22,9 @@ import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForSupplier;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
 import seedu.clinic.model.exceptions.NoRedoableVersionException;
 import seedu.clinic.model.exceptions.NoUndoableVersionException;
+import seedu.clinic.model.macro.Macro;
 import seedu.clinic.testutil.ClinicBuilder;
+import seedu.clinic.testutil.MacroBuilder;
 import seedu.clinic.testutil.UserMacrosBuilder;
 
 public class ModelManagerTest {
@@ -89,7 +91,46 @@ public class ModelManagerTest {
 
     @Test
     public void setUserMacros_validMacros_success() {
+        ReadOnlyUserMacros userMacros = new UserMacrosBuilder()
+                .withMacro(new MacroBuilder().withAlias("alpha").build()).build();
+        modelManager.setUserMacros(userMacros);
+        assertEquals(modelManager.getUserMacros(), userMacros);
+    }
 
+    @Test
+    public void setMacro_nullMacro_throwsNullPointerException() {
+        final Macro alpha = new MacroBuilder().withAlias("alpha").build();
+        assertThrows(NullPointerException.class, () -> modelManager.setMacro(null, alpha));
+        assertThrows(NullPointerException.class, () -> modelManager.setMacro(alpha, null));
+    }
+
+    @Test
+    public void setMacro_validMacro_success() {
+        final Macro alpha = new MacroBuilder().withAlias("alpha").build();
+        final Macro beta = new MacroBuilder().withAlias("beta").build();
+        ReadOnlyUserMacros userMacrosWithAlpha = new UserMacrosBuilder().withMacro(alpha).build();
+        ReadOnlyUserMacros userMacrosWithBeta = new UserMacrosBuilder().withMacro(beta).build();
+        modelManager.setUserMacros(userMacrosWithAlpha);
+        modelManager.setMacro(alpha, beta);
+        assertEquals(modelManager.getUserMacros(), userMacrosWithBeta);
+    }
+
+    @Test
+    public void deleteMacro_nullMacro_throwsNullPointerException() {
+        final Macro alpha = new MacroBuilder().withAlias("alpha").build();
+        ReadOnlyUserMacros userMacrosWithAlpha = new UserMacrosBuilder().withMacro(alpha).build();
+        modelManager.setUserMacros(userMacrosWithAlpha);
+        assertThrows(NullPointerException.class, () -> modelManager.deleteMacro(null));
+    }
+
+    @Test
+    public void deleteMacro_validMacro_success() {
+        final Macro alpha = new MacroBuilder().withAlias("alpha").build();
+        ReadOnlyUserMacros userMacrosWithAlpha = new UserMacrosBuilder().withMacro(alpha).build();
+        modelManager.setUserMacros(userMacrosWithAlpha);
+        modelManager.deleteMacro(alpha);
+        Model expectedModelManager = new ModelManager();
+        assertEquals(expectedModelManager, modelManager);
     }
 
     @Test

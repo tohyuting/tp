@@ -14,7 +14,6 @@ import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.model.exceptions.NoRedoableVersionException;
 import seedu.clinic.model.exceptions.NoUndoableVersionException;
-import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.macro.Alias;
 import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
@@ -181,18 +180,6 @@ public class ModelManager implements Model {
     public boolean hasWarehouse(Warehouse warehouse) {
         requireNonNull(warehouse);
         return clinic.hasWarehouse(warehouse);
-    }
-
-    @Override
-    public Optional<Supplier> getSupplier(Name supplierName) {
-        requireNonNull(supplierName);
-        return clinic.getSupplier(supplierName);
-    }
-
-    @Override
-    public Optional<Warehouse> getWarehouse(Name warehouseName) {
-        requireNonNull(warehouseName);
-        return clinic.getWarehouse(warehouseName);
     }
 
     @Override

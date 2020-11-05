@@ -98,7 +98,7 @@ public class UpdateCommandTest {
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_C).execute(modelStub);
         Supplier editedSupplier = new SupplierBuilder().withProducts(
                 Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
-        assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_B.toString(),
+        assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_B.toStringWithTags().trim(),
                 editedSupplier.getName()), commandResult.getFeedbackToUser());
         assertEquals(editedSupplier, modelStub.supplier);
     }
@@ -154,7 +154,7 @@ public class UpdateCommandTest {
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_C).execute(modelStub);
         Supplier editedSupplier = new SupplierBuilder().withProducts(
                 Map.of(VALID_PRODUCT_NAME_ASPIRIN, new String[]{VALID_TAG_ANTIBIOTICS})).build();
-        assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_B.toString(),
+        assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_B.toStringWithTags().trim(),
                 editedSupplier.getName()), commandResult.getFeedbackToUser());
         assertEquals(editedSupplier, modelStub.supplier);
     }
