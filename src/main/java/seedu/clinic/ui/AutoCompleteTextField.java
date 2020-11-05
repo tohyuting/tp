@@ -19,6 +19,7 @@ import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.ListMacroCommand;
 import seedu.clinic.logic.commands.RedoCommand;
 import seedu.clinic.logic.commands.RemoveMacroCommand;
 import seedu.clinic.logic.commands.UndoCommand;
@@ -77,7 +78,7 @@ public class AutoCompleteTextField extends TextField {
         entries.add(FindCommand.COMPLETE_FIND_SUPPLIER_COMMAND);
         entries.add(FindCommand.COMPLETE_FIND_WAREHOUSE_COMMAND);
         entries.add(ListCommand.COMMAND_WORD);
-        //entries.add(ListMacroCommand.COMMAND_WORD);
+        entries.add(ListMacroCommand.COMMAND_WORD);
         entries.add(HelpCommand.COMMAND_WORD);
         entries.add(RedoCommand.COMMAND_WORD);
         entries.add(RemoveMacroCommand.COMPLETE_REMOVE_MACRO_COMMAND);
