@@ -36,15 +36,9 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
    * **`add`** `ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor` : Adds a
     supplier named `Philips Pharmaceutical` with the phone number `00000000` and email `philipsPharm@gmail.com` to
     CLI-nic. This supplier is the `Largest contractor`.
-<<<<<<< HEAD
     
    * **`assignmacro`** `a/findsup cs/find ct/s pd/panadol` : Assigns a macro that pairs the alias `findsup` to the
    command string `find ct/s pd/panadol`.
-=======
-
-   * **`assignmacro`** `a/uwm cs/update ct/w n/main warehouse` : Assigns a macro that pairs the alias `uwm` to the
-   command string `update ct/w n/main warehouse`.
->>>>>>> origin/master
 
    * **`clear`** : Deletes all suppliers and warehouses entries in CLI-nic.
 
