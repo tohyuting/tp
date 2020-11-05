@@ -33,6 +33,7 @@ import seedu.clinic.logic.commands.ViewCommand;
  */
 public class AutoCompleteTextField extends TextField {
     private static final SortedSet<String> entries = new TreeSet<>();
+    private static final SortedSet<String> allowedEntries = new TreeSet<>();
     private ContextMenu popUpEntries;
 
     /**
@@ -41,6 +42,7 @@ public class AutoCompleteTextField extends TextField {
     public AutoCompleteTextField() {
         super();
         this.setEntries();
+        this.setSingleCommandEntries();
         popUpEntries = new ContextMenu();
         textProperty().addListener((observableValue, s, s2) -> {
             if (getText().length() == 0) {
@@ -51,13 +53,29 @@ public class AutoCompleteTextField extends TextField {
                 searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
                 populatePopup(searchResult);
                 if (!popUpEntries.isShowing()) {
-                    popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -180);
+                    if (!getText().equals("list") && !allowedEntries.contains(getText())) {
+                        popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -180);
+                    }
                 }
             }
         });
 
         focusedProperty().addListener((observableValue, aBoolean, aBoolean2) ->
                 popUpEntries.hide());
+    }
+
+    /**
+     * Create the existing set of autocomplete entries with single command word.
+     */
+    private void setSingleCommandEntries() {
+        allowedEntries.add(ClearCommand.COMMAND_WORD);
+        allowedEntries.add(ExitCommand.COMMAND_WORD);
+        allowedEntries.add(ListCommand.COMMAND_WORD);
+        allowedEntries.add(ListMacroCommand.COMMAND_WORD);
+        allowedEntries.add(HelpCommand.COMMAND_WORD);
+        allowedEntries.add(RedoCommand.COMMAND_WORD);
+        allowedEntries.add(RemoveMacroCommand.COMPLETE_REMOVE_MACRO_COMMAND);
+        allowedEntries.add(UndoCommand.COMMAND_WORD);
     }
 
     /**
@@ -85,8 +103,11 @@ public class AutoCompleteTextField extends TextField {
         entries.add(UndoCommand.COMMAND_WORD);
         entries.add(UpdateCommand.COMPULSORY_UPDATE_SUPPLIER_COMMAND);
         entries.add(UpdateCommand.COMPULSORY_UPDATE_WAREHOUSE_COMMAND);
-        entries.add(ViewCommand.COMMAND_WORD);
+        entries.add(ViewCommand.COMPULSORY_VIEW_SUPPLIER_COMMAND);
+        entries.add(ViewCommand.COMPULSORY_VIEW_WAREHOUSE_COMMAND);
     }
+
+
 
     /**
      * Populate the entry set matching the user input.
