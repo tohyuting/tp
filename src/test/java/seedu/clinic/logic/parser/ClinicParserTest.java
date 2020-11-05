@@ -4,8 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.clinic.logic.commands.CommandTestUtil.DESC_PRODUCT_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.INDEX_DESC_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.PRODUCT_NAME_DESC_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.PRODUCT_NAME_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.PRODUCT_QUANTITY_DESC_A;
+import static seedu.clinic.logic.commands.CommandTestUtil.TAG_DESC_FEVER;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER_PRODUCT;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_PANADOL;
@@ -27,12 +31,15 @@ import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.product.Product;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.supplier.SupplierPredicate;
 import seedu.clinic.model.warehouse.WarehousePredicate;
 import seedu.clinic.testutil.EditSupplierDescriptorBuilder;
+import seedu.clinic.testutil.ProductBuilderSupplier;
 import seedu.clinic.testutil.SupplierBuilder;
 import seedu.clinic.testutil.SupplierUtil;
 
@@ -116,6 +123,20 @@ public class ClinicParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_update() throws Exception {
+        Product product = new ProductBuilderSupplier().withName(VALID_PRODUCT_NAME_PANADOL).build();
+        UpdateCommand.UpdateProductDescriptor descriptor = DESC_PRODUCT_A;
+        UpdateCommand command = (UpdateCommand) parser.parseCommand(UpdateCommand.COMMAND_WORD
+                + TYPE_DESC_SUPPLIER
+                + INDEX_DESC_A + " "
+                + PRODUCT_NAME_DESC_B
+                + PRODUCT_QUANTITY_DESC_A
+                + TAG_DESC_FEVER);
+        assertEquals(new UpdateCommand(Type.SUPPLIER, INDEX_FIRST_SUPPLIER, product.getProductName(), descriptor),
+                command);
     }
 
     @Test
