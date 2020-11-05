@@ -1,0 +1,118 @@
+@startuml
+!include style.puml
+
+mainframe sd Execution of UpdateCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":UpdateCommand" as UpdateCommand LOGIC_COLOR
+participant ":UpdateProductDescriptor" as UpdateProductDescriptor LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+alt SUPPLIER
+UpdateCommand -> Model : getSupplier(supplierName)
+activate Model
+
+Model --> UpdateCommand : supplierToUpdate
+deactivate Model
+
+UpdateCommand -> UpdateProductDescriptor : isAnyFieldEdited()
+activate UpdateProductDescriptor
+
+UpdateProductDescriptor --> UpdateCommand :
+deactivate UpdateProductDescriptor
+
+UpdateCommand -> UpdateCommand : createUpdatedProduct(productToUpdate, updateProductDescriptor)
+activate UpdateCommand
+
+UpdateCommand -> UpdateProductDescriptor : getTags()
+activate UpdateProductDescriptor
+
+UpdateProductDescriptor --> UpdateCommand :
+deactivate UpdateProductDescriptor
+
+UpdateCommand -> UpdateProductDescriptor : getQuantity()
+activate UpdateProductDescriptor
+
+UpdateProductDescriptor --> UpdateCommand :
+deactivate UpdateProductDescriptor
+
+UpdateCommand --> UpdateCommand : updatedProduct
+deactivate UpdateCommand
+
+UpdateCommand -> Model : setSupplier(supplierToUpdate,updatedSupplier)
+activate Model
+
+Model --> UpdateCommand :
+deactivate Model
+
+UpdateCommand -> Model : updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS)
+activate Model
+
+Model --> UpdateCommand :
+deactivate Model
+
+create CommandResult
+UpdateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> UpdateCommand
+deactivate CommandResult
+
+else WAREHOUSE
+UpdateCommand -> Model : getWarehouse(warehouseName)
+activate Model
+
+Model --> UpdateCommand : warehouseToUpdate
+deactivate Model
+
+UpdateCommand -> UpdateProductDescriptor : isAnyFieldEdited()
+activate UpdateProductDescriptor
+
+UpdateProductDescriptor --> UpdateCommand :
+deactivate UpdateProductDescriptor
+
+UpdateCommand -> UpdateCommand : createUpdatedProduct(productToUpdate, updateProductDescriptor)
+activate UpdateCommand
+
+UpdateCommand -> UpdateProductDescriptor : getTags()
+activate UpdateProductDescriptor
+
+UpdateProductDescriptor --> UpdateCommand :
+deactivate UpdateProductDescriptor
+
+UpdateCommand -> UpdateProductDescriptor : getQuantity()
+activate UpdateProductDescriptor
+
+UpdateProductDescriptor --> UpdateCommand :
+deactivate UpdateProductDescriptor
+
+UpdateCommand --> UpdateCommand : UpdatedProduct
+deactivate UpdateCommand
+
+UpdateCommand -> Model : setWarehouse(warehouseToUpdate,updatedWarehouse)
+activate Model
+
+Model --> UpdateCommand :
+deactivate Model
+
+UpdateCommand -> Model : updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES)
+activate Model
+
+Model --> UpdateCommand :
+deactivate Model
+
+create CommandResult
+UpdateCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> UpdateCommand
+deactivate CommandResult
+
+end
+
+@enduml

@@ -88,6 +88,11 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setUserMacros_validMacros_success() {
+
+    }
+
+    @Test
     public void setUserMacrosFilePath_validPath_setsUserMacrosFilePath() {
         Path path = Paths.get("userMacros/book/file/path");
         modelManager.setUserMacrosFilePath(path);

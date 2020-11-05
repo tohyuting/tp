@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.clinic.commons.core.GuiSettings;
+import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.macro.Alias;
 import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
@@ -126,6 +127,12 @@ public interface Model {
     boolean hasSupplier(Supplier supplier);
 
     /**
+     * Returns the supplier corresponding to the name specified in an optional wrapper if it exists,
+     * and an empty optional otherwise
+     */
+    Optional<Supplier> getSupplier(Name supplierName);
+
+    /**
      * Deletes the given supplier.
      * The supplier must exist in the CLI-nic app.
      */
@@ -154,11 +161,17 @@ public interface Model {
      */
     void updateFilteredSupplierList(Predicate<Supplier> predicate);
 
-    //
     /**
      * Returns true if a warehouse with the same identity as {@code warehouse} exists in the clinic app.
      */
     boolean hasWarehouse(Warehouse warehouse);
+
+    /**
+     * Returns the warehouse corresponding to the name specified in an optional wrapper if it exists,
+     * and an empty optional otherwise
+     */
+    Optional<Warehouse> getWarehouse(Name warehouseName);
+
 
     /**
      * Deletes the given warehouse.

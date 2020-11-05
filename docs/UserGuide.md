@@ -53,6 +53,8 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
 
    * **`list`**: Displays all the suppliers and warehouses in CLI-nic.
 
+   * **`listmacro`**: Displays all the macros saved in CLI-nic.
+
    * **`removemacro`** `findsup` : Removes the macro with the alias `findsup`.
 
    * **`update`** `ct/w i/2 pd/Panadol q/10 t/Fever` : Updates the quantity of `Panadol` stored in the warehouse at
@@ -345,6 +347,12 @@ Format: `list`
 
 ![list](images/listCommand.png)
 
+### Listing all macros : `list`
+
+Lists all presently saved macros in CLI-nic.
+
+Format: `listmacro`
+
 ### Removing macro: `removemacro`
 
 Removes the macro with the specified alias.
@@ -500,7 +508,12 @@ Action | Format | Example
 **Find** Supplier(s) | `find ct/s [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]` | `find ct/s pd/panadol face mask needle`
 **Find** Warehouse(s) | `find ct/w [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]` | `find ct/w pd/panadol face mask needle`
 **Help** | `help [COMMAND]` | `help add`
-**List** | `list`
+**List** All Suppliers and Warehouses | `list`
+**List** All Macros | `listmacro`
+**Remove Macro** | `removemacro ALIAS` | `removemacro uwm`
+**Update** | `update ct/TYPE n/NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w n/WarehouseA pd/Panadol q/10 t/fever`
+**View** | `view ct/TYPE i/INDEX` | `view ct/s i/1`
+**Undo** | `undo`
 **Redo** | `redo`
 **Remove Macro** | `removemacro ALIAS` | `removemacro findsup`
 **Undo** | `undo`

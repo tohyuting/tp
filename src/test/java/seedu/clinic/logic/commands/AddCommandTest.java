@@ -110,6 +110,7 @@ public class AddCommandTest {
         assertNotEquals(addBetaCommand, addAlphaCommand);
     }
 
+
     /*
      * A Model stub that contains a single supplier.
      */

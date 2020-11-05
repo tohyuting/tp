@@ -7,28 +7,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_PRODUCT_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_PRODUCT_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_PRODUCT_C;
-import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_QUANTITY_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_QUANTITY_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_TAG_ANTIBIOTICS;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_A;
 import static seedu.clinic.logic.commands.UpdateCommand.UpdateProductDescriptor;
-import static seedu.clinic.logic.commands.UpdateCommand.getWarehouseByName;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
-import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
-import static seedu.clinic.testutil.TypicalSupplier.BOB;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
+import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_WAREHOUSE;
+import static seedu.clinic.testutil.TypicalSupplier.BOB;
 import static seedu.clinic.testutil.TypicalWarehouse.ALICE;
 
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -38,7 +34,6 @@ import javafx.collections.ObservableList;
 import seedu.clinic.logic.commands.exceptions.CommandException;
 import seedu.clinic.logic.parser.Type;
 import seedu.clinic.model.Clinic;
-import seedu.clinic.model.CommandHistory;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Tag;
@@ -179,19 +174,6 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void getWarehouseByName_warehouseFound_success() {
-        ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
-        Warehouse warehouse = getWarehouseByName(ALICE.getName(), modelStub);
-        assertEquals(warehouse, ALICE);
-    }
-
-    @Test
-    public void getWarehouseByName_warehouseNotFound_throwsNoSuchElementException() {
-        ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
-        assertThrows(NoSuchElementException.class, () -> getWarehouseByName(new Name(VALID_NAME_AMY), modelStub));
-    }
-
-    @Test
     public void updateProductDescriptor_equalsTest() {
         UpdateProductDescriptor descriptorWithSameValues = new UpdateProductDescriptor(DESC_PRODUCT_A);
         // same values -> returns true
@@ -242,16 +224,6 @@ public class UpdateCommandTest {
 
         @Override
         public void updateFilteredWarehouseList(Predicate<Warehouse> predicate) {
-        }
-
-        @Override
-        public Path getCommandHistoryFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public CommandHistory getCommandHistory() {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override
