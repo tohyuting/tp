@@ -822,7 +822,7 @@ his/her commands more intuitively.
 * manager of a medical supplies company that manages warehouses across the country
 * tech-savvy manager who prefers typing to clicking
 * keeps track of supplies in each warehouse
-* needs to quickly contact suppliers to restock medical supplies when the stock runs low at various warehouses
+* needs to quickly identify which suppliers to contact when restocking medical supplies
 
 **Value proposition**:
 
@@ -853,7 +853,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | advanced user | create custom alias for my commands | so that I enter commands more efficiently |
 | `* *`    | advanced user | delete a custom alias | remove the aliases that I no longer need |
 | `* *`    | advanced user | list my saved macros | quickly recall which macros I can currently use  |
-
+| `*`      | beginner user | have command autocomplete | enter commands faster |
+| `*`      | beginner user | see the syntax of the command as I type into the command line | refer back to the documentation less frequently |
 
 ### Use cases
 
