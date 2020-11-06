@@ -163,24 +163,29 @@ Example:
 ### Assigning macro to selected command string: `assignmacro`
 
 Assigns a macro that pairs the specified alias to the specified command string.
-This is especially useful for running commands that need to be used repeatedly.
+This is especially useful for running commands that need to be used frequently.
 By assigning a command string to an alias, users can enter the alias keyword instead of the command string to run
-the same command.
+the same command (along with any additional prefixes supplied).
 
 Format:	`assignmacro a/ALIAS cs/COMMAND_STRING`
 
 * `alias` cannot be an existing command word such as `add`, `delete` etc.
 * `alias` cannot be already used for an existing macro.
 * `alias` should only consist of alphanumeric characters and/or underscores. 
-* `COMMAND_STRING` can consist of any number of prefixes, but the first word has to be a pre-defined command word.
+* `COMMAND_STRING` can consist of any number of prefixes (can be a partial command), but the first word has to be a pre-defined command word.
 * `COMMAND_STRING` cannot take in another `assignmacro` command e.g.
   `assignmacro a/asgmac cs/assignmacro a/asgmac ...` as this is recursive.   
+* Even if the macro is valid, running the macro does not guarantee a valid command. 
 
 Example:
 
 * `assignmacro a/findsup cs/find ct/s pd/panadol` : Assigns a macro that pairs the alias `findsup` to the command
   string `find ct/s pd/panadol`. With this macro set up, users can now enter `findsup` instead of
   `find ct/s pd/panadol` to find the relevant supplier(s).
+  
+* `assignmacro a/uwp cs/update ct/w pd/panadol t/fever headache` : Assigns a macro that pairs the alias `uwp` to the command
+  string `cs/update ct/w pd/panadol t/fever headache`. Notice that this is just a partial command string. With this macro set up, users can now enter `uwp i/1 q/123` instead of
+  `update ct/w i/1 pd/panadol q/123 t/fever headache` to update the quantity for the `Panadol` product under the first warehouse to `123`.
 
 ![assign macro](images/assignMacro.png)
 
@@ -347,7 +352,7 @@ Format: `list`
 
 ![list](images/listCommand.png)
 
-### Listing all macros : `list`
+### Listing all macros : `listmacro`
 
 Lists all presently saved macros in CLI-nic.
 
@@ -381,7 +386,7 @@ Format:	`update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
 * `INDEX` must be a positive integer, not exceeding the total length of the displayed supplier list in the GUI.
 * `PRODUCT_NAME` specified is case-insensitive.
-* The supplier should currently exist in the CLI-nic application.
+* `INDEX` should be a positive unsigned integer.
 * `QUANTITY` should be a non-negative unsigned integer.
 * `TAG` should be a single alphanumeric word. Multiple tags can be supplied under the same prefix.
 * If `PRODUCT_NAME` already exists in the supplier, at least one optional argument has to be entered.
@@ -401,7 +406,7 @@ If the product does not exist, a new product will be created for that warehouse.
 Format:	`update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
 * `PRODUCT_NAME` specified is case-insensitive.
-* The warehouse should currently exist in the CLI-nic application.
+* `INDEX` should be a positive unsigned integer.
 * `QUANTITY` should be a non-negative unsigned integer.
 * `TAG` should be a single alphanumeric word. Multiple tags can be supplied under the same prefix.
 * If `PRODUCT_NAME` already exists in the warehouse, at least one optional argument has to be entered.
@@ -409,7 +414,7 @@ Format:	`update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 Example:
 
 * `update ct/w i/1 pd/Panadol q/10 t/fever` : Updates the quantity of `Panadol` stored in the warehouse at
-  index 1 in the list of displayed warehouses on the GUI to `10` and gives `Panadol` a tag of `fever`.
+  index 1 in the list of displayed warehouses on the GUI to `10` and gives `Panadol` 2 tags: `fever` and `cold`.
   
 ![update warehouse product](images/updateWarehouseProduct.png)
   

@@ -8,6 +8,7 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
+Class MacroParser
 Class ClinicParser
 Class XYZCommandParser
 Class CliSyntax
@@ -35,6 +36,7 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
+LogicManager -->"1" MacroParser
 LogicManager -->"1" ClinicParser
 ClinicParser .left.> XYZCommandParser: creates >
 
