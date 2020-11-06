@@ -1579,12 +1579,12 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
 1. View command format: `help [COMMAND]`
 
-   1. Test case: View command with complete prefixes e.g. `view ct/w i/2`<br>
-      Expected: WarehouseList updates to show only supplier at index 2. Products associated with the warehouse and their details are shown in the command result box.
-   1. Test case: View command with missing prefixes e.g `view ct/s` or `view`<br>
-      Expected: WarehouseList will not be updated to show only supplier at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
-   1. Test case: View command with index larger than range of warehouse list displayed e.g.`view ct/w i/x` (where x is larger than the displayed list size)<br>
-      Expected: Similar to previous.   
+   1. Test case: View generic help message for all commands e.g. `help`<br>
+      Expected: Shows help message consisting of commands available in CLI-nic and what each command does.
+   1. Test case: View help message specific to a command e.g `help add`<br>
+      Expected: Shows help message consisting of instructions on how to interpret command format, command format for `add` and some sample commands for `add`.
+   1. Test case: View help message with invalid type e.g.`help test`<br>
+      Expected: Shows invalid command format message, stating the allowed keywords to be used by help. A help message for help command will also be displayed again to guide the user accordingly.
 
 ### Saving data
 
