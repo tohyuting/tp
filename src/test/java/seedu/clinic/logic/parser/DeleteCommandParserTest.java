@@ -10,6 +10,8 @@ import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_WAREHOUSE;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_PREFIX;
 import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.SUPPLIER_PRODUCT;
 import static seedu.clinic.logic.parser.Type.WAREHOUSE;
@@ -89,8 +91,8 @@ public class DeleteCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 
         // invalid productName prefix
-        assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + INDEX_DESC_A + "pdf/A",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + INDEX_DESC_A + " pdf/A",
+                String.format(MESSAGE_INVALID_PREFIX, DeleteCommand.MESSAGE_USAGE));
 
         // missing index prefix
         assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + PRODUCT_NAME_DESC_A,
@@ -108,19 +110,19 @@ public class DeleteCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 
         // invalid index argument
-        assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + "i/0",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + " i/0",
+                String.format(MESSAGE_INVALID_INDEX, DeleteCommand.MESSAGE_USAGE));
 
         // invalid product name argument
-        assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + INDEX_DESC_A + "pd/*name",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + INDEX_DESC_A + " pd/*name",
+                Name.MESSAGE_CONSTRAINTS + "\n\n" + DeleteCommand.MESSAGE_USAGE);
 
         // missing index argument
-        assertParseFailure(parser, TYPE_DESC_SUPPLIER + "i/" ,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER + " i/" ,
+                String.format(MESSAGE_INVALID_INDEX, DeleteCommand.MESSAGE_USAGE));
 
         // missing name argument
-        assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + INDEX_DESC_A + "pd/",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + INDEX_DESC_A + " pd/",
+                Name.MESSAGE_CONSTRAINTS + "\n\n" + DeleteCommand.MESSAGE_USAGE);
     }
 }

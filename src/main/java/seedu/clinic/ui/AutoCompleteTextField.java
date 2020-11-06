@@ -27,7 +27,7 @@ import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.ViewCommand;
 
 //@@author jeffreytjs-reused
-//Reused from past project with minor improvements to fit application use case. Autocomplete
+//Reused from past project with improvements to fit application use case. Autocomplete
 //implementation written by author ShaunNgTX as seen on https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java
 /**
  * A TextField with added implementation of "autocomplete" functionality.
@@ -35,6 +35,7 @@ import seedu.clinic.logic.commands.ViewCommand;
  */
 public class AutoCompleteTextField extends TextField {
     private static final SortedSet<String> entries = new TreeSet<>();
+    private static final SortedSet<String> singleCommandEntries = new TreeSet<>();
     private ContextMenu popUpEntries;
 
     /**
@@ -43,6 +44,7 @@ public class AutoCompleteTextField extends TextField {
     public AutoCompleteTextField() {
         super();
         this.setEntries();
+        this.setSingleCommandEntries();
         popUpEntries = new ContextMenu();
         textProperty().addListener((observableValue, s, s2) -> {
             popUpEntries.hide();
@@ -50,10 +52,7 @@ public class AutoCompleteTextField extends TextField {
                 LinkedList<String> searchResult = new LinkedList<>();
                 searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
                 populatePopup(searchResult);
-                if (!popUpEntries.isShowing()) {
-                    // Entries are always shown in alphabetical order
-                    popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -180);
-                }
+                checkPopUpEntries();
             }
         });
         focusedProperty().addListener((observableValue, aBoolean, aBoolean2) ->
@@ -85,7 +84,8 @@ public class AutoCompleteTextField extends TextField {
         entries.add(UndoCommand.COMMAND_WORD);
         entries.add(UpdateCommand.COMPULSORY_UPDATE_SUPPLIER_COMMAND);
         entries.add(UpdateCommand.COMPULSORY_UPDATE_WAREHOUSE_COMMAND);
-        entries.add(ViewCommand.COMMAND_WORD);
+        entries.add(ViewCommand.COMPULSORY_VIEW_SUPPLIER_COMMAND);
+        entries.add(ViewCommand.COMPULSORY_VIEW_WAREHOUSE_COMMAND);
     }
 
     /**
@@ -110,4 +110,30 @@ public class AutoCompleteTextField extends TextField {
         popUpEntries.getItems().addAll(menuItems);
     }
 //@@author
+
+    /**
+     * Create the existing set of autocomplete entries with single command word.
+     */
+    private void setSingleCommandEntries() {
+        singleCommandEntries.add(ClearCommand.COMMAND_WORD);
+        singleCommandEntries.add(ExitCommand.COMMAND_WORD);
+        singleCommandEntries.add(ListCommand.COMMAND_WORD);
+        singleCommandEntries.add(ListMacroCommand.COMMAND_WORD);
+        singleCommandEntries.add(HelpCommand.COMMAND_WORD);
+        singleCommandEntries.add(RedoCommand.COMMAND_WORD);
+        singleCommandEntries.add(RemoveMacroCommand.COMPLETE_REMOVE_MACRO_COMMAND);
+        singleCommandEntries.add(UndoCommand.COMMAND_WORD);
+    }
+
+    /*
+     * Hide popUpEntries when one-worded commands are typed in full.
+     * Entries are always shown in alphabetical order
+     */
+    private void checkPopUpEntries() {
+        if (!popUpEntries.isShowing()) {
+            if (!getText().equals("list") && !singleCommandEntries.contains(getText())) {
+                popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -180);
+            }
+        }
+    }
 }

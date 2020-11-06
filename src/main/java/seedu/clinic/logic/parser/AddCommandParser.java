@@ -10,6 +10,7 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.WAREHOUSE;
 
@@ -66,10 +67,16 @@ public class AddCommandParser implements Parser<AddCommand> {
         logger.log(Level.INFO, LOG_MESSAGE_TOKENIZE_SUCCESS);
 
         if (argMultimap.getValue(PREFIX_TYPE).isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_MISSING_TYPE_PREFIX, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+        Type type;
+        try {
+            type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_TYPE, argMultimap, AddCommand.MESSAGE_USAGE);
+        }
+
 
         if (type.equals(SUPPLIER)) {
             return parseAddSupplier(argMultimap);
@@ -84,15 +91,31 @@ public class AddCommandParser implements Parser<AddCommand> {
     private AddCommand parseAddSupplier(ArgumentMultimap argMultimap) throws ParseException {
         logger.log(Level.INFO, LOG_MESSAGE_VALID_TYPE_PREFIX_SUPPLIER);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)) {
             throw new ParseException(String.format(MESSAGE_SUPPLIER_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+        if (!argMultimap.getPreamble().isEmpty()) {
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AddCommand.MESSAGE_USAGE);
+        }
+
+        Phone phone;
+        try {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
+        }
+        Name name;
+        Email email;
+        Remark remark;
+        try {
+            name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+            remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+        } catch (ParseException pe) {
+            throw new ParseException(pe.getMessage() + "\n\n" + AddCommand.MESSAGE_USAGE);
+        }
+
         Set<Product> productList = new HashSet<>();
 
         Supplier supplier = new Supplier(name, phone, email, remark, productList);
@@ -105,15 +128,32 @@ public class AddCommandParser implements Parser<AddCommand> {
         assert type.equals(WAREHOUSE) : INVALID_WAREHOUSE_ASSERTION;
         logger.log(Level.INFO, LOG_MESSAGE_VALID_TYPE_PREFIX_WAREHOUSE);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS)) {
             throw new ParseException(String.format(MESSAGE_WAREHOUSE_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+        if (!argMultimap.getPreamble().isEmpty()) {
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AddCommand.MESSAGE_USAGE);
+        }
+
+        Phone phone;
+        try {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
+        }
+        Name name;
+        Address address;
+        Remark remark;
+
+        try {
+            name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+            remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+        } catch (ParseException pe) {
+            throw new ParseException(pe.getMessage() + "\n\n" + AddCommand.MESSAGE_USAGE);
+        }
+
         Set<Product> productList = new HashSet<>();
 
         Warehouse warehouse = new Warehouse(name, phone, address, remark, productList);

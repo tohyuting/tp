@@ -18,10 +18,11 @@ public class AssignMacroCommand extends Command {
     public static final String COMMAND_WORD = "assignmacro";
     public static final String COMPLETE_ASSIGN_MACRO_COMMAND = "assignmacro a/ cs/";
 
-    public static final String MESSAGE_USAGE = "Assigns a macro to a command string. ALIAS should only consist "
+    public static final String MESSAGE_USAGE = "Assign Macro Usage\n\n"
+            + "Assigns a macro to a command string. ALIAS should only consist "
             + "of alphanumeric characters and/or underscores. ALIAS cannot be an existing command word and cannot "
             + "be used in an existing macro. COMMAND_STRING can consist of any number of prefixes, but the first "
-            + "word has to be a pre-defined command word.\n\n"
+            + "word has to be a pre-defined command word. All arguments are case sensitive.\n\n"
             + "Parameters:\n"
             + PREFIX_ALIAS + "ALIAS "
             + PREFIX_COMMAND_STRING + "COMMAND_STRING\n\n"

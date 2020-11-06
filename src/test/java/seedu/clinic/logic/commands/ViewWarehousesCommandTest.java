@@ -19,6 +19,7 @@ import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.UserMacros;
 import seedu.clinic.model.UserPrefs;
 import seedu.clinic.model.attribute.NameContainsKeywordsPredicateForWarehouse;
+import seedu.clinic.model.product.Product;
 import seedu.clinic.model.warehouse.Warehouse;
 
 public class ViewWarehousesCommandTest {
@@ -65,7 +66,13 @@ public class ViewWarehousesCommandTest {
         expectedModel.updateFilteredWarehouseList(warehousePredicate);
         expectedModel.saveVersionedClinic();
         String expectedMessage = String.format(Messages.MESSAGE_WAREHOUSE_LISTED_OVERVIEW,
-                expectedModel.getFilteredWarehouseList().size());
+                expectedModel.getFilteredWarehouseList().size()) + "\n\n"
+                + "Here are the products associated with the Warehouse"
+                + " for your convenience:\n\n";
+
+        for (Product product : warehouseToView.getProducts()) {
+            expectedMessage += product.toStringWithTags();
+        }
         assertCommandSuccess(viewFirstCommand, model, expectedMessage, expectedModel);
     }
 

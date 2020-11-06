@@ -42,6 +42,7 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_REMARK
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_USAGE;
 import static seedu.clinic.testutil.TypicalSupplier.BOB;
 import static seedu.clinic.testutil.TypicalWarehouse.B;
 
@@ -116,10 +117,10 @@ public class AddCommandParserTest {
         // missing type prefix
         assertParseFailure(parser, VALID_TYPE_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + REMARK_DESC_BOB,
-                String.format(AddCommand.MESSAGE_MISSING_TYPE_PREFIX, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         assertParseFailure(parser, VALID_TYPE_WAREHOUSE + NAME_DESC_WAREHOUSE_A2 + PHONE_DESC_WAREHOUSE_A
                 + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
-                String.format(AddCommand.MESSAGE_MISSING_TYPE_PREFIX, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         // missing name prefix
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + PHONE_DESC_BOB + VALID_NAME_BOB
@@ -150,10 +151,10 @@ public class AddCommandParserTest {
         // all prefixes missing
         assertParseFailure(parser, VALID_TYPE_SUPPLIER + VALID_NAME_BOB + VALID_PHONE_BOB
                 + VALID_EMAIL_BOB + VALID_REMARK_BOB,
-                String.format(AddCommand.MESSAGE_MISSING_TYPE_PREFIX, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         assertParseFailure(parser, VALID_TYPE_WAREHOUSE + VALID_WAREHOUSE_NAME_A + VALID_WAREHOUSE_PHONE_A
                 + VALID_WAREHOUSE_ADDRESS_A + VALID_WAREHOUSE_REMARK_A,
-                String.format(AddCommand.MESSAGE_MISSING_TYPE_PREFIX, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -169,52 +170,52 @@ public class AddCommandParserTest {
         // invalid name
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_NAME_DESC2 + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + REMARK_DESC_BOB,
-                Name.MESSAGE_CONSTRAINTS);
+                Name.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + INVALID_NAME_DESC_WAREHOUSE2
                 + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
-                Name.MESSAGE_CONSTRAINTS);
+                Name.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
 
         // invalid phone
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + NAME_DESC_BOB2 + INVALID_PHONE_DESC
                 + EMAIL_DESC_BOB + REMARK_DESC_BOB,
-                Phone.MESSAGE_CONSTRAINTS);
+                Phone.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + NAME_DESC_WAREHOUSE_A2
                 + INVALID_PHONE_DESC + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
-                Phone.MESSAGE_CONSTRAINTS);
+                Phone.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
 
         // invalid email
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB
                 + INVALID_EMAIL_DESC + REMARK_DESC_BOB,
-                Email.MESSAGE_CONSTRAINTS);
+                Email.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
 
         // invalid address
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + NAME_DESC_WAREHOUSE_A2
                 + PHONE_DESC_WAREHOUSE_A + INVALID_ADDRESS_DESC + REMARK_DESC_WAREHOUSE_A,
-                Address.MESSAGE_CONSTRAINTS);
+                Address.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
 
         // invalid remark
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + INVALID_REMARK_DESC,
-                Remark.MESSAGE_CONSTRAINTS);
+                Remark.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + NAME_DESC_WAREHOUSE_A2
                 + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + INVALID_REMARK_DESC,
-                Remark.MESSAGE_CONSTRAINTS);
+                Remark.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_NAME_DESC2 + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + INVALID_REMARK_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+                Name.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
         assertParseFailure(parser, TYPE_DESC_WAREHOUSE + INVALID_NAME_DESC_WAREHOUSE2
                 + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + INVALID_REMARK_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+                Name.MESSAGE_CONSTRAINTS + "\n\n" + AddCommand.MESSAGE_USAGE);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TYPE_DESC_SUPPLIER + NAME_DESC_BOB2 + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + REMARK_DESC_BOB,
-                String.format(AddCommand.MESSAGE_SUPPLIER_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_USAGE, AddCommand.MESSAGE_USAGE));
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TYPE_DESC_WAREHOUSE + NAME_DESC_WAREHOUSE_A2
                 + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
-                String.format(AddCommand.MESSAGE_WAREHOUSE_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_USAGE, AddCommand.MESSAGE_USAGE));
 
         // empty input
         assertParseFailure(parser, "",

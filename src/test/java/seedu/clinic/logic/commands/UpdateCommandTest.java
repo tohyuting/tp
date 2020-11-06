@@ -4,12 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_PRODUCT_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.DESC_PRODUCT_B;
-import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_NAME_ASPIRIN;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_QUANTITY_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_PRODUCT_QUANTITY_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_PRODUCT_NAME_A;
-import static seedu.clinic.logic.commands.UpdateCommand.getWarehouseByName;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_WAREHOUSE;
@@ -18,7 +16,6 @@ import static seedu.clinic.testutil.TypicalWarehouse.ALICE;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -82,7 +79,7 @@ public class UpdateCommandTest {
                 new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), DESC_PRODUCT_B).execute(modelStub);
         Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_B)).build();
-        assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_A.toString(),
+        assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_A.toStringWithTags().trim(),
                 editedWarehouse.getName()), commandResult.getFeedbackToUser());
         assertEquals(editedWarehouse, modelStub.warehouse);
     }
@@ -105,7 +102,7 @@ public class UpdateCommandTest {
                 new Name(VALID_WAREHOUSE_PRODUCT_NAME_A), DESC_PRODUCT_B).execute(modelStub);
         Warehouse editedWarehouse = new WarehouseBuilder().withProducts(
                 Map.of(VALID_WAREHOUSE_PRODUCT_NAME_A, VALID_PRODUCT_QUANTITY_B)).build();
-        assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_A.toString(),
+        assertEquals(String.format(UpdateCommand.MESSAGE_SUCCESS, VALID_PRODUCT_A.toStringWithTags().trim(),
                 editedWarehouse.getName()), commandResult.getFeedbackToUser());
         assertEquals(editedWarehouse, modelStub.warehouse);
     }
@@ -115,19 +112,6 @@ public class UpdateCommandTest {
         ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
         assertThrows(CommandException.class, () -> new UpdateCommand(Type.WAREHOUSE, INDEX_SECOND_WAREHOUSE,
                 new Name(VALID_PRODUCT_NAME_ASPIRIN), DESC_PRODUCT_A).execute(modelStub));
-    }
-
-    @Test
-    public void getWarehouseByName_warehouseFound_success() {
-        ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
-        Warehouse warehouse = getWarehouseByName(ALICE.getName(), modelStub);
-        assertEquals(warehouse, ALICE);
-    }
-
-    @Test
-    public void getWarehouseByName_warehouseNotFound_throwsNoSuchElementException() {
-        ModelStubWithWarehouse modelStub = new ModelStubWithWarehouse(ALICE);
-        assertThrows(NoSuchElementException.class, () -> getWarehouseByName(new Name(VALID_NAME_AMY), modelStub));
     }
 
     /*
@@ -239,6 +223,10 @@ public class UpdateCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override public Optional<Supplier> getSupplier(Name supplierName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void deleteSupplier(Supplier target) {
             throw new AssertionError("This method should not be called.");
@@ -266,6 +254,10 @@ public class UpdateCommandTest {
 
         @Override
         public boolean hasWarehouse(Warehouse warehouse) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override public Optional<Warehouse> getWarehouse(Name warehouseName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -348,6 +340,14 @@ public class UpdateCommandTest {
         public void setWarehouse(Warehouse target, Warehouse editedWarehouse) {
             this.warehouse = editedWarehouse;
             clinic.setWarehouses(List.of(editedWarehouse));
+        }
+        @Override
+        public Optional<Warehouse> getWarehouse(Name warehouseName) {
+            if (warehouse.getName().equals(warehouseName)) {
+                return Optional.of(warehouse);
+            } else {
+                return Optional.empty();
+            }
         }
 
         @Override

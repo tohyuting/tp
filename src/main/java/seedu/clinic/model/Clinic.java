@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
+import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.supplier.UniqueSupplierList;
 import seedu.clinic.model.warehouse.UniqueWarehouseList;
@@ -81,6 +83,15 @@ public class Clinic implements ReadOnlyClinic {
     }
 
     /**
+     * Returns the warehouse corresponding to the name specified in an optional wrapper if it exists,
+     * and an empty optional otherwise
+     */
+    public Optional<Warehouse> getWarehouse(Name warehouseName) {
+        requireNonNull(warehouseName);
+        return warehouses.getWarehouse(warehouseName);
+    }
+
+    /**
      * Adds a warehouse to the clinic.
      * The warehouse must not already exist in the clinic.
      */
@@ -116,6 +127,15 @@ public class Clinic implements ReadOnlyClinic {
     public boolean hasSupplier(Supplier supplier) {
         requireNonNull(supplier);
         return suppliers.contains(supplier);
+    }
+
+    /**
+     * Returns the supplier corresponding to the name specified in an optional wrapper if it exists,
+     * and an empty optional otherwise
+     */
+    public Optional<Supplier> getSupplier(Name supplierName) {
+        requireNonNull(supplierName);
+        return suppliers.getSupplier(supplierName);
     }
 
     /**
