@@ -339,6 +339,12 @@ Example:
 
 ![find](images/findWarehouse.png)
 
+### Listing all macros : `list`
+
+Lists all presently saved macros in CLI-nic.
+
+Format: `listmacro`
+
 ### Listing all suppliers and warehouses entries : `list`
 
 Lists all suppliers and warehouses' entries in CLI-nic.
@@ -347,11 +353,14 @@ Format: `list`
 
 ![list](images/listCommand.png)
 
-### Listing all macros : `list`
+### Listing previously entered valid commands
 
-Lists all presently saved macros in CLI-nic.
+Lists all valid command history that were previously entered.
 
-Format: `listmacro`
+<div markdown="span" class="alert alert-info">
+**:information_source:** Use the <kbd>up</kbd> and <kbd>down</kbd> buttons on the keyboard to iterate through the
+command history.
+</div>
 
 ### Removing macro: `removemacro`
 
@@ -371,6 +380,16 @@ Example:
 
 CLI-nic data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
+
+### Undoing/redoing a previous editing : `undo`/`redo`
+
+Undoing recovers a previous version of CLI-nic data if any data has been changed.
+Redoing restores the data in CLI-nic before an `undo` command was done.
+
+Format: `undo` / `redo`
+
+* Trailing words behind the command words will be ignored.
+* For example, if one types `undo redo`, `undo` will be called to undo the editing. `redo` will be ignored.
 
 ### Updating the quantity and/or tags of a product sold by a supplier: `update`
 
@@ -443,16 +462,6 @@ Example:
 
 ![view](images/viewWarehouse.png)
 
-### Undo/Redo a previous editing : `undo`/`redo`
-
-Undo command recovers a previous version of CLI-nic data if any data has been changed.
-Redo command restores the data in CLI-nic before an `undo` command was done.
-
-Format: `undo` / `redo`
-
-* Any trailing words behind the command words will be ignored.
-* For example: if one types `undo redo`, the command will be to `undo` the editing.
-
 <br />
 
 --------------------------------------------------------------------------------------------------------------------
@@ -504,10 +513,6 @@ Action | Format | Example
 **Help** | `help [COMMAND]` | `help add`
 **List** All Suppliers and Warehouses | `list`
 **List** All Macros | `listmacro`
-**Remove Macro** | `removemacro ALIAS` | `removemacro uwm`
-**Update** | `update ct/TYPE n/NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w n/WarehouseA pd/Panadol q/10 t/fever`
-**View** | `view ct/TYPE i/INDEX` | `view ct/s i/1`
-**Undo** | `undo`
 **Redo** | `redo`
 **Remove Macro** | `removemacro ALIAS` | `removemacro findsup`
 **Undo** | `undo`
