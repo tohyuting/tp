@@ -597,27 +597,32 @@ screen except when needed. Hence it is implemented such that it will be displaye
 it would then be no longer necessary to keep the macro list on the display.
 
 ### Add Supplier/Warehouse feature
+
 In this section, the functionality of the add feature, the expected execution path, the structure of
 the AddCommand class, the interactions between objects with the AddCommand object will be discussed.
 
-#### What is the Add Supplier/Warehouse feature
-The add supplier/warehouse feature is facilitated by the `AddCommandParser` and the `AddCommand`.
+The `add` supplier/warehouse feature is facilitated by the `AddCommandParser` and the `AddCommand`.
 The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to
 add a supplier/warehouse to the app using the command line.
 
-The supplier consists of : Type, Name, Phone, Email
+#### What Add Supplier/Warehouse feature does
 
-The warehouse consists of : Type, Name, Phone, Address
+The `add` feature allows user to add a warehouse or supplier to CLI-nic (case 1).
 
-The supplier/warehouse also consists of one optional field that can be added:
-* Remark
+The supplier consists of : `Type`, `Name`, `Phone`, `Email`
+
+The warehouse consists of : `Type`, `Name`, `Phone`, `Address`
+
+The supplier/warehouse also consists of an optional field: `Remark`
+
+Only one supplier/warehouse can be added per command execution.
 
 #### Path Execution of Add Command
 The overview of the AddCommand Activity Diagram is shown below:
 
 ![Add Command Activity Diagram](images/AddCommandActivityDiagram.png)
 
-After the user calls the Add command, the code will check for the presence of all the compulsory prefixes
+After the user calls the `add` command, the code will check for the presence of all the compulsory prefixes
 in the command. The code will throw a ParseException if there are any missing/invalid prefixes. After that is
 checked, it will check if the new supplier/warehouse added is a duplicate (The supplier/warehouse already
 exist in the application). It will throw a CommandException when the user tries to add a duplicate
@@ -638,7 +643,12 @@ for supplier as shown below:
 
 ![Add Command Sequence Diagram](images/AddCommandSequenceDiagram.png)
 
-The arguments of the add command will be parsed using the parse method of the AddCommandParser class.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for
+`AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline
+reaches the end of diagram.
+</div>
+
+The arguments of the `add` command will be parsed using the parse method of the AddCommandParser class.
 The AddCommandParser will tokenize the arguments parsed in using the tokenize method of ArgumentTokenizer
 class which returns the tokenized arguments. Using the tokenized arguments, the Parser will check if the
 arguments parsed in matches with the tokenized arguments using the arePrefixesPresent method.
@@ -661,8 +671,8 @@ There are two scenarios :
    use the Model class to call hasSupplier/hasWarehouse method to check for duplicates, if it is a duplicate, the
    order will throw a CommandException which indicates that there is a duplicate supplier/warehouse in the CLI-nic
    application already. Else, it will successfully add the new supplier/warehouse using addSupplier/addWarehouse
-   method. Finally, it return a new CommandResult object, containing a String that indicates a successful
-   addition.
+   method. Finally, it returns a new CommandResult object, containing a String that indicates a successful
+   addition of supplier/warehouse.
 
 ### Undo/redo feature
 
@@ -1448,15 +1458,19 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123
       , #01-01`<br>
-      Expected: Adds a warehouse with the above details to the list and displayed on the GUI.
-   1. Test case: With remarks e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01
-      r/Largest warehouse`<br>
-      Expected: Adds the warehouse to the list, including the remark
+      Expected: Adds a warehouse with the above details to the warehouse list and is displayed on the GUI.
+   1. Test case: Duplicate warehouse by name e.g. `add ct/w n/John Ptd Ltd p/99999999 addr/John 2 street
+      , block 222, #02-02`<br>
+      Expected: No warehouse is added. Adds the warehouse to the list, including the remark
+   1. Test case: Duplicate name With remarks e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block
+      123, #01-01
+        r/Largest warehouse`<br>
+        Expected: Adds the warehouse to the list, including the remark
    1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Ptd Ltd p/98766789`
       or `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01 z/large`<br>
       Expected: No warehouse is added. Error details shown in the response message. A help message displayed
       to guide user accordingly. WarehouseList on GUI remain unchanged.
-   1. Test case: Add order with existing WAREHOUSE_NAME in list e.g. `add ct/w n/John Ptd Ltd p/98766789
+   1. Test case: Add warehouse with existing WAREHOUSE_NAME in list e.g. `add ct/w n/John Ptd Ltd p/98766789
       addr/John street, block 123, #01-01` followed by `add ct/w n/John Ptd Ltd p/91234567 addr/Ang Mo Kio
       street 12, block 123, #01-01`<br>
       Expected: An error will occur and a message will be displayed, stating that a warehouse with duplicate
