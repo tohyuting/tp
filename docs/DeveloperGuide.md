@@ -1508,8 +1508,30 @@ testers are expected to do more *exploratory* testing.
    1. Test case: Command string does not start with a pre-defined command e.g. `assignmacro a/uw cs/magic`<br>
       Expected: No macro created. Error details is shown in the displayed message.
       
-   1. Test case: Alias clashes with a pre-defined command e.g. `assignmacro a/update cs/add`<br>
+   1. Test case: Alias clashes with a pre-defined command or another macro e.g. `assignmacro a/update cs/add`<br>
       Expected: No macro created. Error details is shown in the displayed message.
+      
+### Removing a macro
+
+1. Remove macro command format: `removemacro ALIAS`
+
+   1. Prerequisites: At least one macro presently saved in the application. 
+
+   1. Test case: Alias exists in a saved macro e.g. `removemacro uw`<br>
+      Expected: The macro with the alias `uw` is removed. Details of the new macro is shown in the display message.
+
+   1. Test case: Alias does not exist in any saved macro e.g. `removemacro a/magic`<br>
+      Expected: No macro removed. Error details is shown in the displayed message.
+
+### Assigning a macro
+
+1. list macros command format: `listmacro`
+
+   1. Test case: At least one macro has been saved.<br>
+      Expected: The list of macros are displayed.
+
+   1. Test case: No macros have been saved.<br>
+      Expected: No macros listed. Displayed message states that no macros are presently saved.
 
 1. _{ more test cases …​ }_
 
