@@ -26,7 +26,9 @@ import seedu.clinic.logic.commands.UndoCommand;
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.ViewCommand;
 
-
+//@@author jeffreytjs-reused
+//Reused from past project with minor improvements to fit application use case. Autocomplete
+//implementation written by author ShaunNgTX as seen on https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java
 /**
  * A TextField with added implementation of "autocomplete" functionality.
  * Entries are based on Command_Usage.
@@ -43,19 +45,17 @@ public class AutoCompleteTextField extends TextField {
         this.setEntries();
         popUpEntries = new ContextMenu();
         textProperty().addListener((observableValue, s, s2) -> {
-            if (getText().length() == 0) {
-                popUpEntries.hide();
-            } else {
-                popUpEntries.hide();
+            popUpEntries.hide();
+            if (getText().length() > 0) {
                 LinkedList<String> searchResult = new LinkedList<>();
                 searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
                 populatePopup(searchResult);
                 if (!popUpEntries.isShowing()) {
+                    // Entries are always shown in alphabetical order
                     popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -180);
                 }
             }
         });
-
         focusedProperty().addListener((observableValue, aBoolean, aBoolean2) ->
                 popUpEntries.hide());
     }
@@ -109,5 +109,5 @@ public class AutoCompleteTextField extends TextField {
         popUpEntries.getItems().clear();
         popUpEntries.getItems().addAll(menuItems);
     }
-
+//@@author
 }
