@@ -347,7 +347,7 @@ Format: `list`
 
 ![list](images/listCommand.png)
 
-### Listing all macros : `list`
+### Listing all macros : `listmacro`
 
 Lists all presently saved macros in CLI-nic.
 

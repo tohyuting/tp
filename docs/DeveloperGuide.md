@@ -1410,6 +1410,8 @@ Given below are instructions to test the app manually.
 <div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
 
+All `index` referred to in this section refers to index in supplier or warehouse list currently displayed on GUI.
+
 </div>
 
 ### Launch and shutdown
@@ -1445,7 +1447,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/s n/John Doe p/98766789`
       or `add ct/s n/John Doe p/98766789 e/johndoe@example.com z/friend`<br>
       Expected: No supplier is added. Error details shown in the response message. A help message displayed
-      to guide user accordingly. SupplierList on GUI remain unchanged.
+      to guide user accordingly. SupplierList on GUI remains unchanged.
    1. Test case: Add order with existing SUPPLIER_NAME in list e.g. `add ct/s n/John Doe p/98766789 e
       /johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
       Expected: An error will occur and a message will be displayed, stating that a supplier with duplicate
@@ -1464,7 +1466,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Ptd Ltd p/98766789`
       or `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01 z/large`<br>
       Expected: No warehouse is added. Error details shown in the response message. A help message displayed
-      to guide user accordingly. WarehouseList on GUI remain unchanged.
+      to guide user accordingly. WarehouseList on GUI remains unchanged.
    1. Test case: Add order with existing WAREHOUSE_NAME in list e.g. `add ct/w n/John Ptd Ltd p/98766789
       addr/John street, block 123, #01-01` followed by `add ct/w n/John Ptd Ltd p/91234567 addr/Ang Mo Kio
       street 12, block 123, #01-01`<br>
@@ -1488,25 +1490,75 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Editing a warehouse
+### Editing a Supplier
 
-1. Add command format: `add ct/TYPE n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
+1. Edit command format: `edit ct/s i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/REMARK]`
 
-   1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123
-      , #01-01`<br>
-      Expected: Adds a warehouse with the above details to the list and displayed on the GUI.
-   1. Test case: With remarks e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01
-      r/Largest warehouse`<br>
-      Expected: Adds the warehouse to the list, including the remark
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Ptd Ltd p/98766789`
-      or `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01 z/large`<br>
-      Expected: No warehouse is added. Error details shown in the response message. A help message displayed
-      to guide user accordingly. WarehouseList on GUI remain unchanged.
-   1. Test case: Add order with existing WAREHOUSE_NAME in list e.g. `add ct/w n/John Ptd Ltd p/98766789
-      addr/John street, block 123, #01-01` followed by `add ct/w n/John Ptd Ltd p/91234567 addr/Ang Mo Kio
-      street 12, block 123, #01-01`<br>
+   1. Prerequisites: Suppliers in CLI-nic does not have a supplier named Alice Ptd Ltd (with the exception of test case to test for duplicated supplier).
+
+   1. Test case: Minimal information e.g. `edit ct/s i/1 n/Alice Pte Ltd`<br>
+      Expected: Edits a supplier in index 1 on supplier list to have a name "Alice Pte Ltd".
+   1. Test case: With all fields supplied e.g. `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com r/First Supplier`<br>
+      Expected: Edits a supplier in index 1 on supplier list with all the fields applied.
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com z/large `
+      or `edit ct/s i/1`<br>
+      Expected: No supplier is added. Error details shown in the response message. A help message for edit command will also be displayed
+      to guide user accordingly. SupplierList on GUI remains unchanged.
+   1. Test case: Edits a supplier with existing SUPPLIER_NAME in list e.g. `edit ct/s i/1 n/Alice Pte Ltd` followed by `edit ct/s i/2 n/Alice Pte Ltd`<br>
+      Expected: An error will occur and a message will be displayed, stating that a supplier with duplicate
+      SUPPLIER_NAME cannot be added into the list. SupplierList on GUI remain unchanged.
+
+### Editing a Warehouse
+
+1. Edit command format: `edit ct/w i/INDEX [n/NAME] [p/PHONE] [addr/ADDRESS] [r/REMARK]`
+
+    1. Prerequisites: Warehouses in CLI-nic does not have a warehouse named Alice Warehouse (with the exception of test case to test for duplicated warehouse).
+
+   1. Test case: Minimal information e.g. `edit ct/w i/1 n/Alice Warehouse`<br>
+      Expected: Edits a warehouse in index 1 on warehouse list to have a name "Alice Warehouse".
+   1. Test case: With all fields supplied e.g. `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 r/Largest Warehouse`<br>
+      Expected: Edits a warehouse in index 1 on warehouse list with all the fields applied.
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 z/large `
+      or `edit ct/w i/1`<br>
+      Expected: No warehouse is added. Error details shown in the response message. A help message for edit command will also be displayed
+      to guide user accordingly. WarehouseList on GUI remains unchanged.
+   1. Test case: Edits a warehouse with existing WAREHOUSE_NAME in list e.g. `edit ct/w i/1 n/Alice Warehouse` followed by `edit ct/w i/2 n/Alice Warehouse`<br>
       Expected: An error will occur and a message will be displayed, stating that a warehouse with duplicate
-      WAREHOUSE NAME cannot be added into the list. WarehouseList on GUI remain unchanged.
+      WAREHOUSE_NAME cannot be added into the list. WarehouseList on GUI remain unchanged.
+
+### Viewing a Supplier
+
+1. View command format: `view ct/TYPE i/INDEX`
+
+   1. Test case: View command with complete prefixes e.g. `view ct/s i/1`<br>
+      Expected: SupplierList updates to show only supplier at index 1. Products associated with the supplier and their details are shown in the command result box.
+   1. Test case: View command with missing prefixes e.g `view ct/s` or `view`<br>
+      Expected: SupplierList will not be updated to show only supplier at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
+   1. Test case: View command with index larger than range of supplier list displayed e.g.`view ct/s i/x` (where x is larger than the displayed list size)<br>
+      Expected: Similar to previous.
+
+## Viewing a Warehouse
+
+1. View command format: `view ct/TYPE i/INDEX`
+
+   1. Test case: View command with complete prefixes e.g. `view ct/w i/2`<br>
+      Expected: WarehouseList updates to show only supplier at index 2. Products associated with the warehouse and their details are shown in the command result box.
+   1. Test case: View command with missing prefixes e.g `view ct/s` or `view`<br>
+      Expected: WarehouseList will not be updated to show only supplier at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
+   1. Test case: View command with index larger than range of warehouse list displayed e.g.`view ct/w i/x` (where x is larger than the displayed list size)<br>
+      Expected: Similar to previous.
+
+  ## List
+
+1. View command format: `view ct/TYPE i/INDEX`
+
+   1. Test case: View command with complete prefixes e.g. `view ct/w i/2`<br>
+      Expected: WarehouseList updates to show only supplier at index 2. Products associated with the warehouse and their details are shown in the command result box.
+   1. Test case: View command with missing prefixes e.g `view ct/s` or `view`<br>
+      Expected: WarehouseList will not be updated to show only supplier at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
+   1. Test case: View command with index larger than range of warehouse list displayed e.g.`view ct/w i/x` (where x is larger than the displayed list size)<br>
+      Expected: Similar to previous.
+
 
 ### Saving data
 
