@@ -34,8 +34,7 @@ Given below are my contributions to the project.
    * Justification: This is an essential update, as invalid actions would affect the functionality of the
     CLI-nic. Unresolved UI bugs may not display all the information that users are looking for.
 
-* **Minor Enhancement**: Adaptation and integration of autocomplete feature (Pull request: [#223](https
-://github.com/AY2021S1-CS2103-W14-4/tp/pull/223), [Current PR])
+* **Minor Enhancement**: Adaptation and integration of autocomplete feature (Pull request: [#223](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/223), [Current PR])
    * What it does: Suggests updated autocompleted commands for user in real time as they key in the command
     they would like to execute.
    * Justification: This is a good-to-have feature which can help improve user experience as they would be
