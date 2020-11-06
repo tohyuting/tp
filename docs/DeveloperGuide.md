@@ -494,8 +494,8 @@ The main design considerations associated to the feature include:
 * How should the feature enforce separate requirements for new and existing products.
 
 The consideration of whether there should be separate commands to update products under warehouses or suppliers firstly depend on the similarity between the products under both types.
-Initially, we considered that supplier products should only have fields for names and tags, while the warehouse products should only have fields for quantities, as it is arguable that the quantity for suppliers 
-may not be known, and that tagging of warehouse products may not be very important. However, we later decided that it is better to give users this flexibility to include any 
+Initially, we considered that supplier products should only have fields for names and tags, while the warehouse products should only have fields for quantities, as it is arguable that the quantity for suppliers
+ may not be known, and that tagging of warehouse products may not be very important. However, we later decided that it is better to give users this flexibility to include any 
 tags or quantities associated to the product regardless of supplier or warehouse, as these requirements may differ from user to user, and it may not be beneficial to restrict users as such. 
 Then this decision would mean that the updating of products for warehouse and supplier was very similar, and hence we felt that it may also be more user-friendly to combine the 2 into 
 one command so that users do not need to learn an additional command.

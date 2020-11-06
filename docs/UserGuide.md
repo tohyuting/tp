@@ -36,7 +36,7 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
    * **`add`** `ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor` : Adds a
     supplier named `Philips Pharmaceutical` with the phone number `00000000` and email `philipsPharm@gmail.com` to
     CLI-nic. This supplier is the `Largest contractor`.
-    
+
    * **`assignmacro`** `a/findsup cs/find ct/s pd/panadol` : Assigns a macro that pairs the alias `findsup` to the
    command string `find ct/s pd/panadol`.
 
