@@ -761,13 +761,18 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the warehouse/supplier being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-### AutoComplete feature
+### Auto-complete feature
+
 In this section, the functionality of the auto-complete feature will be discussed together with the expected
 interface.
 
-#### What is the AutoComplete feature
+#### What is the Auto-complete feature
+
+The auto-complete feature is to helps user complete their commands faster through the suggestions of
+commands with their corresponding compulsory prefixes based on user input.
 
 #### How it is implemented
+
 All possible commands and their compulsory prefixes are saved in a SortedSet.
 
 When a user types a command on the text box, `AutoCompleteTextField#populatePopup` will be called where the
@@ -784,13 +789,13 @@ The auto-complete feature is implemented this way to reduce the need for space o
 up when there is a potential match. It would also serve to value add to the user experience by speeding up
 the process of typing the full command and reduce mistakes by including all the compulsory prefixes.
 
-#### How AutoComplete works
+#### How Auto-complete works
 
 User wishes to enter an `add` command to add a supplier via `add ct/s n/John p/91234567 e/john@example.com
  r/friend`.
 
-Upon typing either "a", "ad" or even "add", the auto-complete context menu will pop up showing the possible
-auto-complete list, mainly:
+Upon typing "a", the auto-complete context menu will pop up showing the possible auto-completed commands
+, mainly:
 
 add ct/s n/ p/ e/ r/
 
@@ -798,8 +803,15 @@ add ct/w n/ p/ addr/ r/
 
 assignmacro a/ cs/
 
-Upon seeing that, the user will be able to select from those options or use them as a guide to complete
+Upon seeing this, the user will be able to select from those options or use them as a guide to complete
 his/her commands more intuitively.
+
+#### Design consideration
+
+When the full command for single-worded commands are typed in the commandBox, the
+AutoCompleteTextField#popUpEntries would be hidden to achieve smoother navigation for users when
+accessing commandHistory.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -820,7 +832,7 @@ his/her commands more intuitively.
 **Target user profile**:
 
 * manager of a medical supplies company that manages warehouses across the country
-* tech-savvy manager who prefers typing to clicking
+* tech-savvy manager who prefers typing but still comfortable with clicking
 * keeps track of supplies in each warehouse
 * needs to quickly identify which suppliers to contact when restocking medical supplies
 
