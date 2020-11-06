@@ -1490,6 +1490,15 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
 1. _{ more test cases …​ }_
 
+## Clearing CLI-nic
+
+1. Clear command format: `clear`
+
+   1. Test case: Clear command with no additional arguments e.g. `clear`<br>
+      Expected: CLI-nic clears all suppliers and warehouses data in CLI-nic.
+   1. Test case: Clear command with additional arguments e.g. `clear test` or `clear i/1`<br>
+      Expected: Similar to previous.
+
 ### Editing a Supplier
 
 1. Edit command format: `edit ct/s i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/REMARK]`
@@ -1526,6 +1535,24 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: An error will occur and a message will be displayed, stating that a warehouse with duplicate
       WAREHOUSE_NAME cannot be added into the list. WarehouseList on GUI remain unchanged.
 
+## Exiting CLI-nic
+
+1. Exit command format: `exit`
+
+   1. Test case: Exit command with no additional arguments e.g. `edit`<br>
+      Expected: CLI-nic closes with current state of data saved.
+   1. Test case: Exit command with additional arguments e.g. `exit test` or `exit ct/s`<br>
+      Expected: Similar to previous.
+
+## Listing CLI-nic
+
+1. List command format: `list`
+
+   1. Test case: List command with no additional arguments e.g. `list`<br>
+      Expected: CLI-nic lists all suppliers and warehouses data in CLI-nic.
+   1. Test case: List command with additional arguments e.g. `list test` or `list i/1`<br>
+      Expected: Similar to previous.   
+
 ### Viewing a Supplier
 
 1. View command format: `view ct/TYPE i/INDEX`
@@ -1548,32 +1575,16 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: View command with index larger than range of warehouse list displayed e.g.`view ct/w i/x` (where x is larger than the displayed list size)<br>
       Expected: Similar to previous.
 
-## Exiting CLI-nic
+## Viewing help messages for various commands
 
-1. Exit command format: `exit`
+1. View command format: `help [COMMAND]`
 
-   1. Test case: Exit command with no additional arguments e.g. `edit`<br>
-      Expected: CLI-nic closes with current state of data saved.
-   1. Test case: Exit command with additional arguments e.g. `exit test` or `exit ct/s`<br>
-      Expected: Similar to previous.
-
-## Clearing CLI-nic
-
-1. Clear command format: `clear`
-
-   1. Test case: Clear command with no additional arguments e.g. `clear`<br>
-      Expected: CLI-nic clears all suppliers and warehouses data in CLI-nic.
-   1. Test case: Clear command with additional arguments e.g. `clear test` or `clear i/1`<br>
-      Expected: Similar to previous.
-
-## Listing CLI-nic
-
-1. List command format: `list`
-
-   1. Test case: List command with no additional arguments e.g. `list`<br>
-      Expected: CLI-nic lists all suppliers and warehouses data in CLI-nic.
-   1. Test case: List command with additional arguments e.g. `list test` or `list i/1`<br>
-      Expected: Similar to previous.      
+   1. Test case: View command with complete prefixes e.g. `view ct/w i/2`<br>
+      Expected: WarehouseList updates to show only supplier at index 2. Products associated with the warehouse and their details are shown in the command result box.
+   1. Test case: View command with missing prefixes e.g `view ct/s` or `view`<br>
+      Expected: WarehouseList will not be updated to show only supplier at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
+   1. Test case: View command with index larger than range of warehouse list displayed e.g.`view ct/w i/x` (where x is larger than the displayed list size)<br>
+      Expected: Similar to previous.   
 
 ### Saving data
 
