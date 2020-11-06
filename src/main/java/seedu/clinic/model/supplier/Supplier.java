@@ -101,7 +101,24 @@ public class Supplier {
     }
 
     /**
-     * Returns true if both suppliers of the same name have at least one other identity field that is the same.
+     * Returns true if both suppliers are equal, with name (case sensitive).
+     * This defines a weaker notion of equality between two suppliers than equals.
+     */
+    public boolean equalsSupplierCaseSensitive(Supplier otherSupplier) {
+        if (otherSupplier == this) {
+            return true;
+        }
+
+        return otherSupplier != null
+                && otherSupplier.getName().equalsCaseSensitive(getName())
+                && otherSupplier.getPhone().equals(getPhone())
+                && otherSupplier.getEmail().equals(getEmail())
+                && otherSupplier.getRemark().equals(getRemark())
+                && otherSupplier.getProducts().equals(getProducts());
+    }
+
+    /**
+     * Returns true if both suppliers of the same name (case insensitive).
      * This defines a weaker notion of equality between two suppliers.
      */
     public boolean isSameSupplier(Supplier otherSupplier) {

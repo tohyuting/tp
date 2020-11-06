@@ -1,0 +1,52 @@
+@startuml
+start
+:User enters update command with relevant prefixes;
+:Parse user input;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([command type, supplier/warehouse name and product prefixes present])
+    :Parse command arguments;
+    if () then([all prefix arguments supplied are valid])
+        :Generate new UpdateProductDescriptor
+        with the tags/quantity supplied;
+        :Generate new Update Command;
+        :Execute Update Command;
+
+        if () then([supplier/warehouse exists])
+          if() then([product exists and neither tags nor quantity supplied])
+            :Generate message indicating no
+            fields provided for update;
+          else ([else])
+            if () then([product does not exist])
+              :Generate base product with
+              the specified name;
+            else ([product exists])
+              :Retrieve and remove existing
+              product for updating;
+            endif
+
+            :Generate updated product from the base/retrieved
+            product and UpdateProductDescriptor;
+            :Adds the updated product to the warehouse/supplier;
+            :Generate success message;
+          endif
+
+        else ([else])
+          :Generate message indicating
+          supplier/warehouse not found;
+        endif
+
+
+    else ([else])
+    :Generate message indicating
+    invalid arguments;
+    endif
+else ([else])
+    :Generate message indicating
+    invalid format;
+endif
+:Display result message to user;
+stop
+@enduml

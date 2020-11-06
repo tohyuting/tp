@@ -16,6 +16,7 @@ import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.ListMacroCommand;
 import seedu.clinic.logic.commands.RedoCommand;
 import seedu.clinic.logic.commands.RemoveMacroCommand;
 import seedu.clinic.logic.commands.UndoCommand;
@@ -48,6 +49,7 @@ public class ClinicParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -66,6 +68,9 @@ public class ClinicParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case ListMacroCommand.COMMAND_WORD:
+            return new ListMacroCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -95,5 +100,4 @@ public class ClinicParser {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }

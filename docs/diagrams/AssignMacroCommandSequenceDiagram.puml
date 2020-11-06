@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ClinicParser" as ClinicParser LOGIC_COLOR
+participant ":AssignMacroCommandParser" as AssignMacroCommandParser LOGIC_COLOR
+participant ":AssignMacroCommand" as AssignMacroCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("assignMacro a/uw cs/update ct/w")
+activate LogicManager
+
+LogicManager -> ClinicParser : parseCommand("assignMacro a/uw cs/update ct/w")
+activate ClinicParser
+
+create AssignMacroCommandParser
+ClinicParser -> AssignMacroCommandParser
+activate AssignMacroCommandParser
+
+AssignMacroCommandParser --> ClinicParser
+deactivate AssignMacroCommandParser
+
+ClinicParser -> AssignMacroCommandParser : parse("a/uw cs/update ct/w")
+activate AssignMacroCommandParser
+
+create AssignMacroCommand
+AssignMacroCommandParser -> AssignMacroCommand
+activate AssignMacroCommand
+
+AssignMacroCommand --> AssignMacroCommandParser :
+deactivate AssignMacroCommand
+
+AssignMacroCommandParser --> ClinicParser : command
+deactivate AssignMacroCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AssignMacroCommandParser -[hidden]-> ClinicParser
+destroy AssignMacroCommandParser
+
+ClinicParser --> LogicManager :
+deactivate ClinicParser
+
+LogicManager -> AssignMacroCommand : execute()
+activate AssignMacroCommand
+
+AssignMacroCommand -> Model : hasMacro(macro)
+activate Model
+
+Model --> AssignMacroCommand :
+deactivate Model
+
+AssignMacroCommand -> Model : addMacro(macro)
+activate Model
+
+Model --> AssignMacroCommand :
+deactivate Model
+
+create CommandResult
+AssignMacroCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AssignMacroCommand
+deactivate CommandResult
+
+AssignMacroCommand --> LogicManager : result
+deactivate AssignMacroCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

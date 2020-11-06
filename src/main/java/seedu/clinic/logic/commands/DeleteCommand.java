@@ -33,9 +33,14 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String COMPLETE_DELETE_SUPPLIER_COMMAND = "delete ct/s i/";
+    public static final String COMPLETE_DELETE_WAREHOUSE_COMMAND = "delete ct/w i/";
+    public static final String COMPLETE_DELETE_SUPPLIER_PRODUCT_COMMAND = "delete ct/ps i/ pd/";
+    public static final String COMPLETE_DELETE_WAREHOUSE_PRODUCT_COMMAND = "delete ct/pw i/ pd/";
 
     public static final String MESSAGE_USAGE =
-            "Usage 1 - Deletes the supplier or warehouse identified by the index number used in the displayed lists."
+            "Delete Command Usage\n\nUsage 1 - Deletes the supplier or warehouse identified by the index"
+            + " number used in the displayed lists."
             + " INDEX must be a positive integer, not exceeding the total length of the displayed list.\n\n"
             + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "

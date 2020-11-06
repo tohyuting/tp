@@ -17,7 +17,7 @@ public class MacroParser {
      */
     public String parseMacro(Model model, String userInput) {
         String[] inputWords = userInput.trim().split(" ");
-        Optional<Macro> targetMacro = model.getMacro(inputWords[0].toLowerCase());
+        Optional<Macro> targetMacro = model.getMacro(inputWords[0]);
 
         if (targetMacro.isEmpty()) { // macro does not exist
             return userInput;

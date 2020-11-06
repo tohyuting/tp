@@ -25,8 +25,11 @@ import seedu.clinic.model.warehouse.WarehousePredicate;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
+    public static final String COMPLETE_FIND_SUPPLIER_COMMAND = "find ct/s";
+    public static final String COMPLETE_FIND_WAREHOUSE_COMMAND = "find ct/w";
 
-    public static final String MESSAGE_USAGE = "Finds all supplier(s) or warehouse(s) whose name,"
+    public static final String MESSAGE_USAGE = "Find Command Usage\n\nFinds all supplier(s) or warehouse(s)"
+            + " whose name,"
             + " remark and/or name of products matches any of the specified keywords (case-insensitive) and displays"
             + " them as a list with index numbers. Prefixes provided can be in any order. At least one of the name,"
             + "  remark or product prefixes along with its parameters must be provided.\n\n"

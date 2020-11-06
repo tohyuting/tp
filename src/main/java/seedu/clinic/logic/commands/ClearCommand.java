@@ -12,11 +12,9 @@ import seedu.clinic.model.Model;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_USAGE = "Clears all suppliers and warehouses' entries in"
-            + " CLI-nic.\n\n"
-            + "Example:\n"
-            + COMMAND_WORD;
 
+    public static final String MESSAGE_USAGE = "Clear Command Usage\n\nClears all suppliers and warehouses'"
+            + " entries in";
     public static final String MESSAGE_SUCCESS = "CLI-nic has been cleared!";
     public static final String MESSAGE_EMPTY_CLINIC = "The CLI-nic is already empty, not data to clear";
 
