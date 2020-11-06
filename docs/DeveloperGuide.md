@@ -750,7 +750,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 #### Design consideration:
 
-##### Aspect: How undo & redo executes
+#### Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire CLI-nic into two stacks for undo and redo.
   * Pros: Easy to implement.
@@ -806,7 +806,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | standard user  | edit the information of a specific warehouse or supplier          | easily update any changes in contact information of a particular supplier/warehouse |
 | `* * *`  | standard user  | find medical products associated with warehouses or suppliers     | locate relevant items without having to go through all the lists                |
 | `* * *`  | standard user  | list all warehouses or suppliers     | easily see all the suppliers and warehouses I am in charge of|
-| `* * *`  | standard user  | view the information of a specific warehouse or supplier          | retrieve details about suppliers/warehouses I can't remember and contact them       |
+| `* * *`  | standard user  | view the information of a specific warehouse or supplier          | retrieve details about the supplier/warehouse I can't remember and contact them       |
+| `* * *`  | standard user  | view the products of a specific warehouse          | retrieve products associated with the warehouse to see if restocking is needed   |
+| `* * *`  | standard user  | view the products of a specific supplier        | retrieve products associated with the supplier to see if they have enough stocks for me to place an order   |
 | `* * *`  | standard user  | Undo my previous editing on the data    | fix any wrong entry into the data if I've done so by mistake|
 | `* * *`  | standard user  | redo my previous undone editing on the data    | recover the undone editing earlier if I want those editing back|
 | `* * * ` | intermediate user | update the information for a specific product in warehouses and suppliers | keep track of the changes in the stocks of the warehouses |
@@ -1002,7 +1004,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 3b1-3b2 are repeated until the name entered is valid. <br>
     Use case resumes at step 4.
 
-**Use case: UC08 Edits a supplier**
+**Use case: UC08 Edit a supplier**
 
 **MSS**
 
@@ -1385,16 +1387,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### Command Prefix
 |Prefix |Meaning |Used in the following Command(s)|
 | ------- |-------- | ------------ |
-|ct/ |Command Type |Add, Delete, Edit, Find, Update |
-|n/ |Supplier/Warehouse Name |Add, Edit, Find, Update |
-|p/ |Phone Number |Add, Edit |
-|e/ |Email Address |Add, Edit |
+|a/ | Alias |Assign Macro|
 |addr/ |Address |Add, Edit |
-|r/ |Remark |Add, Find, Edit |
-|pd/ |Product Name |Edit, Delete, Find, Update |
-|i/ |Index |Delete |
-|t/ |Tag |Update |
+|cs/ |Command String |Assign Macro|
+|ct/ |Command Type |Add, Delete, Edit, Find, Update |
+|e/ |Email Address |Add, Edit |
+|i/ |Index |Delete, Edit, View, Update |
+|n/ |Supplier/Warehouse Name |Add, Find |
+|p/ |Phone Number |Add, Edit |
+|pd/ |Product Name |Delete, Find, Update |
 |q/ |Quantity of product |Update |
+|r/ |Remark |Add, Find, Edit |
+|t/ |Product Tag |Update |
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -1422,7 +1427,11 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+1. Shutdown of CLI-nic
+   1. Close the window. Alternatively, shutdown CLI-nic using `exit` command detailed below.
+   1. All data added/edited prior to shutdown will be saved.
+   1. Re-launch the app by double-clicking the jar file.
+       Expected: All data added/edited prior to shutdown are displayed.
 
 ### Adding a supplier
 
