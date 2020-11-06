@@ -34,7 +34,7 @@ Given below are my contributions to the project.
    * Justification: This is an essential update, as invalid actions would affect the functionality of the
     CLI-nic. Unresolved UI bugs may not display all the information that users are looking for.
 
-* **Minor Enhancement**: Adaptation and integration of autocomplete feature (Pull request: [#223](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/223), [Current PR])
+* **Minor Enhancement**: Adaptation and integration of autocomplete feature (Pull request: [#223](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/223), [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
    * What it does: Suggests updated autocompleted commands for user in real time as they key in the command
     they would like to execute.
    * Justification: This is a good-to-have feature which can help improve user experience as they would be
@@ -57,12 +57,11 @@ Given below are my contributions to the project.
 * **Documentation**:
   * User Guide:
     * Added documentation for the `add` commands in the user guide (Pull requests: [#75](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/75), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
-    * Added documentation for the `autoComplete` in the user guide (Pull request: [Current PR])
+    * Added documentation for the `autoComplete` in the user guide (Pull request: [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
   * Developer Guide:
     * Refactored DG to CLI-nic use case (Pull request: [#129](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/129))
     * Added implementation details of the `add` feature (Pull requests: [#139](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/139), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
-    * Added implementation details for `autoComplete` (Pull request: [Current PR])
-    * Added new user stories for `autocomplete` (Pull request: [Current PR])
+    * Added implementation details and user stories for `autoComplete` (Pull request: [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
     * Added UML (Including Activity Diagram, Class Diagram and Sequence Diagram) (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
     * Added Manual Testing Instructions for Developer Guide (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
     * Added Command Prefix table (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
