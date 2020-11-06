@@ -39,7 +39,8 @@ public class DeleteCommand extends Command {
     public static final String COMPLETE_DELETE_WAREHOUSE_PRODUCT_COMMAND = "delete ct/pw i/ pd/";
 
     public static final String MESSAGE_USAGE =
-            "Usage 1 - Deletes the supplier or warehouse identified by the index number used in the displayed lists."
+            "Delete Command Usage\n\nUsage 1 - Deletes the supplier or warehouse identified by the index"
+            + " number used in the displayed lists."
             + " INDEX must be a positive integer, not exceeding the total length of the displayed list.\n\n"
             + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "

@@ -38,6 +38,16 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Checks if two Name objects are equal, by doing a comparison using {@code fullName}. This check
+     * is a weaker equality as it is case sensitive.
+     */
+    public boolean equalsCaseSensitive(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Name // instanceof handles nulls
+                && fullName.equals(((Name) other).fullName)); // state check
+    }
+
 
     @Override
     public String toString() {

@@ -36,11 +36,12 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
-    public static final String COMPULSORY_UPDATE_SUPPLIER_COMMAND = "update ct/s n/ pd/";
-    public static final String COMPULSORY_UPDATE_WAREHOUSE_COMMAND = "update ct/w n/ pd/";
+    public static final String COMPULSORY_UPDATE_SUPPLIER_COMMAND = "update ct/s i/ pd/";
+    public static final String COMPULSORY_UPDATE_WAREHOUSE_COMMAND = "update ct/w i/ pd/";
 
-    public static final String MESSAGE_USAGE = "Updates the quantity and/or tags of the product for the supplier"
-            + " or warehouse at the specified index. If the product does not exist for that supplier or"
+    public static final String MESSAGE_USAGE = "Update Command Usage\n\nUpdates the quantity and/or tags of"
+            + " the product with the specified"
+            + " name in the specified supplier or warehouse. If the product does not exist for that supplier or"
             + " warehouse, a new product will be created for that supplier or warehouse."
             + " TYPE specified should be either s for supplier or w for warehouse. QUANTITY should"
             + " be a non-negative unsigned integer. If the PRODUCT_NAME already exists in the supplier or warehouse,"
@@ -59,7 +60,7 @@ public class UpdateCommand extends Command {
             + PREFIX_PRODUCT_QUANTITY + "350 "
             + PREFIX_TAG + "Fever";
 
-    public static final String MESSAGE_SUCCESS = "Product stock updated: %1$s in %2$s.";
+    public static final String MESSAGE_SUCCESS = "Product stock updated: \n\n%1$s\n\nin %2$s.";
     private static final String MESSAGE_INVALID_TYPE = "Invalid Type.";
     private static final String MESSAGE_EMPTY_DESCRIPTOR = "Either the quantity or tags (or both) has to be "
             + "supplied to update an existing product.";
@@ -125,7 +126,7 @@ public class UpdateCommand extends Command {
         model.setWarehouse(warehouseToUpdate, updatedWarehouse);
         model.updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
         model.saveVersionedClinic();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toString(),
+        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toStringWithTags().trim(),
                 updatedWarehouse.getName().fullName));
     }
 
@@ -158,7 +159,7 @@ public class UpdateCommand extends Command {
         model.setSupplier(supplierToUpdate, updatedSupplier);
         model.updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
         model.saveVersionedClinic();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toString(),
+        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedProduct.toStringWithTags().trim(),
                 updatedSupplier.getName().fullName));
     }
 

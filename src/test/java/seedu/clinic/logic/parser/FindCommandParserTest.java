@@ -3,6 +3,7 @@ package seedu.clinic.logic.parser;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -52,9 +53,12 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_invalidType_throwsParseException() {
-        assertParseFailure(parser, " ct/supplier pd/panadol", String.format(ParserUtil.MESSAGE_INVALID_TYPE));
-        assertParseFailure(parser, " ct/warehouse pd/panadol", String.format(ParserUtil.MESSAGE_INVALID_TYPE));
-        assertParseFailure(parser, " ct/pss pd/panadol", String.format(ParserUtil.MESSAGE_INVALID_TYPE));
+        assertParseFailure(parser, " ct/supplier pd/panadol",
+                String.format(MESSAGE_INVALID_TYPE, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " ct/warehouse pd/panadol",
+                String.format(MESSAGE_INVALID_TYPE, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " ct/pss pd/panadol",
+                String.format(MESSAGE_INVALID_TYPE, FindCommand.MESSAGE_USAGE));
 
         assertParseFailure(parser, " ct/ps n/alex", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 FindCommand.MESSAGE_INVALID_TYPE));
