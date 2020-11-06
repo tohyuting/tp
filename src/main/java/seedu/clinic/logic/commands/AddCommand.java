@@ -66,6 +66,11 @@ public class AddCommand extends Command {
             + " that you at least include: ct/s n/SUPPLIER_NAME, p/PHONE and e/EMAIL_ADDRESS\n\n%1$s";
     public static final String MESSAGE_WAREHOUSE_MISSING_PREFIX = "There are missing prefixes, ensure"
             + " that you at least include: ct/w n/WAREHOUSE_NAME, p/PHONE and addr/ADDRESS\n\n%1$s";
+    public static final String MESSAGE_INVALID_SUPPLIER_ADDRESS_PREFIX = "Additional address prefix"
+            + " detected, a supplier should not have the address prefix (addr/)\n\n%1$s";
+    public static final String MESSAGE_INVALID_WAREHOUSE_EMAIL_PREFIX = "Additional email prefix"
+            + " detected, a warehouse should not have the email prefix (e/)\n\n%1$s";
+
 
     private static final String LOG_MESSAGE_RECEIVE_SUPPLIER = "Received information to add supplier.";
     private static final String LOG_MESSAGE_RECEIVE_WAREHOUSE = "Received information to add warehouse.";

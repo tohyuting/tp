@@ -1,6 +1,8 @@
 package seedu.clinic.logic.parser;
 
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinic.logic.commands.AddCommand.MESSAGE_INVALID_SUPPLIER_ADDRESS_PREFIX;
+import static seedu.clinic.logic.commands.AddCommand.MESSAGE_INVALID_WAREHOUSE_EMAIL_PREFIX;
 import static seedu.clinic.logic.commands.AddCommand.MESSAGE_MISSING_TYPE_PREFIX;
 import static seedu.clinic.logic.commands.AddCommand.MESSAGE_SUPPLIER_MISSING_PREFIX;
 import static seedu.clinic.logic.commands.AddCommand.MESSAGE_WAREHOUSE_MISSING_PREFIX;
@@ -95,6 +97,11 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_SUPPLIER_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
         }
 
+        if (ParserUtil.arePrefixesPresent(argMultimap, PREFIX_ADDRESS)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_SUPPLIER_ADDRESS_PREFIX,
+                    AddCommand.MESSAGE_USAGE));
+        }
+
         if (!argMultimap.getPreamble().isEmpty()) {
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AddCommand.MESSAGE_USAGE);
         }
@@ -130,6 +137,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS)) {
             throw new ParseException(String.format(MESSAGE_WAREHOUSE_MISSING_PREFIX, AddCommand.MESSAGE_USAGE));
+        }
+
+        if (ParserUtil.arePrefixesPresent(argMultimap, PREFIX_EMAIL)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_WAREHOUSE_EMAIL_PREFIX,
+                    AddCommand.MESSAGE_USAGE));
         }
 
         if (!argMultimap.getPreamble().isEmpty()) {
