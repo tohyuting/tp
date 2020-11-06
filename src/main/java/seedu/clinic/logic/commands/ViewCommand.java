@@ -38,6 +38,9 @@ public class ViewCommand extends Command {
             + "1) " + COMMAND_WORD + " " + PREFIX_TYPE + "s " + PREFIX_INDEX + "2\n"
             + "2) " + COMMAND_WORD + " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "5";
 
+    public static final String COMPULSORY_VIEW_SUPPLIER_COMMAND = "view ct/s i/";
+    public static final String COMPULSORY_VIEW_WAREHOUSE_COMMAND = "view ct/w i/";
+
     public static final String MESSAGE_INVALID_TYPE_VIEW = "Please specify a correct type,"
             + " either ct/s or ct/w\n%1$s";
 
