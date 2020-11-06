@@ -495,16 +495,16 @@ The main design considerations associated to the feature include:
 
 The consideration of whether there should be separate commands to update products under warehouses or suppliers firstly depend on the similarity between the products under both types.
 Initially, we considered that supplier products should only have fields for names and tags, while the warehouse products should only have fields for quantities, as it is arguable that the quantity for suppliers
- may not be known, and that tagging of warehouse products may not be very important. However, we later decided that it is better to give users this flexibility to include any 
-tags or quantities associated to the product regardless of supplier or warehouse, as these requirements may differ from user to user, and it may not be beneficial to restrict users as such. 
-Then this decision would mean that the updating of products for warehouse and supplier was very similar, and hence we felt that it may also be more user-friendly to combine the 2 into 
-one command so that users do not need to learn an additional command.
+ may not be known, and that tagging of warehouse products may not be very important. However, we later decided that it is better to give users this flexibility to include any
+ tags or quantities associated to the product regardless of supplier or warehouse, as these requirements may differ from user to user, and it may not be beneficial to restrict users as such.
+ Then this decision would mean that the updating of products for warehouse and supplier was very similar, and hence we felt that it may also be more user-friendly to combine the 2 into
+ one command so that users do not need to learn an additional command.
 
 Initially, the supplier/warehouse to update the product was referenced by the user using the warehouse/supplier's full name. This allowed the user to update the specific supplier/warehouse regardless of the list view
 so that the same update command will reproduce the same results regardless of the display, and so that the user does not have to enter an additional list command if the supplier/warehouse is not presently displayed.
 However, this would mean that if the user is manually typing the command, it would be take a long time to enter the command if the supplier/warehouse name is very long, and it is also more prone to typos. Hence we decided
-to make the compromise to use list indexing instead, standardising the format with the other commands, as we felt that for most use cases, using the index to reference the supplier/warehouse would be more efficient for the user, 
-and that was our main priority.
+to make the compromise to use list indexing instead, standardising the format with the other commands, as we felt that for most use cases, using the index to reference the supplier/warehouse would be more efficient for the user,
+ and that was our main priority.
 
 Similar to the decision to combine the command for both supplier and warehouse, we decided to allow the update product command to add the product to the warehouse/supplier even if it does not presently exist for that supplier/warehouse, instead of having a separate command
 just for adding products, so as to minimise the total number of commands. With this, all product additions and modifications (excluding deletion) will be processed by the same update command, which also removes the need for users to
@@ -1126,7 +1126,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. CLI-nic retrieves all supplier and warehouse entries, shows lists of suppliers and warehouses and shows a success message.
 
     Use case ends.
-    
+
 **Use case: UC13 List all macros**
 
 **MSS**
@@ -1135,7 +1135,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. CLI-nic retrieves all presently saved macros, and shows it on the GUI.
 
     Use case ends.
-  
+
 **Extensions**
 
 * 1a. There are no presently saved macros.
@@ -1554,7 +1554,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: List command with no additional arguments e.g. `list`<br>
       Expected: CLI-nic lists all suppliers and warehouses data in CLI-nic.
    1. Test case: List command with additional arguments e.g. `list test` or `list i/1`<br>
-      Expected: Similar to previous.   
+      Expected: Similar to previous.
 
 ### Viewing a Supplier
 
