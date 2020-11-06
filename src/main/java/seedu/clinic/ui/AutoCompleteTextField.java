@@ -112,8 +112,6 @@ public class AutoCompleteTextField extends TextField {
         entries.add(ViewCommand.COMPULSORY_VIEW_WAREHOUSE_COMMAND);
     }
 
-
-
     /**
      * Populate the entry set matching the user input.
      * @param searchResult The set of matching strings.
