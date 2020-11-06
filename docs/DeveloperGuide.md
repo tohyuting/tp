@@ -1572,15 +1572,15 @@ All `index` referred to in this section refers to index in supplier or warehouse
 1. View command format: `view ct/TYPE i/INDEX`
 
    1. Test case: View command with complete prefixes e.g. `view ct/w i/2`<br>
-      Expected: WarehouseList updates to show only supplier at index 2. Products associated with the warehouse and their details are shown in the command result box.
-   1. Test case: View command with missing prefixes e.g `view ct/s` or `view`<br>
-      Expected: WarehouseList will not be updated to show only supplier at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
+      Expected: WarehouseList updates to show only warehouse at index 2. Products associated with the warehouse and their details are shown in the command result box.
+   1. Test case: View command with missing prefixes e.g `view ct/w` or `view`<br>
+      Expected: WarehouseList will not be updated to show only warehouse at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. WarehouseList on GUI remains unchanged.
    1. Test case: View command with index larger than range of warehouse list displayed e.g.`view ct/w i/x` (where x is larger than the displayed list size)<br>
       Expected: Similar to previous.
 
 ## Viewing help messages for various commands
 
-1. View command format: `help [COMMAND]`
+1. Help command format: `help [COMMAND]`
 
    1. Test case: View generic help message for all commands e.g. `help`<br>
       Expected: Shows help message consisting of commands available in CLI-nic and what each command does.
@@ -1597,7 +1597,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: CLI-nic loads up without any suppliers or warehouses. The error will be logged in the log file.
 
    1. Test case: Editing Warehouse or Supplier to have the same name. e.g. 2 warehouses with the name `Charlotte Oliveiro warehouse`<br>
-      Expected: Simialr to previous
+      Expected: Similar to previous
 
 1. Data will be saved automatically after every command
    1. Test case: Adding a new supplier or warehouse and close CLI-nic by clicking on "X" instead of exit command. Sample `add` command is documented in the section above.
