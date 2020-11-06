@@ -63,7 +63,7 @@ public class AutoCompleteTextField extends TextField {
     private void checkPopUpEntries() {
         System.out.println(getText());
         if (!popUpEntries.isShowing()) {
-            if (getText().equals("list") && !singleCommandEntries.contains(getText())) {
+            if (!getText().equals("list") && !singleCommandEntries.contains(getText())) {
                 popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -180);
             }
         }
