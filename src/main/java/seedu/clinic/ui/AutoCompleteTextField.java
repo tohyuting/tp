@@ -28,7 +28,8 @@ import seedu.clinic.logic.commands.ViewCommand;
 
 //@@author jeffreytjs-reused
 //Reused from past project with improvements to fit application use case. Autocomplete
-//implementation written by author ShaunNgTX as seen on https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java
+//implementation written by author ShaunNgTX as seen on
+//https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java
 /**
  * A TextField with added implementation of "autocomplete" functionality.
  * Entries are based on Command_Usage.
@@ -109,7 +110,7 @@ public class AutoCompleteTextField extends TextField {
         popUpEntries.getItems().clear();
         popUpEntries.getItems().addAll(menuItems);
     }
-//@@author
+    //@@author
 
     /**
      * Create the existing set of autocomplete entries with single command word.
