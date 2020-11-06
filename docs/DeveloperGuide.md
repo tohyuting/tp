@@ -1040,7 +1040,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case: UC09 Edits a warehouse**
+**Use case: UC09 Edit a warehouse**
 
 **MSS**
 
@@ -1487,6 +1487,26 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+### Editing a warehouse
+
+1. Add command format: `add ct/TYPE n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
+
+   1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123
+      , #01-01`<br>
+      Expected: Adds a warehouse with the above details to the list and displayed on the GUI.
+   1. Test case: With remarks e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01
+      r/Largest warehouse`<br>
+      Expected: Adds the warehouse to the list, including the remark
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Ptd Ltd p/98766789`
+      or `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01 z/large`<br>
+      Expected: No warehouse is added. Error details shown in the response message. A help message displayed
+      to guide user accordingly. WarehouseList on GUI remain unchanged.
+   1. Test case: Add order with existing WAREHOUSE_NAME in list e.g. `add ct/w n/John Ptd Ltd p/98766789
+      addr/John street, block 123, #01-01` followed by `add ct/w n/John Ptd Ltd p/91234567 addr/Ang Mo Kio
+      street 12, block 123, #01-01`<br>
+      Expected: An error will occur and a message will be displayed, stating that a warehouse with duplicate
+      WAREHOUSE NAME cannot be added into the list. WarehouseList on GUI remain unchanged.
 
 ### Saving data
 
