@@ -50,7 +50,7 @@ public class UpdateCommand extends Command {
             + PREFIX_INDEX + "INDEX (Must be a positive integer) "
             + PREFIX_PRODUCT_NAME + "PRODUCT_NAME "
             + "[" + PREFIX_PRODUCT_QUANTITY + "QUANTITY]"
-            + "[" + PREFIX_TAG + "TAG]\n\n"
+            + "[" + PREFIX_TAG + "TAG...]\n\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_TYPE + "w "

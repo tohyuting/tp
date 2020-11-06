@@ -377,19 +377,19 @@ There is no need to save manually.
 Updates the quantity and/or tags of the product with the specified name at the specified supplier index.
 If the product does not exist, a new product will be created for that supplier. 
 
-Format:	`update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG]`
+Format:	`update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
 * `INDEX` must be a positive integer, not exceeding the total length of the displayed supplier list in the GUI.
 * `PRODUCT_NAME` specified is case-insensitive.
 * The supplier should currently exist in the CLI-nic application.
 * `QUANTITY` should be a non-negative unsigned integer.
-* `TAG` should be a single alphanumeric word.
+* `TAG` should be a single alphanumeric word. Multiple tags can be supplied under the same prefix.
 * If `PRODUCT_NAME` already exists in the supplier, at least one optional argument has to be entered.
 
 Example:
 
-* `update ct/s i/4 pd/Panadol q/10 t/fever` : Updates the quantity of `Panadol` sold by the supplier at index 4 in the
-  list of displayed suppliers in the GUI to `10` and gives `Panadol` a tag of `fever`.
+* `update ct/s i/4 pd/Panadol q/10 t/fever cold` : Updates the quantity of `Panadol` sold by the supplier at index 4 in the
+  list of displayed suppliers in the GUI to `10` and gives `Panadol` 2 tags: `fever` and `cold`.
   
 ![update warehouse product](images/updateWarehouseProduct.png)
 
@@ -398,12 +398,12 @@ Example:
 Updates the quantity and/or tags of the product with the specified name at the specified warehouse index.
 If the product does not exist, a new product will be created for that warehouse. 
 
-Format:	`update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG]`
+Format:	`update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
 * `PRODUCT_NAME` specified is case-insensitive.
 * The warehouse should currently exist in the CLI-nic application.
 * `QUANTITY` should be a non-negative unsigned integer.
-* `TAG` should be a single alphanumeric word.
+* `TAG` should be a single alphanumeric word. Multiple tags can be supplied under the same prefix.
 * If `PRODUCT_NAME` already exists in the warehouse, at least one optional argument has to be entered.
 
 Example:
@@ -505,13 +505,9 @@ Action | Format | Example
 **List** All Suppliers and Warehouses | `list`
 **List** All Macros | `listmacro`
 **Remove Macro** | `removemacro ALIAS` | `removemacro uwm`
-**Update** | `update ct/TYPE n/NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w n/WarehouseA pd/Panadol q/10 t/fever`
-**View** | `view ct/TYPE i/INDEX` | `view ct/s i/1`
-**Undo** | `undo`
 **Redo** | `redo`
-**Remove Macro** | `removemacro ALIAS` | `removemacro findsup`
 **Undo** | `undo`
-**Update** Supplier | `update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/s i/1 pd/Panadol q/10 t/fever`
-**Update** Warehouse | `update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w i/2 pd/Panadol q/10 t/fever`
+**Update** Supplier | `update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/s i/1 pd/Panadol q/10 t/fever cold`
+**Update** Warehouse | `update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w i/2 pd/Panadol q/10 t/fever cold`
 **View** Supplier | `view ct/s i/INDEX` | `view ct/s i/1`
 **View** Warehouse | `view ct/w i/INDEX` | `view ct/w i/2`

@@ -1476,6 +1476,42 @@ testers are expected to do more *exploratory* testing.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
+ 
+### Updating a Product in a Supplier/Warehouse
+
+1. Update a product in a supplier/warehouse while all warehouses and suppliers are being shown 
+
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list. First warehouse does not have the product `Panadol` while the first supplier has. 
+
+   1. Test case: `update ct/w i/1 pd/Panadol q/350 t/Fever`<br>
+      Expected: Product with the name `Panadol` with the quantity `350` and tag `fever` added to the first warehouse. Details of the new product shown in the display message.
+
+   1. Test case: `update ct/s i/1 pd/Panadol q/350 t/Fever`<br>
+      Expected: Product with the name `Panadol` in the first supplier is updated with the quantity `350` and tag `fever`. Details of the new product shown in the display message.
+
+   1. Test case: `update ct/s i/1 pd/Panadol`<br>
+      Expected: No product is added as the product exists in the supplier and neither the quantity or tag prefixes were supplied. Error details shown in the displayed message.
+   
+   1. Test case: `update  ct/w i/0 pd/Panadol q/350 t/Fever`<br>
+      Expected: No product is added or updated. Error details shown in the displayed message.
+      
+   1. Test case: `update ct/w i/x pd/Panadol q/350 t/Fever` (where x is larger than the list size)
+      Expected: No product is added or updated. Similar to previous.
+      
+### Assigning a macro
+
+1. Assigning a supplier while all suppliers are being shown
+
+   1. Prerequisites: List all suppliers using the `list` command. Multiple suppliers in the list.
+
+   1. Test case: `delete 1`<br>
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+
+   1. Test case: `delete 0`<br>
+      Expected: No supplier is deleted. Error details shown in the status message. Status bar remains the same.
+
+   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 
