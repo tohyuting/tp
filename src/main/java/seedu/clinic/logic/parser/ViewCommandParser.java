@@ -55,7 +55,6 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         }
 
         Index index;
-
         try {
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {

@@ -206,7 +206,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String remark} into an {@code Remark}.
+     * Parses a {@code String remark} into a {@code Remark}.
      * Leading and trailing whitespaces will be trimmed.
      */
     public static Remark parseRemark(String remark) throws ParseException {
@@ -232,7 +232,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String commandString} into an {@code SavedCommandString}.
+     * Parses a {@code String commandString} into a {@code SavedCommandString}.
      * Leading and trailing whitespaces will be trimmed.
      */
     public static SavedCommandString parseCommandString(String commandString) throws ParseException {
@@ -275,7 +275,7 @@ public class ParserUtil {
 
     /**
      * Helper function for {@code checkInvalidArgumentsInPreamble} to check if there are any
-     *  invalid arguments, such as invalid prefixes or unnecessary arguments used in given {@code preamble}.
+     * invalid arguments, such as invalid prefixes or unnecessary arguments used in given {@code preamble}.
      */
     private static void checkPrefixValid(Prefix prefixUsed, String messageUsage) throws ParseException {
         Prefix[] prefixesNotAccepted;

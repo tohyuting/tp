@@ -54,7 +54,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         Type type;
-
         try {
             type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
             assert type != null : NULL_TYPE_ASSERTION;

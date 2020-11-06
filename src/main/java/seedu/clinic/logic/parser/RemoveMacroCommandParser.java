@@ -11,7 +11,7 @@ public class RemoveMacroCommandParser implements Parser<RemoveMacroCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the RemoveMacroCommand
      * and returns a RemoveMacroCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform to the expected format
      */
     public RemoveMacroCommand parse(String args) throws ParseException {
         try {
