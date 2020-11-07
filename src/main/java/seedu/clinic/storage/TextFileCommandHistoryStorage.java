@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.commons.util.FileUtil;
 import seedu.clinic.model.CommandHistory;
+import seedu.clinic.model.CommandHistoryList;
 import seedu.clinic.model.ReadOnlyCommandHistory;
 
 /**
@@ -56,8 +57,8 @@ public class TextFileCommandHistoryStorage implements CommandHistoryStorage {
             String line = scanner.nextLine();
             commandHistory.add(line);
         }
-
-        return Optional.ofNullable(new CommandHistory(commandHistory));
+        CommandHistoryList commandHistoryList = new CommandHistoryList(commandHistory);
+        return Optional.ofNullable(new CommandHistory(commandHistoryList));
     }
 
     /**

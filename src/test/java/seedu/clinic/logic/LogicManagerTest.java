@@ -4,7 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX;
 import static seedu.clinic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_AMY2;
+import static seedu.clinic.logic.commands.CommandTestUtil.NAME_DESC_BOB2;
+import static seedu.clinic.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
+import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER;
 import static seedu.clinic.testutil.Assert.assertThrows;
+import static seedu.clinic.testutil.TypicalSupplier.BOB;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.clinic.logic.commands.AddCommand;
 import seedu.clinic.logic.commands.CommandResult;
 import seedu.clinic.logic.commands.ListCommand;
 import seedu.clinic.logic.commands.exceptions.CommandException;
@@ -22,11 +30,14 @@ import seedu.clinic.model.ModelManager;
 import seedu.clinic.model.ReadOnlyClinic;
 import seedu.clinic.model.ReadOnlyUserMacros;
 import seedu.clinic.model.UserPrefs;
+import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.storage.JsonClinicStorage;
 import seedu.clinic.storage.JsonUserMacrosStorage;
 import seedu.clinic.storage.JsonUserPrefsStorage;
 import seedu.clinic.storage.StorageManager;
 import seedu.clinic.storage.TextFileCommandHistoryStorage;
+import seedu.clinic.testutil.SupplierBuilder;
+
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -73,7 +84,6 @@ public class LogicManagerTest {
     }
 
 
-    /*
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonClinicIoExceptionThrowingStub
@@ -81,19 +91,43 @@ public class LogicManagerTest {
                 new JsonClinicIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionClinic.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage);
+        JsonUserMacrosStorage userMacrosStorage =
+                new JsonUserMacrosStorage(temporaryFolder.resolve("userMacros.json"));
+        TextFileCommandHistoryStorage commandHistoryStorage = new TextFileCommandHistoryStorageDoesNotSaveStub(
+                temporaryFolder.resolve("commandHistory.txt"));
+        StorageManager storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage,
+                commandHistoryStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + REMARK_DESC_AMY;
-        Supplier expectedSupplier = new SupplierBuilder(AMY).build();
+        String addCommand = AddCommand.COMMAND_WORD + TYPE_DESC_SUPPLIER + NAME_DESC_AMY2
+                + NAME_DESC_BOB2 + PHONE_DESC_BOB + EMAIL_DESC_BOB + REMARK_DESC_BOB;
+        Supplier expectedSupplier = new SupplierBuilder(BOB).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addSupplier(expectedSupplier);
+        expectedModel.saveVersionedClinic();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+
+        // Setup LogicManager with JsonUserMacrosIoExceptionThrowingStub
+        clinicStorage = new JsonClinicStorage(temporaryFolder.resolve("clinic.json"));
+        userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        userMacrosStorage = new JsonUserMacrosIoExceptionThrowingStub(
+                temporaryFolder.resolve("ioExceptionUserMacros.json"));
+        storage = new StorageManager(clinicStorage, userPrefsStorage, userMacrosStorage, commandHistoryStorage);
+        model = new ModelManager();
+        logic = new LogicManager(model, storage);
+
+        // Execute add command
+        addCommand = AddCommand.COMMAND_WORD + TYPE_DESC_SUPPLIER + NAME_DESC_AMY2 + NAME_DESC_BOB2 + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + REMARK_DESC_BOB;
+        expectedSupplier = new SupplierBuilder(BOB).build();
+        expectedModel = new ModelManager();
+        expectedModel.addSupplier(expectedSupplier);
+        expectedModel.saveVersionedClinic();
+        expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
-    */
 
     @Test
     public void getFilteredSupplierList_modifyList_throwsUnsupportedOperationException() {
@@ -108,6 +142,31 @@ public class LogicManagerTest {
     @Test
     public void getMacroList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getMacroList().remove(0));
+    }
+
+    @Test
+    public void getClinic_clinicReturned() {
+        assertEquals(model.getClinic(), logic.getClinic());
+    }
+
+    @Test
+    public void getClinicFilePath_pathReturned() {
+        assertEquals(model.getClinicFilePath(), logic.getClinicFilePath());
+    }
+
+    @Test
+    public void getMacro_macroReturned() {
+        assertEquals(model.getUserMacros(), logic.getUserMacros());
+    }
+
+    @Test
+    public void getMacroPath_pathReturned() {
+        assertEquals(model.getUserMacrosFilePath(), logic.getUserMacrosFilePath());
+    }
+
+    @Test
+    public void getGuiSetting_settingReturned() {
+        assertEquals(model.getGuiSettings(), logic.getGuiSettings());
     }
 
     /**

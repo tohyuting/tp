@@ -45,6 +45,13 @@ public class StringUtilTest {
         assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
     }
 
+    @Test
+    public void isUnsignedIntegerTest() {
+        // EP: not a number
+        assertFalse(StringUtil.isUnsignedInteger("0a"));
+        assertFalse(StringUtil.isUnsignedInteger("0aaa"));
+    }
+
 
     //---------------- Tests for containsWordIgnoreCase --------------------------------------
 

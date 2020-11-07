@@ -31,6 +31,8 @@ import static seedu.clinic.logic.commands.CommandTestUtil.VALID_WAREHOUSE_NAME_A
 import static seedu.clinic.logic.commands.CommandTestUtil.WAREHOUSE_NAME_DESC_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.WAREHOUSE_NAME_DESC_A2;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX;
+import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_TYPE_EDIT;
+import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_USAGE;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_PREFIX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_NO_ADDRESS;
@@ -41,7 +43,7 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_USAGE;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;
@@ -148,6 +150,24 @@ public class EditCommandParserTest {
 
         assertParseFailure(parser, " " + PREFIX_TYPE + "w " + PREFIX_INDEX + " z/testing",
                 String.format(MESSAGE_INVALID_INDEX, EditCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidType_failure() {
+        Index targetIndexSupplier = INDEX_SECOND_SUPPLIER;
+        String userInputSupplier = " " + PREFIX_TYPE + "p " + PREFIX_INDEX
+                + targetIndexSupplier.getOneBased() + PHONE_DESC_BOB
+                + EMAIL_DESC_AMY + NAME_DESC_AMY + REMARK_DESC_AMY;
+
+        assertParseFailure(parser, userInputSupplier,
+                String.format(MESSAGE_INVALID_TYPE, EditCommand.MESSAGE_USAGE));
+
+        userInputSupplier = " " + PREFIX_TYPE + "ps " + PREFIX_INDEX
+                + targetIndexSupplier.getOneBased() + PHONE_DESC_BOB
+                + EMAIL_DESC_AMY + NAME_DESC_AMY + REMARK_DESC_AMY;
+
+        assertParseFailure(parser, userInputSupplier,
+                String.format(MESSAGE_INVALID_TYPE_EDIT, EditCommand.MESSAGE_USAGE));
     }
 
     @Test

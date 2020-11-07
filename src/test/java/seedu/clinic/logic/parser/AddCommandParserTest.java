@@ -1,6 +1,7 @@
 package seedu.clinic.logic.parser;
 
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinic.logic.commands.AddCommand.MESSAGE_MISSING_TYPE_PREFIX;
 import static seedu.clinic.logic.commands.CommandTestUtil.ADDRESS_DESC_WAREHOUSE_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.ADDRESS_DESC_WAREHOUSE_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -28,6 +29,7 @@ import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_WAREHOUSE_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.REMARK_DESC_WAREHOUSE_B;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER;
+import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_SUPPLIER_PRODUCT;
 import static seedu.clinic.logic.commands.CommandTestUtil.TYPE_DESC_WAREHOUSE;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.clinic.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -166,6 +168,9 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_TYPE_DESC + NAME_DESC_WAREHOUSE_A2
                 + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
                 String.format(MESSAGE_INVALID_TYPE, AddCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, TYPE_DESC_SUPPLIER_PRODUCT + NAME_DESC_WAREHOUSE_A2
+                        + PHONE_DESC_WAREHOUSE_A + ADDRESS_DESC_WAREHOUSE_A + REMARK_DESC_WAREHOUSE_A,
+                String.format(MESSAGE_MISSING_TYPE_PREFIX, AddCommand.MESSAGE_USAGE));
 
         // invalid name
         assertParseFailure(parser, TYPE_DESC_SUPPLIER + INVALID_NAME_DESC2 + PHONE_DESC_BOB

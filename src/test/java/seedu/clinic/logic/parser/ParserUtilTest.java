@@ -23,6 +23,8 @@ import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Phone;
 import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.attribute.Tag;
+import seedu.clinic.model.macro.Alias;
+import seedu.clinic.model.macro.SavedCommandString;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "@Rachel Pte.Ltd";
@@ -31,6 +33,8 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_REMARK = new String(new char[120]).replace('\0', 'a');
+    private static final String INVALID_ALIAS = "list";
+    private static final String INVALID_COMMAND_STRING = "list2";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -39,6 +43,8 @@ public class ParserUtilTest {
     private static final String VALID_REMARK = "some remark.";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_ALIAS = "umw";
+    private static final String VALID_COMMAND_STRING = "clear list";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -247,5 +253,49 @@ public class ParserUtilTest {
         assertEquals(expectedTagSet, actualTagSet);
     }
 
-    // TODO: parseProduct test cases
+    @Test
+    public void parseAlias_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAlias(null));
+    }
+
+    @Test
+    public void parseAlias_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAlias(INVALID_ALIAS));
+    }
+
+    @Test
+    public void parseAlias_validValueWithoutWhitespace_returnsEmail() throws Exception {
+        Alias expectedAlias = new Alias(VALID_ALIAS);
+        assertEquals(expectedAlias, ParserUtil.parseAlias(VALID_ALIAS));
+    }
+
+    @Test
+    public void parseAlias_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
+        String aliasWithWhitespace = WHITESPACE + VALID_ALIAS + WHITESPACE;
+        Alias expectedAlias = new Alias(VALID_ALIAS);
+        assertEquals(expectedAlias, ParserUtil.parseAlias(aliasWithWhitespace));
+    }
+
+    @Test
+    public void parseCommandString_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCommandString(null));
+    }
+
+    @Test
+    public void parseCommandString_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCommandString(INVALID_COMMAND_STRING));
+    }
+
+    @Test
+    public void parseCommandString_validValueWithoutWhitespace_returnsEmail() throws Exception {
+        SavedCommandString expectedCommandString = new SavedCommandString(VALID_COMMAND_STRING);
+        assertEquals(expectedCommandString, ParserUtil.parseCommandString(VALID_COMMAND_STRING));
+    }
+
+    @Test
+    public void parseCommandString_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
+        String commandStringWithWhitespace = WHITESPACE + VALID_COMMAND_STRING + WHITESPACE;
+        SavedCommandString expectedCommandString = new SavedCommandString(VALID_COMMAND_STRING);
+        assertEquals(expectedCommandString, ParserUtil.parseCommandString(commandStringWithWhitespace));
+    }
 }

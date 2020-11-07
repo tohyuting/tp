@@ -7,7 +7,7 @@
     "address" : "alice address",
     "remark" : "Warehouse 1 biggest",
     "products": [ {
-      "name": "Gauze",
+      "name": "Panadol",
       "quantity": 100
     } ]
   }, {

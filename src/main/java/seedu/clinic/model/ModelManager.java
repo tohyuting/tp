@@ -12,7 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.clinic.commons.core.GuiSettings;
 import seedu.clinic.commons.core.LogsCenter;
-import seedu.clinic.model.attribute.Name;
+import seedu.clinic.model.exceptions.NoRedoableVersionException;
+import seedu.clinic.model.exceptions.NoUndoableVersionException;
 import seedu.clinic.model.macro.Alias;
 import seedu.clinic.model.macro.Macro;
 import seedu.clinic.model.supplier.Supplier;
@@ -126,7 +127,8 @@ public class ModelManager implements Model {
         return userMacros.getMacro(aliasString);
     }
 
-    @Override public Optional<Macro> getMacro(Alias alias) {
+    @Override
+    public Optional<Macro> getMacro(Alias alias) {
         requireNonNull(alias);
         return userMacros.getMacro(alias);
     }
@@ -179,18 +181,6 @@ public class ModelManager implements Model {
     public boolean hasWarehouse(Warehouse warehouse) {
         requireNonNull(warehouse);
         return clinic.hasWarehouse(warehouse);
-    }
-
-    @Override
-    public Optional<Supplier> getSupplier(Name supplierName) {
-        requireNonNull(supplierName);
-        return clinic.getSupplier(supplierName);
-    }
-
-    @Override
-    public Optional<Warehouse> getWarehouse(Name warehouseName) {
-        requireNonNull(warehouseName);
-        return clinic.getWarehouse(warehouseName);
     }
 
     @Override
@@ -277,14 +267,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undoClinic() {
+    public void undoClinic() throws NoUndoableVersionException {
         clinic.undo();
         updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
         updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);
     }
 
     @Override
-    public void redoClinic() {
+    public void redoClinic() throws NoRedoableVersionException {
         clinic.redo();
         updateFilteredSupplierList(PREDICATE_SHOW_ALL_SUPPLIERS);
         updateFilteredWarehouseList(PREDICATE_SHOW_ALL_WAREHOUSES);

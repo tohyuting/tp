@@ -16,10 +16,10 @@ public class CommandHistory implements ReadOnlyCommandHistory {
 
     /**
      * Constructs a new CommandHistory wrapper that wraps data read from commandHistory.txt.
-     * @param commandHistoryList takes in a list of command history strings.
+     * @param commandHistoryList takes in a list of command history.
      */
-    public CommandHistory(List<String> commandHistoryList) {
-        this.commandHistoryList = new CommandHistoryList(commandHistoryList);
+    public CommandHistory(CommandHistoryList commandHistoryList) {
+        this.commandHistoryList = commandHistoryList;
     }
 
     @Override

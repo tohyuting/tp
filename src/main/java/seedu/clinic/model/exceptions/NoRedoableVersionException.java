@@ -1,4 +1,4 @@
-package seedu.clinic.model.macro.exceptions;
+package seedu.clinic.model.exceptions;
 
 public class NoRedoableVersionException extends RuntimeException {
     public NoRedoableVersionException() {
