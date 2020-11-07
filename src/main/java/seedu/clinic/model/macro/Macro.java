@@ -14,7 +14,9 @@ import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
 import seedu.clinic.logic.commands.ListMacroCommand;
+import seedu.clinic.logic.commands.RedoCommand;
 import seedu.clinic.logic.commands.RemoveMacroCommand;
+import seedu.clinic.logic.commands.UndoCommand;
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.ViewCommand;
 
@@ -27,7 +29,7 @@ public class Macro {
         AddProductCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
         ClearCommand.COMMAND_WORD, FindCommand.COMMAND_WORD, ListCommand.COMMAND_WORD, ListMacroCommand.COMMAND_WORD,
         ExitCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD, RemoveMacroCommand.COMMAND_WORD,
-        UpdateCommand.COMMAND_WORD, ViewCommand.COMMAND_WORD};
+        RedoCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, UpdateCommand.COMMAND_WORD, ViewCommand.COMMAND_WORD};
 
     private final Alias alias;
     private final SavedCommandString savedCommandString;
