@@ -32,7 +32,6 @@ import static seedu.clinic.logic.commands.CommandTestUtil.WAREHOUSE_NAME_DESC_A;
 import static seedu.clinic.logic.commands.CommandTestUtil.WAREHOUSE_NAME_DESC_A2;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_TYPE_EDIT;
-import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_USAGE;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NO_PREFIX;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_NO_ADDRESS;
@@ -44,6 +43,7 @@ import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_USAGE;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_SECOND_SUPPLIER;

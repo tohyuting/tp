@@ -46,7 +46,7 @@ import seedu.clinic.model.macro.SavedCommandString;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index provided is not a non-zero unsigned integer."
-            + "\n\n%1$s";
+            + "The integer value should be less than 2147483648\n\n%1$s";
     public static final String MESSAGE_INVALID_QUANTITY = "Quantity provided is not an unsigned integer."
             + "\n\n%1$s";
     public static final String MESSAGE_INVALID_TYPE_DELETE = "Type is invalid, must be one of s/w/ps/pw."
