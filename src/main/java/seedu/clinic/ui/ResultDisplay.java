@@ -16,6 +16,9 @@ public class ResultDisplay extends UiPart<Region> {
     @FXML
     private TextArea resultDisplay;
 
+    /**
+     * Constructs a new ResultDisplay.
+     */
     public ResultDisplay() {
         super(FXML);
         resultDisplay.setFocusTraversable(false);
