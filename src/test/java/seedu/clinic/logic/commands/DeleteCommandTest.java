@@ -9,9 +9,11 @@ import static seedu.clinic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.clinic.logic.commands.CommandTestUtil.showSupplierAtIndex;
 import static seedu.clinic.logic.commands.CommandTestUtil.showWarehouseAtIndex;
 import static seedu.clinic.logic.commands.DeleteCommand.MESSAGE_DELETE_PRODUCT_IN_SUPPLIER_SUCCESS;
+import static seedu.clinic.logic.commands.DeleteCommand.MESSAGE_DELETE_PRODUCT_IN_WAREHOUSE_SUCCESS;
 import static seedu.clinic.logic.parser.Type.SUPPLIER;
 import static seedu.clinic.logic.parser.Type.SUPPLIER_PRODUCT;
 import static seedu.clinic.logic.parser.Type.WAREHOUSE;
+import static seedu.clinic.logic.parser.Type.WAREHOUSE_PRODUCT;
 import static seedu.clinic.testutil.Assert.assertThrows;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_SUPPLIER;
 import static seedu.clinic.testutil.TypicalIndexes.INDEX_FIRST_WAREHOUSE;
@@ -33,6 +35,7 @@ import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.supplier.Supplier;
 import seedu.clinic.model.warehouse.Warehouse;
 import seedu.clinic.testutil.SupplierBuilder;
+import seedu.clinic.testutil.WarehouseBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -97,6 +100,26 @@ public class DeleteCommandTest {
         expectedModel.setSupplier(supplierToUpdate, expectedSupplier);
         expectedModel.saveVersionedClinic();
         assertCommandSuccess(deleteCommand, modelForSupplier, expectedMessage, expectedModel);
+
+        //test warehouse product
+        Warehouse warehouseToUpdate = modelForWarehouse.getFilteredWarehouseList()
+                .get(INDEX_FIRST_WAREHOUSE.getZeroBased());
+        Warehouse expectedWarehouse = new WarehouseBuilder()
+                .withName(warehouseToUpdate.getName().fullName)
+                .withAddress(warehouseToUpdate.getAddress().value)
+                .withPhone(warehouseToUpdate.getPhone().value)
+                .withRemark(warehouseToUpdate.getRemark().value).build();
+        productToDeleteName = new Name(VALID_PRODUCT_NAME_PANADOL);
+        deleteCommand = new DeleteCommand(WAREHOUSE_PRODUCT, INDEX_FIRST_WAREHOUSE, productToDeleteName);
+
+        expectedMessage = String.format(MESSAGE_DELETE_PRODUCT_IN_WAREHOUSE_SUCCESS,
+                productToDeleteName, warehouseToUpdate.getName());
+
+        expectedModel = new ModelManager(modelForWarehouse.getClinic(), new UserPrefs(), new UserMacros(),
+                new CommandHistory());
+        expectedModel.setWarehouse(warehouseToUpdate, expectedWarehouse);
+        expectedModel.saveVersionedClinic();
+        assertCommandSuccess(deleteCommand, modelForWarehouse, expectedMessage, expectedModel);
     }
 
     @Test
@@ -123,6 +146,16 @@ public class DeleteCommandTest {
                 new DeleteCommand(SUPPLIER_PRODUCT, INDEX_FIRST_SUPPLIER, invalidProductToDeleteName);
 
         assertCommandFailure(deleteCommand, modelForSupplier, expectedMessage);
+
+        Warehouse warehouseToUpdate = modelForWarehouse.getFilteredWarehouseList()
+                .get(INDEX_FIRST_WAREHOUSE.getZeroBased());
+        invalidProductToDeleteName = new Name(VALID_PRODUCT_NAME_ASPIRIN);
+
+        expectedMessage = String.format(Messages.MESSAGE_INVALID_PRODUCT_NAME_IN_WAREHOUSE,
+                invalidProductToDeleteName, warehouseToUpdate.getName());
+        deleteCommand = new DeleteCommand(WAREHOUSE_PRODUCT, INDEX_FIRST_WAREHOUSE, invalidProductToDeleteName);
+
+        assertCommandFailure(deleteCommand, modelForWarehouse, expectedMessage);
     }
 
     @Test

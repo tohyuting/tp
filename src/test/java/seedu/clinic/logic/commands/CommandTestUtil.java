@@ -177,6 +177,7 @@ public class CommandTestUtil {
 
     public static final UpdateProductDescriptor DESC_PRODUCT_A;
     public static final UpdateProductDescriptor DESC_PRODUCT_B;
+    public static final UpdateProductDescriptor DESC_PRODUCT_C;
 
 
     static {
@@ -197,6 +198,7 @@ public class CommandTestUtil {
         DESC_PRODUCT_A = new UpdateProductDescriptorBuilder().withQuantity(VALID_WAREHOUSE_PRODUCT_QUANTITY_A)
                 .withTags(VALID_TAG_FEVER).build();
         DESC_PRODUCT_B = new UpdateProductDescriptorBuilder().withQuantity(VALID_PRODUCT_QUANTITY_B).build();
+        DESC_PRODUCT_C = new UpdateProductDescriptorBuilder().withTags(VALID_TAG_ANTIBIOTICS).build();
     }
 
     /**

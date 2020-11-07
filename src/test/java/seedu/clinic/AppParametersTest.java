@@ -1,6 +1,7 @@
 package seedu.clinic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -35,6 +36,15 @@ public class AppParametersTest {
         parametersStub.namedParameters.put("config", "a\0");
         expected.setConfigPath(null);
         assertEquals(expected, AppParameters.parse(parametersStub));
+    }
+
+    @Test
+    public void testEquals() {
+        // null - false
+        assertFalse(parametersStub.equals(null));
+
+        // wrong type - false
+        assertFalse(parametersStub.equals(1));
     }
 
     private static class ParametersStub extends Application.Parameters {

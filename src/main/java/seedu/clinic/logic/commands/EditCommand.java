@@ -61,7 +61,6 @@ public class EditCommand extends Command {
             + "2) " + COMMAND_WORD + " " + PREFIX_TYPE + "w " + PREFIX_INDEX + "5 " + PREFIX_PHONE + "99876544 "
             + PREFIX_ADDRESS + "21 Lower Kent Ridge Road";
 
-    public static final String MESSAGE_NO_PREFIX_AND_INDEX = "Command type and index must be present!\n%1$s";
     public static final String MESSAGE_EDIT_SUPPLIER_SUCCESS = "Edited Supplier: %1$s";
     public static final String MESSAGE_EDIT_WAREHOUSE_SUCCESS = "Edited Warehouse: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.\n\n%1$s";
@@ -75,14 +74,10 @@ public class EditCommand extends Command {
             + " index, i.e. either wi/INDEX or si/INDEX";
     public static final String MESSAGE_NO_PREFIX = "Please enter at least one type of"
             + " command under ct (i.e. either ct/s or ct/w)\n%1$s";
-    public static final String MESSAGE_NO_INDEX = "Please enter index of supplier/warehouse you wish"
-            + " to edit.%1$s";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! %1$s \n"
-            + MESSAGE_USAGE;
     public static final String MESSAGE_INVALID_TYPE_EDIT = "You used an invalid type! Type for Edit command "
             + "should be either ct/s or ct/w only.\n%1$s";
     public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
-            + "ensure that you only include prefixes specified in the User Guide.\n%1$s";
+            + "ensure that you only include prefixes specified in the User Guide.\n\n%1$s";
     public static final String MESSAGE_SUPPLIER_UNCHANGED = "The edited field will results in no change to "
             + "supplier selected. Please check your arguments again and re-enter your edit command.";
     public static final String MESSAGE_WAREHOUSE_UNCHANGED = "The edited field will results in no change to "
