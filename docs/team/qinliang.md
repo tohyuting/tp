@@ -33,11 +33,11 @@ Given below are my contributions to the project.
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=qlchan24)
 
-* **Project management**: 
+* **Project management**:
   * Created the new product name
   * Managed v1.2 release on GitHub
 
-* **Enhancements to existing features**: 
+* **Enhancements to existing features**:
   * Refactored the class name and fields of the Person class into the Supplier class together with new test cases and removed traces of the original Person class in the documentation.
   * Added common test utility constants and classes.
   * Fixed bugs in code outside implemented commands (examples: [#117](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/117), [#211](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/211))
