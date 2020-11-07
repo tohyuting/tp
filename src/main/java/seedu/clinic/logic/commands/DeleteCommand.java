@@ -79,7 +79,7 @@ public class DeleteCommand extends Command {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
-     * Creates an DeleteCommand to delete the warehouse/supplier at {@code targetIndex} of the displayed list.
+     * Creates a DeleteCommand to delete the warehouse/supplier at {@code targetIndex} of the displayed list.
      */
     public DeleteCommand(Type targetType, Index targetIndex) {
         this.targetType = targetType;
@@ -89,7 +89,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Creates an DeleteCommand to delete the specified {@code targetProductName} in the warehouse/supplier
+     * Creates a DeleteCommand to delete the specified {@code targetProductName} in the warehouse/supplier
      * at {@code targetIndex} of the displayed list.
      */
     public DeleteCommand(Type targetType, Index targetIndex, Name targetProductName) {

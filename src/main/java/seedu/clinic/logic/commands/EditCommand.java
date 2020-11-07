@@ -111,10 +111,10 @@ public class EditCommand extends Command {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
-     * Creates an EditCommand to edit a warehouse/supplier at {@code index} of the displayed list.
+     * Creates an EditCommand to edit a supplier/warehouse at {@code index} of the displayed list.
      *
      * @param index of the supplier or warehouse in the filtered supplier or warehouse list to edit
-     * @param editDescriptor details to edit the supplier with
+     * @param editDescriptor details to edit the supplier/warehouse with
      */
     public EditCommand(Index index, EditDescriptor editDescriptor) {
         requireNonNull(index);

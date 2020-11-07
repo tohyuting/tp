@@ -7,7 +7,7 @@ import seedu.clinic.model.Clinic;
 import seedu.clinic.model.Model;
 
 /**
- * Clears the clinic.
+ * Clears the CLI-nic app.
  */
 public class ClearCommand extends Command {
 

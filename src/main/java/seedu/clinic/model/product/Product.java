@@ -9,7 +9,7 @@ import seedu.clinic.model.attribute.Name;
 import seedu.clinic.model.attribute.Tag;
 
 /**
- * Represents Product sold by Suppliers or stored in Warehouse.
+ * Represents Product sold by Suppliers or stored in Warehouses.
  * Guarantees: immutable;
  */
 public class Product {
