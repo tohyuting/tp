@@ -32,6 +32,7 @@ public class HelpCommandTest {
         String aboutExitCommand = ExitCommand.COMMAND_WORD + "\nExits the application";
         String aboutFindCommand = FindCommand.COMMAND_WORD + "\nFinds relevant supplier(s) or warehouse(s)";
         String aboutListCommand = ListCommand.COMMAND_WORD + "\nLists all suppliers and warehouses";
+        String aboutListMacroCommand = ListMacroCommand.COMMAND_WORD + "\nLists all presently saved macros";
         String aboutRemoveMacroCommand = RemoveMacroCommand.COMMAND_WORD + "\nRemoves the macro for an alias";
         String aboutUpdateCommand = UpdateCommand.COMMAND_WORD + "\nUpdates a product associated with a supplier or"
                 + " warehouse";
@@ -50,6 +51,7 @@ public class HelpCommandTest {
                 + aboutExitCommand + "\n\n"
                 + aboutFindCommand + "\n\n"
                 + aboutListCommand + "\n\n"
+                + aboutListMacroCommand + "\n\n"
                 + aboutRedoCommand + "\n\n"
                 + aboutRemoveMacroCommand + "\n\n"
                 + aboutUndoCommand + "\n\n"
@@ -116,11 +118,36 @@ public class HelpCommandTest {
     }
 
     @Test
+    public void execute_listMacroHelp_success() {
+        CommandResult expectedCommandResult = new CommandResult(ListMacroCommand.MESSAGE_USAGE, false, false);
+        assertCommandSuccess(new HelpCommand("listmacro"), model,
+                expectedCommandResult, expectedModel);
+    }
+
+    @Test
     public void execute_updateHelp_success() {
         String updateCommandHelpMessage = MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + UpdateCommand.MESSAGE_USAGE;
         CommandResult expectedCommandResult = new CommandResult(updateCommandHelpMessage,
                 false, false);
         assertCommandSuccess(new HelpCommand("update"), model,
+                expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_assignMacroHelp_success() {
+        String assignMacroCommandHelpMessage = MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + AssignMacroCommand.MESSAGE_USAGE;
+        CommandResult expectedCommandResult = new CommandResult(assignMacroCommandHelpMessage,
+                false, false);
+        assertCommandSuccess(new HelpCommand("assignmacro"), model,
+                expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_removeMacroHelp_success() {
+        String removeMacroCommandHelpMessage = MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + RemoveMacroCommand.MESSAGE_USAGE;
+        CommandResult expectedCommandResult = new CommandResult(removeMacroCommandHelpMessage,
+                false, false);
+        assertCommandSuccess(new HelpCommand("removemacro"), model,
                 expectedCommandResult, expectedModel);
     }
 

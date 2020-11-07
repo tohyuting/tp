@@ -6,19 +6,32 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
+Interface UserMacrosStorage <<Interface>>
 Interface ClinicStorage <<Interface>>
+Interface CommandHistoryStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
 Class JsonClinicStorage
+Class JsonUserMacrosStorage
+Class TextFileCommandHistoryStorage
 
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> ClinicStorage
+StorageManager .up.|> Storage
+StorageManager o-down-> UserPrefsStorage
+StorageManager o-down-> ClinicStorage
+StorageManager o-down-> UserMacrosStorage
+StorageManager o-down-> CommandHistoryStorage
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonClinicStorage .left.|> ClinicStorage
-JsonClinicStorage .down.> JsonSerializableClinicStorage
-JsonSerializableClinicStorage .right.> JsonSerializableClinic
-JsonSerializableClinic .right.> JsonAdaptedTag
+TextFileCommandHistoryStorage .up.|> CommandHistoryStorage
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+JsonClinicStorage .up.|> ClinicStorage
+JsonUserMacrosStorage .up.|> UserMacrosStorage
+JsonClinicStorage ..> JsonSerializableClinic
+JsonUserMacrosStorage ..> JsonSerializableUserMacros
+JsonSerializableUserMacros ..> JsonAdaptedMacro
+JsonSerializableClinic ..> JsonAdaptedSupplier
+JsonSerializableClinic ..> JsonAdaptedWarehouse
+JsonAdaptedSupplier ..> JsonAdaptedProduct
+JsonAdaptedWarehouse ..> JsonAdaptedProduct
+JsonAdaptedProduct ..> JsonAdaptedTag
 @enduml
