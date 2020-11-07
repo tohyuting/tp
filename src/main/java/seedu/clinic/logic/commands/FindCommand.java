@@ -32,7 +32,7 @@ public class FindCommand extends Command {
             + " whose name,"
             + " remark and/or name of products matches any of the specified keywords (case-insensitive) and displays"
             + " them as a list with index numbers. Prefixes provided can be in any order. At least one of the name,"
-            + "  remark or product prefixes along with its parameters must be provided.\n\n"
+            + " remark or product prefixes along with its parameters must be provided.\n\n"
             + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "
             + "[" + PREFIX_NAME + "NAME...] "

@@ -11,23 +11,22 @@ if () then ([index and command type prefixes present])
     if () then ([command type and index valid])
         :Creates new View Command;
         :Execute View Command;
-        if () then ([SUPPLIER])
+        if () then ([supplier])
             :Get supplier at Index from model;
             :Update Supplier List to show supplier only;
-        else ([WAREHOUSE])
+        else ([warehouse])
             :Get warehouse at Index from model;
             :Update Warehouse List to show warehouse only;
         endif
         :Generate View command success message;
 
     else ([command type and/or index invalid])
-        : Generate message indicating either
-         one or both prefixes are wrong;
+        : Generate message indicating invalid values;
     endif
 
 else ([index and command type prefix(es) missing])
     :Generate message indicating
-    either one or both prefixes missing;
+    invalid command format;
 endif
 :Display result message to user;
 stop

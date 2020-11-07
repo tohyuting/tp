@@ -8,7 +8,7 @@ start
 
 if () then ([index and command type prefixes present])
     :Parse command arguments;
-    if () then([at least one of the prefixes is valid])
+    if () then([both prefixes are valid])
         if () then([supplier])
         :Generate new
         EditSupplierDescriptor;
@@ -20,11 +20,11 @@ if () then ([index and command type prefixes present])
         :Generate new Edit Command;
         :Execute Edit Command;
 
-        if () then([Editing Supplier])
+        if () then([editing Supplier])
         :Obtain Supplier to edit
         from Supplier List;
         :Edits Supplier in Supplier List;
-        else ([Editing Warehouse])
+        else ([editing Warehouse])
         :Obtain Warehouse to edit
         from Warehouse List;
         :Edits Warehouse in Warehouse List;
@@ -32,11 +32,11 @@ if () then ([index and command type prefixes present])
         :Generate edit success message;
     else ([invalid prefixes/arguments])
     :Generate message indicating
-    wrong prefixes or arguments;
+    invalid prefixes or arguments;
     endif
 else ([index and command type prefix(es) missing])
     :Generate message indicating
-    either one or both prefixes missing;
+    invalid command format;
 endif
 :Display result message to user;
 stop
