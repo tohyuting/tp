@@ -30,12 +30,17 @@ public class AssignMacroCommandParser implements Parser<AssignMacroCommand> {
         if (!argMultimap.getPreamble().isEmpty()) {
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AssignMacroCommand.MESSAGE_USAGE);
         }
+        Macro macro;
 
-        Alias alias = ParserUtil.parseAlias(argMultimap.getValue(PREFIX_ALIAS).get());
-        SavedCommandString savedCommandString = ParserUtil.parseCommandString(
-                argMultimap.getValue(PREFIX_COMMAND_STRING).get());
+        try {
+            Alias alias = ParserUtil.parseAlias(argMultimap.getValue(PREFIX_ALIAS).get());
+            SavedCommandString savedCommandString = ParserUtil.parseCommandString(
+                    argMultimap.getValue(PREFIX_COMMAND_STRING).get());
+            macro = new Macro(alias, savedCommandString);
+        } catch (ParseException pe) {
+            throw new ParseException(pe.getMessage() + "\n\n" + AssignMacroCommand.MESSAGE_USAGE);
 
-        Macro macro = new Macro(alias, savedCommandString);
+        }
 
         return new AssignMacroCommand(macro);
     }

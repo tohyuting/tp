@@ -105,13 +105,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AddCommand.MESSAGE_USAGE);
         }
 
-        Phone phone;
-        try {
-            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
-        }
-
         Name name;
         Email email;
         Remark remark;
@@ -121,6 +114,13 @@ public class AddCommandParser implements Parser<AddCommand> {
             remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
         } catch (ParseException pe) {
             throw new ParseException(pe.getMessage() + "\n\n" + AddCommand.MESSAGE_USAGE);
+        }
+
+        Phone phone;
+        try {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
         }
 
         Set<Product> productList = new HashSet<>();
@@ -148,13 +148,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AddCommand.MESSAGE_USAGE);
         }
 
-        Phone phone;
-        try {
-            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
-        }
-
         Name name;
         Address address;
         Remark remark;
@@ -164,6 +157,13 @@ public class AddCommandParser implements Parser<AddCommand> {
             remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
         } catch (ParseException pe) {
             throw new ParseException(pe.getMessage() + "\n\n" + AddCommand.MESSAGE_USAGE);
+        }
+
+        Phone phone;
+        try {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
         }
 
         Set<Product> productList = new HashSet<>();

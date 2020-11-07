@@ -43,6 +43,6 @@ Clinic *-down-> "1" UniqueWarehouseList
 UniqueWarehouseList o--> "*" Warehouse
 
 
-ModelManager -->"1" Supplier : filtered list
-ModelManager -->"1" Warehouse : filtered list
+ModelManager -->"*" Supplier : filtered list
+ModelManager -->"*" Warehouse : filtered list
 @enduml

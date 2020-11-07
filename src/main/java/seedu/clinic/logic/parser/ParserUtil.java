@@ -56,7 +56,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_PREFIX = "One of the prefix specified is not recognised."
             + "\n\n%1$s";
     public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
-            + "ensure that you only include prefixes specified in the User Guide.\n\n%1$s";
+            + "ensure that you only include the required arguments specified in the User Guide.\n\n%1$s";
     private static final String INVALID_TYPE_PREFIX_ASSERTION = "The prefix here should be of Type type!";
     private static final String INVALID_MESSAGE_USAGE_ASSERTION = "The message usage here should be"
             + " of View Command!";
