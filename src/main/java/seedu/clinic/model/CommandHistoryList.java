@@ -69,16 +69,8 @@ public class CommandHistoryList {
      * @param newCommandHistory takes in the command just entered by the user.
      */
     public void updateHistory(String newCommandHistory) {
-        if (internalList.size() == 0) {
-            internalList.add(newCommandHistory);
-            commandHistoryIndex = internalList.size();
-            return;
-        }
-        String lastCommand = internalList.get(internalList.size() - 1);
-        if (!lastCommand.equals(newCommandHistory)) {
-            internalList.add(newCommandHistory);
-            commandHistoryIndex = internalList.size();
-        }
+        internalList.add(newCommandHistory);
+        commandHistoryIndex = internalList.size();
     }
 
     @Override

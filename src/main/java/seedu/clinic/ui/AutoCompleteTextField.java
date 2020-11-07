@@ -58,6 +58,8 @@ public class AutoCompleteTextField extends TextField {
         });
         focusedProperty().addListener((observableValue, aBoolean, aBoolean2) ->
                 popUpEntries.hide());
+
+        setFocused(true);
     }
 
     /**
@@ -134,7 +136,7 @@ public class AutoCompleteTextField extends TextField {
     private void checkPopUpEntries() {
         if (!popUpEntries.isShowing()) {
             if (!getText().equals("list") && !singleCommandEntries.contains(getText())) {
-                popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -180);
+                popUpEntries.show(AutoCompleteTextField.this, Side.BOTTOM, 15, -210);
             }
         }
     }
