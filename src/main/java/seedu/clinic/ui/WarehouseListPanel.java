@@ -25,6 +25,7 @@ public class WarehouseListPanel extends UiPart<Region> {
      */
     public WarehouseListPanel(ObservableList<Warehouse> warehouseList) {
         super(FXML);
+        warehouseListView.setFocusTraversable(false);
         warehouseListView.setItems(warehouseList);
         warehouseListView.setCellFactory(listView -> new WarehouseListViewCall());
         warehouseListView.setPlaceholder(new Label("There are no warehouses yet."));

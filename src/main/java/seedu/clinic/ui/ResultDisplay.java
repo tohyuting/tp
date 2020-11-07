@@ -18,6 +18,7 @@ public class ResultDisplay extends UiPart<Region> {
 
     public ResultDisplay() {
         super(FXML);
+        resultDisplay.setFocusTraversable(false);
     }
 
     public void setFeedbackToUser(String feedbackToUser) {
