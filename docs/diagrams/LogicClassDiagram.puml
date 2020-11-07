@@ -9,6 +9,7 @@ package Logic {
 package Parser {
 Interface Parser <<Interface>>
 Class ClinicParser
+Class MacroParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -35,17 +36,18 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" ClinicParser
+LogicManager -down->"1" ClinicParser
+LogicManager -left->"1" MacroParser
 ClinicParser .left.> XYZCommandParser: creates >
 
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
+XYZCommandParser .down.> XYZCommand : creates >
+XYZCommandParser .down.|> Parser
+XYZCommandParser .down.> ArgumentMultimap
+XYZCommandParser .down.> ArgumentTokenizer
+XYZCommandParser .down.> CliSyntax
+XYZCommandParser .down.> ParserUtil
 ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
+CliSyntax .down.> Prefix
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command

@@ -14,10 +14,10 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 alt SUPPLIER
-UpdateCommand -> Model : getSupplier(supplierName)
+UpdateCommand -> Model : getFilteredSupplierList()
 activate Model
 
-Model --> UpdateCommand : supplierToUpdate
+Model --> UpdateCommand :
 deactivate Model
 
 UpdateCommand -> UpdateProductDescriptor : isAnyFieldEdited()
@@ -64,10 +64,10 @@ CommandResult --> UpdateCommand
 deactivate CommandResult
 
 else WAREHOUSE
-UpdateCommand -> Model : getWarehouse(warehouseName)
+UpdateCommand -> Model : getFilteredWarehouseList()
 activate Model
 
-Model --> UpdateCommand : warehouseToUpdate
+Model --> UpdateCommand :
 deactivate Model
 
 UpdateCommand -> UpdateProductDescriptor : isAnyFieldEdited()

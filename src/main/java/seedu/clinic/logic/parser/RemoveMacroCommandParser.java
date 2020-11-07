@@ -1,6 +1,6 @@
 package seedu.clinic.logic.parser;
 
-import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_ALIAS;
 
 import seedu.clinic.logic.commands.RemoveMacroCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
@@ -19,7 +19,7 @@ public class RemoveMacroCommandParser implements Parser<RemoveMacroCommand> {
             return new RemoveMacroCommand(alias);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveMacroCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_ALIAS, RemoveMacroCommand.MESSAGE_USAGE), pe);
         }
     }
 }
