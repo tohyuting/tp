@@ -174,7 +174,7 @@ Format:	`assignmacro a/ALIAS cs/COMMAND_STRING`
 * `alias` should only consist of alphanumeric characters and/or underscores.
 * `COMMAND_STRING` can consist of any number of prefixes, but the first word has to be a pre-defined command word.
 * `COMMAND_STRING` cannot take in another `assignmacro` command e.g.
-  `assignmacro a/asgmac cs/assignmacro a/asgmac ...` as this is recursive. 
+  `assignmacro a/asgmac cs/assignmacro a/asgmac ...` as this is recursive.
 
 Example:
 
