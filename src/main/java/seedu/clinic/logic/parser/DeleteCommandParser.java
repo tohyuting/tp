@@ -48,7 +48,6 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             throw checkInvalidArguments(PREFIX_TYPE, argMultimap, DeleteCommand.MESSAGE_USAGE);
         }
 
-
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
@@ -70,6 +69,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PRODUCT_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
+
         Name productName;
         try {
             productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());

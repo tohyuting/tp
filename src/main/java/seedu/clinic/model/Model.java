@@ -47,7 +47,6 @@ public interface Model {
      */
     Path getUserMacrosFilePath();
 
-
     /**
      * Returns the user macros.
      */
@@ -171,7 +170,6 @@ public interface Model {
      * and an empty optional otherwise
      */
     Optional<Warehouse> getWarehouse(Name warehouseName);
-
 
     /**
      * Deletes the given warehouse.

@@ -1558,13 +1558,8 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/s n/John Lim p/98766789`
       or `add ct/s n/John Tan p/98766789 e/johndoe@example.com z/friend`<br>
       Expected: No supplier is added. Error details shown in the response message. A help message displayed
-<<<<<<< HEAD
       to guide user accordingly. SupplierList on GUI remains unchanged.
-   1. Test case: Add order with existing SUPPLIER_NAME in list e.g. `add ct/s n/John Doe p/98766789 e
-=======
-      to guide user accordingly. SupplierList on GUI remain unchanged.
    1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e
->>>>>>> b52016d9f4cbe6e0f9bfc64a0e9a07063d4e5e06
       /johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
       Expected: No supplier is added. Error details will be displayed, stating that a supplier with duplicate
       `SUPPLIER_NAME` cannot be added into CLI-nic. SupplierList on GUI remain unchanged.
@@ -1582,21 +1577,12 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Lim Ptd Ltd p/98766789`
       or `add ct/w n/John St Ptd Ltd p/98766789 addr/John street, block 123, #01-01 z/large`<br>
       Expected: No warehouse is added. Error details shown in the response message. A help message displayed
-<<<<<<< HEAD
       to guide user accordingly. WarehouseList on GUI remains unchanged.
-   1. Test case: Add order with existing WAREHOUSE_NAME in list e.g. `add ct/w n/John Ptd Ltd p/98766789
-      addr/John street, block 123, #01-01` followed by `add ct/w n/John Ptd Ltd p/91234567 addr/Ang Mo Kio
-      street 12, block 123, #01-01`<br>
-      Expected: An error will occur and a message will be displayed, stating that a warehouse with duplicate
-      WAREHOUSE NAME cannot be added into the list. WarehouseList on GUI remain unchanged.
-=======
-      to guide user accordingly. WarehouseList on GUI remain unchanged.
    1. Test case: Add warehouse with duplicate WAREHOUSE_NAME e.g. `add ct/w n/James Ptd Ltd p/98766789
       addr/John street, block 123, #01-01` followed by `add ct/w n/James Ptd Ltd p/91234567 addr/Ang Mo Kio
       street 12, block 3`<br>
       Expected: No warehouse is added. Error details will be displayed, stating that a warehouse with duplicate
       `WAREHOUSE_NAME` cannot be added into CLI-nic. WarehouseList on GUI remain unchanged.
->>>>>>> b52016d9f4cbe6e0f9bfc64a0e9a07063d4e5e06
 
 ### Deleting a supplier
 

@@ -67,7 +67,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         Index index;
-
         try {
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
@@ -106,7 +105,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         editSupplierDescriptor = parseSupplierDetailsForEditing(editSupplierDescriptor, argMultimap);
 
         logger.log(Level.INFO, LOG_MESSAGE_CREATE_SUPPLIER_DESCRIPTOR_SUCCESS);
-
 
         if (!editSupplierDescriptor.isAnyFieldEdited()) {
             throw new ParseException(String.format(MESSAGE_NOT_EDITED,
