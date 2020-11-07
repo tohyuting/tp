@@ -24,7 +24,7 @@ You can reach us at the email `cs2103w144@gmail.com`
 <img src="images/jeffreytjs.png" width="200px">
 
 [[github](http://github.com/jeffreytjs)]
-[[portfolio](team/jeffrey.md)]
+[[portfolio](team/jeffreytjs.md)]
 
 * Role: Developer, Draft manager
 * Responsibilities:

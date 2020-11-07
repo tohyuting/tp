@@ -13,6 +13,12 @@ import seedu.clinic.model.macro.Macro;
  */
 public class ListMacroCommand extends Command {
     public static final String COMMAND_WORD = "listmacro";
+
+    public static final String MESSAGE_USAGE = "List macro Command Usage\n\nLists all presently saved macros"
+            + " in CLI-nic.\n\n"
+            + "Example:\n"
+            + COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Currently saved Macros:\n%1$s";
     public static final String MESSAGE_EMPTY_LIST = "There are no macros currently saved.";
     private String listFormatting = "%1$s. ";
