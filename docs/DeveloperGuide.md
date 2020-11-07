@@ -1401,6 +1401,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Warehouse**: The places where the medical supplies are channeled to and kept. The storage condition of these warehouses are managed by the manager, which is our app user
 
 #### Command Prefix
+
 |Prefix |Meaning |Used in the following Command(s)|
 | ------- |-------- | ------------ |
 |a/ | Alias |Assign Macro|
@@ -1454,7 +1455,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
 ### Adding a supplier
 
-1. Add command format: `add ct/TYPE n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`
+1. Add command format: `add ct/s n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`
 
    1. Test case: Minimal information e.g. `add ct/s n/John Doe p/98766789 e/johndoe@example.com`<br>
       Expected: Adds a supplier with the above details to the list and displayed on the GUI
@@ -1472,7 +1473,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
 ### Adding a warehouse
 
-1. Add command format: `add ct/TYPE n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
+1. Add command format: `add ct/w n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
 
    1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123
       , #01-01`<br>
@@ -1504,12 +1505,12 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
- 
+
 ### Updating a Product in a Supplier/Warehouse
 
 1. Update command format: `update ct/TYPE i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
-   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list. First warehouse does not have the product `Panadol` while the first supplier has. 
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list. First warehouse does not have the product `Panadol` while the first supplier has.
 
    1. Test case: Product does not exist e.g. `update ct/w i/1 pd/Panadol q/350 t/Fever`<br>
       Expected: Product with the name `Panadol` with the quantity `350` and tag `fever` added to the first warehouse. Details of the new product is shown in the display message.
@@ -1519,13 +1520,13 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Product exists and no optional fields supplied e.g. `update ct/s i/1 pd/Panadol`<br>
       Expected: No product is added or updated. Error details shown in the displayed message.
-   
+
    1. Test case: Non-positive index e.g. `update ct/w i/0 pd/Panadol q/350 t/Fever`<br>
       Expected: No product is added or updated. Error details shown in the displayed message.
-      
+
    1. Test case: Index more than list size e.g. `update ct/w i/x pd/Panadol q/350 t/Fever` (where x is larger than the list size)
       Expected: No product is added or updated. Similar to previous.
-      
+
 ### Assigning a macro
 
 1. Assign macro command format: `assignmacro a/ALIAS cs/COMMAND_STRING`
@@ -1535,15 +1536,15 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Command string does not start with a pre-defined command e.g. `assignmacro a/uw cs/magic`<br>
       Expected: No macro created. Error details is shown in the displayed message.
-      
+
    1. Test case: Alias clashes with a pre-defined command or another macro e.g. `assignmacro a/update cs/add`<br>
       Expected: No macro created. Error details is shown in the displayed message.
-      
+
 ### Removing a macro
 
 1. Remove macro command format: `removemacro ALIAS`
 
-   1. Prerequisites: At least one macro presently saved in the application. 
+   1. Prerequisites: At least one macro presently saved in the application.
 
    1. Test case: Alias exists in a saved macro e.g. `removemacro uw`<br>
       Expected: The macro with the alias `uw` is removed. Details of the removed macro is shown in the display message.
@@ -1551,9 +1552,9 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Alias does not exist in any saved macro e.g. `removemacro a/magic`<br>
       Expected: No macro removed. Error details is shown in the displayed message.
 
-### list a macro
+### Listing a macro
 
-1. list macros command format: `listmacro`
+1. List macros command format: `listmacro`
 
    1. Test case: At least one macro has been saved.<br>
       Expected: The list of macros are displayed.
@@ -1628,7 +1629,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
 ### Viewing a Supplier
 
-1. View command format: `view ct/TYPE i/INDEX`
+1. View command format: `view ct/s i/INDEX`
 
    1. Test case: View command with complete prefixes e.g. `view ct/s i/1`<br>
       Expected: SupplierList updates to show only supplier at index 1. Products associated with the supplier and their details are shown in the command result box.
@@ -1639,7 +1640,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
 ## Viewing a Warehouse
 
-1. View command format: `view ct/TYPE i/INDEX`
+1. View command format: `view ct/w i/INDEX`
 
    1. Test case: View command with complete prefixes e.g. `view ct/w i/2`<br>
       Expected: WarehouseList updates to show only warehouse at index 2. Products associated with the warehouse and their details are shown in the command result box.
