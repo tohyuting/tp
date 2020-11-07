@@ -9,8 +9,10 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -78,11 +80,14 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw new ParseException(pe.getMessage() + "\n\n" + UpdateCommand.MESSAGE_USAGE);
         }
 
-        try {
-            parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))
-                    .ifPresent(updateProductDescriptor::setTags);
-        } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_TAG, argMultimap, UpdateCommand.MESSAGE_USAGE);
+        if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
+            try {
+                List<String> tags = Arrays.asList(argMultimap.getValue(PREFIX_TAG).get().trim().split("\\s"));
+                Optional<Set<Tag>> tagSet = parseTagsForUpdate(tags);
+                tagSet.ifPresent(updateProductDescriptor::setTags);
+            } catch (ParseException pe) {
+                throw checkInvalidArguments(PREFIX_TAG, argMultimap, UpdateCommand.MESSAGE_USAGE);
+            }
         }
 
         return new UpdateCommand(entityType, index, productName, updateProductDescriptor);
@@ -93,7 +98,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
      * If {@code tags} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Tag>} containing zero tags.
      */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
+    private Optional<Set<Tag>> parseTagsForUpdate(Collection<String> tags) throws ParseException {
         assert tags != null;
 
         if (tags.isEmpty()) {

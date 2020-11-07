@@ -84,15 +84,16 @@ The `UI` component,
 **API** :
 [`Logic.java`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/logic/Logic.java)
 
-1. `Logic` uses the `ClinicParser` class to parse the user command.
+1. `Logic` uses the `MacroParser` class to parse the user input.
+1. The resultant command string is then parsed by the `ClinicParser`.
 1. This results in a `Command` object which is executed by the `LogicManager`.
 1. The command execution can affect the `Model` (e.g. adding a supplier).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 1. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete ct/s i/12")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("ds i/12")` API call, where there is a saved macro with the alias `ds` for the command string `delete ct/s`.
 
-![Interactions Inside the Logic Component for the `delete ct/s i/12` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `ds i/12` Command](images/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
@@ -107,7 +108,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user’s preferences.
 * stores the clinic data.
-* exposes an unmodifiable `ObservableList<Supplier>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Supplier>`, `ObservableList<Warehouse>` and `ObservableList<Macro>` that can be 'observed' e.g. the UI can be bound to these lists so that the UI automatically updates when the data in the lists change.
 * does not depend on any of the other three components.
 
 
@@ -126,6 +127,8 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
+* can save `UserMacros` objects in json format and read it back.
+* can save `CommandHistory` objects in json format and read it back.
 * can save the clinic data in json format and read it back.
 
 ### Common classes
@@ -455,19 +458,19 @@ The update product mechanism is facilitated by 3 major components: `UpdateComman
 Given below is an example usage scenario, together with a sequence diagram, to show how the update product mechanism behaves at each step.
 ![Update Product Command Sequence Diagram](images/UpdateCommandSequenceDiagram.png)
 
-Step 1. The user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units
-in the warehouse named 'Jurong Warehouse'. The user also decides that he wants to give 'Panadol' a tag 'fever'.
-The user does this by executing the `update ct/w n/Jurong Warehouse pd/Panadol q/50 t/fever` command.
+Step 1. After using the `list` command to display all warehouses and suppliers, the user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units
+in the warehouse at index 1 of the warehouse list. The user also decides that he wants to give 'Panadol' a tag 'fever'.
+The user does this by executing the `update ct/w i/1 pd/Panadol q/50 t/fever` command.
 The input string will then be passed to the `UpdateCommandParser`.
 
 Step 2. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
-and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type and names of the supplier/warehouse and product are not supplied. If so, an error message will be presented on the GUI.
-Otherwise, the method will create an `UpdateCommand` with the `Type`, warehouse/supplier and product's `Name`, and the `UpdateProductDescriptor`.
+and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type, index and product name are not supplied. If so, an error message will be presented on the GUI.
+Otherwise, the method will create an `UpdateCommand` with the `Type`, the warehouse/supplier `Index`, the product's `Name`, and the `UpdateProductDescriptor`.
 
 The following sequence diagram zooms in on how the `UpdateCommand#execute` is implemented:
 ![Update Product Command Execution Sequence Diagram](images/UpdateCommandExecutionSequenceDiagram.png)
 
-Step 3. `UpdateCommand#execute` is then called with the `Model` instance. The method then attempts to retrieve the warehouse/supplier from the model with the supplied name. If it is not found, `NoSuchElementException` is thrown, otherwise, the `UpdateCommand#execute`
+Step 3. `UpdateCommand#execute` is then called with the `Model` instance. The method will first retrieve the filtered warehouse/supplier list from the model. The method then attempts to retrieve the warehouse/supplier from the list at the supplied index. If the index is greater than the size of the supplier/warehouse list, `CommandException` is thrown, otherwise, the `UpdateCommand#execute`
 method copies the existing product set for that warehouse/supplier to a new `Set<Product>`.
 
 Step 4. `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
@@ -546,6 +549,16 @@ The user now updates the quantity of the product "Panadol" in the aforementioned
 
 The following activity diagram summarizes what happens when a user assigns a macro:
 ![Assign Macro Command Activity Diagram](images/AssignMacroCommandActivityDiagram.png)
+
+#### Why it is implemented this way
+
+The main consideration for this feature was what macros should the users be allowed to store, if not everything. We wanted the command to be non-restrictive,
+yet still include certain checks to prevent misuse. Hence we decided to throw exceptions for certain types of macros that the user may try to define. In particular, exceptions will be thrown to prevent
+assigning a macro with the same alias as a pre-defined command word, so that fundamental commands will not be
+overwritten by users. Apart from that, we decided not to allow saved command strings that do not start with a pre-defined command word, as the macros created from these command strings will never
+work as they will always give invalid commands. Nonetheless, we decided to allow partial command strings and even full command strings that may not be valid commands as long as they fit the above criteria,
+as these macros can be used with additional arguments supplied (possibly making the command valid), or that the command string may be valid upon certain conditions (e.g. after the user adds a supplier).
+However, this also means that a valid macro does not guarantee a successful command when used, and error messages may still be displayed for the underlying command of the macro if the underlying command is invalid during the actual use of the macro.
 
 ### Remove Macro feature
 
@@ -1195,11 +1208,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. CLI-nic cannot find the supplier with the supplied name.
-  * 1a1. CLI-nic shows an error message informing the user that the supplier does not exist.
-  * 1a2. User enters a new supplier name.
+* 1a. The index specified is not a valid under the supplier list.
+  * 1a1. CLI-nic shows an error message informing the user that the index is not valid.
+  * 1a2. User enters a new index.
 
-    Steps 1a1-1a2 are repeated until the supplier name provided by the user can be found. <br>
+    Steps 1a1-1a2 are repeated until the index supplied is valid. <br>
     Use case resumes from step 2.
 
 * 1b. User enters the command in an invalid format.
@@ -1238,11 +1251,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. CLI-nic cannot find the warehouse with the supplied name.
-  * 1a1. CLI-nic shows an error message informing the user that the warehouse does not exist.
-  * 1a2. User enters a new warehouse name.
+* 1a. The index specified is not a valid under the warehouse list.
+  * 1a1. CLI-nic shows an error message informing the user that the index is not valid.
+  * 1a2. User enters a new index.
 
-    Steps 1a1-1a2 are repeated until the warehouse name provided by the user can be found. <br>
+    Steps 1a1-1a2 are repeated until the index supplied is valid. <br>
     Use case resumes from step 2.
 
 * 1b. User enters the command in an invalid format.
@@ -1485,6 +1498,62 @@ testers are expected to do more *exploratory* testing.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
+ 
+### Updating a Product in a Supplier/Warehouse
+
+1. Update command format: `update ct/TYPE i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
+
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list. First warehouse does not have the product `Panadol` while the first supplier has. 
+
+   1. Test case: Product does not exist e.g. `update ct/w i/1 pd/Panadol q/350 t/Fever`<br>
+      Expected: Product with the name `Panadol` with the quantity `350` and tag `fever` added to the first warehouse. Details of the new product is shown in the display message.
+
+   1. Test case: Product exists and optional fields supplied e.g. `update ct/s i/1 pd/Panadol q/350 t/Fever`<br>
+      Expected: Product with the name `Panadol` in the first supplier is updated with the quantity `350` and tag `fever`. Details of the new product shown in the display message.
+
+   1. Test case: Product exists and no optional fields supplied e.g. `update ct/s i/1 pd/Panadol`<br>
+      Expected: No product is added or updated. Error details shown in the displayed message.
+   
+   1. Test case: Non-positive index e.g. `update ct/w i/0 pd/Panadol q/350 t/Fever`<br>
+      Expected: No product is added or updated. Error details shown in the displayed message.
+      
+   1. Test case: Index more than list size e.g. `update ct/w i/x pd/Panadol q/350 t/Fever` (where x is larger than the list size)
+      Expected: No product is added or updated. Similar to previous.
+      
+### Assigning a macro
+
+1. Assign macro command format: `assignmacro a/ALIAS cs/COMMAND_STRING`
+
+   1. Test case: Valid alias and command string e.g. `assignmacro a/uw cs/update ct/w`<br>
+      Expected: A macro is created under the alias `uw` for the command string `update ct/w`. Details of the new macro is shown in the display message.
+
+   1. Test case: Command string does not start with a pre-defined command e.g. `assignmacro a/uw cs/magic`<br>
+      Expected: No macro created. Error details is shown in the displayed message.
+      
+   1. Test case: Alias clashes with a pre-defined command or another macro e.g. `assignmacro a/update cs/add`<br>
+      Expected: No macro created. Error details is shown in the displayed message.
+      
+### Removing a macro
+
+1. Remove macro command format: `removemacro ALIAS`
+
+   1. Prerequisites: At least one macro presently saved in the application. 
+
+   1. Test case: Alias exists in a saved macro e.g. `removemacro uw`<br>
+      Expected: The macro with the alias `uw` is removed. Details of the removed macro is shown in the display message.
+
+   1. Test case: Alias does not exist in any saved macro e.g. `removemacro a/magic`<br>
+      Expected: No macro removed. Error details is shown in the displayed message.
+
+### list a macro
+
+1. list macros command format: `listmacro`
+
+   1. Test case: At least one macro has been saved.<br>
+      Expected: The list of macros are displayed.
+
+   1. Test case: No macros have been saved.<br>
+      Expected: No macros listed. Displayed message states that no macros are presently saved.
 
 1. _{ more test cases …​ }_
 
