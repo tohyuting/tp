@@ -38,14 +38,6 @@ public class UniqueMacroList implements Iterable<Macro> {
     }
 
     /**
-     * Returns true if the macro list contains an equivalent macro as the given alias.
-     */
-    public boolean contains(Alias toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch((Macro macro) -> macro.getAlias().equals(toCheck));
-    }
-
-    /**
      * Returns the macro corresponding to the alias string in an optional wrapper if it exists,
      * and an empty optional otherwise.
      */

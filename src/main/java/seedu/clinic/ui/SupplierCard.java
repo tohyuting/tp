@@ -56,7 +56,8 @@ public class SupplierCard extends UiPart<Region> {
         name.setText(supplier.getName().fullName);
         name.setWrapText(true);
         phone.setText(supplier.getPhone().value);
-        remark.setText(supplier.getRemark().value);
+        String remarkText = supplier.getRemark().value == "" ? "No Remark" : supplier.getRemark().value;
+        remark.setText(remarkText);
         remark.setWrapText(true);
         email.setText(supplier.getEmail().value);
 

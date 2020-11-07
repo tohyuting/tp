@@ -158,4 +158,20 @@ public class HelpCommandTest {
         assertCommandSuccess(new HelpCommand("view"), model,
                 expectedCommandResult, expectedModel);
     }
+
+    @Test
+    public void execute_undoHelp_success() {
+        String undoCommandHelpMessage = MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + UndoCommand.MESSAGE_USAGE;
+        CommandResult expectedCommandResult = new CommandResult(undoCommandHelpMessage, false, false);
+        assertCommandSuccess(new HelpCommand("undo"), model,
+                expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_redoHelp_success() {
+        String redoCommandHelpMessage = MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + RedoCommand.MESSAGE_USAGE;
+        CommandResult expectedCommandResult = new CommandResult(redoCommandHelpMessage, false, false);
+        assertCommandSuccess(new HelpCommand("redo"), model,
+                expectedCommandResult, expectedModel);
+    }
 }

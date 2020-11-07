@@ -60,14 +60,6 @@ public class UserMacros implements ReadOnlyUserMacros {
     }
 
     /**
-     * Returns true if a macro with the alias {@code alias} exists in the model.
-     */
-    public boolean hasMacro(Alias alias) {
-        requireNonNull(alias);
-        return macros.contains(alias);
-    }
-
-    /**
      * Returns the macro corresponding to the alias string in an optional wrapper if it exists,
      * and an empty optional otherwise
      */

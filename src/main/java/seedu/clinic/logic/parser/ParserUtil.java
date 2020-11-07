@@ -39,7 +39,6 @@ import seedu.clinic.model.attribute.Remark;
 import seedu.clinic.model.attribute.Tag;
 import seedu.clinic.model.macro.Alias;
 import seedu.clinic.model.macro.SavedCommandString;
-import seedu.clinic.model.product.Product;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -191,22 +190,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String productName} and a {@code Collection<String> tags} into a {@code Product}.
-     * Leading and trailing whitespaces will be trimmed.
-     * TODO: change the signature or overload the method. Add in the test cases for parseProduct
-     *
-     * @throws ParseException if the given {@code productName} or the given {@code tags} is invalid.
-     */
-    public static Product parseProduct(String productName, Collection<String> tags) throws ParseException {
-        requireNonNull(productName);
-        requireNonNull(tags);
-        Set<Tag> tagSet = parseTags(tags);
-        Name trimmedName = parseName(productName);
-        return new Product(trimmedName, tagSet);
-    }
-
-    /**
-     * Parses a {@code String remark} into a {@code Remark}.
+     * Parses a {@code String remark} into an {@code Remark}.
      * Leading and trailing whitespaces will be trimmed.
      */
     public static Remark parseRemark(String remark) throws ParseException {

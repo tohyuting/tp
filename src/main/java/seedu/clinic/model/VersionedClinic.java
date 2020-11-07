@@ -2,8 +2,8 @@ package seedu.clinic.model;
 
 import java.util.Stack;
 
-import seedu.clinic.model.macro.exceptions.NoRedoableVersionException;
-import seedu.clinic.model.macro.exceptions.NoUndoableVersionException;
+import seedu.clinic.model.exceptions.NoRedoableVersionException;
+import seedu.clinic.model.exceptions.NoUndoableVersionException;
 
 /**
  * {@code Clinic} that keeps track of its own versions.

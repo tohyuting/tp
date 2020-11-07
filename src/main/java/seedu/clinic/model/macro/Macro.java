@@ -5,7 +5,6 @@ import static seedu.clinic.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.clinic.logic.commands.AddCommand;
-import seedu.clinic.logic.commands.AddProductCommand;
 import seedu.clinic.logic.commands.ClearCommand;
 import seedu.clinic.logic.commands.DeleteCommand;
 import seedu.clinic.logic.commands.EditCommand;
@@ -24,10 +23,10 @@ import seedu.clinic.logic.commands.ViewCommand;
  */
 public class Macro {
     public static final String[] PREDEFINED_COMMANDS = new String[] { AddCommand.COMMAND_WORD,
-        AddProductCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
-        ClearCommand.COMMAND_WORD, FindCommand.COMMAND_WORD, ListCommand.COMMAND_WORD, ListMacroCommand.COMMAND_WORD,
-        ExitCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD, RemoveMacroCommand.COMMAND_WORD,
-        UpdateCommand.COMMAND_WORD, ViewCommand.COMMAND_WORD};
+        EditCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD, FindCommand.COMMAND_WORD,
+        ListCommand.COMMAND_WORD, ListMacroCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
+        HelpCommand.COMMAND_WORD, RemoveMacroCommand.COMMAND_WORD, UpdateCommand.COMMAND_WORD,
+        ViewCommand.COMMAND_WORD};
 
     private final Alias alias;
     private final SavedCommandString savedCommandString;
@@ -91,6 +90,5 @@ public class Macro {
     public String toString() {
         return getAlias() + "\nSaved Command String: " + getSavedCommandString();
     }
-
 }
 

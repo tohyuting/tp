@@ -30,7 +30,7 @@ public class TypicalWarehouse {
     public static final Warehouse ALICE = new WarehouseBuilder().withName("Alice Warehouse")
             .withRemark("Warehouse 1 biggest").withAddress("alice address")
             .withPhone("94351253")
-            .withProducts(Map.of("Gauze", 100)).build();
+            .withProducts(Map.of("Panadol", 100)).build();
     public static final Warehouse BENSON = new WarehouseBuilder().withName("Warehouse Benson")
             .withRemark("Warehouse 2 near central").withAddress("benson address")
             .withPhone("94351453")
