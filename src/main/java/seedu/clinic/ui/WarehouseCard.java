@@ -55,16 +55,11 @@ public class WarehouseCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(warehouse.getName().fullName);
         phone.setText(warehouse.getPhone().value);
-        // remark.getChildren().add(new Label(warehouse.getRemark().value));
         String remarkText = warehouse.getRemark().value == "" ? "No Remark" : warehouse.getRemark().value;
         remark.setText(remarkText);
         remark.setWrapText(true);
         address.setText(warehouse.getAddress().value);
-        /*
-        warehouse.getProducts().stream()
-                .sorted(Comparator.comparing(product -> product.toStringForWareHouse()))
-                .forEach(product -> products.getChildren().add(new Label(product.toStringForWareHouse())));
-        */
+
         //Keep products pane closed by default
         productsTitledPane.setExpanded(false);
         int productIndex = 1;

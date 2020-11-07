@@ -46,7 +46,6 @@ public interface Model {
      */
     Path getUserMacrosFilePath();
 
-
     /**
      * Returns the user macros.
      */

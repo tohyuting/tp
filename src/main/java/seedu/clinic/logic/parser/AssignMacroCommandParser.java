@@ -35,7 +35,6 @@ public class AssignMacroCommandParser implements Parser<AssignMacroCommand> {
         SavedCommandString savedCommandString = ParserUtil.parseCommandString(
                 argMultimap.getValue(PREFIX_COMMAND_STRING).get());
 
-
         Macro macro = new Macro(alias, savedCommandString);
 
         return new AssignMacroCommand(macro);

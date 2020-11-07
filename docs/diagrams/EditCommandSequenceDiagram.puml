@@ -5,10 +5,6 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ClinicParser" as ClinicParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
-participant "editDescriptor:EditSupplierDescriptor" as EditSupplierDescriptor LOGIC_COLOR
-participant "editDescriptor:EditWarehouseDescriptor" as EditWarehouseDescriptor LOGIC_COLOR
-participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
-participant "argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
 participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 participant "e:EditCommand" as EditCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
@@ -34,27 +30,9 @@ deactivate EditCommandParser
 ClinicParser -> EditCommandParser : parse("ct/s i/1 n/Claire")
 activate EditCommandParser
 
-create ArgumentTokenizer
-EditCommandParser -> ArgumentTokenizer
-activate ArgumentTokenizer
-ArgumentTokenizer --> EditCommandParser
-deactivate
-
-
-EditCommandParser -> ArgumentTokenizer : tokenize(args, PREFIX_TYPE, PREFIX_INDEX, PREFIX_NAME,PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK)
-activate ArgumentTokenizer
-create ArgumentMultimap
-ArgumentTokenizer --> ArgumentMultimap
-activate ArgumentMultimap
-ArgumentMultimap --> ArgumentTokenizer
-deactivate
-ArgumentTokenizer --> EditCommandParser : argMultimap
-deactivate ArgumentTokenizer
-
-EditCommandParser -> ArgumentMultimap : getValue(PREFIX_TYPE), getValue(PREFIX_INDEX)
-activate ArgumentMultimap
-ArgumentMultimap --> EditCommandParser : type, index
-deactivate ArgumentMultimap
+ref over EditCommandParser
+Tokenising and retrieving of values from user input
+end
 
 create ParserUtil
 EditCommandParser -> ParserUtil : parseType(type), parseIndex(index)
@@ -62,7 +40,7 @@ activate ParserUtil
 ParserUtil --> EditCommandParser
 deactivate ParserUtil
 
-ref over EditCommandParser, EditSupplierDescriptor, EditWarehouseDescriptor
+ref over EditCommandParser
 Creation of appropriate EditDesciptor for EditCommand
 end
 

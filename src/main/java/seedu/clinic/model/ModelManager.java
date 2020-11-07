@@ -102,6 +102,7 @@ public class ModelManager implements Model {
         requireNonNull(userMacrosFilePath);
         userPrefs.setUserMacrosFilePath(userMacrosFilePath);
     }
+
     //=========== UserMacros ==================================================================================
 
     @Override
