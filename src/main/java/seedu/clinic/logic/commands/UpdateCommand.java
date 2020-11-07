@@ -43,8 +43,8 @@ public class UpdateCommand extends Command {
             + " the product with the specified"
             + " name for the supplier or warehouse at the index specified. If the product does not exist for"
             + " that supplier or warehouse, a new product will be created for that supplier or warehouse."
-            + " TYPE specified should be either s for supplier or w for warehouse. QUANTITY should"
-            + " be a non-negative unsigned integer. If the PRODUCT_NAME already exists in the supplier or warehouse,"
+            + " TYPE specified should be either s for supplier or w for warehouse."
+            + " If the PRODUCT_NAME already exists in the supplier or warehouse,"
             + " at least one optional argument has to be entered.\n\n"
             + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "
@@ -58,7 +58,7 @@ public class UpdateCommand extends Command {
             + PREFIX_INDEX + "1 "
             + PREFIX_PRODUCT_NAME + "Panadol "
             + PREFIX_PRODUCT_QUANTITY + "350 "
-            + PREFIX_TAG + "Fever";
+            + PREFIX_TAG + "Fever Headache";
 
     public static final String MESSAGE_SUCCESS = "Product stock updated: \n\n%1$s\n\nin %2$s.";
     private static final String MESSAGE_INVALID_TYPE = "Invalid Type.";

@@ -169,9 +169,9 @@ the same command (along with any additional prefixes supplied).
 
 Format:	`assignmacro a/ALIAS cs/COMMAND_STRING`
 
-* `alias` cannot be an existing command word such as `add`, `delete` etc.
-* `alias` cannot be already used for an existing macro.
-* `alias` should only consist of alphanumeric characters and/or underscores. 
+* `ALIAS` cannot be an existing command word such as `add`, `delete` etc.
+* `ALIAS` cannot be already used for an existing macro.
+* `ALIAS` should only consist of alphanumeric characters and/or underscores (case-sensitive). 
 * `COMMAND_STRING` can consist of any number of prefixes (can be a partial command), but the first word has to be a pre-defined command word.
 * `COMMAND_STRING` cannot take in another `assignmacro` command e.g.
   `assignmacro a/asgmac cs/assignmacro a/asgmac ...` as this is recursive.   
@@ -365,6 +365,7 @@ Removes the macro with the specified alias.
 Format:	`removemacro ALIAS`
 
 * `ALIAS` specified must exist to be deleted.
+* `ALIAS` is case-sensitive.
 
 Example:
 

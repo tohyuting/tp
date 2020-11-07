@@ -84,15 +84,16 @@ The `UI` component,
 **API** :
 [`Logic.java`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/logic/Logic.java)
 
-1. `Logic` uses the `ClinicParser` class to parse the user command.
+1. `Logic` uses the `MacroParser` class to parse the user input.
+1. The resultant command string is then parsed by the `ClinicParser`.
 1. This results in a `Command` object which is executed by the `LogicManager`.
 1. The command execution can affect the `Model` (e.g. adding a supplier).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 1. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete ct/s i/12")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("ds i/12")` API call, where there is a saved macro with the alias `ds` for the command string `delete ct/s`.
 
-![Interactions Inside the Logic Component for the `delete ct/s i/12` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `ds i/12` Command](images/DeleteSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
@@ -107,7 +108,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user’s preferences.
 * stores the clinic data.
-* exposes an unmodifiable `ObservableList<Supplier>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Supplier>`, `ObservableList<Warehouse>` and `ObservableList<Macro>` that can be 'observed' e.g. the UI can be bound to these lists so that the UI automatically updates when the data in the lists change.
 * does not depend on any of the other three components.
 
 
@@ -126,6 +127,8 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
+* can save `UserMacros` objects in json format and read it back.
+* can save `CommandHistory` objects in json format and read it back.
 * can save the clinic data in json format and read it back.
 
 ### Common classes
@@ -546,6 +549,16 @@ The user now updates the quantity of the product "Panadol" in the aforementioned
 
 The following activity diagram summarizes what happens when a user assigns a macro:
 ![Assign Macro Command Activity Diagram](images/AssignMacroCommandActivityDiagram.png)
+
+#### Why it is implemented this way
+
+The main consideration for this feature was what macros should the users be allowed to store, if not everything. We wanted the command to be non-restrictive,
+yet still include certain checks to prevent misuse. Hence we decided to throw exceptions for certain types of macros that the user may try to define. In particular, exceptions will be thrown to prevent
+assigning a macro with the same alias as a pre-defined command word, so that fundamental commands will not be
+overwritten by users. Apart from that, we decided not to allow saved command strings that do not start with a pre-defined command word, as the macros created from these command strings will never
+work as they will always give invalid commands. Nonetheless, we decided to allow partial command strings and even full command strings that may not be valid commands as long as they fit the above criteria,
+as these macros can be used with additional arguments supplied (possibly making the command valid), or that the command string may be valid upon certain conditions (e.g. after the user adds a supplier).
+However, this also means that a valid macro does not guarantee a successful command when used, and error messages may still be displayed for the underlying command of the macro if the underlying command is invalid during the actual use of the macro.
 
 ### Remove Macro feature
 
