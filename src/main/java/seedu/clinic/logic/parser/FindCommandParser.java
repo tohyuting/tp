@@ -62,12 +62,17 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         if (!type.equals(SUPPLIER) && !type.equals(WAREHOUSE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_INVALID_TYPE));
+            throw new ParseException(String.format(FindCommand.MESSAGE_INVALID_TYPE,
+                    FindCommand.MESSAGE_USAGE));
         }
 
         String[] nameKeywords = {};
         String[] productKeywords = {};
         String[] remarkKeywords = {};
+
+        //First prefix to test
+        Prefix currentPrefix = PREFIX_NAME;
+
         try {
             if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
                 Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -75,16 +80,18 @@ public class FindCommandParser implements Parser<FindCommand> {
             }
 
             if (argMultimap.getValue(PREFIX_PRODUCT_NAME).isPresent()) {
+                currentPrefix = PREFIX_PRODUCT_NAME;
                 Name productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
                 productKeywords = productName.fullName.split("\\s+");
             }
 
             if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+                currentPrefix = PREFIX_REMARK;
                 Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
                 remarkKeywords = remark.value.split("\\s+");
             }
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage() + "\n\n" + FindCommand.MESSAGE_USAGE);
+            throw checkInvalidArguments(currentPrefix, argMultimap, FindCommand.MESSAGE_USAGE);
         }
 
         if (type.equals(SUPPLIER)) {

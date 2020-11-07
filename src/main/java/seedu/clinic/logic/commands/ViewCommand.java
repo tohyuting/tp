@@ -42,7 +42,7 @@ public class ViewCommand extends Command {
     public static final String COMPULSORY_VIEW_WAREHOUSE_COMMAND = "view ct/w i/";
 
     public static final String MESSAGE_INVALID_TYPE_VIEW = "Please specify a correct type,"
-            + " either ct/s or ct/w\n%1$s";
+            + " either ct/s or ct/w\n\n%1$s";
 
     private static final String LOG_MESSAGE_VIEW_SUPPLIER = "View Command wants to view a supplier.";
     private static final String LOG_MESSAGE_VIEW_WAREHOUSE = "View Command wants to view a warehouse.";

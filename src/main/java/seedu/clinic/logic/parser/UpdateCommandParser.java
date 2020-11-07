@@ -46,18 +46,19 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         }
 
         Type entityType;
+        Index index;
+
+        //First prefix to test
+        Prefix currentPrefix = PREFIX_TYPE;
+
         try {
             entityType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-        } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_TYPE, argMultimap, UpdateCommand.MESSAGE_USAGE);
-        }
-
-        Index index;
-        try {
+            currentPrefix = PREFIX_INDEX;
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_INDEX, argMultimap, UpdateCommand.MESSAGE_USAGE);
+            throw checkInvalidArguments(currentPrefix, argMultimap, UpdateCommand.MESSAGE_USAGE);
         }
+
 
         UpdateProductDescriptor updateProductDescriptor = new UpdateProductDescriptor();
 
@@ -75,7 +76,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         try {
             productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage() + "\n\n" + UpdateCommand.MESSAGE_USAGE);
+            throw checkInvalidArguments(PREFIX_PRODUCT_NAME, argMultimap, UpdateCommand.MESSAGE_USAGE);
         }
 
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
@@ -98,7 +99,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
      */
     private Optional<Set<Tag>> parseTagsForUpdate(Collection<String> tags) throws ParseException {
         assert tags != null;
-
         if (tags.isEmpty()) {
             return Optional.empty();
         }

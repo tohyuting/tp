@@ -105,22 +105,23 @@ public class AddCommandParser implements Parser<AddCommand> {
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AddCommand.MESSAGE_USAGE);
         }
 
+        //First Prefix to check
+        Prefix currentPrefix = PREFIX_NAME;
+
         Name name;
         Email email;
         Remark remark;
-        try {
-            name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-            remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
-        } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage() + "\n\n" + AddCommand.MESSAGE_USAGE);
-        }
-
         Phone phone;
         try {
+            name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            currentPrefix = PREFIX_EMAIL;
+            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+            currentPrefix = PREFIX_REMARK;
+            remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
+            currentPrefix = PREFIX_PHONE;
             phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
+            throw checkInvalidArguments(currentPrefix, argMultimap, AddCommand.MESSAGE_USAGE);
         }
 
         Set<Product> productList = new HashSet<>();
@@ -151,19 +152,20 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name;
         Address address;
         Remark remark;
+        Phone phone;
+
+        //First prefix to test
+        Prefix currentPrefix = PREFIX_NAME;
         try {
             name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+            currentPrefix = PREFIX_ADDRESS;
             address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+            currentPrefix = PREFIX_REMARK;
             remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
-        } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage() + "\n\n" + AddCommand.MESSAGE_USAGE);
-        }
-
-        Phone phone;
-        try {
+            currentPrefix = PREFIX_PHONE;
             phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
+            throw checkInvalidArguments(currentPrefix, argMultimap, AddCommand.MESSAGE_USAGE);
         }
 
         Set<Product> productList = new HashSet<>();

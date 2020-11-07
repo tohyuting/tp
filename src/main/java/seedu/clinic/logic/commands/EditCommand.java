@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
@@ -51,6 +52,7 @@ public class EditCommand extends Command {
             + " TYPE specified should be either s for supplier or w for warehouse.\n\n"
             + "Parameters:\n"
             + "ct/TYPE i/INDEX "
+            + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
@@ -65,19 +67,17 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_WAREHOUSE_SUCCESS = "Edited Warehouse: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.\n\n%1$s";
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "A supplier with the same name already"
-            + " exists in CLInic.";
+            + " exists in CLI-nic.";
     public static final String MESSAGE_DUPLICATE_WAREHOUSE = "A warehouse with the same name already"
-            + " exists in CLInic.";
-    public static final String MESSAGE_SUPPLIER_NO_ADDRESS = "Supplier do not have address!\n%1$s";
-    public static final String MESSAGE_WAREHOUSE_NO_EMAIL = "Warehouse do not have email!\n%1$s";
+            + " exists in CLI-nic.";
+    public static final String MESSAGE_SUPPLIER_NO_ADDRESS = "Supplier do not have address!\n\n%1$s";
+    public static final String MESSAGE_WAREHOUSE_NO_EMAIL = "Warehouse do not have email!\n\n%1$s";
     public static final String MESSAGE_INPUT_BOTH_SUPPLIER_WAREHOUSE_PREFIX = "Please only enter one type of"
             + " index, i.e. either wi/INDEX or si/INDEX";
     public static final String MESSAGE_NO_PREFIX = "Please enter at least one type of"
             + " command under ct (i.e. either ct/s or ct/w)\n%1$s";
     public static final String MESSAGE_INVALID_TYPE_EDIT = "You used an invalid type! Type for Edit command "
-            + "should be either ct/s or ct/w only.\n%1$s";
-    public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
-            + "ensure that you only include prefixes specified in the User Guide.\n\n%1$s";
+            + "should be either ct/s or ct/w only.\n\n%1$s";
     public static final String MESSAGE_SUPPLIER_UNCHANGED = "The edited field will results in no change to "
             + "supplier selected. Please check your arguments again and re-enter your edit command.";
     public static final String MESSAGE_WAREHOUSE_UNCHANGED = "The edited field will results in no change to "

@@ -43,10 +43,7 @@ public class FindCommand extends Command {
             + "2) " + COMMAND_WORD + " ct/s pd/panadol face mask n/alex\n"
             + "3) " + COMMAND_WORD + " ct/w pd/panadol n/bernice r/biggest";
 
-    public static final String MESSAGE_INVALID_TYPE = "Type must be either 's' or 'w'.\n\n"
-            + "Examples:\n"
-            + "1) ct/s\n"
-            + "2) ct/w";
+    public static final String MESSAGE_INVALID_TYPE = "Type is invalid, must be either s or w.\n\n%1$s";
 
     private final Optional<SupplierPredicate> supplierPredicate;
     private final Optional<WarehousePredicate> warehousePredicate;

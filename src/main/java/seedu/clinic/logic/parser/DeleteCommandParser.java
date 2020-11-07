@@ -42,17 +42,16 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         }
 
         Type type;
+        Index index;
+
+        //First prefix to test
+        Prefix currentPrefix = PREFIX_TYPE;
         try {
             type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-        } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_TYPE, argMultimap, DeleteCommand.MESSAGE_USAGE);
-        }
-
-        Index index;
-        try {
+            currentPrefix = PREFIX_INDEX;
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_INDEX, argMultimap, DeleteCommand.MESSAGE_USAGE);
+            throw checkInvalidArguments(currentPrefix, argMultimap, DeleteCommand.MESSAGE_USAGE);
         }
 
         assert index.getOneBased() >= 1 : INVALID_INDEX_ASSERTION;
@@ -74,8 +73,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         try {
             productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage() + "\n\n" + DeleteCommand.MESSAGE_USAGE);
+            throw checkInvalidArguments(PREFIX_PRODUCT_NAME, argMultimap, DeleteCommand.MESSAGE_USAGE);
         }
+
+        System.out.println(productName);
         return new DeleteCommand(type, index, productName);
     }
 }
