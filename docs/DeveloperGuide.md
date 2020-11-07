@@ -141,6 +141,34 @@ Classes used by multiple components are in the `seedu.clinic.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Command history feature
+
+In this section, the functionality of the command history feature will be discussed.
+
+#### What is the command history feature
+
+The command history feature helps user to recall, edit and to reuse long or complicated commands with ease
+without having to retype them.
+
+#### How it is implemented
+
+1. When the user starts CLI-nic, a `CommandHistory` model will be initialised to store all the previous command history
+entered which is saved in the commandHistory.txt file. Reading from commandHistory.txt is only done once at the start.
+
+1. If the commandHistory.txt file does not exist, the `CommandHistory` model will be initialised with an empty
+`CommandHistoryList` which is encapsulated inside `CommandHistory`.
+
+1. When a user enters a valid command, the `execute` method of `LogicManager` will be called and this saves the valid
+command entered by the user to the commandHistory.txt file. At the same time, the command will also be added to the
+`CommandHistoryList` such that users are able to access the latest history. Since we do not read again from the
+commandHistory.txt file, it is necessary to update the in-memory `CommandHistoryList`.
+
+#### Why it is implemented this way
+
+The command history feature is implemented this way to reduce the need for repeated readings from commandHistory.txt
+whenever a new valid command is entered by the user. As the commandHistory.txt file gets longer, reading repeatedly
+from it can result in a significant reduction in performance.
+
 ### Delete feature
 
 The `delete` feature will be elaborated in this section by its' functionality, the path execution with the aid of a sequence and an activity diagram.
@@ -400,22 +428,25 @@ of these criterion or a combination of these criteria. Note that users are only 
 warehouses at any one time and not both at the same time.
 
 #### How it is implemented
-Step 1. After the `find` command is called, the user input will be sent to **FindCommandParser** for parsing.
+![Find Command Activity Diagram](images/FindCommandActivityDiagram.png)
 
-Step 2. **FindCommandParser** will then check if the compulsory prefix `ct/COMMAND_TYPE` is present. If the user enters
+1. After the `find` command is called with the relevant prefixes, the user input will be sent
+to `FindCommandParser` for parsing.
+
+1. `FindCommandParser` will then check if the compulsory prefix `ct/COMMAND_TYPE` is present. If the user enters
 `ct/COMMAND_TYPE` prefix more than once, only the last prefix specified will be used to process user's input. If the
-prefix `ct/COMMAND_TYPE` is not present, a **ParseException** will be thrown.
+prefix `ct/COMMAND_TYPE` is not present, a `ParseException` will be thrown and an invalid command format message
+will be shown to the user.
 
-Step 3. **FindCommandParser** will then proceed to check for the existence of at least one of the following prefixes
- `n/NAME`, `r/REMARK` and `pd/PRODUCT`. If none is found, a **ParseException** will be thrown. Again, if the user
- specifies the same prefix more than once, only the last prefix specified will be used to process the user's input.
+1. If command type prefix is present, `FindCommandParser` will then proceed to check for the existence of at least
+one of the following prefixes `n/NAME`, `r/REMARK` and `pd/PRODUCT`. If none is found or invalid prefixes are provided,
+a `ParseException` will be thrown and an invalid command format message will be shown.
 
-Step 4. Once the user has entered the correct format for the command, their input will then be parsed.
+1. Once the user has entered the correct format, `FindCommandParser` will create a new `FindCommand` with either a
+`SupplierPredicate` or `WarehousePredicate`. This `FindCommand` will then be executed and the relevant supplier(s)
+or warehouse(s) will be filtered out.
 
-Step 5. **FindCommandParser** will create a new **FindCommand** to be executed and the relevant suppliers or warehouses
-will be filtered out.
-
-Step 6. The model will then display the relevant suppliers or warehouses to the users via the method
+1. The model will then display the relevant supplier(s) or warehouse(s) to the user via the method
 `model#getFilteredSupplierList()` or `model#getFilteredWarehouseList()`.
 
 #### Why it is implemented this way
@@ -783,6 +814,58 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the warehouse/supplier being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
+### Auto-complete feature
+
+In this section, the functionality of the auto-complete feature will be discussed together with the expected
+interface.
+
+#### What is the Auto-complete feature
+
+The auto-complete feature is to help users complete their commands faster through the suggestions of
+commands with their corresponding compulsory prefixes based on user input.
+
+#### How it is implemented
+
+All possible commands and their compulsory prefixes are saved in a SortedSet.
+
+When a user types a command on the text box, `AutoCompleteTextField#populatePopup` will be called where the
+user’s input will be matched against the set.
+
+If the case of a match, a contextMenu showing all possible auto-complete commands will show up.
+
+This method is implemented such that the results in the contextMenu are constantly updated as the user is
+typing and this would make it more intuitive for users.
+
+#### Why it is implemented this way
+
+The auto-complete feature is implemented this way to reduce the need for space on the GUI by only showing
+up when there is a potential match. It would also serve to value add to the user experience by speeding up
+the process of typing the full command and reduce mistakes by including all the compulsory prefixes.
+
+#### How Auto-complete works
+
+User wishes to enter an `add` command to add a supplier via `add ct/s n/John p/91234567 e/john@example.com
+ r/friend`.
+
+Upon typing "a", the auto-complete context menu will pop up showing the possible auto-completed commands
+, mainly:
+
+add ct/s n/ p/ e/ r/
+
+add ct/w n/ p/ addr/ r/
+
+assignmacro a/ cs/
+
+Upon seeing this, the user will be able to select from those options or use them as a guide to complete
+his/her commands more intuitively.
+
+#### Design consideration
+
+When the full command for single-worded commands are typed in the commandBox, the
+AutoCompleteTextField#popUpEntries would be hidden to achieve smoother navigation for users when
+accessing commandHistory.
+
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -802,9 +885,9 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Target user profile**:
 
 * manager of a medical supplies company that manages warehouses across the country
-* tech-savvy manager who prefers typing to clicking
+* tech-savvy manager who prefers typing but still comfortable with clicking
 * keeps track of supplies in each warehouse
-* needs to quickly contact suppliers to restock medical supplies when the stock runs low at various warehouses
+* needs to quickly identify which suppliers to contact when restocking medical supplies
 
 **Value proposition**:
 
@@ -835,7 +918,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | advanced user | create custom alias for my commands | so that I enter commands more efficiently |
 | `* *`    | advanced user | delete a custom alias | remove the aliases that I no longer need |
 | `* *`    | advanced user | list my saved macros | quickly recall which macros I can currently use  |
-
+| `*`      | beginner user | have command autocomplete | enter commands faster |
+| `*`      | beginner user | see the syntax of the command as I type into the command line | refer back to the documentation less frequently |
 
 ### Use cases
 

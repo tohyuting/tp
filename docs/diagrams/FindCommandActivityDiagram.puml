@@ -1,0 +1,39 @@
+@startuml
+start
+:User enters find command with relevant prefixes;
+:Parse user input;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([command type prefix present])
+    :Check if at least one of the name, remark or
+    product prefix is present;
+    if () then([at least one of the prefixes is present])
+        if () then([finding supplier])
+        :Generate new FindCommand
+        with SupplierPredicate;
+        else ([finding warehouse])
+        :Generate new FindCommand
+        with WarehousePredicate;
+        endif
+
+        :Execute Find Command;
+
+        if () then([Finding Supplier(s)])
+        :Finds relevant supplier(s)
+        from Supplier List;
+        else ([Finding Warehouse(s)])
+        :Finds relevant warehouse(s)
+        from Warehouse List;
+        endif
+        :Generate find success message;
+    else ([none of the prefixes are present / invalid prefixes provided])
+    :Generate invalid command format message;
+    endif
+else ([command type prefix missing])
+    :Generate invalid command format message;
+endif
+:Display result message to user;
+stop
+@enduml
