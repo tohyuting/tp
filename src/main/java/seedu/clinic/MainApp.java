@@ -80,9 +80,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s clinic, user macros, and
+     * Returns a {@code ModelManager} with the data from {@code storage}'s CLI-nic data, user macros, and
      * {@code userPrefs}. <br>
-     * The data from the sample clinic will be used instead if {@code storage}'s clinic is not found,
+     * The data from the sample CLI-nic data will be used instead if {@code storage}'s clinic is not found,
      * or an empty clinic will be used instead if errors occur when reading {@code storage}'s clinic.
      * An empty User Macros model will be used if {@code storage}'s User Macros are not found or if errors
      * occur when reading {@code storage}'s User Macros.
@@ -94,15 +94,15 @@ public class MainApp extends Application {
         try {
             clinicOptional = storage.readClinic();
             if (clinicOptional.isEmpty()) {
-                logger.info("Clinic data file not found. Will be starting with a sample Clinic");
+                logger.info("CLI-nic data file not found. Will be starting with a sample CLI-nic");
             }
             initialClinicData = clinicOptional.orElseGet(SampleDataUtil::getSampleClinic);
         } catch (DataConversionException e) {
-            logger.warning("Clinic data file not in the correct format. Will be starting with an empty Clinic");
+            logger.warning("CLI-nic data file not in the correct format. Will be starting with an empty CLI-nic");
             initialClinicData = new Clinic();
         } catch (IOException e) {
-            logger.warning("Problem encountered while reading from the Clinic data file. Will be starting "
-                    + "with an empty Clinic");
+            logger.warning("Problem encountered while reading from the CLI-nic data file. Will be starting "
+                    + "with an empty CLI-nic");
             initialClinicData = new Clinic();
         }
 
@@ -213,7 +213,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting Clinic " + MainApp.VERSION);
+        logger.info("Starting CLI-nic " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
