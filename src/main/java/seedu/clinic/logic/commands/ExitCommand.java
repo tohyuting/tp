@@ -13,7 +13,7 @@ public class ExitCommand extends Command {
         + "Example:\n"
         + COMMAND_WORD;
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Clinic as requested ...";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting CLI-nic as requested ...";
 
     @Override
     public CommandResult execute(Model model) {

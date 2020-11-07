@@ -36,7 +36,7 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
    * **`add`** `ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor` : Adds a
     supplier named `Philips Pharmaceutical` with the phone number `00000000` and email `philipsPharm@gmail.com` to
     CLI-nic. This supplier is the `Largest contractor`.
-    
+
    * **`assignmacro`** `a/findsup cs/find ct/s pd/panadol` : Assigns a macro that pairs the alias `findsup` to the
    command string `find ct/s pd/panadol`.
 
@@ -120,6 +120,15 @@ Examples:
 
 ![help](images/helpGenericMessage.png)
 
+### Accessing history commands
+
+Allows user to access valid commands that have been previously used.
+
+<div markdown="span" class="alert alert-info">
+**:information_source:** Use the <kbd>up</kbd> and <kbd>down</kbd> buttons on the keyboard to iterate through the
+command history.
+</div>
+
 ### Adding a supplier : `add`
 
 Adds a supplier to the CLI-nic application.
@@ -137,7 +146,7 @@ Example:
 * `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor` : Adds a supplier
   named `Philips Pharmaceutical` with the phone number `00000000` and email `philipsPharm@gmail.com`.
   This supplier is the `Largest contractor`.
-  
+
 ![add](images/addSupplier.png)
 
 ### Adding a warehouse : `add`
@@ -171,23 +180,43 @@ Format:	`assignmacro a/ALIAS cs/COMMAND_STRING`
 
 * `ALIAS` cannot be an existing command word such as `add`, `delete` etc.
 * `ALIAS` cannot be already used for an existing macro.
-* `ALIAS` should only consist of alphanumeric characters and/or underscores (case-sensitive). 
+* `ALIAS` should only consist of alphanumeric characters and/or underscores (case-sensitive).
 * `COMMAND_STRING` can consist of any number of prefixes (can be a partial command), but the first word has to be a pre-defined command word.
 * `COMMAND_STRING` cannot take in another `assignmacro` command e.g.
-  `assignmacro a/asgmac cs/assignmacro a/asgmac ...` as this is recursive.   
-* Even if the macro is valid, running the macro does not guarantee a valid command. 
+  `assignmacro a/asgmac cs/assignmacro a/asgmac ...` as this is recursive.
+* Even if the macro is valid, running the macro does not guarantee a valid command.
 
 Example:
 
 * `assignmacro a/findsup cs/find ct/s pd/panadol` : Assigns a macro that pairs the alias `findsup` to the command
   string `find ct/s pd/panadol`. With this macro set up, users can now enter `findsup` instead of
   `find ct/s pd/panadol` to find the relevant supplier(s).
-  
+
 * `assignmacro a/uwp cs/update ct/w pd/panadol t/fever headache` : Assigns a macro that pairs the alias `uwp` to the command
   string `cs/update ct/w pd/panadol t/fever headache`. Notice that this is just a partial command string. With this macro set up, users can now enter `uwp i/1 q/123` instead of
   `update ct/w i/1 pd/panadol q/123 t/fever headache` to update the quantity for the `Panadol` product under the first warehouse to `123`.
 
 ![assign macro](images/assignMacro.png)
+
+### AutoComplete Function
+
+Helps you to complete your commands faster with the compulsory prefixes.
+
+You will be able to see a list of auto-complete options which is constantly updated while you are typing.
+Once the auto complete context menu is displayed, you can use the arrow keys to choose the options you
+want and upon pressing the "ENTER" button, you would be able to select the option.
+
+Examples:
+
+User wants to type the "add" command in the command box
+
+He/she will be able to see a list of dropdown options as shown:
+
+"UP" and "DOWN" button to select the option
+
+"ENTER" button will execute the option
+
+### TODO: Add in a Mac version screenshot here, show the options
 
 ### Clearing all entries : `clear`
 
@@ -281,7 +310,7 @@ Example:
 * `edit ct/s i/1 n/Alice p/85236417 e/alicekoh@example.com r/Largest supplier` : Edits the name, phone, email and remark
   of the first supplier in the list of displayed suppliers in the GUI to be `Alice`, `85236417`, `alicekoh@example.com`
   and `Largest supplier`.
-  
+
 ![edit](images/editSupplier.png)
 
 ### Editing a warehouse : `edit`
@@ -316,14 +345,14 @@ Finds all supplier(s) whose name, remark and/or products sold matches the provid
 Format: `find ct/s [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`
 
 * `NAME`, `PRODUCT_NAME` and `REMARK` are case-insensitive.
-* Note that only full words will be matched. `needle` will match `needle` but not `needles`. 
+* Note that only full words will be matched. `needle` will match `needle` but not `needles`.
 * Any combination of the `NAME`, `PRODUCT_NAME` and `REMARK` parameters can be provided but at least one of the
   parameters with its corresponding prefix must be specified.
 
 Example:
 
 * `find ct/s pd/masks` : Displays all the suppliers that sell `masks`.
-  
+
 ![find](images/findWarehouse.png)
 
 ### Finding relevant warehouse(s): `find`
@@ -333,7 +362,7 @@ Finds all warehouse(s) whose name, remark and/or products stored matches the pro
 Format: `find ct/w [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`
 
 * `NAME`, `PRODUCT_NAME` and `REMARK` are case-insensitive.
-* Note that only full words will be matched. `needle` will match `needle` but not `needles`. 
+* Note that only full words will be matched. `needle` will match `needle` but not `needles`.
 * Any combination of the `NAME`, `PRODUCT_NAME` and `REMARK` parameters can be provided but at least one of the
   parameters with its corresponding prefix must be specified.
 
@@ -344,6 +373,12 @@ Example:
 
 ![find](images/findWarehouse.png)
 
+### Listing all macros : `list`
+
+Lists all presently saved macros in CLI-nic.
+
+Format: `listmacro`
+
 ### Listing all suppliers and warehouses entries : `list`
 
 Lists all suppliers and warehouses' entries in CLI-nic.
@@ -351,12 +386,6 @@ Lists all suppliers and warehouses' entries in CLI-nic.
 Format: `list`
 
 ![list](images/listCommand.png)
-
-### Listing all macros : `listmacro`
-
-Lists all presently saved macros in CLI-nic.
-
-Format: `listmacro`
 
 ### Removing macro: `removemacro`
 
@@ -378,10 +407,20 @@ Example:
 CLI-nic data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
+### Undoing/redoing a previous editing : `undo`/`redo`
+
+Undoing recovers a previous version of CLI-nic data if any data has been changed.
+Redoing restores the data in CLI-nic before an `undo` command was done.
+
+Format: `undo` / `redo`
+
+* Trailing words behind the command words will be ignored.
+* For example, if one types `undo redo`, `undo` will be called to undo the editing. `redo` will be ignored.
+
 ### Updating the quantity and/or tags of a product sold by a supplier: `update`
 
 Updates the quantity and/or tags of the product with the specified name at the specified supplier index.
-If the product does not exist, a new product will be created for that supplier. 
+If the product does not exist, a new product will be created for that supplier.
 
 Format:	`update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
@@ -395,13 +434,13 @@ Example:
 
 * `update ct/s i/4 pd/Panadol q/10 t/fever cold` : Updates the quantity of `Panadol` sold by the supplier at index 4 in the
   list of displayed suppliers in the GUI to `10` and gives `Panadol` 2 tags: `fever` and `cold`.
-  
+
 ![update warehouse product](images/updateWarehouseProduct.png)
 
 ### Updating the quantity and/or tags of a product stored in a warehouse: `update`
 
 Updates the quantity and/or tags of the product with the specified name at the specified warehouse index.
-If the product does not exist, a new product will be created for that warehouse. 
+If the product does not exist, a new product will be created for that warehouse.
 
 Format:	`update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
@@ -413,11 +452,10 @@ Format:	`update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
 Example:
 
-* `update ct/w i/1 pd/Panadol q/10 t/fever` : Updates the quantity of `Panadol` stored in the warehouse at
-  index 1 in the list of displayed warehouses on the GUI to `10` and gives `Panadol` 2 tags: `fever` and `cold`.
-  
+* `update ct/w i/1 pd/Panadol q/10 t/fever` : Updates the quantity of `Panadol` stored in the warehouse at index 1 in the list of displayed warehouses on the GUI to `10` and gives `Panadol` 2 tags: `fever` and `cold`.
+
 ![update warehouse product](images/updateWarehouseProduct.png)
-  
+
 ### Viewing a specific supplier: `view`
 
 Shows a specific supplier at the specified index with their relevant information e.g. products sold,
@@ -447,16 +485,6 @@ Example:
 * `view ct/w i/2` : Displays all the information associated with the warehouse at index 2 in the warehouse list.
 
 ![view](images/viewWarehouse.png)
-
-### Undo/Redo a previous editing : `undo`/`redo`
-
-Undo command recovers a previous version of CLI-nic data if any data has been changed.
-Redo command restores the data in CLI-nic before an `undo` command was done.
-
-Format: `undo` / `redo`
-
-* Any trailing words behind the command words will be ignored.
-* For example: if one types `undo redo`, the command will be to `undo` the editing.
 
 <br />
 

@@ -54,17 +54,26 @@ public class ClinicParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case AssignMacroCommand.COMMAND_WORD:
+            return new AssignMacroCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
+
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -72,20 +81,8 @@ public class ClinicParser {
         case ListMacroCommand.COMMAND_WORD:
             return new ListMacroCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommandParser().parse(arguments);
-
-        case UpdateCommand.COMMAND_WORD:
-            return new UpdateCommandParser().parse(arguments);
-
-        case ViewCommand.COMMAND_WORD:
-            return new ViewCommandParser().parse(arguments);
-
-        case AssignMacroCommand.COMMAND_WORD:
-            return new AssignMacroCommandParser().parse(arguments);
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case RemoveMacroCommand.COMMAND_WORD:
             return new RemoveMacroCommandParser().parse(arguments);
@@ -93,8 +90,11 @@ public class ClinicParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+        case UpdateCommand.COMMAND_WORD:
+            return new UpdateCommandParser().parse(arguments);
+
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

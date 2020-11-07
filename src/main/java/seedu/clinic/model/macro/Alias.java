@@ -19,7 +19,7 @@ public class Alias {
     public final String aliasString;
 
     /**
-     * Constructs a {@code Alias}.
+     * Constructs an {@code Alias}.
      *
      * @param aliasString A valid alias string.
      */

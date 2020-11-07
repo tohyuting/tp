@@ -79,7 +79,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw checkInvalidArguments(PREFIX_TYPE, argMultimap, AddCommand.MESSAGE_USAGE);
         }
 
-
         if (type.equals(SUPPLIER)) {
             return parseAddSupplier(argMultimap);
         } else if (type.equals(WAREHOUSE)) {
@@ -112,6 +111,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         } catch (ParseException pe) {
             throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
         }
+
         Name name;
         Email email;
         Remark remark;
@@ -154,10 +154,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         } catch (ParseException pe) {
             throw checkInvalidArguments(PREFIX_PHONE, argMultimap, AddCommand.MESSAGE_USAGE);
         }
+
         Name name;
         Address address;
         Remark remark;
-
         try {
             name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
             address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());

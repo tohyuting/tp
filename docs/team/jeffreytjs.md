@@ -22,18 +22,25 @@ Given below are my contributions to the project.
   * Justification: This is an important feature and it is a must-have. It is the first touch for most users
    and allows the user to effectively keep track of medical products and storage.
 
-* **Major Enhancement**: Refactoring of AddressBook-Level3 to accommodate application use case (Pull request: [#100](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/100))
-   * What it does: Acts as the initial codebase for team to allow for the easier building of features into the application.
+* **Major Enhancement**: Refactoring of AddressBook-Level3 to accommodate CLI-nic use case (Pull request: [#100](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/100))
+   * What it does: Acts as the initial codebase for team to allow for the easier building of features into CLI-nic.
    * Justification: This is an essential update, which minimises the refactoring that each member has to do
     which could require more time to resolve and synchronise.
-   * Credits: The refactoring is done on the codebase provided by [AddressBook-Level3](https://github.com/se-edu/addressbook-level3)
+   <br> Credits: The refactoring is done on the codebase provided by [AddressBook-Level3](https://github.com/se-edu/addressbook-level3)
 
-* **Minor Enhancement**: Fix bugs for the Application (Pull requests: [#130](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/130), [#131](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/131), [#141](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/141), [#158](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/158), [#160](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/160), [#165](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/165), [#172](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/212), [#212](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/212))
+* **Minor Enhancement**: Fix bugs for the CLI-nic (Pull requests: [#130](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/130), [#131](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/131), [#141](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/141), [#158](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/158), [#160](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/160), [#165](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/165), [#172](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/212), [#212](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/212))
    * What it does: Restricts user from performing invalid actions and improve user experience when using
-    application.
+    CLI-nic.
    * Justification: This is an essential update, as invalid actions would affect the functionality of the
-    application. Unresolved UI bugs may not display all the information that users are looking for.
+    CLI-nic. Unresolved UI bugs may not display all the information that users are looking for.
 
+* **Minor Enhancement**: Adaptation and integration of autocomplete feature (Pull request: [#223](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/223), [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
+   * What it does: Suggests updated autocompleted commands for user in real time as they key in the command
+    they would like to execute.
+   * Justification: This is a good-to-have feature which can help improve user experience as they would be
+    able to achieve the intended outcome more quickly by using the autocompletion.
+    <br> Credits: The adaptation is done on the file written by past student [ShaunNgTX](https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java)
+    
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=jeffreytjs)
 
 * **Project management**:
@@ -50,9 +57,11 @@ Given below are my contributions to the project.
 * **Documentation**:
   * User Guide:
     * Added documentation for the `add` commands in the user guide (Pull requests: [#75](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/75), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
+    * Added documentation for the `autoComplete` in the user guide (Pull request: [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
   * Developer Guide:
     * Refactored DG to CLI-nic use case (Pull request: [#129](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/129))
     * Added implementation details of the `add` feature (Pull requests: [#139](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/139), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
+    * Added implementation details and user stories for `autoComplete` (Pull request: [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
     * Added UML (Including Activity Diagram, Class Diagram and Sequence Diagram) (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
     * Added Manual Testing Instructions for Developer Guide (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
     * Added Command Prefix table (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
@@ -64,5 +73,5 @@ Given below are my contributions to the project.
 
 * **Tools**:
   * Integrated a third party library ([PlantUML Github Action](https://github.com/cloudbees/plantuml-github-action))
-  to the project (Pull request: [#145](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/145)) <br>
-  Credits for workflow to: [qwoprocks](https://github.com/qwoprocks)
+  to the project (Pull request: [#145](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/145))
+  <br> Credits for workflow to: [qwoprocks](https://github.com/qwoprocks)

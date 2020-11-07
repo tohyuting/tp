@@ -189,9 +189,16 @@ public class HelpCommand extends Command {
         return ListMacroCommand.MESSAGE_USAGE;
     }
 
+    private String generateHelpRedoMessage() {
+        return MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + RedoCommand.MESSAGE_USAGE;
+    }
 
     private String generateHelpRemoveMacroMessage() {
         return MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + RemoveMacroCommand.MESSAGE_USAGE;
+    }
+
+    private String generateHelpUndoMessage() {
+        return MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + UndoCommand.MESSAGE_USAGE;
     }
 
     private String generateHelpUpdateMessage() {
@@ -200,14 +207,6 @@ public class HelpCommand extends Command {
 
     private String generateHelpViewMessage() {
         return MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + ViewCommand.MESSAGE_USAGE;
-    }
-
-    private String generateHelpUndoMessage() {
-        return MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + UndoCommand.MESSAGE_USAGE;
-    }
-
-    private String generateHelpRedoMessage() {
-        return MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + RedoCommand.MESSAGE_USAGE;
     }
 
     @Override

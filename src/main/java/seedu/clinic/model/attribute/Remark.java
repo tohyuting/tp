@@ -8,6 +8,7 @@ import static seedu.clinic.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidRemark(String)}
  */
 public class Remark {
+
     public static final String MESSAGE_CONSTRAINTS = "Remarks can take any values except for forward slashes"
             + " (i.e. '/') and it should not have more that 100 characters";
 

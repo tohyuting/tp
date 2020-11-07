@@ -71,7 +71,6 @@ public class AddCommand extends Command {
     public static final String MESSAGE_INVALID_WAREHOUSE_EMAIL_PREFIX = "Additional email prefix"
             + " detected, a warehouse should not have the email prefix (e/)\n\n%1$s";
 
-
     private static final String LOG_MESSAGE_RECEIVE_SUPPLIER = "Received information to add supplier.";
     private static final String LOG_MESSAGE_RECEIVE_WAREHOUSE = "Received information to add warehouse.";
     private static final String LOG_MESSAGE_ADD_SUPPLIER_SUCCESS = "Supplier with given information has been added"
