@@ -54,11 +54,14 @@ public class WarehouseCard extends UiPart<Region> {
         this.warehouse = warehouse;
         id.setText(displayedIndex + ". ");
         name.setText(warehouse.getName().fullName);
+        name.setWrapText(true);
         phone.setText(warehouse.getPhone().value);
+        phone.setWrapText(true);
         String remarkText = warehouse.getRemark().value == "" ? "No Remark" : warehouse.getRemark().value;
         remark.setText(remarkText);
         remark.setWrapText(true);
         address.setText(warehouse.getAddress().value);
+        address.setWrapText(true);
 
         //Keep products pane closed by default
         productsTitledPane.setExpanded(false);
