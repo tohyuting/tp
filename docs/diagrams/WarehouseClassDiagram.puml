@@ -1,0 +1,27 @@
+@startuml
+
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Warehouse {
+Class Warehouse
+Class Name
+Class Phone
+Class Address
+Class Remark
+Class Product
+Class Tag
+Class UniqueWarehouseList
+}
+
+UniqueWarehouseList o--> "*" Warehouse
+Warehouse *--> "1" Name
+Warehouse *--> "1" Phone
+Warehouse *--> "1" Address
+Warehouse *--> "1" Remark
+Warehouse *--> "*" Product
+Product *--> "*" Tag
+
+@enduml

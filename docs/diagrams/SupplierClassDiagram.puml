@@ -1,0 +1,27 @@
+@startuml
+
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Supplier {
+Class Supplier
+Class Name
+Class Phone
+Class Email
+Class Remark
+Class Product
+Class Tag
+Class UniqueSupplierList
+}
+
+UniqueSupplierList o--> "*" Supplier
+Supplier *--> "1" Name
+Supplier *--> "1" Phone
+Supplier *--> "1" Email
+Supplier *--> "1" Remark
+Supplier *--> "*" Product
+Product *--> "*" Tag
+
+@enduml

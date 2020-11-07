@@ -17,26 +17,12 @@ Class ReadOnlyUserPrefs
 
 Package Supplier {
 Class Supplier
-Class Name
-Class Phone
-Class Email
-Class Remark
-Class Product
 Class UniqueSupplierList
 }
 
 Package Warehouse {
-Class Name
-Class Phone
-Class Address
-Class Remark
-Class Product
+Class Warehouse
 Class UniqueWarehouseList
-}
-
-Package Tag{
-Class Tag
-}
 }
 
 Class HiddenOutside #FFFFFF
@@ -52,21 +38,10 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 Clinic *-down-> "1" UniqueSupplierList
 UniqueSupplierList o--> "*" Supplier
-Supplier *--> Name
-Supplier *--> Phone
-Supplier *--> Email
-Supplier *--> "*" Tag
-Supplier *--> Remark
-Supplier *--> Product
 
 Clinic *-down-> "1" UniqueWarehouseList
 UniqueWarehouseList o--> "*" Warehouse
-Warehouse *--> Name
-Warehouse *--> Phone
-Warehouse *--> Address
-Warehouse *--> "*" Tag
-Warehouse *--> Remark
-Warehouse *--> Product
+
 
 ModelManager -->"1" Supplier : filtered list
 ModelManager -->"1" Warehouse : filtered list
