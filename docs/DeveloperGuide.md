@@ -768,7 +768,7 @@ interface.
 
 #### What is the Auto-complete feature
 
-The auto-complete feature is to helps user complete their commands faster through the suggestions of
+The auto-complete feature is to help users complete their commands faster through the suggestions of
 commands with their corresponding compulsory prefixes based on user input.
 
 #### How it is implemented
