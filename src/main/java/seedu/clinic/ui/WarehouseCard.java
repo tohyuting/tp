@@ -82,7 +82,7 @@ public class WarehouseCard extends UiPart<Region> {
                         .forEach(tag -> {
                             Label tagLabel = new Label(tag.tagName);
                             tagLabel.setWrapText(true);
-                            tagLabel.setMaxWidth(400);
+                            tagLabel.setMaxWidth(80);
                             productTags.getChildren().add(tagLabel);
                         });
                 productBox.getChildren().add(productTags);
