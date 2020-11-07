@@ -1,0 +1,78 @@
+@startuml
+skinparam backgroundColor #ffffff
+skinparam classAttributeIconSize 0
+hide circle
+
+abstract class "{abstract}\nCommand" {
+    + {abstract} execute(model : Model) : CommandResult
+}
+
+interface Model <<interface>> {
+    + getFilteredSupplierList() : ObservableList<Supplier>
+    + setSupplier(Supplier) : void
+    + hasSupplier(Supplier) : boolean
+    + updateFilteredSupplierList(Predicate<Supplier>) : void
+    + getFilteredWarehouseList() : ObservableList<Warehouse>
+    + setWarehouse(Warehouse) : void
+    + hasWarehouse(Warehouse) : boolean
+    + updateFilteredWarehouseList(Predicate<Warehouse>) : void
+}
+
+class Supplier {
+    /' Fields '/
+    - name : Name
+    - phone : Phone
+    - email : Email
+    - remark : Remark
+    - products : Set<Product>
+
+    /' Methods '/
+    + getName() : Name
+    + getPhone() : Phone
+    + getEmail() : Email
+    + get Remark() : Remark
+    + getProducts() : Set<Product>
+    + isSameSupplier(otherSupplier : Supplier) : boolean
+    + equalsSupplierCaseSensitive(otherSupplier: Supplier) boolean
+    + equals(other : Object) : boolean
+}
+
+class Warehouse {
+    /' Fields '/
+    - name : Name
+    - phone : Phone
+    - address : Address
+    - remark : Remark
+    - products : Set<Product>
+
+    /' Methods '/
+    + getName() : Name
+    + getPhone() : Phone
+    + getAddress() : Address
+    + get Remark() : Remark
+    + getProducts() : Set<Product>
+    + isSameSupplier(otherSupplier : Supplier) : boolean
+    + equalsSupplierCaseSensitive(otherSupplier: Supplier) boolean
+    + equals(other : Object) : boolean
+}
+
+class EditCommand {
+    /' Fields '/
+    - editDescriptor : editDescriptor
+    - index : Index
+
+    /' Methods '/
+    + execute(model : Model) : CommandResult
+    + executeSupplierEditing(model : Model) : CommandResult
+    + executeWarehouseEditing(model : Model) : CommandResult
+    + createEditedSupplier (supplier : Supplier, editSupplierDescriptor : EditSupplierDescriptor)
+    + createEditedWarehouse (warehouse : Warehouse, editWarehouseDescriptor : EditWarehouseDescriptor)
+    + equals(other : Object) : boolean
+}
+
+EditCommand --up|> "{abstract}\nCommand"
+EditCommand ..> Model
+EditCommand --> Supplier
+EditCommand --> Warehouse
+
+@enduml

@@ -408,6 +408,7 @@ public class EditCommand extends Command {
         /**
          * Returns true if at least one field is edited.
          */
+        @Override
         public boolean isAnyFieldEdited() {
             boolean generalDetails = super.isAnyFieldEdited();
             return CollectionUtil.isAnyNonNull(email) || generalDetails;
@@ -467,6 +468,7 @@ public class EditCommand extends Command {
         /**
          * Returns true if at least one field is edited.
          */
+        @Override
         public boolean isAnyFieldEdited() {
             boolean generalDetails = super.isAnyFieldEdited();
             return CollectionUtil.isAnyNonNull(address) || generalDetails;
