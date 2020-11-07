@@ -263,7 +263,8 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
 
 ### Edit feature
-The `edit` feature will be elaborated in this section by its' functionality and path execution with the aid of a sequence and an activity diagram.
+The `edit` feature will be elaborated in this section by its' functionality and path execution with the aid of a sequence and an activity diagram. An overview of **`EditCommand`** responsible for `edit` feature is given below:
+![Edit Command Class Diagram](images/EditCommandClassDiagram.png)
 
 #### What Edit Feature does
 The edit feature allows user to edit supplier/warehouse name, phone number and remarks. In addition, the edit feature also allows user to edit a supplier's email and a warehouse's address. This is important as warehouses and suppliers might change their contact details from time to time and the user has to be able to edit those information quickly. One thing to note is that the edit feature does not allow users to edit any products associated with a particular supplier or warehouse. To edit the quantity or tags of a product, the update feature should be invoked instead. This will be elaborated in **Update** feature section below.
@@ -300,7 +301,9 @@ If the values supplied for `type` and `index` is not valid (e.g. String value fo
 
 An attempt to determine the correct type and creating the relevant **`EditDescriptor`** will then be carried out. During this process, if incorrect prefixes such as the use of `email` prefix for warehouse and an `address` prefix for supplier was found, a **`ParseException`** will be thrown.
 
-It should be noted that both **`EditSupplierDescriptor`** and **`EditWarehouseDescriptor`** are subclasses of **`EditDescriptor`**.
+It should be noted that both **`EditSupplierDescriptor`** and **`EditWarehouseDescriptor`** are subclasses of **`EditDescriptor`**. This inheritance relationship is shown below:
+
+![Edit Command Descriptor Class Diagram](images/EditDescriptorClassDiagram.png)
 
 The logical workflow of creating an appropriate `editDescriptor` is shown in the sequence diagram below:
 
@@ -315,8 +318,6 @@ This is represented in the sequence diagram below:
 In addition, since Supplier contains an **`Email`** attribute, parsing of this field will be carried out. On the other hand, parsing of **`Address`** will be carried out for warehouse entity instead. These respective parsing are represented by the sequence diagrams below:
 
 ![Edit Command Supplier Details Sequence Diagram](images/EditCommandDescriptorSupplierDetailsSequenceDiagram.png)
-
-
 ![Edit Command Warehouse Details Sequence Diagram](images/EditCommandDescriptorWarehouseDetailsSequenceDiagram.png)
 
 
@@ -355,12 +356,12 @@ When a user's input is parsed, **`ViewCommandParser`** checks if both command ty
 
 Only 2 command types are allowed, they are `ct/s` and `ct/w`. In addition, if any values for prefixes are invalid (e.g. invaid command type specified), a **`ParseException`** will be thrown.
 
-If parsing is successful, **`ViewCommand`** will be created and executed. If the `INDEX` specified by user is greater than the length of the list, a **`ParseException`** will be thrown. At the end, a view command success message will be displayed and the relevant supplier or warehouse list will only show one supplier or warehouse.
+If parsing is successful, **`ViewCommand`** will be created and executed. If the `INDEX` specified by user is greater than the length of the list, a **`CommandException`** will be thrown. At the end, a view command success message will be displayed and the relevant supplier or warehouse list will only show one supplier or warehouse.
 
 The logical workflow of this process is further explained in the sequence diagram below:
 ![View Command Sequence Diagram](images/ViewCommandSequenceDiagram.png)
 
-Upon receiving user's input, parse command of **`ViewCommandParser`** will be invoked. Values associated with prefixes `ct/` and `i/` will be obtained by invoking `tokenize` method of **`ArgumentTokenizer`**. As mentioned above, if either or both prefixes are missing, an error will be thrown to inform the user of a missing prefix. When parsing `index` and `type` values, a **`ParseException`** will be thrown if the values specified are invalid (e.g wrong type or does not conform to `TYPE_CONSTRAINTS`). **`ViewCommand`** is created with `index` and `type` as input. It will then be executed.
+Upon receiving user's input, parse command of **`ViewCommandParser`** will be invoked. Values associated with prefixes `ct/` and `i/` will be obtained by invoking `tokenize` method of **`ArgumentTokenizer`**. This process is similar to that in **`EditCommand`**, except with changes to prefix for required for **ViewCommand**. When parsing `index` and `type` values, a **`ParseException`** will be thrown if the values specified are invalid (e.g wrong type or does not conform to `TYPE_CONSTRAINTS`). **`ViewCommand`** is created and executed.
 
 The workflow for an execution of **`ViewCommand`** is as shown:
 
