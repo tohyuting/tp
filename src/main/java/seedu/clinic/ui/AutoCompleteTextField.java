@@ -58,6 +58,8 @@ public class AutoCompleteTextField extends TextField {
         });
         focusedProperty().addListener((observableValue, aBoolean, aBoolean2) ->
                 popUpEntries.hide());
+
+        setFocused(true);
     }
 
     /**
