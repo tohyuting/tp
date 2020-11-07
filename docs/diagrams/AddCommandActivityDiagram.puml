@@ -9,10 +9,10 @@ If () then ([Command contains invalid prefixes
 
     else ([Command is valid])
 
-    If () then ([Supplier/Warehouse is a duplicate])
+    If () then ([Supplier/Warehouse's name is a duplicate])
     :Throws CommandException;
 
-    else ([Supplier/Warehouse is unique])
+    else ([Supplier/Warehouse's name is unique])
         :Adds new Supplier/Warehouse;
         :Returns Message to user indicating Success;
         :LogicManager prints result to user;
