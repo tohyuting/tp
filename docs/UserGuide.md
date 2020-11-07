@@ -386,7 +386,6 @@ Format:	`update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
 * `INDEX` must be a positive integer, not exceeding the total length of the displayed supplier list in the GUI.
 * `PRODUCT_NAME` specified is case-insensitive.
-* `INDEX` should be a positive unsigned integer.
 * `QUANTITY` should be a non-negative unsigned integer.
 * `TAG` should be a single alphanumeric word. Multiple tags can be supplied under the same prefix.
 * If `PRODUCT_NAME` already exists in the supplier, at least one optional argument has to be entered.
@@ -405,8 +404,8 @@ If the product does not exist, a new product will be created for that warehouse.
 
 Format:	`update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
+* `INDEX` must be a positive integer, not exceeding the total length of the displayed supplier list in the GUI.
 * `PRODUCT_NAME` specified is case-insensitive.
-* `INDEX` should be a positive unsigned integer.
 * `QUANTITY` should be a non-negative unsigned integer.
 * `TAG` should be a single alphanumeric word. Multiple tags can be supplied under the same prefix.
 * If `PRODUCT_NAME` already exists in the warehouse, at least one optional argument has to be entered.
