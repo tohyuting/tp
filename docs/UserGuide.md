@@ -120,6 +120,15 @@ Examples:
 
 ![help](images/helpGenericMessage.png)
 
+### Accessing history commands
+
+Allows user to access valid commands that have been previously used.
+
+<div markdown="span" class="alert alert-info">
+**:information_source:** Use the <kbd>up</kbd> and <kbd>down</kbd> buttons on the keyboard to iterate through the
+command history.
+</div>
+
 ### Adding a supplier : `add`
 
 Adds a supplier to the CLI-nic application.
@@ -364,6 +373,12 @@ Example:
 
 ![find](images/findWarehouse.png)
 
+### Listing all macros : `list`
+
+Lists all presently saved macros in CLI-nic.
+
+Format: `listmacro`
+
 ### Listing all suppliers and warehouses entries : `list`
 
 Lists all suppliers and warehouses' entries in CLI-nic.
@@ -371,12 +386,6 @@ Lists all suppliers and warehouses' entries in CLI-nic.
 Format: `list`
 
 ![list](images/listCommand.png)
-
-### Listing all macros : `listmacro`
-
-Lists all presently saved macros in CLI-nic.
-
-Format: `listmacro`
 
 ### Removing macro: `removemacro`
 
@@ -397,6 +406,16 @@ Example:
 
 CLI-nic data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
+
+### Undoing/redoing a previous editing : `undo`/`redo`
+
+Undoing recovers a previous version of CLI-nic data if any data has been changed.
+Redoing restores the data in CLI-nic before an `undo` command was done.
+
+Format: `undo` / `redo`
+
+* Trailing words behind the command words will be ignored.
+* For example, if one types `undo redo`, `undo` will be called to undo the editing. `redo` will be ignored.
 
 ### Updating the quantity and/or tags of a product sold by a supplier: `update`
 
@@ -467,16 +486,6 @@ Example:
 * `view ct/w i/2` : Displays all the information associated with the warehouse at index 2 in the warehouse list.
 
 ![view](images/viewWarehouse.png)
-
-### Undo/Redo a previous editing : `undo`/`redo`
-
-Undo command recovers a previous version of CLI-nic data if any data has been changed.
-Redo command restores the data in CLI-nic before an `undo` command was done.
-
-Format: `undo` / `redo`
-
-* Any trailing words behind the command words will be ignored.
-* For example: if one types `undo redo`, the command will be to `undo` the editing.
 
 <br />
 
