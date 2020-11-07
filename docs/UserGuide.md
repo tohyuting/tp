@@ -120,6 +120,15 @@ Examples:
 
 ![help](images/helpGenericMessage.png)
 
+### Accessing history commands
+
+Allows user to access valid commands that have been previously used.
+
+<div markdown="span" class="alert alert-info">
+**:information_source:** Use the <kbd>up</kbd> and <kbd>down</kbd> buttons on the keyboard to iterate through the
+command history.
+</div>
+
 ### Adding a supplier : `add`
 
 Adds a supplier to the CLI-nic application.
@@ -352,15 +361,6 @@ Lists all suppliers and warehouses' entries in CLI-nic.
 Format: `list`
 
 ![list](images/listCommand.png)
-
-### Listing previously entered valid commands
-
-Lists all valid command history that were previously entered.
-
-<div markdown="span" class="alert alert-info">
-**:information_source:** Use the <kbd>up</kbd> and <kbd>down</kbd> buttons on the keyboard to iterate through the
-command history.
-</div>
 
 ### Removing macro: `removemacro`
 
