@@ -17,7 +17,7 @@ end box
 [-> LogicManager : execute("ds i/12")
 activate LogicManager
 
-LogicManager -> MacroParser : parseCommand("ds i/12")
+LogicManager -> MacroParser : parseMacro("ds i/12")
 activate MacroParser
 
 MacroParser --> LogicManager : "delete ct/s i/12"
