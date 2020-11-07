@@ -6,7 +6,7 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
-if () then ([command type, supplier/warehouse name and product prefixes present])
+if () then ([command type, supplier/warehouse index and product prefixes present])
     :Parse command arguments;
     if () then([all prefix arguments supplied are valid])
         :Generate new UpdateProductDescriptor
@@ -14,7 +14,7 @@ if () then ([command type, supplier/warehouse name and product prefixes present]
         :Generate new Update Command;
         :Execute Update Command;
 
-        if () then([supplier/warehouse exists])
+        if () then([supplier/warehouse index lies within the associated list])
           if() then([product exists and neither tags nor quantity supplied])
             :Generate message indicating no
             fields provided for update;
@@ -34,8 +34,8 @@ if () then ([command type, supplier/warehouse name and product prefixes present]
           endif
 
         else ([else])
-          :Generate message indicating
-          supplier/warehouse not found;
+          :Generate message stating that
+          index is larger than list size;
         endif
 
 

@@ -36,29 +36,29 @@ import seedu.clinic.model.warehouse.Warehouse;
 public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
-    public static final String COMPULSORY_UPDATE_SUPPLIER_COMMAND = "update ct/s n/ pd/";
-    public static final String COMPULSORY_UPDATE_WAREHOUSE_COMMAND = "update ct/w n/ pd/";
+    public static final String COMPULSORY_UPDATE_SUPPLIER_COMMAND = "update ct/s i/ pd/";
+    public static final String COMPULSORY_UPDATE_WAREHOUSE_COMMAND = "update ct/w i/ pd/";
 
     public static final String MESSAGE_USAGE = "Update Command Usage\n\nUpdates the quantity and/or tags of"
             + " the product with the specified"
-            + " name in the specified supplier or warehouse. If the product does not exist for that supplier or"
-            + " warehouse, a new product will be created for that supplier or warehouse."
-            + " TYPE specified should be either s for supplier or w for warehouse. QUANTITY should"
-            + " be a non-negative unsigned integer. If the PRODUCT_NAME already exists in the supplier or warehouse,"
+            + " name for the supplier or warehouse at the index specified. If the product does not exist for"
+            + " that supplier or warehouse, a new product will be created for that supplier or warehouse."
+            + " TYPE specified should be either s for supplier or w for warehouse."
+            + " If the PRODUCT_NAME already exists in the supplier or warehouse,"
             + " at least one optional argument has to be entered.\n\n"
             + "Parameters:\n"
             + PREFIX_TYPE + "TYPE "
             + PREFIX_INDEX + "INDEX (Must be a positive integer) "
             + PREFIX_PRODUCT_NAME + "PRODUCT_NAME "
             + "[" + PREFIX_PRODUCT_QUANTITY + "QUANTITY]"
-            + "[" + PREFIX_TAG + "TAG]\n\n"
+            + "[" + PREFIX_TAG + "TAG...]\n\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_TYPE + "w "
             + PREFIX_INDEX + "1 "
             + PREFIX_PRODUCT_NAME + "Panadol "
             + PREFIX_PRODUCT_QUANTITY + "350 "
-            + PREFIX_TAG + "Fever";
+            + PREFIX_TAG + "Fever Headache";
 
     public static final String MESSAGE_SUCCESS = "Product stock updated: \n\n%1$s\n\nin %2$s.";
     private static final String MESSAGE_INVALID_TYPE = "Invalid Type.";

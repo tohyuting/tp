@@ -12,6 +12,8 @@ import seedu.clinic.logic.commands.ExitCommand;
 import seedu.clinic.logic.commands.FindCommand;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.commands.ListCommand;
+import seedu.clinic.logic.commands.ListMacroCommand;
+import seedu.clinic.logic.commands.RemoveMacroCommand;
 import seedu.clinic.logic.commands.UpdateCommand;
 import seedu.clinic.logic.commands.ViewCommand;
 

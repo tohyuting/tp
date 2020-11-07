@@ -3,6 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MacroParser" as MacroParser LOGIC_COLOR
 participant ":ClinicParser" as ClinicParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
@@ -13,8 +14,14 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete ct/s i/12")
+[-> LogicManager : execute("ds i/12")
 activate LogicManager
+
+LogicManager -> MacroParser : parseMacro("ds i/12")
+activate MacroParser
+
+MacroParser --> LogicManager : "delete ct/s i/12"
+deactivate MacroParser
 
 LogicManager -> ClinicParser : parseCommand("delete ct/s i/12")
 activate ClinicParser

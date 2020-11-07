@@ -120,6 +120,15 @@ Examples:
 
 ![help](images/helpGenericMessage.png)
 
+### Accessing history commands
+
+Allows user to access valid commands that have been previously used.
+
+<div markdown="span" class="alert alert-info">
+**:information_source:** Use the <kbd>up</kbd> and <kbd>down</kbd> buttons on the keyboard to iterate through the
+command history.
+</div>
+
 ### Adding a supplier : `add`
 
 Adds a supplier to the CLI-nic application.
@@ -163,26 +172,51 @@ Example:
 ### Assigning macro to selected command string: `assignmacro`
 
 Assigns a macro that pairs the specified alias to the specified command string.
-This is especially useful for running commands that need to be used repeatedly.
+This is especially useful for running commands that need to be used frequently.
 By assigning a command string to an alias, users can enter the alias keyword instead of the command string to run
-the same command.
+the same command (along with any additional prefixes supplied).
 
 Format:	`assignmacro a/ALIAS cs/COMMAND_STRING`
 
-* `alias` cannot be an existing command word such as `add`, `delete` etc.
-* `alias` cannot be already used for an existing macro.
-* `alias` should only consist of alphanumeric characters and/or underscores. 
-* `COMMAND_STRING` can consist of any number of prefixes, but the first word has to be a pre-defined command word.
+* `ALIAS` cannot be an existing command word such as `add`, `delete` etc.
+* `ALIAS` cannot be already used for an existing macro.
+* `ALIAS` should only consist of alphanumeric characters and/or underscores (case-sensitive). 
+* `COMMAND_STRING` can consist of any number of prefixes (can be a partial command), but the first word has to be a pre-defined command word.
 * `COMMAND_STRING` cannot take in another `assignmacro` command e.g.
   `assignmacro a/asgmac cs/assignmacro a/asgmac ...` as this is recursive.   
+* Even if the macro is valid, running the macro does not guarantee a valid command. 
 
 Example:
 
 * `assignmacro a/findsup cs/find ct/s pd/panadol` : Assigns a macro that pairs the alias `findsup` to the command
   string `find ct/s pd/panadol`. With this macro set up, users can now enter `findsup` instead of
   `find ct/s pd/panadol` to find the relevant supplier(s).
+  
+* `assignmacro a/uwp cs/update ct/w pd/panadol t/fever headache` : Assigns a macro that pairs the alias `uwp` to the command
+  string `cs/update ct/w pd/panadol t/fever headache`. Notice that this is just a partial command string. With this macro set up, users can now enter `uwp i/1 q/123` instead of
+  `update ct/w i/1 pd/panadol q/123 t/fever headache` to update the quantity for the `Panadol` product under the first warehouse to `123`.
 
 ![assign macro](images/assignMacro.png)
+
+### AutoComplete Function
+
+Helps you to complete your commands faster with the compulsory prefixes.
+
+You will be able to see a list of auto-complete options which is constantly updated while you are typing.
+Once the auto complete context menu is displayed, you can use the arrow keys to choose the options you
+want and upon pressing the "ENTER" button, you would be able to select the option.
+
+Examples:
+
+User wants to type the "add" command in the command box
+
+He/she will be able to see a list of dropdown options as shown:
+
+"UP" and "DOWN" button to select the option
+
+"ENTER" button will execute the option
+
+### TODO: Add in a Mac version screenshot here, show the options
 
 ### Clearing all entries : `clear`
 
@@ -339,6 +373,12 @@ Example:
 
 ![find](images/findWarehouse.png)
 
+### Listing all macros : `list`
+
+Lists all presently saved macros in CLI-nic.
+
+Format: `listmacro`
+
 ### Listing all suppliers and warehouses entries : `list`
 
 Lists all suppliers and warehouses' entries in CLI-nic.
@@ -347,12 +387,6 @@ Format: `list`
 
 ![list](images/listCommand.png)
 
-### Listing all macros : `list`
-
-Lists all presently saved macros in CLI-nic.
-
-Format: `listmacro`
-
 ### Removing macro: `removemacro`
 
 Removes the macro with the specified alias.
@@ -360,6 +394,7 @@ Removes the macro with the specified alias.
 Format:	`removemacro ALIAS`
 
 * `ALIAS` specified must exist to be deleted.
+* `ALIAS` is case-sensitive.
 
 Example:
 
@@ -372,24 +407,33 @@ Example:
 CLI-nic data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
+### Undoing/redoing a previous editing : `undo`/`redo`
+
+Undoing recovers a previous version of CLI-nic data if any data has been changed.
+Redoing restores the data in CLI-nic before an `undo` command was done.
+
+Format: `undo` / `redo`
+
+* Trailing words behind the command words will be ignored.
+* For example, if one types `undo redo`, `undo` will be called to undo the editing. `redo` will be ignored.
+
 ### Updating the quantity and/or tags of a product sold by a supplier: `update`
 
 Updates the quantity and/or tags of the product with the specified name at the specified supplier index.
 If the product does not exist, a new product will be created for that supplier. 
 
-Format:	`update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG]`
+Format:	`update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
 * `INDEX` must be a positive integer, not exceeding the total length of the displayed supplier list in the GUI.
 * `PRODUCT_NAME` specified is case-insensitive.
-* The supplier should currently exist in the CLI-nic application.
 * `QUANTITY` should be a non-negative unsigned integer.
-* `TAG` should be a single alphanumeric word.
+* `TAG` should be a single alphanumeric word. Multiple tags can be supplied under the same prefix.
 * If `PRODUCT_NAME` already exists in the supplier, at least one optional argument has to be entered.
 
 Example:
 
-* `update ct/s i/4 pd/Panadol q/10 t/fever` : Updates the quantity of `Panadol` sold by the supplier at index 4 in the
-  list of displayed suppliers in the GUI to `10` and gives `Panadol` a tag of `fever`.
+* `update ct/s i/4 pd/Panadol q/10 t/fever cold` : Updates the quantity of `Panadol` sold by the supplier at index 4 in the
+  list of displayed suppliers in the GUI to `10` and gives `Panadol` 2 tags: `fever` and `cold`.
   
 ![update warehouse product](images/updateWarehouseProduct.png)
 
@@ -398,18 +442,18 @@ Example:
 Updates the quantity and/or tags of the product with the specified name at the specified warehouse index.
 If the product does not exist, a new product will be created for that warehouse. 
 
-Format:	`update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG]`
+Format:	`update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
+* `INDEX` must be a positive integer, not exceeding the total length of the displayed supplier list in the GUI.
 * `PRODUCT_NAME` specified is case-insensitive.
-* The warehouse should currently exist in the CLI-nic application.
 * `QUANTITY` should be a non-negative unsigned integer.
-* `TAG` should be a single alphanumeric word.
+* `TAG` should be a single alphanumeric word. Multiple tags can be supplied under the same prefix.
 * If `PRODUCT_NAME` already exists in the warehouse, at least one optional argument has to be entered.
 
 Example:
 
 * `update ct/w i/1 pd/Panadol q/10 t/fever` : Updates the quantity of `Panadol` stored in the warehouse at
-  index 1 in the list of displayed warehouses on the GUI to `10` and gives `Panadol` a tag of `fever`.
+  index 1 in the list of displayed warehouses on the GUI to `10` and gives `Panadol` 2 tags: `fever` and `cold`.
   
 ![update warehouse product](images/updateWarehouseProduct.png)
   
@@ -511,13 +555,9 @@ Action | Format | Example
 **List** All Suppliers and Warehouses | `list`
 **List** All Macros | `listmacro`
 **Remove Macro** | `removemacro ALIAS` | `removemacro uwm`
-**Update** | `update ct/TYPE n/NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w n/WarehouseA pd/Panadol q/10 t/fever`
-**View** | `view ct/TYPE i/INDEX` | `view ct/s i/1`
-**Undo** | `undo`
 **Redo** | `redo`
-**Remove Macro** | `removemacro ALIAS` | `removemacro findsup`
 **Undo** | `undo`
-**Update** Supplier | `update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/s i/1 pd/Panadol q/10 t/fever`
-**Update** Warehouse | `update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w i/2 pd/Panadol q/10 t/fever`
+**Update** Supplier | `update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/s i/1 pd/Panadol q/10 t/fever cold`
+**Update** Warehouse | `update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w i/2 pd/Panadol q/10 t/fever cold`
 **View** Supplier | `view ct/s i/INDEX` | `view ct/s i/1`
 **View** Warehouse | `view ct/w i/INDEX` | `view ct/w i/2`

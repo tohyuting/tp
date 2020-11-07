@@ -11,9 +11,6 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ClinicParser" as ClinicParser LOGIC_COLOR
 participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
 participant "addCommand:AddCommand" as AddCommand LOGIC_COLOR
-participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
-participant ":ParserUtil" as ParserUtil LOGIC_COLOR
-participant "argMultimap:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
 participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -25,37 +22,13 @@ create LogicManager
 [-> LogicManager : execute("add ct/s \n n/John Doe \n p/9876"...")
 activate LogicManager
 
-LogicManager -> ClinicParser : parseCommand()
+LogicManager -> ClinicParser : parseCommand("add ct/s \n n/John Doe \n p/9876"...")
 activate ClinicParser
 
 create AddCommandParser
 
-ClinicParser -> AddCommandParser ++ : parse()
+ClinicParser -> AddCommandParser ++ : parse("add ct/s \n n/John Doe \n p/9876"...")
 activate AddCommandParser
-create ArgumentTokenizer
-
-AddCommandParser -> ArgumentTokenizer ++ : tokenize(args, PREFIX_TYPE...)
-activate ArgumentTokenizer
-
-ArgumentTokenizer --> AddCommandParser -- : argMultimap
-deactivate ArgumentTokenizer
-
-AddCommandParser -> AddCommandParser ++ : arePrefixesPresent(argMultimap, PREFIX_TYPE..)
-AddCommandParser --> AddCommandParser -- :
-
-create ArgumentMultimap
-AddCommandParser -> ArgumentMultimap ++ : getValue(PREFIX_TYPE), getValue(PREFIX_NAME), ....
-activate ArgumentMultimap
-
-ArgumentMultimap --> AddCommandParser -- : argType, argName ....
-deactivate ArgumentMultimap
-
-create ParserUtil
-AddCommandParser -> ParserUtil ++ : parseType(argType), parseName(argName), ....
-activate ParserUtil
-
-ParserUtil --> AddCommandParser --
-deactivate ParserUtil
 
 create AddCommand
 
@@ -69,7 +42,7 @@ AddCommandParser --> ClinicParser -- : addCommand
 deactivate AddCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 AddCommandParser -[hidden]-> ClinicParser
-
+destroy AddCommandParser
 ClinicParser --> LogicManager -- : addCommand
 
 LogicManager -> AddCommand ++ : execute(model)
@@ -94,8 +67,8 @@ deactivate CommandResult
 
 AddCommand --> LogicManager -- : commandResult
 
-ref over LogicManager,  Model : Execution of the Add Command Sequence Diagram
 deactivate AddCommand
+
 [<--LogicManager
 deactivate LogicManager
 @enduml

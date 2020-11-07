@@ -25,7 +25,7 @@ public class HelpCommand extends Command {
     public static final String[] ALLOWED_ARGUMENTS = new String[] {
         AddCommand.COMMAND_WORD, AssignMacroCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
         DeleteCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
-        FindCommand.COMMAND_WORD, ListCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
+        FindCommand.COMMAND_WORD, ListCommand.COMMAND_WORD, ListMacroCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
         RemoveMacroCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD,
         UpdateCommand.COMMAND_WORD, ViewCommand.COMMAND_WORD
     };
@@ -82,6 +82,9 @@ public class HelpCommand extends Command {
         case ListCommand.COMMAND_WORD:
             helpMessage = generateHelpListMessage();
             break;
+        case ListMacroCommand.COMMAND_WORD:
+            helpMessage = generateHelpListMacroMessage();
+            break;
         case RemoveMacroCommand.COMMAND_WORD:
             helpMessage = generateHelpRemoveMacroMessage();
             break;
@@ -122,6 +125,7 @@ public class HelpCommand extends Command {
         String aboutExitCommand = ExitCommand.COMMAND_WORD + "\nExits the application";
         String aboutFindCommand = FindCommand.COMMAND_WORD + "\nFinds relevant supplier(s) or warehouse(s)";
         String aboutListCommand = ListCommand.COMMAND_WORD + "\nLists all suppliers and warehouses";
+        String aboutListMacroCommand = ListMacroCommand.COMMAND_WORD + "\nLists all presently saved macros";
         String aboutRemoveMacroCommand = RemoveMacroCommand.COMMAND_WORD + "\nRemoves the macro for an alias";
         String aboutUpdateCommand = UpdateCommand.COMMAND_WORD + "\nUpdates a product associated with a supplier or"
                 + " warehouse";
@@ -140,6 +144,7 @@ public class HelpCommand extends Command {
                 + aboutExitCommand + "\n\n"
                 + aboutFindCommand + "\n\n"
                 + aboutListCommand + "\n\n"
+                + aboutListMacroCommand + "\n\n"
                 + aboutRedoCommand + "\n\n"
                 + aboutRemoveMacroCommand + "\n\n"
                 + aboutUndoCommand + "\n\n"
@@ -179,6 +184,11 @@ public class HelpCommand extends Command {
     private String generateHelpListMessage() {
         return ListCommand.MESSAGE_USAGE;
     }
+
+    private String generateHelpListMacroMessage() {
+        return ListMacroCommand.MESSAGE_USAGE;
+    }
+
 
     private String generateHelpRemoveMacroMessage() {
         return MESSAGE_FOR_COMMAND_FORMAT + "\n\n" + RemoveMacroCommand.MESSAGE_USAGE;
