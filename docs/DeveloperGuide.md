@@ -626,7 +626,7 @@ After the user calls the `add` command, the code will check for the presence of 
 in the command. The code will throw a ParseException if there are any missing/invalid prefixes. After that is
 checked, it will check if the new supplier/warehouse added is a duplicate (The supplier/warehouse already
 exist in the application). It will throw a CommandException when the user tries to add a duplicate
-order. Otherwise, it will add the supplier/warehouse and prints a success message to the user.
+supplier/warehouse. Otherwise, it will add the supplier/warehouse and prints a success message to the user.
 
 #### Structure of Add feature
 The following diagram shows the overview of the AddCommand Class Diagram:
@@ -668,11 +668,10 @@ There are two scenarios :
    parameter of the AddCommand object and this will be returned to the LogicManager class for execution.
 
    LogicManager will then call the execute() method of this AddCommand object. In the execute() method, it will
-   use the Model class to call hasSupplier/hasWarehouse method to check for duplicates, if it is a duplicate, the
-   order will throw a CommandException which indicates that there is a duplicate supplier/warehouse in the CLI-nic
-   application already. Else, it will successfully add the new supplier/warehouse using addSupplier/addWarehouse
-   method. Finally, it returns a new CommandResult object, containing a String that indicates a successful
-   addition of supplier/warehouse.
+   use the Model class to call hasSupplier/hasWarehouse method to check for duplicates, a CommandException
+   will be thrown if there is a duplicate supplier/warehouse in the CLI-nic application already. Else, it
+   will successfully add the new supplier/warehouse using addSupplier/addWarehouse method. Finally, it
+   returns a new CommandResult object, containing a String that indicates a successful addition of supplier/warehouse.
 
 ### Undo/redo feature
 
@@ -1438,19 +1437,19 @@ testers are expected to do more *exploratory* testing.
 
 1. Add command format: `add ct/TYPE n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`
 
-   1. Test case: Minimal information e.g. `add ct/s n/John Doe p/98766789 e/johndoe@example.com`<br>
+   1. Test case: Minimal information e.g. `add ct/s n/John p/98766789 e/johndoe@example.com`<br>
       Expected: Adds a supplier with the above details to the list and displayed on the GUI
-   1. Test case: With remarks e.g. `add ct/s n/John Doe p/98766789 e/johndoe@example.com r/Fast
+   1. Test case: Supplier with remarks e.g. `add ct/s n/John Lagoon p/98766789 e/johndoe@example.com r/Fast
       delivery`<br>
       Expected: Adds the supplier to the list, including the remark
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/s n/John Doe p/98766789`
-      or `add ct/s n/John Doe p/98766789 e/johndoe@example.com z/friend`<br>
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/s n/John Lim p/98766789`
+      or `add ct/s n/John Tan p/98766789 e/johndoe@example.com z/friend`<br>
       Expected: No supplier is added. Error details shown in the response message. A help message displayed
       to guide user accordingly. SupplierList on GUI remain unchanged.
-   1. Test case: Add order with existing SUPPLIER_NAME in list e.g. `add ct/s n/John Doe p/98766789 e
+   1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e
       /johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
-      Expected: An error will occur and a message will be displayed, stating that a supplier with duplicate
-      SUPPLIER NAME cannot be added into the list. SupplierList on GUI remain unchanged.
+      Expected: No supplier is added. Error details will be displayed, stating that a supplier with duplicate
+      `SUPPLIER_NAME` cannot be added into CLI-nic. SupplierList on GUI remain unchanged.
 
 ### Adding a warehouse
 
@@ -1459,22 +1458,18 @@ testers are expected to do more *exploratory* testing.
    1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123
       , #01-01`<br>
       Expected: Adds a warehouse with the above details to the warehouse list and is displayed on the GUI.
-   1. Test case: Duplicate warehouse by name e.g. `add ct/w n/John Ptd Ltd p/99999999 addr/John 2 street
-      , block 222, #02-02`<br>
-      Expected: No warehouse is added. Adds the warehouse to the list, including the remark
-   1. Test case: Duplicate name With remarks e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block
-      123, #01-01
-        r/Largest warehouse`<br>
-        Expected: Adds the warehouse to the list, including the remark
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Ptd Ltd p/98766789`
-      or `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01 z/large`<br>
+   1. Test case: Warehouse with remarks e.g. `add ct/w n/John Lagoon Ptd Ltd p/98766789 addr/John street
+      , block 123, #01-01 r/Largest warehouse`<br>
+      Expected: Adds the warehouse to the list, including the remark
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Lim Ptd Ltd p/98766789`
+      or `add ct/w n/John St Ptd Ltd p/98766789 addr/John street, block 123, #01-01 z/large`<br>
       Expected: No warehouse is added. Error details shown in the response message. A help message displayed
       to guide user accordingly. WarehouseList on GUI remain unchanged.
-   1. Test case: Add warehouse with existing WAREHOUSE_NAME in list e.g. `add ct/w n/John Ptd Ltd p/98766789
-      addr/John street, block 123, #01-01` followed by `add ct/w n/John Ptd Ltd p/91234567 addr/Ang Mo Kio
-      street 12, block 123, #01-01`<br>
-      Expected: An error will occur and a message will be displayed, stating that a warehouse with duplicate
-      WAREHOUSE NAME cannot be added into the list. WarehouseList on GUI remain unchanged.
+   1. Test case: Add warehouse with duplicate WAREHOUSE_NAME e.g. `add ct/w n/James Ptd Ltd p/98766789
+      addr/John street, block 123, #01-01` followed by `add ct/w n/James Ptd Ltd p/91234567 addr/Ang Mo Kio
+      street 12, block 3`<br>
+      Expected: No warehouse is added. Error details will be displayed, stating that a warehouse with duplicate
+      `WAREHOUSE_NAME` cannot be added into CLI-nic. WarehouseList on GUI remain unchanged.
 
 ### Deleting a supplier
 
