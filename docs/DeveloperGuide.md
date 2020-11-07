@@ -455,19 +455,19 @@ The update product mechanism is facilitated by 3 major components: `UpdateComman
 Given below is an example usage scenario, together with a sequence diagram, to show how the update product mechanism behaves at each step.
 ![Update Product Command Sequence Diagram](images/UpdateCommandSequenceDiagram.png)
 
-Step 1. The user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units
-in the warehouse named 'Jurong Warehouse'. The user also decides that he wants to give 'Panadol' a tag 'fever'.
-The user does this by executing the `update ct/w n/Jurong Warehouse pd/Panadol q/50 t/fever` command.
+Step 1. After using the `list` command to display all warehouses and suppliers, the user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units
+in the warehouse at index 1 of the warehouse list. The user also decides that he wants to give 'Panadol' a tag 'fever'.
+The user does this by executing the `update ct/w i/1 pd/Panadol q/50 t/fever` command.
 The input string will then be passed to the `UpdateCommandParser`.
 
 Step 2. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
-and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type and names of the supplier/warehouse and product are not supplied. If so, an error message will be presented on the GUI.
-Otherwise, the method will create an `UpdateCommand` with the `Type`, warehouse/supplier and product's `Name`, and the `UpdateProductDescriptor`.
+and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type, index and product name are not supplied. If so, an error message will be presented on the GUI.
+Otherwise, the method will create an `UpdateCommand` with the `Type`, the warehouse/supplier `Index`, the product's `Name`, and the `UpdateProductDescriptor`.
 
 The following sequence diagram zooms in on how the `UpdateCommand#execute` is implemented:
 ![Update Product Command Execution Sequence Diagram](images/UpdateCommandExecutionSequenceDiagram.png)
 
-Step 3. `UpdateCommand#execute` is then called with the `Model` instance. The method then attempts to retrieve the warehouse/supplier from the model with the supplied name. If it is not found, `NoSuchElementException` is thrown, otherwise, the `UpdateCommand#execute`
+Step 3. `UpdateCommand#execute` is then called with the `Model` instance. The method will first retrieve the filtered warehouse/supplier list from the model. The method then attempts to retrieve the warehouse/supplier from the list at the supplied index. If the index is greater than the size of the supplier/warehouse list, `CommandException` is thrown, otherwise, the `UpdateCommand#execute`
 method copies the existing product set for that warehouse/supplier to a new `Set<Product>`.
 
 Step 4. `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
@@ -1186,11 +1186,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. CLI-nic cannot find the supplier with the supplied name.
-  * 1a1. CLI-nic shows an error message informing the user that the supplier does not exist.
-  * 1a2. User enters a new supplier name.
+* 1a. The index specified is not a valid under the supplier list.
+  * 1a1. CLI-nic shows an error message informing the user that the index is not valid.
+  * 1a2. User enters a new index.
 
-    Steps 1a1-1a2 are repeated until the supplier name provided by the user can be found. <br>
+    Steps 1a1-1a2 are repeated until the index supplied is valid. <br>
     Use case resumes from step 2.
 
 * 1b. User enters the command in an invalid format.
@@ -1229,11 +1229,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. CLI-nic cannot find the warehouse with the supplied name.
-  * 1a1. CLI-nic shows an error message informing the user that the warehouse does not exist.
-  * 1a2. User enters a new warehouse name.
+* 1a. The index specified is not a valid under the warehouse list.
+  * 1a1. CLI-nic shows an error message informing the user that the index is not valid.
+  * 1a2. User enters a new index.
 
-    Steps 1a1-1a2 are repeated until the warehouse name provided by the user can be found. <br>
+    Steps 1a1-1a2 are repeated until the index supplied is valid. <br>
     Use case resumes from step 2.
 
 * 1b. User enters the command in an invalid format.
@@ -1479,7 +1479,7 @@ testers are expected to do more *exploratory* testing.
  
 ### Updating a Product in a Supplier/Warehouse
 
-1. Update command format: `update ct/TYPE n/NAME pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
+1. Update command format: `update ct/TYPE i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
    1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list. First warehouse does not have the product `Panadol` while the first supplier has. 
 
@@ -1518,12 +1518,12 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: At least one macro presently saved in the application. 
 
    1. Test case: Alias exists in a saved macro e.g. `removemacro uw`<br>
-      Expected: The macro with the alias `uw` is removed. Details of the new macro is shown in the display message.
+      Expected: The macro with the alias `uw` is removed. Details of the removed macro is shown in the display message.
 
    1. Test case: Alias does not exist in any saved macro e.g. `removemacro a/magic`<br>
       Expected: No macro removed. Error details is shown in the displayed message.
 
-### Assigning a macro
+### list a macro
 
 1. list macros command format: `listmacro`
 
