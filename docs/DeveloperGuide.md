@@ -1475,20 +1475,17 @@ testers are expected to do more *exploratory* testing.
       Expected: An error will occur and a message will be displayed, stating that a warehouse with duplicate
       WAREHOUSE NAME cannot be added into the list. WarehouseList on GUI remain unchanged.
 
-### Deleting a supplier
+### Deleting a Supplier/Warehouse
 
-1. Deleting a supplier while all suppliers are being shown
+1. Delete command format: `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`
 
-   1. Prerequisites: List all suppliers using the `list` command. Multiple suppliers in the list.
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `delete ct/s i/1`<br>
+      Expected: First supplier is deleted from the list. Details of the deleted supplier shown in the status message.
 
    1. Test case: `delete 0`<br>
       Expected: No supplier is deleted. Error details shown in the status message. Status bar remains the same.
-
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
  
 ### Updating a Product in a Supplier/Warehouse
 
@@ -1536,9 +1533,9 @@ testers are expected to do more *exploratory* testing.
    1. Test case: Alias does not exist in any saved macro e.g. `removemacro a/magic`<br>
       Expected: No macro removed. Error details is shown in the displayed message.
 
-### list a macro
+### List a macro
 
-1. list macros command format: `listmacro`
+1. List macros command format: `listmacro`
 
    1. Test case: At least one macro has been saved.<br>
       Expected: The list of macros are displayed.
@@ -1547,6 +1544,24 @@ testers are expected to do more *exploratory* testing.
       Expected: No macros listed. Displayed message states that no macros are presently saved.
 
 1. _{ more test cases …​ }_
+
+### Undo a command
+1. undo command format: `undo`
+
+    1. Test case: The `clear` command was executed. <br>
+        Expected: The data removed will be restored.
+
+    1. Test case: No data is changed. <br>
+        Expected: The data will not change. Displayed messages states that no earlier version of CLI-nic data to restore.
+
+### Redo a command
+1. Redo command format: `redo`
+
+    1. Test case: The `clear` command was executed first, followed by an `undo` command <br>
+        Expected: The data removed will be restored will .
+        
+    1. Test case: Only the `clear` command was executed. <br>
+        Expected: The data will not change. Displayed messages states that CLI-nic data do not have a later version.
 
 ### Saving data
 
