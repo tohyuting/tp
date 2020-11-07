@@ -1438,10 +1438,10 @@ testers are expected to do more *exploratory* testing.
 1. Add command format: `add ct/TYPE n/SUPPLIER_NAME p/PHONE e/EMAIL_ADDRESS [r/SUPPLIER_REMARK]`
 
    1. Test case: Minimal information e.g. `add ct/s n/John p/98766789 e/johndoe@example.com`<br>
-      Expected: Adds a supplier with the above details to the list and displayed on the GUI
+      Expected: Adds a supplier with the above details to the list and is displayed on the GUI.
    1. Test case: Supplier with remarks e.g. `add ct/s n/John Lagoon p/98766789 e/johndoe@example.com r/Fast
       delivery`<br>
-      Expected: Adds the supplier to the list, including the remark
+      Expected: Adds the supplier to the list, including the remark.
    1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/s n/John Lim p/98766789`
       or `add ct/s n/John Tan p/98766789 e/johndoe@example.com z/friend`<br>
       Expected: No supplier is added. Error details shown in the response message. A help message displayed
