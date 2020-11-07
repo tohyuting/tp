@@ -26,6 +26,7 @@ public class SupplierListPanel extends UiPart<Region> {
      */
     public SupplierListPanel(ObservableList<Supplier> supplierList) {
         super(FXML);
+        supplierListView.setFocusTraversable(false);
         supplierListView.setItems(supplierList);
         supplierListView.setCellFactory(listView -> new SupplierListViewCell());
         supplierListView.setPlaceholder(new Label("There are no suppliers yet."));
