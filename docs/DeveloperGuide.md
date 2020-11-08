@@ -788,7 +788,7 @@ The supplier/warehouse can also consist of an optional `remark` attribute.
 include product information and the `update` feature should be used to associate a supplier/warehouse with a
 product and its associated quantity and tags. This is elaborated in the [**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
 
-<div>
+</div>
 
 #### Path Execution of Add Command
 The workflow of an `add` command when executed by a user is shown in the Activity Diagram below:
