@@ -7,7 +7,6 @@ participant ":ClinicParser" as ClinicParser LOGIC_COLOR
 participant ":UpdateCommandParser" as UpdateCommandParser LOGIC_COLOR
 participant ":UpdateCommand" as UpdateCommand LOGIC_COLOR
 participant ":UpdateProductDescriptor" as UpdateProductDescriptor LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -56,7 +55,7 @@ deactivate ClinicParser
 LogicManager -> UpdateCommand : execute()
 activate UpdateCommand
 
-ref over UpdateCommand, UpdateProductDescriptor, Model, CommandResult
+ref over UpdateCommand, UpdateProductDescriptor, Model
 Execution of UpdateCommand
 end
 
