@@ -8,7 +8,7 @@ participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+participant "model:Model" as Model MODEL_COLOR
 participant "supplierList:List" as SupplierList MODEL_COLOR
 participant "warehouseList:List" as WarehouseList MODEL_COLOR
 end box
@@ -16,50 +16,57 @@ end box
 activate LogicManager
 LogicManager -> ViewCommand : execute(model)
 activate ViewCommand
+
+alt SUPPLIER
+ViewCommand -> ViewCommand : viewSupplier(model)
+activate ViewCommand
 ViewCommand -> Model : getFilteredSupplierList()
 activate Model
-
 Model --> ViewCommand : supplierList
 deactivate
 
-ViewCommand -> Model : getFilteredWarehouseList()
-activate Model
-Model --> ViewCommand : warehouseList
-deactivate
-
-alt SUPPLIER
 ViewCommand -> SupplierList : get(index)
 activate SupplierList
 SupplierList --> ViewCommand : supplierToView
 deactivate SupplierList
 
-ViewCommand -> Model : updateFilteredSupplierList(...)
+ViewCommand -> Model : updateFilteredSupplierList(supplierPredicate)
 activate Model
 deactivate Model
 
 create CommandResult
-ViewCommand -> CommandResult : supplierPredicate
+ViewCommand -> CommandResult
 activate CommandResult
 CommandResult --> ViewCommand
 deactivate CommandResult
+ViewCommand --> ViewCommand
+deactivate ViewCommand
 ViewCommand --> LogicManager : result
 [<--LogicManager : result
 
 else WAREHOUSE
+ViewCommand -> ViewCommand : viewWarehouse(model)
+activate ViewCommand
+ViewCommand -> Model : getFilteredWarehouseList()
+activate Model
+Model --> ViewCommand : warehouseList
+deactivate
 ViewCommand -> WarehouseList : get(index)
 activate WarehouseList
 WarehouseList --> ViewCommand : warehouseToView
 deactivate WarehouseList
 
-ViewCommand -> Model : updateFilteredWarehouseList(...)
+ViewCommand -> Model : updateFilteredWarehouseList(warehousePredicate)
 activate Model
 deactivate Model
 
 create CommandResult
-ViewCommand -> CommandResult : warehousePredicate
+ViewCommand -> CommandResult
 activate CommandResult
 CommandResult --> ViewCommand
 deactivate CommandResult
+ViewCommand --> ViewCommand
+deactivate ViewCommand
 ViewCommand --> LogicManager : result
 [<--LogicManager : result
 deactivate LogicManager

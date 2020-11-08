@@ -374,7 +374,7 @@ Format: `list`
 
 ### Redoing : `redo`
 
-Restores the data in CLI-nic before an `undo` command was executed.
+Restores the data in CLI-nic to the version before an `undo` command was done.
 
 Format: `redo`
 
@@ -417,7 +417,7 @@ Format: `undo`
 * Trailing words behind the command word will be ignored.
 * For example, if one types `undo redo`, `undo` will be called to undo the editing. `redo` will be ignored.
 
-![undi](images/undoCommand.png)
+![undo](images/undoCommand.png)
 
 <div markdown="span" class="alert alert-info">
 **:information_source: Note:** `assignmacro` and `removemacro` do not modify CLI-nic data directly, and hence are not

@@ -10,7 +10,7 @@ participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+participant "model:Model" as Model MODEL_COLOR
 participant "supplierList:List" as SupplierList MODEL_COLOR
 participant "warehouseList:List" as WarehouseList MODEL_COLOR
 end box
@@ -18,18 +18,17 @@ end box
 activate LogicManager
 LogicManager -> EditCommand : execute(model)
 
+alt editDescriptor instanceOf editSupplierDescriptor
+
 activate EditCommand
+EditCommand -> EditCommand : executeSupplierEditing(model)
+activate EditCommand
+
 EditCommand -> Model : getFilteredSupplierList()
 activate Model
 Model --> EditCommand  : supplierList
 deactivate Model
 
-EditCommand -> Model : getFilteredWarehouseList()
-activate Model
-Model --> EditCommand  : warehouseList
-deactivate Model
-
-alt SUPPLIER
 EditCommand -> SupplierList : get(index)
 activate SupplierList
 SupplierList --> EditCommand : supplierToEdit
@@ -48,17 +47,28 @@ EditCommand -> Model : updateFilteredSupplierList()
 activate Model
 deactivate Model
 
+create CommandResult
 EditCommand -> CommandResult
 activate CommandResult
 CommandResult --> EditCommand : result
 deactivate CommandResult
+EditCommand --> EditCommand
+deactivate EditCommand
 EditCommand --> LogicManager : result
 [<--LogicManager : result
 
-else WAREHOUSE
+else editDescriptor instanceOf editWarehouseDescriptor
+
+EditCommand -> EditCommand
+activate EditCommand
+
+EditCommand -> Model : getFilteredWarehouseList()
+activate Model
+Model --> EditCommand  : warehouseList
+deactivate Model
 EditCommand -> WarehouseList : get(index)
 activate WarehouseList
-WarehouseList -> EditCommand : warehouseToEdit
+WarehouseList --> EditCommand : warehouseToEdit
 deactivate WarehouseList
 EditCommand -> EditCommand : createEditedWarehouse(warehouseToEdit, editDescriptor)
 activate EditCommand
@@ -73,10 +83,14 @@ EditCommand -> Model : updateFilteredWarehouseList()
 activate Model
 deactivate Model
 
+create CommandResult
 EditCommand -> CommandResult
 activate CommandResult
 CommandResult --> EditCommand : result
 deactivate CommandResult
+EditCommand --> EditCommand
+deactivate EditCommand
+
 EditCommand --> LogicManager : result
 [<--LogicManager : result
 end
