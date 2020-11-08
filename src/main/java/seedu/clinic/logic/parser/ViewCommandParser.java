@@ -21,6 +21,8 @@ public class ViewCommandParser implements Parser<ViewCommand> {
     private static final String LOG_MESSAGE_PARSE_INPUT_SUCCESS = "Successfully parsed command type of user input.";
     private static final String LOG_MESSAGE_CREATE_VIEW_COMMAND =
             "Successfully parsed index of user input, creating new ViewCommand.";
+    private static final String LOG_MESSAGE_PARSE_INPUT_TYPE_SUPPLIER_OR_WAREHOUSE =
+            "Type used in user input for View is a valid type (either ct/s or ct/w).";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -53,6 +55,8 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         if (type.equals(Type.SUPPLIER_PRODUCT) || type.equals(Type.WAREHOUSE_PRODUCT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_TYPE, ViewCommand.MESSAGE_USAGE));
         }
+
+        logger.log(Level.INFO, LOG_MESSAGE_PARSE_INPUT_TYPE_SUPPLIER_OR_WAREHOUSE);
 
         Index index;
         try {
