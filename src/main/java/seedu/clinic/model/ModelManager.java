@@ -41,7 +41,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(clinic, userPrefs, userMacros, commandHistory);
 
-        logger.fine("Initializing with clinic: " + clinic + ", with user prefs " + userPrefs
+        logger.fine("Initializing with CLI-nic: " + clinic + ", with user prefs " + userPrefs
                 + " with user macros " + userMacros + " and with " + commandHistory);
 
         this.clinic = new VersionedClinic(clinic);

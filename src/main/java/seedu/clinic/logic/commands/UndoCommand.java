@@ -14,7 +14,7 @@ public class UndoCommand extends Command {
             + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Undo successfully";
-    public static final String MESSAGE_FAILURE = "Cannot undo: no earlier version of Clinic to recover!";
+    public static final String MESSAGE_FAILURE = "Cannot undo: no earlier version of CLI-nic to recover!";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

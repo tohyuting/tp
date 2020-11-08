@@ -6,7 +6,6 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ClinicParser" as ClinicParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
 participant ":DeleteCommand" as DeleteCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -47,24 +46,10 @@ deactivate ClinicParser
 
 LogicManager -> DeleteCommand : execute(model)
 activate DeleteCommand
+ref over DeleteCommand, Model
+Execution of DeleteCommand
+end
 
-DeleteCommand -> DeleteCommand : executeSupplierRelatedDeletion(model)
-activate DeleteCommand
-DeleteCommand -> Model : getFilteredSupplierList()
-activate Model
-Model --> DeleteCommand : lastShownList
-deactivate Model
-DeleteCommand -> Model : deleteSupplier(supplierToDelete)
-activate Model
-deactivate Model
-create CommandResult
-DeleteCommand -> CommandResult
-activate CommandResult
-
-CommandResult --> DeleteCommand
-deactivate CommandResult
-DeleteCommand --> DeleteCommand
-deactivate DeleteCommand
 
 DeleteCommand --> LogicManager
 deactivate DeleteCommand
