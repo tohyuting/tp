@@ -653,9 +653,9 @@ add a supplier/warehouse to the app using the command line.
 The following Class Diagram of `AddCommand` shows the interactions between `AddCommand` and other classes
 in CLI-nic:
 
-<div markdown="span" class="alert alert-info">:information_source: </div> **Note:** Only important
- associations
-are displayed.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Only important
+associations are displayed.
+</div>
 
 ![Add Command Class Diagram](images/AddCommandClassDiagram.png)
 
@@ -668,7 +668,7 @@ minimally consist of `name`, `phone` and `address`.
 
 The supplier/warehouse can also consist of an optional `remark` attribute.
 
-<div markdown="span" class="alert alert-info">:information_source: <div> **Note:**
+<div markdown="span" class="alert alert-info">:information_source: Note: <div>
 
 `add` feature does not include product information and `update` feature should be used to associate a
 supplier/warehouse with a product and its associated quantity and tags. This is elaborated in the
@@ -705,7 +705,7 @@ will be discussed with the aid of a Sequence Diagram as shown below.
 
 ![Add Command Sequence Diagram](images/AddCommandSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: </div> **Note:**
+<div markdown="span" class="alert alert-info">:information_source: Note:</div>
 
 The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of
  PlantUML, the lifeline reaches the end of diagram.
