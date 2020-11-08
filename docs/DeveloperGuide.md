@@ -1626,7 +1626,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 1.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-1.  The files used to store information about supplier/warehouse/product should be independent from each other and follow a similar format.
+1.  The files used to store information about supplier/warehouse/product, macros and commandHistory should be
+    independent from each other.
 1.  The system should recognize common French/German letters as they may appear in the name of medical products.
 1.  The system should be able to track > 1k suppliers, > 1k warehouses, > 1k medical supplies without a noticeable sluggishness in performance for typical usage.
 1.  The size of the application excluding the data files should be minimal (< 30MB).
@@ -1642,6 +1643,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Medical products/supplies**: The items / tools / medicine consumed by patients
 * **Supplier**: The companies / entities providing the sources of medical products
 * **Warehouse**: The places where the medical supplies are channelled to and kept. The storage condition of these warehouses is managed by the manager, which is our app user
+* **Alias**: A user-specified `String` that can be used to represent another `String` (e.g. typing `uw`
+    is equivalent to typing `update ct/w` after this command `assignmacro a/uw cs/update ct/w` has been executed)
 
 #### Command Prefix
 <div markdown="span" class="alert alert-info">:information_source:  Note: Command links are directed to
