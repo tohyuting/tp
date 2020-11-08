@@ -1514,21 +1514,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Warehouse**: The places where the medical supplies are channeled to and kept. The storage condition of these warehouses are managed by the manager, which is our app user
 
 #### Command Prefix
+<div markdown="span" class="alert alert-info">:information_source: </div> Note: Command links are directed to
+supplier by default.
 
-|Prefix |Meaning |Used in the following Command(s)|
+|Prefix   |Meaning  |Used in the following Command(s)|
 | ------- |-------- | ------------ |
-|a/ | Alias |Assign Macro|
-|addr/ |Address |Add, Edit |
-|cs/ |Command String |Assign Macro|
-|ct/ |Command Type |Add, Delete, Edit, Find, Update |
-|e/ |Email Address |Add, Edit |
-|i/ |Index |Delete, Edit, View, Update |
-|n/ |Supplier/Warehouse Name |Add, Find |
-|p/ |Phone Number |Add, Edit |
-|pd/ |Product Name |Delete, Find, Update |
-|q/ |Quantity of product |Update |
-|r/ |Remark |Add, Find, Edit |
-|t/ |Product Tag |Update |
+|a/ |Alias |[Assign Macro](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#assigning-macro-to-selected-command-string-assignmacro)|
+|addr/ |Address |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-warehouse--add), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
+|cs/ |Command String |[Assign Macro](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#assigning-macro-to-selected-command-string-assignmacro)|
+|ct/ |Command Type |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Delete](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#deleting-a-supplier--delete), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit), [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find), [Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update), [View](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#viewing-a-specific-supplier-view) |
+|e/ |Email Address |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
+|i/ |Index |[Delete](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#deleting-a-supplier--delete), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit), [Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update), [View](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#viewing-a-specific-supplier-view) |
+|n/ |Supplier/Warehouse Name |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find) |
+|p/ |Phone Number |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
+|pd/ |Product Name |Delete, [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find), [Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
+|q/ |Quantity of product |[Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
+|r/ |Remark |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
+|t/ |Product Tag |[Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
 
 
 --------------------------------------------------------------------------------------------------------------------
