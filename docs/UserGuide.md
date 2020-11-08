@@ -490,6 +490,7 @@ Example:
   ![view warehouse](images/viewWarehouse.png)
   
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
 The `view` command is optimised for users who prefer to use the keyboard.
 
 Using the `view` command, users can view the products associated with a specific supplier or warehouse without needing
