@@ -211,8 +211,7 @@ Next, a new `DeleteCommand` will be generated and executed. There are four possi
 CLI-nic finds the target `supplier`/`warehouse` at the specified `INDEX` of the displayed list and remove it completely.
 
 1. The `INDEX` specified is invalid (e.g. exceeds the length of the list) <br>
-A `CommandException` error message wil be thrown.
-A **`CommandException`** error message will be thrown.
+A `CommandException` error message will be thrown.
 
 1. The target to delete is a `product` in a particular `supplier` <br>
 CLI-nic finds the target `supplier` at the specified `INDEX` of the displayed supplier list, and retrieve its product list.<br>
@@ -480,7 +479,7 @@ This is further optimised with `find` as users can find by for instance, `name` 
 The `help` feature will be elaborated in this section by its' functionality.
 
 #### What Help feature does
-`help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have a over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
+`help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have an over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
 
 #### Path Execution of View Command
 An Activity Diagram showing the workflow of `help` command is shown below:
