@@ -7,7 +7,7 @@ title: Chan Qin Liang's Project Portfolio Page
 
 CLI-nic is **a desktop application to help medical product sales managers keep track of medical products and storage**.
 It is optimized for these managers to **update product conditions and access critical product information quickly via fast typing**.
-It is written in Java, and has about 10 kLoC.
+It is written in Java, and has about 21 kLoC.
 
 Given below are my contributions to the project.
 
@@ -54,4 +54,3 @@ Given below are my contributions to the project.
 * **Community**:
   * PRs reviewed (with non-trivial review comments): (examples: [TP comments dashboard](https://nus-cs2103-ay2021s1.github.io/dashboards/contents/tp-comments.html#71-chan-qin-liang-qlchan24-34-comments))
   * Contributed to forum discussions (examples: [130](https://github.com/nus-cs2103-AY2021S1/forum/issues/130), [159](https://github.com/nus-cs2103-AY2021S1/forum/issues/159))
-  * Reported bugs and suggestions for other teams in the class (examples: )
