@@ -35,10 +35,10 @@ public class EditCommandParser implements Parser<EditCommand> {
     private static final String LOG_MESSAGE_VALID_TYPE_PREFIX_SUPPLIER =
             "User input contains type prefix for supplier.";
     private static final String LOG_MESSAGE_VALID_TYPE_PREFIX_WAREHOUSE =
-            "User input contains type prefix for WAREHOUSE.";
+            "User input contains type prefix for warehouse.";
     private static final String LOG_MESSAGE_CREATE_SUPPLIER_DESCRIPTOR_SUCCESS =
             "Successfully created an editSupplierDescriptor using the given user input.";
-    private static final String LOG_MESSAGE_CREATE_SUPPLIER_DESCRIPTOR_WAREHOUSE =
+    private static final String LOG_MESSAGE_CREATE_WAREHOUSE_DESCRIPTOR_SUCCESS =
             "Successfully created an editWarehouseDescriptor using the given user input.";
     private static final String INVALID_WAREHOUSE_PREFIX_ASSERTION =
             "The warehouse prefix should have been present.";
@@ -130,7 +130,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         EditWarehouseDescriptor editWarehouseDescriptor = new EditWarehouseDescriptor();
         editWarehouseDescriptor = parseWarehouseDetailsForEditing(editWarehouseDescriptor, argMultimap);
 
-        logger.log(Level.INFO, LOG_MESSAGE_CREATE_SUPPLIER_DESCRIPTOR_SUCCESS);
+        logger.log(Level.INFO, LOG_MESSAGE_CREATE_WAREHOUSE_DESCRIPTOR_SUCCESS);
 
         if (!editWarehouseDescriptor.isAnyFieldEdited()) {
             throw new ParseException(String.format(MESSAGE_NOT_EDITED,
