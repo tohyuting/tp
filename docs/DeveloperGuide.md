@@ -493,9 +493,9 @@ The update product mechanism is facilitated by 3 major components: `UpdateComman
 Given below is an example usage scenario, together with a sequence diagram, to show how the update product mechanism behaves at each step.
 ![Update Product Command Sequence Diagram](images/UpdateCommandSequenceDiagram.png)
 
-After using the `list` command to display all warehouses and suppliers, the user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units
-in the warehouse at index 1 of the warehouse list. The user also decides that he wants to give 'Panadol' a tag 'fever'.
-The user does this by executing the `update ct/w i/1 pd/Panadol q/50 t/fever` command.
+After using the `list` command to display all warehouses and suppliers, the user decides to update the stock for a product called 'Xodol' with a new quantity of 97 units
+in the warehouse at index 1 of the warehouse list. The user also decides that he wants to give 'Xodol' a tag 'cold'.
+The user does this by executing the `update ct/w i/1 pd/Xodol q/97 t/cold` command.
 
 1. Parsing
 The input string will be passed to the `UpdateCommandParser`. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
@@ -572,8 +572,8 @@ The assign macro mechanism is facilitated by 2 components: `AssignMacroCommandPa
 Given below is an example usage scenario, together with a sequence diagram, to show how the assign macro mechanism behaves at each step.
 ![Assign Macro Command Sequence Diagram](images/AssignMacroCommandSequenceDiagram.png)
 
-The user frequently updates a specific warehouse and decides to create a new macro with the alias "uwm" for the command string "update ct/w n/MainWarehouse" so as to shorten subsequent command inputs.
-The user does this by executing the `assignmacro a/uwm cs/update ct/w n/MainWarehouse` command.
+The user frequently updates the products under each warehouse and decides to create a new macro with the alias "uw" for the command string "update ct/w" so as to shorten subsequent command inputs.
+The user does this by executing the `assignmacro a/uw cs/update ct/w` command.
 
 1. Parsing
 The input string will be passed to the `AssignMacroCommandParser`. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
@@ -616,7 +616,7 @@ The remove macro mechanism is facilitated by 2 components: `RemoveMacroCommandPa
 Given below is an example usage scenario, together with a sequence diagram, to show how the remove macro mechanism behaves at each step.
 ![Remove Macro Command Sequence Diagram](images/RemoveMacroCommandSequenceDiagram.png)
 
-The user decides that he/she no longer needs the macro with the alias "uwm" and decides to remove it. He does this by executing the `removemacro uwm` command.
+The user decides that he/she no longer needs the macro with the alias "uw" and decides to remove it. He does this by executing the `removemacro uw` command.
 
 1. Parsing
 The input string will be passed to the `RemoveMacroCommand parser`. By matching the prefixes provided, `RemoveMacroCommandParser#parse` then attempts to create a new instance of `Alias` by parsing the arguments provided. If the `Alias` is
