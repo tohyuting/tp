@@ -85,7 +85,7 @@ The `UI` component,
 [`Logic.java`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/logic/Logic.java)
 
 1. `Logic` uses the `MacroParser` class to parse the user input.
-1. The resultant command string is then parsed by the `ClinicParser`.
+1. The resultant command string is returned to the `LogicManager` and then parsed by the `ClinicParser`.
 1. This results in a `Command` object which is executed by the `LogicManager`.
 1. The command execution can affect the `Model` (e.g. adding a supplier).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -130,7 +130,7 @@ The `Model`,
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save `UserMacros` objects in json format and read it back.
-* can save `CommandHistory` objects in json format and read it back.
+* can save `CommandHistory` objects in txt format and read it back.
 * can save the CLI-nic data in json format and read it back.
 
 ### Common classes
@@ -591,27 +591,30 @@ in the warehouse at index 1 of the warehouse list. The user also decides that he
 The user does this by executing the `update ct/w i/1 pd/Xodol q/97 t/cold` command.
 
 1. Parsing
-The input string will be passed to the `UpdateCommandParser`. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
+
+   The input string will be passed to the `UpdateCommandParser`. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
 and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type, index and product name are not supplied. If so, an error message will be presented on the GUI.
 Otherwise, the method will create an `UpdateCommand` with the `Type`, the warehouse/supplier `Index`, the product's `Name`, and the `UpdateProductDescriptor`.
 
 1. Execution
-The following sequence diagram zooms in on how the `UpdateCommand#execute` is implemented:
+
+   The following sequence diagram zooms in on how the `UpdateCommand#execute` is implemented:
 ![Update Product Command Execution Sequence Diagram](images/UpdateCommandExecutionSequenceDiagram.png)
 
-`UpdateCommand#execute` is called with the `Model` instance. The method will first retrieve the filtered warehouse/supplier list from the model. The method then attempts to retrieve the warehouse/supplier from the list at the supplied index. If the index is greater than the size of the supplier/warehouse list, `CommandException` is thrown, otherwise, the `UpdateCommand#execute`
+   `UpdateCommand#execute` is called with the `Model` instance. The method will first retrieve the filtered warehouse/supplier list from the model. The method then attempts to retrieve the warehouse/supplier from the list at the supplied index. If the index is greater than the size of the supplier/warehouse list, `CommandException` is thrown, otherwise, the `UpdateCommand#execute`
 method copies the existing product set for that warehouse/supplier to a new `Set<Product>`.
 
-`UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
+   `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
 If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
 is supplied in the `UpdateProductDescriptor`, failing which, an exception is thrown. If the check passes, the original
 `Product` is removed from the set.
 
-`UpdateCommand#createUpdatedProduct` then creates a new product based on the product name and `UpdateProductDescriptor`. The `execute` method then adds the updated `Product` to the `Set<Product>`, and creates an updated
+   `UpdateCommand#createUpdatedProduct` then creates a new product based on the product name and `UpdateProductDescriptor`. The `execute` method then adds the updated `Product` to the `Set<Product>`, and creates an updated
 warehouse/supplier with the updated product. The method then updates the model with the edited warehouse/supplier, and the `FilteredWarehouseList` to be displayed to the user later.
 
 1. Result display
-The method then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model
+
+   The method then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model
 is saved and the GUI is updated with the success message.
 
 The following activity diagram summarizes what happens when a user updates a product:
@@ -669,16 +672,19 @@ The user frequently updates the products under each warehouse and decides to cre
 The user does this by executing the `assignmacro a/uw cs/update ct/w` command.
 
 1. Parsing
-The input string will be passed to the `AssignMacroCommandParser`. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
+
+   The input string will be passed to the `AssignMacroCommandParser`. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
 an exception to be displayed on the GUI if the alias or command string supplied by the user is invalid, or if any of them is not supplied at all. If all prefixes are parsed without error,
 a `Macro` is created from the `Alias` and `SavedCommandString` instances. Then, a new `AssignMacroCommand` instance is created with the new `Macro`.
 
 1. Execution
-The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias.
+
+   The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias.
 If that is true, an exception will be thrown. This will be shown on the GUI as an error message. Otherwise, the new macro will be added to the model.
 
 1. Result display
-The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
+
+   The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
 The user now updates the quantity of the product "Panadol" in the aforementioned warehouse by simply executing the command `uwm pd/Panadol`.
 
 The following activity diagram summarizes what happens when a user assigns a macro:
@@ -712,16 +718,19 @@ Given below is an example usage scenario, together with a sequence diagram, to s
 The user decides that he/she no longer needs the macro with the alias "uw" and decides to remove it. He does this by executing the `removemacro uw` command.
 
 1. Parsing
-The input string will be passed to the `RemoveMacroCommand parser`. By matching the prefixes provided, `RemoveMacroCommandParser#parse` then attempts to create a new instance of `Alias` by parsing the arguments provided. If the `Alias` is
+
+   The input string will be passed to the `RemoveMacroCommand parser`. By matching the prefixes provided, `RemoveMacroCommandParser#parse` then attempts to create a new instance of `Alias` by parsing the arguments provided. If the `Alias` is
 invalid, an exception will be thrown which will be shown as an error message on the GUI. Otherwise, a `RemoveMacroCommand` instance is created with the new `Alias`.
 
 1. Execution
-`RemoveMacroCommand#execute` is then called with the model instance, which first attempts to retrieve the existing macro in the model with the `Alias` specified by calling the `model#getMacro` method.
+
+   `RemoveMacroCommand#execute` is then called with the model instance, which first attempts to retrieve the existing macro in the model with the `Alias` specified by calling the `model#getMacro` method.
 This macro is returned in an optional wrapper, and an exception will be thrown if it is empty, where an error message will be displayed on the GUI. Otherwise, the
 retrieved macro will be removed from the model.
 
 1. Result Display
-The `RemoveMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
+
+   The `RemoveMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
 
 The following activity diagram summarizes what happens when a user updates a product:
 ![Remove Macro Command Activity Diagram](images/RemoveMacroCommandActivityDiagram.png)
@@ -741,15 +750,18 @@ Given below is an example usage scenario
 The user decides to check what macros he/she has saved before. The user does this by executing the `listmacro` command.
 
 1. Parsing
-Since there are no arguments needed for this command, the `ClinicParser` directly creates the `ListMacroCommand`.
+
+   Since there are no arguments needed for this command, the `ClinicParser` directly creates the `ListMacroCommand`.
 
 1. Execution
-`LogicManager` will then call `ListMacroCommand#execute` with the `Model` instance. `ListMacroCommand#execute` will retrieve the macro list from the `Model`.
+
+   `LogicManager` will then call `ListMacroCommand#execute` with the `Model` instance. `ListMacroCommand#execute` will retrieve the macro list from the `Model`.
 If the list is empty, an exception is thrown which results in a message displayed on the GUI notifying the user that there are no presently saved macros.
 Otherwise, the list of macros will be formatted into a readable format.
 
 1. Result display
-The success message which contains the formatted list will be passed in a `CommandResult` to the `LogicManager`, to be displayed on the GUI without overriding the existing lists for suppliers and warehouses.
+
+   The success message which contains the formatted list will be passed in a `CommandResult` to the `LogicManager`, to be displayed on the GUI without overriding the existing lists for suppliers and warehouses.
 
 #### Why it is implemented this way
 
@@ -1628,8 +1640,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 1.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-1.  The files used to store information about supplier/warehouse/product, macros and commandHistory should be
-    independent from each other.
+1.  The files used to store information about suppliers and warehouses should be independent from the files used to store information about macros and the command history.
 1.  The system should recognize common French/German letters as they may appear in the name of medical products.
 1.  The system should be able to track > 1k suppliers, > 1k warehouses, > 1k medical supplies without a noticeable sluggishness in performance for typical usage.
 1.  The size of the application excluding the data files should be minimal (< 30MB).
