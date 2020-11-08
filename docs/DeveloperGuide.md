@@ -768,7 +768,7 @@ add a supplier/warehouse to the app using the command line.
 The following Class Diagram of `AddCommand` shows the interactions between `AddCommand` and other classes
 in CLI-nic:
 
-<div markdown="span" class="alert alert-info">:information_source: Note: Only important
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Only important
 associations are displayed.
 </div>
 
@@ -783,10 +783,9 @@ A supplier's attributes consist of `name`, `phone` and `email` while a warehouse
 
 The supplier/warehouse can also consist of an optional `remark` attribute.
 
-<div markdown="span" class="alert alert-info">:information_source: Note:
-`add` feature does not include product information and the `update` feature should be used to associate a
-supplier/warehouse with a product and its associated quantity and tags. This is elaborated in the
-[**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The `add` feature does not
+include product information and the `update` feature should be used to associate a supplier/warehouse with a
+product and its associated quantity and tags. This is elaborated in the [**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
 <div>
 
 #### Path Execution of Add Command
@@ -820,9 +819,9 @@ will be discussed with the aid of a Sequence Diagram as shown below.
 
 ![Add Command Sequence Diagram](images/AddCommandSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: Note:
-The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of
- PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for
+`AddCommandParser` should end at the destroy marker (X) but due to a limitation of  PlantUML, the lifeline
+reaches the end of diagram.
 </div>
 
 1. Parsing
