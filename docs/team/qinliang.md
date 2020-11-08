@@ -49,7 +49,7 @@ Given below are my contributions to the project.
     * Created new use cases and user stories for update product, assign macro, delete macro, list macro, and create purchase order (removed feature).
     * Added implementation details and diagrams of the update product, assign macro, delete macro and list macro features.
     * Added manual testing instructions for update product, assign macro, delete macro and list macro features.
-    * Updated class diagrams for Logic and Storage components.
+    * Updated description and class diagrams for Logic and Storage components.
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments): (examples: [TP comments dashboard](https://nus-cs2103-ay2021s1.github.io/dashboards/contents/tp-comments.html#71-chan-qin-liang-qlchan24-34-comments))
