@@ -1926,7 +1926,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: Error details shown in the response message. A help message for find command will also be displayed
       to guide user accordingly.
 
-### Listing a macro
+### Listing macros
 
 1. List macros command format: `listmacro`
 
@@ -1937,7 +1937,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: No macros listed. Displayed message states that no macros are presently saved.
 
 
-### Listing CLI-nic
+### Listing Suppliers and Warehouses
 
 1. List command format: `list`
 
