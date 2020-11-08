@@ -1,6 +1,5 @@
 package seedu.clinic.logic.parser;
 
-import seedu.clinic.commons.core.LogsCenter;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.logic.commands.HelpCommand.ALLOWED_ARGUMENTS;
 import static seedu.clinic.logic.commands.HelpCommand.MESSAGE_TOO_MANY_ARGUMENTS;
@@ -10,6 +9,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import seedu.clinic.commons.core.LogsCenter;
 import seedu.clinic.logic.commands.HelpCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
 
@@ -18,10 +18,10 @@ import seedu.clinic.logic.parser.exceptions.ParseException;
  */
 public class HelpCommandParser implements Parser<HelpCommand> {
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
     private static final String LOG_HELP_GENERIC = "Received instructions to display generic help message.";
     private static final String LOG_HELP_SPECIFIC = "Received instructions to display specific help"
             + " message for %1$s command.";
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the HelpCommand
