@@ -39,7 +39,7 @@ You can reach us at the email `cs2103w144@gmail.com`
 
 <img src="images/zhengweii.png" width="200px">
 
-[[github](http://github.com/zhengweii)] [[portfolio](team/zhengwei.md)]
+[[github](http://github.com/zhengweii)] [[portfolio](team/zhengweii.md)]
 
 * Role: Git/GitHub & Code Manager
 * Responsibilities: Providing assistance for Git,
@@ -51,7 +51,7 @@ checking on LoC contributions and milestones management
 <img src="images/tohyuting.png" width="200px">
 
 [[github](https://github.com/tohyuting)]
-[[portfolio](team/yuTing.md)]
+[[portfolio](team/tohyuting.md)]
 
 * Role: Minute manager/Assistant draft manager
 * Responsibilities: Record minutes during meeting and manage collaborative documentations for project discussions.

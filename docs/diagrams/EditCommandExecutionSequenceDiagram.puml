@@ -55,11 +55,10 @@ deactivate CommandResult
 EditCommand --> EditCommand
 deactivate EditCommand
 EditCommand --> LogicManager : result
-[<--LogicManager : result
 
 else editDescriptor instanceOf editWarehouseDescriptor
 
-EditCommand -> EditCommand
+EditCommand -> EditCommand : executeWarehouseEditing(model)
 activate EditCommand
 
 EditCommand -> Model : getFilteredWarehouseList()
@@ -92,7 +91,7 @@ EditCommand --> EditCommand
 deactivate EditCommand
 
 EditCommand --> LogicManager : result
-[<--LogicManager : result
+deactivate EditCommand
 end
 
 @enduml
