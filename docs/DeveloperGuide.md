@@ -28,7 +28,7 @@ The ***Architecture Diagram*** given above explains the high-level design of the
 </div>
 
 **`Main`** has two classes called [`Main`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/Main.java) and [`MainApp`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At app launch: Initializes the components in the correct sequence and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
@@ -65,7 +65,7 @@ The sections below give more details of each component.
 **API** :
 [`Ui.java`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `SupplierListPanel`, `WarehouseListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `SupplierListPanel`, `WarehouseListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts is defined in matching `.fxml
 ` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow
@@ -208,17 +208,17 @@ If the `TYPE` parsed indicates a product deletion (via `ct/ps` or `ct/pw`), an a
 Next, a new `DeleteCommand` will be generated and executed. There are four possible paths for the `delete` command:
 
 1. The target to delete is a `supplier`/`warehouse` <br>
-CLI-nic finds the target `supplier`/`warehouse` at the specified `INDEX` of the displayed list, and remove it completely.
+CLI-nic finds the target `supplier`/`warehouse` at the specified `INDEX` of the displayed list and remove it completely.
 
 1. The `INDEX` specified is invalid (e.g. exceeds the length of the list) <br>
-A `CommandException` error message wil be thrown.
+A `CommandException` error message will be thrown.
 
 1. The target to delete is a `product` in a particular `supplier` <br>
 CLI-nic finds the target `supplier` at the specified `INDEX` of the displayed supplier list, and retrieve its product list.<br>
 It finds the `product` with specified `PRODUCT_NAME` and remove it from the product list.
 
 1. No `product` has the `PRODUCT_NAME` in the target warehouse/supplier <br>
-A `CommandException` error message wil be thrown.
+A `CommandException` error message will be thrown.
 
 #### Structure of Delete command
 
@@ -413,7 +413,7 @@ This allows users to view the details of a specific warehouse or supplier which 
 For each command, only one warehouse or one supplier can be requested for viewing.
 
 #### Path Execution of View Command
-The workflow of an `view` command when it is executed by a user is shown in the Activity Diagram below:
+The workflow of a `view` command when it is executed by a user is shown in the Activity Diagram below:
 
 ![View Command Activity Diagram](images/ViewCommandActivity.png)
 
@@ -479,7 +479,7 @@ This is further optimised with `find` as users can find by for instance, `name` 
 The `help` feature will be elaborated in this section by its functionality.
 
 #### What Help feature does
-`help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have a over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
+`help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have an over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
 
 #### Path Execution of View Command
 An Activity Diagram showing the workflow of `help` command is shown below:
@@ -521,7 +521,7 @@ The list Suppliers and Warehouses feature allows user to list all suppliers and 
 #### What Find feature does
 The find feature allows users to find all relevant suppliers or warehouses by their names, by their remarks and/or by
 names of the products sold/stored. Users are able to search for relevant suppliers or warehouses using either only one
-of these criterion or a combination of these criteria. Note that users are only able to search for either suppliers or
+or a combination of these criteria. Note that users are only able to search for either suppliers or
 warehouses at any one time and not both at the same time.
 
 #### How it is implemented
@@ -770,82 +770,103 @@ supplier or warehouse lists. I decided not to include a separate display section
 screen except when needed. Hence it is implemented such that it will be displayed with the success message instead, so that the user can quickly refer to the macro list and then proceed to use the intended macro straight after, where
 it would then be no longer necessary to keep the macro list on the display.
 
-### Add Supplier/Warehouse feature
+### Add feature
 
-In this section, the functionality of the add feature, the expected execution path, the structure of
-the `AddCommand` class, the interactions between objects with the `AddCommand` object will be discussed.
-
-The `add` supplier/warehouse feature is facilitated by the `AddCommandParser` and the `AddCommand`.
-The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to
+The `add` feature will be elaborated in this section by its functionality and path execution with the aid of
+Class, Activity, and Sequence Diagrams. It is facilitated by the `AddCommandParser` and the `AddCommand` where
+`AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`. These allow the user to
 add a supplier/warehouse to the app using the command line.
 
-#### What Add Supplier/Warehouse feature does
+The following Class Diagram of `AddCommand` shows the interactions between `AddCommand` and other classes
+in CLI-nic:
 
-The `add` feature allows user to add a warehouse or supplier to CLI-nic (case 1).
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Only important
+associations are displayed.
 
-The supplier consists of : `Type`, `Name`, `Phone`, `Email`
-
-The warehouse consists of : `Type`, `Name`, `Phone`, `Address`
-
-The supplier/warehouse also has an optional field: `Remark`
-
-Only one supplier/warehouse can be added per command execution.
-
-#### Path Execution of Add Command
-The overview of the `AddCommand` Activity Diagram is shown below:
-
-![Add Command Activity Diagram](images/AddCommandActivityDiagram.png)
-
-After the user calls the `add` command, the code will check for the presence of all the compulsory prefixes
-in the command. The code will throw a `ParseException` if there are any missing/invalid prefixes. After that is
-checked, it will check if the new supplier/warehouse added is a duplicate (The supplier/warehouse already
-exists in the application). It will throw a CommandException when the user tries to add a duplicate
-supplier/warehouse. Otherwise, it will add the supplier/warehouse and prints a success message to the user.
-
-#### Structure of Add feature
-The following diagram shows the overview of the `AddCommand` Class Diagram:
+</div>
 
 ![Add Command Class Diagram](images/AddCommandClassDiagram.png)
 
-The above class diagram shows the structure of the `AddCommand` and its associated classes and interfaces. Some
-methods and fields are not included because they are not extensively utilised in `AddCommand`; such as public
-static fields and getter/setter methods.
+#### What Add feature does
 
-#### Interaction between objects when the Add Command is executed
-The sequence for adding supplier and warehouse is similar, here is the sequence diagram for the Add Command
-for supplier as shown below:
+The `add` feature allows user to add information for a supplier/warehouse.
+
+A supplier's attributes consist of `name`, `phone` and `email` while a warehouse's attributes consist of
+`name`, `phone` and `address`.
+
+The supplier/warehouse can also consist of an optional `remark` attribute.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The `add` feature does not
+include product information and the `update` feature should be used to associate a supplier/warehouse with a
+product and its associated quantity and tags. This is elaborated in the [**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
+</div>
+
+#### Path Execution of Add Command
+The workflow of an `add` command when executed by a user is shown in the Activity Diagram below:
+
+![Add Command Activity Diagram](images/AddCommandActivityDiagram.png)
+
+Important features of the Activity Diagram are as follows:
+
+1. The `add` command only allows addition of a single supplier/warehouse for every single command. If two
+ or more `ct/COMMAND_TYPE` are provided, the last type specified will be used to process the user's input.
+ This applies for all other prefixes as well.
+ 
+1. After the user calls the `add` command, the code will check for the presence of all the compulsory
+ prefixes (i.e. `ct/COMMAND_TYPE`, `n/NAME`, `p/PHONE` and `e/EMAIL` or `addr/ADDRESS` for supplier and warehouse
+ respectively) in the input. A `ParseException` will be thrown if any of the compulsory prefixes are not
+ present.
+ 
+   Similarly, `ParseException` will be thrown if there are any invalid prefixes or inappropriate fields
+   provided (e.g. input a `String` value for `phone`).
+ 
+1. `AddCommand` will then be executed. The new supplier/warehouse will be added in the `Model`, allowing
+ users to see the added supplier/warehouse.
+ 
+    If new supplier/warehouse to be added has a duplicate name (i.e. the supplier/warehouse name already
+    exist in CLI-nic), it will throw a `CommandException`. Otherwise, a success message will be displayed
+    to the user.
+
+In the following section, the interaction between different objects when a user executes an `add` command
+will be discussed with the aid of a Sequence Diagram as shown below.
 
 ![Add Command Sequence Diagram](images/AddCommandSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for
-`AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline
+`AddCommandParser` should end at the destroy marker (X) but due to a limitation of  PlantUML, the lifeline
 reaches the end of diagram.
+
 </div>
 
-The arguments of the `add` command will be parsed using the parse method of the `AddCommandParser` class.
-The `AddCommandParser` will tokenize the arguments parsed in using the tokenize method of ArgumentTokenizer
-class which returns the tokenized arguments. Using the tokenized arguments, the Parser will check if the
-arguments parsed in matches with the tokenized arguments using the arePrefixesPresent method.
+1. Parsing
 
-There are two scenarios :
+    After receiving an input from user for `add` command, `AddCommandParser#parse` will be invoked to tokenize
+    the arguments parsed in via `ArgumentTokenizer#tokenize`. 
 
-1. Some compulsory prefixes are not present :
+    As mentioned above, if any of the compulsory prefixes are not present, `AddCommandParser` will throw a new
+    `ParseException` object to the `LogicManager`. A `ParseException` will also be thrown if there are invalid
+    prefixes or values provided (e.g. input a `z/` or `String` value for `phone`).
+    
+    Subsequently, parsing of general details will occur for both Supplier and Warehouse type. These include
+    parsing of `name`, `phone` and `remark`. In addition, since Supplier contains an `email` attribute, parsing
+    of this field will be carried out. On the other hand, parsing of `address` will be carried out for
+    Warehouse instead.
 
-   `AddCommandParser` will throw a new ParseException object to the LogicManager.
+    At the end, relevant fields present will be set in `Supplier`/`Warehouse`.
+    
+    During this parsing process, `ParseException` will be thrown if any of the inputs are invalid.
 
-1. All compulsory prefixes are present in the arguments :
+1. Execution
 
-   It will then proceed to use the getValue method of the ArgumentMultimap class to get the value of the
-   prefixes. For example, if the argument parsed in is ct/s, the getValue method will get the value 's'.
-   Subsequently, it will use the ParseUtil methods to get the corresponding object values and put it into
-   the parameters of the new Supplier/Warehouse object. The Supplier/Warehouse object will be put into the
-   parameter of the `AddCommand` object and this will be returned to the LogicManager class for execution.
+    `Model#hasSupplier`/`Model#hasWarehouse` will then be executed to check for duplicates (i.e. if
+    `Model` already contains a supplier or warehouse with the same name), a CommandException will be
+    thrown to inform user of the duplicated supplier/warehouse. Otherwise, the supplier/warehouse will be
+    successfully added via `Model#addSupplier`/`Model#addWarehouse`.
 
-   LogicManager will then call the execute() method of this `AddCommand` object. In the `execute()` method, it will
-   use the Model class to call hasSupplier/hasWarehouse method to check for duplicates, a CommandException
-   will be thrown if there is a duplicate supplier/warehouse in the CLI-nic application already. Else, it
-   will successfully add the new supplier/warehouse using addSupplier/addWarehouse method. Finally, it
-   returns a new CommandResult object, containing a String that indicates a successful addition of supplier/warehouse.
+1. Result display
+
+    `Model` will be updated to reflect the added supplier or warehouse in GUI and an add success message will be
+     displayed to user.
 
 ### Undo/redo feature
 
@@ -885,7 +906,7 @@ The `add` command also calls `Model#saveVersionedClinic()`, causing the `current
 
 </div>
 
-Step 4. The user now decides that adding the supplier was a mistake, and decides to undo that action by executing the `undo` command. <br>
+Step 4. The user now decides that adding the supplier was a mistake and decides to undo that action by executing the `undo` command. <br>
 The `undo` command will call `Model#undoVersionedClinic()`. The `undoVersionStack` will pop the most recent version of CLI-nic data stored, recovers the CLI-nic to that version. <br>
 The `currentClinic` version will be stored in `redoVersionStack` and set to this most recent version popped.
 
@@ -1029,6 +1050,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                 | I want to …​                | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ------------------------------------------------------------------------- |
+| `* * *`  | standard user  | access command history | recall, edit and reuse long or complicated commands with ease without having to retype them |
 | `* * *`  | standard user  | add my suppliers' information and products offered | easily refer to the contacts and give them a call for updates on their supply availability     |
 | `* * *`  | standard user  | add details of warehouses and stocks for each product | easily keep track of the stocks in each of my warehouse |
 | `* * *`  | standard user  | add remarks to a supplier entry         | note down details that are specific to the supplier          |
@@ -1037,14 +1059,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | standard user  | delete a supplier/warehouse entry   | remove suppliers/warehouses no longer operating |
 | `* * *`  | standard user  | delete a particular product from a supplier/warehouse entry   | remove product no longer sold/stored for the supplier/warehouse|
 | `* * *`  | standard user  | edit the information of a specific warehouse or supplier          | easily update any changes in contact information of a particular supplier/warehouse |
-| `* * *`  | standard user  | find medical products associated with warehouses or suppliers     | locate relevant items without having to go through all the lists                |
+| `* * *`  | standard user  | find relevant supplier(s) or warehouse(s) | locate relevant supplier(s) or warehouse(s) without having to go through the entire supplier list or warehouse list |
 | `* * *`  | standard user  | list all warehouses or suppliers     | easily see all the suppliers and warehouses I am in charge of|
 | `* * *`  | standard user  | view the information of a specific warehouse or supplier          | retrieve details about the supplier/warehouse I can't remember and contact them       |
 | `* * *`  | standard user  | view the products of a specific warehouse          | retrieve products associated with the warehouse to see if restocking is needed   |
 | `* * *`  | standard user  | view the products of a specific supplier        | retrieve products associated with the supplier to see if they have enough stocks for me to place an order   |
 | `* * *`  | standard user  | Undo my previous editing on the data    | fix any wrong entry into the data if I've done so by mistake|
 | `* * *`  | standard user  | redo my previous undone editing on the data    | recover the undone editing earlier if I want those editing back|
-| `* * * ` | intermediate user | update the information for a specific product in warehouses and suppliers | keep track of the changes in the stocks of the warehouses |
+| `* * * ` | standard user | update the information for a specific product in warehouses and suppliers | keep track of the changes in the stocks of the warehouses |
 | `* *`    | advanced user | create custom alias for my commands | so that I enter commands more efficiently |
 | `* *`    | advanced user | delete a custom alias | remove the aliases that I no longer need |
 | `* *`    | advanced user | list my saved macros | quickly recall which macros I can currently use  |
@@ -1326,44 +1348,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case: UC10 Find Suppliers of a product**
+**Use case: UC10 Find Supplier(s)**
 
 **MSS**
 
-1. User enters the command to find the suppliers of a specific product.
-2. CLI-nic displays all suppliers that sells the product if any.
-3. User scrolls through all the relevant results and looks for the information that they desire.
+1. User enters the command to find the relevant supplier(s).
+2. CLI-nic displays all relevant supplier(s) and shows a success message.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. User enters invalid command for finding.
+* 1a. User enters an invalid command format for finding supplier(s).
 
-  * 1a1. CLI-nic requests for the valid command.
-  * 1a2. User enter a new command for finding.
+  * 1a1. CLI-nic informs user of the invalid command.
+  * 1a2. User enters a new command.
 
-    Steps 1a1 and 1a2 are repeated until a valid find command is entered. <br>
+    Steps 1a1 and 1a2 are repeated until a valid command format for finding supplier(s) is entered.<br>
     Use case resumes at step 2.
 
-**Use case: UC11 Find Warehouses containing a product**
+**Use case: UC11 Find Warehouse(s)**
 
 **MSS**
 
-1. User enters the command to view a particular product stored in all warehouses.
-2. CLI-nic displays all the relevant products that are stored in the warehouses if any.
-3. User scrolls through all the relevant results and looks for the information that they desire.
+1. User enters the command to find the relevant warehouse(s).
+2. CLI-nic displays all the relevant warehouse(s) and shows a success message.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. User enters invalid command for finding.
+* 1a. User enters an invalid command format for finding warehouse(s).
 
-  * 1a1. CLI-nic requests for the valid command.
-  * 1a2. User enter a new command for finding.
+  * 1a1. CLI-nic informs user of the invalid command.
+  * 1a2. User enters a new command.
 
-    Steps 1a1 and 1a2 are repeated until a valid find command is entered. <br>
+    Steps 1a1 and 1a2 are repeated until a valid command format for finding warehouse(s) is entered.<br>
     Use case resumes from step 2.
 
 **Use case: UC12 List all supplier and warehouse entries**
@@ -1380,7 +1400,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to list the macros saved in the application.
-2. CLI-nic retrieves all presently saved macros, and shows it on the GUI.
+2. CLI-nic retrieves all presently saved macros and shows it on the GUI.
 
     Use case ends.
 
@@ -1617,7 +1637,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 1.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-1.  The files used to store information about supplier/warehouse/product should be independent from each other and follow a similar format.
+1.  The files used to store information about supplier/warehouse/product, macros and commandHistory should be
+    independent from each other.
 1.  The system should recognize common French/German letters as they may appear in the name of medical products.
 1.  The system should be able to track > 1k suppliers, > 1k warehouses, > 1k medical supplies without a noticeable sluggishness in performance for typical usage.
 1.  The size of the application excluding the data files should be minimal (< 30MB).
@@ -1632,24 +1653,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Medical products/supplies**: The items / tools / medicine consumed by patients
 * **Supplier**: The companies / entities providing the sources of medical products
-* **Warehouse**: The places where the medical supplies are channeled to and kept. The storage condition of these warehouses are managed by the manager, which is our app user
+* **Warehouse**: The places where the medical supplies are channelled to and kept. The storage condition of these warehouses is managed by the manager, which is our app user
+* **Alias**: A user-specified `String` that can be used to represent another `String` (e.g. typing `uw`
+    is equivalent to typing `update ct/w` after this command `assignmacro a/uw cs/update ct/w` has been executed)
 
 #### Command Prefix
+<div markdown="span" class="alert alert-info">:information_source:  Note: Command links are directed to
+supplier by default.
+</div>
 
-|Prefix |Meaning |Used in the following Command(s)|
+|Prefix   |Meaning  |Used in the following Command(s)|
 | ------- |-------- | ------------ |
-|a/ | Alias |Assign Macro|
-|addr/ |Address |Add, Edit |
-|cs/ |Command String |Assign Macro|
-|ct/ |Command Type |Add, Delete, Edit, Find, Update |
-|e/ |Email Address |Add, Edit |
-|i/ |Index |Delete, Edit, View, Update |
-|n/ |Supplier/Warehouse Name |Add, Find |
-|p/ |Phone Number |Add, Edit |
-|pd/ |Product Name |Delete, Find, Update |
-|q/ |Quantity of product |Update |
-|r/ |Remark |Add, Find, Edit |
-|t/ |Product Tag |Update |
+|a/ |Alias |[Assign Macro](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#assigning-macro-to-selected-command-string-assignmacro)|
+|addr/ |Address |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-warehouse--add), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
+|cs/ |Command String |[Assign Macro](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#assigning-macro-to-selected-command-string-assignmacro)|
+|ct/ |Command Type |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Delete](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#deleting-a-supplier--delete), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit), [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find), [Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update), [View](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#viewing-a-specific-supplier-view) |
+|e/ |Email Address |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
+|i/ |Index |[Delete](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#deleting-a-supplier--delete), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit), [Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update), [View](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#viewing-a-specific-supplier-view) |
+|n/ |Supplier/Warehouse Name |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find) |
+|p/ |Phone Number |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
+|pd/ |Product Name |[Delete](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#deleting-a-supplier--delete), [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find), [Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
+|q/ |Quantity of product |[Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
+|r/ |Remark |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
+|t/ |Product Tag |[Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -1693,37 +1719,39 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Minimal information e.g. `add ct/s n/John p/98766789 e/johndoe@example.com`<br>
       Expected: Adds a supplier with the above details to the list and is displayed on the GUI.
-   1. Test case: Supplier with remarks e.g. `add ct/s n/John Lagoon p/98766789 e/johndoe@example.com r/Fast
-      delivery`<br>
+   1. Test case: With all fields supplied e.g. `add ct/s n/John Lagoon p/98766789 e/johndoe@example.com r/Fast delivery`<br>
       Expected: Adds the supplier to the list, including the remark.
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/s n/John Lim p/98766789`
-      or `add ct/s n/John Tan p/98766789 e/johndoe@example.com z/friend`<br>
-      Expected: No supplier is added. Error details shown in the response message. A help message displayed
-      to guide user accordingly. SupplierList on GUI remains unchanged.
-   1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e
-      /johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
-      Expected: No supplier is added. Error details will be displayed, stating that a supplier with duplicate
-      `SUPPLIER_NAME` cannot be added into CLI-nic. SupplierList on GUI remain unchanged.
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. Case 1:`add ct/s n/John Lim p/98766789`
+      or Case 2: `add ct/s n/John Tan p/98766789 z/friend e/johndoe@example.com`<br>
+      Expected: No supplier is added. For Case 1, error details indicating that there are missing prefixes
+      and the compulsory prefixes needed would be shown in the response message. For Case 2, error details
+      indicating that one of the prefixes specified is not recognised would be shown in the response message.
+      A usage message will be displayed for both cases to guide user accordingly. SupplierList on GUI
+      remains unchanged.
+   1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e/johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
+      Expected: No supplier is added. Error details will be displayed, indicating that the supplier to be
+      added already exists in CLI-nic and thus cannot be added. SupplierList on GUI remain unchanged.
 
 ### Adding a warehouse
 
 1. Add command format: `add ct/w n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
 
-   1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123
-      , #01-01`<br>
+   1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01`<br>
       Expected: Adds a warehouse with the above details to the warehouse list and is displayed on the GUI.
-   1. Test case: Warehouse with remarks e.g. `add ct/w n/John Lagoon Ptd Ltd p/98766789 addr/John street
-      , block 123, #01-01 r/Largest warehouse`<br>
+   1. Test case: With all fields supplied e.g. `add ct/w n/John Lagoon Ptd Ltd p/98766789 addr/John street, block 123, #01-01 r/Largest warehouse`<br>
       Expected: Adds the warehouse to the list, including the remark
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Lim Ptd Ltd p/98766789`
-      or `add ct/w n/John St Ptd Ltd p/98766789 addr/John street, block 123, #01-01 z/large`<br>
-      Expected: No warehouse is added. Error details shown in the response message. A help message displayed
-      to guide user accordingly. WarehouseList on GUI remains unchanged.
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. Case 1:`add ct/w n/John Lim Ptd Ltd p/98766789`
+      or Case 2: `add ct/w n/John St Ptd Ltd p/98766789 z/large addr/John street, block 123, #01-01`<br>
+      Expected: No warehouse is added. For Case 1, error details indicating that there are missing prefixes
+      and the compulsory prefixes needed would be shown in the response message. For Case 2, error details
+      indicating that one of the prefixes specified is not recognised would be shown in the response message.
+      A usage message will be displayed for both cases to guide user accordingly. WarehouseList on GUI
+      remains unchanged.
    1. Test case: Add warehouse with duplicate WAREHOUSE_NAME e.g. `add ct/w n/James Ptd Ltd p/98766789
       addr/John street, block 123, #01-01` followed by `add ct/w n/James Ptd Ltd p/91234567 addr/Ang Mo Kio
       street 12, block 3`<br>
-      Expected: No warehouse is added. Error details will be displayed, stating that a warehouse with duplicate
-      `WAREHOUSE_NAME` cannot be added into CLI-nic. WarehouseList on GUI remain unchanged.
+      Expected: No warehouse is added. Error details will be displayed, indicating that the warehouse to
+      be added already exists in CLI-nic and thus cannot be added. WarehouseList on GUI remain unchanged.
 
 ### Deleting a Supplier/Warehouse
 
@@ -1809,7 +1837,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 1. List macros command format: `listmacro`
 
    1. Test case: At least one macro has been saved.<br>
-      Expected: The list of macros are displayed.
+      Expected: The list of macros is displayed.
 
    1. Test case: No macros have been saved.<br>
       Expected: No macros listed. Displayed message states that no macros are presently saved.
@@ -1869,6 +1897,50 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: CLI-nic closes with current state of data saved.
    1. Test case: Exit command with additional arguments e.g. `exit test` or `exit ct/s`<br>
       Expected: Similar to previous.
+      
+### Finding relevant Supplier(s)
+
+1. Find command format: `find ct/s [n/NAME...] [r/REMARK...] [pd/PRODUCT_NAME...]`
+
+   1. Test case: Only name parameter supplied e.g. `find ct/s n/Alice`<br>
+      Expected: Finds supplier(s) with names matching `Alice`.
+   1. Test case: Only remark parameter supplied e.g. `find ct/s r/cheap fast`<br>
+      Expected: Finds supplier(s) with remark matching either `cheap` or `fast`.
+   1. Test case: Only product name parameter supplied e.g. `find ct/s pd/panadol`<br>
+         Expected: Finds supplier(s) that sell products matching `panadol`.
+   1. Test case: Combination of parameters supplied e.g. `find ct/s n/Alice pd/aspirin`<br>
+         Expected: Finds supplier(s) with names matching `Alice` or selling products matching `aspirin`.      
+   1. Test case: Missing type prefix e.g. `find n/Alice`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+   1. Test case: Missing all name, remark and product name prefixes e.g. `find ct/s`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+   1. Test case: Invalid prefixes provided e.g. `find ct/s n/Alice a/invalid`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+      
+### Finding relevant warehouse(s)
+
+1. Find command format: `find ct/w [n/NAME...] [r/REMARK...] [pd/PRODUCT_NAME...]`
+
+   1. Test case: Only name parameter supplied e.g. `find ct/w n/Alice`<br>
+      Expected: Finds warehouse(s) with names matching `Alice`.
+   1. Test case: Only remark parameter supplied e.g. `find ct/w r/largest`<br>
+      Expected: Finds warehouse(s) with remark matching either `largest`.
+   1. Test case: Only product name parameter supplied e.g. `find ct/w pd/panadol`<br>
+         Expected: Finds warehouse(s) that store products matching `panadol`.
+   1. Test case: Combination of parameters supplied e.g. `find ct/w n/Alice pd/aspirin`<br>
+         Expected: Finds warehouse(s) with names matching `Alice` or storing products matching `aspirin`.      
+   1. Test case: Missing type prefix e.g. `find n/Alice`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+   1. Test case: Missing all name, remark and product name prefixes e.g. `find ct/w`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+   1. Test case: Invalid prefixes provided e.g. `find ct/w n/Alice a/invalid`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
 
 ### Listing CLI-nic
 
@@ -1885,20 +1957,20 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: View command with complete prefixes e.g. `view ct/s i/1`<br>
       Expected: SupplierList updates to show only supplier at index 1. Products associated with the supplier and their details are shown in the command result box.
-   1. Test case: View command with missing prefixes e.g `view ct/s` or `view`<br>
+   1. Test case: View command with missing prefixes e.g. `view ct/s` or `view`<br>
       Expected: SupplierList will not be updated to show only supplier at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
-   1. Test case: View command with index larger than range of supplier list displayed e.g.`view ct/s i/x` (where x is larger than the displayed list size)<br>
+   1. Test case: View command with index larger than range of supplier list displayed e.g. `view ct/s i/x` (where x is larger than the displayed list size)<br>
       Expected: Similar to previous.
 
-## Viewing a Warehouse
+### Viewing a Warehouse
 
 1. View command format: `view ct/w i/INDEX`
 
    1. Test case: View command with complete prefixes e.g. `view ct/w i/2`<br>
       Expected: WarehouseList updates to show only warehouse at index 2. Products associated with the warehouse and their details are shown in the command result box.
-   1. Test case: View command with missing prefixes e.g `view ct/w` or `view`<br>
+   1. Test case: View command with missing prefixes e.g. `view ct/w` or `view`<br>
       Expected: WarehouseList will not be updated to show only warehouse at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. WarehouseList on GUI remains unchanged.
-   1. Test case: View command with index larger than range of warehouse list displayed e.g.`view ct/w i/x` (where x is larger than the displayed list size)<br>
+   1. Test case: View command with index larger than range of warehouse list displayed e.g. `view ct/w i/x` (where x is larger than the displayed list size)<br>
       Expected: Similar to previous.
 
 ### Viewing help messages for various commands
@@ -1907,9 +1979,9 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: View generic help message for all commands e.g. `help`<br>
       Expected: Shows help message consisting of commands available in CLI-nic and what each command does.
-   1. Test case: View help message specific to a command e.g `help add`<br>
+   1. Test case: View help message specific to a command e.g. `help add`<br>
       Expected: Shows help message consisting of instructions on how to interpret command format, command format for `add` and some sample commands for `add`.
-   1. Test case: View help message with invalid type e.g.`help test`<br>
+   1. Test case: View help message with invalid type e.g. `help test`<br>
       Expected: Shows invalid command format message, stating the allowed keywords to be used by help. A help message for help command will also be displayed again to guide the user accordingly.
 
 ### Saving data
