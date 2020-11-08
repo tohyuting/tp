@@ -10,7 +10,7 @@ It is optimized for these managers to **update product supply & storage conditio
 
 Given below are my contributions to the project.
 
-* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=criss-wang&sort=groupTitle&sortWithin=title&since=2020-08-14&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=criss-wang)
 
 * **New class**: Implement the warehouse class.
   * What it represents: the warehouses the user manages. Each warehouse can store medical products of various quantity.

@@ -174,7 +174,7 @@ from it can result in a significant reduction in performance.
 
 ### Delete feature
 
-The `delete` feature will be elaborated in this section by its' functionality, the path execution with the aid of a sequence and an activity diagram.
+The `delete` feature will be elaborated in this section by its functionality, the path execution with the aid of a sequence and an activity diagram.
 The details of __DeleteCommand__'s class implementation and its interactions with associated objects will also be discussed.
 
 #### What Delete Feature does
@@ -306,7 +306,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
 
 ### Edit feature
-The `edit` feature will be elaborated in this section by its' functionality and path execution with the aid of Class, Sequence and an Activity Diagrams.
+The `edit` feature will be elaborated in this section by its functionality and path execution with the aid of Class, Sequence and an Activity Diagrams.
 
 The Class Diagram of `EditCommand` shows the interactions between EditCommand and other classes in CLI-nic.
 
@@ -336,7 +336,7 @@ Important features of the Activity Diagram are as follows:
 
 1. `EditCommand` will then be executed. The edited supplier or warehouse will be updated in the model, allowing users to see the changes done for the respective supplier or warehouse.
 
-   If the edited fields result in no changes to the existing supplier or warehouse, a `CommandException` will be thrown a to remind user that the supplier or warehouse will be unchanged.
+   If the edited fields result in no changes to the existing supplier or warehouse, a `CommandException` will be thrown to remind user that the supplier or warehouse will be unchanged.
 
 In the following section, the interaction between different objects will be discussed with the aid of a Sequence Diagram to understand the workflow when a user executes an `edit` command.
 
@@ -346,11 +346,11 @@ In the following section, the interaction between different objects will be disc
 
    After receiving an input from user for edit command, `EditCommandParser#parse` will be invoked.
 
-   As mentioned in above section, if either one of the compulsory prefixes are missing, `ParseException` will be thrown to remind users. Furthermore, invalid values supplied for `type` and `index` (e.g. `String` value for `index`), a `ParseException` will be thrown.
+   As mentioned in above section, if either one of the compulsory prefixes is missing, `ParseException` will be thrown to remind users. Furthermore, invalid values supplied for `type` and `index` (e.g. `String` value for `index`), a `ParseException` will be thrown.
 
-   An attempt to determine the correct type and creating the relevant `EditDescriptor` will then be carried out. During this process, if incorrect prefixes such as `email` prefix for warehouse and an `address` prefix for supplier was found, a `ParseException` will be thrown.
+   An attempt to determine the correct type and creating the relevant `EditDescriptor` will then be carried out. During this process, if incorrect prefixes such as an `email` prefix for warehouse or an `address` prefix for supplier was found, a `ParseException` will be thrown.
 
-   It should be noted that both `EditSupplierDescriptor` and `EditWarehouseDescriptor` are subclasses of `EditDescriptor`.N All three classes are inner classes of `EditCommand`. Despite being inner classes, they work as crucial helper classes for `EditCommand` to execute `edit` feature smoothly.
+   It should be noted that both `EditSupplierDescriptor` and `EditWarehouseDescriptor` are subclasses of `EditDescriptor`. All three classes are inner classes of `EditCommand`. Despite being inner classes, they work as crucial helper classes for `EditCommand` to execute `edit` feature smoothly.
 
    This inheritance relationship is shown below:
 
@@ -403,7 +403,7 @@ For example, `editw` and `edits` to represent edit warehouse and edit supplier. 
 Therefore, our team decided to implement `edit` command by taking in prefixes and throwing our relevant exceptions at appropriate points after considering code quality and end user experience.
 
 ### View feature
-The `view` feature will be elaborated in this section by its' functionality and path execution with the aid of Sequence and Activity Diagrams.
+The `view` feature will be elaborated in this section by its functionality and path execution with the aid of Sequence and Activity Diagrams.
 
 #### What View feature does
 `view` command allows user to view a particular warehouse or supplier in warehouse or supplier list displayed.
@@ -476,7 +476,7 @@ This allows **CLI-nic** to be CLI friendly, where users need not click on `produ
 This is further optimised with `find` as users can find by for instance, `name` or `remark` associated to a particular supplier or warehouse. With the filtered supplier or warehouse list displayed, they can view the products associated to a supplier or warehouse by using the `view` feature.
 
 ### Help feature
-The `help` feature will be elaborated in this section by its' functionality.
+The `help` feature will be elaborated in this section by its functionality.
 
 #### What Help feature does
 `help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have a over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
@@ -498,7 +498,7 @@ Important features of the Activity Diagram are as follows:
 Instead of providing a link and asking users to read the user guide, it would be more convenient for users to access the help message for each command within the application itself. This allows user to instantly know what to key into the command box instead of switching between user guide in the browser and **CLI-nic**. In addition, this allow users to access the `help` page even without an internet connection as well.
 
 ### List Suppliers and Warehouses feature
-The list Suppliers and Warehouses feature will be elaborated in this section by its' functionality.
+The list Suppliers and Warehouses feature will be elaborated in this section by its functionality.
 
 #### What List Supplier and Warehouses feature does
 The list Suppliers and Warehouses feature allows user to list all suppliers and warehouses stored in **CLI-nic**. This feature allows users to retrieve back all suppliers and warehouses in the displayed supplier and warehouse lists after executing a `view` or `find` command.
@@ -590,32 +590,35 @@ After using the `list` command to display all warehouses and suppliers, the user
 in the warehouse at index 1 of the warehouse list. The user also decides that he wants to give 'Xodol' a tag 'cold'.
 The user does this by executing the `update ct/w i/1 pd/Xodol q/97 t/cold` command.
 
-1. Parsing
-The input string will be passed to the `UpdateCommandParser`. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
-and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type, index and product name are not supplied. If so, an error message will be presented on the GUI.
-Otherwise, the method will create an `UpdateCommand` with the `Type`, the warehouse/supplier `Index`, the product's `Name`, and the `UpdateProductDescriptor`.
+1. Parsing <br>
 
-1. Execution
-The following sequence diagram zooms in on how the `UpdateCommand#execute` is implemented:
-![Update Product Command Execution Sequence Diagram](images/UpdateCommandExecutionSequenceDiagram.png)
+    The input string will be passed to the `UpdateCommandParser`. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
+    and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type, index and product name are not supplied. If so, an error message will be presented on the GUI.
+    Otherwise, the method will create an `UpdateCommand` with the `Type`, the warehouse/supplier `Index`, the product's `Name`, and the `UpdateProductDescriptor`.
 
-`UpdateCommand#execute` is called with the `Model` instance. The method will first retrieve the filtered warehouse/supplier list from the model. The method then attempts to retrieve the warehouse/supplier from the list at the supplied index. If the index is greater than the size of the supplier/warehouse list, `CommandException` is thrown, otherwise, the `UpdateCommand#execute`
-method copies the existing product set for that warehouse/supplier to a new `Set<Product>`.
+1. Execution <br>
 
-`UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
-If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
-is supplied in the `UpdateProductDescriptor`, failing which, an exception is thrown. If the check passes, the original
-`Product` is removed from the set.
-
-`UpdateCommand#createUpdatedProduct` then creates a new product based on the product name and `UpdateProductDescriptor`. The `execute` method then adds the updated `Product` to the `Set<Product>`, and creates an updated
-warehouse/supplier with the updated product. The method then updates the model with the edited warehouse/supplier, and the `FilteredWarehouseList` to be displayed to the user later.
+    The following sequence diagram zooms in on how the `UpdateCommand#execute` is implemented:
+    ![Update Product Command Execution Sequence Diagram](images/UpdateCommandExecutionSequenceDiagram.png)
+    
+    `UpdateCommand#execute` is called with the `Model` instance. The method will first retrieve the filtered warehouse/supplier list from the model. The method then attempts to retrieve the warehouse/supplier from the list at the supplied index. If the index is greater than the size of the supplier/warehouse list, `CommandException` is thrown, otherwise, the `UpdateCommand#execute`
+    method copies the existing product set for that warehouse/supplier to a new `Set<Product>`.
+    
+    `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
+    If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
+    is supplied in the `UpdateProductDescriptor`, failing which, an exception is thrown. If the check passes, the original
+    `Product` is removed from the set.
+    
+    `UpdateCommand#createUpdatedProduct` then creates a new product based on the product name and `UpdateProductDescriptor`. The `execute` method then adds the updated `Product` to the `Set<Product>`, and creates an updated
+    warehouse/supplier with the updated product. The method then updates the model with the edited warehouse/supplier, and the `FilteredWarehouseList` to be displayed to the user later.
 
 1. Result display
-The method then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model
-is saved and the GUI is updated with the success message.
 
-The following activity diagram summarizes what happens when a user updates a product:
-![Update Product Command Activity Diagram](images/UpdateCommandActivityDiagram.png)
+    The method then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model
+    is saved and the GUI is updated with the success message.
+    
+    The following activity diagram summarizes what happens when a user updates a product:
+    ![Update Product Command Activity Diagram](images/UpdateCommandActivityDiagram.png)
 
 #### Why it is implemented this way and what alternatives were considered
 The main design considerations associated to the feature include:
@@ -668,21 +671,24 @@ Given below is an example usage scenario, together with a sequence diagram, to s
 The user frequently updates the products under each warehouse and decides to create a new macro with the alias "uw" for the command string "update ct/w" so as to shorten subsequent command inputs.
 The user does this by executing the `assignmacro a/uw cs/update ct/w` command.
 
-1. Parsing
-The input string will be passed to the `AssignMacroCommandParser`. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
-an exception to be displayed on the GUI if the alias or command string supplied by the user is invalid, or if any of them is not supplied at all. If all prefixes are parsed without error,
-a `Macro` is created from the `Alias` and `SavedCommandString` instances. Then, a new `AssignMacroCommand` instance is created with the new `Macro`.
+1. Parsing <br>
 
-1. Execution
-The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias.
-If that is true, an exception will be thrown. This will be shown on the GUI as an error message. Otherwise, the new macro will be added to the model.
+    The input string will be passed to the `AssignMacroCommandParser`. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
+    an exception to be displayed on the GUI if the alias or command string supplied by the user is invalid, or if any of them is not supplied at all. If all prefixes are parsed without error,
+    a `Macro` is created from the `Alias` and `SavedCommandString` instances. Then, a new `AssignMacroCommand` instance is created with the new `Macro`.
 
-1. Result display
-The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
-The user now updates the quantity of the product "Panadol" in the aforementioned warehouse by simply executing the command `uwm pd/Panadol`.
+1. Execution <br>
 
-The following activity diagram summarizes what happens when a user assigns a macro:
-![Assign Macro Command Activity Diagram](images/AssignMacroCommandActivityDiagram.png)
+    The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias.
+    If that is true, an exception will be thrown. This will be shown on the GUI as an error message. Otherwise, the new macro will be added to the model.
+
+1. Result display <br>
+
+    The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
+    The user now updates the quantity of the product "Panadol" in the aforementioned warehouse by simply executing the command `uwm pd/Panadol`.
+    
+    The following activity diagram summarizes what happens when a user assigns a macro:
+    ![Assign Macro Command Activity Diagram](images/AssignMacroCommandActivityDiagram.png)
 
 #### Why it is implemented this way
 
@@ -698,7 +704,7 @@ However, this also means that a valid macro does not guarantee a successful comm
 
 #### What the remove macro feature does
 
-The remove macro feature allows users to be able to remove an existing macro with a specific alias.
+The remove macro feature allows users to be able to remove an existing macro with a specific alias created earlier.
 
 #### How it is implemented
 
@@ -711,20 +717,23 @@ Given below is an example usage scenario, together with a sequence diagram, to s
 
 The user decides that he/she no longer needs the macro with the alias "uw" and decides to remove it. He does this by executing the `removemacro uw` command.
 
-1. Parsing
-The input string will be passed to the `RemoveMacroCommand parser`. By matching the prefixes provided, `RemoveMacroCommandParser#parse` then attempts to create a new instance of `Alias` by parsing the arguments provided. If the `Alias` is
-invalid, an exception will be thrown which will be shown as an error message on the GUI. Otherwise, a `RemoveMacroCommand` instance is created with the new `Alias`.
+1. Parsing <br>
 
-1. Execution
-`RemoveMacroCommand#execute` is then called with the model instance, which first attempts to retrieve the existing macro in the model with the `Alias` specified by calling the `model#getMacro` method.
-This macro is returned in an optional wrapper, and an exception will be thrown if it is empty, where an error message will be displayed on the GUI. Otherwise, the
-retrieved macro will be removed from the model.
+    The input string will be passed to the `RemoveMacroCommand parser`. By matching the prefixes provided, `RemoveMacroCommandParser#parse` then attempts to create a new instance of `Alias` by parsing the arguments provided. If the `Alias` is
+    invalid, an exception will be thrown which will be shown as an error message on the GUI. Otherwise, a `RemoveMacroCommand` instance is created with the new `Alias`.
 
-1. Result Display
-The `RemoveMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
+1. Execution <br>
 
-The following activity diagram summarizes what happens when a user updates a product:
-![Remove Macro Command Activity Diagram](images/RemoveMacroCommandActivityDiagram.png)
+    `RemoveMacroCommand#execute` is then called with the model instance, which first attempts to retrieve the existing macro in the model with the `Alias` specified by calling the `model#getMacro` method.
+    This macro is returned in an `Optional` wrapper, and an exception will be thrown if it is empty, where an error message will be displayed on the GUI. Otherwise, the
+    retrieved macro will be removed from the model.
+
+1. Result Display <br>
+
+    The `RemoveMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
+    
+    The following activity diagram summarizes what happens when a user updates a product:
+    ![Remove Macro Command Activity Diagram](images/RemoveMacroCommandActivityDiagram.png)
 
 ### List Macros feature
 
@@ -734,22 +743,25 @@ The list macros feature allows users to be able to view all presently saved macr
 
 #### How it is implemented
 
-The list macros feature is facilitated by the ListMacroCommand, whose job is to retrieve to list of macros and process it into a suitable format to be displayed to the user.
+The list macros feature is facilitated by the `ListMacroCommand`    , whose job is to retrieve to list of macros and process it into a suitable format to be displayed to the user.
 
 Given below is an example usage scenario
 
 The user decides to check what macros he/she has saved before. The user does this by executing the `listmacro` command.
 
-1. Parsing
-Since there are no arguments needed for this command, the `ClinicParser` directly creates the `ListMacroCommand`.
+1. Parsing <br>
 
-1. Execution
-`LogicManager` will then call `ListMacroCommand#execute` with the `Model` instance. `ListMacroCommand#execute` will retrieve the macro list from the `Model`.
-If the list is empty, an exception is thrown which results in a message displayed on the GUI notifying the user that there are no presently saved macros.
-Otherwise, the list of macros will be formatted into a readable format.
+    Since there are no arguments needed for this command, the `ClinicParser` directly creates the `ListMacroCommand`.
 
-1. Result display
-The success message which contains the formatted list will be passed in a `CommandResult` to the `LogicManager`, to be displayed on the GUI without overriding the existing lists for suppliers and warehouses.
+1. Execution <br>
+
+    `LogicManager` will then call `ListMacroCommand#execute` with the `Model` instance. `ListMacroCommand#execute` will retrieve the macro list from the `Model`.
+    If the list is empty, an exception is thrown which results in a message displayed on the GUI notifying the user that there are no presently saved macros.
+    Otherwise, the list of macros will be formatted into a readable format.
+
+1. Result display <br>
+
+    The success message which contains the formatted list will be passed in a `CommandResult` to the `LogicManager`, to be displayed on the GUI without overriding the existing lists for suppliers and warehouses.
 
 #### Why it is implemented this way
 
@@ -761,7 +773,7 @@ it would then be no longer necessary to keep the macro list on the display.
 ### Add Supplier/Warehouse feature
 
 In this section, the functionality of the add feature, the expected execution path, the structure of
-the AddCommand class, the interactions between objects with the AddCommand object will be discussed.
+the `AddCommand` class, the interactions between objects with the `AddCommand` object will be discussed.
 
 The `add` supplier/warehouse feature is facilitated by the `AddCommandParser` and the `AddCommand`.
 The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to
@@ -775,28 +787,28 @@ The supplier consists of : `Type`, `Name`, `Phone`, `Email`
 
 The warehouse consists of : `Type`, `Name`, `Phone`, `Address`
 
-The supplier/warehouse also consists of an optional field: `Remark`
+The supplier/warehouse also has an optional field: `Remark`
 
 Only one supplier/warehouse can be added per command execution.
 
 #### Path Execution of Add Command
-The overview of the AddCommand Activity Diagram is shown below:
+The overview of the `AddCommand` Activity Diagram is shown below:
 
 ![Add Command Activity Diagram](images/AddCommandActivityDiagram.png)
 
 After the user calls the `add` command, the code will check for the presence of all the compulsory prefixes
-in the command. The code will throw a ParseException if there are any missing/invalid prefixes. After that is
+in the command. The code will throw a `ParseException` if there are any missing/invalid prefixes. After that is
 checked, it will check if the new supplier/warehouse added is a duplicate (The supplier/warehouse already
-exist in the application). It will throw a CommandException when the user tries to add a duplicate
+exists in the application). It will throw a CommandException when the user tries to add a duplicate
 supplier/warehouse. Otherwise, it will add the supplier/warehouse and prints a success message to the user.
 
 #### Structure of Add feature
-The following diagram shows the overview of the AddCommand Class Diagram:
+The following diagram shows the overview of the `AddCommand` Class Diagram:
 
 ![Add Command Class Diagram](images/AddCommandClassDiagram.png)
 
-The above class diagram shows the structure of the AddCommand and its associated classes and interfaces. Some
-methods and fields are not included because they are not extensively utilised in AddCommand; such as public
+The above class diagram shows the structure of the `AddCommand` and its associated classes and interfaces. Some
+methods and fields are not included because they are not extensively utilised in `AddCommand`; such as public
 static fields and getter/setter methods.
 
 #### Interaction between objects when the Add Command is executed
@@ -810,8 +822,8 @@ for supplier as shown below:
 reaches the end of diagram.
 </div>
 
-The arguments of the `add` command will be parsed using the parse method of the AddCommandParser class.
-The AddCommandParser will tokenize the arguments parsed in using the tokenize method of ArgumentTokenizer
+The arguments of the `add` command will be parsed using the parse method of the `AddCommandParser` class.
+The `AddCommandParser` will tokenize the arguments parsed in using the tokenize method of ArgumentTokenizer
 class which returns the tokenized arguments. Using the tokenized arguments, the Parser will check if the
 arguments parsed in matches with the tokenized arguments using the arePrefixesPresent method.
 
@@ -819,7 +831,7 @@ There are two scenarios :
 
 1. Some compulsory prefixes are not present :
 
-   AddCommandParser will throw a new ParseException object to the LogicManager.
+   `AddCommandParser` will throw a new ParseException object to the LogicManager.
 
 1. All compulsory prefixes are present in the arguments :
 
@@ -827,9 +839,9 @@ There are two scenarios :
    prefixes. For example, if the argument parsed in is ct/s, the getValue method will get the value 's'.
    Subsequently, it will use the ParseUtil methods to get the corresponding object values and put it into
    the parameters of the new Supplier/Warehouse object. The Supplier/Warehouse object will be put into the
-   parameter of the AddCommand object and this will be returned to the LogicManager class for execution.
+   parameter of the `AddCommand` object and this will be returned to the LogicManager class for execution.
 
-   LogicManager will then call the execute() method of this AddCommand object. In the execute() method, it will
+   LogicManager will then call the execute() method of this `AddCommand` object. In the `execute()` method, it will
    use the Model class to call hasSupplier/hasWarehouse method to check for duplicates, a CommandException
    will be thrown if there is a duplicate supplier/warehouse in the CLI-nic application already. Else, it
    will successfully add the new supplier/warehouse using addSupplier/addWarehouse method. Finally, it
@@ -837,7 +849,7 @@ There are two scenarios :
 
 ### Undo/redo feature
 
-The implementation of undo/redo takes reference from the AddressBook3's proposed implementation, with some modification
+The implementation of undo/redo takes reference from the [AddressBook3's proposed implementation](https://se-education.org/addressbook-level3/DeveloperGuide.html#proposed-undoredo-feature), with some modification
 on the storage of versioned data.
 
 #### Implementation
@@ -918,8 +930,6 @@ Note here all CLI-nic versions stored the `redoVersionStack` will be purged. Rea
 The following activity diagram summarizes what happens when a user executes a new command:
 
 ![CommitActivityDiagram](images/CommitActivityDiagram.png)
-
-#### Design consideration:
 
 #### Aspect: How undo & redo executes
 
@@ -1745,7 +1755,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/pw i/1000 pd/Panadol`<br>
          Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.v
  
-   1. Test case: Provided product (by name) is not found in the product list of the supplier/warehouse e.g. `delete ct/pw i/1000 pd/P`<br>
+   1. Test case: Provided product (by name) is not found in the product list of the supplier/warehouse e.g. `delete ct/pw i/1 pd/P`<br>
                Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.
 
 ### Updating a Product in a Supplier/Warehouse
