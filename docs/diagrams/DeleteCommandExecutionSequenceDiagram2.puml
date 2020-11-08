@@ -8,7 +8,7 @@ participant ":DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant "lastShownSupplierList:List" as lastShownSupplierList LOGIC_COLOR
 participant "lastShownWarehouseList:List" as lastShownWarehouseList LOGIC_COLOR
 participant "supplierToUpdate:Supplier" as supplierToUpdate LOGIC_COLOR
-participant "warehouseToUpdate:Supplier" as warehouseToUpdate LOGIC_COLOR
+participant "warehouseToUpdate:Warehouse" as warehouseToUpdate LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 

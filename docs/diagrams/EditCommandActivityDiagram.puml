@@ -1,6 +1,7 @@
 @startuml
 start
-:User enters edit commands with relevant prefixes;
+:User enters edit command
+with relevant prefixes;
 :Parse user input;
 
 'Since the beta syntax does not support placing the condition outside the
@@ -17,17 +18,14 @@ if () then ([index and command type prefixes present])
         EditWarehouseDescriptor;
         endif
 
-        :Generate new Edit Command;
-        :Execute Edit Command;
+        :Generate and Execute new Edit Command;
 
         if () then([editing Supplier])
-        :Obtain Supplier to edit
-        from Supplier List;
-        :Edits Supplier in Supplier List;
+        :Obtain Supplier from
+        Supplier List and edit;
         else ([editing Warehouse])
-        :Obtain Warehouse to edit
-        from Warehouse List;
-        :Edits Warehouse in Warehouse List;
+        :Obtain Warehouse from
+        Warehouse List and edit;
         endif
         :Generate edit success message;
     else ([invalid prefixes/arguments])

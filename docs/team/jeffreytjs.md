@@ -40,7 +40,7 @@ Given below are my contributions to the project.
    * Justification: This is a good-to-have feature which can help improve user experience as they would be
     able to achieve the intended outcome more quickly by using the autocompletion.
     <br> Credits: The adaptation is done on the file written by past student [ShaunNgTX](https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java)
-    
+
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=jeffreytjs)
 
 * **Project management**:

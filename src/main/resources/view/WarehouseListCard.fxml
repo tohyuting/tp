@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -58,14 +57,17 @@
                     </Button>
                     <Label fx:id="remark" styleClass="cell_small_label" text="\$remark"/>
                 </children>
+            </HBox >
+
+            <HBox spacing="5">
+                <TitledPane fx:id="productsTitledPane" styleClass="productsTitledPane" text="Products" HBox.hgrow="ALWAYS">
+                    <VBox>
+                        <VBox fx:id="products" styleClass="products" minWidth="10" prefWidth="400" />
+                        <Label fx:id="noProductsLabel" styleClass="cell_small_label"
+                               text="This warehouse has no products." />
+                    </VBox>
+                </TitledPane>
             </HBox>
-            <TitledPane fx:id="productsTitledPane" styleClass="productsTitledPane" text="Products">
-                <VBox>
-                    <VBox fx:id="products" minWidth="10" prefWidth="450" />
-                    <Label fx:id="noProductsLabel" styleClass="cell_small_label"
-                           text="This warehouse has no products." />
-                </VBox>
-            </TitledPane>
         </VBox>
     </GridPane>
 </HBox>

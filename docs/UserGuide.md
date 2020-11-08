@@ -42,26 +42,30 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
 
    * **`clear`** : Deletes all suppliers and warehouses entries in CLI-nic.
 
-   * **`delete`** `ct/s i/12` : Deletes the supplier at index 12 from the list of suppliers.
+   * **`delete`** `ct/s i/3` : Deletes the supplier at index 3 from the list of displayed suppliers in the GUI.
 
-   * **`edit`** `ct/s i/1 n/Alice p/68574214` : Edits the name and phone number of the supplier at index 1 in
-   the list of displayed suppliers on the GUI to be `Alice` and `685742141`.
+   * **`edit`** `ct/s i/1 n/Alice p/68574214` : Edits the name and phone number of the supplier at index 1 from
+   the list of displayed suppliers in the GUI to be `Alice` and `685742141`.
 
    * **`exit`** : Exits the app.
 
-   * **`find`** `ct/w pd/panadol` : Displays all the warehouses that has a product named `panadol`.
+   * **`find`** `ct/w pd/panadol` : Displays all warehouse(s) that has a product named `panadol`.
 
    * **`list`**: Displays all the suppliers and warehouses in CLI-nic.
 
    * **`listmacro`**: Displays all the macros saved in CLI-nic.
+   
+   * **`redo`**: Restores the data in CLI-nic before an `undo` command was executed.
 
    * **`removemacro`** `findsup` : Removes the macro with the alias `findsup`.
+   
+   * **`undo`**: Recovers the previous version of CLI-nic data.
 
    * **`update`** `ct/w i/2 pd/Panadol q/10 t/Fever` : Updates the quantity of `Panadol` stored in the warehouse at
-   index 2 in the list of displayed warehouses on the GUI to `10` and assigns the tag of `Fever` to the product.
+   index 2 from the list of displayed warehouses in the GUI to `10` and assigns the tag of `Fever` to the product.
 
-   * **`view`** `ct/w i/3` : Displays all the information associated with the warehouse at index 3 in the list of
-   displayed warehouses on the GUI such as the name, address, phone number, products stored in the warehouse etc.
+   * **`view`** `ct/w i/3` : Displays all the information associated with the warehouse at index 3 from the list of
+   displayed warehouses in the GUI such as the name, address, phone number, products stored in the warehouse etc.
 
 1. Refer to the [Features](#features) section below for more details of each command.
 
@@ -77,15 +81,13 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
   e.g. in `delete ct/TYPE i/INDEX`, `TYPE` and `INDEX` are parameters which can be used as `delete ct/w i/1`.
 
 * Items in square brackets are optional<br>
-  e.g. `add ct/TYPE n/NAME p/PHONE e/EMAIL [r/REMARK]` can be used as:
+  e.g. `add ct/s n/NAME p/PHONE e/EMAIL [r/REMARK]` can be used as:
   * `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/fast reply` or as
   * `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com`.
-  * The latter command is equivalent to `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/`.
 
 * Items with `…`​ after them can be used multiple times.<br>
-  e.g. `[pd/PRODUCT_NAME…​]` can be used as `pd/panadol`, `pd/panadol needle syringe` and so on. Note that only
-  **one prefix is used with multiple keywords** if necessary. As such, the format
-  `pd/panadol pd/needle pd/syringe` where multiple prefixes are used is incorrect.
+  * e.g. `[pd/PRODUCT_NAME…​]` can be used as `pd/panadol`, `pd/panadol needle syringe` and so on.
+  * Note that only **one prefix is used with multiple keywords** if necessary.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
@@ -95,8 +97,8 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
   e.g. if a user enters `n/Alice n/Bob` where both `Alice` and `Bob` are valid, no error will be thrown. Instead, the
   name `Bob` will be used instead of `Alice`.
 
-* Usage of irrelevant prefixes or forward slashes `/` are not allowed by default except when user chooses to
-  define it in their assigned Macro commands
+* Usage of irrelevant prefixes or forward slashes `/` are not allowed by default except when the user chooses to
+  define it in their assigned Macro commands.<br>
   e.g. `delete ct/TYPE i/INDEX pd/PRODUCT_NAME` can be used as `delete ct/pw i/1 pd/Panadol` but not
   `delete ct/pw i/1 pd/Panadol r/Fast relief` nor `delete ct/pw i/1 pd/Panadol/Panadol Strong`.
 
@@ -116,18 +118,15 @@ Format: `help [COMMAND]`
 Examples:
 
 * `help` : Displays a list of available commands and their descriptions.
+  ![help](images/helpGenericMessage.png)
 * `help add` : Displays the detailed description, input format and sample commands for the `add` command.
+  ![help](images/helpAddMessage.png)
 
-![help](images/helpGenericMessage.png)
+### Accessing command history
 
-### Accessing history commands
-
-Allows user to access valid commands that have been previously used.
-
-<div markdown="span" class="alert alert-info">
-**:information_source:** Use the <kbd>up</kbd> and <kbd>down</kbd> buttons on the keyboard to iterate through the
-command history.
-</div>
+Accesses valid commands that have been previously used.<br>
+Use the &#8593; and &#8595; keys on the keyboard to iterate through the command history.
+Note that all valid commands will be stored in the command history, including duplicates.
 
 ### Adding a supplier : `add`
 
@@ -146,8 +145,7 @@ Example:
 * `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor` : Adds a supplier
   named `Philips Pharmaceutical` with the phone number `00000000` and email `philipsPharm@gmail.com`.
   This supplier is the `Largest contractor`.
-
-![add](images/addSupplier.png)
+  ![add](images/addSupplier.png)
 
 ### Adding a warehouse : `add`
 
@@ -166,8 +164,7 @@ Example:
 * `add ct/w n/WarehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` : Adds a warehouse
   named `WarehouseA` located at `John street, block 123, #01-01` with the phone number `00000000`. This warehouse is
   the `First warehouse`.
-
-![add](images/addWarehouse.png)
+  ![add](images/addWarehouse.png)
 
 ### Assigning macro to selected command string: `assignmacro`
 
@@ -186,37 +183,31 @@ Format:	`assignmacro a/ALIAS cs/COMMAND_STRING`
   `assignmacro a/asgmac cs/assignmacro a/asgmac ...` as this is recursive.
 * Even if the macro is valid, running the macro does not guarantee a valid command.
 
-Example:
+Examples:
 
 * `assignmacro a/findsup cs/find ct/s pd/panadol` : Assigns a macro that pairs the alias `findsup` to the command
   string `find ct/s pd/panadol`. With this macro set up, users can now enter `findsup` instead of
   `find ct/s pd/panadol` to find the relevant supplier(s).
+  ![assign macro](images/assignMacroFullCommand.png)
 
-* `assignmacro a/uwp cs/update ct/w pd/panadol t/fever headache` : Assigns a macro that pairs the alias `uwp` to the command
-  string `cs/update ct/w pd/panadol t/fever headache`. Notice that this is just a partial command string. With this macro set up, users can now enter `uwp i/1 q/123` instead of
-  `update ct/w i/1 pd/panadol q/123 t/fever headache` to update the quantity for the `Panadol` product under the first warehouse to `123`.
+* `assignmacro a/uwp cs/update ct/w pd/panadol t/fever` : Assigns a macro that pairs the alias `uwp` to the
+  command string `update ct/w pd/panadol t/fever`. Note that this is just a partial command string.
+  With this macro set up, users can now enter `uwp i/1 q/123` instead of
+  `update ct/w i/1 pd/panadol q/123 t/fever` to update the quantity for the `Panadol` product under the
+  first warehouse from the list of displayed warehouses in the GUI to `123`.
 
-![assign macro](images/assignMacro.png)
+### Autocomplete
 
-### AutoComplete Function
+Helps users complete their commands faster with the compulsory prefixes.
 
-Helps you to complete your commands faster with the compulsory prefixes.
+Users will be able to see a list of autocomplete options which is constantly updated while typing.
+Once the autocomplete context menu is displayed, users can use the arrow keys to choose the option that they desire
+and upon pressing Enter, they will be able to select the autocomplete option.
 
-You will be able to see a list of auto-complete options which is constantly updated while you are typing.
-Once the auto complete context menu is displayed, you can use the arrow keys to choose the options you
-want and upon pressing the "ENTER" button, you would be able to select the option.
+Example:
 
-Examples:
-
-User wants to type the "add" command in the command box
-
-He/she will be able to see a list of dropdown options as shown:
-
-"UP" and "DOWN" button to select the option
-
-"ENTER" button will execute the option
-
-### TODO: Add in a Mac version screenshot here, show the options
+* User enters "add" in the command box and a list of autocomplete options is displayed.
+  ![autocomplete](images/autocomplete.png)
 
 ### Clearing all entries : `clear`
 
@@ -237,8 +228,7 @@ Format: `delete ct/s i/INDEX`
 Example:
 
 * `delete ct/s i/1` : Removes the supplier at index 1 in the list of displayed suppliers in the GUI.
-
-![delete](images/deleteWarehouse.png)
+  ![delete supplier](images/deleteSupplier.png)
 
 ### Deleting a warehouse : `delete`
 
@@ -251,8 +241,7 @@ Format: `delete ct/w i/INDEX`
 Example:
 
 * `delete ct/w i/1` : Removes the warehouse at index 1 in the list of displayed warehouses in the GUI.
-
-![delete](images/deleteWarehouse.png)
+  ![delete warehouse](images/deleteWarehouse.png)
 
 ### Deleting a product sold by a supplier : `delete`
 
@@ -267,10 +256,9 @@ Format: `delete ct/ps i/INDEX pd/PRODUCT_NAME`
 
 Example:
 
-* `delete ct/ps i/3 pd/Aspirin` : Removes the `Aspirin` product from the supplier at index 3 of the list of
+* `delete ct/ps i/3 pd/Panadol` : Removes the `Panadol` product sold by the supplier at index 3 of the list of
   displayed suppliers in the GUI.
-
-![delete product](images/deleteWarehouseProduct.png)
+  ![delete supplier product](images/deleteSupplierProduct.png)
 
 ### Deleting a product stored in a warehouse : `delete`
 
@@ -285,10 +273,9 @@ Format: `delete ct/pw i/INDEX pd/PRODUCT_NAME`
 
 Example:
 
-* `delete ct/pw i/1 pd/Panadol` : Removes the `Panadol` product from the warehouse at index 1 of the list of
+* `delete ct/pw i/1 pd/Panadol` : Removes the `Panadol` product stored in the warehouse at index 1 of the list of
   displayed warehouses in the GUI.
-
-![delete product](images/deleteWarehouseProduct.png)
+  ![delete warehouse product](images/deleteWarehouseProduct.png)
 
 <div markdown="span" class="alert alert-info">
 **:information_source: Note:** The prefix `pd/` will not be allowed when the `ct/` given is `s` (supplier) or `w` (warehouse).
@@ -296,7 +283,7 @@ Example:
 
 ### Editing a supplier : `edit`
 
-Edits a supplier at the specified index (based on the displayed list shown in the GUI).
+Edits a supplier at the specified index (based on the displayed supplier list shown in the GUI).
 Only its name, phone, email and remark can be edited.
 Note that no two suppliers can share the same name in CLI-nic.
 
@@ -310,12 +297,11 @@ Example:
 * `edit ct/s i/1 n/Alice p/85236417 e/alicekoh@example.com r/Largest supplier` : Edits the name, phone, email and remark
   of the first supplier in the list of displayed suppliers in the GUI to be `Alice`, `85236417`, `alicekoh@example.com`
   and `Largest supplier`.
-
-![edit](images/editSupplier.png)
+  ![edit supplier](images/editSupplier.png)
 
 ### Editing a warehouse : `edit`
 
-Edits a warehouse at the specified index (based on the displayed list shown in the GUI).
+Edits a warehouse at the specified index (based on the displayed warehouse list shown in the GUI).
 Only its name, phone, address and remark can be edited.
 Note that no two warehouses can share the same name in CLI-nic.
 
@@ -329,8 +315,7 @@ Example:
 * `edit ct/w i/2 n/Bob p/67851234 addr/Jurong Street 11 r/Largest warehouse` : Edits the name, phone, address and
   remark of the second warehouse in the list of displayed warehouses in the GUI to be `Bob`, `67851234`,
   `Jurong Street 11` and `Largest warehouse`.
-
-![edit](images/editWarehouse.png)
+  ![edit warehouse](images/editWarehouse.png)
 
 ### Exiting the program : `exit`
 
@@ -340,7 +325,7 @@ Format: `exit`
 
 ### Finding relevant supplier(s): `find`
 
-Finds all supplier(s) whose name, remark and/or products sold matches the provided keywords.
+Finds all supplier(s) whose name, remark and/or products sold matches any of the provided keywords.
 
 Format: `find ct/s [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`
 
@@ -351,13 +336,12 @@ Format: `find ct/s [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`
 
 Example:
 
-* `find ct/s pd/masks` : Displays all the suppliers that sell `masks`.
-
-![find](images/findWarehouse.png)
+* `find ct/s pd/mask` : Displays all the supplier(s) that sell `mask`.
+  ![find supplier](images/findSupplier.png)
 
 ### Finding relevant warehouse(s): `find`
 
-Finds all warehouse(s) whose name, remark and/or products stored matches the provided keywords.
+Finds all warehouse(s) whose name, remark and/or products stored matches any of the provided keywords.
 
 Format: `find ct/w [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`
 
@@ -368,16 +352,17 @@ Format: `find ct/w [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]`
 
 Example:
 
-* `find ct/w pd/panadol r/biggest` : Displays the warehouse(s) that stores products with names matching
+* `find ct/w pd/panadol r/biggest` : Displays all the warehouse(s) that stores products with names matching
   `panadol` or with remark matching `biggest`.
+  ![find warehouse](images/findWarehouse.png)
 
-![find](images/findWarehouse.png)
+### Listing all macros : `listmacro`
 
-### Listing all macros : `list`
-
-Lists all presently saved macros in CLI-nic.
+Lists all saved macros in CLI-nic.
 
 Format: `listmacro`
+
+![list macros](images/listMacroCommand.png)
 
 ### Listing all suppliers and warehouses entries : `list`
 
@@ -386,6 +371,22 @@ Lists all suppliers and warehouses' entries in CLI-nic.
 Format: `list`
 
 ![list](images/listCommand.png)
+
+### Redoing : `redo`
+
+Restores the data in CLI-nic to the version before an `undo` command was done.
+
+Format: `redo`
+
+* Trailing words behind the command word will be ignored.
+* For example, if one types `redo trailing`, `redo` will be called to redo the editing. `trailing` will be ignored.
+
+![redo](images/redoCommand.png)
+
+<div markdown="span" class="alert alert-info">
+**:information_source: Note:** `assignmacro` and `removemacro` do not modify CLI-nic data directly, and hence are not
+undoable/redoable.
+</div>
 
 ### Removing macro: `removemacro`
 
@@ -400,22 +401,28 @@ Example:
 
 * `removemacro findsup` : Removes the macro with the alias `findsup`.
 
-![remove macro](images/removeMacro.png)
+![remove macro](images/removeMacroCommand.png)
 
 ### Saving the data
 
 CLI-nic data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
-### Undoing/redoing a previous editing : `undo`/`redo`
+### Undoing : `undo`
 
-Undoing recovers a previous version of CLI-nic data if any data has been changed.
-Redoing restores the data in CLI-nic to the version before an `undo` command was done.
+Recovers a previous version of CLI-nic data if data has been changed.
 
-Format: `undo` / `redo`
+Format: `undo`
 
-* Trailing words behind the command words will be ignored.
+* Trailing words behind the command word will be ignored.
 * For example, if one types `undo redo`, `undo` will be called to undo the editing. `redo` will be ignored.
+
+![undi](images/undoCommand.png)
+
+<div markdown="span" class="alert alert-info">
+**:information_source: Note:** `assignmacro` and `removemacro` do not modify CLI-nic data directly, and hence are not
+undoable/redoable.
+</div>
 
 ### Updating the quantity and/or tags of a product sold by a supplier: `update`
 
@@ -427,15 +434,15 @@ Format:	`update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 * `INDEX` must be a positive integer, not exceeding the total length of the displayed supplier list in the GUI.
 * `PRODUCT_NAME` specified is case-insensitive.
 * `QUANTITY` should be a non-negative unsigned integer.
-* `TAG` should be a single alphanumeric word. Multiple tags can be supplied under the same prefix.
+* `TAG` should be alphanumeric. Multiple keyword tags can be supplied under the same prefix.
 * If `PRODUCT_NAME` already exists in the supplier, at least one optional argument has to be entered.
+* Note that the name of the product cannot be updated.
 
 Example:
 
-* `update ct/s i/4 pd/Panadol q/10 t/fever cold` : Updates the quantity of `Panadol` sold by the supplier at index 4 in the
-  list of displayed suppliers in the GUI to `10` and gives `Panadol` 2 tags: `fever` and `cold`.
-
-![update warehouse product](images/updateWarehouseProduct.png)
+* `update ct/s i/4 pd/Panadol q/10 t/fever cold` : Updates the quantity of `Panadol` sold by the supplier at index 4
+  from the list of displayed suppliers in the GUI to `10` and gives `Panadol` 2 tags: `fever` and `cold`.
+  ![update supplier product](images/updateSupplierProduct.png)
 
 ### Updating the quantity and/or tags of a product stored in a warehouse: `update`
 
@@ -447,14 +454,15 @@ Format:	`update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 * `INDEX` must be a positive integer, not exceeding the total length of the displayed supplier list in the GUI.
 * `PRODUCT_NAME` specified is case-insensitive.
 * `QUANTITY` should be a non-negative unsigned integer.
-* `TAG` should be a single alphanumeric word. Multiple tags can be supplied under the same prefix.
+* `TAG` should be alphanumeric. Multiple keyword tags can be supplied under the same prefix.
 * If `PRODUCT_NAME` already exists in the warehouse, at least one optional argument has to be entered.
+* Note that the name of the product cannot be updated.
 
 Example:
 
-* `update ct/w i/1 pd/Panadol q/10 t/fever` : Updates the quantity of `Panadol` stored in the warehouse at index 1 in the list of displayed warehouses on the GUI to `10` and gives `Panadol` 2 tags: `fever` and `cold`.
-
-![update warehouse product](images/updateWarehouseProduct.png)
+* `update ct/w i/1 pd/Panadol q/10 t/fever cold` : Updates the quantity of `Panadol` stored in the warehouse at index 1
+  from the list of displayed warehouses in the GUI to `10` and gives `Panadol` 2 tags: `fever` and `cold`.
+  ![update warehouse product](images/updateWarehouseProduct.png)
 
 ### Viewing a specific supplier: `view`
 
@@ -468,8 +476,7 @@ Format: `view ct/s i/INDEX`
 Example:
 
 * `view ct/s i/1` : Displays all the information associated with the supplier at index 1 in the supplier list.
-
-![view](images/viewSupplier.png)
+  ![view supplier](images/viewSupplier.png)
 
 ### Viewing a specific warehouse: `view`
 
@@ -483,24 +490,7 @@ Format: `view ct/w i/INDEX`
 Example:
 
 * `view ct/w i/2` : Displays all the information associated with the warehouse at index 2 in the warehouse list.
-
-![view](images/viewWarehouse.png)
-
-### Undo/Redo a previous editing : `undo`/`redo`
-
-Undo command recovers a previous version of CLI-nic data if any data has been changed.
-Redo command restores the data in CLI-nic before an `undo` command was executed.
-
-Format: `undo` / `redo`
-
-* Undo/Redo can only be used for commands that modified the CLI-nic data.
-* Any trailing words behind the command words will be ignored.
-* For example: if the user types `undo redo`, the command executed will be `undo`.
-
-<div markdown="span" class="alert alert-info">
-**:information_source: Note:** `assignmacro` and `removemacro` do not modify CLI-nic data directly, and hence are not
-undoable/redoable.
-</div>
+  ![view warehouse](images/viewWarehouse.png)
 
 <br />
 
@@ -553,10 +543,10 @@ Action | Format | Example
 **Help** | `help [COMMAND]` | `help add`
 **List** All Suppliers and Warehouses | `list`
 **List** All Macros | `listmacro`
-**Remove Macro** | `removemacro ALIAS` | `removemacro uwm`
 **Redo** | `redo`
+**Remove Macro** | `removemacro ALIAS` | `removemacro findsup`
 **Undo** | `undo`
-**Update** Supplier | `update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/s i/1 pd/Panadol q/10 t/fever cold`
-**Update** Warehouse | `update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w i/2 pd/Panadol q/10 t/fever cold`
+**Update** Product Sold by Supplier | `update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/s i/1 pd/Panadol q/10 t/fever cold`
+**Update** Product Stored in Warehouse | `update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w i/2 pd/Panadol q/10 t/fever cold`
 **View** Supplier | `view ct/s i/INDEX` | `view ct/s i/1`
 **View** Warehouse | `view ct/w i/INDEX` | `view ct/w i/2`

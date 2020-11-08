@@ -14,10 +14,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("update ct/s i/1 pd/Xodol q/97 t/cold")
+[-> LogicManager : execute("update ct/w i/1 pd/Xodol q/97 t/cold")
 activate LogicManager
 
-LogicManager -> ClinicParser : parseCommand("update ct/s i/1 pd/Xodol q/97 t/cold")
+LogicManager -> ClinicParser : parseCommand("update ct/w i/1 pd/Xodol q/97 t/cold")
 activate ClinicParser
 
 create UpdateCommandParser
@@ -27,7 +27,7 @@ activate UpdateCommandParser
 UpdateCommandParser --> ClinicParser
 deactivate UpdateCommandParser
 
-ClinicParser -> UpdateCommandParser : parse("ct/s i/1 pd/Xodol q/97 t/cold")
+ClinicParser -> UpdateCommandParser : parse("ct/w i/1 pd/Xodol q/97 t/cold")
 activate UpdateCommandParser
 
 create UpdateProductDescriptor

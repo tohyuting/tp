@@ -3,6 +3,7 @@ package seedu.clinic.logic.parser;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ALIAS;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_COMMAND_STRING;
+import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 
 import seedu.clinic.logic.commands.AssignMacroCommand;
 import seedu.clinic.logic.parser.exceptions.ParseException;
@@ -31,12 +32,24 @@ public class AssignMacroCommandParser implements Parser<AssignMacroCommand> {
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AssignMacroCommand.MESSAGE_USAGE);
         }
 
-        Alias alias = ParserUtil.parseAlias(argMultimap.getValue(PREFIX_ALIAS).get());
-        SavedCommandString savedCommandString = ParserUtil.parseCommandString(
-                argMultimap.getValue(PREFIX_COMMAND_STRING).get());
+        Macro macro;
+        Alias alias;
 
-        Macro macro = new Macro(alias, savedCommandString);
+        try {
+            alias = ParserUtil.parseAlias(argMultimap.getValue(PREFIX_ALIAS).get());
+        } catch (ParseException pe) {
+            throw checkInvalidArguments(PREFIX_ALIAS, argMultimap, AssignMacroCommand.MESSAGE_USAGE);
+        }
+        SavedCommandString savedCommandString;
+        try {
+            savedCommandString = ParserUtil.parseCommandString(
+                    argMultimap.getValue(PREFIX_COMMAND_STRING).get());
+        } catch (ParseException pe) {
+            throw new ParseException(pe.getMessage() + "\n\n" + AssignMacroCommand.MESSAGE_USAGE);
+        }
 
+
+        macro = new Macro(alias, savedCommandString);
         return new AssignMacroCommand(macro);
     }
 }

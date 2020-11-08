@@ -61,7 +61,8 @@ public class UpdateCommand extends Command {
             + PREFIX_TAG + "Fever Headache";
 
     public static final String MESSAGE_SUCCESS = "Product stock updated: \n\n%1$s\n\nin %2$s.";
-    private static final String MESSAGE_INVALID_TYPE = "Invalid Type.";
+    private static final String MESSAGE_INVALID_TYPE = "You used an invalid type! Type for this command "
+            + "should be either ct/s or ct/w only.\n\n%1$s";
     private static final String MESSAGE_EMPTY_DESCRIPTOR = "Either the quantity or tags (or both) has to be "
             + "supplied to update an existing product.";
 
@@ -93,7 +94,7 @@ public class UpdateCommand extends Command {
         case WAREHOUSE:
             return updateProductForWarehouse(model);
         default:
-            throw new CommandException(MESSAGE_INVALID_TYPE);
+            throw new CommandException(String.format(MESSAGE_INVALID_TYPE, UpdateCommand.MESSAGE_USAGE));
         }
     }
 

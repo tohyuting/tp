@@ -60,10 +60,10 @@ public class FindCommandParserTest {
         assertParseFailure(parser, " ct/pss pd/panadol",
                 String.format(MESSAGE_INVALID_TYPE, FindCommand.MESSAGE_USAGE));
 
-        assertParseFailure(parser, " ct/ps n/alex", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                FindCommand.MESSAGE_INVALID_TYPE));
-        assertParseFailure(parser, " ct/pw pd/panadol", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                FindCommand.MESSAGE_INVALID_TYPE));
+        assertParseFailure(parser, " ct/ps n/alex", String.format(MESSAGE_INVALID_TYPE,
+                FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " ct/pw pd/panadol",
+                String.format(MESSAGE_INVALID_TYPE, FindCommand.MESSAGE_USAGE));
     }
 
     // Only the last prefix provided for type, name, product and remark will be accepted

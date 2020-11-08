@@ -23,7 +23,8 @@ public class RemoveMacroCommand extends Command {
             + COMMAND_WORD + " uwp";
 
     public static final String MESSAGE_REMOVE_MACRO_SUCCESS = "Removed Macro: %1$s.";
-    public static final String MESSAGE_MACRO_DOES_NOT_EXIST = "Macro does not exist.";
+    public static final String MESSAGE_MACRO_DOES_NOT_EXIST = "Macro does not exist. You can check which"
+            + " macros are presently saved by using the listmacro command.";
 
     private final Alias targetAlias;
 
