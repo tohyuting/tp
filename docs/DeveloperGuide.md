@@ -646,11 +646,9 @@ it would then be no longer necessary to keep the macro list on the display.
 ### Add feature
 
 The `add` feature will be elaborated in this section by its functionality and path execution with the aid of
-Class, Activity, and Sequence Diagrams.
-
-It is facilitated by the `AddCommandParser` and the `AddCommand`. The `AddCommandParser` implements `Parser`
-and the `AddCommand` extends `Command`, allowing the user to add a supplier/warehouse to the app using the
-command line.
+Class, Activity, and Sequence Diagrams. It is facilitated by the `AddCommandParser` and the `AddCommand`.
+The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to
+add a supplier/warehouse to the app using the command line.
 
 The following Class Diagram of `AddCommand` shows the interactions between `AddCommand` and other classes
 in CLI-nic:
@@ -660,19 +658,20 @@ are displayed.
 
 ![Add Command Class Diagram](images/AddCommandClassDiagram.png)
 
-#### What Add Supplier/Warehouse feature does
+#### What Add feature does
 
 The `add` feature allows user to add a supplier/warehouse information.
 
-The supplier's attributes consist of : `name`, `phone`, `email`
+The supplier's attributes minimally consist of `name`, `phone` and `email` while the warehouse's attributes
+minimally consist of `name`, `phone` and `address`.
 
-The warehouse's attributes consist of : `name`, `phone`, `address`
+The supplier/warehouse can also consist of an optional `remark` attribute.
 
-The supplier/warehouse also consists of an optional `remark` attribute.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** <div>
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** `add` feature does not include
-product information and `update` feature should be used to associate a supplier/warehouse with a product
-and its associated quantity and tags. This is elaborated in the [**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
+`add` feature does not include product information and `update` feature should be used to associate a
+supplier/warehouse with a product and its associated quantity and tags. This is elaborated in the
+[**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
 
 #### Path Execution of Add Command
 The workflow of an `add` command when executed by a user is shown in the Activity Diagram below:
@@ -690,61 +689,56 @@ Important features of the Activity Diagram are as follows:
  respectively) in the input. A `ParseException` will be thrown if any of the compulsory prefixes are not
  present.
  
- Similarly, `ParseException` will be thrown if there are any invalid prefixes or inappropriate fields
- provided (e.g. input a `String` value for `phone`).
+   Similarly, `ParseException` will be thrown if there are any invalid prefixes or inappropriate fields
+   provided (e.g. input a `String` value for `phone`).
  
 1. `AddCommand` will then be executed. The new supplier/warehouse will be added in the model, allowing
  users to see the added supplier/warehouse.
  
- If new supplier/warehouse to be added has a duplicate name (i.e. The supplier/warehouse name already
- exist in CLI-nic). It will throw a `CommandException`.supplier/warehouse. Otherwise, a success message
- will be displayed to the user
+    If new supplier/warehouse to be added has a duplicate name (i.e. The supplier/warehouse name already
+    exist in CLI-nic), it will throw a `CommandException`. Otherwise, a success message will be displayed
+    to the user.
 
 In the following section, the interaction between different objects when a user executes an `add` command
 will be discussed with the aid of a Sequence Diagram as shown below.
 
 ![Add Command Sequence Diagram](images/AddCommandSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for
-`AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline
-reaches the end of diagram.
-</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** </div> 
 
+The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of
+ PlantUML, the lifeline reaches the end of diagram.
 
 1. Parsing
 
-After receiving an input from user for `add` command, `AddCommandParser#parse` will be invoked to tokenize
-the arguments parsed in via `ArgumentTokenizer#tokenize` which returns the tokenized arguments. As
-mentioned above, if any of the compulsory prefixes are not present, `AddCommandParser` will throw a new
-`ParseException` object to the `LogicManager`. A `ParseException` will also be thrown if there are invalid
-prefixes or values provided (e.g. input a `z/` or `String` value for `phone`).
+    After receiving an input from user for `add` command, `AddCommandParser#parse` will be invoked to tokenize
+    the arguments parsed in via `ArgumentTokenizer#tokenize`. 
 
-An attempt to determine the correct type and creating the relevant `Supplier` or `Warehouse` will then be
- carried out. During this process, if incorrect prefixes such as an `address` prefix for supplier or
- `email` prefix for warehouse are found, a `ParseException` will be thrown.
+    As mentioned above, if any of the compulsory prefixes are not present, `AddCommandParser` will throw a new
+    `ParseException` object to the `LogicManager`. A `ParseException` will also be thrown if there are invalid
+    prefixes or values provided (e.g. input a `z/` or `String` value for `phone`).
+    
+    Subsequently, parsing of general details will occur for both Supplier and Warehouse type. These include
+    parsing of `name`, `phone` and `remark`. In addition, since Supplier contains an `email` attribute, parsing
+    of this field will be carried out. On the other hand, parsing of `address` will be carried out for
+    Warehouse instead.
 
-Parsing of general details will occur for both Supplier and Warehouse type. These include parsing of `name`,
-`phone` and `remark`.
-
-In addition, since Supplier contains an `email` attribute, parsing of this field will be carried out. On the
-other hand, parsing of `address` will be carried out for Warehouse instead.
-
-At the end, relevant fields present will be set in `Supplier`/`Warehouse`.
-
-During this parsing process, `ParseException` will be thrown if any of the inputs are invalid.
+    At the end, relevant fields present will be set in `Supplier`/`Warehouse`.
+    
+    During this parsing process, `ParseException` will be thrown if any of the inputs are invalid.
 
 1. Execution
 
-The parsed object values will then be put it into the parameters of the new Supplier/Warehouse object to
-create an entity with the user input. `Model#hasSupplier`/`Model#hasWarehouse` will then be called to check
-for duplicates (i.e. if `Model` already contains a supplier or warehouse with the same name), a
-CommandException will be thrown to inform user of the duplicated supplier/warehouse. Otherwise, the
-supplier/warehouse will be successfully added via `Model#addSupplier`/`Model#addWarehouse`.
+    The parsed object values will then be put it into the parameters of the new Supplier/Warehouse object to
+    create an entity with the user input. `Model#hasSupplier`/`Model#hasWarehouse` will then be called to check
+    for duplicates (i.e. if `Model` already contains a supplier or warehouse with the same name), a
+    CommandException will be thrown to inform user of the duplicated supplier/warehouse. Otherwise, the
+    supplier/warehouse will be successfully added via `Model#addSupplier`/`Model#addWarehouse`.
 
 1. Result display
 
-`Model` will be updated to reflect the added supplier or warehouse in GUI and an add success message will be
- displayed to user.
+    `Model` will be updated to reflect the added supplier or warehouse in GUI and an add success message will be
+     displayed to user.
 
 ### Undo/redo feature
 
