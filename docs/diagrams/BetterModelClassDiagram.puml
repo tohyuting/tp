@@ -10,16 +10,14 @@ Clinic *-left-> "1" UniqueWarehouseList
 UniqueSupplierList o-right-> Supplier
 UniqueWarehouseList o-left-> Warehouse
 
-Supplier -right-> "*" Tag
-
 Supplier *--> Name
 Supplier *--> Phone
 Supplier *--> Email
-Supplier *--> Remarks
+Supplier *--> Remark
 Supplier *--> Product
 Warehouse *--> Name
 Warehouse *--> Phone
 Warehouse *--> Address
-Warehouse *--> Remarks
+Warehouse *--> Remark
 Warehouse *--> Product
 @enduml

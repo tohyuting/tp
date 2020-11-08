@@ -38,7 +38,8 @@ activate EditCommand
 EditCommand --> EditCommandParser : e
 deactivate EditCommand
 EditCommandParser --> ClinicParser : e
-
+deactivate EditCommandParser
+EditCommandParser -[hidden]-> ClinicParser : e
 destroy EditCommandParser
 
 ClinicParser --> LogicManager : e
