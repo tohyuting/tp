@@ -9,12 +9,8 @@ abstract class "{abstract}\nCommand" {
 
 interface Model <<interface>> {
     + getFilteredSupplierList() : ObservableList<Supplier>
-    + setSupplier(Supplier) : void
-    + hasSupplier(Supplier) : boolean
     + updateFilteredSupplierList(Predicate<Supplier>) : void
     + getFilteredWarehouseList() : ObservableList<Warehouse>
-    + setWarehouse(Warehouse) : void
-    + hasWarehouse(Warehouse) : boolean
     + updateFilteredWarehouseList(Predicate<Warehouse>) : void
 }
 
@@ -27,11 +23,6 @@ class Supplier {
     - products : Set<Product>
 
     /' Methods '/
-    + getName() : Name
-    + getPhone() : Phone
-    + getEmail() : Email
-    + get Remark() : Remark
-    + getProducts() : Set<Product>
     + isSameSupplier(otherSupplier : Supplier) : boolean
     + equalsSupplierCaseSensitive(otherSupplier: Supplier) boolean
     + equals(other : Object) : boolean
@@ -46,13 +37,8 @@ class Warehouse {
     - products : Set<Product>
 
     /' Methods '/
-    + getName() : Name
-    + getPhone() : Phone
-    + getAddress() : Address
-    + get Remark() : Remark
-    + getProducts() : Set<Product>
-    + isSameSupplier(otherSupplier : Supplier) : boolean
-    + equalsSupplierCaseSensitive(otherSupplier: Supplier) boolean
+    + isSameWarehouse(otherWarehouse : Warehouse) : boolean
+    + equalsWarehouseCaseSensitive(otherWarehouse: Warehouse) boolean
     + equals(other : Object) : boolean
 }
 

@@ -53,8 +53,8 @@ WarehouseCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-SupplierCard .right.> Model
-WarehouseCard .right.> Model
+SupplierCard .up.> Model
+WarehouseCard .up.> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 

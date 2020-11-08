@@ -5,9 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ClinicParser" as ClinicParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
-participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 participant "e:EditCommand" as EditCommand LOGIC_COLOR
-participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -31,21 +29,11 @@ ClinicParser -> EditCommandParser : parse("ct/s i/1 n/Claire")
 activate EditCommandParser
 
 ref over EditCommandParser
-Tokenising and retrieving of values from user input
-end
-
-create ParserUtil
-EditCommandParser -> ParserUtil : parseType(type), parseIndex(index)
-activate ParserUtil
-ParserUtil --> EditCommandParser
-deactivate ParserUtil
-
-ref over EditCommandParser
-Creation of appropriate EditDesciptor for EditCommand
+Create appropriate EditDesciptor
 end
 
 create EditCommand
-EditCommandParser -> EditCommand : EditCommand(index, descriptor)
+EditCommandParser -> EditCommand : EditCommand(index, editDescriptor)
 activate EditCommand
 EditCommand --> EditCommandParser : e
 deactivate EditCommand
@@ -54,14 +42,12 @@ EditCommandParser --> ClinicParser : e
 destroy EditCommandParser
 
 ClinicParser --> LogicManager : e
+deactivate ClinicParser
 
-LogicManager -> EditCommand : execute()
-activate EditCommand
 ref over LogicManager, Model
-Execution of EditCommand
+Execution of Edit Command
 end
-EditCommand --> LogicManager : result
-deactivate EditCommand
+
 
 [<--LogicManager : result
 deactivate LogicManager

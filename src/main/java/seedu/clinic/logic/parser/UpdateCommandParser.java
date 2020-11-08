@@ -34,30 +34,33 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
     public UpdateCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_INDEX, PREFIX_PRODUCT_NAME,
-                        PREFIX_PRODUCT_QUANTITY, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_INDEX,
+                PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_QUANTITY, PREFIX_TAG);
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_TYPE, PREFIX_PRODUCT_NAME)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UpdateCommand.MESSAGE_USAGE));
         }
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), UpdateCommand.MESSAGE_USAGE);
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(),
+                    UpdateCommand.MESSAGE_USAGE);
         }
 
         Type entityType;
+        Index index;
+
+        //Current Prefix to Parse
+        Prefix currentPrefix = PREFIX_TYPE;
+
         try {
             entityType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
-        } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_TYPE, argMultimap, UpdateCommand.MESSAGE_USAGE);
-        }
-
-        Index index;
-        try {
+            currentPrefix = PREFIX_INDEX;
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_INDEX, argMultimap, UpdateCommand.MESSAGE_USAGE);
+            throw checkInvalidArguments(currentPrefix, argMultimap, UpdateCommand.MESSAGE_USAGE);
         }
+
 
         UpdateProductDescriptor updateProductDescriptor = new UpdateProductDescriptor();
 
@@ -75,7 +78,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         try {
             productName = ParserUtil.parseName(argMultimap.getValue(PREFIX_PRODUCT_NAME).get());
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage() + "\n\n" + UpdateCommand.MESSAGE_USAGE);
+            throw checkInvalidArguments(PREFIX_PRODUCT_NAME, argMultimap, UpdateCommand.MESSAGE_USAGE);
         }
 
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
@@ -98,7 +101,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
      */
     private Optional<Set<Tag>> parseTagsForUpdate(Collection<String> tags) throws ParseException {
         assert tags != null;
-
         if (tags.isEmpty()) {
             return Optional.empty();
         }
