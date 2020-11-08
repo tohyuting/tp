@@ -132,6 +132,8 @@ public class EditCommand extends Command {
         if (this.editDescriptor instanceof EditSupplierDescriptor) {
             return executeSupplierEditing(model);
         } else {
+            assert this.editDescriptor instanceof EditWarehouseDescriptor
+                    : INVALID_EDIT_WAREHOUSE_DESCRIPTOR_ASSERTION;
             return executeWarehouseEditing(model);
         }
     }
@@ -174,7 +176,6 @@ public class EditCommand extends Command {
 
     private CommandResult executeWarehouseEditing(Model model) throws CommandException {
         List<Warehouse> lastShownWarehouseList = model.getFilteredWarehouseList();
-        assert this.editDescriptor instanceof EditWarehouseDescriptor : INVALID_EDIT_WAREHOUSE_DESCRIPTOR_ASSERTION;
 
         if (index.getZeroBased() >= lastShownWarehouseList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_WAREHOUSE_DISPLAYED_INDEX);
