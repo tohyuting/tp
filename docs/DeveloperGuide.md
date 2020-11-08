@@ -653,7 +653,7 @@ add a supplier/warehouse to the app using the command line.
 The following Class Diagram of `AddCommand` shows the interactions between `AddCommand` and other classes
 in CLI-nic:
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Only important
+<div markdown="span" class="alert alert-info">:information_source: Note: Only important
 associations are displayed.
 </div>
 
@@ -663,14 +663,14 @@ associations are displayed.
 
 The `add` feature allows user to add information for a supplier/warehouse.
 
-A supplier's attributes minimally consist of `name`, `phone` and `email` while a warehouse's attributes
-minimally consist of `name`, `phone` and `address`.
+A supplier's attributes consist of `name`, `phone` and `email` while a warehouse's attributes consist of
+`name`, `phone` and `address`.
 
 The supplier/warehouse can also consist of an optional `remark` attribute.
 
 <div markdown="span" class="alert alert-info">:information_source: Note: <div>
 
-`add` feature does not include product information and `update` feature should be used to associate a
+`add` feature does not include product information and the `update` feature should be used to associate a
 supplier/warehouse with a product and its associated quantity and tags. This is elaborated in the
 [**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
 
@@ -1572,37 +1572,40 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Minimal information e.g. `add ct/s n/John p/98766789 e/johndoe@example.com`<br>
       Expected: Adds a supplier with the above details to the list and is displayed on the GUI.
-   1. Test case: Supplier with remarks e.g. `add ct/s n/John Lagoon p/98766789 e/johndoe@example.com r/Fast
-      delivery`<br>
+   1. Test case: With all fields supplied e.g. `add ct/s n/John Lagoon p/98766789 e/johndoe@example.com r/Fast delivery`<br>
       Expected: Adds the supplier to the list, including the remark.
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/s n/John Lim p/98766789`
-      or `add ct/s n/John Tan p/98766789 e/johndoe@example.com z/friend`<br>
-      Expected: No supplier is added. Error details shown in the response message. A help message displayed
-      to guide user accordingly. SupplierList on GUI remains unchanged.
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. Case 1:`add ct/s n/John Lim p/98766789`
+      or Case 2: `add ct/s n/John Tan p/98766789 z/friend e/johndoe@example.com`<br>
+      Expected: No supplier is added. For Case 1, error details indicating that there are missing prefixes
+      and the compulsory prefixes needed would be shown in the response message. For Case 2, error details
+      indicating that one of the prefix specified is not recognised would be shown in the response message.
+      A usage message will be displayed for both cases to guide user accordingly. SupplierList on GUI
+      remains unchanged.
    1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e
       /johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
-      Expected: No supplier is added. Error details will be displayed, stating that a supplier with duplicate
-      `SUPPLIER_NAME` cannot be added into CLI-nic. SupplierList on GUI remain unchanged.
+      Expected: No supplier is added. Error details will be displayed, indicating that the supplier to be
+      added already exists in CLI-nic and thus cannot be added. SupplierList on GUI remain unchanged.
 
 ### Adding a warehouse
 
 1. Add command format: `add ct/w n/WAREHOUSE_NAME p/PHONE addr/ADDRESS [r/WAREHOUSE_REMARK]`
 
-   1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123
-      , #01-01`<br>
+   1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01`<br>
       Expected: Adds a warehouse with the above details to the warehouse list and is displayed on the GUI.
-   1. Test case: Warehouse with remarks e.g. `add ct/w n/John Lagoon Ptd Ltd p/98766789 addr/John street
-      , block 123, #01-01 r/Largest warehouse`<br>
+   1. Test case: With all fields supplied e.g. `add ct/w n/John Lagoon Ptd Ltd p/98766789 addr/John street, block 123, #01-01 r/Largest warehouse`<br>
       Expected: Adds the warehouse to the list, including the remark
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `add ct/w n/John Lim Ptd Ltd p/98766789`
-      or `add ct/w n/John St Ptd Ltd p/98766789 addr/John street, block 123, #01-01 z/large`<br>
-      Expected: No warehouse is added. Error details shown in the response message. A help message displayed
-      to guide user accordingly. WarehouseList on GUI remains unchanged.
+   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. Case 1:`add ct/w n/John Lim Ptd Ltd p/98766789`
+      or Case 2: `add ct/w n/John St Ptd Ltd p/98766789 z/large addr/John street, block 123, #01-01`<br>
+      Expected: No warehouse is added. For Case 1, error details indicating that there are missing prefixes
+      and the compulsory prefixes needed would be shown in the response message. For Case 2, error details
+      indicating that one of the prefix specified is not recognised would be shown in the response message.
+      A usage message will be displayed for both cases to guide user accordingly. WarehouseList on GUI
+      remains unchanged.
    1. Test case: Add warehouse with duplicate WAREHOUSE_NAME e.g. `add ct/w n/James Ptd Ltd p/98766789
       addr/John street, block 123, #01-01` followed by `add ct/w n/James Ptd Ltd p/91234567 addr/Ang Mo Kio
       street 12, block 3`<br>
-      Expected: No warehouse is added. Error details will be displayed, stating that a warehouse with duplicate
-      `WAREHOUSE_NAME` cannot be added into CLI-nic. WarehouseList on GUI remain unchanged.
+      Expected: No warehouse is added. Error details will be displayed, indicating that the warehouse to
+      be added already exists in CLI-nic and thus cannot be added. WarehouseList on GUI remain unchanged.
 
 ### Deleting a supplier
 
