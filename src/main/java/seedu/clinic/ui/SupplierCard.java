@@ -56,10 +56,12 @@ public class SupplierCard extends UiPart<Region> {
         name.setText(supplier.getName().fullName);
         name.setWrapText(true);
         phone.setText(supplier.getPhone().value);
+        phone.setWrapText(true);
         String remarkText = supplier.getRemark().value == "" ? "No Remark" : supplier.getRemark().value;
         remark.setText(remarkText);
         remark.setWrapText(true);
         email.setText(supplier.getEmail().value);
+        email.setWrapText(true);
 
         //Keep products pane closed by default
         productsTitledPane.setExpanded(false);
@@ -80,7 +82,7 @@ public class SupplierCard extends UiPart<Region> {
                         .forEach(tag -> {
                             Label tagLabel = new Label(tag.tagName);
                             tagLabel.setWrapText(true);
-                            tagLabel.setMaxWidth(400);
+                            tagLabel.setMaxWidth(80);
                             productTags.getChildren().add(tagLabel);
                         });
                 productBox.getChildren().add(productTags);

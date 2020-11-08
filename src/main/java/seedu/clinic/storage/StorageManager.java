@@ -14,7 +14,7 @@ import seedu.clinic.model.ReadOnlyUserPrefs;
 import seedu.clinic.model.UserPrefs;
 
 /**
- * Manages storage of Clinic data in local storage.
+ * Manages storage of CLI-nic data in local storage.
  */
 public class StorageManager implements Storage {
 

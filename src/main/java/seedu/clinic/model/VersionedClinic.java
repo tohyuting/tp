@@ -62,7 +62,7 @@ public class VersionedClinic extends Clinic {
     }
 
     /**
-     * Restores Clinic to its previously undone version
+     * Restores CLI-nic to its previously undone version
      */
     public void redo() {
         if (!canRedo()) {
