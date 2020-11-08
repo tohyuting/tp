@@ -1750,6 +1750,29 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: No warehouse is added. Error details will be displayed, indicating that the warehouse to
       be added already exists in CLI-nic and thus cannot be added. WarehouseList on GUI remain unchanged.
 
+### Assigning a macro
+
+1. Assign macro command format: `assignmacro a/ALIAS cs/COMMAND_STRING`
+
+   1. Test case: Valid alias and command string e.g. `assignmacro a/uw cs/update ct/w`<br>
+      Expected: A macro is created under the alias `uw` for the command string `update ct/w`. Details of the new macro is shown in the display message.
+
+   1. Test case: Command string does not start with a pre-defined command e.g. `assignmacro a/uw cs/magic`<br>
+      Expected: No macro created. Error details is shown in the displayed message.
+
+   1. Test case: Alias clashes with a pre-defined command or another macro e.g. `assignmacro a/update cs/add`<br>
+      Expected: No macro created. Error details is shown in the displayed message.
+
+### Clearing CLI-nic
+
+1. Clear command format: `clear`
+
+   1. Test case: Clear command with no additional arguments e.g. `clear`<br>
+      Expected: CLI-nic clears all suppliers and warehouses data in CLI-nic.
+
+   1. Test case: Clear command with additional arguments e.g. `clear test` or `clear i/1`<br>
+      Expected: Similar to previous.
+
 ### Deleting a Supplier/Warehouse
 
 1. Delete command format: `delete ct/TYPE i/INDEX`
@@ -1804,19 +1827,6 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Index more than list size e.g. `update ct/w i/x pd/Panadol q/350 t/Fever` (where x is larger than the list size)
       Expected: No product is added or updated. Similar to previous.
 
-### Assigning a macro
-
-1. Assign macro command format: `assignmacro a/ALIAS cs/COMMAND_STRING`
-
-   1. Test case: Valid alias and command string e.g. `assignmacro a/uw cs/update ct/w`<br>
-      Expected: A macro is created under the alias `uw` for the command string `update ct/w`. Details of the new macro is shown in the display message.
-
-   1. Test case: Command string does not start with a pre-defined command e.g. `assignmacro a/uw cs/magic`<br>
-      Expected: No macro created. Error details is shown in the displayed message.
-
-   1. Test case: Alias clashes with a pre-defined command or another macro e.g. `assignmacro a/update cs/add`<br>
-      Expected: No macro created. Error details is shown in the displayed message.
-
 ### Removing a macro
 
 1. Remove macro command format: `removemacro ALIAS`
@@ -1840,16 +1850,6 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: No macros listed. Displayed message states that no macros are presently saved.
 
 1. _{ more test cases …​ }_
-
-### Clearing CLI-nic
-
-1. Clear command format: `clear`
-
-   1. Test case: Clear command with no additional arguments e.g. `clear`<br>
-      Expected: CLI-nic clears all suppliers and warehouses data in CLI-nic.
-
-   1. Test case: Clear command with additional arguments e.g. `clear test` or `clear i/1`<br>
-      Expected: Similar to previous.
 
 ### Editing a Supplier
 
@@ -1917,8 +1917,8 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Only product name parameter supplied e.g. `find ct/s pd/panadol`<br>
          Expected: Finds supplier(s) that sell products matching `panadol`.
 
-   1. Test case: Combination of parameters supplied e.g. `find ct/s n/Alice pd/panadol`<br>
-         Expected: Finds supplier(s) with names matching `Alice` or selling products matching `panadol`.
+   1. Test case: Combination of parameters supplied e.g. `find ct/s n/Alice pd/aspirin`<br>
+         Expected: Finds supplier(s) with names matching `Alice` or selling products matching `aspirin`.
 
    1. Test case: Missing type prefix e.g. `find n/Alice`<br>
       Expected: Error details shown in the response message. A help message for find command will also be displayed
@@ -1939,14 +1939,14 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Only name parameter supplied e.g. `find ct/w n/Alice`<br>
       Expected: Finds warehouse(s) with names matching `Alice`.
 
-   1. Test case: Only remark parameter supplied e.g. `find ct/w r/biggest`<br>
-      Expected: Finds warehouse(s) with remark matching either `biggest`.
+   1. Test case: Only remark parameter supplied e.g. `find ct/w r/largest`<br>
+      Expected: Finds warehouse(s) with remark matching either `largest`.
 
    1. Test case: Only product name parameter supplied e.g. `find ct/w pd/panadol`<br>
-         Expected: Finds warehouse(s) that store products matching `panadol`.
+      Expected: Finds warehouse(s) that store products matching `panadol`.
 
-   1. Test case: Combination of parameters supplied e.g. `find ct/w n/Alice pd/panadol`<br>
-         Expected: Finds warehouse(s) with names matching `Alice` or storing products matching `panadol`.
+   1. Test case: Combination of parameters supplied e.g. `find ct/w n/Alice pd/aspirin`<br>
+      Expected: Finds warehouse(s) with names matching `Alice` or storing products matching `aspirin`.
 
    1. Test case: Missing type prefix e.g. `find n/Alice`<br>
       Expected: Error details shown in the response message. A help message for find command will also be displayed
