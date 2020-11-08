@@ -58,3 +58,7 @@ Given below are my contributions to the project.
         
 * **Contributions to team-based tasks**:
   * Setup team org and repo
+  
+* **Community**:
+  * [PRs reviewed](https://nus-cs2103-ay2021s1.github.io/dashboards/contents/tp-comments.html#32-lim-zheng-wei-zhengweii-67-comments)
+  * Contributed to forum discussion (issue [#130](https://github.com/nus-cs2103-AY2021S1/forum/issues/130)) 
