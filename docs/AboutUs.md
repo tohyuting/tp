@@ -28,8 +28,11 @@ You can reach us at the email `cs2103w144@gmail.com`
 
 * Role: Developer, Draft manager
 * Responsibilities:
-    * In charge of Documentation (Including User stories, User guide, Developer guide management,
-    UML diagram and product demo
+    * In charge of Documentation maintenance inclduding:
+      * User stories
+      * User guide
+      * Developer guide
+    * Product Demo
     * UI Design
 
 ### Lim Zheng Wei
