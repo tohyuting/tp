@@ -255,7 +255,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     The `DeleteCommand` is executed via a `execute` call from `LogicManager`.
     The workflow for an execution of `DeleteCommand` is as shown in the Sequence Diagram below:<br>
-    
+
     ![Delete Command Execution Sequence Diagram](images/DeleteCommandExecutionSequenceDiagram.png) <br>
 
     Using the `targetType` attribute, the execution is first classified as either Supplier deletion (`s`) or Warehouse deletion (`w`). <br>
@@ -270,7 +270,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     With the deletion completed, the Model will update the filtered lists of `Supplier` and `Warehouse` to be displayed in the UI.
     A `CommandResult` will be returned to the `LogicManager` with a success message, which will be shown to the user in the UI.
-    
+
 ##### Deletion of a product
 
 ![Delete Command Sequence 2 Diagram](images/DeleteCommandSequenceDiagram2.png)
@@ -286,7 +286,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     The `DeleteCommand` is executed via an `execute` call from `LogicManager`.
     The workflow for an execution of `DeleteCommand` is as shown in the Sequence Diagram below:<br>
-        
+
     ![Delete Command Execution Sequence 2 Diagram](images/DeleteCommandExecutionSequenceDiagram2.png) <br>
 
     Using the `targetType` attribute, the execution is now classified as either Supplier-related product deletion (`ps`) or Warehouse-related product deletion (`pw`). <br>
@@ -332,11 +332,11 @@ Important features of the Activity Diagram are as follows:
 
 1. If the compulsory prefixes (i.e. `ct/COMMAND_TYPE` and `i/INDEX`) are not present, `ParseException` will be thrown.
 
-   Similarly, `ParseException` will be thrown if no field for editing of suppliers or warehouses is provided. This also applies if there are any inappropriate fields supplied (e.g. input a string for `index` or `phone`).
+   Similarly, `ParseException` will be thrown if no field for editing of suppliers or warehouses is provided. This also applies if there are any inappropriate fields supplied (e.g. `i/test` or `p/test`).
 
 1. `EditCommand` will then be executed. The edited supplier or warehouse will be updated in the model, allowing users to see the changes done for the respective supplier or warehouse.
 
-   If the edited fields result in no changes to the existing supplier or warehouse, a `CommandException` will be thrown a to remind user that the supplier or warehouse will be unchanged.
+   If the edited fields result in no changes to the existing supplier or warehouse, a `CommandException` will be thrown to remind user that the supplier or warehouse will be unchanged.
 
 In the following section, the interaction between different objects will be discussed with the aid of a Sequence Diagram to understand the workflow when a user executes an `edit` command.
 
@@ -346,7 +346,7 @@ In the following section, the interaction between different objects will be disc
 
    After receiving an input from user for edit command, `EditCommandParser#parse` will be invoked.
 
-   As mentioned in above section, if either one of the compulsory prefixes are missing, `ParseException` will be thrown to remind users. Furthermore, invalid values supplied for `type` and `index` (e.g. `String` value for `index`), a `ParseException` will be thrown.
+   As mentioned in above section, if either one of the compulsory prefixes are missing, `ParseException` will be thrown to remind users. Furthermore, invalid values supplied for `type` and `index` (e.g. `i/test`), a `ParseException` will be thrown.
 
    An attempt to determine the correct type and creating the relevant `EditDescriptor` will then be carried out. During this process, if incorrect prefixes such as `email` prefix for warehouse and an `address` prefix for supplier was found, a `ParseException` will be thrown.
 
@@ -425,7 +425,7 @@ Important features of the Activity Diagram are as follows:
 
 1. Only 2 `COMMAND_TYPE` are allowed. They are `ct/s` and `ct/w`.
 
-   Any invalid values for prefixes (e.g. invaid `COMMAND_TYPE` specified), a `ParseException` will be thrown.
+   Any invalid values for prefixes (e.g. invalid `COMMAND_TYPE` specified), a `ParseException` will be thrown.
 
 1. If parsing is successful, `ViewCommand` will be created and executed.
 
@@ -442,7 +442,7 @@ The logical workflow of this process is further explained in the Sequence Diagra
 
    Upon receiving user's input, `ViewCommandParser#parse` will be invoked.
 
-   As mentioned in above section, a `ParseException` will be thrown if the values specified for prefixes are invalid (e.g wrong type or does not conform to `TYPE_CONSTRAINTS`.
+   As mentioned in above section, a `ParseException` will be thrown if the values specified for prefixes are invalid (e.g wrong type or does not conform to constraints of the prefixes).
 
    Any wrong prefixes present will also result in `ParseException`.
 
@@ -798,18 +798,18 @@ Important features of the Activity Diagram are as follows:
 1. The `add` command only allows addition of a single supplier/warehouse for every single command. If two
  or more `ct/COMMAND_TYPE` are provided, the last type specified will be used to process the user's input.
  This applies for all other prefixes as well.
- 
+
 1. After the user calls the `add` command, the code will check for the presence of all the compulsory
  prefixes (i.e. `ct/COMMAND_TYPE`, `n/NAME`, `p/PHONE` and `e/EMAIL` or `addr/ADDRESS` for supplier and warehouse
  respectively) in the input. A `ParseException` will be thrown if any of the compulsory prefixes are not
  present.
- 
+
    Similarly, `ParseException` will be thrown if there are any invalid prefixes or inappropriate fields
    provided (e.g. input a `String` value for `phone`).
- 
+
 1. `AddCommand` will then be executed. The new supplier/warehouse will be added in the `Model`, allowing
  users to see the added supplier/warehouse.
- 
+
     If new supplier/warehouse to be added has a duplicate name (i.e. the supplier/warehouse name already
     exist in CLI-nic), it will throw a `CommandException`. Otherwise, a success message will be displayed
     to the user.
@@ -827,19 +827,19 @@ reaches the end of diagram.
 1. Parsing
 
     After receiving an input from user for `add` command, `AddCommandParser#parse` will be invoked to tokenize
-    the arguments parsed in via `ArgumentTokenizer#tokenize`. 
+    the arguments parsed in via `ArgumentTokenizer#tokenize`.
 
     As mentioned above, if any of the compulsory prefixes are not present, `AddCommandParser` will throw a new
     `ParseException` object to the `LogicManager`. A `ParseException` will also be thrown if there are invalid
     prefixes or values provided (e.g. input a `z/` or `String` value for `phone`).
-    
+
     Subsequently, parsing of general details will occur for both Supplier and Warehouse type. These include
     parsing of `name`, `phone` and `remark`. In addition, since Supplier contains an `email` attribute, parsing
     of this field will be carried out. On the other hand, parsing of `address` will be carried out for
     Warehouse instead.
 
     At the end, relevant fields present will be set in `Supplier`/`Warehouse`.
-    
+
     During this parsing process, `ParseException` will be thrown if any of the inputs are invalid.
 
 1. Execution
@@ -1186,10 +1186,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case resumes at step 4.
 
 * 3b. The given command format is incorrect.
-  
+
   * 3b1. CLI-nic shows an error message and gives command suggestions.
   * 3a2. User enters the new command input.
-  
+
       Steps 3b1-3b2 are repeated until the data entered are valid. <br>
       Use case resumes at step 4.
 
@@ -1219,12 +1219,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Steps 3a1-3a2 are repeated until the data entered are valid.
     Use case resumes at step 4.
-    
+
 * 3b. The given command format is incorrect.
-  
+
   * 3b1. CLI-nic shows an error message and gives command suggestions.
   * 3a2. User enters the new command input.
-  
+
       Steps 3b1-3b2 are repeated until the data entered are valid. <br>
       Use case resumes at step 4.
 
@@ -1705,8 +1705,10 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Minimal information e.g. `add ct/s n/John p/98766789 e/johndoe@example.com`<br>
       Expected: Adds a supplier with the above details to the list and is displayed on the GUI.
+
    1. Test case: With all fields supplied e.g. `add ct/s n/John Lagoon p/98766789 e/johndoe@example.com r/Fast delivery`<br>
       Expected: Adds the supplier to the list, including the remark.
+
    1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. Case 1:`add ct/s n/John Lim p/98766789`
       or Case 2: `add ct/s n/John Tan p/98766789 z/friend e/johndoe@example.com`<br>
       Expected: No supplier is added. For Case 1, error details indicating that there are missing prefixes
@@ -1714,6 +1716,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       indicating that one of the prefixes specified is not recognised would be shown in the response message.
       A usage message will be displayed for both cases to guide user accordingly. SupplierList on GUI
       remains unchanged.
+
    1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e
       /johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
       Expected: No supplier is added. Error details will be displayed, indicating that the supplier to be
@@ -1725,8 +1728,10 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01`<br>
       Expected: Adds a warehouse with the above details to the warehouse list and is displayed on the GUI.
+
    1. Test case: With all fields supplied e.g. `add ct/w n/John Lagoon Ptd Ltd p/98766789 addr/John street, block 123, #01-01 r/Largest warehouse`<br>
       Expected: Adds the warehouse to the list, including the remark
+
    1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. Case 1:`add ct/w n/John Lim Ptd Ltd p/98766789`
       or Case 2: `add ct/w n/John St Ptd Ltd p/98766789 z/large addr/John street, block 123, #01-01`<br>
       Expected: No warehouse is added. For Case 1, error details indicating that there are missing prefixes
@@ -1734,6 +1739,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       indicating that one of the prefixes specified is not recognised would be shown in the response message.
       A usage message will be displayed for both cases to guide user accordingly. WarehouseList on GUI
       remains unchanged.
+
    1. Test case: Add warehouse with duplicate WAREHOUSE_NAME e.g. `add ct/w n/James Ptd Ltd p/98766789
       addr/John street, block 123, #01-01` followed by `add ct/w n/James Ptd Ltd p/91234567 addr/Ang Mo Kio
       street 12, block 3`<br>
@@ -1751,10 +1757,10 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Invalid argument for the type specified e.g. `delete ct/0`<br>
       Expected: No supplier is deleted. Error details shown in the status message. Status bar remains the same.
-      
+
    1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/s i/1000`<br>
          Expected: No supplier is deleted. Error details is shown in the status message.
-         
+
 ### Deleting a Product from a Supplier/Warehouse
 
 1. Delete command format: `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`
@@ -1766,10 +1772,10 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Invalid argument for the type specified e.g. `delete ct/w i/1 pd/Panadol`<br>
       Expected: No product is deleted. No warehouse is deleted as well. Error details shown in the status message. Status bar remains the same.
-      
+
    1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/pw i/1000 pd/Panadol`<br>
          Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.v
- 
+
    1. Test case: Provided product (by name) is not found in the product list of the supplier/warehouse e.g. `delete ct/pw i/1000 pd/P`<br>
                Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.
 
@@ -1837,6 +1843,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Clear command with no additional arguments e.g. `clear`<br>
       Expected: CLI-nic clears all suppliers and warehouses data in CLI-nic.
+
    1. Test case: Clear command with additional arguments e.g. `clear test` or `clear i/1`<br>
       Expected: Similar to previous.
 
@@ -1848,33 +1855,40 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Minimal information e.g. `edit ct/s i/1 n/Alice Pte Ltd`<br>
       Expected: Edits a supplier in index 1 on supplier list to have a name "Alice Pte Ltd".
+
    1. Test case: With all fields supplied e.g. `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com r/First Supplier`<br>
       Expected: Edits a supplier in index 1 on supplier list with all the fields applied.
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com z/large `
-      or `edit ct/s i/1`<br>
-      Expected: No supplier is added. Error details shown in the response message. A help message for edit command will also be displayed
+
+   1. Test case: Invalid Prefix or missing compulsory Prefixes.
+
+      Case 1: `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com z/large `</br>Case 2: `edit ct/s i/1`<br>
+      Expected: No supplier is edited. For Case 1: Error message specifying that one of the prefixes used is not recognised will be shown. For Case 2: Error message specifying that at least one field to edit must be provided will be shown. A help message for edit command will also be displayed
       to guide user accordingly. SupplierList on GUI remains unchanged.
-   1. Test case: Edits a supplier with existing SUPPLIER_NAME in list e.g. `edit ct/s i/1 n/Alice Pte Ltd` followed by `edit ct/s i/2 n/Alice Pte Ltd`<br>
-      Expected: An error will occur and a message will be displayed, stating that a supplier with duplicate
-      SUPPLIER_NAME cannot be added into the list. SupplierList on GUI remain unchanged.
+
+   1. Test case: Edits a supplier with existing SUPPLIER_NAME in list e.g. `edit ct/s i/1 n/Bob Pte Ltd` followed by `edit ct/s i/2 n/Bob Pte Ltd`<br>
+      Expected: No supplier is edited. An error will occur and a message will be displayed, stating that the edited field(s) result in no change to the supplier. It will also prompt users to do a check on the arguments to ensure that their inputs are correct. SupplierList on GUI remain unchanged.
 
 ### Editing a Warehouse
 
 1. Edit command format: `edit ct/w i/INDEX [n/NAME] [p/PHONE] [addr/ADDRESS] [r/REMARK]`
 
-    1. Prerequisites: Warehouses in CLI-nic does not have a warehouse named Alice Warehouse (with the exception of test case to test for duplicated warehouse).
+   1. Prerequisites: Warehouses in CLI-nic does not have a warehouse named Alice Warehouse (with the exception of test case to test for duplicated warehouse).
 
    1. Test case: Minimal information e.g. `edit ct/w i/1 n/Alice Warehouse`<br>
       Expected: Edits a warehouse in index 1 on warehouse list to have a name "Alice Warehouse".
+
    1. Test case: With all fields supplied e.g. `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 r/Largest Warehouse`<br>
       Expected: Edits a warehouse in index 1 on warehouse list with all the fields applied.
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 z/large `
-      or `edit ct/w i/1`<br>
-      Expected: No warehouse is added. Error details shown in the response message. A help message for edit command will also be displayed
+
+   1. Test case: Invalid Prefix or missing compulsory Prefixes.
+
+      Case 1: `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 z/large `
+      </br>Case 2: `edit ct/w i/1`<br>
+      Expected: No warehouse is edited. Error details shown in the response message. A help message for edit command will also be displayed
       to guide user accordingly. WarehouseList on GUI remains unchanged.
-   1. Test case: Edits a warehouse with existing WAREHOUSE_NAME in list e.g. `edit ct/w i/1 n/Alice Warehouse` followed by `edit ct/w i/2 n/Alice Warehouse`<br>
-      Expected: An error will occur and a message will be displayed, stating that a warehouse with duplicate
-      WAREHOUSE_NAME cannot be added into the list. WarehouseList on GUI remain unchanged.
+
+   1. Test case: Edits a warehouse with existing WAREHOUSE_NAME in list e.g. `edit ct/w i/1 n/Bob Warehouse` followed by `edit ct/w i/2 n/Bob Warehouse`<br>
+      Expected: No warehouse is edited. An error will occur and a message will be displayed, stating that the edited field(s) result in no change to the warehouse. It will also prompt users to do a check on the arguments to ensure that their inputs are correct. WarehouseList on GUI remain unchanged.
 
 ### Exiting CLI-nic
 
@@ -1882,6 +1896,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Exit command with no additional arguments e.g. `edit`<br>
       Expected: CLI-nic closes with current state of data saved.
+
    1. Test case: Exit command with additional arguments e.g. `exit test` or `exit ct/s`<br>
       Expected: Similar to previous.
 
@@ -1891,6 +1906,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: List command with no additional arguments e.g. `list`<br>
       Expected: CLI-nic lists all suppliers and warehouses data in CLI-nic.
+
    1. Test case: List command with additional arguments e.g. `list test` or `list i/1`<br>
       Expected: Similar to previous.
 
@@ -1900,10 +1916,12 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: View command with complete prefixes e.g. `view ct/s i/1`<br>
       Expected: SupplierList updates to show only supplier at index 1. Products associated with the supplier and their details are shown in the command result box.
+
    1. Test case: View command with missing prefixes e.g. `view ct/s` or `view`<br>
-      Expected: SupplierList will not be updated to show only supplier at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
-   1. Test case: View command with index larger than range of supplier list displayed e.g. `view ct/s i/x` (where x is larger than the displayed list size)<br>
-      Expected: Similar to previous.
+      Expected: SupplierList will not be updated. An error will occur and a message to indicate that the input has an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
+
+   1. Test case: View command with index larger than range of supplier list displayed e.g. `view ct/s i/1000` (assuming the size of the supplier list displayed is less than 1000)<br>
+      Expected: SupplierList will not be updated. An error will occur and a message to indicate that the supplier index provided is larger than the displayed list size.
 
 ## Viewing a Warehouse
 
@@ -1911,10 +1929,12 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: View command with complete prefixes e.g. `view ct/w i/2`<br>
       Expected: WarehouseList updates to show only warehouse at index 2. Products associated with the warehouse and their details are shown in the command result box.
+
    1. Test case: View command with missing prefixes e.g. `view ct/w` or `view`<br>
-      Expected: WarehouseList will not be updated to show only warehouse at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. WarehouseList on GUI remains unchanged.
-   1. Test case: View command with index larger than range of warehouse list displayed e.g. `view ct/w i/x` (where x is larger than the displayed list size)<br>
-      Expected: Similar to previous.
+      Expected: WarehouseList will not be updated. An error will occur and a message to indicate that the input has an invalid command format. A help message for view command will also be displayed to guide user accordingly. WarehouseList on GUI remains unchanged.
+
+   1. Test case: View command with index larger than range of warehouse list displayed e.g. `view ct/w i/1000` (assuming that the size of warehouse list displayed is less than 1000)<br>
+      Expected: WarehouseList will not be updated. An error will occur and a message to indicate that the warehouse index provided is larger than the displayed list size.
 
 ### Viewing help messages for various commands
 
@@ -1922,8 +1942,10 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: View generic help message for all commands e.g. `help`<br>
       Expected: Shows help message consisting of commands available in CLI-nic and what each command does.
+
    1. Test case: View help message specific to a command e.g. `help add`<br>
       Expected: Shows help message consisting of instructions on how to interpret command format, command format for `add` and some sample commands for `add`.
+
    1. Test case: View help message with invalid type e.g. `help test`<br>
       Expected: Shows invalid command format message, stating the allowed keywords to be used by help. A help message for help command will also be displayed again to guide the user accordingly.
 
@@ -1932,11 +1954,11 @@ All `index` referred to in this section refers to index in supplier or warehouse
 1. Dealing with missing/corrupted data files
 
    1. Test case: Removing of a supplier or warehouse compulsory attribute e.g. `Name`, `Phone`, `Email` or `Address`<br>
-      Expected: CLI-nic loads up without any suppliers or warehouses. The error will be logged in the log file.
+      Expected: CLI-nic loads up without any suppliers or warehouses. The error will be logged in the log file. The error will specify that there are illegal values found in data\clinic.json and which entity (supplier or warehouse) have missing attributes.
 
    1. Test case: Editing Warehouse or Supplier to have the same name. e.g. 2 warehouses with the name `Charlotte Oliveiro warehouse`<br>
-      Expected: Similar to previous
+      Expected: CLI-nic loads up without any suppliers or warehouses. The error "Illegal values found in data\clinic.json: Warehouses list contains duplicate warehouse(s)" will be logged in the log file.
 
 1. Data will be saved automatically after every command
-   1. Test case: Adding a new supplier or warehouse and close CLI-nic by clicking on "X" instead of exit command. Sample `add` command is documented in the section above.
+   1. Test case: Adding a new supplier or warehouse and close CLI-nic by clicking on "X" instead of exit command. Sample `add` command is documented in the section above.</br>
       Expected: Reopen CLI-nic by double clicking on the jar file. The new supplier or warehouse added should be included in the respective supplier or warehouse list.

@@ -76,10 +76,10 @@ public class EditCommand extends Command {
             + " index, i.e. either wi/INDEX or si/INDEX";
     public static final String MESSAGE_NO_PREFIX = "Please enter at least one type of"
             + " command under ct (i.e. either ct/s or ct/w)\n%1$s";
-    public static final String MESSAGE_SUPPLIER_UNCHANGED = "The edited field will results in no change to "
-            + "supplier selected. Please check your arguments again and re-enter your edit command.";
-    public static final String MESSAGE_WAREHOUSE_UNCHANGED = "The edited field will results in no change to "
-            + "warehouse selected. Please check your arguments again and re-enter your edit command.";
+    public static final String MESSAGE_SUPPLIER_UNCHANGED = "The edited field(s) will results in no change to"
+            + " supplier selected. Please check your arguments again and re-enter your edit command.";
+    public static final String MESSAGE_WAREHOUSE_UNCHANGED = "The edited field(s) will results in no change"
+            + " to warehouse selected. Please check your arguments again and re-enter your edit command.";
 
     private static final String LOG_MESSAGE_RECEIVE_EDIT_SUPPLIER = "Received instructions to edit supplier.";
     private static final String LOG_MESSAGE_RECEIVE_EDIT_WAREHOUSE = "Received instructions to edit warehouse.";
