@@ -29,7 +29,7 @@ DeleteCommand -> Model : deleteSupplier(supplierToDelete)
 activate Model
 deactivate Model
 
-DeleteCommand -> Model : updateFilteredSupplierList()
+DeleteCommand -> Model : updateFilteredSupplierList(...)
 activate Model
 deactivate Model
 
@@ -58,7 +58,7 @@ DeleteCommand -> Model : deleteWarehouse(warehouseToDelete)
 activate Model
 deactivate Model
 
-DeleteCommand -> Model : updateFilteredWarehouseList()
+DeleteCommand -> Model : updateFilteredWarehouseList(...)
 activate Model
 deactivate Model
 

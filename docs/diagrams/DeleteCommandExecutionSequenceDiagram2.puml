@@ -10,42 +10,42 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant "lastShownSupplierList:List" as lastShownSupplierList MODEL_COLOR
-participant "lastShownWarehouseList:List" as lastShownWarehouseList MODEL_COLOR
-participant "supplierToUpdate:Supplier" as supplierToUpdate MODEL_COLOR
-participant "warehouseToUpdate:Warehouse" as warehouseToUpdate MODEL_COLOR
+participant "supplierList:List" as supplierList MODEL_COLOR
+participant "warehouseList:List" as warehouseList MODEL_COLOR
+participant "s:Supplier" as s MODEL_COLOR
+participant "w:Warehouse" as w MODEL_COLOR
 end box
 
 alt SUPPLIER
 activate DeleteCommand
 DeleteCommand -> Model : getFilteredSupplierList()
 activate Model
-Model --> DeleteCommand  : lastShownSupplierList
+Model --> DeleteCommand  : supplierList
 deactivate Model
 
-DeleteCommand -> lastShownSupplierList : get(index)
-activate lastShownSupplierList
-create supplierToUpdate
-lastShownSupplierList --> supplierToUpdate
-activate supplierToUpdate
-supplierToUpdate --> lastShownSupplierList
-deactivate supplierToUpdate
-lastShownSupplierList --> DeleteCommand : supplierToUpdate
-deactivate lastShownSupplierList
+DeleteCommand -> supplierList : get(index)
+activate supplierList
+create s
+supplierList -> s
+activate s
+s --> supplierList
+deactivate s
+supplierList --> DeleteCommand : s
+deactivate supplierList
 
 
 
-DeleteCommand -> supplierToUpdate : removeProduct
-activate supplierToUpdate
-supplierToUpdate --> DeleteCommand : updatedSupplier
-deactivate supplierToUpdate
-destroy supplierToUpdate
+DeleteCommand -> s : removeProduct
+activate s
+s --> DeleteCommand : updatedSupplier
+deactivate s
+destroy s
 
-DeleteCommand -> Model : setSupplier(supplierToUpdate, updatedSupplier)
+DeleteCommand -> Model : setSupplier(s, updatedSupplier)
 activate Model
 deactivate Model
 
-DeleteCommand -> Model : updateFilteredSupplierList()
+DeleteCommand -> Model : updateFilteredSupplierList(...)
 activate Model
 deactivate Model
 
@@ -63,32 +63,32 @@ else WAREHOUSE
 
 DeleteCommand -> Model : getFilteredWarehouseList()
 activate Model
-Model --> DeleteCommand  : lastShownWarehouseList
+Model --> DeleteCommand  : warehouseList
 deactivate Model
 
-DeleteCommand -> lastShownWarehouseList : get(index)
-activate lastShownWarehouseList
-create warehouseToUpdate
-lastShownWarehouseList -> warehouseToUpdate
-activate warehouseToUpdate
-warehouseToUpdate --> lastShownWarehouseList
-deactivate warehouseToUpdate
-lastShownWarehouseList --> DeleteCommand : warehouseToUpdate
-deactivate lastShownWarehouseList
+DeleteCommand -> warehouseList : get(index)
+activate warehouseList
+create w
+warehouseList -> w
+activate w
+w --> warehouseList
+deactivate w
+warehouseList --> DeleteCommand : w
+deactivate warehouseList
 
 
-DeleteCommand -> warehouseToUpdate : removeProduct
-activate warehouseToUpdate
-warehouseToUpdate --> DeleteCommand : updatedWarehouse
-deactivate warehouseToUpdate
-destroy warehouseToUpdate
+DeleteCommand -> w : removeProduct
+activate w
+w --> DeleteCommand : updatedWarehouse
+deactivate w
+destroy w
 
 
-DeleteCommand -> Model : setWarehouse(warehouseToUpdate, updatedWarehouse)
+DeleteCommand -> Model : setWarehouse(w, updatedWarehouse)
 activate Model
 deactivate Model
 
-DeleteCommand -> Model : updateFilteredWarehouseList()
+DeleteCommand -> Model : updateFilteredWarehouseList(...)
 activate Model
 deactivate Model
 

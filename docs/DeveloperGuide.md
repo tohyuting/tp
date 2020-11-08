@@ -239,9 +239,6 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 ![Delete Command Sequence Diagram](images/DeleteCommandSequenceDiagram.png)
 <br>
 
-![Delete Command Execution Sequence Diagram](images/DeleteCommandExecutionSequenceDiagram.png)
-<br>
-
 
 1. Parsing <br>
 
@@ -256,7 +253,10 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
 2. Execution <br>
 
-    The `DeleteCommand` is executed via a `execute` call from `LogicManager`. <br>
+    The `DeleteCommand` is executed via a `execute` call from `LogicManager`.
+    The workflow for an execution of `DeleteCommand` is as shown in the Sequence Diagram below:<br>
+    
+    ![Delete Command Execution Sequence Diagram](images/DeleteCommandExecutionSequenceDiagram.png) <br>
 
     Using the `targetType` attribute, the execution is first classified as either Supplier deletion (`s`) or Warehouse deletion (`w`). <br>
 
@@ -276,9 +276,6 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 ![Delete Command Sequence 2 Diagram](images/DeleteCommandSequenceDiagram2.png)
 <br>
 
-![Delete Command Execution Sequence 2 Diagram](images/DeleteCommandExecutionSequenceDiagram2.png)
-<br>
-
 1. Parsing
 
     The parsing workflow is the same except that now an additional field `pd/PRODUCT_NAME` will be checked (with both prefix and argument) and parsed. <br>
@@ -287,7 +284,10 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
 2. Execution
 
-    The `DeleteCommand` is executed via an `execute` call from `LogicManager`. <br>
+    The `DeleteCommand` is executed via an `execute` call from `LogicManager`.
+    The workflow for an execution of `DeleteCommand` is as shown in the Sequence Diagram below:<br>
+        
+    ![Delete Command Execution Sequence 2 Diagram](images/DeleteCommandExecutionSequenceDiagram2.png) <br>
 
     Using the `targetType` attribute, the execution is now classified as either Supplier-related product deletion (`ps`) or Warehouse-related product deletion (`pw`). <br>
 
