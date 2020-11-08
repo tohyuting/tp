@@ -1,22 +1,25 @@
 @startuml
 start
-:User enters view commands with relevant prefixes;
+:User enters help command
+with relevant prefixes;
 :Parse user input;
 
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
 if () then ([no command specified])
-    :Create new Help Command;
-    :Execute Help Command;
-    :Generate generic help message of all commands;
+    :Generate and Execute
+    new Help Command;
+    :Generate generic help
+    message of all commands;
 
 else ([command specified])
     if () then ([valid command])
-    :Create new Help command;
-    :Execute Help Command;
-    :Generate help message of specified command;
-    else ([wrong input])
+    :Generate and Execute
+    new Help Command;
+    :Generate help message
+    of specified command;
+    else ([invalid command])
     :Generate error message specifying
     wrong command specified or too
     many arguments given;
