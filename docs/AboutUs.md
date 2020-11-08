@@ -36,7 +36,7 @@ You can reach us at the email `cs2103w144@gmail.com`
 
 <img src="images/zhengweii.png" width="200px">
 
-[[github](http://github.com/zhengweii)] [[portfolio](team/zhengwei.md)]
+[[github](http://github.com/zhengweii)] [[portfolio](team/zhengweii.md)]
 
 * Role: Git/GitHub & Code Manager
 * Responsibilities: Providing assistance for Git,
