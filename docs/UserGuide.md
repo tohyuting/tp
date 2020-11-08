@@ -410,7 +410,7 @@ There is no need to save manually.
 ### Undoing/redoing a previous editing : `undo`/`redo`
 
 Undoing recovers a previous version of CLI-nic data if any data has been changed.
-Redoing restores the data in CLI-nic before an `undo` command was done.
+Redoing restores the data in CLI-nic to the version before an `undo` command was done.
 
 Format: `undo` / `redo`
 

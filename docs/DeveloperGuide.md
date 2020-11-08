@@ -233,9 +233,14 @@ Note that some commonly applied methods (such as getter/setter methods for each 
 In the following section, the interaction between Delete Command and its associated objects in the delete feature will be discussed.
 The sequence diagrams below demonstrate the workflow in the deletion feature.
 
+##### Deletion of a supplier/warehouse
+
 ![Delete Command Sequence Diagram](images/DeleteCommandSequenceDiagram.png)
-<center><i>Figure n. Delete Command Sequence Diagram for supplier deletion </i></center>
 <br>
+
+![Delete Command Execution Sequence Diagram](images/DeleteCommandExecutionSequenceDiagram.png)
+<br>
+
 
 1. Parsing <br>
 
@@ -263,9 +268,13 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 3. Result display <br>
     With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with a success message, which will
     be shown to the user in the UI.
+    
+##### Deletion of a product
 
 ![Delete Command Sequence 2 Diagram](images/DeleteCommandSequenceDiagram2.png)
-<center><i>Figure n. Delete Command Sequence Diagram for product deletion</i></center>
+<br>
+
+![Delete Command Execution Sequence 2 Diagram](images/DeleteCommandExecutionSequenceDiagram2.png)
 <br>
 
 1. Parsing
@@ -1051,6 +1060,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 3a1-3a2 are repeated until the data entered are valid. <br>
     Use case resumes at step 4.
 
+* 3b. The given command format is incorrect.
+  
+  * 3b1. CLI-nic shows an error message and gives command suggestions.
+  * 3a2. User enters the new command input.
+  
+      Steps 3b1-3b2 are repeated until the data entered are valid. <br>
+      Use case resumes at step 4.
+
 **Use case: UC06 Delete a warehouse**
 
 **MSS**
@@ -1077,6 +1094,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Steps 3a1-3a2 are repeated until the data entered are valid.
     Use case resumes at step 4.
+    
+* 3b. The given command format is incorrect.
+  
+  * 3b1. CLI-nic shows an error message and gives command suggestions.
+  * 3a2. User enters the new command input.
+  
+      Steps 3b1-3b2 are repeated until the data entered are valid. <br>
+      Use case resumes at step 4.
 
 **Use case: UC07 Delete a product from a supplier**
 
@@ -1608,8 +1633,8 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: `delete ct/pw i/1 pd/panadol`<br>
       Expected: The `Panadol` product in the first warehouse is deleted. Details of the deleted product shown in the status message.
 
-   1. Test case: Invalid argument for the type specified e.g. `delete ct/pw i/1 pd/Panadol`<br>
-      Expected: No product is deleted. No warehouse is deleted also. Error details shown in the status message. Status bar remains the same.
+   1. Test case: Invalid argument for the type specified e.g. `delete ct/w i/1 pd/Panadol`<br>
+      Expected: No product is deleted. No warehouse is deleted as well. Error details shown in the status message. Status bar remains the same.
       
    1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/pw i/1000 pd/Panadol`<br>
          Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.v
@@ -1675,7 +1700,6 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
 1. _{ more test cases …​ }_
 
-<<<<<<< HEAD
 ### Undo a command
 1. undo command format: `undo`
 
@@ -1693,7 +1717,6 @@ All `index` referred to in this section refers to index in supplier or warehouse
         
     1. Test case: Only the `clear` command was executed. <br>
         Expected: The data will not change. Displayed messages states that CLI-nic data do not have a later version.
-=======
 ## Clearing CLI-nic
 
 1. Clear command format: `clear`
