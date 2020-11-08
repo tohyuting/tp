@@ -76,8 +76,6 @@ public class EditCommand extends Command {
             + " index, i.e. either wi/INDEX or si/INDEX";
     public static final String MESSAGE_NO_PREFIX = "Please enter at least one type of"
             + " command under ct (i.e. either ct/s or ct/w)\n%1$s";
-    public static final String MESSAGE_INVALID_TYPE_EDIT = "You used an invalid type! Type for Edit command "
-            + "should be either ct/s or ct/w only.\n\n%1$s";
     public static final String MESSAGE_SUPPLIER_UNCHANGED = "The edited field will results in no change to "
             + "supplier selected. Please check your arguments again and re-enter your edit command.";
     public static final String MESSAGE_WAREHOUSE_UNCHANGED = "The edited field will results in no change to "

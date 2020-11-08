@@ -34,15 +34,17 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
     public UpdateCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_INDEX, PREFIX_PRODUCT_NAME,
-                        PREFIX_PRODUCT_QUANTITY, PREFIX_TAG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_INDEX,
+                PREFIX_PRODUCT_NAME, PREFIX_PRODUCT_QUANTITY, PREFIX_TAG);
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_TYPE, PREFIX_PRODUCT_NAME)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UpdateCommand.MESSAGE_USAGE));
         }
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), UpdateCommand.MESSAGE_USAGE);
+            ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(),
+                    UpdateCommand.MESSAGE_USAGE);
         }
 
         Type entityType;

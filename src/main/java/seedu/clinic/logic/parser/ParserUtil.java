@@ -55,10 +55,10 @@ public class ParserUtil {
             + "The integer value should be less than 2147483648\n\n%1$s";
     public static final String MESSAGE_INVALID_QUANTITY = "Quantity provided is not an unsigned integer."
             + "\n\n%1$s";
-    public static final String MESSAGE_INVALID_TYPE_DELETE = "Type is invalid, must be one of s/w/ps/pw."
-            + "\n\n%1$s";
-    public static final String MESSAGE_INVALID_TYPE = "Type is invalid, must be either s or w."
-            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_TYPE_DELETE = "You used an invalid type! Type for this command "
+            + "should be either ct/s, ct/w, ct/ps or ct/pw only.\n\n%1$s";
+    public static final String MESSAGE_INVALID_TYPE = "You used an invalid type! Type for this command "
+            + "should be either ct/s or ct/w only.\n\n%1$s";
     public static final String MESSAGE_INVALID_PREFIX = "One of the prefix specified is not recognised "
             + "(either in this command, or in CLI-nic). Otherwise, you have used a forward slash "
             + "as input (along with spaces) to one of these prefixes (e.g. r/, n/, addr/, t/, pd/)\n\n%1$s";
