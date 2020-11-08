@@ -9,9 +9,15 @@ import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_EDIT;
 import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_FIND;
 import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_UPDATE;
 import static seedu.clinic.logic.parser.CliSyntax.NOT_ALLOWED_PREFIXES_VIEW;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_ALIAS;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PRODUCT_QUANTITY;
+import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 
@@ -46,17 +52,18 @@ import seedu.clinic.model.macro.SavedCommandString;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index provided is not a non-zero unsigned integer."
-            + "\n\n%1$s";
+            + "The integer value should be less than 2147483648\n\n%1$s";
     public static final String MESSAGE_INVALID_QUANTITY = "Quantity provided is not an unsigned integer."
             + "\n\n%1$s";
-    public static final String MESSAGE_INVALID_TYPE_DELETE = "Type is invalid, must be one of s/w/ps/pw."
-            + "\n\n%1$s";
-    public static final String MESSAGE_INVALID_TYPE = "Type is invalid, must be either s or w."
-            + "\n\n%1$s";
-    public static final String MESSAGE_INVALID_PREFIX = "One of the prefix specified is not recognised."
-            + "\n\n%1$s";
+    public static final String MESSAGE_INVALID_TYPE_DELETE = "You used an invalid type! Type for this command "
+            + "should be either ct/s, ct/w, ct/ps or ct/pw only.\n\n%1$s";
+    public static final String MESSAGE_INVALID_TYPE = "You used an invalid type! Type for this command "
+            + "should be either ct/s or ct/w only.\n\n%1$s";
+    public static final String MESSAGE_INVALID_PREFIX = "One of the prefix specified is not recognised "
+            + "(either in this command, or in CLI-nic). Otherwise, you have used a forward slash "
+            + "as input (along with spaces) to one of these prefixes (e.g. r/, n/, addr/, t/, pd/)\n\n%1$s";
     public static final String MESSAGE_INVALID_USAGE = "The input contains unnecessary arguments. Please "
-            + "ensure that you only include prefixes specified in the User Guide.\n\n%1$s";
+            + "ensure that you only include the required arguments specified in the User Guide.\n\n%1$s";
     private static final String INVALID_TYPE_PREFIX_ASSERTION = "The prefix here should be of Type type!";
     private static final String INVALID_MESSAGE_USAGE_ASSERTION = "The message usage here should be"
             + " of View Command!";
@@ -296,7 +303,8 @@ public class ParserUtil {
         if (argMultimap.getValue(prefix).get().split("\\s+").length != 1
                 && argMultimap.getValue(prefix).get().contains("/")) {
             return new ParseException(String.format(MESSAGE_INVALID_PREFIX, messageUsage));
-        } else if (argMultimap.getValue(prefix).get().split("\\s+").length != 1) {
+        } else if (argMultimap.getValue(prefix).get().split("\\s+").length != 1
+                && !prefix.equals(PREFIX_EMAIL) && !prefix.equals(PREFIX_ALIAS)) {
             return new ParseException(String.format(MESSAGE_INVALID_USAGE, messageUsage));
         }
 
@@ -308,6 +316,20 @@ public class ParserUtil {
             return new ParseException(Tag.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
         } else if (prefix.equals(PREFIX_PRODUCT_QUANTITY)) {
             return new ParseException(String.format(MESSAGE_INVALID_QUANTITY, messageUsage));
+        } else if (prefix.equals(PREFIX_NAME)) {
+            return new ParseException(Name.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
+        } else if (prefix.equals(PREFIX_ADDRESS)) {
+            return new ParseException(Address.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
+        } else if (prefix.equals(PREFIX_REMARK)) {
+            return new ParseException(Remark.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
+        } else if (prefix.equals(PREFIX_EMAIL)) {
+            return new ParseException(Email.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
+        } else if (prefix.equals(PREFIX_TAG)) {
+            return new ParseException(Tag.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
+        } else if (prefix.equals(PREFIX_ALIAS)) {
+            return new ParseException(Alias.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
+        } else if (prefix.equals(PREFIX_PRODUCT_NAME)) {
+            return new ParseException(Name.MESSAGE_CONSTRAINTS + "\n\n" + messageUsage);
         } else {
             assert prefix.equals(PREFIX_TYPE) : INVALID_TYPE_PREFIX_ASSERTION;
 

@@ -14,7 +14,7 @@ You can reach us at the email `cs2103w144@gmail.com`
 <img src="images/qlchan24.png" width="200px">
 
 [[github](https://github.com/qlchan24)]
-[[portfolio](team/qinliang.md)]
+[[portfolio](team/qlchan24.md)]
 
 * Role: Review Manager
 * Responsibilities: Code quality, review deliverables, release management

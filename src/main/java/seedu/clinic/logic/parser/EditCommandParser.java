@@ -2,7 +2,6 @@ package seedu.clinic.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.clinic.logic.commands.EditCommand.MESSAGE_INVALID_TYPE_EDIT;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_NOT_EDITED;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_SUPPLIER_NO_ADDRESS;
 import static seedu.clinic.logic.commands.EditCommand.MESSAGE_WAREHOUSE_NO_EMAIL;
@@ -13,6 +12,7 @@ import static seedu.clinic.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.clinic.logic.parser.ParserUtil.MESSAGE_INVALID_TYPE;
 import static seedu.clinic.logic.parser.ParserUtil.checkInvalidArguments;
 
 import java.util.logging.Level;
@@ -25,7 +25,6 @@ import seedu.clinic.logic.commands.EditCommand.EditDescriptor;
 import seedu.clinic.logic.commands.EditCommand.EditSupplierDescriptor;
 import seedu.clinic.logic.commands.EditCommand.EditWarehouseDescriptor;
 import seedu.clinic.logic.parser.exceptions.ParseException;
-import seedu.clinic.model.attribute.Phone;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -62,26 +61,25 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         // Check if arguments are valid
         if (!argMultimap.getPreamble().isEmpty()) {
-            System.out.println(argMultimap.getPreamble());
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), EditCommand.MESSAGE_USAGE);
         }
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
-        } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_INDEX, argMultimap, EditCommand.MESSAGE_USAGE);
-        }
+        //Current Prefix to Parse
+        Prefix currentPrefix = PREFIX_INDEX;
 
         Type type;
+        Index index;
+
         try {
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+            currentPrefix = PREFIX_TYPE;
             type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
         } catch (ParseException pe) {
-            throw checkInvalidArguments(PREFIX_TYPE, argMultimap, EditCommand.MESSAGE_USAGE);
+            throw checkInvalidArguments(currentPrefix, argMultimap, EditCommand.MESSAGE_USAGE);
         }
 
         if (type.equals(Type.WAREHOUSE_PRODUCT) || type.equals(Type.SUPPLIER_PRODUCT)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_TYPE_EDIT, EditCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_TYPE, EditCommand.MESSAGE_USAGE));
         }
 
         // Parse into EditCommand
@@ -140,11 +138,12 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseGeneralDetails(editWarehouseDescriptor, argMultimap);
 
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            Prefix currentPrefix = PREFIX_ADDRESS;
             try {
                 editWarehouseDescriptor.setAddress(
                         ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
             } catch (ParseException pe) {
-                throw new ParseException(pe.getMessage() + "\n\n" + EditCommand.MESSAGE_USAGE);
+                throw checkInvalidArguments(currentPrefix, argMultimap, EditCommand.MESSAGE_USAGE);
             }
         }
 
@@ -157,11 +156,12 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseGeneralDetails(editSupplierDescriptor, argMultimap);
 
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            Prefix currentPrefix = PREFIX_EMAIL;
             try {
                 editSupplierDescriptor.setEmail(
                         ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
             } catch (ParseException pe) {
-                throw new ParseException(pe.getMessage() + "\n\n" + EditCommand.MESSAGE_USAGE);
+                throw checkInvalidArguments(currentPrefix, argMultimap, EditCommand.MESSAGE_USAGE);
             }
         }
 
@@ -171,28 +171,27 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     private EditDescriptor parseGeneralDetails(EditDescriptor editDescriptor, ArgumentMultimap argMultimap)
             throws ParseException {
+
+        //First prefix to check
+        Prefix currentPrefix = PREFIX_NAME;
+
         try {
             if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
                 editDescriptor.setName(
-                        ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+                        ParserUtil.parseName(argMultimap.getValue(currentPrefix).get()));
             }
 
             if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
-                editDescriptor.setRemark(
-                        ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
+                currentPrefix = PREFIX_REMARK;
+                editDescriptor.setRemark(ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
+            }
+
+            if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+                currentPrefix = PREFIX_PHONE;
+                editDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
             }
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage() + "\n\n" + EditCommand.MESSAGE_USAGE);
-        }
-
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            Phone phoneNumber;
-            try {
-                phoneNumber = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-            } catch (ParseException pe) {
-                throw checkInvalidArguments(PREFIX_PHONE, argMultimap, EditCommand.MESSAGE_USAGE);
-            }
-            editDescriptor.setPhone(phoneNumber);
+            throw checkInvalidArguments(currentPrefix, argMultimap, EditCommand.MESSAGE_USAGE);
         }
 
         return editDescriptor;

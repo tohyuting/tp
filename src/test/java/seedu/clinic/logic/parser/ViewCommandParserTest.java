@@ -1,7 +1,6 @@
 package seedu.clinic.logic.parser;
 
 import static seedu.clinic.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.clinic.logic.commands.ViewCommand.MESSAGE_INVALID_TYPE_VIEW;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.clinic.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.clinic.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -49,9 +48,9 @@ public class ViewCommandParserTest {
         assertParseFailure(parser, " " + PREFIX_TYPE + "2 " + PREFIX_INDEX + "1",
                 String.format(MESSAGE_INVALID_TYPE, ViewCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_TYPE + "pw " + PREFIX_INDEX + "1",
-                String.format(MESSAGE_INVALID_TYPE_VIEW, ViewCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_TYPE, ViewCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " " + PREFIX_TYPE + "ps " + PREFIX_INDEX + "3",
-                String.format(MESSAGE_INVALID_TYPE_VIEW, ViewCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_TYPE, ViewCommand.MESSAGE_USAGE));
     }
 
     @Test

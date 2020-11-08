@@ -60,8 +60,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_WAREHOUSE_SUCCESS = "New warehouse added: %1$s";
     public static final String MESSAGE_DUPLICATE_SUPPLIER = "This supplier already exists in CLI-nic";
     public static final String MESSAGE_DUPLICATE_WAREHOUSE = "This warehouse already exists in CLI-nic";
-    public static final String MESSAGE_MISSING_TYPE_PREFIX = "Please enter either one of the type to add,"
-            + " i.e. either ct/s or ct/w\n\n%1$s";
+    public static final String MESSAGE_MISSING_TYPE_PREFIX = "You used an invalid type!"
+            + " Type for this command should be either ct/s or ct/w only.\n\n%1$s";
     public static final String MESSAGE_SUPPLIER_MISSING_PREFIX = "There are missing prefixes, ensure"
             + " that you at least include: ct/s n/SUPPLIER_NAME, p/PHONE and e/EMAIL_ADDRESS\n\n%1$s";
     public static final String MESSAGE_WAREHOUSE_MISSING_PREFIX = "There are missing prefixes, ensure"

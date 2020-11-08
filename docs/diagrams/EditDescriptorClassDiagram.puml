@@ -11,14 +11,6 @@ class EditDescriptor {
     - products : Set<Product>
 
     /' Methods '/
-    + setName(name : Name) : void
-    + getName() : Optional<Name>
-    + setPhone(phone : Phone) : void
-    + getPhone() : Optional<Phone>
-    + setRemark(remark : Remark) : void
-    + getRemark() : Optional<Remark>
-    + setProducts(products : Set<Product>) : void
-    + getProducts() : Optional<Set<Product>
     + isAnyFieldEdited() : boolean
     + equals (Object other) : boolean
 }
@@ -28,8 +20,6 @@ class EditSupplierDescriptor extends EditDescriptor {
     - email : Email
 
     /' Methods '/
-    + setEmail(email : Email) : void
-    + getEmail() : Email
     + isAnyFieldEdited() : boolean
     + equals (Object other) : boolean
 }
@@ -39,8 +29,6 @@ class EditWarehouseDescriptor extends EditDescriptor {
     - address : Address
 
     /' Methods '/
-    + setAddress(address : Address) : void
-    + getAddress() : Address
     + isAnyFieldEdited() : boolean
     + equals (Object other) : boolean
 }

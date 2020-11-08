@@ -4,8 +4,8 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ClinicParser" as ClinicParser LOGIC_COLOR
-participant ":AssignMacroCommandParser" as AssignMacroCommandParser LOGIC_COLOR
-participant ":AssignMacroCommand" as AssignMacroCommand LOGIC_COLOR
+participant ":RemoveMacroCommandParser" as RemoveMacroCommandParser LOGIC_COLOR
+participant ":RemoveMacroCommand" as RemoveMacroCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -13,62 +13,62 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("assignMacro a/uw cs/update ct/w")
+[-> LogicManager : execute("removemacro uw")
 activate LogicManager
 
-LogicManager -> ClinicParser : parseCommand("assignMacro a/uw cs/update ct/w")
+LogicManager -> ClinicParser : parseCommand("removemacro uw")
 activate ClinicParser
 
-create AssignMacroCommandParser
-ClinicParser -> AssignMacroCommandParser
-activate AssignMacroCommandParser
+create RemoveMacroCommandParser
+ClinicParser -> RemoveMacroCommandParser
+activate RemoveMacroCommandParser
 
-AssignMacroCommandParser --> ClinicParser
-deactivate AssignMacroCommandParser
+RemoveMacroCommandParser --> ClinicParser
+deactivate RemoveMacroCommandParser
 
-ClinicParser -> AssignMacroCommandParser : parse("a/uw cs/update ct/w")
-activate AssignMacroCommandParser
+ClinicParser -> RemoveMacroCommandParser : parse("uw")
+activate RemoveMacroCommandParser
 
-create AssignMacroCommand
-AssignMacroCommandParser -> AssignMacroCommand
-activate AssignMacroCommand
+create RemoveMacroCommand
+RemoveMacroCommandParser -> RemoveMacroCommand
+activate RemoveMacroCommand
 
-AssignMacroCommand --> AssignMacroCommandParser :
-deactivate AssignMacroCommand
+RemoveMacroCommand --> RemoveMacroCommandParser :
+deactivate RemoveMacroCommand
 
-AssignMacroCommandParser --> ClinicParser : command
-deactivate AssignMacroCommandParser
+RemoveMacroCommandParser --> ClinicParser : command
+deactivate RemoveMacroCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-AssignMacroCommandParser -[hidden]-> ClinicParser
-destroy AssignMacroCommandParser
+RemoveMacroCommandParser -[hidden]-> ClinicParser
+destroy RemoveMacroCommandParser
 
 ClinicParser --> LogicManager :
 deactivate ClinicParser
 
-LogicManager -> AssignMacroCommand : execute()
-activate AssignMacroCommand
+LogicManager -> RemoveMacroCommand : execute()
+activate RemoveMacroCommand
 
-AssignMacroCommand -> Model : getMacro(alias)
+RemoveMacroCommand -> Model : getMacro(alias)
 activate Model
 
-Model --> AssignMacroCommand :
+Model --> RemoveMacroCommand :
 deactivate Model
 
-AssignMacroCommand -> Model : deleteMacro(macro)
+RemoveMacroCommand -> Model : deleteMacro(macro)
 activate Model
 
-Model --> AssignMacroCommand :
+Model --> RemoveMacroCommand :
 deactivate Model
 
 create CommandResult
-AssignMacroCommand -> CommandResult
+RemoveMacroCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> AssignMacroCommand
+CommandResult --> RemoveMacroCommand
 deactivate CommandResult
 
-AssignMacroCommand --> LogicManager : result
-deactivate AssignMacroCommand
+RemoveMacroCommand --> LogicManager : result
+deactivate RemoveMacroCommand
 
 [<--LogicManager
 deactivate LogicManager
