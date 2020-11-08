@@ -783,11 +783,11 @@ A supplier's attributes consist of `name`, `phone` and `email` while a warehouse
 
 The supplier/warehouse can also consist of an optional `remark` attribute.
 
-<div markdown="span" class="alert alert-info">:information_source: Note: <div>
-
+<div markdown="span" class="alert alert-info">:information_source: Note:
 `add` feature does not include product information and the `update` feature should be used to associate a
 supplier/warehouse with a product and its associated quantity and tags. This is elaborated in the
 [**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
+<div>
 
 #### Path Execution of Add Command
 The workflow of an `add` command when executed by a user is shown in the Activity Diagram below:
@@ -820,10 +820,10 @@ will be discussed with the aid of a Sequence Diagram as shown below.
 
 ![Add Command Sequence Diagram](images/AddCommandSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: Note:</div>
-
+<div markdown="span" class="alert alert-info">:information_source: Note:
 The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of
  PlantUML, the lifeline reaches the end of diagram.
+</div>
 
 1. Parsing
 
@@ -1645,8 +1645,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Warehouse**: The places where the medical supplies are channelled to and kept. The storage condition of these warehouses is managed by the manager, which is our app user
 
 #### Command Prefix
-<div markdown="span" class="alert alert-info">:information_source: </div> Note: Command links are directed to
+<div markdown="span" class="alert alert-info">:information_source:  Note: Command links are directed to
 supplier by default.
+</div>
 
 |Prefix   |Meaning  |Used in the following Command(s)|
 | ------- |-------- | ------------ |
