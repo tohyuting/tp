@@ -105,7 +105,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AddCommand.MESSAGE_USAGE);
         }
 
-        //First Prefix to check
+        //Current Prefix to Parse
         Prefix currentPrefix = PREFIX_NAME;
 
         Name name;
@@ -154,7 +154,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Remark remark;
         Phone phone;
 
-        //First prefix to test
+        //Current Prefix to Parse
         Prefix currentPrefix = PREFIX_NAME;
         try {
             name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

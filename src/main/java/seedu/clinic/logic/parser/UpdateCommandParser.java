@@ -50,7 +50,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         Type entityType;
         Index index;
 
-        //First prefix to test
+        //Current Prefix to Parse
         Prefix currentPrefix = PREFIX_TYPE;
 
         try {

@@ -71,7 +71,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         String[] productKeywords = {};
         String[] remarkKeywords = {};
 
-        //First prefix to test
+        //Current Prefix to Parse
         Prefix currentPrefix = PREFIX_NAME;
 
         try {

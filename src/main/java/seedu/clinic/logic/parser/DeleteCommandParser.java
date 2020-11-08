@@ -44,8 +44,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         Type type;
         Index index;
 
-        //First prefix to test
+        //Current Prefix to Parse
         Prefix currentPrefix = PREFIX_TYPE;
+
         try {
             type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
             currentPrefix = PREFIX_INDEX;

@@ -31,6 +31,7 @@ public class AssignMacroCommandParser implements Parser<AssignMacroCommand> {
         if (!argMultimap.getPreamble().isEmpty()) {
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), AssignMacroCommand.MESSAGE_USAGE);
         }
+
         Macro macro;
         Alias alias;
 

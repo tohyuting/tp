@@ -63,9 +63,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (!argMultimap.getPreamble().isEmpty()) {
             ParserUtil.checkInvalidArgumentsInPreamble(argMultimap.getPreamble(), EditCommand.MESSAGE_USAGE);
         }
+
+        //Current Prefix to Parse
         Prefix currentPrefix = PREFIX_INDEX;
+
         Type type;
         Index index;
+
         try {
             index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
             currentPrefix = PREFIX_TYPE;
