@@ -111,7 +111,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 The `Model`,
 
 * stores a `UserPref` object that represents the user’s preferences.
-* stores the clinic data.
+* stores the CLI-nic data.
 * exposes an unmodifiable `ObservableList<Supplier>`, `ObservableList<Warehouse>` and `ObservableList<Macro>` that can be 'observed' e.g. the UI can be bound to these lists so that the UI automatically updates when the data in the lists change.
 * does not depend on any of the other three components.
 
@@ -131,7 +131,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save `UserMacros` objects in json format and read it back.
 * can save `CommandHistory` objects in json format and read it back.
-* can save the clinic data in json format and read it back.
+* can save the CLI-nic data in json format and read it back.
 
 ### Common classes
 
@@ -193,40 +193,38 @@ The deletion is limited to the items shown in the list displayed in GUI, and is 
 
 #### Path Execution of Delete Command
 
-The workflow of a `Delete` Command when executed by a user is shown in the activity diagram below:
+The workflow of a `DeleteCommand` when executed by a user is shown in the activity diagram below:
 
 ![Delete Command Activity Diagram](images/DeleteCommandActivityDiagram.png)
-<center><i>Figure n. Delete Command Activity Diagram</i></center>
 <br>
 
-With reference to the activity diagram above, the user input will be sent to **`DeleteCommandParser`** for parsing.
-The **`DeleteCommandParser`** will check if the compulsory prefixes are present (i.e. `ct/TYPE` and `i/INDEX`) and the corresponding
+With reference to the activity diagram above, the user input will be sent to `DeleteCommandParser` for parsing.
+The `DeleteCommandParser` will check if the compulsory prefixes are present (i.e. `ct/TYPE` and `i/INDEX`) and the corresponding
 argument values are all valid.
-A **`ParseException`** will be thrown if the check fails.
+A `ParseException` will be thrown if the check fails.
 
 If the `TYPE` parsed indicates a product deletion (via `ct/ps` or `ct/pw`), an additional field `PRODUCT_NAME` is parsed with its prefix and value checked.
 
-Next, a new **`DeleteCommand`** will be generated and executed. There are four possible paths for the `delete` command:
+Next, a new `DeleteCommand` will be generated and executed. There are four possible paths for the `delete` command:
 
 1. The target to delete is a `supplier`/`warehouse` <br>
 CLI-nic finds the target `supplier`/`warehouse` at the specified `INDEX` of the displayed list, and remove it completely.
 
 1. The `INDEX` specified is invalid (e.g. exceeds the length of the list) <br>
-A **`CommandException`** error message wil be thrown.
+A `CommandException` error message wil be thrown.
 
-1. The target to delete is a `product` in a particular 'supplier' <br>
+1. The target to delete is a `product` in a particular `supplier` <br>
 CLI-nic finds the target `supplier` at the specified `INDEX` of the displayed supplier list, and retrieve its product list.<br>
 It finds the `product` with specified `PRODUCT_NAME` and remove it from the product list.
 
 1. No `product` has the `PRODUCT_NAME` in the target warehouse/supplier <br>
-A **`CommandException`** error message wil be thrown.
+A `CommandException` error message wil be thrown.
 
 #### Structure of Delete command
 
 We demonstrate the structure of the `delete` feature implementation below.
 
 ![Delete Command Class Diagram](images/DeleteCommandClassDiagram.png)
-<center><i>Figure n. Delete Command Class Diagram</i></center>
 <br>
 
 Note that some commonly applied methods (such as getter/setter methods for each attribute) are not included to reduce verbosity.
@@ -236,9 +234,11 @@ Note that some commonly applied methods (such as getter/setter methods for each 
 In the following section, the interaction between Delete Command and its associated objects in the delete feature will be discussed.
 The sequence diagrams below demonstrate the workflow in the deletion feature.
 
+##### Deletion of a supplier/warehouse
+
 ![Delete Command Sequence Diagram](images/DeleteCommandSequenceDiagram.png)
-<center><i>Figure n. Delete Command Sequence Diagram for supplier deletion </i></center>
 <br>
+
 
 1. Parsing <br>
 
@@ -253,7 +253,10 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
 2. Execution <br>
 
-    The `DeleteCommand` is executed via a `execute` call from `LogicManager`. <br>
+    The `DeleteCommand` is executed via a `execute` call from `LogicManager`.
+    The workflow for an execution of `DeleteCommand` is as shown in the Sequence Diagram below:<br>
+    
+    ![Delete Command Execution Sequence Diagram](images/DeleteCommandExecutionSequenceDiagram.png) <br>
 
     Using the `targetType` attribute, the execution is first classified as either Supplier deletion (`s`) or Warehouse deletion (`w`). <br>
 
@@ -264,11 +267,13 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
     Afterwards, `model#deleteWarehouse`/`model#deleteSupplier` will remove the target entry from the list in the `model`. The `model` will then update the displayed list.
 
 3. Result display <br>
-    With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with a success message, which will
-    be shown to the user in the UI.
+
+    With the deletion completed, the Model will update the filtered lists of `Supplier` and `Warehouse` to be displayed in the UI.
+    A `CommandResult` will be returned to the `LogicManager` with a success message, which will be shown to the user in the UI.
+    
+##### Deletion of a product
 
 ![Delete Command Sequence 2 Diagram](images/DeleteCommandSequenceDiagram2.png)
-<center><i>Figure n. Delete Command Sequence Diagram for product deletion</i></center>
 <br>
 
 1. Parsing
@@ -279,7 +284,10 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
 2. Execution
 
-    The `DeleteCommand` is executed via an `execute` call from `LogicManager`. <br>
+    The `DeleteCommand` is executed via an `execute` call from `LogicManager`.
+    The workflow for an execution of `DeleteCommand` is as shown in the Sequence Diagram below:<br>
+        
+    ![Delete Command Execution Sequence 2 Diagram](images/DeleteCommandExecutionSequenceDiagram2.png) <br>
 
     Using the `targetType` attribute, the execution is now classified as either Supplier-related product deletion (`ps`) or Warehouse-related product deletion (`pw`). <br>
 
@@ -292,8 +300,9 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
     Afterwards, `model#setWarehouse`/`model#setSupplier` will replace the old entry with the updated target entry from the list in the `model`. The `model` will then update the displayed list.
 
 3. Result display <br>
-    With the deletion completed, a `CommandResult` will be returned to the `LogicManager` with a success message, which will
-    be shown to the user in the UI.
+
+    With the deletion completed, the Model will update the filtered lists of `Supplier` and `Warehouse` to be displayed in the UI.
+    A `CommandResult` will be returned to the `LogicManager` with a success message, which will be shown to the user in the UI.
 
 
 ### Edit feature
@@ -1157,6 +1166,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 3a1-3a2 are repeated until the data entered are valid. <br>
     Use case resumes at step 4.
 
+* 3b. The given command format is incorrect.
+  
+  * 3b1. CLI-nic shows an error message and gives command suggestions.
+  * 3a2. User enters the new command input.
+  
+      Steps 3b1-3b2 are repeated until the data entered are valid. <br>
+      Use case resumes at step 4.
+
 **Use case: UC06 Delete a warehouse**
 
 **MSS**
@@ -1183,6 +1200,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Steps 3a1-3a2 are repeated until the data entered are valid.
     Use case resumes at step 4.
+    
+* 3b. The given command format is incorrect.
+  
+  * 3b1. CLI-nic shows an error message and gives command suggestions.
+  * 3a2. User enters the new command input.
+  
+      Steps 3b1-3b2 are repeated until the data entered are valid. <br>
+      Use case resumes at step 4.
 
 **Use case: UC07 Delete a product from a supplier**
 
@@ -1690,20 +1715,38 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: No warehouse is added. Error details will be displayed, stating that a warehouse with duplicate
       `WAREHOUSE_NAME` cannot be added into CLI-nic. WarehouseList on GUI remain unchanged.
 
-### Deleting a supplier
+### Deleting a Supplier/Warehouse
 
-1. Deleting a supplier while all suppliers are being shown
+1. Delete command format: `delete ct/TYPE i/INDEX`
 
-   1. Prerequisites: List all suppliers using the `list` command. Multiple suppliers in the list.
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `delete ct/s i/1`<br>
+      Expected: First supplier is deleted from the list. Details of the deleted supplier shown in the status message.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: Invalid argument for the type specified e.g. `delete ct/0`<br>
       Expected: No supplier is deleted. Error details shown in the status message. Status bar remains the same.
+      
+   1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/s i/1000`<br>
+         Expected: No supplier is deleted. Error details is shown in the status message.
+         
+### Deleting a Product from a Supplier/Warehouse
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+1. Delete command format: `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`
+
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier with some product in the list. First warehouse does not have the product `Panadol` while the first supplier has.
+
+   1. Test case: `delete ct/pw i/1 pd/panadol`<br>
+      Expected: The `Panadol` product in the first warehouse is deleted. Details of the deleted product shown in the status message.
+
+   1. Test case: Invalid argument for the type specified e.g. `delete ct/w i/1 pd/Panadol`<br>
+      Expected: No product is deleted. No warehouse is deleted as well. Error details shown in the status message. Status bar remains the same.
+      
+   1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/pw i/1000 pd/Panadol`<br>
+         Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.v
+ 
+   1. Test case: Provided product (by name) is not found in the product list of the supplier/warehouse e.g. `delete ct/pw i/1000 pd/P`<br>
+               Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.
 
 ### Updating a Product in a Supplier/Warehouse
 

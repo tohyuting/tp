@@ -374,7 +374,7 @@ Format: `list`
 
 ### Redoing : `redo`
 
-Restores the data in CLI-nic before an `undo` command was executed.
+Restores the data in CLI-nic to the version before an `undo` command was done.
 
 Format: `redo`
 

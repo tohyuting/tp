@@ -78,6 +78,7 @@ public class DeleteCommand extends Command {
     private final Optional<Name> targetProductName;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    //@@author criss-wang
     /**
      * Creates a DeleteCommand to delete the warehouse/supplier at {@code targetIndex} of the displayed list.
      */
@@ -88,6 +89,7 @@ public class DeleteCommand extends Command {
         logger.log(Level.INFO, LOG_MESSAGE_NORMAL_DELETION);
     }
 
+    //@@author criss-wang
     /**
      * Creates a DeleteCommand to delete the specified {@code targetProductName} in the warehouse/supplier
      * at {@code targetIndex} of the displayed list.
@@ -110,6 +112,7 @@ public class DeleteCommand extends Command {
         }
     }
 
+    //@@author criss-wang
     private CommandResult executeWarehouseRelatedDeletion(Model model) throws CommandException {
         List<Warehouse> lastShownList = model.getFilteredWarehouseList();
 
@@ -144,6 +147,7 @@ public class DeleteCommand extends Command {
         }
     }
 
+    //@@author criss-wang
     private CommandResult executeSupplierRelatedDeletion(Model model) throws CommandException {
         List<Supplier> lastShownList = model.getFilteredSupplierList();
 

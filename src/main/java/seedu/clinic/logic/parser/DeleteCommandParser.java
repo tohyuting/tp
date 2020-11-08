@@ -22,6 +22,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     private static final String MESSAGE_INVALID_PRODUCT_PREFIX = "The product name prefix should not"
             + " be present when you are deleting a supplier or warehouse!\n\n%1$s";
 
+    //@@author criss-wang
     /**
      * Parses the given {@code String} of arguments, identifies the correct type of DeleteCommand via argument length
      * and returns the DeleteCommand object for execution.

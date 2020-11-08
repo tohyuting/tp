@@ -11,7 +11,7 @@ import seedu.clinic.model.exceptions.NoUndoableVersionException;
 public class VersionedClinic extends Clinic {
     private final Stack<ReadOnlyClinic> redoVersionStack;
     private final Stack<ReadOnlyClinic> undoVersionStack;
-    private ReadOnlyClinic currentClinic; // current version of Clinic
+    private ReadOnlyClinic currentClinic; // current version of Clinic data
 
     /**
      * Creates a {@code VersionedClinic} with the given {@code ReadOnlyClinic}.

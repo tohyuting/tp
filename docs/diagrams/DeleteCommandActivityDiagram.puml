@@ -26,7 +26,8 @@ if () then ([required prefixes present & all values valid])
                 :Generate Command Exception;
             else ([else])
                 : Retrieve matching product
-                from the set;
+                from the set of products
+                in the supplier/warehouse;
                 :Remove the target product;
             endif
         endif

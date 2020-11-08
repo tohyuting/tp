@@ -1,0 +1,107 @@
+@startuml
+!include style.puml
+
+mainframe sd Execution of DeleteCommand for Product
+
+box Logic LOGIC_COLOR_T1
+participant ":DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "supplierList:List" as supplierList MODEL_COLOR
+participant "warehouseList:List" as warehouseList MODEL_COLOR
+participant "s:Supplier" as s MODEL_COLOR
+participant "w:Warehouse" as w MODEL_COLOR
+end box
+
+alt SUPPLIER
+activate DeleteCommand
+DeleteCommand -> Model : getFilteredSupplierList()
+activate Model
+Model --> DeleteCommand  : supplierList
+deactivate Model
+
+DeleteCommand -> supplierList : get(index)
+activate supplierList
+create s
+supplierList -> s
+activate s
+s --> supplierList
+deactivate s
+supplierList --> DeleteCommand : s
+deactivate supplierList
+
+
+
+DeleteCommand -> s : removeProduct
+activate s
+s --> DeleteCommand : updatedSupplier
+deactivate s
+destroy s
+
+DeleteCommand -> Model : setSupplier(s, updatedSupplier)
+activate Model
+deactivate Model
+
+DeleteCommand -> Model : updateFilteredSupplierList(...)
+activate Model
+deactivate Model
+
+deactivate Model
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteCommand
+deactivate CommandResult
+DeleteCommand --> DeleteCommand
+
+
+else WAREHOUSE
+
+DeleteCommand -> Model : getFilteredWarehouseList()
+activate Model
+Model --> DeleteCommand  : warehouseList
+deactivate Model
+
+DeleteCommand -> warehouseList : get(index)
+activate warehouseList
+create w
+warehouseList -> w
+activate w
+w --> warehouseList
+deactivate w
+warehouseList --> DeleteCommand : w
+deactivate warehouseList
+
+
+DeleteCommand -> w : removeProduct
+activate w
+w --> DeleteCommand : updatedWarehouse
+deactivate w
+destroy w
+
+
+DeleteCommand -> Model : setWarehouse(w, updatedWarehouse)
+activate Model
+deactivate Model
+
+DeleteCommand -> Model : updateFilteredWarehouseList(...)
+activate Model
+deactivate Model
+
+deactivate Model
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteCommand
+deactivate CommandResult
+DeleteCommand --> DeleteCommand
+
+end
+deactivate DeleteCommand
+
+@enduml

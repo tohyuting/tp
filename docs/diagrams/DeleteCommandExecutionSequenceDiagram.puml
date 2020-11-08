@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+mainframe sd Execution of DeleteCommand
+
+box Logic LOGIC_COLOR_T1
+participant ":DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "lastShownSupplierList:List" as lastShownSupplierList MODEL_COLOR
+participant "lastShownWarehouseList:List" as lastShownWarehouseList MODEL_COLOR
+end box
+
+alt SUPPLIER
+activate DeleteCommand
+DeleteCommand -> Model : getFilteredSupplierList()
+activate Model
+Model --> DeleteCommand  : lastShownSupplierList
+deactivate Model
+
+DeleteCommand -> lastShownSupplierList : get(index)
+activate lastShownSupplierList
+lastShownSupplierList --> DeleteCommand : supplierToDelete
+deactivate lastShownSupplierList
+DeleteCommand -> Model : deleteSupplier(supplierToDelete)
+activate Model
+deactivate Model
+
+DeleteCommand -> Model : updateFilteredSupplierList(...)
+activate Model
+deactivate Model
+
+deactivate Model
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteCommand
+deactivate CommandResult
+DeleteCommand --> DeleteCommand
+
+
+else WAREHOUSE
+
+DeleteCommand -> Model : getFilteredWarehouseList()
+activate Model
+Model --> DeleteCommand  : lastShownWarehouseList
+deactivate Model
+
+DeleteCommand -> lastShownWarehouseList : get(index)
+activate lastShownWarehouseList
+lastShownWarehouseList --> DeleteCommand : warehouseToDelete
+deactivate lastShownWarehouseList
+DeleteCommand -> Model : deleteWarehouse(warehouseToDelete)
+activate Model
+deactivate Model
+
+DeleteCommand -> Model : updateFilteredWarehouseList(...)
+activate Model
+deactivate Model
+
+deactivate Model
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteCommand
+deactivate CommandResult
+DeleteCommand --> DeleteCommand
+end
+deactivate DeleteCommand
+
+@enduml
