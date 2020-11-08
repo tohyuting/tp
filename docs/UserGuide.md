@@ -25,9 +25,9 @@ via fast typing and efficient Graphical User Interface interaction.
 Note how the app contains some sample data.<br>
   ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will
-display instructions for the various commands. Typing **`help delete`** and pressing Enter will display in-depth
-instructions for the **`delete`** command.<br>Here are some sample commands to try:
+1. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will
+display instructions for the various commands. Typing `help delete` and pressing Enter will display in-depth
+instructions for the `delete` command.<br>Here are some sample commands to try:
 
    * **`add`** `ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` : Adds a
     warehouse named `warehouseA` located at `John street, block 123, #01-01` to CLI-nic. This warehouse is the
@@ -83,11 +83,11 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
 * Items in square brackets are optional<br>
   e.g. `add ct/s n/NAME p/PHONE e/EMAIL [r/REMARK]` can be used as:
   * `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/fast reply` or as
-  * `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com`.
+  * `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com`.<br>
 
 * Items with `…`​ after them can be used multiple times.<br>
   * e.g. `[pd/PRODUCT_NAME…​]` can be used as `pd/panadol`, `pd/panadol needle syringe` and so on.
-  * Note that only **one prefix is used with multiple keywords** if necessary.
+  * Note that only **one prefix is used with multiple keywords** if necessary.<br>
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
@@ -101,6 +101,9 @@ instructions for the **`delete`** command.<br>Here are some sample commands to t
   define it in their assigned Macro commands.<br>
   e.g. `delete ct/TYPE i/INDEX pd/PRODUCT_NAME` can be used as `delete ct/pw i/1 pd/Panadol` but not
   `delete ct/pw i/1 pd/Panadol r/Fast relief` nor `delete ct/pw i/1 pd/Panadol/Panadol Strong`.
+  
+* For single word commands that do not take in arguments such as `clear`, `list`, `redo` and `undo`, trailing keywords
+  after the command word will be ignored.
 
 </div>
 
@@ -378,9 +381,6 @@ Restores the data in CLI-nic to the version before an `undo` command was done.
 
 Format: `redo`
 
-* Trailing words behind the command word will be ignored.
-* For example, if one types `redo trailing`, `redo` will be called to redo the editing. `trailing` will be ignored.
-
 ![redo](images/redoCommand.png)
 
 <div markdown="span" class="alert alert-info">
@@ -413,9 +413,6 @@ There is no need to save manually.
 Recovers a previous version of CLI-nic data if data has been changed.
 
 Format: `undo`
-
-* Trailing words behind the command word will be ignored.
-* For example, if one types `undo redo`, `undo` will be called to undo the editing. `redo` will be ignored.
 
 ![undo](images/undoCommand.png)
 
@@ -491,6 +488,18 @@ Example:
 
 * `view ct/w i/2` : Displays all the information associated with the warehouse at index 2 in the warehouse list.
   ![view warehouse](images/viewWarehouse.png)
+  
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+The `view` command is optimised for users who prefer to use the keyboard.
+
+Using the `view` command, users can view the products associated with a specific supplier or warehouse without needing
+to use the mouse.
+
+Alternatively, users can click on the products pane in the GUI using the mouse to view the products associated.
+
+Users might also find it useful to use the `view` command in conjunction with the `find` command.
+</div>
 
 <br />
 
