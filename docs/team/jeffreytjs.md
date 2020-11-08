@@ -46,13 +46,14 @@ Given below are my contributions to the project.
     various features were successfully integrated with the codebase for production.
     <br> Credits: This feature was adapted from past student [ShaunNgTX](https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java)
 
-* **Minor Enhancement**: Fix bugs for the CLI-nic (Pull requests: [#130](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/130), [#131](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/131), [#141](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/141), [#158](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/158), [#160](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/160), [#165](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/165), [#172](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/212), [#212](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/212))
+* **Minor Enhancement**: Fix bugs for the CLI-nic (Pull requests: [#130](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/130), [#131](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/131), [#141](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/141), [#158](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/158), [#160](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/160), [#165](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/165), [#172](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/172), [#212](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/212))
    * What it does: Restricts user from performing invalid actions and improve user experience when using
     CLI-nic.
    * Justification: This is an essential update, as invalid actions would affect the functionality of the
     CLI-nic. Unresolved UI bugs may not display all the information that users are looking for.
    * Challenges: There were many UI related bugs which the team was inexperienced in, so it took some
     time to learn about the various components and stepwise trial-and-error to fix them.
+
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=jeffreytjs)
 
