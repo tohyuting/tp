@@ -1714,8 +1714,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       indicating that one of the prefixes specified is not recognised would be shown in the response message.
       A usage message will be displayed for both cases to guide user accordingly. SupplierList on GUI
       remains unchanged.
-   1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e
-      /johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
+   1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e/johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
       Expected: No supplier is added. Error details will be displayed, indicating that the supplier to be
       added already exists in CLI-nic and thus cannot be added. SupplierList on GUI remain unchanged.
 
