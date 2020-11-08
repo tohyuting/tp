@@ -646,28 +646,29 @@ it would then be no longer necessary to keep the macro list on the display.
 ### Add feature
 
 The `add` feature will be elaborated in this section by its functionality and path execution with the aid of
-Class, Activity, and Sequence Diagrams. It is facilitated by the `AddCommandParser` and the `AddCommand`.
-The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to
+Class, Activity, and Sequence Diagrams. It is facilitated by the `AddCommandParser` and the `AddCommand` where
+`AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`. These allow the user to
 add a supplier/warehouse to the app using the command line.
 
 The following Class Diagram of `AddCommand` shows the interactions between `AddCommand` and other classes
 in CLI-nic:
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Only important associations
+<div markdown="span" class="alert alert-info">:information_source: </div> **Note:** Only important
+ associations
 are displayed.
 
 ![Add Command Class Diagram](images/AddCommandClassDiagram.png)
 
 #### What Add feature does
 
-The `add` feature allows user to add a supplier/warehouse information.
+The `add` feature allows user to add information for a supplier/warehouse.
 
-The supplier's attributes minimally consist of `name`, `phone` and `email` while the warehouse's attributes
+A supplier's attributes minimally consist of `name`, `phone` and `email` while a warehouse's attributes
 minimally consist of `name`, `phone` and `address`.
 
 The supplier/warehouse can also consist of an optional `remark` attribute.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** <div>
+<div markdown="span" class="alert alert-info">:information_source: <div> **Note:**
 
 `add` feature does not include product information and `update` feature should be used to associate a
 supplier/warehouse with a product and its associated quantity and tags. This is elaborated in the
@@ -685,17 +686,17 @@ Important features of the Activity Diagram are as follows:
  This applies for all other prefixes as well.
  
 1. After the user calls the `add` command, the code will check for the presence of all the compulsory
- prefixes (i.e. ct/COMMAND_TYPE, n/NAME, p/PHONE and e/EMAIL or addr/ADDRESS for supplier and warehouse
+ prefixes (i.e. `ct/COMMAND_TYPE`, `n/NAME`, `p/PHONE` and `e/EMAIL` or `addr/ADDRESS` for supplier and warehouse
  respectively) in the input. A `ParseException` will be thrown if any of the compulsory prefixes are not
  present.
  
    Similarly, `ParseException` will be thrown if there are any invalid prefixes or inappropriate fields
    provided (e.g. input a `String` value for `phone`).
  
-1. `AddCommand` will then be executed. The new supplier/warehouse will be added in the model, allowing
+1. `AddCommand` will then be executed. The new supplier/warehouse will be added in the `Model`, allowing
  users to see the added supplier/warehouse.
  
-    If new supplier/warehouse to be added has a duplicate name (i.e. The supplier/warehouse name already
+    If new supplier/warehouse to be added has a duplicate name (i.e. the supplier/warehouse name already
     exist in CLI-nic), it will throw a `CommandException`. Otherwise, a success message will be displayed
     to the user.
 
@@ -704,7 +705,7 @@ will be discussed with the aid of a Sequence Diagram as shown below.
 
 ![Add Command Sequence Diagram](images/AddCommandSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** </div> 
+<div markdown="span" class="alert alert-info">:information_source: </div> **Note:**
 
 The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of
  PlantUML, the lifeline reaches the end of diagram.
@@ -729,11 +730,10 @@ The lifeline for `AddCommandParser` should end at the destroy marker (X) but due
 
 1. Execution
 
-    The parsed object values will then be put it into the parameters of the new Supplier/Warehouse object to
-    create an entity with the user input. `Model#hasSupplier`/`Model#hasWarehouse` will then be called to check
-    for duplicates (i.e. if `Model` already contains a supplier or warehouse with the same name), a
-    CommandException will be thrown to inform user of the duplicated supplier/warehouse. Otherwise, the
-    supplier/warehouse will be successfully added via `Model#addSupplier`/`Model#addWarehouse`.
+    `Model#hasSupplier`/`Model#hasWarehouse` will then be executed to check for duplicates (i.e. if
+    `Model` already contains a supplier or warehouse with the same name), a CommandException will be
+    thrown to inform user of the duplicated supplier/warehouse. Otherwise, the supplier/warehouse will be
+    successfully added via `Model#addSupplier`/`Model#addWarehouse`.
 
 1. Result display
 
