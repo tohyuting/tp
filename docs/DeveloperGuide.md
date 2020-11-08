@@ -1584,20 +1584,38 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: No warehouse is added. Error details will be displayed, stating that a warehouse with duplicate
       `WAREHOUSE_NAME` cannot be added into CLI-nic. WarehouseList on GUI remain unchanged.
 
-### Deleting a supplier
+### Deleting a Supplier/Warehouse
 
-1. Deleting a supplier while all suppliers are being shown
+1. Delete command format: `delete ct/TYPE i/INDEX`
 
-   1. Prerequisites: List all suppliers using the `list` command. Multiple suppliers in the list.
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `delete ct/s i/1`<br>
+      Expected: First supplier is deleted from the list. Details of the deleted supplier shown in the status message.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: Invalid argument for the type specified e.g. `delete ct/0`<br>
       Expected: No supplier is deleted. Error details shown in the status message. Status bar remains the same.
+      
+   1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/s i/1000`<br>
+         Expected: No supplier is deleted. Error details is shown in the status message.
+         
+### Deleting a Product from a Supplier/Warehouse
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+1. Delete command format: `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`
+
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier with some product in the list. First warehouse does not have the product `Panadol` while the first supplier has.
+
+   1. Test case: `delete ct/pw i/1 pd/panadol`<br>
+      Expected: The `Panadol` product in the first warehouse is deleted. Details of the deleted product shown in the status message.
+
+   1. Test case: Invalid argument for the type specified e.g. `delete ct/pw i/1 pd/Panadol`<br>
+      Expected: No product is deleted. No warehouse is deleted also. Error details shown in the status message. Status bar remains the same.
+      
+   1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/pw i/1000 pd/Panadol`<br>
+         Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.v
+ 
+   1. Test case: Provided product (by name) is not found in the product list of the supplier/warehouse e.g. `delete ct/pw i/1000 pd/P`<br>
+               Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.
 
 ### Updating a Product in a Supplier/Warehouse
 
@@ -1657,6 +1675,25 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
 1. _{ more test cases …​ }_
 
+<<<<<<< HEAD
+### Undo a command
+1. undo command format: `undo`
+
+    1. Test case: The `clear` command was executed. <br>
+        Expected: The data removed will be restored.
+
+    1. Test case: No data is changed. <br>
+        Expected: The data will not change. Displayed messages states that no earlier version of CLI-nic data to restore.
+
+### Redo a command
+1. Redo command format: `redo`
+
+    1. Test case: The `clear` command was executed first, followed by an `undo` command <br>
+        Expected: The data removed will be restored will .
+        
+    1. Test case: Only the `clear` command was executed. <br>
+        Expected: The data will not change. Displayed messages states that CLI-nic data do not have a later version.
+=======
 ## Clearing CLI-nic
 
 1. Clear command format: `clear`
