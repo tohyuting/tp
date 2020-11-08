@@ -23,11 +23,7 @@ class Supplier {
     - products : Set<Product>
 
     /' Methods '/
-    + getProductByName(targetName : Name) : Product
-    + hasProductWithName(targetName : Name) : boolean
     + equals(other : Object) : boolean
-    + hashCode() : int
-    + toString() : String
     + isSameSupplier(otherSupplier : Supplier) : boolean
 }
 
@@ -40,11 +36,7 @@ class Warehouse {
     - products : Set<Product>
 
     /' Methods '/
-    + getProductByName(targetName : Name) : Product
-    + hasProductWithName(targetName : Name) : boolean
     + equals(other : Object) : boolean
-    + hashCode() : int
-    + toString() : String
     + isSameWarehouse(otherWarehouse : Warehouse) : boolean
 }
 
