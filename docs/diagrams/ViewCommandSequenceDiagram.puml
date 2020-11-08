@@ -33,6 +33,8 @@ ViewCommand --> ViewCommandParser
 deactivate ViewCommand
 
 ViewCommandParser --> ClinicParser : v
+deactivate ViewCommandParser
+ViewCommandParser -[hidden]-> ClinicParser : v
 destroy ViewCommandParser
 ClinicParser --> LogicManager : v
 deactivate ClinicParser
