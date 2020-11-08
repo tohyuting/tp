@@ -48,7 +48,7 @@ checking on LoC contributions and milestones management
 <img src="images/tohyuting.png" width="200px">
 
 [[github](https://github.com/tohyuting)]
-[[portfolio](team/yuTing.md)]
+[[portfolio](team/tohyuting.md)]
 
 * Role: Minute manager/Assistant draft manager
 * Responsibilities: Record minutes during meeting and manage collaborative documentations for project discussions.
