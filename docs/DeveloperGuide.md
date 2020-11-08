@@ -116,7 +116,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a
- more OOP) model is given below.<br>
+ more OOP) model for `Clinic` is given below.<br>
 ![BetterModelClassDiagram](images/BetterModelClassDiagram.png)
 
 </div>
