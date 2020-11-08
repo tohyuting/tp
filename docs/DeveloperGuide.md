@@ -1937,7 +1937,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: No macros listed. Displayed message states that no macros are presently saved.
 
 
-### Listing CLI-nic
+### Listing Suppliers and Warehouses
 
 1. List command format: `list`
 
