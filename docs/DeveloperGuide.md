@@ -28,7 +28,7 @@ The ***Architecture Diagram*** given above explains the high-level design of the
 </div>
 
 **`Main`** has two classes called [`Main`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/Main.java) and [`MainApp`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At app launch: Initializes the components in the correct sequence and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
@@ -65,7 +65,7 @@ The sections below give more details of each component.
 **API** :
 [`Ui.java`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `SupplierListPanel`, `WarehouseListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `SupplierListPanel`, `WarehouseListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts is defined in matching `.fxml
 ` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow
@@ -206,17 +206,17 @@ If the `TYPE` parsed indicates a product deletion (via `ct/ps` or `ct/pw`), an a
 Next, a new **`DeleteCommand`** will be generated and executed. There are four possible paths for the `delete` command:
 
 1. The target to delete is a `supplier`/`warehouse` <br>
-CLI-nic finds the target `supplier`/`warehouse` at the specified `INDEX` of the displayed list, and remove it completely.
+CLI-nic finds the target `supplier`/`warehouse` at the specified `INDEX` of the displayed list and remove it completely.
 
 1. The `INDEX` specified is invalid (e.g. exceeds the length of the list) <br>
-A **`CommandException`** error message wil be thrown.
+A **`CommandException`** error message will be thrown.
 
 1. The target to delete is a `product` in a particular 'supplier' <br>
-CLI-nic finds the target `supplier` at the specified `INDEX` of the displayed supplier list, and retrieve its product list.<br>
+CLI-nic finds the target `supplier` at the specified `INDEX` of the displayed supplier list and retrieve its product list.<br>
 It finds the `product` with specified `PRODUCT_NAME` and remove it from the product list.
 
 1. No `product` has the `PRODUCT_NAME` in the target warehouse/supplier <br>
-A **`CommandException`** error message wil be thrown.
+A **`CommandException`** error message will be thrown.
 
 #### Structure of Delete command
 
@@ -352,7 +352,7 @@ In addition, since Supplier contains an **`Email`** attribute, parsing of this f
 ![Edit Command Warehouse Details Sequence Diagram](images/EditCommandDescriptorWarehouseDetailsSequenceDiagram.png)
 
 
-During these parsing process, **`ParseException`** will be thrown if any of the inputs are invalid.
+During these parsing processes, **`ParseException`** will be thrown if any of the inputs are invalid.
 
 EditCommand will be executed and the workflow is illustrated below:
 
@@ -368,7 +368,7 @@ In addition, it was intended for **EditCommand** to throw out a **CommandExcepti
 
 Besides, a command type prefix, `ct/COMMAND_TYPE` is required in the implementation of `edit` command to indicate whether user wishes to edit a warehouse or supplier entry. Without this, an alternative would be for a `TYPE` parameter, where user have to indicate `supplier` or `warehouse`. However, this may not be suitable for our target user, who wishes to update information quickly.
 
-Lastly, another alternative considered was to create separate commands for warehouses and suppliers respectively. For example, `editw` and `edits` to represent edit warehouse and edit supplier. However, this might increase duplicated codes, since minimal changes to the code would be found for each class of command.
+Lastly, another alternative considered was to create separate commands for warehouses and suppliers respectively. For example, `editw` and `edits` to represent edit warehouse and edit supplier. However, this might increase duplicated codes since minimal changes to the code would be found for each class of command.
 
 Therefore, our team decided to implement `edit` command by taking in prefixes and throwing our relevant exceptions at appropriate points after considering code quality and end user experience.
 
@@ -379,20 +379,22 @@ The `view` feature will be elaborated in this section by its' functionality and 
 `view` command allows user to view a particular warehouse or supplier in warehouse or supplier list displayed. This allows users to take a closer look at the contact details of a specific warehouse or supplier which they might be interested to contact for further details. For each command, only one warehouse or one supplier can be requested for viewing.
 
 #### Path Execution of View Command
-The workflow of an `view` command when it is executed by a user is shown in the activity diagram below:
+The workflow of a `view` command when it is executed by a user is shown in the activity diagram below:
 
 ![View Command Activity Diagram](images/ViewCommandActivity.png)
 
 When a user's input is parsed, **`ViewCommandParser`** checks if both command type and index are present in the input. A **`ParseException`** will be thrown if either one or both are missing in user's input.
 
-Only 2 command types are allowed, they are `ct/s` and `ct/w`. In addition, if any values for prefixes are invalid (e.g. invaid command type specified), a **`ParseException`** will be thrown.
+Only 2 command types are allowed, they are `ct/s` and `ct/w`. In addition, if any values for prefixes are
+ invalid (e.g. invalid command type specified), a **`ParseException`** will be thrown.
 
 If parsing is successful, **`ViewCommand`** will be created and executed. If the `INDEX` specified by user is greater than the length of the list, a **`CommandException`** will be thrown. At the end, a view command success message will be displayed and the relevant supplier or warehouse list will only show one supplier or warehouse.
 
 The logical workflow of this process is further explained in the sequence diagram below:
 ![View Command Sequence Diagram](images/ViewCommandSequenceDiagram.png)
 
-Upon receiving user's input, parse command of **`ViewCommandParser`** will be invoked. Values associated with prefixes `ct/` and `i/` will be obtained by invoking `tokenize` method of **`ArgumentTokenizer`**. This process is similar to that in **`EditCommand`**, except with changes to prefix for required for **ViewCommand**. When parsing `index` and `type` values, a **`ParseException`** will be thrown if the values specified are invalid (e.g wrong type or does not conform to `TYPE_CONSTRAINTS`). **`ViewCommand`** is created and executed.
+Upon receiving user's input, parse command of **`ViewCommandParser`** will be invoked. Values associated
+ with prefixes `ct/` and `i/` will be obtained by invoking `tokenize` method of **`ArgumentTokenizer`**. This process is similar to that in **`EditCommand`**, except with changes to prefix for required for **ViewCommand**. When parsing `index` and `type` values, a **`ParseException`** will be thrown if the values specified are invalid (e.g. wrong type or does not conform to `TYPE_CONSTRAINTS`). **`ViewCommand`** is created and executed.
 
 The workflow for an execution of **`ViewCommand`** is as shown:
 
@@ -411,7 +413,7 @@ An activity diagram showing the workflow of `help` command is shown below:
 
 ![Help Command Activity Diagram](images/HelpCommandActivityDiagram.png)
 
-`help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have a over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
+`help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have an over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
 
 #### Why Help feature is implemented this way
 Instead of providing a link and asking users to read the user guide, our team decided that it would be more convenient for users to access the help message for each command within the application itself. This allows user to instantly know what to key into the command box instead of switching between user guide in the browser and **CLI-nic**. In addition, this allows user to access `help` page even without an internet connection as well.
@@ -427,7 +429,7 @@ The list Suppliers and Warehouses feature allows user to list all suppliers and 
 #### What Find feature does
 The find feature allows users to find all relevant suppliers or warehouses by their names, by their remarks and/or by
 names of the products sold/stored. Users are able to search for relevant suppliers or warehouses using either only one
-of these criterion or a combination of these criteria. Note that users are only able to search for either suppliers or
+or a combination of these criteria. Note that users are only able to search for either suppliers or
 warehouses at any one time and not both at the same time.
 
 #### How it is implemented
@@ -778,7 +780,7 @@ The `add` command also calls `Model#saveVersionedClinic()`, causing the `current
 
 </div>
 
-Step 4. The user now decides that adding the supplier was a mistake, and decides to undo that action by executing the `undo` command. <br>
+Step 4. The user now decides that adding the supplier was a mistake and decides to undo that action by executing the `undo` command. <br>
 The `undo` command will call `Model#undoVersionedClinic()`. The `undoVersionStack` will pop the most recent version of CLI-nic data stored, recovers the CLI-nic to that version. <br>
 The `currentClinic` version will be stored in `redoVersionStack` and set to this most recent version popped.
 
@@ -1259,7 +1261,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to list the macros saved in the application.
-2. CLI-nic retrieves all presently saved macros, and shows it on the GUI.
+2. CLI-nic retrieves all presently saved macros and shows it on the GUI.
 
     Use case ends.
 
@@ -1511,7 +1513,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Medical products/supplies**: The items / tools / medicine consumed by patients
 * **Supplier**: The companies / entities providing the sources of medical products
-* **Warehouse**: The places where the medical supplies are channeled to and kept. The storage condition of these warehouses are managed by the manager, which is our app user
+* **Warehouse**: The places where the medical supplies are channelled to and kept. The storage condition of these warehouses is managed by the manager, which is our app user
 
 #### Command Prefix
 <div markdown="span" class="alert alert-info">:information_source: </div> Note: Command links are directed to
@@ -1580,7 +1582,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       or Case 2: `add ct/s n/John Tan p/98766789 z/friend e/johndoe@example.com`<br>
       Expected: No supplier is added. For Case 1, error details indicating that there are missing prefixes
       and the compulsory prefixes needed would be shown in the response message. For Case 2, error details
-      indicating that one of the prefix specified is not recognised would be shown in the response message.
+      indicating that one of the prefixes specified is not recognised would be shown in the response message.
       A usage message will be displayed for both cases to guide user accordingly. SupplierList on GUI
       remains unchanged.
    1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e
@@ -1600,7 +1602,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       or Case 2: `add ct/w n/John St Ptd Ltd p/98766789 z/large addr/John street, block 123, #01-01`<br>
       Expected: No warehouse is added. For Case 1, error details indicating that there are missing prefixes
       and the compulsory prefixes needed would be shown in the response message. For Case 2, error details
-      indicating that one of the prefix specified is not recognised would be shown in the response message.
+      indicating that one of the prefixes specified is not recognised would be shown in the response message.
       A usage message will be displayed for both cases to guide user accordingly. WarehouseList on GUI
       remains unchanged.
    1. Test case: Add warehouse with duplicate WAREHOUSE_NAME e.g. `add ct/w n/James Ptd Ltd p/98766789
@@ -1675,7 +1677,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 1. List macros command format: `listmacro`
 
    1. Test case: At least one macro has been saved.<br>
-      Expected: The list of macros are displayed.
+      Expected: The list of macros is displayed.
 
    1. Test case: No macros have been saved.<br>
       Expected: No macros listed. Displayed message states that no macros are presently saved.
@@ -1751,9 +1753,9 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: View command with complete prefixes e.g. `view ct/s i/1`<br>
       Expected: SupplierList updates to show only supplier at index 1. Products associated with the supplier and their details are shown in the command result box.
-   1. Test case: View command with missing prefixes e.g `view ct/s` or `view`<br>
+   1. Test case: View command with missing prefixes e.g. `view ct/s` or `view`<br>
       Expected: SupplierList will not be updated to show only supplier at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
-   1. Test case: View command with index larger than range of supplier list displayed e.g.`view ct/s i/x` (where x is larger than the displayed list size)<br>
+   1. Test case: View command with index larger than range of supplier list displayed e.g. `view ct/s i/x` (where x is larger than the displayed list size)<br>
       Expected: Similar to previous.
 
 ## Viewing a Warehouse
@@ -1762,9 +1764,9 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: View command with complete prefixes e.g. `view ct/w i/2`<br>
       Expected: WarehouseList updates to show only warehouse at index 2. Products associated with the warehouse and their details are shown in the command result box.
-   1. Test case: View command with missing prefixes e.g `view ct/w` or `view`<br>
+   1. Test case: View command with missing prefixes e.g. `view ct/w` or `view`<br>
       Expected: WarehouseList will not be updated to show only warehouse at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. WarehouseList on GUI remains unchanged.
-   1. Test case: View command with index larger than range of warehouse list displayed e.g.`view ct/w i/x` (where x is larger than the displayed list size)<br>
+   1. Test case: View command with index larger than range of warehouse list displayed e.g. `view ct/w i/x` (where x is larger than the displayed list size)<br>
       Expected: Similar to previous.
 
 ## Viewing help messages for various commands
@@ -1773,9 +1775,9 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: View generic help message for all commands e.g. `help`<br>
       Expected: Shows help message consisting of commands available in CLI-nic and what each command does.
-   1. Test case: View help message specific to a command e.g `help add`<br>
+   1. Test case: View help message specific to a command e.g. `help add`<br>
       Expected: Shows help message consisting of instructions on how to interpret command format, command format for `add` and some sample commands for `add`.
-   1. Test case: View help message with invalid type e.g.`help test`<br>
+   1. Test case: View help message with invalid type e.g. `help test`<br>
       Expected: Shows invalid command format message, stating the allowed keywords to be used by help. A help message for help command will also be displayed again to guide the user accordingly.
 
 ### Saving data
