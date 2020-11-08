@@ -414,7 +414,7 @@ Recovers a previous version of CLI-nic data if data has been changed.
 
 Format: `undo`
 
-![undi](images/undoCommand.png)
+![undo](images/undoCommand.png)
 
 <div markdown="span" class="alert alert-info">
 **:information_source: Note:** `assignmacro` and `removemacro` do not modify CLI-nic data directly, and hence are not
