@@ -1899,8 +1899,8 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: Finds supplier(s) with remark matching either `cheap` or `fast`.
    1. Test case: Only product name parameter supplied e.g. `find ct/s pd/panadol`<br>
          Expected: Finds supplier(s) that sell products matching `panadol`.
-   1. Test case: Combination of parameters supplied e.g. `find ct/s n/Alice pd/panadol`<br>
-         Expected: Finds supplier(s) with names matching `Alice` or selling products matching `panadol`.      
+   1. Test case: Combination of parameters supplied e.g. `find ct/s n/Alice pd/aspirin`<br>
+         Expected: Finds supplier(s) with names matching `Alice` or selling products matching `aspirin`.      
    1. Test case: Missing type prefix e.g. `find n/Alice`<br>
       Expected: Error details shown in the response message. A help message for find command will also be displayed
       to guide user accordingly.
@@ -1917,12 +1917,12 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Only name parameter supplied e.g. `find ct/w n/Alice`<br>
       Expected: Finds warehouse(s) with names matching `Alice`.
-   1. Test case: Only remark parameter supplied e.g. `find ct/w r/biggest`<br>
-      Expected: Finds warehouse(s) with remark matching either `biggest`.
+   1. Test case: Only remark parameter supplied e.g. `find ct/w r/largest`<br>
+      Expected: Finds warehouse(s) with remark matching either `largest`.
    1. Test case: Only product name parameter supplied e.g. `find ct/w pd/panadol`<br>
          Expected: Finds warehouse(s) that store products matching `panadol`.
-   1. Test case: Combination of parameters supplied e.g. `find ct/w n/Alice pd/panadol`<br>
-         Expected: Finds warehouse(s) with names matching `Alice` or storing products matching `panadol`.      
+   1. Test case: Combination of parameters supplied e.g. `find ct/w n/Alice pd/aspirin`<br>
+         Expected: Finds warehouse(s) with names matching `Alice` or storing products matching `aspirin`.      
    1. Test case: Missing type prefix e.g. `find n/Alice`<br>
       Expected: Error details shown in the response message. A help message for find command will also be displayed
       to guide user accordingly.
