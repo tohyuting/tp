@@ -34,8 +34,12 @@ public class EditCommandParser implements Parser<EditCommand> {
     private static final String LOG_MESSAGE_TOKENIZE_SUCCESS = "Successfully tokenized user input.";
     private static final String LOG_MESSAGE_VALID_TYPE_PREFIX_SUPPLIER =
             "User input contains type prefix for supplier.";
+    private static final String LOG_MESSAGE_VALID_TYPE_PREFIX_WAREHOUSE =
+            "User input contains type prefix for WAREHOUSE.";
     private static final String LOG_MESSAGE_CREATE_SUPPLIER_DESCRIPTOR_SUCCESS =
             "Successfully created an editSupplierDescriptor using the given user input.";
+    private static final String LOG_MESSAGE_CREATE_SUPPLIER_DESCRIPTOR_WAREHOUSE =
+            "Successfully created an editWarehouseDescriptor using the given user input.";
     private static final String INVALID_WAREHOUSE_PREFIX_ASSERTION =
             "The warehouse prefix should have been present.";
 
@@ -116,6 +120,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         assert ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get()).equals(Type.WAREHOUSE)
                 : INVALID_WAREHOUSE_PREFIX_ASSERTION;
 
+        logger.log(Level.INFO, LOG_MESSAGE_VALID_TYPE_PREFIX_WAREHOUSE);
+
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             throw new ParseException(String.format(MESSAGE_WAREHOUSE_NO_EMAIL,
                     EditCommand.MESSAGE_USAGE));
@@ -123,6 +129,8 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditWarehouseDescriptor editWarehouseDescriptor = new EditWarehouseDescriptor();
         editWarehouseDescriptor = parseWarehouseDetailsForEditing(editWarehouseDescriptor, argMultimap);
+
+        logger.log(Level.INFO, LOG_MESSAGE_CREATE_SUPPLIER_DESCRIPTOR_SUCCESS);
 
         if (!editWarehouseDescriptor.isAnyFieldEdited()) {
             throw new ParseException(String.format(MESSAGE_NOT_EDITED,
