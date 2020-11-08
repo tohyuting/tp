@@ -141,7 +141,8 @@ Classes used by multiple components are in the `seedu.clinic.commons` package.
 
 ## **Implementation**
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how certain features are implemented. Note that the examples given to explain each feature uses full command strings instead of macros so as to show the true format of each command.
+Similarly, `MacroParser` has been omitted from the diagrams to reduce clutter. Refer to the [Logic Component](https://ay2021s1-cs2103-w14-4.github.io/tp/DeveloperGuide.html#logic-component) to read how a command would be executed with macros.
 
 ### Command history feature
 
@@ -576,28 +577,31 @@ The update product mechanism is facilitated by 3 major components: `UpdateComman
 Given below is an example usage scenario, together with a sequence diagram, to show how the update product mechanism behaves at each step.
 ![Update Product Command Sequence Diagram](images/UpdateCommandSequenceDiagram.png)
 
-Step 1. After using the `list` command to display all warehouses and suppliers, the user decides to update the stock for a product called 'Panadol' with a new quantity of 50 units
-in the warehouse at index 1 of the warehouse list. The user also decides that he wants to give 'Panadol' a tag 'fever'.
-The user does this by executing the `update ct/w i/1 pd/Panadol q/50 t/fever` command.
-The input string will then be passed to the `UpdateCommandParser`.
+After using the `list` command to display all warehouses and suppliers, the user decides to update the stock for a product called 'Xodol' with a new quantity of 97 units
+in the warehouse at index 1 of the warehouse list. The user also decides that he wants to give 'Xodol' a tag 'cold'.
+The user does this by executing the `update ct/w i/1 pd/Xodol q/97 t/cold` command.
 
-Step 2. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
+1. Parsing
+The input string will be passed to the `UpdateCommandParser`. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
 and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type, index and product name are not supplied. If so, an error message will be presented on the GUI.
 Otherwise, the method will create an `UpdateCommand` with the `Type`, the warehouse/supplier `Index`, the product's `Name`, and the `UpdateProductDescriptor`.
 
+1. Execution
 The following sequence diagram zooms in on how the `UpdateCommand#execute` is implemented:
 ![Update Product Command Execution Sequence Diagram](images/UpdateCommandExecutionSequenceDiagram.png)
 
-Step 3. `UpdateCommand#execute` is then called with the `Model` instance. The method will first retrieve the filtered warehouse/supplier list from the model. The method then attempts to retrieve the warehouse/supplier from the list at the supplied index. If the index is greater than the size of the supplier/warehouse list, `CommandException` is thrown, otherwise, the `UpdateCommand#execute`
+`UpdateCommand#execute` is called with the `Model` instance. The method will first retrieve the filtered warehouse/supplier list from the model. The method then attempts to retrieve the warehouse/supplier from the list at the supplied index. If the index is greater than the size of the supplier/warehouse list, `CommandException` is thrown, otherwise, the `UpdateCommand#execute`
 method copies the existing product set for that warehouse/supplier to a new `Set<Product>`.
 
-Step 4. `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
+`UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
 If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
 is supplied in the `UpdateProductDescriptor`, failing which, an exception is thrown. If the check passes, the original
 `Product` is removed from the set.
 
-Step 5. `UpdateCommand#createUpdatedProduct` then creates a new product based on the product name and `UpdateProductDescriptor`. The `execute` method then adds the updated `Product` to the `Set<Product>`, and creates an updated
-warehouse/supplier with the updated product. The method then updates the model with the edited warehouse/supplier, and the `FilteredWarehouseList` to be displayed to the user.
+`UpdateCommand#createUpdatedProduct` then creates a new product based on the product name and `UpdateProductDescriptor`. The `execute` method then adds the updated `Product` to the `Set<Product>`, and creates an updated
+warehouse/supplier with the updated product. The method then updates the model with the edited warehouse/supplier, and the `FilteredWarehouseList` to be displayed to the user later.
+
+1. Result display
 The method then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model
 is saved and the GUI is updated with the success message.
 
@@ -652,17 +656,20 @@ The assign macro mechanism is facilitated by 2 components: `AssignMacroCommandPa
 Given below is an example usage scenario, together with a sequence diagram, to show how the assign macro mechanism behaves at each step.
 ![Assign Macro Command Sequence Diagram](images/AssignMacroCommandSequenceDiagram.png)
 
-Step 1. The user frequently updates a specific warehouse and decides to create a new macro with the alias "uwm" for the command string "update ct/w n/MainWarehouse" so as to shorten subsequent command inputs.
-The user does this by executing the `assignmacro a/uwm cs/update ct/w n/MainWarehouse` command. The input string will then be passed to the `AssignMacroCommandParser`.
+The user frequently updates the products under each warehouse and decides to create a new macro with the alias "uw" for the command string "update ct/w" so as to shorten subsequent command inputs.
+The user does this by executing the `assignmacro a/uw cs/update ct/w` command.
 
-Step 2. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
+1. Parsing
+The input string will be passed to the `AssignMacroCommandParser`. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
 an exception to be displayed on the GUI if the alias or command string supplied by the user is invalid, or if any of them is not supplied at all. If all prefixes are parsed without error,
 a `Macro` is created from the `Alias` and `SavedCommandString` instances. Then, a new `AssignMacroCommand` instance is created with the new `Macro`.
 
-Step 3. The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias.
+1. Execution
+The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias.
 If that is true, an exception will be thrown. This will be shown on the GUI as an error message. Otherwise, the new macro will be added to the model.
 
-Step 4. The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
+1. Result display
+The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
 The user now updates the quantity of the product "Panadol" in the aforementioned warehouse by simply executing the command `uwm pd/Panadol`.
 
 The following activity diagram summarizes what happens when a user assigns a macro:
@@ -693,17 +700,19 @@ The remove macro mechanism is facilitated by 2 components: `RemoveMacroCommandPa
 Given below is an example usage scenario, together with a sequence diagram, to show how the remove macro mechanism behaves at each step.
 ![Remove Macro Command Sequence Diagram](images/RemoveMacroCommandSequenceDiagram.png)
 
-Step 1. The user decides that he/she no longer needs the macro with the alias "uwm" and decides to remove it. He does this by executing the `removemacro uwm` command.
-The input string will then be passed to the `RemoveMacroCommand parser`.
+The user decides that he/she no longer needs the macro with the alias "uw" and decides to remove it. He does this by executing the `removemacro uw` command.
 
-Step 2. By matching the prefixes provided, `RemoveMacroCommandParser#parse` then attempts to create a new instance of `Alias` by parsing the arguments provided. If the `Alias` is
+1. Parsing
+The input string will be passed to the `RemoveMacroCommand parser`. By matching the prefixes provided, `RemoveMacroCommandParser#parse` then attempts to create a new instance of `Alias` by parsing the arguments provided. If the `Alias` is
 invalid, an exception will be thrown which will be shown as an error message on the GUI. Otherwise, a `RemoveMacroCommand` instance is created with the new `Alias`.
 
-Step 3. `RemoveMacroCommand#execute` is then called with the model instance, which first attempts to retrieve the existing macro in the model with the `Alias` specified by calling the `model#getMacro` method.
+1. Execution
+`RemoveMacroCommand#execute` is then called with the model instance, which first attempts to retrieve the existing macro in the model with the `Alias` specified by calling the `model#getMacro` method.
 This macro is returned in an optional wrapper, and an exception will be thrown if it is empty, where an error message will be displayed on the GUI. Otherwise, the
 retrieved macro will be removed from the model.
 
-Step 4. The `RemoveMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
+1. Result Display
+The `RemoveMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
 
 The following activity diagram summarizes what happens when a user updates a product:
 ![Remove Macro Command Activity Diagram](images/RemoveMacroCommandActivityDiagram.png)
@@ -716,9 +725,22 @@ The list macros feature allows users to be able to view all presently saved macr
 
 #### How it is implemented
 
-The list macros feature is facilitated by the ListMacroCommand, which retrieves the internal macro list and create a presentable format for displaying the list.
-If no macros are found, an exception is thrown which results in a message displayed on the GUI notifying the user that there are no presently saved macros.
-Otherwise, the success message which contains the formatted list will be passed in a `CommandResult` to the `LogicManager`, to be displayed on the GUI without overriding the existing lists for suppliers and warehouses.
+The list macros feature is facilitated by the ListMacroCommand, whose job is to retrieve to list of macros and process it into a suitable format to be displayed to the user.
+
+Given below is an example usage scenario
+
+The user decides to check what macros he/she has saved before. The user does this by executing the `listmacro` command.
+
+1. Parsing
+Since there are no arguments needed for this command, the `ClinicParser` directly creates the `ListMacroCommand`.
+
+1. Execution
+`LogicManager` will then call `ListMacroCommand#execute` with the `Model` instance. `ListMacroCommand#execute` will retrieve the macro list from the `Model`.
+If the list is empty, an exception is thrown which results in a message displayed on the GUI notifying the user that there are no presently saved macros.
+Otherwise, the list of macros will be formatted into a readable format.
+
+1. Result display
+The success message which contains the formatted list will be passed in a `CommandResult` to the `LogicManager`, to be displayed on the GUI without overriding the existing lists for suppliers and warehouses.
 
 #### Why it is implemented this way
 

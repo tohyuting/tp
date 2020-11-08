@@ -105,6 +105,7 @@ public class AutoCompleteTextField extends TextField {
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             item.setOnAction(actionEvent -> {
                 setText(result);
+                positionCaret(this.getText().length());
                 popUpEntries.hide();
             });
             menuItems.add(item);
