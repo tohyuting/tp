@@ -13,7 +13,11 @@ Class ReadOnlyClinic
 Class Model
 Class ModelManager
 Class UserPrefs
-Class ReadOnlyUserPrefs
+Class UserMacros
+Class CommandHistory
+Class ReadOnlyUserMacros <<Interface>>
+Class ReadOnlyUserPrefs <<Interface>>
+Class ReadOnlyCommandHistory <<Interface>>
 
 Package Supplier {
 Class Supplier
@@ -25,6 +29,11 @@ Class Warehouse
 Class UniqueWarehouseList
 }
 
+Package Macro {
+Class Macro
+Class UniqueMacroList
+}
+
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
@@ -33,8 +42,13 @@ Clinic .up.|> ReadOnlyClinic
 ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" Clinic
-ModelManager o-left-> "1" UserPrefs
+ModelManager o--> "1" UserPrefs
+ModelManager o--> "1" UserMacros
+ModelManager o--> "1" CommandHistory
+
 UserPrefs .up.|> ReadOnlyUserPrefs
+UserMacros .up.|> ReadOnlyUserMacros
+CommandHistory .up.|> ReadOnlyCommandHistory
 
 Clinic *-down-> "1" UniqueSupplierList
 UniqueSupplierList o--> "*" Supplier
@@ -42,7 +56,11 @@ UniqueSupplierList o--> "*" Supplier
 Clinic *-down-> "1" UniqueWarehouseList
 UniqueWarehouseList o--> "*" Warehouse
 
+UserMacros *-down-> "1" UniqueMacroList
+UniqueMacroList o--> "*" Macro
+
 
 ModelManager -->"*" Supplier : filtered list
 ModelManager -->"*" Warehouse : filtered list
+ModelManager -->"*" Macro : observable list
 @enduml
