@@ -15,20 +15,31 @@ if () then ([required prefixes present & all values valid])
     else ([else])
         :Retrieve supplier/warehouse
         by specified index;
-        if () then ([is supplier/warehouse deletion])
-            if () then([supplier])
+        if () then ([is supplier-related deletion])
+            if () then([supplier deletion])
             :Remove target supplier;
-            else ([warehouse])
-            :Remove target warehouse;
-            endif
-        else ([is product deletion])
-            if () then ([no matching product])
-                :Generate Command Exception;
-            else ([else])
-                : Retrieve matching product
-                from the set of products
-                in the supplier/warehouse;
+            else ([product deletion])
+            : Retrieve matching product
+            from the set of products
+            in the supplier;
+                if () then([product found])
                 :Remove the target product;
+                else ([product not found])
+                :Generate Command Exception;
+                endif
+            endif
+        else ([is warehouse-related deletion])
+            if () then([warehouse deletion])
+            :Remove target warehouse;
+            else ([product deletion])
+            : Retrieve matching product
+            from the set of products
+            in the warehouse;
+                if () then([product found])
+                :Remove the target product;
+                else ([product not found])
+                :Generate Command Exception;
+                endif
             endif
         endif
     endif

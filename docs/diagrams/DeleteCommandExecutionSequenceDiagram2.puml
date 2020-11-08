@@ -39,6 +39,7 @@ DeleteCommand -> s : removeProduct
 activate s
 s --> DeleteCommand : updatedSupplier
 deactivate s
+s -[hidden]-> DeleteCommand : updatedSupplier
 destroy s
 
 DeleteCommand -> Model : setSupplier(s, updatedSupplier)
@@ -81,6 +82,7 @@ DeleteCommand -> w : removeProduct
 activate w
 w --> DeleteCommand : updatedWarehouse
 deactivate w
+s -[hidden]-> DeleteCommand : updatedWarehouse
 destroy w
 
 
