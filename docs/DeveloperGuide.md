@@ -643,50 +643,65 @@ supplier or warehouse lists. I decided not to include a separate display section
 screen except when needed. Hence it is implemented such that it will be displayed with the success message instead, so that the user can quickly refer to the macro list and then proceed to use the intended macro straight after, where
 it would then be no longer necessary to keep the macro list on the display.
 
-### Add Supplier/Warehouse feature
+### Add feature
 
-In this section, the functionality of the add feature, the expected execution path, the structure of
-the AddCommand class, the interactions between objects with the AddCommand object will be discussed.
+The `add` feature will be elaborated in this section by its functionality and path execution with the aid of
+Class, Activity, and Sequence Diagrams.
 
-The `add` supplier/warehouse feature is facilitated by the `AddCommandParser` and the `AddCommand`.
-The `AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`, allowing the user to
-add a supplier/warehouse to the app using the command line.
+It is facilitated by the `AddCommandParser` and the `AddCommand`. The `AddCommandParser` implements `Parser`
+and the `AddCommand` extends `Command`, allowing the user to add a supplier/warehouse to the app using the
+command line.
 
-#### What Add Supplier/Warehouse feature does
+The following Class Diagram of `AddCommand` shows the interactions between `AddCommand` and other classes
+in CLI-nic:
 
-The `add` feature allows user to add a warehouse or supplier to CLI-nic (case 1).
-
-The supplier consists of : `Type`, `Name`, `Phone`, `Email`
-
-The warehouse consists of : `Type`, `Name`, `Phone`, `Address`
-
-The supplier/warehouse also consists of an optional field: `Remark`
-
-Only one supplier/warehouse can be added per command execution.
-
-#### Path Execution of Add Command
-The overview of the AddCommand Activity Diagram is shown below:
-
-![Add Command Activity Diagram](images/AddCommandActivityDiagram.png)
-
-After the user calls the `add` command, the code will check for the presence of all the compulsory prefixes
-in the command. The code will throw a ParseException if there are any missing/invalid prefixes. After that is
-checked, it will check if the new supplier/warehouse added is a duplicate (The supplier/warehouse already
-exist in the application). It will throw a CommandException when the user tries to add a duplicate
-supplier/warehouse. Otherwise, it will add the supplier/warehouse and prints a success message to the user.
-
-#### Structure of Add feature
-The following diagram shows the overview of the AddCommand Class Diagram:
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Only important associations
+are displayed.
 
 ![Add Command Class Diagram](images/AddCommandClassDiagram.png)
 
-The above class diagram shows the structure of the AddCommand and its associated classes and interfaces. Some
-methods and fields are not included because they are not extensively utilised in AddCommand; such as public
-static fields and getter/setter methods.
+#### What Add Supplier/Warehouse feature does
 
-#### Interaction between objects when the Add Command is executed
-The sequence for adding supplier and warehouse is similar, here is the sequence diagram for the Add Command
-for supplier as shown below:
+The `add` feature allows user to add a supplier/warehouse information.
+
+The supplier's attributes consist of : `name`, `phone`, `email`
+
+The warehouse's attributes consist of : `name`, `phone`, `address`
+
+The supplier/warehouse also consists of an optional `remark` attribute.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** `add` feature does not include
+product information and `update` feature should be used to associate a supplier/warehouse with a product
+and its associated quantity and tags. This is elaborated in the [**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
+
+#### Path Execution of Add Command
+The workflow of an `add` command when executed by a user is shown in the Activity Diagram below:
+
+![Add Command Activity Diagram](images/AddCommandActivityDiagram.png)
+
+Important features of the Activity Diagram are as follows:
+
+1. The `add` command only allows addition of a single supplier/warehouse for every single command. If two
+ or more `ct/COMMAND_TYPE` are provided, the last type specified will be used to process the user's input.
+ This applies for all other prefixes as well.
+ 
+1. After the user calls the `add` command, the code will check for the presence of all the compulsory
+ prefixes (i.e. ct/COMMAND_TYPE, n/NAME, p/PHONE and e/EMAIL or addr/ADDRESS for supplier and warehouse
+ respectively) in the input. A `ParseException` will be thrown if any of the compulsory prefixes are not
+ present.
+ 
+ Similarly, `ParseException` will be thrown if there are any invalid prefixes or inappropriate fields
+ provided (e.g. input a `String` value for `phone`).
+ 
+1. `AddCommand` will then be executed. The new supplier/warehouse will be added in the model, allowing
+ users to see the added supplier/warehouse.
+ 
+ If new supplier/warehouse to be added has a duplicate name (i.e. The supplier/warehouse name already
+ exist in CLI-nic). It will throw a `CommandException`.supplier/warehouse. Otherwise, a success message
+ will be displayed to the user
+
+In the following section, the interaction between different objects when a user executes an `add` command
+will be discussed with the aid of a Sequence Diagram as shown below.
 
 ![Add Command Sequence Diagram](images/AddCommandSequenceDiagram.png)
 
@@ -695,30 +710,41 @@ for supplier as shown below:
 reaches the end of diagram.
 </div>
 
-The arguments of the `add` command will be parsed using the parse method of the AddCommandParser class.
-The AddCommandParser will tokenize the arguments parsed in using the tokenize method of ArgumentTokenizer
-class which returns the tokenized arguments. Using the tokenized arguments, the Parser will check if the
-arguments parsed in matches with the tokenized arguments using the arePrefixesPresent method.
 
-There are two scenarios :
+1. Parsing
 
-1. Some compulsory prefixes are not present :
+After receiving an input from user for `add` command, `AddCommandParser#parse` will be invoked to tokenize
+the arguments parsed in via `ArgumentTokenizer#tokenize` which returns the tokenized arguments. As
+mentioned above, if any of the compulsory prefixes are not present, `AddCommandParser` will throw a new
+`ParseException` object to the `LogicManager`. A `ParseException` will also be thrown if there are invalid
+prefixes or values provided (e.g. input a `z/` or `String` value for `phone`).
 
-   AddCommandParser will throw a new ParseException object to the LogicManager.
+An attempt to determine the correct type and creating the relevant `Supplier` or `Warehouse` will then be
+ carried out. During this process, if incorrect prefixes such as an `address` prefix for supplier or
+ `email` prefix for warehouse are found, a `ParseException` will be thrown.
 
-1. All compulsory prefixes are present in the arguments :
+Parsing of general details will occur for both Supplier and Warehouse type. These include parsing of `name`,
+`phone` and `remark`.
 
-   It will then proceed to use the getValue method of the ArgumentMultimap class to get the value of the
-   prefixes. For example, if the argument parsed in is ct/s, the getValue method will get the value 's'.
-   Subsequently, it will use the ParseUtil methods to get the corresponding object values and put it into
-   the parameters of the new Supplier/Warehouse object. The Supplier/Warehouse object will be put into the
-   parameter of the AddCommand object and this will be returned to the LogicManager class for execution.
+In addition, since Supplier contains an `email` attribute, parsing of this field will be carried out. On the
+other hand, parsing of `address` will be carried out for Warehouse instead.
 
-   LogicManager will then call the execute() method of this AddCommand object. In the execute() method, it will
-   use the Model class to call hasSupplier/hasWarehouse method to check for duplicates, a CommandException
-   will be thrown if there is a duplicate supplier/warehouse in the CLI-nic application already. Else, it
-   will successfully add the new supplier/warehouse using addSupplier/addWarehouse method. Finally, it
-   returns a new CommandResult object, containing a String that indicates a successful addition of supplier/warehouse.
+At the end, relevant fields present will be set in `Supplier`/`Warehouse`.
+
+During this parsing process, `ParseException` will be thrown if any of the inputs are invalid.
+
+1. Execution
+
+The parsed object values will then be put it into the parameters of the new Supplier/Warehouse object to
+create an entity with the user input. `Model#hasSupplier`/`Model#hasWarehouse` will then be called to check
+for duplicates (i.e. if `Model` already contains a supplier or warehouse with the same name), a
+CommandException will be thrown to inform user of the duplicated supplier/warehouse. Otherwise, the
+supplier/warehouse will be successfully added via `Model#addSupplier`/`Model#addWarehouse`.
+
+1. Result display
+
+`Model` will be updated to reflect the added supplier or warehouse in GUI and an add success message will be
+ displayed to user.
 
 ### Undo/redo feature
 
