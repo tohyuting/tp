@@ -770,6 +770,7 @@ in CLI-nic:
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Only important
 associations are displayed.
+
 </div>
 
 ![Add Command Class Diagram](images/AddCommandClassDiagram.png)
@@ -786,7 +787,8 @@ The supplier/warehouse can also consist of an optional `remark` attribute.
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The `add` feature does not
 include product information and the `update` feature should be used to associate a supplier/warehouse with a
 product and its associated quantity and tags. This is elaborated in the [**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
-<div>
+
+</div>
 
 #### Path Execution of Add Command
 The workflow of an `add` command when executed by a user is shown in the Activity Diagram below:
@@ -822,6 +824,7 @@ will be discussed with the aid of a Sequence Diagram as shown below.
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for
 `AddCommandParser` should end at the destroy marker (X) but due to a limitation of  PlantUML, the lifeline
 reaches the end of diagram.
+
 </div>
 
 1. Parsing
@@ -1038,6 +1041,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                                 | I want to …​                | So that I can…​                                                        |
 | -------- | ------------------------------------------ | ------------------------------ | ------------------------------------------------------------------------- |
+| `* * *`  | standard user  | access command history | recall, edit and reuse long or complicated commands with ease without having to retype them |
 | `* * *`  | standard user  | add my suppliers' information and products offered | easily refer to the contacts and give them a call for updates on their supply availability     |
 | `* * *`  | standard user  | add details of warehouses and stocks for each product | easily keep track of the stocks in each of my warehouse |
 | `* * *`  | standard user  | add remarks to a supplier entry         | note down details that are specific to the supplier          |
@@ -1046,14 +1050,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | standard user  | delete a supplier/warehouse entry   | remove suppliers/warehouses no longer operating |
 | `* * *`  | standard user  | delete a particular product from a supplier/warehouse entry   | remove product no longer sold/stored for the supplier/warehouse|
 | `* * *`  | standard user  | edit the information of a specific warehouse or supplier          | easily update any changes in contact information of a particular supplier/warehouse |
-| `* * *`  | standard user  | find medical products associated with warehouses or suppliers     | locate relevant items without having to go through all the lists                |
+| `* * *`  | standard user  | find relevant supplier(s) or warehouse(s) | locate relevant supplier(s) or warehouse(s) without having to go through the entire supplier list or warehouse list |
 | `* * *`  | standard user  | list all warehouses or suppliers     | easily see all the suppliers and warehouses I am in charge of|
 | `* * *`  | standard user  | view the information of a specific warehouse or supplier          | retrieve details about the supplier/warehouse I can't remember and contact them       |
 | `* * *`  | standard user  | view the products of a specific warehouse          | retrieve products associated with the warehouse to see if restocking is needed   |
 | `* * *`  | standard user  | view the products of a specific supplier        | retrieve products associated with the supplier to see if they have enough stocks for me to place an order   |
 | `* * *`  | standard user  | Undo my previous editing on the data    | fix any wrong entry into the data if I've done so by mistake|
 | `* * *`  | standard user  | redo my previous undone editing on the data    | recover the undone editing earlier if I want those editing back|
-| `* * * ` | intermediate user | update the information for a specific product in warehouses and suppliers | keep track of the changes in the stocks of the warehouses |
+| `* * * ` | standard user | update the information for a specific product in warehouses and suppliers | keep track of the changes in the stocks of the warehouses |
 | `* *`    | advanced user | create custom alias for my commands | so that I enter commands more efficiently |
 | `* *`    | advanced user | delete a custom alias | remove the aliases that I no longer need |
 | `* *`    | advanced user | list my saved macros | quickly recall which macros I can currently use  |
@@ -1335,44 +1339,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case: UC10 Find Suppliers of a product**
+**Use case: UC10 Find Supplier(s)**
 
 **MSS**
 
-1. User enters the command to find the suppliers of a specific product.
-2. CLI-nic displays all suppliers that sells the product if any.
-3. User scrolls through all the relevant results and looks for the information that they desire.
+1. User enters the command to find the relevant supplier(s).
+2. CLI-nic displays all relevant supplier(s) and shows a success message.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. User enters invalid command for finding.
+* 1a. User enters an invalid command format for finding supplier(s).
 
-  * 1a1. CLI-nic requests for the valid command.
-  * 1a2. User enter a new command for finding.
+  * 1a1. CLI-nic informs user of the invalid command.
+  * 1a2. User enters a new command.
 
-    Steps 1a1 and 1a2 are repeated until a valid find command is entered. <br>
+    Steps 1a1 and 1a2 are repeated until a valid command format for finding supplier(s) is entered.<br>
     Use case resumes at step 2.
 
-**Use case: UC11 Find Warehouses containing a product**
+**Use case: UC11 Find Warehouse(s)**
 
 **MSS**
 
-1. User enters the command to view a particular product stored in all warehouses.
-2. CLI-nic displays all the relevant products that are stored in the warehouses if any.
-3. User scrolls through all the relevant results and looks for the information that they desire.
+1. User enters the command to find the relevant warehouse(s).
+2. CLI-nic displays all the relevant warehouse(s) and shows a success message.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. User enters invalid command for finding.
+* 1a. User enters an invalid command format for finding warehouse(s).
 
-  * 1a1. CLI-nic requests for the valid command.
-  * 1a2. User enter a new command for finding.
+  * 1a1. CLI-nic informs user of the invalid command.
+  * 1a2. User enters a new command.
 
-    Steps 1a1 and 1a2 are repeated until a valid find command is entered. <br>
+    Steps 1a1 and 1a2 are repeated until a valid command format for finding warehouse(s) is entered.<br>
     Use case resumes from step 2.
 
 **Use case: UC12 List all supplier and warehouse entries**
@@ -1626,7 +1628,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 1.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-1.  The files used to store information about supplier/warehouse/product should be independent from each other and follow a similar format.
+1.  The files used to store information about supplier/warehouse/product, macros and commandHistory should be
+    independent from each other.
 1.  The system should recognize common French/German letters as they may appear in the name of medical products.
 1.  The system should be able to track > 1k suppliers, > 1k warehouses, > 1k medical supplies without a noticeable sluggishness in performance for typical usage.
 1.  The size of the application excluding the data files should be minimal (< 30MB).
@@ -1642,6 +1645,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Medical products/supplies**: The items / tools / medicine consumed by patients
 * **Supplier**: The companies / entities providing the sources of medical products
 * **Warehouse**: The places where the medical supplies are channelled to and kept. The storage condition of these warehouses is managed by the manager, which is our app user
+* **Alias**: A user-specified `String` that can be used to represent another `String` (e.g. typing `uw`
+    is equivalent to typing `update ct/w` after this command `assignmacro a/uw cs/update ct/w` has been executed)
 
 #### Command Prefix
 <div markdown="span" class="alert alert-info">:information_source:  Note: Command links are directed to
@@ -1717,8 +1722,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       A usage message will be displayed for both cases to guide user accordingly. SupplierList on GUI
       remains unchanged.
 
-   1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e
-      /johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
+   1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e/johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
       Expected: No supplier is added. Error details will be displayed, indicating that the supplier to be
       added already exists in CLI-nic and thus cannot be added. SupplierList on GUI remain unchanged.
 
@@ -1900,6 +1904,62 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Exit command with additional arguments e.g. `exit test` or `exit ct/s`<br>
       Expected: Similar to previous.
 
+### Finding relevant Supplier(s)
+
+1. Find command format: `find ct/s [n/NAME...] [r/REMARK...] [pd/PRODUCT_NAME...]`
+
+   1. Test case: Only name parameter supplied e.g. `find ct/s n/Alice`<br>
+      Expected: Finds supplier(s) with names matching `Alice`.
+
+   1. Test case: Only remark parameter supplied e.g. `find ct/s r/cheap fast`<br>
+      Expected: Finds supplier(s) with remark matching either `cheap` or `fast`.
+
+   1. Test case: Only product name parameter supplied e.g. `find ct/s pd/panadol`<br>
+         Expected: Finds supplier(s) that sell products matching `panadol`.
+
+   1. Test case: Combination of parameters supplied e.g. `find ct/s n/Alice pd/panadol`<br>
+         Expected: Finds supplier(s) with names matching `Alice` or selling products matching `panadol`.
+
+   1. Test case: Missing type prefix e.g. `find n/Alice`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
+   1. Test case: Missing all name, remark and product name prefixes e.g. `find ct/s`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
+   1. Test case: Invalid prefixes provided e.g. `find ct/s n/Alice a/invalid`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
+### Finding relevant warehouse(s)
+
+1. Find command format: `find ct/w [n/NAME...] [r/REMARK...] [pd/PRODUCT_NAME...]`
+
+   1. Test case: Only name parameter supplied e.g. `find ct/w n/Alice`<br>
+      Expected: Finds warehouse(s) with names matching `Alice`.
+
+   1. Test case: Only remark parameter supplied e.g. `find ct/w r/biggest`<br>
+      Expected: Finds warehouse(s) with remark matching either `biggest`.
+
+   1. Test case: Only product name parameter supplied e.g. `find ct/w pd/panadol`<br>
+         Expected: Finds warehouse(s) that store products matching `panadol`.
+
+   1. Test case: Combination of parameters supplied e.g. `find ct/w n/Alice pd/panadol`<br>
+         Expected: Finds warehouse(s) with names matching `Alice` or storing products matching `panadol`.
+
+   1. Test case: Missing type prefix e.g. `find n/Alice`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
+   1. Test case: Missing all name, remark and product name prefixes e.g. `find ct/w`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
+   1. Test case: Invalid prefixes provided e.g. `find ct/w n/Alice a/invalid`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
 ### Listing CLI-nic
 
 1. List command format: `list`
@@ -1923,7 +1983,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: View command with index larger than range of supplier list displayed e.g. `view ct/s i/1000` (assuming the size of the supplier list displayed is less than 1000)<br>
       Expected: SupplierList will not be updated. An error will occur and a message to indicate that the supplier index provided is larger than the displayed list size.
 
-## Viewing a Warehouse
+### Viewing a Warehouse
 
 1. View command format: `view ct/w i/INDEX`
 
