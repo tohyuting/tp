@@ -26,8 +26,6 @@ Given below are my contributions to the project.
   * Justification: This feature helps **CLI-nic** to be more CLI-friendly. Using `view` (together with `find` to filter relevant entities first) allows users to see products associated with a warehouse or supplier without clicking.
   * Highlights: Initial implementation requires user to use name instead of index. This was changed to reduce the amount of typing required by users. Codes for parsing of inputs and test codes have to be re-written as well which was slightly tedious and time-consuming.
 
-<div style="page-break-after: always;"></div>
-
 * **New Feature**: Edit a particular supplier and warehouse entry via index on the displayed supplier/warehouse list.
     * What it does: Allow users to edit a supplier or warehouse information at a particular index of displayed supplier/warehouse list.
     * Justification: The user has to update any outdated supplier/warehouse information quickly. Hence, this feature is crucial.
@@ -43,14 +41,14 @@ Given below are my contributions to the project.
 * **Minor enhancement**:
   * Fix a minor yet crucial bug, for jar file to function as expected. [#161](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/161)
   * Error messages of **AB3** are not representative of certain commands entered by users. Invalid prefix used errers were not thrown. Hence, an intensive logic handling of inputs from users was done to customise error messages for every unique commands. This is due to the numerous possibilities allowed, since users are allowed to reorder their prefixes in their inputs [#216](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/216), [#242](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/242).
-  * Fix bug related to `AutoComplete` feature, where `CommandHistory` feature does not work smoothly if the previous command was a single word command. [#227](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/227)
+  * Fix bug related to `AutoComplete` feature, where `CommandHistory` feature does not work smoothly if the previous command was a single word command [#227](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/227).
 
 * **Contributions to Documentations**:
   * User Guide:
     * Added documentations and user stories for `list`, `help`, `view` and `edit` commands in the user guide [#153](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/153/files), [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73).
   * Developer Guide:
     * Added implementation details of the `list`, `help`, `view` and `edit` features [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73), [#111](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/111/), [#153](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/153). Includes UML diagrams (Class, Sequence and Activity Diagrams).
-    * Added manual testing for`list`, `help`, `view`, `edit`, `clear`, `exit`, saving data [#232](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/232).
+    * Added manual testing: `list`, `help`, `view`, `edit`, `clear`, `exit`, saving data [#232](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/232).
     * Updated Model Class diagram with my team mates, Jeffrey and Qin Liang to represent the current **CLI-nic** [#245](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/245).
 
 * **Contributions to team-based tasks**:
