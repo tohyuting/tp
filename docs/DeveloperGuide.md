@@ -20,9 +20,9 @@ table of contents below to navigate easily to sections within this document.
 * Table of Contents
 {:toc}
 
-<div style="page-break-after: always;"></div>
-
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Setting up, getting started**
 
@@ -292,6 +292,8 @@ Given below is an example usage scenario, together with a sequence diagram, to s
 The user frequently updates the products under each warehouse and decides to create a new macro with the alias "uw" for the command string "update ct/w" so as to shorten subsequent command inputs.
 The user does this by executing the `assignmacro a/uw cs/update ct/w` command.
 
+<div style="page-break-after: always;"></div>
+
 1. Parsing
 
    The input string will be passed to the `AssignMacroCommandParser`. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
@@ -308,8 +310,12 @@ If that is true, an exception will be thrown. This will be shown on the GUI as a
    The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
 The user now updates the quantity of the product "Panadol" in the aforementioned warehouse by simply executing the command `uwm pd/Panadol`.
 
+<div style="page-break-after: always;"></div>
+
 The following activity diagram summarizes what happens when a user assigns a macro:
 ![Assign Macro Command Activity Diagram](images/AssignMacroCommandActivityDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 #### Why it is implemented this way
 
@@ -424,6 +430,8 @@ In case 2, `TYPE` needs to be set to `pw` or `ps`, and a `PRODUCT_NAME` needs to
 <br>
 <br>
 The deletion is limited to the items shown in the list displayed in GUI, and is done one item at a time.
+
+<div style="page-break-after: always;"></div>
 
 #### Path Execution of Delete Command
 
@@ -556,6 +564,8 @@ This is important as warehouses and suppliers might change their contact details
 
 One thing to note is edit feature does not allow users to edit any `product` associated with a particular supplier or warehouse. To edit the `product quantity` or `tag` of a product, `update` feature should be used instead. This is elaborated in the **Update** feature section.
 
+<div style="page-break-after: always;"></div>
+
 #### Path Execution of Edit Command
 The workflow of an `edit` command when executed by a user is shown in the activity diagram below:
 
@@ -649,6 +659,8 @@ warehouses at any one time and not both at the same time.
 
 #### How it is implemented
 ![Find Command Activity Diagram](images/FindCommandActivityDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 1. After the `find` command is called with the relevant prefixes, the user input will be sent
 to `FindCommandParser` for parsing.
@@ -1073,6 +1085,8 @@ This is further optimised with `find` as users can find by for instance, `name` 
 
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
