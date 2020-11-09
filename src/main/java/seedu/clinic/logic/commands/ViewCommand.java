@@ -106,7 +106,6 @@ public class ViewCommand extends Command {
             resultMessageSupplier += product.toStringWithTags();
         }
 
-        model.saveVersionedClinic();
         return new CommandResult(resultMessageSupplier);
     }
 
@@ -140,7 +139,6 @@ public class ViewCommand extends Command {
             resultMessageWarehouse += product.toStringWithTags();
         }
 
-        model.saveVersionedClinic();
         return new CommandResult(resultMessageWarehouse);
     }
 

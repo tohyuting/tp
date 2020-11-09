@@ -1,11 +1,29 @@
 ---
 layout: page
 title: Developer Guide
+Team: W14-4
 ---
+
+## Introduction
+
+This is the developer guide for **CLI-nic**, a brownfield project evolved from [AddressBook3](https://github.com/nus-cs2103-AY2021S1/tp).
+
+CLI-nic is a desktop application to help medical supply managers keep track of medical products and storage.
+It is optimized for usage via typing of commands, while the suppliers/warehouses and their associated
+product information is shown on our Graphical User Interface (GUI). CLI-nic can be used to store and
+retrieve information much faster than traditional GUI apps if you can type fast.
+
+If you are interested in developing CLI-nic, this Developer Guide will introduce to you the architecture
+and help you gain an overview of the implementation of the various features and components. You may use the
+table of contents below to navigate easily to sections within this document.
+
+## Table of Contents
 * Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Setting up, getting started**
 
@@ -45,6 +63,8 @@ Each of the four components,
 * defines its *API* in an `interface` with the same name as the Component.
 * exposes its functionality using a concrete `{Component Name}Manager` class (which implements the corresponding API `interface` mentioned in the previous point.
 
+<div style="page-break-after: always;"></div>
+
 For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class which implements the `Logic` interface.
 
 ![Class Diagram of the Logic Component](images/LogicClassDiagram.png)
@@ -57,6 +77,8 @@ The *Sequence Diagram* below shows how the components interact with each other f
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
 The sections below give more details of each component.
+
+<div style="page-break-after: always;"></div>
 
 ### UI component
 
@@ -75,6 +97,8 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+<div style="page-break-after: always;"></div>
 
 ### Logic component
 
@@ -96,6 +120,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
+
+<div style="page-break-after: always;"></div>
 
 ### Model component
 
@@ -119,6 +145,8 @@ The `Model`,
 ![BetterModelClassDiagram](images/BetterModelClassDiagram.png)
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 ### Storage component
 
@@ -159,6 +187,8 @@ associations are displayed.
 </div>
 
 ![Add Command Class Diagram](images/AddCommandClassDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 #### What Add feature does
 
@@ -242,6 +272,8 @@ reaches the end of diagram.
     `Model` will be updated to reflect the added supplier or warehouse in GUI and an add success message will be
      displayed to user.
 
+<div style="page-break-after: always;"></div>
+
 ### Assign macro feature
 
 #### What the assign macro feature does
@@ -260,6 +292,8 @@ Given below is an example usage scenario, together with a sequence diagram, to s
 The user frequently updates the products under each warehouse and decides to create a new macro with the alias "uw" for the command string "update ct/w" so as to shorten subsequent command inputs.
 The user does this by executing the `assignmacro a/uw cs/update ct/w` command.
 
+<div style="page-break-after: always;"></div>
+
 1. Parsing
 
    The input string will be passed to the `AssignMacroCommandParser`. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
@@ -276,8 +310,12 @@ If that is true, an exception will be thrown. This will be shown on the GUI as a
    The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
 The user now updates the quantity of the product "Panadol" in the aforementioned warehouse by simply executing the command `uwm pd/Panadol`.
 
+<div style="page-break-after: always;"></div>
+
 The following activity diagram summarizes what happens when a user assigns a macro:
 ![Assign Macro Command Activity Diagram](images/AssignMacroCommandActivityDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 #### Why it is implemented this way
 
@@ -288,6 +326,8 @@ overwritten by users. Apart from that, we decided not to allow saved command str
 work as they will always give invalid commands. Nonetheless, we decided to allow partial command strings and even full command strings that may not be valid commands as long as they fit the above criteria,
 as these macros can be used with additional arguments supplied (possibly making the command valid), or that the command string may be valid upon certain conditions (e.g. after the user adds a supplier).
 However, this also means that a valid macro does not guarantee a successful command when used, and error messages may still be displayed for the underlying command of the macro if the underlying command is invalid during the actual use of the macro.
+
+<div style="page-break-after: always;"></div>
 
 ### Auto-complete feature
 
@@ -340,6 +380,8 @@ When the full command for single-worded commands are typed in the commandBox, th
 AutoCompleteTextField#popUpEntries would be hidden to achieve smoother navigation for users when
 accessing commandHistory.
 
+<div style="page-break-after: always;"></div>
+
 ### Command history feature
 
 In this section, the functionality of the command history feature will be discussed.
@@ -368,12 +410,14 @@ The command history feature is implemented this way to reduce the need for repea
 whenever a new valid command is entered by the user. As the commandHistory.txt file gets longer, reading repeatedly
 from it can result in a significant reduction in performance.
 
+<div style="page-break-after: always;"></div>
+
 ### Delete feature
 
 The `delete` feature will be elaborated in this section by its functionality, the path execution with the aid of a sequence and an activity diagram.
 The details of `DeleteCommand`'s class implementation and its interactions with associated objects will also be discussed.
 
-#### What Delete Feature does
+#### What Delete feature does
 
 The `delete` feature allows user to remove a warehouse or supplier __(case 1)__.
 <br>
@@ -386,6 +430,8 @@ In case 2, `TYPE` needs to be set to `pw` or `ps`, and a `PRODUCT_NAME` needs to
 <br>
 <br>
 The deletion is limited to the items shown in the list displayed in GUI, and is done one item at a time.
+
+<div style="page-break-after: always;"></div>
 
 #### Path Execution of Delete Command
 
@@ -487,7 +533,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     Using the `targetType` attribute, the execution is now classified as either Supplier-related product deletion (`ps`) or Warehouse-related product deletion (`pw`). <br>
 
-    Based on the classification, the model will again retrieve the relevant displayed list of warehouse/supplier via `model#getFilteredWarehouseList()`/`model#getFilteredSupplierList()`. <br>
+    Based on the classification, the model will again retrieve the relevant displayed list of warehouse/supplier via `model#getFilteredWarehouseList()` / `model#getFilteredSupplierList()`.
 
     It then locates the respective warehouse/supplier entry at the `INDEX` passed. A product in this entry is to be deleted.
 
@@ -500,6 +546,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
     With the deletion completed, the Model will update the filtered lists of `Supplier` and `Warehouse` to be displayed in the UI.
     A `CommandResult` will be returned to the `LogicManager` with a success message, which will be shown to the user in the UI.
 
+<div style="page-break-after: always;"></div>
 
 ### Edit feature
 The `edit` feature will be elaborated in this section by its functionality and path execution with the aid of Class, Sequence and an Activity Diagrams.
@@ -510,12 +557,14 @@ Only important associations are displayed in class diagram below:
 
 ![Edit Command Class Diagram](images/EditCommandClassDiagram.png)
 
-#### What Edit Feature does
-The edit feature allows user to edit a supplier/warehouse information. This includes `name`, `phone`, `remark`, a supplier's `email` and a warehouse's `address`.
+#### What Edit feature does
+The edit feature allows user to edit a supplier/warehouse information. This include `name`, `phone`, `remark`, a supplier's `email` and a warehouse's `address`.
 
 This is important as warehouses and suppliers might change their contact details from time to time, and the user has to be able to edit this information quickly.
 
 One thing to note is edit feature does not allow users to edit any `product` associated with a particular supplier or warehouse. To edit the product quantity or tag of a product, `update` feature should be used instead. This is elaborated in the [**`Update`**](#update-product-feature) feature section.
+
+<div style="page-break-after: always;"></div>
 
 #### Path Execution of Edit Command
 The workflow of an `edit` command when executed by a user is shown in the activity diagram below:
@@ -599,6 +648,8 @@ For example, `editw` and `edits` to represent edit warehouse and edit supplier. 
 
 Therefore, our team decided to implement `edit` command by taking in prefixes and throwing our relevant exceptions at appropriate points after considering code quality and end user experience.
 
+<div style="page-break-after: always;"></div>
+
 ### Find feature
 
 #### What Find feature does
@@ -609,6 +660,8 @@ warehouses at any one time and not both at the same time.
 
 #### How it is implemented
 ![Find Command Activity Diagram](images/FindCommandActivityDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 1. After the `find` command is called with the relevant prefixes, the user input will be sent
 to `FindCommandParser` for parsing.
@@ -654,6 +707,8 @@ name, remark and product. Taking the aforementioned points into consideration, o
 implement the `find` command by taking in prefixes and throwing our relevant exceptions at appropriate points after
 considering code quality and end user experience.
 
+<div style="page-break-after: always;"></div>
+
 ### Help feature
 The `help` feature will be elaborated in this section by its functionality.
 
@@ -675,6 +730,8 @@ Important features of the Activity Diagram are as follows:
 
 #### Why Help feature is implemented this way
 Instead of providing a link and asking users to read the user guide, it would be more convenient for users to access the help message for each command within the application itself. This allows user to instantly know what to key into the command box instead of switching between user guide in the browser and **CLI-nic**. In addition, this allow users to access the `help` page even without an internet connection as well.
+
+<div style="page-break-after: always;"></div>
 
 ### List Macros feature
 
@@ -711,10 +768,12 @@ supplier or warehouse lists. I decided not to include a separate display section
 screen except when needed. Hence it is implemented such that it will be displayed with the success message instead, so that the user can quickly refer to the macro list and then proceed to use the intended macro straight after, where
 it would then be no longer necessary to keep the macro list on the display.
 
+<div style="page-break-after: always;"></div>
+
 ### List Suppliers and Warehouses feature
 The list Suppliers and Warehouses feature will be elaborated in this section by its functionality.
 
-#### What List Supplier and Warehouses feature does
+#### What List Suppliers and Warehouses feature does
 The list Suppliers and Warehouses feature allows user to list all suppliers and warehouses stored in **CLI-nic**. This feature allows users to retrieve back all suppliers and warehouses in the displayed supplier and warehouse lists after executing a `view` or `find` command.
 
 #### Path Execution of List Command
@@ -729,6 +788,8 @@ The list Suppliers and Warehouses feature allows user to list all suppliers and 
 1. Result Display
 
    A command success message will be displayed, specifying that all suppliers and warehouses has been listed.
+
+<div style="page-break-after: always;"></div>
 
 ### Remove Macro feature
 
@@ -768,6 +829,8 @@ retrieved macro will be removed from the model.
 
     The following activity diagram summarizes what happens when a user updates a product:
     ![Remove Macro Command Activity Diagram](images/RemoveMacroCommandActivityDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 ### List Macros feature
 
@@ -899,6 +962,8 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the warehouse/supplier being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
+<div style="page-break-after: always;"></div>
+
 ### Update product feature
 
 #### What the update product feature does
@@ -981,6 +1046,8 @@ while the check of whether an entity exists in the model falls under the role of
 the product specification so that both checks can be done by the `UpdateCommand` without exposing the implementation details of the prefixes to the `UpdateCommand` class or using null values in the `UpdateCommand` fields. The `UpdateCommand` can then use the `UpdateProductDescriptor`
 to both execute the checks and create the updated product.
 
+<div style="page-break-after: always;"></div>
+
 ### View feature
 The `view` feature will be elaborated in this section by its functionality and path execution with the aid of Sequence and Activity Diagrams.
 
@@ -1056,6 +1123,8 @@ This is further optimised with `find` as users can find by for instance, `name` 
 
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -1696,15 +1765,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Alias**: A user-specified `String` that can be used to represent another `String` (e.g. typing `uw`
     is equivalent to typing `update ct/w` after this command `assignmacro a/uw cs/update ct/w` has been executed)
 
-#### Command Prefix
-<div markdown="span" class="alert alert-info">:information_source:  Note: Command links are directed to
-supplier by default.
+### Command Prefix
+<div markdown="span" class="alert alert-info">:information_source:  Note: Commands common to Supplier and
+Warehouse are directed to Supplier by default.
 </div>
 
 |Prefix   |Meaning  |Used in the following Command(s)|
 | ------- |-------- | ------------ |
 |a/ |Alias |[Assign Macro](UserGuide.html#assigning-macro-to-selected-command-string-assignmacro)|
-|addr/ |Address |[Add](UserGuide.html#adding-a-warehouse--add), [Edit](UserGuide.html#editing-a-supplier--edit) |
+|addr/ |Address |[Add](UserGuide.html#adding-a-warehouse--add), [Edit](UserGuide.html#editing-a-warehouse--edit) |
 |cs/ |Command String |[Assign Macro](UserGuide.html#assigning-macro-to-selected-command-string-assignmacro)|
 |ct/ |Command Type |[Add](UserGuide.html#adding-a-supplier--add), [Delete](UserGuide.html#deleting-a-supplier--delete), [Edit](UserGuide.html#editing-a-supplier--edit), [Find](UserGuide.html#finding-relevant-suppliers-find), [Update](UserGuide.html#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update), [View](UserGuide.html#viewing-a-specific-supplier-view) |
 |e/ |Email Address |[Add](UserGuide.html#adding-a-supplier--add), [Edit](UserGuide.html#editing-a-supplier--edit) |
@@ -1938,7 +2007,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: Error details shown in the response message. A help message for find command will also be displayed
       to guide user accordingly.
 
-### Finding relevant warehouse(s)
+### Finding relevant Warehouse(s)
 
 1. Find command format: `find ct/w [n/NAME...] [r/REMARK...] [pd/PRODUCT_NAME...]`
 
