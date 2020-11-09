@@ -36,12 +36,12 @@ Given below are my contributions to the project.
 * **New Class**: Product class to be used by `Supplier` and `Warehouse` classes.
     * What it does: Stores information (quantity and tags) related to a Product associated with a `Supplier` or `Warehouse`.
     * Justification: By keeping track of products related to their entities in **CLI-nic** instead of a separate document, this will bring about convenience to user.
-    * Highlights: Users can update stocks of products in `Supplier` and `Warehouse` when they have the information quickly by using `update` command.
+    * Highlights: Users can update stocks of products in `Supplier` and `Warehouse` quickly when they have the information by using `update` command.
     * Credits: This class was adapted slightly from `Person` class in **AB3**.
 
 * **Minor enhancement**:
   * Fix a minor yet crucial bug for jar file to function as expected. [#161](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/161)
-  * Error messages of **AB3** are not representative of some commands entered by users. Invalid prefix used errors were not thrown. Extensive logic handling of inputs from users was done to customise error messages in **CLI-nic**. This is slightly challenging as users are allowed to reorder prefixes in their inputs [#216](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/216), [#242](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/242).
+  * Error messages of **AB3** are not representative of some commands entered by users. Invalid prefix used errors were not considered and displayed in error messages. Extensive logic handling of inputs from users was done to customise error messages in **CLI-nic**. This is slightly challenging as users are allowed to reorder prefixes in their inputs [#216](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/216), [#242](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/242).
   * Fix bug related to `AutoComplete` feature, where `CommandHistory` feature does not work smoothly if the previous command was a single word command [#227](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/227).
 
 * **Contributions to Documentations**:
