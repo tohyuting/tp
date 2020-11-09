@@ -54,11 +54,11 @@ instructions for the `delete` command.<br>Here are some sample commands to try:
    * **`list`**: Displays all the suppliers and warehouses in CLI-nic.
 
    * **`listmacro`**: Displays all the macros saved in CLI-nic.
-   
+
    * **`redo`**: Restores the data in CLI-nic before an `undo` command was executed.
 
    * **`removemacro`** `findsup` : Removes the macro with the alias `findsup`.
-   
+
    * **`undo`**: Recovers the previous version of CLI-nic data.
 
    * **`update`** `ct/w i/2 pd/Panadol q/10 t/Fever` : Updates the quantity of `Panadol` stored in the warehouse at
@@ -101,9 +101,11 @@ instructions for the `delete` command.<br>Here are some sample commands to try:
   define it in their assigned Macro commands.<br>
   e.g. `delete ct/TYPE i/INDEX pd/PRODUCT_NAME` can be used as `delete ct/pw i/1 pd/Panadol` but not
   `delete ct/pw i/1 pd/Panadol r/Fast relief` nor `delete ct/pw i/1 pd/Panadol/Panadol Strong`.
-  
+
 * For single word commands that do not take in arguments such as `clear`, `list`, `redo` and `undo`, trailing keywords
   after the command word will be ignored.
+
+* All command words and prefixes are case-sensitive, except for `COMMAND` parameter in `help`.
 
 </div>
 
@@ -488,7 +490,7 @@ Example:
 
 * `view ct/w i/2` : Displays all the information associated with the warehouse at index 2 in the warehouse list.
   ![view warehouse](images/viewWarehouse.png)
-  
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
 The `view` command is optimised for users who prefer to use the keyboard.
