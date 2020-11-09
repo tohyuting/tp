@@ -8,7 +8,7 @@ title: Developer Guide
 This is the developer guide for **CLI-nic**, a brownfield project evolved from [AddressBook3](https://github.com/nus-cs2103-AY2021S1/tp).
 
 CLI-nic is a desktop application to help medical supply managers keep track of medical products and storage.
-It is optimized for usage via typing of commands, while the suppliers/warehouses and their associate
+It is optimized for usage via typing of commands, while the suppliers/warehouses and their associated
 product information is shown on our Graphical User Interface (GUI). CLI-nic can be used to store and
 retrieve information much faster than traditional GUI apps if you can type fast.
 
@@ -1727,7 +1727,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Alias**: A user-specified `String` that can be used to represent another `String` (e.g. typing `uw`
     is equivalent to typing `update ct/w` after this command `assignmacro a/uw cs/update ct/w` has been executed)
 
-#### Command Prefix
+### Command Prefix
 <div markdown="span" class="alert alert-info">:information_source:  Note: Command links are directed to
 supplier by default.
 </div>
