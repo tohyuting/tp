@@ -16,7 +16,6 @@ If you are interested in developing CLI-nic, this Developer Guide will introduce
 and help you gain an overview of the implementation of the various features and components. You may use the
 table of contents below to navigate easily to sections within this document.
 
-<div style="page-break-after: always;"></div>
 
 ## Table of Contents
 * Table of Contents
@@ -76,6 +75,8 @@ The *Sequence Diagram* below shows how the components interact with each other f
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
 The sections below give more details of each component.
+
+<div style="page-break-after: always;"></div>
 
 ### UI component
 
