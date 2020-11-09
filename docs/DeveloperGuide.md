@@ -1821,22 +1821,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Clear command with additional arguments e.g. `clear test` or `clear i/1`<br>
       Expected: Similar to previous.
 
-### Deleting a Supplier/Warehouse
-
-1. Delete command format: `delete ct/TYPE i/INDEX`
-
-   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list.
-
-   1. Test case: `delete ct/s i/1`<br>
-      Expected: First supplier is deleted from the list. Details of the deleted supplier shown in the status message.
-
-   1. Test case: Invalid argument for the type specified e.g. `delete ct/0`<br>
-      Expected: No supplier is deleted. Error details shown in the status message. Status bar remains the same.
-
-   1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/s i/1000`<br>
-         Expected: No supplier is deleted. Error details is shown in the status message.
-
-   ### Deleting a Product from a Supplier/Warehouse
+### Deleting a Product from a Supplier/Warehouse
 
 1. Delete command format: `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`
 
@@ -1854,26 +1839,20 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Provided product (by name) is not found in the product list of the supplier/warehouse e.g. `delete ct/pw i/1000 pd/P`<br>
       Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.
 
-### Updating a Product in a Supplier/Warehouse
+### Deleting a Supplier/Warehouse
 
-1. Update command format: `update ct/TYPE i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
+1. Delete command format: `delete ct/TYPE i/INDEX`
 
-   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list. First warehouse does not have the product `Panadol` while the first supplier has.
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list.
 
-   1. Test case: Product does not exist e.g. `update ct/w i/1 pd/Panadol q/350 t/Fever`<br>
-      Expected: Product with the name `Panadol` with the quantity `350` and tag `fever` added to the first warehouse. Details of the new product is shown in the display message.
+   1. Test case: `delete ct/s i/1`<br>
+      Expected: First supplier is deleted from the list. Details of the deleted supplier shown in the status message.
 
-   1. Test case: Product exists and optional fields supplied e.g. `update ct/s i/1 pd/Panadol q/350 t/Fever`<br>
-      Expected: Product with the name `Panadol` in the first supplier is updated with the quantity `350` and tag `fever`. Details of the new product shown in the display message.
+   1. Test case: Invalid argument for the type specified e.g. `delete ct/0`<br>
+      Expected: No supplier is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Test case: Product exists and no optional fields supplied e.g. `update ct/s i/1 pd/Panadol`<br>
-      Expected: No product is added or updated. Error details shown in the displayed message.
-
-   1. Test case: Non-positive index e.g. `update ct/w i/0 pd/Panadol q/350 t/Fever`<br>
-      Expected: No product is added or updated. Error details shown in the displayed message.
-
-   1. Test case: Index more than list size e.g. `update ct/w i/x pd/Panadol q/350 t/Fever` (where x is larger than the list size)
-      Expected: No product is added or updated. Similar to previous.
+   1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/s i/1000`<br>
+      Expected: No supplier is deleted. Error details is shown in the status message.
 
 ### Editing a Supplier
 
