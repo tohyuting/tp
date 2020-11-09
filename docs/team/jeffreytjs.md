@@ -15,8 +15,8 @@ Given below are my contributions to the project.
   * What it does: Allows the user to insert new Suppliers/Warehouses into the CLI-nic Supplier/Warehouse List
    respectively.<br>
    The user can add:
-    * `Name`, `Phone`, and `Remark` (Optional) attributes to both Suppliers and Warehouses
-    * In addition, an `Email` attribute to Suppliers and an `Address` attribute to Warehouses
+    * Name, Phone, and Remark (Optional) attributes to both Suppliers and Warehouses
+    * In addition, an Email attribute to Suppliers and an Address attribute to Warehouses
   * Justification: This is an important feature, and it is a must-have. It is the first touch for most users
    and allows the user to effectively keep track of medical products and storage.
   * Highlights: This feature is now able to add different entities such as Suppliers and Warehouses
