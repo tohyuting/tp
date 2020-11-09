@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Developer Guide
+---
 
 This is the developer guide for **CLI-nic**, a brownfield project evolved from [AddressBook3](https://github.com/nus-cs2103-AY2021S1/tp).
 
@@ -15,7 +16,6 @@ table of contents below to navigate easily to sections within this document.
 
 <div style="page-break-after: always;"></div>
 
----
 * Table of Contents
 {:toc}
 
