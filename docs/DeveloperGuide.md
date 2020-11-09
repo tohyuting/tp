@@ -16,7 +16,6 @@ If you are interested in developing CLI-nic, this Developer Guide will introduce
 and help you gain an overview of the implementation of the various features and components. You may use the
 table of contents below to navigate easily to sections within this document.
 
-
 ## Table of Contents
 * Table of Contents
 {:toc}
@@ -62,6 +61,8 @@ Each of the four components,
 
 * defines its *API* in an `interface` with the same name as the Component.
 * exposes its functionality using a concrete `{Component Name}Manager` class (which implements the corresponding API `interface` mentioned in the previous point.
+
+<div style="page-break-after: always;"></div>
 
 For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class which implements the `Logic` interface.
 
