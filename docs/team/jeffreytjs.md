@@ -16,11 +16,11 @@ Given below are my contributions to the project.
    respectively.<br>
    The user can add:
     * Name, Phone, and Remark (Optional) attributes to both Suppliers and Warehouses
-    * In addition, a supplier has an email attribute and a warehouse has an address attribute
+    * In addition, an email attribute to Suppliers and an address attribute to Warehouses
   * Justification: This is an important feature, and it is a must-have. It is the first touch for most users
    and allows the user to effectively keep track of medical products and storage.
-  * Highlights: This feature is now able to add different entities such as suppliers and warehouses
-   as opposed to the initial implementation where only persons are allowed. This allowed for more
+  * Highlights: This feature is now able to add different entities such as Suppliers and Warehouses
+   as opposed to the initial implementation where only Persons are allowed. This allowed for more
    flexibility in the development of features and usage of the application. As such, the codes for parser
    and test codes were mostly rewritten.
    <br> Credits: This feature was adapted from [AddressBook-Level3](https://github.com/se-edu/addressbook-level3/blob/master/src/main/java/seedu/address/logic/commands/AddCommand.java)
@@ -32,7 +32,7 @@ Given below are my contributions to the project.
      synchronise.
     <br> Credits: The refactoring is done on the codebase provided by [AddressBook-Level3](https://github.com/se-edu/addressbook-level3)
 
-* **New Feature**: Adaptation and integration of autocomplete feature (Pull requests: [#223](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/223), [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
+* **New Feature**: Adaptation and integration of autocomplete (Pull requests: [#223](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/223), [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
    * What it does: Suggests updated autocompleted commands for user in real time as they key in the command
     they would like to execute.
    * Justification: This is a good-to-have feature which can help improve user experience as they would be
@@ -45,7 +45,7 @@ Given below are my contributions to the project.
     <br> Credits: This feature was adapted from past student [ShaunNgTX](https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java)
 
 * **Minor Enhancement**: Fix bugs for the CLI-nic (Pull requests: [#130](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/130), [#131](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/131), [#141](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/141), [#158](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/158), [#160](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/160), [#165](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/165), [#172](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/172), [#212](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/212))
-   * What it does: Restricts user from performing invalid actions and improve user experience.
+   * What it does: Restricts user from performing invalid actions and improve user experience
    * Justification: This is an essential update, as invalid actions would affect the functionality of
     CLI-nic. Unresolved UI bugs may reduce usability of CLI-nic.
    * Challenges: There were many UI related bugs which it took quite some time to learn about the various
@@ -70,7 +70,6 @@ Given below are my contributions to the project.
     * Added documentation for the `add` command (Pull requests: [#75](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/75), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
     * Added documentation for `autoComplete` feature (Pull request: [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
   * Developer Guide:
-    * Refactored DG to CLI-nic use case (Pull request: [#129](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/129))
     * Added `add` feature implementation details (Pull requests: [#139](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/139), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
     * Added `autoComplete` implementation details and user stories (Pull request: [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
     * Added Activity, Class and Sequence UML Diagrams (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
