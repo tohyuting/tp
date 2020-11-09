@@ -544,7 +544,7 @@ In the following section, the interaction between different objects will be disc
 
    After receiving an input from user for edit command, `EditCommandParser#parse` will be invoked.
 
-   As mentioned in above section, if either one of the compulsory prefixes is missing, `ParseException` will be thrown to remind users. Furthermore, invalid values supplied for `type` and `index` (e.g. `String` value for `index`), a `ParseException` will be thrown.
+   As mentioned in above section, if either one of the compulsory prefixes is missing, `ParseException` will be thrown to remind users. Furthermore, invalid values supplied for `type` and `index` (e.g. `i/test`), a `ParseException` will be thrown.
 
    An attempt to determine the correct type and creating the relevant `EditDescriptor` will then be carried out. During this process, if incorrect prefixes such as an `email` prefix for warehouse or an `address` prefix for supplier was found, a `ParseException` will be thrown.
 
