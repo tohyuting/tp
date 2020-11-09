@@ -146,6 +146,8 @@ The `Model`,
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 ### Storage component
 
 ![Structure of the Storage Component](images/StorageClassDiagram.png)
@@ -185,6 +187,8 @@ associations are displayed.
 </div>
 
 ![Add Command Class Diagram](images/AddCommandClassDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 #### What Add feature does
 
@@ -268,6 +272,8 @@ reaches the end of diagram.
     `Model` will be updated to reflect the added supplier or warehouse in GUI and an add success message will be
      displayed to user.
 
+<div style="page-break-after: always;"></div>
+
 ### Assign macro feature
 
 #### What the assign macro feature does
@@ -314,6 +320,8 @@ overwritten by users. Apart from that, we decided not to allow saved command str
 work as they will always give invalid commands. Nonetheless, we decided to allow partial command strings and even full command strings that may not be valid commands as long as they fit the above criteria,
 as these macros can be used with additional arguments supplied (possibly making the command valid), or that the command string may be valid upon certain conditions (e.g. after the user adds a supplier).
 However, this also means that a valid macro does not guarantee a successful command when used, and error messages may still be displayed for the underlying command of the macro if the underlying command is invalid during the actual use of the macro.
+
+<div style="page-break-after: always;"></div>
 
 ### Auto-complete feature
 
@@ -366,6 +374,8 @@ When the full command for single-worded commands are typed in the commandBox, th
 AutoCompleteTextField#popUpEntries would be hidden to achieve smoother navigation for users when
 accessing commandHistory.
 
+<div style="page-break-after: always;"></div>
+
 ### Command history feature
 
 In this section, the functionality of the command history feature will be discussed.
@@ -393,6 +403,8 @@ commandHistory.txt file, it is necessary to update the in-memory `CommandHistory
 The command history feature is implemented this way to reduce the need for repeated readings from commandHistory.txt
 whenever a new valid command is entered by the user. As the commandHistory.txt file gets longer, reading repeatedly
 from it can result in a significant reduction in performance.
+
+<div style="page-break-after: always;"></div>
 
 ### Delete feature
 
@@ -526,6 +538,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
     With the deletion completed, the Model will update the filtered lists of `Supplier` and `Warehouse` to be displayed in the UI.
     A `CommandResult` will be returned to the `LogicManager` with a success message, which will be shown to the user in the UI.
 
+<div style="page-break-after: always;"></div>
 
 ### Edit feature
 The `edit` feature will be elaborated in this section by its' functionality and path execution with the aid of Class, Sequence and an Activity Diagrams.
@@ -624,6 +637,8 @@ For example, `editw` and `edits` to represent edit warehouse and edit supplier. 
 
 Therefore, our team decided to implement `edit` command by taking in prefixes and throwing our relevant exceptions at appropriate points after considering code quality and end user experience.
 
+<div style="page-break-after: always;"></div>
+
 ### Find feature
 
 #### What Find feature does
@@ -679,6 +694,8 @@ name, remark and product. Taking the aforementioned points into consideration, o
 implement the `find` command by taking in prefixes and throwing our relevant exceptions at appropriate points after
 considering code quality and end user experience.
 
+<div style="page-break-after: always;"></div>
+
 ### Help feature
 The `help` feature will be elaborated in this section by its' functionality.
 
@@ -700,6 +717,8 @@ Important features of the Activity Diagram are as follows:
 
 #### Why Help feature is implemented this way
 Instead of providing a link and asking users to read the user guide, it would be more convenient for users to access the help message for each command within the application itself. This allows user to instantly know what to key into the command box instead of switching between user guide in the browser and **CLI-nic**. In addition, this allow users to access the `help` page even without an internet connection as well.
+
+<div style="page-break-after: always;"></div>
 
 ### List Macros feature
 
@@ -736,6 +755,8 @@ supplier or warehouse lists. I decided not to include a separate display section
 screen except when needed. Hence it is implemented such that it will be displayed with the success message instead, so that the user can quickly refer to the macro list and then proceed to use the intended macro straight after, where
 it would then be no longer necessary to keep the macro list on the display.
 
+<div style="page-break-after: always;"></div>
+
 ### List Suppliers and Warehouses feature
 The list Suppliers and Warehouses feature will be elaborated in this section by its' functionality.
 
@@ -754,6 +775,8 @@ The list Suppliers and Warehouses feature allows user to list all suppliers and 
 3. Result Display
 
    A command success message will be displayed, specifying that all suppliers and warehouses has been listed.
+
+<div style="page-break-after: always;"></div>
 
 ### Remove Macro feature
 
@@ -789,6 +812,8 @@ retrieved macro will be removed from the model.
 
 The following activity diagram summarizes what happens when a user updates a product:
 ![Remove Macro Command Activity Diagram](images/RemoveMacroCommandActivityDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Undo/redo feature
 
@@ -887,6 +912,8 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the warehouse/supplier being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
+<div style="page-break-after: always;"></div>
+
 ### Update product feature
 
 #### What the update product feature does
@@ -968,6 +995,8 @@ and the product does not exist under the specified warehouse/supplier in the mod
 while the check of whether an entity exists in the model falls under the role of the `Command` classes, where the `Parser` is independent of the model. Hence we decided to implement an additional `UpdateProductDescriptor` class to provide a wrapper of
 the product specification so that both checks can be done by the `UpdateCommand` without exposing the implementation details of the prefixes to the `UpdateCommand` class or using null values in the `UpdateCommand` fields. The `UpdateCommand` can then use the `UpdateProductDescriptor`
 to both execute the checks and create the updated product.
+
+<div style="page-break-after: always;"></div>
 
 ### View feature
 The `view` feature will be elaborated in this section by its' functionality and path execution with the aid of Sequence and Activity Diagrams.
