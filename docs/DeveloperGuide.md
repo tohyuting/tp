@@ -1858,7 +1858,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
 1. Edit command format: `edit ct/s i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/REMARK]`
 
-   1. Prerequisites: Suppliers in CLI-nic does not have a supplier named Alice Ptd Ltd (with the exception of test case to test for duplicated supplier).
+   1. Prerequisites: Suppliers in CLI-nic does not have a supplier named Alice Ptd Ltd.
 
    1. Test case: Minimal information e.g. `edit ct/s i/1 n/Alice Pte Ltd`<br>
       Expected: Edits a supplier in index 1 on supplier list to have a name "Alice Pte Ltd".
@@ -1881,7 +1881,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
 1. Edit command format: `edit ct/w i/INDEX [n/NAME] [p/PHONE] [addr/ADDRESS] [r/REMARK]`
 
-   1. Prerequisites: Warehouses in CLI-nic does not have a warehouse named Alice Warehouse (with the exception of test case to test for duplicated warehouse).
+   1. Prerequisites: Warehouses in CLI-nic does not have a warehouse named Alice Warehouse.
 
    1. Test case: Minimal information e.g. `edit ct/w i/1 n/Alice Warehouse` <br>
       Expected: Edits a warehouse in index 1 on warehouse list to have a name "Alice Warehouse".
