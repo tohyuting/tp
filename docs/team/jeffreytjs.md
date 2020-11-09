@@ -15,14 +15,12 @@ Given below are my contributions to the project.
   * What it does: Allows the user to insert new Suppliers/Warehouses into the CLI-nic Supplier/Warehouse List
    respectively.<br>
    The user can add:
-    * A Supplier that contains the following attributes: Name of Supplier, Phone, Email and Remark
-     (Optional)
-    * A Warehouse that contains the following attributes: Name of Warehouse, Phone, Address and Remark
-     (Optional)
+    * Name, Phone, and Remark (Optional) attributes to both Suppliers and Warehouses
+    * In addition, an Email attribute to Suppliers and an Address attribute to Warehouses
   * Justification: This is an important feature, and it is a must-have. It is the first touch for most users
    and allows the user to effectively keep track of medical products and storage.
-  * Highlights: This feature is now able to add different entities such as suppliers and warehouses
-   as opposed to the initial implementation where only persons are allowed. This allowed for more
+  * Highlights: This feature is now able to add different entities such as Suppliers and Warehouses
+   as opposed to the initial implementation where only Persons are allowed. This allowed for more
    flexibility in the development of features and usage of the application. As such, the codes for parser
    and test codes were mostly rewritten.
    <br> Credits: This feature was adapted from [AddressBook-Level3](https://github.com/se-edu/addressbook-level3/blob/master/src/main/java/seedu/address/logic/commands/AddCommand.java)
@@ -34,11 +32,11 @@ Given below are my contributions to the project.
      synchronise.
     <br> Credits: The refactoring is done on the codebase provided by [AddressBook-Level3](https://github.com/se-edu/addressbook-level3)
 
-* **New Feature**: Adaptation and integration of autocomplete feature (Pull requests: [#223](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/223), [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
+* **New Feature**: Adaptation and integration of autocomplete (Pull requests: [#223](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/223), [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
    * What it does: Suggests updated autocompleted commands for user in real time as they key in the command
     they would like to execute.
    * Justification: This is a good-to-have feature which can help improve user experience as they would be
-    able to achieve the intended outcome more quickly by using the autocompletion.
+    able to achieve the intended outcome more quickly.
    * Highlights: To implement auto-complete, a new UI class had to be created and integrated with
     the existing UI classes. The integration with commandHistory feature was the most time-consuming yet
     fulfilling component as they have largely overlapping codes especially in the UI classes. There were a
@@ -47,13 +45,11 @@ Given below are my contributions to the project.
     <br> Credits: This feature was adapted from past student [ShaunNgTX](https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java)
 
 * **Minor Enhancement**: Fix bugs for the CLI-nic (Pull requests: [#130](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/130), [#131](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/131), [#141](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/141), [#158](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/158), [#160](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/160), [#165](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/165), [#172](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/172), [#212](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/212))
-   * What it does: Restricts user from performing invalid actions and improve user experience when using
-    CLI-nic.
-   * Justification: This is an essential update, as invalid actions would affect the functionality of the
-    CLI-nic. Unresolved UI bugs may not display all the information that users are looking for.
-   * Challenges: There were many UI related bugs which the team was inexperienced in, so it took some
-    time to learn about the various components and stepwise trial-and-error to fix them.
-
+   * What it does: Restricts user from performing invalid actions and improve user experience
+   * Justification: This is an essential update, as invalid actions would affect the functionality of
+    CLI-nic. Unresolved UI bugs may reduce usability of CLI-nic.
+   * Challenges: There were many UI related bugs which it took quite some time to learn about the various
+    components followed by stepwise trial-and-error to fix.
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=jeffreytjs)
 
@@ -67,26 +63,24 @@ Given below are my contributions to the project.
   * Designed and replaced App Logo (Pull request: [#114](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/114))
   * Made major changes to the UI to include drop-down for products (Pull request: [#131](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/131))
   * Updated the GUI color scheme and added new themes (Pull request: [#131](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/131))
-  * Housekeeping to ensure codebase and documentations' format and language are up-to-date(Pull requests: [#144](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/144), [#231](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/231), [#247](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/247))
+  * Housekeeping to ensure codebase and documentations' format and language are up-to-date (Pull requests: [#144](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/144), [#231](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/231), [#247](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/247))
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the `add` commands in the user guide (Pull requests: [#75](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/75), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
-    * Added documentation for the `autoComplete` in the user guide (Pull request: [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
+    * Added documentation for the `add` command (Pull requests: [#75](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/75), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
+    * Added documentation for `autoComplete` feature (Pull request: [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
   * Developer Guide:
-    * Refactored DG to CLI-nic use case (Pull request: [#129](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/129))
-    * Added implementation details of the `add` feature (Pull requests: [#139](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/139), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
-    * Added implementation details and user stories for `autoComplete` (Pull request: [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
-    * Added UML (Including Activity Diagram, Class Diagram and Sequence Diagram) (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
+    * Added `add` feature implementation details (Pull requests: [#139](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/139), [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
+    * Added `autoComplete` implementation details and user stories (Pull request: [#228](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/228))
+    * Added Activity, Class and Sequence UML Diagrams (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
     * Added Manual Testing Instructions for Developer Guide (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
     * Added Command Prefix table (Pull request: [#154](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/154))
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): (Pull requests: [#133](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/133), [#138](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/138), [#142](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/142), [#156](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/156), [#175](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/175))
-  * Reported bugs and suggestions for other teams in the class (Pull request: [AY2021S1-CS2103-F09-1](https://github.com/AY2021S1-CS2103-F09-1/tp/pull/178))
+  * PRs reviewed (with non-trivial comments): (Pull requests: [#133](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/133), [#138](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/138), [#142](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/142), [#156](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/156), [#175](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/175))
+  * Reported bugs for other teams in the class (Pull request: [AY2021S1-CS2103-F09-1](https://github.com/AY2021S1-CS2103-F09-1/tp/pull/178))
   * Written Test Cases for tests broken by refactoring (Pull request: [#100](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/100))
 
 * **Tools**:
-  * Integrated a third party library ([PlantUML Github Action](https://github.com/cloudbees/plantuml-github-action))
-  to the project (Pull request: [#145](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/145))
+  * Integrated a third party library ([PlantUML Github Action](https://github.com/cloudbees/plantuml-github-action)) (Pull request: [#145](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/145))
   <br> Credits for workflow to: [qwoprocks](https://github.com/qwoprocks)
