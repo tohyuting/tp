@@ -1,6 +1,20 @@
 ---
 layout: page
 title: Developer Guide
+
+This is the developer guide for **CLI-nic**, a brownfield project evolved from [AddressBook3](https://github.com/nus-cs2103-AY2021S1/tp).
+
+CLI-nic is a desktop application to help medical supply managers keep track of medical products and storage.
+It is optimized for usage via typing of commands, while the suppliers/warehouses and their associate
+product information is shown on our Graphical User Interface (GUI). CLI-nic can be used to store and
+retrieve information much faster than traditional GUI apps if you can type fast.
+
+If you are interested in developing CLI-nic, this Developer Guide will introduce to you the architecture
+and help you gain an overview of the implementation of the various features and components. You may use the
+table of contents below to navigate easily to sections within this document.
+
+<div style="page-break-after: always;"></div>
+
 ---
 * Table of Contents
 {:toc}
@@ -374,7 +388,7 @@ from it can result in a significant reduction in performance.
 The `delete` feature will be elaborated in this section by its' functionality, the path execution with the aid of a sequence and an activity diagram.
 The details of __DeleteCommand__'s class implementation and its interactions with associated objects will also be discussed.
 
-#### What Delete Feature does
+#### What Delete feature does
 
 The `delete` feature allows user to remove a warehouse or supplier __(case 1)__.
 <br>
@@ -511,7 +525,7 @@ Only important associations are displayed in class diagram below:
 
 ![Edit Command Class Diagram](images/EditCommandClassDiagram.png)
 
-#### What Edit Feature does
+#### What Edit feature does
 The edit feature allows user to edit a supplier/warehouse information. This include `name`, `phone`, `remark`, a supplier's `email` and a warehouse's `address`.
 
 This is important as warehouses and suppliers might change their contact details from time to time and the user has to be able to edit those information quickly.
@@ -714,7 +728,7 @@ it would then be no longer necessary to keep the macro list on the display.
 ### List Suppliers and Warehouses feature
 The list Suppliers and Warehouses feature will be elaborated in this section by its' functionality.
 
-#### What List Supplier and Warehouses feature does
+#### What List Suppliers and Warehouses feature does
 The list Suppliers and Warehouses feature allows user to list all suppliers and warehouses stored in **CLI-nic**. This feature allows users to retrieve back all suppliers and warehouses in the displayed supplier and warehouse lists after executing a `view` or `find` command.
 
 #### Path Execution of List Command
@@ -1898,7 +1912,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: Error details shown in the response message. A help message for find command will also be displayed
       to guide user accordingly.
 
-### Finding relevant warehouse(s)
+### Finding relevant Warehouse(s)
 
 1. Find command format: `find ct/w [n/NAME...] [r/REMARK...] [pd/PRODUCT_NAME...]`
 
