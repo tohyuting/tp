@@ -64,7 +64,7 @@ public class ViewWarehousesCommandTest {
                 new NameContainsKeywordsPredicateForWarehouse(warehouseToView.getName().toString());
         model.updateFilteredWarehouseList(warehousePredicate);
         expectedModel.updateFilteredWarehouseList(warehousePredicate);
-        expectedModel.saveVersionedClinic();
+
         String expectedMessage = String.format(Messages.MESSAGE_WAREHOUSE_LISTED_OVERVIEW,
                 expectedModel.getFilteredWarehouseList().size()) + "\n\n"
                 + "Here are the products associated with the Warehouse"

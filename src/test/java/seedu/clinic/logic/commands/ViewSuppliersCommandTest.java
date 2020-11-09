@@ -67,7 +67,6 @@ public class ViewSuppliersCommandTest {
                 new NameContainsKeywordsPredicateForSupplier(supplierToView.getName().toString());
         model.updateFilteredSupplierList(supplierPredicate);
         expectedModel.updateFilteredSupplierList(supplierPredicate);
-        expectedModel.saveVersionedClinic();
         String expectedMessage = String.format(Messages.MESSAGE_SUPPLIERS_LISTED_OVERVIEW,
                 expectedModel.getFilteredSupplierList().size()) + "\n\n"
                 + "Here are the products associated with the Supplier"
