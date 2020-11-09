@@ -3,6 +3,8 @@ layout: page
 title: Developer Guide
 ---
 
+## Introduction
+
 This is the developer guide for **CLI-nic**, a brownfield project evolved from [AddressBook3](https://github.com/nus-cs2103-AY2021S1/tp).
 
 CLI-nic is a desktop application to help medical supply managers keep track of medical products and storage.
@@ -16,8 +18,11 @@ table of contents below to navigate easily to sections within this document.
 
 <div style="page-break-after: always;"></div>
 
+## Table of Contents
 * Table of Contents
 {:toc}
+
+<div style="page-break-after: always;"></div>
 
 --------------------------------------------------------------------------------------------------------------------
 
