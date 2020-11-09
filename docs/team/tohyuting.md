@@ -21,6 +21,8 @@ Given below are my contributions to the project.
   * Highlights: Messages displayed has to be constantly updated as the project grows with new feature. Sample commands were crafted to work with sample data loaded.
   * Credits: The feature was adapted from **AB3**, where users was asked to copy the URL for the user guide.
 
+<div style="page-break-after: always;"></div>
+
 * **New Feature**: View a particular supplier and warehouse via index on the displayed supplier/warehouse list.
   * What it does: Allow users to view a supplier or warehouse information at a particular index of displayed supplier/warehouse list.
   * Justification: This feature helps **CLI-nic** to be more CLI-friendly. Using `view` (together with `find` to filter relevant entities first) allows users to see products associated with a warehouse or supplier without clicking.
