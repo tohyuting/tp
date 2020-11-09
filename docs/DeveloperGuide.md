@@ -765,7 +765,7 @@ retrieved macro will be removed from the model.
 1. Result Display <br>
 
     The `RemoveMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
-    
+
     The following activity diagram summarizes what happens when a user updates a product:
     ![Remove Macro Command Activity Diagram](images/RemoveMacroCommandActivityDiagram.png)
 
@@ -1798,60 +1798,6 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: No warehouse is added. Error details will be displayed, indicating that the warehouse to
       be added already exists in CLI-nic and thus cannot be added. WarehouseList on GUI remain unchanged.
 
-### Deleting a Supplier/Warehouse
-
-1. Delete command format: `delete ct/TYPE i/INDEX`
-
-   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list.
-
-   1. Test case: `delete ct/s i/1`<br>
-      Expected: First supplier is deleted from the list. Details of the deleted supplier shown in the status message.
-
-   1. Test case: Invalid argument for the type specified e.g. `delete ct/0`<br>
-      Expected: No supplier is deleted. Error details shown in the status message. Status bar remains the same.
-      
-   1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/s i/1000`<br>
-         Expected: No supplier is deleted. Error details is shown in the status message.
-         
-### Deleting a Product from a Supplier/Warehouse
-
-1. Delete command format: `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`
-
-   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier with some product in the list. First warehouse does not have the product `Panadol` while the first supplier has.
-
-   1. Test case: `delete ct/pw i/1 pd/panadol`<br>
-      Expected: The `Panadol` product in the first warehouse is deleted. Details of the deleted product shown in the status message.
-
-   1. Test case: Invalid argument for the type specified e.g. `delete ct/w i/1 pd/Panadol`<br>
-      Expected: No product is deleted. No warehouse is deleted as well. Error details shown in the status message. Status bar remains the same.
-      
-   1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/pw i/1000 pd/Panadol`<br>
-         Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.v
- 
-   1. Test case: Provided product (by name) is not found in the product list of the supplier/warehouse e.g. `delete ct/pw i/1 pd/P`<br>
-               Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.
-
-### Updating a Product in a Supplier/Warehouse
-
-1. Update command format: `update ct/TYPE i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
-
-   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list. First warehouse does not have the product `Panadol` while the first supplier has.
-
-   1. Test case: Product does not exist e.g. `update ct/w i/1 pd/Panadol q/350 t/Fever`<br>
-      Expected: Product with the name `Panadol` with the quantity `350` and tag `fever` added to the first warehouse. Details of the new product is shown in the display message.
-
-   1. Test case: Product exists and optional fields supplied e.g. `update ct/s i/1 pd/Panadol q/350 t/Fever`<br>
-      Expected: Product with the name `Panadol` in the first supplier is updated with the quantity `350` and tag `fever`. Details of the new product shown in the display message.
-
-   1. Test case: Product exists and no optional fields supplied e.g. `update ct/s i/1 pd/Panadol`<br>
-      Expected: No product is added or updated. Error details shown in the displayed message.
-
-   1. Test case: Non-positive index e.g. `update ct/w i/0 pd/Panadol q/350 t/Fever`<br>
-      Expected: No product is added or updated. Error details shown in the displayed message.
-
-   1. Test case: Index more than list size e.g. `update ct/w i/x pd/Panadol q/350 t/Fever` (where x is larger than the list size)
-      Expected: No product is added or updated. Similar to previous.
-
 ### Assigning a macro
 
 1. Assign macro command format: `assignmacro a/ALIAS cs/COMMAND_STRING`
@@ -1888,9 +1834,9 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: No supplier is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/s i/1000`<br>
-      Expected: No supplier is deleted. Error details is shown in the status message.
+         Expected: No supplier is deleted. Error details is shown in the status message.
 
-### Deleting a Product from a Supplier/Warehouse
+   ### Deleting a Product from a Supplier/Warehouse
 
 1. Delete command format: `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`
 
@@ -1908,6 +1854,27 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Provided product (by name) is not found in the product list of the supplier/warehouse e.g. `delete ct/pw i/1000 pd/P`<br>
       Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.
 
+### Updating a Product in a Supplier/Warehouse
+
+1. Update command format: `update ct/TYPE i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
+
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list. First warehouse does not have the product `Panadol` while the first supplier has.
+
+   1. Test case: Product does not exist e.g. `update ct/w i/1 pd/Panadol q/350 t/Fever`<br>
+      Expected: Product with the name `Panadol` with the quantity `350` and tag `fever` added to the first warehouse. Details of the new product is shown in the display message.
+
+   1. Test case: Product exists and optional fields supplied e.g. `update ct/s i/1 pd/Panadol q/350 t/Fever`<br>
+      Expected: Product with the name `Panadol` in the first supplier is updated with the quantity `350` and tag `fever`. Details of the new product shown in the display message.
+
+   1. Test case: Product exists and no optional fields supplied e.g. `update ct/s i/1 pd/Panadol`<br>
+      Expected: No product is added or updated. Error details shown in the displayed message.
+
+   1. Test case: Non-positive index e.g. `update ct/w i/0 pd/Panadol q/350 t/Fever`<br>
+      Expected: No product is added or updated. Error details shown in the displayed message.
+
+   1. Test case: Index more than list size e.g. `update ct/w i/x pd/Panadol q/350 t/Fever` (where x is larger than the list size)
+      Expected: No product is added or updated. Similar to previous.
+
 ### Editing a Supplier
 
 1. Edit command format: `edit ct/s i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/REMARK]`
@@ -1923,7 +1890,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Invalid Prefix or missing compulsory Prefixes.
 
       Case 1: `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com z/large `
-      
+
       Case 2: `edit ct/s i/1`<br>
       Expected: No supplier is edited. For Case 1: Error message specifying that one of the prefixes used is not recognised will be shown. For Case 2: Error message specifying that at least one field to edit must be provided will be shown. A help message for edit command will also be displayed
       to guide user accordingly. SupplierList on GUI remains unchanged.
@@ -1946,7 +1913,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Invalid Prefix or missing compulsory Prefixes.
 
       Case 1: `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 z/large `
-      
+
       Case 2: `edit ct/w i/1`<br>
       Expected: No warehouse is edited. For Case 1: Error message specifying that one of the prefixes used is not recognised will be shown. For Case 2: Error message specifying that at least one field to edit must be provided will be shown. A help message for edit command will also be displayed
       to guide user accordingly. WarehouseList on GUI remains unchanged.
