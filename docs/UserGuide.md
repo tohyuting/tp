@@ -31,7 +31,8 @@ instructions for the `delete` command.<br>Here are some sample commands to try:
 
    * **`add`** `ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` : Adds a
     warehouse named `warehouseA` located at `John street, block 123, #01-01` to CLI-nic. This warehouse is the
-    `First warehouse`. <div style="page-break-after: always;"></div>
+    `First warehouse`.
+    <div style="page-break-after: always;"></div>
 
    * **`add`** `ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor` : Adds a
     supplier named `Philips Pharmaceutical` with the phone number `00000000` and email `philipsPharm@gmail.com` to
