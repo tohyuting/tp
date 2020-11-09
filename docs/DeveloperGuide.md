@@ -984,7 +984,7 @@ The logical workflow of this process is further explained in the Sequence Diagra
 
    Upon receiving user's input, `ViewCommandParser#parse` will be invoked.
 
-   As mentioned in above section, a `ParseException` will be thrown if the values specified for prefixes are invalid (e.g wrong type or does not conform to constraints of the prefixes).
+   As mentioned in above section, a `ParseException` will be thrown if the values specified for prefixes are invalid (e.g. wrong type or does not conform to constraints of the prefixes).
 
    Any wrong prefixes present will also result in `ParseException`.
 
@@ -1004,7 +1004,7 @@ The logical workflow of this process is further explained in the Sequence Diagra
 
 3. Result display
 
-   A execution success message of `ViewCommand` will be displayed to user. The GUI of supplier or warehouse list will only displayed the requested supplier or warehouse.
+   An execution success message of `ViewCommand` will be displayed to user. The GUI of supplier or warehouse list will only display the requested supplier or warehouse.
 
    In the success message, products associated with the specified supplier or warehouse will be shown as well.
 
@@ -1063,7 +1063,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | standard user  | delete a particular product from a supplier/warehouse entry   | remove product no longer sold/stored for the supplier/warehouse|
 | `* * *`  | standard user  | edit the information of a specific warehouse or supplier          | easily update any changes in contact information of a particular supplier/warehouse |
 | `* * *`  | standard user  | find relevant supplier(s) or warehouse(s) | locate relevant supplier(s) or warehouse(s) without having to go through the entire supplier list or warehouse list |
-| `* * *`  | standard user  | list all warehouses or suppliers     | easily see all the suppliers and warehouses I am in charge of|
+| `* * *`  | standard user  | list all warehouses or suppliers     | easily see all the suppliers and warehouses I oversee|
 | `* * *`  | standard user  | view the information of a specific warehouse or supplier          | retrieve details about the supplier/warehouse I can't remember and contact them       |
 | `* * *`  | standard user  | view the products of a specific warehouse          | retrieve products associated with the warehouse to see if restocking is needed   |
 | `* * *`  | standard user  | view the products of a specific supplier        | retrieve products associated with the supplier to see if they have enough stocks for me to place an order   |
@@ -1074,7 +1074,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | advanced user | delete a custom alias | remove the aliases that I no longer need |
 | `* *`    | advanced user | list my saved macros | quickly recall which macros I can currently use  |
 | `*`      | beginner user | have command autocomplete | enter commands faster |
-| `*`      | beginner user | see the syntax of the command as I type into the command line | refer back to the documentation less frequently |
+| `*`      | beginner user | see the syntax of the command as I type into the command line | refer to the documentation less frequently |
 
 ### Use cases
 
@@ -1541,7 +1541,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 1. User asks for the list of command.
 2. CLI-nic displays information about all the commands and contains sample commands that the user can try out.
-3. User try out commands listed under help to familiarise themselves with CLI-nic.
+3. User tries out commands listed under help to familiarise themselves with CLI-nic.
 
     Use case ends.
 
@@ -1638,7 +1638,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+1.  Should work on any _mainstream OS_ if it has Java `11` or above installed.
 1.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 1.  The files used to store information about suppliers and warehouses should be independent from the files used to store information about macros and the command history.
 1.  The system should recognize common French/German letters as they may appear in the name of medical products.
@@ -1812,7 +1812,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: No product is deleted. No warehouse is deleted as well. Error details shown in the status message. Status bar remains the same.
 
    1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/pw i/1000 pd/Panadol`<br>
-      Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.v
+      Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.
 
    1. Test case: Provided product (by name) is not found in the product list of the supplier/warehouse e.g. `delete ct/pw i/1000 pd/P`<br>
       Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.
@@ -1906,7 +1906,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: Finds warehouse(s) with names matching `Alice`.
 
    1. Test case: Only remark parameter supplied e.g. `find ct/w r/largest`<br>
-      Expected: Finds warehouse(s) with remark matching either `largest`.
+      Expected: Finds warehouse(s) with remark matching `largest`.
 
    1. Test case: Only product name parameter supplied e.g. `find ct/w pd/panadol`<br>
       Expected: Finds warehouse(s) that store products matching `panadol`.
@@ -1926,7 +1926,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: Error details shown in the response message. A help message for find command will also be displayed
       to guide user accordingly.
 
-### Listing a macro
+### Listing macros
 
 1. List macros command format: `listmacro`
 
@@ -1937,7 +1937,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: No macros listed. Displayed message states that no macros are presently saved.
 
 
-### Listing CLI-nic
+### Listing Suppliers and Warehouses
 
 1. List command format: `list`
 
