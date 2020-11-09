@@ -23,7 +23,7 @@ The ***Architecture Diagram*** given above explains the high-level design of the
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [_diagrams_](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 
 </div>
 
@@ -68,8 +68,7 @@ The sections below give more details of each component.
 The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `SupplierListPanel`, `WarehouseListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts is defined in matching `.fxml
-` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow
-`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/ui/MainWindow.java) is
+` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/java/seedu/clinic/ui/MainWindow.java) is
  specified in [`MainWindow.fxml`](https://github.com/AY2021S1-CS2103-W14-4/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -372,7 +371,7 @@ from it can result in a significant reduction in performance.
 ### Delete feature
 
 The `delete` feature will be elaborated in this section by its functionality, the path execution with the aid of a sequence and an activity diagram.
-The details of __DeleteCommand__'s class implementation and its interactions with associated objects will also be discussed.
+The details of `DeleteCommand`'s class implementation and its interactions with associated objects will also be discussed.
 
 #### What Delete Feature does
 
