@@ -147,6 +147,7 @@ Format: `add ct/s n/NAME p/PHONE e/EMAIL [r/REMARK]`
 * To add a product to a supplier, refer to the
   [update supplier](#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) section for more
   details.
+<div style="page-break-after: always;"></div>
 
 Example:
 * `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor` : Adds a supplier
