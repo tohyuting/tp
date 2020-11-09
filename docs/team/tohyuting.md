@@ -19,7 +19,7 @@ Given below are my contributions to the project.
   * What it does: Allow users to have a quick look up for a particular command without having to open the User Guide in a separate browser.
   * Justification: This improves the product as this provides great convenience for users as this serves as a quick reference if they have forgotten what some command does without having to load the User Guide.
   * Highlights: Messages displayed has to be constantly updated as the project grows with new feature. Sample commands were crafted to work with sample data loaded.
-  * Credits: The feature was adapted from **AB3**, where users was asked to copy the URL for the user guide.
+  * Credits: The feature was adapted from **AB3**, where User Guide URL was given.
 
 * **New Feature**: View a particular supplier and warehouse via index on the displayed supplier/warehouse list.
   * What it does: Allow users to view a supplier or warehouse information at a particular index of displayed supplier/warehouse list.
@@ -31,17 +31,17 @@ Given below are my contributions to the project.
 * **New Feature**: Edit a particular supplier and warehouse entry via index on the displayed supplier/warehouse list.
     * What it does: Allow users to edit a supplier or warehouse information at a particular index of displayed supplier/warehouse list.
     * Justification: The user has to update any outdated supplier/warehouse information quickly. Hence, this feature is crucial.
-    * Highlights: This feature demands parsing of numerous prefixes followed by checking of presence and validity of values and prefixes.Initial implementation uses a different set of prefix (such as `s/` and `w/`). This change was slightly challenging.
+    * Highlights: This feature demands parsing of numerous prefixes, checking their presence and validity. Initial implementation uses a different set of prefix (such as `s/` and `w/`). This change was slightly challenging.
     * Credits: This feature was adapted from **AB3**.
 
-* **New Class**: Created Product class to be used by Supplier and Warehouse classes.
+* **New Class**: Created Product class to be used by `Supplier` and `Warehouse` classes.
     * What it does: Stores information (quantity and tags) related to a Product which will be associated to a `Supplier` or `Warehouse`.
     * Justification: The user has to keep track of products related to their entities in **CLI-nic** instead of a separate document, which will be inconvenient.
     * Highlights: Users can update stocks of products in `Supplier` and `Warehouse` when they have the information quickly.
     * Credits: This class was adapted slightly from `Person` class in **AB3**.
 
 * **Minor enhancement**:
-  * Fix a minor yet crucial bug, resuling in jar file to not be able to function as expected. [#161](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/161)
+  * Fix a minor yet crucial bug, for jar file to function as expected. [#161](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/161)
   * Error messages of **AB3** are not representative of certain commands entered by users. Invalid prefix used errers were not thrown. Hence, an intensive logic handling of inputs from users was done to customise error messages for every unique commands. This is due to the numerous possibilities allowed, since users are allowed to reorder their prefixes in their inputs [#216](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/216), [#242](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/242).
   * Fix bug related to `AutoComplete` feature, where `CommandHistory` feature does not work smoothly if the previous command was a single word command. [#227](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/227)
 
@@ -50,8 +50,8 @@ Given below are my contributions to the project.
     * Added documentations and user stories for `list`, `help`, `view` and `edit` commands in the user guide [#153](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/153/files), [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73).
   * Developer Guide:
     * Added implementation details of the `list`, `help`, `view` and `edit` features [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73), [#111](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/111/), [#153](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/153). Includes UML diagrams (Class, Sequence and Activity Diagrams).
-    * Added manual testing for `list`, `help`, `view`, `edit`, `clear`, `exit` and saving data [#232](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/232).
-    * Updated Model Class diagram with my team mates, Jeffrey and Qin Liang to represent the current CLI-nic [#245](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/245).
+    * Added manual testing for`list`, `help`, `view`, `edit`, `clear`, `exit`, saving data [#232](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/232).
+    * Updated Model Class diagram with my team mates, Jeffrey and Qin Liang to represent the current **CLI-nic** [#245](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/245).
 
 * **Contributions to team-based tasks**:
   * Managed release of CLI-nic jar `v1.3.2` and enabled assertions on Gradle.
