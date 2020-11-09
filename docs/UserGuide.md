@@ -34,7 +34,6 @@ instructions for the `delete` command.<br>Here are some sample commands to try:
     `First warehouse`.
     <div style="page-break-after: always;"></div>
 
-
    * **`add`** `ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor` : Adds a
     supplier named `Philips Pharmaceutical` with the phone number `00000000` and email `philipsPharm@gmail.com` to
     CLI-nic. This supplier is the `Largest contractor`.
@@ -72,6 +71,8 @@ instructions for the `delete` command.<br>Here are some sample commands to try:
 1. Refer to the [Features](#features) section below for more details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## Features
 
