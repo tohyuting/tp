@@ -71,7 +71,6 @@ instructions for the `delete` command.<br>Here are some sample commands to try:
 1. Refer to the [Features](#features) section below for more details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
-
 <div style="page-break-after: always;"></div>
 
 ## Features
