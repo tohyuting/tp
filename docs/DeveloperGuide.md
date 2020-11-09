@@ -448,7 +448,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     Afterwards, all the valid arguments (`INDEX` and `TYPE`) will create a new `DeleteCommand`, which will be executed.
 
-2. Execution <br>
+1. Execution <br>
 
     The `DeleteCommand` is executed via a `execute` call from `LogicManager`.
     The workflow for an execution of `DeleteCommand` is as shown in the Sequence Diagram below:<br>
@@ -463,7 +463,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     Afterwards, `model#deleteWarehouse`/`model#deleteSupplier` will remove the target entry from the list in the `model`. The `model` will then update the displayed list.
 
-3. Result display <br>
+1. Result display <br>
 
     With the deletion completed, the Model will update the filtered lists of `Supplier` and `Warehouse` to be displayed in the UI.
     A `CommandResult` will be returned to the `LogicManager` with a success message, which will be shown to the user in the UI.
@@ -479,7 +479,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     Afterwards, all the valid arguments (`INDEX`, `TYPE` and `PRODUCT_NAME`) will create a new `DeleteCommand`, which will be executed.
 
-2. Execution
+1. Execution
 
     The `DeleteCommand` is executed via an `execute` call from `LogicManager`.
     The workflow for an execution of `DeleteCommand` is as shown in the Sequence Diagram below:<br>
@@ -496,7 +496,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     Afterwards, `model#setWarehouse`/`model#setSupplier` will replace the old entry with the updated target entry from the list in the `model`. The `model` will then update the displayed list.
 
-3. Result display <br>
+1. Result display <br>
 
     With the deletion completed, the Model will update the filtered lists of `Supplier` and `Warehouse` to be displayed in the UI.
     A `CommandResult` will be returned to the `LogicManager` with a success message, which will be shown to the user in the UI.
@@ -522,6 +522,7 @@ One thing to note is edit feature does not allow users to edit any `product` ass
 The workflow of an `edit` command when executed by a user is shown in the activity diagram below:
 
 ![Edit Command Activity Diagram](images/EditCommandActivityDiagram.png)
+
 
 Important features of the Activity Diagram are as follows:
 
@@ -565,7 +566,7 @@ In the following section, the interaction between different objects will be disc
 
    During this parsing process, `ParseException` will be thrown if any of the inputs are invalid.
 
-2. Execution
+1. Execution
 
    EditCommand will be executed and the workflow is shown in the Sequence Diagram below:
 
@@ -579,7 +580,7 @@ In the following section, the interaction between different objects will be disc
 
    Similarly, a `CommandException` will be thrown if input result in same `supplier` or `warehouse` (i.e. supplier or warehouse information unchanged).
 
-3. Result display
+1. Result display
 
    `Model` will be updated to reflect the edited `supplier` or `warehouse` in GUI and an edit success message will be displayed to user.
 
@@ -1027,7 +1028,7 @@ The logical workflow of this process is further explained in the Sequence Diagra
 
    `ViewCommand` is then created and executed.
 
-2. Execution
+1. Execution
 
    The workflow for an execution of `ViewCommand` is as shown in the Sequence Diagram below:
 
@@ -1039,7 +1040,7 @@ The logical workflow of this process is further explained in the Sequence Diagra
 
     This results in only the display of specified `supplier` or `warehouse` in the list.
 
-3. Result display
+1. Result display
 
    An execution success message of `ViewCommand` will be displayed to user. The GUI of supplier or warehouse list will only display the requested supplier or warehouse.
 
