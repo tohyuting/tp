@@ -24,8 +24,8 @@ Given below are my contributions to the project.
 * **New Feature**: View a particular supplier and warehouse via index on the displayed supplier/warehouse list.
   * What it does: Allow users to view a supplier or warehouse information at a particular index of displayed supplier/warehouse list.
   * Justification: This feature helps **CLI-nic** to be more CLI-friendly. Using `view` (together with `find` to filter relevant entities first) allows users to see products associated with a warehouse or supplier without clicking.
-  * Highlights: Initial implementation requires user to use name instead of index. This was changed to reduce the amount of typing required by users. Codes for parsing of inputs and test codes have to be re-written as well which was slightly tedious and time-consuming.<div style="page-break-after: always;"></div>
-
+  * Highlights: Initial implementation requires user to use name instead of index. This was changed to reduce the amount of typing required by users. Codes for parsing of inputs and test codes have to be re-written as well which was slightly tedious and time-consuming.
+  <div style="page-break-after: always;"></div>
 * **New Feature**: Edit a particular supplier and warehouse entry via index on the displayed supplier/warehouse list.
     * What it does: Allow users to edit a supplier or warehouse information at a particular index of displayed supplier/warehouse list.
     * Justification: The user has to update any outdated supplier/warehouse information quickly. Hence, this feature is crucial.
