@@ -21,12 +21,12 @@ Given below are my contributions to the project.
   * Highlights: Messages displayed has to be constantly updated as the project grows with new feature. Sample commands were crafted to work with sample data loaded.
   * Credits: The feature was adapted from **AB3**, where users was asked to copy the URL for the user guide.
 
-<div style="page-break-after: always;"></div>
-
 * **New Feature**: View a particular supplier and warehouse via index on the displayed supplier/warehouse list.
   * What it does: Allow users to view a supplier or warehouse information at a particular index of displayed supplier/warehouse list.
   * Justification: This feature helps **CLI-nic** to be more CLI-friendly. Using `view` (together with `find` to filter relevant entities first) allows users to see products associated with a warehouse or supplier without clicking.
-  * Highlights: Initial implementation requires user to use name instead of index. This was changed to reduce the amount of typing required by users. Codes for parsing of inputs and test codes have to be re-written as well which is tedious and time-consuming.
+  * Highlights: Initial implementation requires user to use name instead of index. This was changed to reduce the amount of typing required by users. Codes for parsing of inputs and test codes have to be re-written as well which was slightly tedious and time-consuming.
+
+<div style="page-break-after: always;"></div>
 
 * **New Feature**: Edit a particular supplier and warehouse entry via index on the displayed supplier/warehouse list.
     * What it does: Allow users to edit a supplier or warehouse information at a particular index of displayed supplier/warehouse list.
@@ -49,13 +49,13 @@ Given below are my contributions to the project.
   * User Guide:
     * Added documentations and user stories for `list`, `help`, `view` and `edit` commands in the user guide [#153](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/153/files), [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73).
   * Developer Guide:
-    * Added implementation details of the `list`, `help`, `view` and `edit` features [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73), [#111](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/111/), [#153](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/153). These details includes UML diagrams (Class, Sequence and Activity Diagrams).
+    * Added implementation details of the `list`, `help`, `view` and `edit` features [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73), [#111](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/111/), [#153](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/153). Includes UML diagrams (Class, Sequence and Activity Diagrams).
     * Added manual testing for `list`, `help`, `view`, `edit`, `clear`, `exit` and saving data [#232](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/232).
     * Updated Model Class diagram with my team mates, Jeffrey and Qin Liang to represent the current CLI-nic [#245](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/245).
 
 * **Contributions to team-based tasks**:
-  * Managed release of CLI-nic jar `v1.3.2` for PE Dry Run and enabled assertions on Gradle.
-  * Updated target user profile [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73).
+  * Managed release of CLI-nic jar `v1.3.2` and enabled assertions on Gradle.
+  * Updated initial target user profile [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73).
 
 * **Contributions beyond the project team**:
   * PRs reviewed (with non-trivial review comments): [#103](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/103#discussion_r502200542), [#110](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/110#discussion_r502924200), [#133](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/133#discussion_r508483009), [#211](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/211#discussion_r515597848)
