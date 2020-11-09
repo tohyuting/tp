@@ -385,7 +385,7 @@ Format: `redo`
 
 <div markdown="span" class="alert alert-info">
 **:information_source: Note:** `assignmacro` and `removemacro` do not modify CLI-nic data directly, and hence are not
-undoable/redoable.
+redoable.
 </div>
 
 ### Removing macro: `removemacro`
@@ -418,7 +418,7 @@ Format: `undo`
 
 <div markdown="span" class="alert alert-info">
 **:information_source: Note:** `assignmacro` and `removemacro` do not modify CLI-nic data directly, and hence are not
-undoable/redoable.
+undoable.
 </div>
 
 ### Updating the quantity and/or tags of a product sold by a supplier: `update`

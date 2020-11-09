@@ -7,7 +7,7 @@ if () then ([alias is supplied])
   :Parse command arguments;
   if() then ([alias supplied is valid])
     :Create new RemoveMacroCommand;
-    :execute RemoveMacroCommand;
+    :Execute RemoveMacroCommand;
     if() then ([no macro with the specified alias exist])
       :Generate message indicating
       macro does not exist;
