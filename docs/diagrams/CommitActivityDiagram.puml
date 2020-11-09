@@ -10,7 +10,7 @@ if () then ([command updates CLI-nic])
     :Save currentClinic version to
     undoVersionStack;
     :Set currentClinic to updated
-     CLI-nic version;
+    CLI-nic version;
 else ([else])
 endif
 stop

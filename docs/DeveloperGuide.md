@@ -142,7 +142,7 @@ Classes used by multiple components are in the `seedu.clinic.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented. Note that the examples given to explain each feature uses full command strings instead of macros so as to show the true format of each command.
-Similarly, `MacroParser` has been omitted from the diagrams to reduce clutter. Refer to the [Logic Component](https://ay2021s1-cs2103-w14-4.github.io/tp/DeveloperGuide.html#logic-component) to read how a command would be executed with macros.
+Similarly, `MacroParser` has been omitted from the diagrams to reduce clutter. Refer to the [Logic Component](#logic-component) to read how a command would be executed with macros.
 
 ### Add feature
 
@@ -172,7 +172,7 @@ The supplier/warehouse can also consist of an optional `remark` attribute.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The `add` feature does not
 include product information and the `update` feature should be used to associate a supplier/warehouse with a
-product and its associated quantity and tags. This is elaborated in the [**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
+product and its associated quantity and tags. This is elaborated in the [**`Update`**](#update-product-feature) feature section.
 
 </div>
 
@@ -326,11 +326,11 @@ User wishes to enter an `add` command to add a supplier via `add ct/s n/John p/9
 Upon typing "a", the auto-complete context menu will pop up showing the possible auto-completed commands
 , mainly:
 
-add ct/s n/ p/ e/ r/
+* add ct/s n/ p/ e/ r/
 
-add ct/w n/ p/ addr/ r/
+* add ct/w n/ p/ addr/ r/
 
-assignmacro a/ cs/
+* assignmacro a/ cs/
 
 Upon seeing this, the user will be able to select from those options or use them as a guide to complete
 his/her commands more intuitively.
@@ -457,7 +457,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     Using the `targetType` attribute, the execution is first classified as either Supplier deletion (`s`) or Warehouse deletion (`w`). <br>
 
-    Base on the classification, the model will retrieve the relevant displayed list of warehouse/supplier via `model#getFilteredWarehouseList()`/`model#getFilteredSupplierList()`. <br>
+        Base on the classification, the model will retrieve the relevant displayed list of warehouse/supplier via `model#getFilteredWarehouseList()`/`model#getFilteredSupplierList()`. <br>
 
     It then locates the warehouse/supplier entry that user wants to delete via the `INDEX` passed in.
 
@@ -512,11 +512,11 @@ Only important associations are displayed in class diagram below:
 ![Edit Command Class Diagram](images/EditCommandClassDiagram.png)
 
 #### What Edit Feature does
-The edit feature allows user to edit a supplier/warehouse information. This include `name`, `phone`, `remark`, a supplier's `email` and a warehouse's `address`.
+The edit feature allows user to edit a supplier/warehouse information. This includes `name`, `phone`, `remark`, a supplier's `email` and a warehouse's `address`.
 
-This is important as warehouses and suppliers might change their contact details from time to time and the user has to be able to edit those information quickly.
+This is important as warehouses and suppliers might change their contact details from time to time, and the user has to be able to edit this information quickly.
 
-One thing to note is edit feature does not allow users to edit any `product` associated with a particular supplier or warehouse. To edit the `product quantity` or `tag` of a product, `update` feature should be used instead. This is elaborated in the **Update** feature section.
+One thing to note is edit feature does not allow users to edit any `product` associated with a particular supplier or warehouse. To edit the product quantity or tag of a product, `update` feature should be used instead. This is elaborated in the [**`Update`**](#update-product-feature) feature section.
 
 #### Path Execution of Edit Command
 The workflow of an `edit` command when executed by a user is shown in the activity diagram below:
@@ -560,7 +560,7 @@ In the following section, the interaction between different objects will be disc
 
    Parsing of general details will occur for both Supplier and Warehouse type. These include parsing of `Name`, `Phone` and `Remark`.
 
-   In addition, since Supplier contains an `Email` attribute, parsing of this field will be carried out. On the other hand, parsing of `Address` will be carried out for warehouse entity instead.
+   In addition, since Supplier contains an `Email` attribute, parsing of this field will be carried out. On the other hand, parsing of `Address` will be carried out for Warehouse instead.
 
    At the end, relevant fields present will be set in `editDescriptor`.
 
@@ -578,11 +578,11 @@ In the following section, the interaction between different objects will be disc
 
    If `Model` already contains a supplier or warehouse with the same name, a `CommandException` will be thrown to inform user of the duplicated supplier or warehouse.
 
-   Similarly, a `CommandException` will be thrown if input result in same `supplier` or `warehouse` (i.e. supplier or warehouse information unchanged).
+   Similarly, a `CommandException` will be thrown if input result in same supplier or warehouse (i.e. supplier or warehouse information unchanged).
 
 1. Result display
 
-   `Model` will be updated to reflect the edited `supplier` or `warehouse` in GUI and an edit success message will be displayed to user.
+   `Model` will be updated to reflect the edited supplier or warehouse in GUI and an edit success message will be displayed to user.
 
 
 #### Why Edit feature is implemented this way
@@ -659,7 +659,7 @@ considering code quality and end user experience.
 The `help` feature will be elaborated in this section by its functionality.
 
 #### What Help feature does
-`help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have an over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
+`help` feature allows user to view help messages for all commands briefly or help message for specific commands. This allows user to have an over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
 
 #### Path Execution of Help Command
 An Activity Diagram showing the workflow of `help` command is shown below:
@@ -750,7 +750,7 @@ The user decides that he/she no longer needs the macro with the alias "uw" and d
 
 1. Parsing
 
-   The input string will be passed to the `RemoveMacroCommand parser`. By matching the prefixes provided, `RemoveMacroCommandParser#parse` then attempts to create a new instance of `Alias` by parsing the arguments provided. If the `Alias` is
+   The input string will be passed to the `RemoveMacroCommandParser`. By matching the prefixes provided, `RemoveMacroCommandParser#parse` then attempts to create a new instance of `Alias` by parsing the arguments provided. If the `Alias` is
 invalid, an exception will be thrown which will be shown as an error message on the GUI. Otherwise, a `RemoveMacroCommand` instance is created with the new `Alias`.
 
 1. Execution
@@ -983,7 +983,7 @@ the product specification so that both checks can be done by the `UpdateCommand`
 to both execute the checks and create the updated product.
 
 ### View feature
-The `view` feature will be elaborated in this section by its' functionality and path execution with the aid of Sequence and Activity Diagrams.
+The `view` feature will be elaborated in this section by its functionality and path execution with the aid of Sequence and Activity Diagrams.
 
 #### What View feature does
 `view` command allows user to view a particular warehouse or supplier in warehouse or supplier list displayed.
@@ -1034,11 +1034,11 @@ The logical workflow of this process is further explained in the Sequence Diagra
 
    ![View Command Execution Sequence Diagram](images/ViewCommandExecutionSequenceDiagram.png)
 
-   `Supplier` or `Warehouse` at the specified index is first retrieved from `supplierList` or `warehouseList` currently displayed in GUI accordingly.
+   Supplier or warehouse at the specified index is first retrieved from `supplierList` or `warehouseList` currently displayed in GUI accordingly.
 
-   `Predicate` containing the `supplier` or `warehouse` name will be created and parsed into `updateFilteredSupplierList` or `updateFilteredWarehouseList` method under `Model` class.
+   `Predicate` containing the supplier or warehouse name will be created and parsed into `updateFilteredSupplierList` or `updateFilteredWarehouseList` method under `Model` class.
 
-    This results in only the display of specified `supplier` or `warehouse` in the list.
+    This results in only the display of specified supplier or warehouse in the list.
 
 1. Result display
 
@@ -1051,7 +1051,7 @@ The logical workflow of this process is further explained in the Sequence Diagra
 
 In addition, it was intentional for the success message to display the list of products associated with the supplier or warehouse requested.
 
-This allows **CLI-nic** to be CLI friendly, where users need not click on `product pane to display the list of products.
+This allows **CLI-nic** to be CLI friendly, where users need not click on product pane to display the list of products.
 
 This is further optimised with `find` as users can find by for instance, `name` or `remark` associated to a particular supplier or warehouse. With the filtered supplier or warehouse list displayed, they can view the products associated to a supplier or warehouse by using the `view` feature.
 
@@ -1704,18 +1704,18 @@ supplier by default.
 
 |Prefix   |Meaning  |Used in the following Command(s)|
 | ------- |-------- | ------------ |
-|a/ |Alias |[Assign Macro](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#assigning-macro-to-selected-command-string-assignmacro)|
-|addr/ |Address |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-warehouse--add), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
-|cs/ |Command String |[Assign Macro](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#assigning-macro-to-selected-command-string-assignmacro)|
-|ct/ |Command Type |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Delete](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#deleting-a-supplier--delete), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit), [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find), [Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update), [View](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#viewing-a-specific-supplier-view) |
-|e/ |Email Address |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
-|i/ |Index |[Delete](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#deleting-a-supplier--delete), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit), [Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update), [View](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#viewing-a-specific-supplier-view) |
-|n/ |Supplier/Warehouse Name |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find) |
-|p/ |Phone Number |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
-|pd/ |Product Name |[Delete](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#deleting-a-supplier--delete), [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find), [Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
-|q/ |Quantity of product |[Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
-|r/ |Remark |[Add](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#adding-a-supplier--add), [Find](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#finding-relevant-suppliers-find), [Edit](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#editing-a-supplier--edit) |
-|t/ |Product Tag |[Update](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/master/docs/UserGuide.md#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
+|a/ |Alias |[Assign Macro](UserGuide.html#assigning-macro-to-selected-command-string-assignmacro)|
+|addr/ |Address |[Add](UserGuide.html#adding-a-warehouse--add), [Edit](UserGuide.html#editing-a-supplier--edit) |
+|cs/ |Command String |[Assign Macro](UserGuide.html#assigning-macro-to-selected-command-string-assignmacro)|
+|ct/ |Command Type |[Add](UserGuide.html#adding-a-supplier--add), [Delete](UserGuide.html#deleting-a-supplier--delete), [Edit](UserGuide.html#editing-a-supplier--edit), [Find](UserGuide.html#finding-relevant-suppliers-find), [Update](UserGuide.html#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update), [View](UserGuide.html#viewing-a-specific-supplier-view) |
+|e/ |Email Address |[Add](UserGuide.html#adding-a-supplier--add), [Edit](UserGuide.html#editing-a-supplier--edit) |
+|i/ |Index |[Delete](UserGuide.html#deleting-a-supplier--delete), [Edit](UserGuide.html#editing-a-supplier--edit), [Update](UserGuide.html#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update), [View](UserGuide.html#viewing-a-specific-supplier-view) |
+|n/ |Supplier/Warehouse Name |[Add](UserGuide.html#adding-a-supplier--add), [Find](UserGuide.html#finding-relevant-suppliers-find) |
+|p/ |Phone Number |[Add](UserGuide.html#adding-a-supplier--add), [Edit](UserGuide.html#editing-a-supplier--edit) |
+|pd/ |Product Name |[Delete](UserGuide.html#deleting-a-supplier--delete), [Find](UserGuide.html#finding-relevant-suppliers-find), [Update](UserGuide.html#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
+|q/ |Quantity of product |[Update](UserGuide.html#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
+|r/ |Remark |[Add](UserGuide.html#adding-a-supplier--add), [Find](UserGuide.html#finding-relevant-suppliers-find), [Edit](UserGuide.html#editing-a-supplier--edit) |
+|t/ |Product Tag |[Update](UserGuide.html#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update) |
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -1923,12 +1923,14 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Invalid Prefix or missing compulsory Prefixes.
 
-      Case 1: `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com z/large `</br>Case 2: `edit ct/s i/1`<br>
+      Case 1: `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com z/large `
+      
+      Case 2: `edit ct/s i/1`<br>
       Expected: No supplier is edited. For Case 1: Error message specifying that one of the prefixes used is not recognised will be shown. For Case 2: Error message specifying that at least one field to edit must be provided will be shown. A help message for edit command will also be displayed
       to guide user accordingly. SupplierList on GUI remains unchanged.
 
    1. Test case: Edits a supplier with existing SUPPLIER_NAME in list e.g. `edit ct/s i/1 n/Bob Pte Ltd` followed by `edit ct/s i/2 n/Bob Pte Ltd`<br>
-      Expected: No supplier is edited. An error will occur and a message will be displayed, stating that the edited field(s) result in no change to the supplier. It will also prompt users to do a check on the arguments to ensure that their inputs are correct. SupplierList on GUI remain unchanged.
+      Expected: No supplier is edited. An error will occur and a message will be displayed, stating that the edited field result in no change to the supplier. It will also prompt users to do a check on the arguments to ensure that their inputs are correct. SupplierList on GUI remain unchanged.
 
 ### Editing a Warehouse
 
@@ -1936,7 +1938,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Prerequisites: Warehouses in CLI-nic does not have a warehouse named Alice Warehouse (with the exception of test case to test for duplicated warehouse).
 
-   1. Test case: Minimal information e.g. `edit ct/w i/1 n/Alice Warehouse`<br>
+   1. Test case: Minimal information e.g. `edit ct/w i/1 n/Alice Warehouse` <br>
       Expected: Edits a warehouse in index 1 on warehouse list to have a name "Alice Warehouse".
 
    1. Test case: With all fields supplied e.g. `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 r/Largest Warehouse`<br>
@@ -1945,8 +1947,9 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Invalid Prefix or missing compulsory Prefixes.
 
       Case 1: `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 z/large `
-      </br>Case 2: `edit ct/w i/1`<br>
-      Expected: No warehouse is edited. Error details shown in the response message. A help message for edit command will also be displayed
+      
+      Case 2: `edit ct/w i/1`<br>
+      Expected: No warehouse is edited. For Case 1: Error message specifying that one of the prefixes used is not recognised will be shown. For Case 2: Error message specifying that at least one field to edit must be provided will be shown. A help message for edit command will also be displayed
       to guide user accordingly. WarehouseList on GUI remains unchanged.
 
    1. Test case: Edits a warehouse with existing WAREHOUSE_NAME in list e.g. `edit ct/w i/1 n/Bob Warehouse` followed by `edit ct/w i/2 n/Bob Warehouse`<br>
@@ -2062,7 +2065,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       Expected: CLI-nic loads up without any suppliers or warehouses. The error "Illegal values found in data\clinic.json: Warehouses list contains duplicate warehouse(s)" will be logged in the log file.
 
 1. Data will be saved automatically after every command
-   1. Test case: Adding a new supplier or warehouse and close CLI-nic by clicking on "X" instead of exit command. Sample `add` command is documented in the section above.</br>
+   1. Test case: Adding a new supplier or warehouse and close CLI-nic by clicking on "X" instead of exit command. Sample `add` command is documented in the section above. <br>
       Expected: Reopen CLI-nic by double clicking on the jar file. The new supplier or warehouse added should be included in the respective supplier or warehouse list.
 
 ### Updating a Product in a Supplier/Warehouse
