@@ -144,6 +144,203 @@ Classes used by multiple components are in the `seedu.clinic.commons` package.
 This section describes some noteworthy details on how certain features are implemented. Note that the examples given to explain each feature uses full command strings instead of macros so as to show the true format of each command.
 Similarly, `MacroParser` has been omitted from the diagrams to reduce clutter. Refer to the [Logic Component](https://ay2021s1-cs2103-w14-4.github.io/tp/DeveloperGuide.html#logic-component) to read how a command would be executed with macros.
 
+### Add feature
+
+The `add` feature will be elaborated in this section by its functionality and path execution with the aid of
+Class, Activity, and Sequence Diagrams. It is facilitated by the `AddCommandParser` and the `AddCommand` where
+`AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`. These allow the user to
+add a supplier/warehouse to the app using the command line.
+
+The following Class Diagram of `AddCommand` shows the interactions between `AddCommand` and other classes
+in CLI-nic:
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Only important
+associations are displayed.
+
+</div>
+
+![Add Command Class Diagram](images/AddCommandClassDiagram.png)
+
+#### What Add feature does
+
+The `add` feature allows user to add information for a supplier/warehouse.
+
+A supplier's attributes consist of `name`, `phone` and `email` while a warehouse's attributes consist of
+`name`, `phone` and `address`.
+
+The supplier/warehouse can also consist of an optional `remark` attribute.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The `add` feature does not
+include product information and the `update` feature should be used to associate a supplier/warehouse with a
+product and its associated quantity and tags. This is elaborated in the [**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
+
+</div>
+
+#### Path Execution of Add Command
+The workflow of an `add` command when executed by a user is shown in the Activity Diagram below:
+
+![Add Command Activity Diagram](images/AddCommandActivityDiagram.png)
+
+Important features of the Activity Diagram are as follows:
+
+1. The `add` command only allows addition of a single supplier/warehouse for every single command. If two
+ or more `ct/COMMAND_TYPE` are provided, the last type specified will be used to process the user's input.
+ This applies for all other prefixes as well.
+
+1. After the user calls the `add` command, the code will check for the presence of all the compulsory
+ prefixes (i.e. `ct/COMMAND_TYPE`, `n/NAME`, `p/PHONE` and `e/EMAIL` or `addr/ADDRESS` for supplier and warehouse
+ respectively) in the input. A `ParseException` will be thrown if any of the compulsory prefixes are not
+ present.
+
+   Similarly, `ParseException` will be thrown if there are any invalid prefixes or inappropriate fields
+   provided (e.g. input a `String` value for `phone`).
+
+1. `AddCommand` will then be executed. The new supplier/warehouse will be added in the `Model`, allowing
+ users to see the added supplier/warehouse.
+
+    If new supplier/warehouse to be added has a duplicate name (i.e. the supplier/warehouse name already
+    exist in CLI-nic), it will throw a `CommandException`. Otherwise, a success message will be displayed
+    to the user.
+
+In the following section, the interaction between different objects when a user executes an `add` command
+will be discussed with the aid of a Sequence Diagram as shown below.
+
+![Add Command Sequence Diagram](images/AddCommandSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for
+`AddCommandParser` should end at the destroy marker (X) but due to a limitation of  PlantUML, the lifeline
+reaches the end of diagram.
+
+</div>
+
+1. Parsing
+
+    After receiving an input from user for `add` command, `AddCommandParser#parse` will be invoked to tokenize
+    the arguments parsed in via `ArgumentTokenizer#tokenize`.
+
+    As mentioned above, if any of the compulsory prefixes are not present, `AddCommandParser` will throw a new
+    `ParseException` object to the `LogicManager`. A `ParseException` will also be thrown if there are invalid
+    prefixes or values provided (e.g. input a `z/` or `String` value for `phone`).
+
+    Subsequently, parsing of general details will occur for both Supplier and Warehouse type. These include
+    parsing of `name`, `phone` and `remark`. In addition, since Supplier contains an `email` attribute, parsing
+    of this field will be carried out. On the other hand, parsing of `address` will be carried out for
+    Warehouse instead.
+
+    At the end, relevant fields present will be set in `Supplier`/`Warehouse`.
+
+    During this parsing process, `ParseException` will be thrown if any of the inputs are invalid.
+
+1. Execution
+
+    `Model#hasSupplier`/`Model#hasWarehouse` will then be executed to check for duplicates (i.e. if
+    `Model` already contains a supplier or warehouse with the same name), a CommandException will be
+    thrown to inform user of the duplicated supplier/warehouse. Otherwise, the supplier/warehouse will be
+    successfully added via `Model#addSupplier`/`Model#addWarehouse`.
+
+1. Result display
+
+    `Model` will be updated to reflect the added supplier or warehouse in GUI and an add success message will be
+     displayed to user.
+
+### Assign macro feature
+
+#### What the assign macro feature does
+
+The assign macro feature allows users to be able to create their own alias for a specific command string which can be used to enter commands after the macro is saved.
+
+#### How it is implemented
+
+The assign macro mechanism is facilitated by 2 components: `AssignMacroCommandParser` and `AssignMacroCommand`.
+`AssignMacroCommandParser`'s job is to parse the user input to generate the correct `Alias` and `SavedCommandString`  objects for the `AssignMacroCommand`.
+`AssignMacroCommand`'s job is to execute the main logic for updating the model with the new macro.
+
+Given below is an example usage scenario, together with a sequence diagram, to show how the assign macro mechanism behaves at each step.
+![Assign Macro Command Sequence Diagram](images/AssignMacroCommandSequenceDiagram.png)
+
+The user frequently updates the products under each warehouse and decides to create a new macro with the alias "uw" for the command string "update ct/w" so as to shorten subsequent command inputs.
+The user does this by executing the `assignmacro a/uw cs/update ct/w` command.
+
+1. Parsing
+
+   The input string will be passed to the `AssignMacroCommandParser`. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
+an exception to be displayed on the GUI if the alias or command string supplied by the user is invalid, or if any of them is not supplied at all. If all prefixes are parsed without error,
+a `Macro` is created from the `Alias` and `SavedCommandString` instances. Then, a new `AssignMacroCommand` instance is created with the new `Macro`.
+
+1. Execution
+
+   The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias.
+If that is true, an exception will be thrown. This will be shown on the GUI as an error message. Otherwise, the new macro will be added to the model.
+
+1. Result display
+
+   The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
+The user now updates the quantity of the product "Panadol" in the aforementioned warehouse by simply executing the command `uwm pd/Panadol`.
+
+The following activity diagram summarizes what happens when a user assigns a macro:
+![Assign Macro Command Activity Diagram](images/AssignMacroCommandActivityDiagram.png)
+
+#### Why it is implemented this way
+
+The main consideration for this feature was what macros should the users be allowed to store, if not everything. We wanted the command to be non-restrictive,
+yet still include certain checks to prevent misuse. Hence we decided to throw exceptions for certain types of macros that the user may try to define. In particular, exceptions will be thrown to prevent
+assigning a macro with the same alias as a pre-defined command word, so that fundamental commands will not be
+overwritten by users. Apart from that, we decided not to allow saved command strings that do not start with a pre-defined command word, as the macros created from these command strings will never
+work as they will always give invalid commands. Nonetheless, we decided to allow partial command strings and even full command strings that may not be valid commands as long as they fit the above criteria,
+as these macros can be used with additional arguments supplied (possibly making the command valid), or that the command string may be valid upon certain conditions (e.g. after the user adds a supplier).
+However, this also means that a valid macro does not guarantee a successful command when used, and error messages may still be displayed for the underlying command of the macro if the underlying command is invalid during the actual use of the macro.
+
+### Auto-complete feature
+
+In this section, the functionality of the auto-complete feature will be discussed together with the expected
+interface.
+
+#### What is the Auto-complete feature
+
+The auto-complete feature is to help users complete their commands faster through the suggestions of
+commands with their corresponding compulsory prefixes based on user input.
+
+#### How it is implemented
+
+All possible commands and their compulsory prefixes are saved in a SortedSet.
+
+When a user types a command on the text box, `AutoCompleteTextField#populatePopup` will be called where the
+user’s input will be matched against the set.
+
+If the case of a match, a contextMenu showing all possible auto-complete commands will show up.
+
+This method is implemented such that the results in the contextMenu are constantly updated as the user is
+typing and this would make it more intuitive for users.
+
+#### Why it is implemented this way
+
+The auto-complete feature is implemented this way to reduce the need for space on the GUI by only showing
+up when there is a potential match. It would also serve to value add to the user experience by speeding up
+the process of typing the full command and reduce mistakes by including all the compulsory prefixes.
+
+#### How Auto-complete works
+
+User wishes to enter an `add` command to add a supplier via `add ct/s n/John p/91234567 e/john@example.com
+ r/friend`.
+
+Upon typing "a", the auto-complete context menu will pop up showing the possible auto-completed commands
+, mainly:
+
+add ct/s n/ p/ e/ r/
+
+add ct/w n/ p/ addr/ r/
+
+assignmacro a/ cs/
+
+Upon seeing this, the user will be able to select from those options or use them as a guide to complete
+his/her commands more intuitively.
+
+#### Design consideration
+
+When the full command for single-worded commands are typed in the commandBox, the
+AutoCompleteTextField#popUpEntries would be hidden to achieve smoother navigation for users when
+accessing commandHistory.
+
 ### Command history feature
 
 In this section, the functionality of the command history feature will be discussed.
@@ -255,7 +452,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     The `DeleteCommand` is executed via a `execute` call from `LogicManager`.
     The workflow for an execution of `DeleteCommand` is as shown in the Sequence Diagram below:<br>
-    
+
     ![Delete Command Execution Sequence Diagram](images/DeleteCommandExecutionSequenceDiagram.png) <br>
 
     Using the `targetType` attribute, the execution is first classified as either Supplier deletion (`s`) or Warehouse deletion (`w`). <br>
@@ -270,7 +467,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     With the deletion completed, the Model will update the filtered lists of `Supplier` and `Warehouse` to be displayed in the UI.
     A `CommandResult` will be returned to the `LogicManager` with a success message, which will be shown to the user in the UI.
-    
+
 ##### Deletion of a product
 
 ![Delete Command Sequence 2 Diagram](images/DeleteCommandSequenceDiagram2.png)
@@ -286,7 +483,7 @@ The sequence diagrams below demonstrate the workflow in the deletion feature.
 
     The `DeleteCommand` is executed via an `execute` call from `LogicManager`.
     The workflow for an execution of `DeleteCommand` is as shown in the Sequence Diagram below:<br>
-        
+
     ![Delete Command Execution Sequence 2 Diagram](images/DeleteCommandExecutionSequenceDiagram2.png) <br>
 
     Using the `targetType` attribute, the execution is now classified as either Supplier-related product deletion (`ps`) or Warehouse-related product deletion (`pw`). <br>
@@ -332,7 +529,7 @@ Important features of the Activity Diagram are as follows:
 
 1. If the compulsory prefixes (i.e. `ct/COMMAND_TYPE` and `i/INDEX`) are not present, `ParseException` will be thrown.
 
-   Similarly, `ParseException` will be thrown if no field for editing of suppliers or warehouses is provided. This also applies if there are any inappropriate fields supplied (e.g. input a string for `index` or `phone`).
+   Similarly, `ParseException` will be thrown if no field for editing of suppliers or warehouses is provided. This also applies if there are any inappropriate fields supplied (e.g. `i/test` or `p/test`).
 
 1. `EditCommand` will then be executed. The edited supplier or warehouse will be updated in the model, allowing users to see the changes done for the respective supplier or warehouse.
 
@@ -402,120 +599,6 @@ For example, `editw` and `edits` to represent edit warehouse and edit supplier. 
 
 Therefore, our team decided to implement `edit` command by taking in prefixes and throwing our relevant exceptions at appropriate points after considering code quality and end user experience.
 
-### View feature
-The `view` feature will be elaborated in this section by its functionality and path execution with the aid of Sequence and Activity Diagrams.
-
-#### What View feature does
-`view` command allows user to view a particular warehouse or supplier in warehouse or supplier list displayed.
-
-This allows users to view the details of a specific warehouse or supplier which they might be interested to contact for further details. This feature is optimised to be used with `find` command.
-
-For each command, only one warehouse or one supplier can be requested for viewing.
-
-#### Path Execution of View Command
-The workflow of a `view` command when it is executed by a user is shown in the Activity Diagram below:
-
-![View Command Activity Diagram](images/ViewCommandActivity.png)
-
-Important features of the Activity Diagram are as follows:
-
-1. When a user's input is parsed, `ViewCommandParser` checks if both command type and index are present in the input.
-
-   A `ParseException` will be thrown if either one or both are missing in user's input.
-
-1. Only 2 `COMMAND_TYPE` are allowed. They are `ct/s` and `ct/w`.
-
-   Any invalid values for prefixes (e.g. invaid `COMMAND_TYPE` specified), a `ParseException` will be thrown.
-
-1. If parsing is successful, `ViewCommand` will be created and executed.
-
-   If `INDEX` specified by user is greater than the size of supplier or warehouse list, a `CommandException` will be thrown.
-
-1. At the end, a `view` command success message will be displayed and the relevant supplier or warehouse list GUI will only show the requested supplier or warehouse.
-
-The logical workflow of this process is further explained in the Sequence Diagram below:
-
-![View Command Sequence Diagram](images/ViewCommandSequenceDiagram.png)
-
-
-1. Parsing
-
-   Upon receiving user's input, `ViewCommandParser#parse` will be invoked.
-
-   As mentioned in above section, a `ParseException` will be thrown if the values specified for prefixes are invalid (e.g wrong type or does not conform to `TYPE_CONSTRAINTS`.
-
-   Any wrong prefixes present will also result in `ParseException`.
-
-   `ViewCommand` is then created and executed.
-
-2. Execution
-
-   The workflow for an execution of `ViewCommand` is as shown in the Sequence Diagram below:
-
-   ![View Command Execution Sequence Diagram](images/ViewCommandExecutionSequenceDiagram.png)
-
-   `Supplier` or `Warehouse` at the specified index is first retrieved from `supplierList` or `warehouseList` currently displayed in GUI accordingly.
-
-   `Predicate` containing the `supplier` or `warehouse` name will be created and parsed into `updateFilteredSupplierList` or `updateFilteredWarehouseList` method under `Model` class.
-
-    This results in only the display of specified `supplier` or `warehouse` in the list.
-
-3. Result display
-
-   A execution success message of `ViewCommand` will be displayed to user. The GUI of supplier or warehouse list will only displayed the requested supplier or warehouse.
-
-   In the success message, products associated with the specified supplier or warehouse will be shown as well.
-
-#### Why View feature is implemented this way
-`view` command contains standardise prefix as with other commands in **CLI-nic** to help user learn usage at a faster rate. In addition, a choice to view by `index` instead of by `name` ensures efficiency since users do not need to key in the full name of supplier or warehouse.
-
-In addition, it was intentional for the success message to display the list of products associated with the supplier or warehouse requested.
-
-This allows **CLI-nic** to be CLI friendly, where users need not click on `product pane to display the list of products.
-
-This is further optimised with `find` as users can find by for instance, `name` or `remark` associated to a particular supplier or warehouse. With the filtered supplier or warehouse list displayed, they can view the products associated to a supplier or warehouse by using the `view` feature.
-
-### Help feature
-The `help` feature will be elaborated in this section by its functionality.
-
-#### What Help feature does
-`help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have an over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
-
-#### Path Execution of View Command
-An Activity Diagram showing the workflow of `help` command is shown below:
-
-![Help Command Activity Diagram](images/HelpCommandActivityDiagram.png)
-
-Important features of the Activity Diagram are as follows:
-
-1. If no `COMMAND` is specified after `help`, a generic help message, consisting of all commands available in **CLI-nic** will be shown to users.
-
-1. If more than one `COMMAND` is given, or if the `COMMAND` specified is not recognised in **CLI-nic**, a `ParseException` will be thrown to inform the user.
-
-1. If a valid `COMMAND` is specified, the `help` message relevant to the command (includes what the command does, command format and sample commands) will be displayed to users.
-
-#### Why Help feature is implemented this way
-Instead of providing a link and asking users to read the user guide, it would be more convenient for users to access the help message for each command within the application itself. This allows user to instantly know what to key into the command box instead of switching between user guide in the browser and **CLI-nic**. In addition, this allow users to access the `help` page even without an internet connection as well.
-
-### List Suppliers and Warehouses feature
-The list Suppliers and Warehouses feature will be elaborated in this section by its functionality.
-
-#### What List Supplier and Warehouses feature does
-The list Suppliers and Warehouses feature allows user to list all suppliers and warehouses stored in **CLI-nic**. This feature allows users to retrieve back all suppliers and warehouses in the displayed supplier and warehouse lists after executing a `view` or `find` command.
-
-#### Path Execution of List Command
-1. Parsing
-
-   User input will be parsed, ignoring any additional arguments after `list` command word. A `ListCommand` will be created and executed.
-
-2. Execution
-
-   Filtered supplier and warehouse list in `Model` will be updated with a `Predicate` to show all suppliers and warehouses.
-
-3. Result Display
-
-   A command success message will be displayed, specifying that all suppliers and warehouses has been listed.
-
 ### Find feature
 
 #### What Find feature does
@@ -571,145 +654,81 @@ name, remark and product. Taking the aforementioned points into consideration, o
 implement the `find` command by taking in prefixes and throwing our relevant exceptions at appropriate points after
 considering code quality and end user experience.
 
-### Update product feature
+### Help feature
+The `help` feature will be elaborated in this section by its functionality.
 
-#### What the update product feature does
+#### What Help feature does
+`help` feature allows user to view `help` messages for all commands briefly or `help` message for specific commands. This allows user to have an over-arching idea of what they can do in **CLI-nic**. Afterwards, a user can read up about the command format and sample commands by typing in `help COMMAND`.
 
-The update product feature allows users to modify the quantity or tags of existing products listed under suppliers and warehouses, or add new products to their existing lists.
+#### Path Execution of Help Command
+An Activity Diagram showing the workflow of `help` command is shown below:
 
-#### How it is implemented
-The update product mechanism is facilitated by 3 major components: `UpdateCommandParser`, `UpdateCommand`, and the `UpdateProductDescriptor`.
-`UpdateCommandParser`'s job is to parse the user input to generate the correct `Type`, `Name`, `Index`, and `AssignMacroDescriptor` objects for the `UpdateCommand`.
-`UpdateCommand`'s job is to execute the main logic for generating the updated list of products for the model.
-`UpdateProductDescriptor`'s job is to serve as a medium to allow the `UpdateCommandParser` to pass a specification of the updated product to the `UpdateCommand`.
+![Help Command Activity Diagram](images/HelpCommandActivityDiagram.png)
 
-Given below is an example usage scenario, together with a sequence diagram, to show how the update product mechanism behaves at each step.
-![Update Product Command Sequence Diagram](images/UpdateCommandSequenceDiagram.png)
+Important features of the Activity Diagram are as follows:
 
-After using the `list` command to display all warehouses and suppliers, the user decides to update the stock for a product called 'Xodol' with a new quantity of 97 units
-in the warehouse at index 1 of the warehouse list. The user also decides that he wants to give 'Xodol' a tag 'cold'.
-The user does this by executing the `update ct/w i/1 pd/Xodol q/97 t/cold` command.
+1. If no `COMMAND` is specified after `help`, a generic help message, consisting of all commands available in **CLI-nic** will be shown to users.
 
-1. Parsing
+1. If more than one `COMMAND` is given, or if the `COMMAND` specified is not recognised in **CLI-nic**, a `ParseException` will be thrown to inform the user.
 
-   The input string will be passed to the `UpdateCommandParser`. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
-and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type, index and product name are not supplied. If so, an error message will be presented on the GUI.
-Otherwise, the method will create an `UpdateCommand` with the `Type`, the warehouse/supplier `Index`, the product's `Name`, and the `UpdateProductDescriptor`.
+1. If a valid `COMMAND` is specified, the `help` message relevant to the command (includes what the command does, command format and sample commands) will be displayed to users.
 
-1. Execution
+#### Why Help feature is implemented this way
+Instead of providing a link and asking users to read the user guide, it would be more convenient for users to access the help message for each command within the application itself. This allows user to instantly know what to key into the command box instead of switching between user guide in the browser and **CLI-nic**. In addition, this allow users to access the `help` page even without an internet connection as well.
 
-   The following sequence diagram zooms in on how the `UpdateCommand#execute` is implemented:
-![Update Product Command Execution Sequence Diagram](images/UpdateCommandExecutionSequenceDiagram.png)
+### List Macros feature
 
-   `UpdateCommand#execute` is called with the `Model` instance. The method will first retrieve the filtered warehouse/supplier list from the model. The method then attempts to retrieve the warehouse/supplier from the list at the supplied index. If the index is greater than the size of the supplier/warehouse list, `CommandException` is thrown, otherwise, the `UpdateCommand#execute`
-method copies the existing product set for that warehouse/supplier to a new `Set<Product>`.
+#### What the List macros feature does
 
-   `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
-If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
-is supplied in the `UpdateProductDescriptor`, failing which, an exception is thrown. If the check passes, the original
-`Product` is removed from the set.
-
-   `UpdateCommand#createUpdatedProduct` then creates a new product based on the product name and `UpdateProductDescriptor`. The `execute` method then adds the updated `Product` to the `Set<Product>`, and creates an updated
-warehouse/supplier with the updated product. The method then updates the model with the edited warehouse/supplier, and the `FilteredWarehouseList` to be displayed to the user later.
-
-1. Result display
-
-   The method then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model
-is saved and the GUI is updated with the success message.
-
-    The method then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model
-    is saved and the GUI is updated with the success message.
-    
-    The following activity diagram summarizes what happens when a user updates a product:
-    ![Update Product Command Activity Diagram](images/UpdateCommandActivityDiagram.png)
-
-#### Why it is implemented this way and what alternatives were considered
-The main design considerations associated to the feature include:
-
-* Should the command be separated for suppliers and warehouses.
-* What should the format of the command be.
-* Should the adding of new products be facilitated by this command or should it only deal with existing products.
-* How should the feature enforce separate requirements for new and existing products.
-
-The consideration of whether there should be separate commands to update products under warehouses or suppliers firstly depend on the similarity between the products under both types.
-Initially, we considered that supplier products should only have fields for names and tags, while the warehouse products should only have fields for quantities, as it is arguable that the quantity for suppliers
- may not be known, and that tagging of warehouse products may not be very important. However, we later decided that it is better to give users this flexibility to include any
- tags or quantities associated to the product regardless of supplier or warehouse, as these requirements may differ from user to user, and it may not be beneficial to restrict users as such.
- Then this decision would mean that the updating of products for warehouse and supplier was very similar, and hence we felt that it may also be more user-friendly to combine the 2 into
- one command so that users do not need to learn an additional command.
-
-Initially, the supplier/warehouse to update the product was referenced by the user using the warehouse/supplier's full name. This allowed the user to update the specific supplier/warehouse regardless of the list view
-so that the same update command will reproduce the same results regardless of the display, and so that the user does not have to enter an additional list command if the supplier/warehouse is not presently displayed.
-However, this would mean that if the user is manually typing the command, it would be take a long time to enter the command if the supplier/warehouse name is very long, and it is also more prone to typos. Hence we decided
-to make the compromise to use list indexing instead, standardising the format with the other commands, as we felt that for most use cases, using the index to reference the supplier/warehouse would be more efficient for the user,
- and that was our main priority.
-
-Similar to the decision to combine the command for both supplier and warehouse, we decided to allow the update product command to add the product to the warehouse/supplier even if it does not presently exist for that supplier/warehouse, instead of having a separate command
-just for adding products, so as to minimise the total number of commands. With this, all product additions and modifications (excluding deletion) will be processed by the same update command, which also removes the need for users to
-check if a product exists for a supplier/warehouse before updating the product listing.
-
-This combination of commands, however, brings up the consideration of how to enforce the separate requirements for new and existing products. Specifically, if it is a new product,
-it is logical that the user may not supply the tag or quantity prefixes, but if it is an existing product, then not specifying both prefixes would mean that the user is not performing
-any update at all. Hence the user should be required to supply at least 1 of the 2 optional prefixes mentioned above for adding new products, which would mean the application should show an error message if the user does not specify either of the optional arguments
-and the product does not exist under the specified warehouse/supplier in the model. In general, however, the check of whether certain prefixes are supplied falls under the role of the `Parser` classes,
-while the check of whether an entity exists in the model falls under the role of the `Command` classes, where the `Parser` is independent of the model. Hence we decided to implement an additional `UpdateProductDescriptor` class to provide a wrapper of
-the product specification so that both checks can be done by the `UpdateCommand` without exposing the implementation details of the prefixes to the `UpdateCommand` class or using null values in the `UpdateCommand` fields. The `UpdateCommand` can then use the `UpdateProductDescriptor`
-to both execute the checks and create the updated product.
-
-### Assign macro feature
-
-#### What the assign macro feature does
-
-The assign macro feature allows users to be able to create their own alias for a specific command string which can be used to enter commands after the macro is saved.
+The list macros feature allows users to be able to view all presently saved macros in the application.
 
 #### How it is implemented
 
-The assign macro mechanism is facilitated by 2 components: `AssignMacroCommandParser` and `AssignMacroCommand`.
-`AssignMacroCommandParser`'s job is to parse the user input to generate the correct `Alias` and `SavedCommandString`  objects for the `AssignMacroCommand`.
-`AssignMacroCommand`'s job is to execute the main logic for updating the model with the new macro.
+The list macros feature is facilitated by the ListMacroCommand, whose job is to retrieve to list of macros and process it into a suitable format to be displayed to the user.
 
-Given below is an example usage scenario, together with a sequence diagram, to show how the assign macro mechanism behaves at each step.
-![Assign Macro Command Sequence Diagram](images/AssignMacroCommandSequenceDiagram.png)
+Given below is an example usage scenario
 
-The user frequently updates the products under each warehouse and decides to create a new macro with the alias "uw" for the command string "update ct/w" so as to shorten subsequent command inputs.
-The user does this by executing the `assignmacro a/uw cs/update ct/w` command.
+The user decides to check what macros he/she has saved before. The user does this by executing the `listmacro` command.
 
 1. Parsing
 
-   The input string will be passed to the `AssignMacroCommandParser`. By matching the prefixes provided, `AssignMacroCommandParser#parse` then attempts to create a new instances of `Alias` and `SavedCommandString` after matching the prefixes, and throws
-an exception to be displayed on the GUI if the alias or command string supplied by the user is invalid, or if any of them is not supplied at all. If all prefixes are parsed without error,
-a `Macro` is created from the `Alias` and `SavedCommandString` instances. Then, a new `AssignMacroCommand` instance is created with the new `Macro`.
+   Since there are no arguments needed for this command, the `ClinicParser` directly creates the `ListMacroCommand`.
 
 1. Execution
 
-   The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias.
-If that is true, an exception will be thrown. This will be shown on the GUI as an error message. Otherwise, the new macro will be added to the model.
+   `LogicManager` will then call `ListMacroCommand#execute` with the `Model` instance. `ListMacroCommand#execute` will retrieve the macro list from the `Model`.
+If the list is empty, an exception is thrown which results in a message displayed on the GUI notifying the user that there are no presently saved macros.
+Otherwise, the list of macros will be formatted into a readable format.
 
 1. Result display
 
-   The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
-The user now updates the quantity of the product "Panadol" in the aforementioned warehouse by simply executing the command `uwm pd/Panadol`.
-
-    The `AssignMacroCommand#execute` method will then be called with the `model` instance. The method will first check if there is any existing macro in the model that uses the same alias.
-    If that is true, an exception will be thrown. This will be shown on the GUI as an error message. Otherwise, the new macro will be added to the model.
-
-1. Result display <br>
-
-    The `AssignMacroCommand#execute` then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model is saved and the GUI is updated with the success message.
-    The user now updates the quantity of the product "Panadol" in the aforementioned warehouse by simply executing the command `uwm pd/Panadol`.
-    
-    The following activity diagram summarizes what happens when a user assigns a macro:
-    ![Assign Macro Command Activity Diagram](images/AssignMacroCommandActivityDiagram.png)
+   The success message which contains the formatted list will be passed in a `CommandResult` to the `LogicManager`, to be displayed on the GUI without overriding the existing lists for suppliers and warehouses.
 
 #### Why it is implemented this way
 
-The main consideration for this feature was what macros should the users be allowed to store, if not everything. We wanted the command to be non-restrictive,
-yet still include certain checks to prevent misuse. Hence we decided to throw exceptions for certain types of macros that the user may try to define. In particular, exceptions will be thrown to prevent
-assigning a macro with the same alias as a pre-defined command word, so that fundamental commands will not be
-overwritten by users. Apart from that, we decided not to allow saved command strings that do not start with a pre-defined command word, as the macros created from these command strings will never
-work as they will always give invalid commands. Nonetheless, we decided to allow partial command strings and even full command strings that may not be valid commands as long as they fit the above criteria,
-as these macros can be used with additional arguments supplied (possibly making the command valid), or that the command string may be valid upon certain conditions (e.g. after the user adds a supplier).
-However, this also means that a valid macro does not guarantee a successful command when used, and error messages may still be displayed for the underlying command of the macro if the underlying command is invalid during the actual use of the macro.
+The main implementation consideration of this feature would be the display of the list. The list macros feature was implemented such that it does not use the same display section as the warehouse or supplier lists so that the user would not have to execute and additional command to restore the
+supplier or warehouse lists. I decided not to include a separate display section to display the list of macros either as this feature is designed for advanced users and that the list of macros would not need to be displayed on
+screen except when needed. Hence it is implemented such that it will be displayed with the success message instead, so that the user can quickly refer to the macro list and then proceed to use the intended macro straight after, where
+it would then be no longer necessary to keep the macro list on the display.
+
+### List Suppliers and Warehouses feature
+The list Suppliers and Warehouses feature will be elaborated in this section by its functionality.
+
+#### What List Supplier and Warehouses feature does
+The list Suppliers and Warehouses feature allows user to list all suppliers and warehouses stored in **CLI-nic**. This feature allows users to retrieve back all suppliers and warehouses in the displayed supplier and warehouse lists after executing a `view` or `find` command.
+
+#### Path Execution of List Command
+1. Parsing
+
+   User input will be parsed, ignoring any additional arguments after `list` command word. A `ListCommand` will be created and executed.
+
+1. Execution
+
+   Filtered supplier and warehouse list in `Model` will be updated with a `Predicate` to show all suppliers and warehouses.
+
+1. Result Display
+
+   A command success message will be displayed, specifying that all suppliers and warehouses has been listed.
 
 ### Remove Macro feature
 
@@ -784,104 +803,6 @@ The main implementation consideration of this feature would be the display of th
 supplier or warehouse lists. I decided not to include a separate display section to display the list of macros either as this feature is designed for advanced users and that the list of macros would not need to be displayed on
 screen except when needed. Hence it is implemented such that it will be displayed with the success message instead, so that the user can quickly refer to the macro list and then proceed to use the intended macro straight after, where
 it would then be no longer necessary to keep the macro list on the display.
-
-### Add feature
-
-The `add` feature will be elaborated in this section by its functionality and path execution with the aid of
-Class, Activity, and Sequence Diagrams. It is facilitated by the `AddCommandParser` and the `AddCommand` where
-`AddCommandParser` implements `Parser` and the `AddCommand` extends `Command`. These allow the user to
-add a supplier/warehouse to the app using the command line.
-
-The following Class Diagram of `AddCommand` shows the interactions between `AddCommand` and other classes
-in CLI-nic:
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Only important
-associations are displayed.
-
-</div>
-
-![Add Command Class Diagram](images/AddCommandClassDiagram.png)
-
-#### What Add feature does
-
-The `add` feature allows user to add information for a supplier/warehouse.
-
-A supplier's attributes consist of `name`, `phone` and `email` while a warehouse's attributes consist of
-`name`, `phone` and `address`.
-
-The supplier/warehouse can also consist of an optional `remark` attribute.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The `add` feature does not
-include product information and the `update` feature should be used to associate a supplier/warehouse with a
-product and its associated quantity and tags. This is elaborated in the [**Update**](https://github.com/AY2021S1-CS2103-W14-4/tp/blob/0c5ab7dce87aac8c9865c1d56622d9e4ad4f6244/docs/DeveloperGuide.md#update-product-feature) feature section.
-</div>
-
-#### Path Execution of Add Command
-The workflow of an `add` command when executed by a user is shown in the Activity Diagram below:
-
-![Add Command Activity Diagram](images/AddCommandActivityDiagram.png)
-
-Important features of the Activity Diagram are as follows:
-
-1. The `add` command only allows addition of a single supplier/warehouse for every single command. If two
- or more `ct/COMMAND_TYPE` are provided, the last type specified will be used to process the user's input.
- This applies for all other prefixes as well.
- 
-1. After the user calls the `add` command, the code will check for the presence of all the compulsory
- prefixes (i.e. `ct/COMMAND_TYPE`, `n/NAME`, `p/PHONE` and `e/EMAIL` or `addr/ADDRESS` for supplier and warehouse
- respectively) in the input. A `ParseException` will be thrown if any of the compulsory prefixes are not
- present.
- 
-   Similarly, `ParseException` will be thrown if there are any invalid prefixes or inappropriate fields
-   provided (e.g. input a `String` value for `phone`).
- 
-1. `AddCommand` will then be executed. The new supplier/warehouse will be added in the `Model`, allowing
- users to see the added supplier/warehouse.
- 
-    If new supplier/warehouse to be added has a duplicate name (i.e. the supplier/warehouse name already
-    exist in CLI-nic), it will throw a `CommandException`. Otherwise, a success message will be displayed
-    to the user.
-
-In the following section, the interaction between different objects when a user executes an `add` command
-will be discussed with the aid of a Sequence Diagram as shown below.
-
-![Add Command Sequence Diagram](images/AddCommandSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for
-`AddCommandParser` should end at the destroy marker (X) but due to a limitation of  PlantUML, the lifeline
-reaches the end of diagram.
-
-</div>
-
-1. Parsing
-
-    After receiving an input from user for `add` command, `AddCommandParser#parse` will be invoked to tokenize
-    the arguments parsed in via `ArgumentTokenizer#tokenize`. 
-
-    As mentioned above, if any of the compulsory prefixes are not present, `AddCommandParser` will throw a new
-    `ParseException` object to the `LogicManager`. A `ParseException` will also be thrown if there are invalid
-    prefixes or values provided (e.g. input a `z/` or `String` value for `phone`).
-    
-    Subsequently, parsing of general details will occur for both Supplier and Warehouse type. These include
-    parsing of `name`, `phone` and `remark`. In addition, since Supplier contains an `email` attribute, parsing
-    of this field will be carried out. On the other hand, parsing of `address` will be carried out for
-    Warehouse instead.
-
-    At the end, relevant fields present will be set in `Supplier`/`Warehouse`.
-    
-    During this parsing process, `ParseException` will be thrown if any of the inputs are invalid.
-
-1. Execution
-
-    `Model#hasSupplier`/`Model#hasWarehouse` will then be executed to check for duplicates (i.e. if
-    `Model` already contains a supplier or warehouse with the same name), a CommandException will be
-    thrown to inform user of the duplicated supplier/warehouse. Otherwise, the supplier/warehouse will be
-    successfully added via `Model#addSupplier`/`Model#addWarehouse`.
-
-1. Result display
-
-    `Model` will be updated to reflect the added supplier or warehouse in GUI and an add success message will be
-     displayed to user.
 
 ### Undo/redo feature
 
@@ -978,56 +899,160 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the warehouse/supplier being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-### Auto-complete feature
+### Update product feature
 
-In this section, the functionality of the auto-complete feature will be discussed together with the expected
-interface.
+#### What the update product feature does
 
-#### What is the Auto-complete feature
-
-The auto-complete feature is to help users complete their commands faster through the suggestions of
-commands with their corresponding compulsory prefixes based on user input.
+The update product feature allows users to modify the quantity or tags of existing products listed under suppliers and warehouses, or add new products to their existing lists.
 
 #### How it is implemented
+The update product mechanism is facilitated by 3 major components: `UpdateCommandParser`, `UpdateCommand`, and the `UpdateProductDescriptor`.
+`UpdateCommandParser`'s job is to parse the user input to generate the correct `Type`, `Name`, `Index`, and `AssignMacroDescriptor` objects for the `UpdateCommand`.
+`UpdateCommand`'s job is to execute the main logic for generating the updated list of products for the model.
+`UpdateProductDescriptor`'s job is to serve as a medium to allow the `UpdateCommandParser` to pass a specification of the updated product to the `UpdateCommand`.
 
-All possible commands and their compulsory prefixes are saved in a SortedSet.
+Given below is an example usage scenario, together with a sequence diagram, to show how the update product mechanism behaves at each step.
+![Update Product Command Sequence Diagram](images/UpdateCommandSequenceDiagram.png)
 
-When a user types a command on the text box, `AutoCompleteTextField#populatePopup` will be called where the
-user’s input will be matched against the set.
+After using the `list` command to display all warehouses and suppliers, the user decides to update the stock for a product called 'Xodol' with a new quantity of 97 units
+in the warehouse at index 1 of the warehouse list. The user also decides that he wants to give 'Xodol' a tag 'cold'.
+The user does this by executing the `update ct/w i/1 pd/Xodol q/97 t/cold` command.
 
-If the case of a match, a contextMenu showing all possible auto-complete commands will show up.
+1. Parsing
 
-This method is implemented such that the results in the contextMenu are constantly updated as the user is
-typing and this would make it more intuitive for users.
+   The input string will be passed to the `UpdateCommandParser`. By matching the prefixes provided, `UpdateCommandParser#parse` then attempts to create new instances of `Index` for the supplier/warehouse
+and a new `Name` for the product. A new `UpdateProductDescriptor` will then be created with the provided quantity and tags, if any. An exception will be thrown if any of the arguments are invalid, or if the type, index and product name are not supplied. If so, an error message will be presented on the GUI.
+Otherwise, the method will create an `UpdateCommand` with the `Type`, the warehouse/supplier `Index`, the product's `Name`, and the `UpdateProductDescriptor`.
 
-#### Why it is implemented this way
+1. Execution
 
-The auto-complete feature is implemented this way to reduce the need for space on the GUI by only showing
-up when there is a potential match. It would also serve to value add to the user experience by speeding up
-the process of typing the full command and reduce mistakes by including all the compulsory prefixes.
+   The following sequence diagram zooms in on how the `UpdateCommand#execute` is implemented:
+![Update Product Command Execution Sequence Diagram](images/UpdateCommandExecutionSequenceDiagram.png)
 
-#### How Auto-complete works
+   `UpdateCommand#execute` is called with the `Model` instance. The method will first retrieve the filtered warehouse/supplier list from the model. The method then attempts to retrieve the warehouse/supplier from the list at the supplied index. If the index is greater than the size of the supplier/warehouse list, `CommandException` is thrown, otherwise, the `UpdateCommand#execute`
+method copies the existing product set for that warehouse/supplier to a new `Set<Product>`.
 
-User wishes to enter an `add` command to add a supplier via `add ct/s n/John p/91234567 e/john@example.com
- r/friend`.
+   `UpdateCommand#execute` then checks if a `Product` of the same `Name` as the `Product` to be updated exists in the `Set<Product>`.
+If the `Product` exists, the method does an additional check to ensure that either the tag(s) or quantity (or both)
+is supplied in the `UpdateProductDescriptor`, failing which, an exception is thrown. If the check passes, the original
+`Product` is removed from the set.
 
-Upon typing "a", the auto-complete context menu will pop up showing the possible auto-completed commands
-, mainly:
+   `UpdateCommand#createUpdatedProduct` then creates a new product based on the product name and `UpdateProductDescriptor`. The `execute` method then adds the updated `Product` to the `Set<Product>`, and creates an updated
+warehouse/supplier with the updated product. The method then updates the model with the edited warehouse/supplier, and the `FilteredWarehouseList` to be displayed to the user later.
 
-add ct/s n/ p/ e/ r/
+1. Result display
 
-add ct/w n/ p/ addr/ r/
+   The method then passes a `CommandResult` with a success message back to the `LogicManager`. Finally, the model
+is saved and the GUI is updated with the success message.
 
-assignmacro a/ cs/
+The following activity diagram summarizes what happens when a user updates a product:
+![Update Product Command Activity Diagram](images/UpdateCommandActivityDiagram.png)
 
-Upon seeing this, the user will be able to select from those options or use them as a guide to complete
-his/her commands more intuitively.
+#### Why it is implemented this way and what alternatives were considered
+The main design considerations associated to the feature include:
 
-#### Design consideration
+* Should the command be separated for suppliers and warehouses.
+* What should the format of the command be.
+* Should the adding of new products be facilitated by this command or should it only deal with existing products.
+* How should the feature enforce separate requirements for new and existing products.
 
-When the full command for single-worded commands are typed in the commandBox, the
-AutoCompleteTextField#popUpEntries would be hidden to achieve smoother navigation for users when
-accessing commandHistory.
+The consideration of whether there should be separate commands to update products under warehouses or suppliers firstly depend on the similarity between the products under both types.
+Initially, we considered that supplier products should only have fields for names and tags, while the warehouse products should only have fields for quantities, as it is arguable that the quantity for suppliers
+ may not be known, and that tagging of warehouse products may not be very important. However, we later decided that it is better to give users this flexibility to include any
+ tags or quantities associated to the product regardless of supplier or warehouse, as these requirements may differ from user to user, and it may not be beneficial to restrict users as such.
+ Then this decision would mean that the updating of products for warehouse and supplier was very similar, and hence we felt that it may also be more user-friendly to combine the 2 into
+ one command so that users do not need to learn an additional command.
+
+Initially, the supplier/warehouse to update the product was referenced by the user using the warehouse/supplier's full name. This allowed the user to update the specific supplier/warehouse regardless of the list view
+so that the same update command will reproduce the same results regardless of the display, and so that the user does not have to enter an additional list command if the supplier/warehouse is not presently displayed.
+However, this would mean that if the user is manually typing the command, it would be take a long time to enter the command if the supplier/warehouse name is very long, and it is also more prone to typos. Hence we decided
+to make the compromise to use list indexing instead, standardising the format with the other commands, as we felt that for most use cases, using the index to reference the supplier/warehouse would be more efficient for the user,
+ and that was our main priority.
+
+Similar to the decision to combine the command for both supplier and warehouse, we decided to allow the update product command to add the product to the warehouse/supplier even if it does not presently exist for that supplier/warehouse, instead of having a separate command
+just for adding products, so as to minimise the total number of commands. With this, all product additions and modifications (excluding deletion) will be processed by the same update command, which also removes the need for users to
+check if a product exists for a supplier/warehouse before updating the product listing.
+
+This combination of commands, however, brings up the consideration of how to enforce the separate requirements for new and existing products. Specifically, if it is a new product,
+it is logical that the user may not supply the tag or quantity prefixes, but if it is an existing product, then not specifying both prefixes would mean that the user is not performing
+any update at all. Hence the user should be required to supply at least 1 of the 2 optional prefixes mentioned above for adding new products, which would mean the application should show an error message if the user does not specify either of the optional arguments
+and the product does not exist under the specified warehouse/supplier in the model. In general, however, the check of whether certain prefixes are supplied falls under the role of the `Parser` classes,
+while the check of whether an entity exists in the model falls under the role of the `Command` classes, where the `Parser` is independent of the model. Hence we decided to implement an additional `UpdateProductDescriptor` class to provide a wrapper of
+the product specification so that both checks can be done by the `UpdateCommand` without exposing the implementation details of the prefixes to the `UpdateCommand` class or using null values in the `UpdateCommand` fields. The `UpdateCommand` can then use the `UpdateProductDescriptor`
+to both execute the checks and create the updated product.
+
+### View feature
+The `view` feature will be elaborated in this section by its' functionality and path execution with the aid of Sequence and Activity Diagrams.
+
+#### What View feature does
+`view` command allows user to view a particular warehouse or supplier in warehouse or supplier list displayed.
+
+This allows users to view the details of a specific warehouse or supplier which they might be interested to contact for further details. This feature is optimised to be used with `find` command.
+
+For each command, only one warehouse or one supplier can be requested for viewing.
+
+#### Path Execution of View Command
+The workflow of a `view` command when it is executed by a user is shown in the Activity Diagram below:
+
+![View Command Activity Diagram](images/ViewCommandActivity.png)
+
+Important features of the Activity Diagram are as follows:
+
+1. When a user's input is parsed, `ViewCommandParser` checks if both command type and index are present in the input.
+
+   A `ParseException` will be thrown if either one or both are missing in user's input.
+
+1. Only 2 `COMMAND_TYPE` are allowed. They are `ct/s` and `ct/w`.
+
+   Any invalid values for prefixes (e.g. invalid `COMMAND_TYPE` specified), a `ParseException` will be thrown.
+
+1. If parsing is successful, `ViewCommand` will be created and executed.
+
+   If `INDEX` specified by user is greater than the size of supplier or warehouse list, a `CommandException` will be thrown.
+
+1. At the end, a `view` command success message will be displayed and the relevant supplier or warehouse list GUI will only show the requested supplier or warehouse.
+
+The logical workflow of this process is further explained in the Sequence Diagram below:
+
+![View Command Sequence Diagram](images/ViewCommandSequenceDiagram.png)
+
+
+1. Parsing
+
+   Upon receiving user's input, `ViewCommandParser#parse` will be invoked.
+
+   As mentioned in above section, a `ParseException` will be thrown if the values specified for prefixes are invalid (e.g. wrong type or does not conform to constraints of the prefixes).
+
+   Any wrong prefixes present will also result in `ParseException`.
+
+   `ViewCommand` is then created and executed.
+
+2. Execution
+
+   The workflow for an execution of `ViewCommand` is as shown in the Sequence Diagram below:
+
+   ![View Command Execution Sequence Diagram](images/ViewCommandExecutionSequenceDiagram.png)
+
+   `Supplier` or `Warehouse` at the specified index is first retrieved from `supplierList` or `warehouseList` currently displayed in GUI accordingly.
+
+   `Predicate` containing the `supplier` or `warehouse` name will be created and parsed into `updateFilteredSupplierList` or `updateFilteredWarehouseList` method under `Model` class.
+
+    This results in only the display of specified `supplier` or `warehouse` in the list.
+
+3. Result display
+
+   An execution success message of `ViewCommand` will be displayed to user. The GUI of supplier or warehouse list will only display the requested supplier or warehouse.
+
+   In the success message, products associated with the specified supplier or warehouse will be shown as well.
+
+#### Why View feature is implemented this way
+`view` command contains standardise prefix as with other commands in **CLI-nic** to help user learn usage at a faster rate. In addition, a choice to view by `index` instead of by `name` ensures efficiency since users do not need to key in the full name of supplier or warehouse.
+
+In addition, it was intentional for the success message to display the list of products associated with the supplier or warehouse requested.
+
+This allows **CLI-nic** to be CLI friendly, where users need not click on `product pane to display the list of products.
+
+This is further optimised with `find` as users can find by for instance, `name` or `remark` associated to a particular supplier or warehouse. With the filtered supplier or warehouse list displayed, they can view the products associated to a supplier or warehouse by using the `view` feature.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -1075,7 +1100,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | standard user  | delete a particular product from a supplier/warehouse entry   | remove product no longer sold/stored for the supplier/warehouse|
 | `* * *`  | standard user  | edit the information of a specific warehouse or supplier          | easily update any changes in contact information of a particular supplier/warehouse |
 | `* * *`  | standard user  | find relevant supplier(s) or warehouse(s) | locate relevant supplier(s) or warehouse(s) without having to go through the entire supplier list or warehouse list |
-| `* * *`  | standard user  | list all warehouses or suppliers     | easily see all the suppliers and warehouses I am in charge of|
+| `* * *`  | standard user  | list all warehouses or suppliers     | easily see all the suppliers and warehouses I oversee|
 | `* * *`  | standard user  | view the information of a specific warehouse or supplier          | retrieve details about the supplier/warehouse I can't remember and contact them       |
 | `* * *`  | standard user  | view the products of a specific warehouse          | retrieve products associated with the warehouse to see if restocking is needed   |
 | `* * *`  | standard user  | view the products of a specific supplier        | retrieve products associated with the supplier to see if they have enough stocks for me to place an order   |
@@ -1086,7 +1111,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | advanced user | delete a custom alias | remove the aliases that I no longer need |
 | `* *`    | advanced user | list my saved macros | quickly recall which macros I can currently use  |
 | `*`      | beginner user | have command autocomplete | enter commands faster |
-| `*`      | beginner user | see the syntax of the command as I type into the command line | refer back to the documentation less frequently |
+| `*`      | beginner user | see the syntax of the command as I type into the command line | refer to the documentation less frequently |
 
 ### Use cases
 
@@ -1214,10 +1239,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case resumes at step 4.
 
 * 3b. The given command format is incorrect.
-  
+
   * 3b1. CLI-nic shows an error message and gives command suggestions.
   * 3a2. User enters the new command input.
-  
+
       Steps 3b1-3b2 are repeated until the data entered are valid. <br>
       Use case resumes at step 4.
 
@@ -1247,12 +1272,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Steps 3a1-3a2 are repeated until the data entered are valid.
     Use case resumes at step 4.
-    
+
 * 3b. The given command format is incorrect.
-  
+
   * 3b1. CLI-nic shows an error message and gives command suggestions.
   * 3a2. User enters the new command input.
-  
+
       Steps 3b1-3b2 are repeated until the data entered are valid. <br>
       Use case resumes at step 4.
 
@@ -1553,7 +1578,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 1. User asks for the list of command.
 2. CLI-nic displays information about all the commands and contains sample commands that the user can try out.
-3. User try out commands listed under help to familiarise themselves with CLI-nic.
+3. User tries out commands listed under help to familiarise themselves with CLI-nic.
 
     Use case ends.
 
@@ -1650,7 +1675,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+1.  Should work on any _mainstream OS_ if it has Java `11` or above installed.
 1.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 1.  The files used to store information about suppliers and warehouses should be independent from the files used to store information about macros and the command history.
 1.  The system should recognize common French/German letters as they may appear in the name of medical products.
@@ -1709,9 +1734,9 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Download the jar file and copy into an empty folder.
 
-   1. Double-click the jar file
+   1. Double-click the jar file.
       Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
@@ -1733,8 +1758,10 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Minimal information e.g. `add ct/s n/John p/98766789 e/johndoe@example.com`<br>
       Expected: Adds a supplier with the above details to the list and is displayed on the GUI.
+
    1. Test case: With all fields supplied e.g. `add ct/s n/John Lagoon p/98766789 e/johndoe@example.com r/Fast delivery`<br>
       Expected: Adds the supplier to the list, including the remark.
+
    1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. Case 1:`add ct/s n/John Lim p/98766789`
       or Case 2: `add ct/s n/John Tan p/98766789 z/friend e/johndoe@example.com`<br>
       Expected: No supplier is added. For Case 1, error details indicating that there are missing prefixes
@@ -1742,6 +1769,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       indicating that one of the prefixes specified is not recognised would be shown in the response message.
       A usage message will be displayed for both cases to guide user accordingly. SupplierList on GUI
       remains unchanged.
+
    1. Test case: Add supplier with duplicate SUPPLIER_NAME e.g. `add ct/s n/John Doe p/98766789 e/johndoe@example.com` followed by `add ct/s n/John Doe p/91234567 e/johndot@example.com`<br>
       Expected: No supplier is added. Error details will be displayed, indicating that the supplier to be
       added already exists in CLI-nic and thus cannot be added. SupplierList on GUI remain unchanged.
@@ -1752,8 +1780,10 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: Minimal information e.g. `add ct/w n/John Ptd Ltd p/98766789 addr/John street, block 123, #01-01`<br>
       Expected: Adds a warehouse with the above details to the warehouse list and is displayed on the GUI.
+
    1. Test case: With all fields supplied e.g. `add ct/w n/John Lagoon Ptd Ltd p/98766789 addr/John street, block 123, #01-01 r/Largest warehouse`<br>
       Expected: Adds the warehouse to the list, including the remark
+
    1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. Case 1:`add ct/w n/John Lim Ptd Ltd p/98766789`
       or Case 2: `add ct/w n/John St Ptd Ltd p/98766789 z/large addr/John street, block 123, #01-01`<br>
       Expected: No warehouse is added. For Case 1, error details indicating that there are missing prefixes
@@ -1761,6 +1791,7 @@ All `index` referred to in this section refers to index in supplier or warehouse
       indicating that one of the prefixes specified is not recognised would be shown in the response message.
       A usage message will be displayed for both cases to guide user accordingly. WarehouseList on GUI
       remains unchanged.
+
    1. Test case: Add warehouse with duplicate WAREHOUSE_NAME e.g. `add ct/w n/James Ptd Ltd p/98766789
       addr/John street, block 123, #01-01` followed by `add ct/w n/James Ptd Ltd p/91234567 addr/Ang Mo Kio
       street 12, block 3`<br>
@@ -1834,6 +1865,179 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Alias clashes with a pre-defined command or another macro e.g. `assignmacro a/update cs/add`<br>
       Expected: No macro created. Error details is shown in the displayed message.
 
+### Clearing CLI-nic
+
+1. Clear command format: `clear`
+
+   1. Test case: Clear command with no additional arguments e.g. `clear`<br>
+      Expected: CLI-nic clears all suppliers and warehouses data in CLI-nic.
+
+   1. Test case: Clear command with additional arguments e.g. `clear test` or `clear i/1`<br>
+      Expected: Similar to previous.
+
+### Deleting a Supplier/Warehouse
+
+1. Delete command format: `delete ct/TYPE i/INDEX`
+
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list.
+
+   1. Test case: `delete ct/s i/1`<br>
+      Expected: First supplier is deleted from the list. Details of the deleted supplier shown in the status message.
+
+   1. Test case: Invalid argument for the type specified e.g. `delete ct/0`<br>
+      Expected: No supplier is deleted. Error details shown in the status message. Status bar remains the same.
+
+   1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/s i/1000`<br>
+      Expected: No supplier is deleted. Error details is shown in the status message.
+
+### Deleting a Product from a Supplier/Warehouse
+
+1. Delete command format: `delete ct/TYPE i/INDEX pd/PRODUCT_NAME`
+
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier with some product in the list. First warehouse does not have the product `Panadol` while the first supplier has.
+
+   1. Test case: `delete ct/pw i/1 pd/panadol`<br>
+      Expected: The `Panadol` product in the first warehouse is deleted. Details of the deleted product shown in the status message.
+
+   1. Test case: Invalid argument for the type specified e.g. `delete ct/w i/1 pd/Panadol`<br>
+      Expected: No product is deleted. No warehouse is deleted as well. Error details shown in the status message. Status bar remains the same.
+
+   1. Test case: Provided Index exceeds the length of the list e.g. `delete ct/pw i/1000 pd/Panadol`<br>
+      Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.
+
+   1. Test case: Provided product (by name) is not found in the product list of the supplier/warehouse e.g. `delete ct/pw i/1000 pd/P`<br>
+      Expected: No product is deleted. Error details is shown in the status message. Status bar remains the same.
+
+### Editing a Supplier
+
+1. Edit command format: `edit ct/s i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/REMARK]`
+
+   1. Prerequisites: Suppliers in CLI-nic does not have a supplier named Alice Ptd Ltd (with the exception of test case to test for duplicated supplier).
+
+   1. Test case: Minimal information e.g. `edit ct/s i/1 n/Alice Pte Ltd`<br>
+      Expected: Edits a supplier in index 1 on supplier list to have a name "Alice Pte Ltd".
+
+   1. Test case: With all fields supplied e.g. `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com r/First Supplier`<br>
+      Expected: Edits a supplier in index 1 on supplier list with all the fields applied.
+
+   1. Test case: Invalid Prefix or missing compulsory Prefixes.
+
+      Case 1: `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com z/large `</br>Case 2: `edit ct/s i/1`<br>
+      Expected: No supplier is edited. For Case 1: Error message specifying that one of the prefixes used is not recognised will be shown. For Case 2: Error message specifying that at least one field to edit must be provided will be shown. A help message for edit command will also be displayed
+      to guide user accordingly. SupplierList on GUI remains unchanged.
+
+   1. Test case: Edits a supplier with existing SUPPLIER_NAME in list e.g. `edit ct/s i/1 n/Bob Pte Ltd` followed by `edit ct/s i/2 n/Bob Pte Ltd`<br>
+      Expected: No supplier is edited. An error will occur and a message will be displayed, stating that the edited field(s) result in no change to the supplier. It will also prompt users to do a check on the arguments to ensure that their inputs are correct. SupplierList on GUI remain unchanged.
+
+### Editing a Warehouse
+
+1. Edit command format: `edit ct/w i/INDEX [n/NAME] [p/PHONE] [addr/ADDRESS] [r/REMARK]`
+
+   1. Prerequisites: Warehouses in CLI-nic does not have a warehouse named Alice Warehouse (with the exception of test case to test for duplicated warehouse).
+
+   1. Test case: Minimal information e.g. `edit ct/w i/1 n/Alice Warehouse`<br>
+      Expected: Edits a warehouse in index 1 on warehouse list to have a name "Alice Warehouse".
+
+   1. Test case: With all fields supplied e.g. `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 r/Largest Warehouse`<br>
+      Expected: Edits a warehouse in index 1 on warehouse list with all the fields applied.
+
+   1. Test case: Invalid Prefix or missing compulsory Prefixes.
+
+      Case 1: `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 z/large `
+      </br>Case 2: `edit ct/w i/1`<br>
+      Expected: No warehouse is edited. Error details shown in the response message. A help message for edit command will also be displayed
+      to guide user accordingly. WarehouseList on GUI remains unchanged.
+
+   1. Test case: Edits a warehouse with existing WAREHOUSE_NAME in list e.g. `edit ct/w i/1 n/Bob Warehouse` followed by `edit ct/w i/2 n/Bob Warehouse`<br>
+      Expected: No warehouse is edited. An error will occur and a message will be displayed, stating that the edited field(s) result in no change to the warehouse. It will also prompt users to do a check on the arguments to ensure that their inputs are correct. WarehouseList on GUI remain unchanged.
+
+### Exiting CLI-nic
+
+1. Exit command format: `exit`
+
+   1. Test case: Exit command with no additional arguments e.g. `edit`<br>
+      Expected: CLI-nic closes with current state of data saved.
+
+   1. Test case: Exit command with additional arguments e.g. `exit test` or `exit ct/s`<br>
+      Expected: Similar to previous.
+
+### Finding relevant Supplier(s)
+
+1. Find command format: `find ct/s [n/NAME...] [r/REMARK...] [pd/PRODUCT_NAME...]`
+
+   1. Test case: Only name parameter supplied e.g. `find ct/s n/Alice`<br>
+      Expected: Finds supplier(s) with names matching `Alice`.
+
+   1. Test case: Only remark parameter supplied e.g. `find ct/s r/cheap fast`<br>
+      Expected: Finds supplier(s) with remark matching either `cheap` or `fast`.
+
+   1. Test case: Only product name parameter supplied e.g. `find ct/s pd/panadol`<br>
+      Expected: Finds supplier(s) that sell products matching `panadol`.
+
+   1. Test case: Combination of parameters supplied e.g. `find ct/s n/Alice pd/aspirin`<br>
+      Expected: Finds supplier(s) with names matching `Alice` or selling products matching `aspirin`.
+
+   1. Test case: Missing type prefix e.g. `find n/Alice`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
+   1. Test case: Missing all name, remark and product name prefixes e.g. `find ct/s`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
+   1. Test case: Invalid prefixes provided e.g. `find ct/s n/Alice a/invalid`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
+### Finding relevant warehouse(s)
+
+1. Find command format: `find ct/w [n/NAME...] [r/REMARK...] [pd/PRODUCT_NAME...]`
+
+   1. Test case: Only name parameter supplied e.g. `find ct/w n/Alice`<br>
+      Expected: Finds warehouse(s) with names matching `Alice`.
+
+   1. Test case: Only remark parameter supplied e.g. `find ct/w r/largest`<br>
+      Expected: Finds warehouse(s) with remark matching `largest`.
+
+   1. Test case: Only product name parameter supplied e.g. `find ct/w pd/panadol`<br>
+      Expected: Finds warehouse(s) that store products matching `panadol`.
+
+   1. Test case: Combination of parameters supplied e.g. `find ct/w n/Alice pd/aspirin`<br>
+      Expected: Finds warehouse(s) with names matching `Alice` or storing products matching `aspirin`.
+
+   1. Test case: Missing type prefix e.g. `find n/Alice`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
+   1. Test case: Missing all name, remark and product name prefixes e.g. `find ct/w`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
+   1. Test case: Invalid prefixes provided e.g. `find ct/w n/Alice a/invalid`<br>
+      Expected: Error details shown in the response message. A help message for find command will also be displayed
+      to guide user accordingly.
+
+### Listing macros
+
+1. List macros command format: `listmacro`
+
+   1. Test case: At least one macro has been saved.<br>
+      Expected: The list of macros is displayed.
+
+   1. Test case: No macros have been saved.<br>
+      Expected: No macros listed. Displayed message states that no macros are presently saved.
+
+
+### Listing Suppliers and Warehouses
+
+1. List command format: `list`
+
+   1. Test case: List command with no additional arguments e.g. `list`<br>
+      Expected: CLI-nic lists all suppliers and warehouses data in CLI-nic.
+
+   1. Test case: List command with additional arguments e.g. `list test` or `list i/1`<br>
+      Expected: Similar to previous.
+
 ### Removing a macro
 
 1. Remove macro command format: `removemacro ALIAS`
@@ -1846,124 +2050,40 @@ All `index` referred to in this section refers to index in supplier or warehouse
    1. Test case: Alias does not exist in any saved macro e.g. `removemacro a/magic`<br>
       Expected: No macro removed. Error details is shown in the displayed message.
 
-### Listing a macro
+### Saving data
 
-1. List macros command format: `listmacro`
+1. Dealing with missing/corrupted data files
 
-   1. Test case: At least one macro has been saved.<br>
-      Expected: The list of macros is displayed.
+   1. Test case: Removing of a supplier or warehouse compulsory attribute e.g. `Name`, `Phone`, `Email` or `Address`<br>
+      Expected: CLI-nic loads up without any suppliers or warehouses. The error will be logged in the log file. The error will specify that there are illegal values found in data\clinic.json and which entity (supplier or warehouse) have missing attributes.
 
-   1. Test case: No macros have been saved.<br>
-      Expected: No macros listed. Displayed message states that no macros are presently saved.
+   1. Test case: Editing Warehouse or Supplier to have the same name. e.g. 2 warehouses with the name `Charlotte Oliveiro warehouse`<br>
+      Expected: CLI-nic loads up without any suppliers or warehouses. The error "Illegal values found in data\clinic.json: Warehouses list contains duplicate warehouse(s)" will be logged in the log file.
 
-1. _{ more test cases …​ }_
+1. Data will be saved automatically after every command
+   1. Test case: Adding a new supplier or warehouse and close CLI-nic by clicking on "X" instead of exit command. Sample `add` command is documented in the section above.</br>
+      Expected: Reopen CLI-nic by double clicking on the jar file. The new supplier or warehouse added should be included in the respective supplier or warehouse list.
 
-### Clearing CLI-nic
+### Updating a Product in a Supplier/Warehouse
 
-1. Clear command format: `clear`
+1. Update command format: `update ct/TYPE i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]`
 
-   1. Test case: Clear command with no additional arguments e.g. `clear`<br>
-      Expected: CLI-nic clears all suppliers and warehouses data in CLI-nic.
-   1. Test case: Clear command with additional arguments e.g. `clear test` or `clear i/1`<br>
-      Expected: Similar to previous.
+   1. Prerequisites: List all suppliers/warehouses using the `list` command. At least one warehouse/supplier in the list. First warehouse does not have the product `Panadol` while the first supplier has.
 
-### Editing a Supplier
+   1. Test case: Product does not exist e.g. `update ct/w i/1 pd/Panadol q/350 t/Fever`<br>
+      Expected: Product with the name `Panadol` with the quantity `350` and tag `fever` added to the first warehouse. Details of the new product is shown in the display message.
 
-1. Edit command format: `edit ct/s i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/REMARK]`
+   1. Test case: Product exists and optional fields supplied e.g. `update ct/s i/1 pd/Panadol q/350 t/Fever`<br>
+      Expected: Product with the name `Panadol` in the first supplier is updated with the quantity `350` and tag `fever`. Details of the new product shown in the display message.
 
-   1. Prerequisites: Suppliers in CLI-nic does not have a supplier named Alice Ptd Ltd (with the exception of test case to test for duplicated supplier).
+   1. Test case: Product exists and no optional fields supplied e.g. `update ct/s i/1 pd/Panadol`<br>
+      Expected: No product is added or updated. Error details shown in the displayed message.
 
-   1. Test case: Minimal information e.g. `edit ct/s i/1 n/Alice Pte Ltd`<br>
-      Expected: Edits a supplier in index 1 on supplier list to have a name "Alice Pte Ltd".
-   1. Test case: With all fields supplied e.g. `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com r/First Supplier`<br>
-      Expected: Edits a supplier in index 1 on supplier list with all the fields applied.
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `edit ct/s i/1 n/Alice Pte Ltd p/90345623 e/alice@gmail.com z/large `
-      or `edit ct/s i/1`<br>
-      Expected: No supplier is added. Error details shown in the response message. A help message for edit command will also be displayed
-      to guide user accordingly. SupplierList on GUI remains unchanged.
-   1. Test case: Edits a supplier with existing SUPPLIER_NAME in list e.g. `edit ct/s i/1 n/Alice Pte Ltd` followed by `edit ct/s i/2 n/Alice Pte Ltd`<br>
-      Expected: An error will occur and a message will be displayed, stating that a supplier with duplicate
-      SUPPLIER_NAME cannot be added into the list. SupplierList on GUI remain unchanged.
+   1. Test case: Non-positive index e.g. `update ct/w i/0 pd/Panadol q/350 t/Fever`<br>
+      Expected: No product is added or updated. Error details shown in the displayed message.
 
-### Editing a Warehouse
-
-1. Edit command format: `edit ct/w i/INDEX [n/NAME] [p/PHONE] [addr/ADDRESS] [r/REMARK]`
-
-    1. Prerequisites: Warehouses in CLI-nic does not have a warehouse named Alice Warehouse (with the exception of test case to test for duplicated warehouse).
-
-   1. Test case: Minimal information e.g. `edit ct/w i/1 n/Alice Warehouse`<br>
-      Expected: Edits a warehouse in index 1 on warehouse list to have a name "Alice Warehouse".
-   1. Test case: With all fields supplied e.g. `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 r/Largest Warehouse`<br>
-      Expected: Edits a warehouse in index 1 on warehouse list with all the fields applied.
-   1. Test case: Invalid Prefix or missing compulsory Prefixes e.g. `edit ct/w i/1 n/Alice Warehouse p/82345162 addr/21 Lower Kent Ridge Rd, Singapore 119077 z/large `
-      or `edit ct/w i/1`<br>
-      Expected: No warehouse is added. Error details shown in the response message. A help message for edit command will also be displayed
-      to guide user accordingly. WarehouseList on GUI remains unchanged.
-   1. Test case: Edits a warehouse with existing WAREHOUSE_NAME in list e.g. `edit ct/w i/1 n/Alice Warehouse` followed by `edit ct/w i/2 n/Alice Warehouse`<br>
-      Expected: An error will occur and a message will be displayed, stating that a warehouse with duplicate
-      WAREHOUSE_NAME cannot be added into the list. WarehouseList on GUI remain unchanged.
-
-### Exiting CLI-nic
-
-1. Exit command format: `exit`
-
-   1. Test case: Exit command with no additional arguments e.g. `edit`<br>
-      Expected: CLI-nic closes with current state of data saved.
-   1. Test case: Exit command with additional arguments e.g. `exit test` or `exit ct/s`<br>
-      Expected: Similar to previous.
-      
-### Finding relevant Supplier(s)
-
-1. Find command format: `find ct/s [n/NAME...] [r/REMARK...] [pd/PRODUCT_NAME...]`
-
-   1. Test case: Only name parameter supplied e.g. `find ct/s n/Alice`<br>
-      Expected: Finds supplier(s) with names matching `Alice`.
-   1. Test case: Only remark parameter supplied e.g. `find ct/s r/cheap fast`<br>
-      Expected: Finds supplier(s) with remark matching either `cheap` or `fast`.
-   1. Test case: Only product name parameter supplied e.g. `find ct/s pd/panadol`<br>
-         Expected: Finds supplier(s) that sell products matching `panadol`.
-   1. Test case: Combination of parameters supplied e.g. `find ct/s n/Alice pd/aspirin`<br>
-         Expected: Finds supplier(s) with names matching `Alice` or selling products matching `aspirin`.      
-   1. Test case: Missing type prefix e.g. `find n/Alice`<br>
-      Expected: Error details shown in the response message. A help message for find command will also be displayed
-      to guide user accordingly.
-   1. Test case: Missing all name, remark and product name prefixes e.g. `find ct/s`<br>
-      Expected: Error details shown in the response message. A help message for find command will also be displayed
-      to guide user accordingly.
-   1. Test case: Invalid prefixes provided e.g. `find ct/s n/Alice a/invalid`<br>
-      Expected: Error details shown in the response message. A help message for find command will also be displayed
-      to guide user accordingly.
-      
-### Finding relevant warehouse(s)
-
-1. Find command format: `find ct/w [n/NAME...] [r/REMARK...] [pd/PRODUCT_NAME...]`
-
-   1. Test case: Only name parameter supplied e.g. `find ct/w n/Alice`<br>
-      Expected: Finds warehouse(s) with names matching `Alice`.
-   1. Test case: Only remark parameter supplied e.g. `find ct/w r/largest`<br>
-      Expected: Finds warehouse(s) with remark matching either `largest`.
-   1. Test case: Only product name parameter supplied e.g. `find ct/w pd/panadol`<br>
-         Expected: Finds warehouse(s) that store products matching `panadol`.
-   1. Test case: Combination of parameters supplied e.g. `find ct/w n/Alice pd/aspirin`<br>
-         Expected: Finds warehouse(s) with names matching `Alice` or storing products matching `aspirin`.      
-   1. Test case: Missing type prefix e.g. `find n/Alice`<br>
-      Expected: Error details shown in the response message. A help message for find command will also be displayed
-      to guide user accordingly.
-   1. Test case: Missing all name, remark and product name prefixes e.g. `find ct/w`<br>
-      Expected: Error details shown in the response message. A help message for find command will also be displayed
-      to guide user accordingly.
-   1. Test case: Invalid prefixes provided e.g. `find ct/w n/Alice a/invalid`<br>
-      Expected: Error details shown in the response message. A help message for find command will also be displayed
-      to guide user accordingly.
-
-### Listing CLI-nic
-
-1. List command format: `list`
-
-   1. Test case: List command with no additional arguments e.g. `list`<br>
-      Expected: CLI-nic lists all suppliers and warehouses data in CLI-nic.
-   1. Test case: List command with additional arguments e.g. `list test` or `list i/1`<br>
-      Expected: Similar to previous.
+   1. Test case: Index more than list size e.g. `update ct/w i/x pd/Panadol q/350 t/Fever` (where x is larger than the list size)
+      Expected: No product is added or updated. Similar to previous.
 
 ### Viewing a Supplier
 
@@ -1971,10 +2091,12 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: View command with complete prefixes e.g. `view ct/s i/1`<br>
       Expected: SupplierList updates to show only supplier at index 1. Products associated with the supplier and their details are shown in the command result box.
+
    1. Test case: View command with missing prefixes e.g. `view ct/s` or `view`<br>
-      Expected: SupplierList will not be updated to show only supplier at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
-   1. Test case: View command with index larger than range of supplier list displayed e.g. `view ct/s i/x` (where x is larger than the displayed list size)<br>
-      Expected: Similar to previous.
+      Expected: SupplierList will not be updated. An error will occur and a message to indicate that the input has an invalid command format. A help message for view command will also be displayed to guide user accordingly. SupplierList on GUI remains unchanged.
+
+   1. Test case: View command with index larger than range of supplier list displayed e.g. `view ct/s i/1000` (assuming the size of the supplier list displayed is less than 1000)<br>
+      Expected: SupplierList will not be updated. An error will occur and a message to indicate that the supplier index provided is larger than the displayed list size.
 
 ### Viewing a Warehouse
 
@@ -1982,10 +2104,12 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: View command with complete prefixes e.g. `view ct/w i/2`<br>
       Expected: WarehouseList updates to show only warehouse at index 2. Products associated with the warehouse and their details are shown in the command result box.
+
    1. Test case: View command with missing prefixes e.g. `view ct/w` or `view`<br>
-      Expected: WarehouseList will not be updated to show only warehouse at index 1. Error details will be shown in the response message, indicating that it is an invalid command format. A help message for view command will also be displayed to guide user accordingly. WarehouseList on GUI remains unchanged.
-   1. Test case: View command with index larger than range of warehouse list displayed e.g. `view ct/w i/x` (where x is larger than the displayed list size)<br>
-      Expected: Similar to previous.
+      Expected: WarehouseList will not be updated. An error will occur and a message to indicate that the input has an invalid command format. A help message for view command will also be displayed to guide user accordingly. WarehouseList on GUI remains unchanged.
+
+   1. Test case: View command with index larger than range of warehouse list displayed e.g. `view ct/w i/1000` (assuming that the size of warehouse list displayed is less than 1000)<br>
+      Expected: WarehouseList will not be updated. An error will occur and a message to indicate that the warehouse index provided is larger than the displayed list size.
 
 ### Viewing help messages for various commands
 
@@ -1993,21 +2117,9 @@ All `index` referred to in this section refers to index in supplier or warehouse
 
    1. Test case: View generic help message for all commands e.g. `help`<br>
       Expected: Shows help message consisting of commands available in CLI-nic and what each command does.
+
    1. Test case: View help message specific to a command e.g. `help add`<br>
       Expected: Shows help message consisting of instructions on how to interpret command format, command format for `add` and some sample commands for `add`.
+
    1. Test case: View help message with invalid type e.g. `help test`<br>
       Expected: Shows invalid command format message, stating the allowed keywords to be used by help. A help message for help command will also be displayed again to guide the user accordingly.
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. Test case: Removing of a supplier or warehouse compulsory attribute e.g. `Name`, `Phone`, `Email` or `Address`<br>
-      Expected: CLI-nic loads up without any suppliers or warehouses. The error will be logged in the log file.
-
-   1. Test case: Editing Warehouse or Supplier to have the same name. e.g. 2 warehouses with the name `Charlotte Oliveiro warehouse`<br>
-      Expected: Similar to previous
-
-1. Data will be saved automatically after every command
-   1. Test case: Adding a new supplier or warehouse and close CLI-nic by clicking on "X" instead of exit command. Sample `add` command is documented in the section above.
-      Expected: Reopen CLI-nic by double clicking on the jar file. The new supplier or warehouse added should be included in the respective supplier or warehouse list.

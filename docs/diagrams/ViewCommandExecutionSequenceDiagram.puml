@@ -42,7 +42,6 @@ deactivate CommandResult
 ViewCommand --> ViewCommand
 deactivate ViewCommand
 ViewCommand --> LogicManager : result
-[<--LogicManager : result
 
 else WAREHOUSE
 ViewCommand -> ViewCommand : viewWarehouse(model)
@@ -68,8 +67,8 @@ deactivate CommandResult
 ViewCommand --> ViewCommand
 deactivate ViewCommand
 ViewCommand --> LogicManager : result
-[<--LogicManager : result
-deactivate LogicManager
+deactivate ViewCommand
+
 end
 
 @enduml

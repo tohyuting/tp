@@ -101,6 +101,7 @@ public class HelpCommand extends Command {
             helpMessage = generateHelpRedoMessage();
             break;
         default:
+            assert commandArgument.equals("all") : "commandArgument should be all here!";
             helpMessage = generateHelpGenericMessage();
         }
         return new CommandResult(helpMessage, false, false);

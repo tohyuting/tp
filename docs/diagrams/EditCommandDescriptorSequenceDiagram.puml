@@ -23,7 +23,7 @@ EditCommandParser --> EditCommandParser
 deactivate EditCommandParser
 
 create EditSupplierDescriptor
-EditCommandParser --> EditSupplierDescriptor
+EditCommandParser -> EditSupplierDescriptor
 activate EditSupplierDescriptor
 EditSupplierDescriptor --> EditCommandParser
 deactivate EditSupplierDescriptor
@@ -42,7 +42,7 @@ EditCommandParser --> EditCommandParser
 deactivate EditCommandParser
 
 create EditWarehouseDescriptor
-EditCommandParser --> EditWarehouseDescriptor
+EditCommandParser -> EditWarehouseDescriptor
 activate EditWarehouseDescriptor
 EditWarehouseDescriptor --> EditCommandParser
 deactivate EditWarehouseDescriptor
