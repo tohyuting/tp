@@ -30,7 +30,7 @@ Given below are my contributions to the project.
 * **New Feature**: Edit a particular supplier and warehouse entry via index on the displayed supplier/warehouse list.
     * What it does: Allow users to edit a supplier or warehouse information at a particular index of displayed supplier/warehouse list.
     * Justification: The user has to update any outdated supplier/warehouse information quickly. Hence, this feature is crucial.
-    * Highlights: Parsing of numerous prefixes, checking of presence and validity. Uses a different set of prefix (e.g. `s/` and `w/`) initially and this change was slightly challenging.
+    * Highlights: Parse many prefixes and check for their presence and validity. Uses a different set of prefix (e.g. `s/` and `w/`) initially and the change was slightly challenging.
     * Credits: This feature was adapted from **AB3**.
 
 * **New Class**: Created Product class to be used by `Supplier` and `Warehouse` classes.
