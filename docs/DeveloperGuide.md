@@ -1765,14 +1765,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     is equivalent to typing `update ct/w` after this command `assignmacro a/uw cs/update ct/w` has been executed)
 
 ### Command Prefix
-<div markdown="span" class="alert alert-info">:information_source:  Note: Command links are directed to
-supplier by default.
+<div markdown="span" class="alert alert-info">:information_source:  Note: Commands common to Supplier and
+Warehouse are directed to Supplier by default.
 </div>
 
 |Prefix   |Meaning  |Used in the following Command(s)|
 | ------- |-------- | ------------ |
 |a/ |Alias |[Assign Macro](UserGuide.html#assigning-macro-to-selected-command-string-assignmacro)|
-|addr/ |Address |[Add](UserGuide.html#adding-a-warehouse--add), [Edit](UserGuide.html#editing-a-supplier--edit) |
+|addr/ |Address |[Add](UserGuide.html#adding-a-warehouse--add), [Edit](UserGuide.html#editing-a-warehouse--edit) |
 |cs/ |Command String |[Assign Macro](UserGuide.html#assigning-macro-to-selected-command-string-assignmacro)|
 |ct/ |Command Type |[Add](UserGuide.html#adding-a-supplier--add), [Delete](UserGuide.html#deleting-a-supplier--delete), [Edit](UserGuide.html#editing-a-supplier--edit), [Find](UserGuide.html#finding-relevant-suppliers-find), [Update](UserGuide.html#updating-the-quantity-andor-tags-of-a-product-sold-by-a-supplier-update), [View](UserGuide.html#viewing-a-specific-supplier-view) |
 |e/ |Email Address |[Add](UserGuide.html#adding-a-supplier--add), [Edit](UserGuide.html#editing-a-supplier--edit) |
