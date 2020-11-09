@@ -41,16 +41,16 @@ Given below are my contributions to the project.
 
 * **Minor enhancement**:
   * Fix a minor yet crucial bug, for jar file to function as expected. [#161](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/161)
-  * Error messages of **AB3** are not representative of certain commands entered by users. Invalid prefix used errers were not thrown. Hence, an intensive logic handling of inputs from users was done to customise error messages for every unique commands. This is due to the numerous possibilities allowed, since users are allowed to reorder their prefixes in their inputs [#216](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/216), [#242](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/242).
+  * Error messages of **AB3** are not representative of some commands entered by users. Invalid prefix used errors were not thrown. Extensive logic handling of inputs from users was done to customise error messages in **CLI-nic**. This is slightly challenging as users are allowed to reorder prefixes in their inputs [#216](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/216), [#242](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/242).
   * Fix bug related to `AutoComplete` feature, where `CommandHistory` feature does not work smoothly if the previous command was a single word command [#227](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/227).
 
 * **Contributions to Documentations**:
   * User Guide:
     * Added documentations and user stories for `list`, `help`, `view` and `edit` commands in the user guide [#153](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/153/files), [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73).
   * Developer Guide:
-    * Added implementation details of the `list`, `help`, `view` and `edit` features [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73), [#111](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/111/), [#153](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/153). Includes UML diagrams (Class, Sequence and Activity Diagrams).
-    * Added manual testing: `list`, `help`, `view`, `edit`, `clear`, `exit`, saving data [#232](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/232).
-    * Updated Model Class diagram with my team mates, Jeffrey and Qin Liang to represent the current **CLI-nic** [#245](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/245).
+    * Implementation details of the `list`, `help`, `view` and `edit` features [#73](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/73), [#111](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/111/), [#153](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/153). Includes UML diagrams (Class, Sequence and Activity Diagrams).
+    * Manual testing: `list`, `help`, `view`, `edit`, `clear`, `exit`, saving data [#232](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/232).
+    * Updated Model Class diagram with team mates, Jeffrey and Qin Liang to represent current **CLI-nic** [#245](https://github.com/AY2021S1-CS2103-W14-4/tp/pull/245).
 
 * **Contributions to team-based tasks**:
   * Managed release of CLI-nic jar `v1.3.2` and enabled assertions on Gradle.
