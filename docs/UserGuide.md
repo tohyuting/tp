@@ -534,28 +534,29 @@ the data of your previous CLI-nic home folder.
 
 ## Command summary
 
-Action | Format | Example
--------|--------|--------
-**Add** Supplier | `add ct/s n/NAME p/PHONE e/EMAIL [r/REMARK]` | `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor`
-**Add** Warehouse | `add ct/w n/NAME p/PHONE addr/ADDRESS [r/REMARK]` | `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse`
-**Assign Macro** | `assignmacro a/ALIAS cs/COMMAND_STRING` | `assignmacro a/findsup cs/find ct/s pd/panadol`
-**Clear** | `clear`
-**Delete** Supplier | `delete ct/s i/INDEX` | `delete ct/s i/1`
-**Delete** Warehouse | `delete ct/w i/INDEX` | `delete ct/w i/2`
-**Delete** Product From Supplier | `delete ct/ps i/INDEX pd/PRODUCT_NAME` | `delete ct/ps i/1 pd/Panadol`
-**Delete** Product From Warehouse | `delete ct/pw i/INDEX pd/PRODUCT_NAME` | `delete ct/pw i/2 pd/Panadol`
-**Edit** Supplier | `edit ct/s i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/REMARK]` | `edit ct/s i/1 n/Alice Pte Ltd p/98765432 e/alice@supplier.com r/Fastest deliveries`
-**Edit** Warehouse | `edit ct/w i/INDEX [n/NAME] [p/PHONE] [addr/ADDRESS] [r/REMARK]` | `edit ct/w i/1 n/Alice Warehouse p/98765432 addr/21 Lower Kent Ridge Rd r/Second largest warehouse`
-**Exit** | `exit`
-**Find** Supplier(s) | `find ct/s [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]` | `find ct/s pd/panadol face mask needle`
-**Find** Warehouse(s) | `find ct/w [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]` | `find ct/w pd/panadol face mask needle`
-**Help** | `help [COMMAND]` | `help add`
-**List** All Suppliers and Warehouses | `list`
-**List** All Macros | `listmacro`
-**Redo** | `redo`
-**Remove Macro** | `removemacro ALIAS` | `removemacro findsup`
-**Undo** | `undo`
-**Update** Product Sold by Supplier | `update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/s i/1 pd/Panadol q/10 t/fever cold`
-**Update** Product Stored in Warehouse | `update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w i/2 pd/Panadol q/10 t/fever cold`
-**View** Supplier | `view ct/s i/INDEX` | `view ct/s i/1`
-**View** Warehouse | `view ct/w i/INDEX` | `view ct/w i/2`
+
+| Action                                 | Format   | Example  |
+| -------------------------------------- | -------- | -------- |
+| **Add** Supplier                       | `add ct/s n/NAME p/PHONE e/EMAIL [r/REMARK]` | `add ct/s n/Philips Pharmaceutical p/00000000 e/philipsPharm@gmail.com r/Largest contractor` |
+| **Add** Warehouse                      | `add ct/w n/NAME p/PHONE addr/ADDRESS [r/REMARK]` | `add ct/w n/warehouseA p/00000000 addr/John street, block 123, #01-01 r/First warehouse` |
+| **Assign Macro**                       | `assignmacro a/ALIAS cs/COMMAND_STRING` | `assignmacro a/findsup cs/find ct/s pd/panadol` |
+| **Clear**                              | `clear` | &nbsp; |
+| **Delete** Supplier                    | `delete ct/s i/INDEX` | `delete ct/s i/1` |
+| **Delete** Warehouse                   | `delete ct/w i/INDEX` | `delete ct/w i/2` |
+| **Delete** Product From Supplier       | `delete ct/ps i/INDEX pd/PRODUCT_NAME` | `delete ct/ps i/1 pd/Panadol` |
+| **Delete** Product From Warehouse      | `delete ct/pw i/INDEX pd/PRODUCT_NAME` | `delete ct/pw i/2 pd/Panadol` |
+| **Edit** Supplier                      | `edit ct/s i/INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/REMARK]` | `edit ct/s i/1 n/Alice Pte Ltd p/98765432 e/alice@supplier.com r/Fastest deliveries` |
+| **Edit** Warehouse                     | `edit ct/w i/INDEX [n/NAME] [p/PHONE] [addr/ADDRESS] [r/REMARK]` | `edit ct/w i/1 n/Alice Warehouse p/98765432 addr/21 Lower Kent Ridge Rd r/Second largest warehouse` |
+| **Exit**                               | `exit` | &nbsp; |
+| **Find** Supplier(s)                   | `find ct/s [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]` | `find ct/s pd/panadol face mask needle` |
+| **Find** Warehouse(s)                  | `find ct/w [n/NAME…​] [pd/PRODUCT_NAME…​] [r/REMARK…​]` | `find ct/w pd/panadol face mask needle` |
+| **Help**                               | `help [COMMAND]` | `help add` |
+| **List** All Suppliers and Warehouses  | `list` | &nbsp; |
+| **List** All Macros                    | `listmacro` | &nbsp; |
+| **Redo**                               | `redo` | &nbsp; |
+| **Remove Macro**                       | `removemacro ALIAS` | `removemacro findsup` |
+| **Undo**                               | `undo` | &nbsp; |
+| **Update** Product Sold by Supplier    | `update ct/s i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/s i/1 pd/Panadol q/10 t/fever cold` |
+| **Update** Product Stored in Warehouse | `update ct/w i/INDEX pd/PRODUCT_NAME [q/QUANTITY] [t/TAG…​]` | `update ct/w i/2 pd/Panadol q/10 t/fever cold` |
+| **View** Supplier                      | `view ct/s i/INDEX` | `view ct/s i/1`|
+| **View** Warehouse                     | `view ct/w i/INDEX` | `view ct/w i/2`|
